@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+    PHP_CodeSniffer ruleset tailored for HZ-HBOICT Laravel projects. This file defines
+    which files to check and what to check in each file. This will provide feedback to
+    students about their code quality.
+
+    This configuration is used in a GitHub action.
+
+    ==================================
+    DO NOT CHANGE OR DELETE THIS FILE!
+    ==================================
+-->
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard for HZ-HBOICT Laravel projects.</description>
+
+    <!-- Show progress, show the error codes for each message (source). -->
+    <arg value="ps" />
+    <!-- Strip the filepaths in reports down to the relevant bit. -->
+    <arg name="basepath" value="./" />
+
+    <!-- PSR2 is the base style guide. -->
+    <rule ref="PSR2"/>
+    <!-- Enforce that every class method and other function should have a  doc block.
+         Except for tests -->
+    <rule ref="Squiz.Commenting.FunctionComment.Missing">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <!-- Enforce that each method should have a doc comment, except for tests -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <!-- Rule that checks if files are named correctly. Typically, students tend
+         to make errors in capitalization, and only correct the class name. This
+         rule checks for these kind of errors. -->
+    <rule ref="Squiz.Classes.ClassFileName">
+        <exclude-pattern>*/migrations/*</exclude-pattern>
+    </rule>
+    <!-- Laravel migration classes are not located in any Namespace. This sniff
+         will be ingored for these files. -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>*/migrations/*</exclude-pattern>
+    </rule>
+
+    <!-- Include the following (Laravel default) folders -->
+    <file>app</file>
+    <file>bootstrap</file>
+    <file>config</file>
+    <file>database</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+    <!-- The following file patterns should be excluded -->
+    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>bootstrap/autoload.php</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*/public/index.php</exclude-pattern>
+</ruleset>
