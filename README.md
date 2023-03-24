@@ -64,7 +64,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Tim Kardol** - *Conference Website Project lead* - [TimKardol](https://github.com/TimKardol)
 * **Valeria Stamenova** - *Conference Website Developer* - [v-stamenova](https://github.com/v-stamenova)
 * **Kevin van Herwijnen** - *Conference Website Developer* - [luth0rs](https://github.com/luth0rs)
-**Jesper Bertijn** - *Conference Website Developer* - [Ex6tenze](https://github.com/Ex6tenze)
+* **Jesper Bertijn** - *Conference Website Developer* - [Ex6tenze](https://github.com/Ex6tenze)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 
