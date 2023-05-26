@@ -21,11 +21,12 @@ npm install
 This should install all the necessary packages to run the project. 
 
 ## Running the tests
-
+![PHPCS](https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml/badge.svg)\
+![PHPCS](https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml/badge.svg)
 <!-- Explain how to run the automated tests for this system -->
-Currently there are no tests to be run.
+Currently, there are no tests to be run.
 
-<!-- ### Break down into end to end tests -->
+<!-- ### Break down into end-to-end tests -->
 
 <!-- Explain what these tests test and why
 
