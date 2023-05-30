@@ -1,8 +1,8 @@
-<p text-align="center">
+<p align="center">
  <a href="https://hz.nl">
         <img src="https://img.shields.io/badge/Made for-HZ University of Applied Sciences-blue.svg" alt="HZ University of Applied Sciences"/></a>
 </p>
-<p text-align="center">
+<p align="center">
     <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
