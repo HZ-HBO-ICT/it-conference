@@ -3,7 +3,7 @@ name: Laravel
 on: push
 
 jobs:
-  build:
+  laravel-tests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -11,7 +11,6 @@ jobs:
         node-version: [ 14.x, 16.x, 18.x, 20.x ]
 
     steps:
-      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -19,10 +18,6 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
 
-  laravel-tests:
-    runs-on: ubuntu-latest
-
-    steps:
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '8.1'
