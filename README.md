@@ -1,30 +1,47 @@
+<p text-align="center">
+ <a href="https://hz.nl">
+        <img src="https://img.shields.io/badge/Made for-HZ University of Applied Sciences-blue.svg" alt="HZ University of Applied Sciences"/></a>
+</p>
+<p text-align="center">
+    <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
+        <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
+    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
+        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml/badge.svg" alt="PHPCS"/></a>
+    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
+        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
+    <a href="https://opensource.org/licenses/MIT">
+        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/></a>
+</p>
+
 # IT-Conference Website
 
 This repository contains the source code for the official HBO-ICT IT-Conference. 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing 
+purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-Before you can start working on this project you need to make sure the following machina has PHP and Composer installed. In addition to this, it is recommended to install Node and NPM. 
+This application uses PHP (Composer), NodeJS, and Docker.
 
 ### Installing
+1. Clone the repository onto your local machine.
+2. Run `composer install` and `npm install`.
+3. Copy `.env.example` to `.env`.
+4. Run `php artisan key:generate`
+5. Fill out all remaining empty parameters in the environment files.
+6. Run `docker compose up -d`.
+7. Run `php artisan migrate`.
 
-Clone this repository to your local machine and execute the following commands:
-```
-composer install
-```
-```
-npm install
-```
-This should install all the necessary packages to run the project. 
-
+> ⚠️ To ensure proper functioning across all operating systems, some folders are given elevated permissions. On a local
+> environment, this should not cause issues. Exercise proper operational security, nonetheless.
+> 
 ## Running the tests
-![PHPCS](https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml/badge.svg)\
-![PHPCS](https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml/badge.svg)
+Tests are currently only supported through [GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions) and will
+run automatically when you push to the repository. Local testing is being worked on.
+
 <!-- Explain how to run the automated tests for this system -->
-Currently, there are no tests to be run.
 
 <!-- ### Break down into end-to-end tests -->
 
