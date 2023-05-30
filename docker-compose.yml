@@ -24,7 +24,7 @@ services:
         depends_on:
             - mysql
         command: >
-            bash -c "chmod -R 777 .
+            bash -c "chmod -R 777 storage bootstrap/cache.
             && npm run dev & php artisan serve --host=0.0.0.0 --port=80"
     mysql:
         image: 'mysql/mysql-server:8.0'
