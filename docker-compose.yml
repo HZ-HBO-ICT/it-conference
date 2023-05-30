@@ -23,6 +23,9 @@ services:
             - sail
         depends_on:
             - mysql
+        command: >
+            bash -c "chmod -R 777 .
+            && npm run dev & php artisan serve --host=0.0.0.0 --port=80"
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
