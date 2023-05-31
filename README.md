@@ -10,7 +10,7 @@
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
         <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
     <a href="https://opensource.org/licenses/MIT">
-        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/></a>
+        <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"/></a>
 </p>
 
 # IT-Conference Website
@@ -33,10 +33,13 @@ This application uses PHP (Composer), NodeJS, and Docker.
 5. Fill out all remaining empty parameters in the environment files.
 6. Run `docker compose up -d`.
 7. Run `php artisan migrate`.
+8. Run `npm run dev`.
 
-> ⚠️ To ensure proper functioning across all operating systems, some folders are given elevated permissions. On a local
-> environment, this should not cause issues. Exercise proper operational security, nonetheless.
-> 
+> ⚠️ To ensure proper functioning across all Linux operating systems, some folders are given elevated permissions. This should not cause issues on a local environment. 
+> The only affected folders are `storage/` and `bootstrap/cache/`, which is in line with GitHub's official Laravel workflow.
+> Windows filesystems (Both native and WSL) are unaffected due to external file protection.\
+> [Understanding chmod and why 777 is bad practice.](https://www.redhat.com/sysadmin/introduction-chmod)
+
 ## Running the tests
 Tests are currently only supported through [GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions) and will
 run automatically when you push to the repository. Local testing is being worked on.
