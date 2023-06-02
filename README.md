@@ -15,36 +15,45 @@
 
 # IT-Conference Website
 
-This repository contains the source code for the official HBO-ICT IT-Conference. 
+This repository contains the source code for the official HBO-ICT IT-Conference.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing 
+These instructions will get you a copy of the project up and running on your local machine for development and testing
 purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-This application uses PHP (Composer), NodeJS, and Docker.
+
+This application uses PHP (Composer), NodeJS, and Docker.\
+For consistent performance and speed, store the files within native Linux or on the WSL filesystem, and use a Linux
+shell such as bash. [See the Microsoft documentation.](https://learn.microsoft.com/en-us/windows/wsl/filesystems)
 
 ### Installing
+
 1. Clone the repository onto your local machine.
 2. Run `composer install` and `npm install`.
 3. Copy `.env.example` to `.env`.
-4. Run `php artisan key:generate`
-5. Fill out all remaining empty parameters in the environment files.
-6. Run `docker compose up -d`.
+4. Run `php artisan key:generate`.
+5. Run `./vendor/bin/sail up -d`.
+6. Run `./vendor/bin/sail shell`
 7. Run `php artisan migrate`.
 8. Run `npm run dev`.
 
-> ⚠️ To ensure proper functioning across all Linux operating systems, some folders are given elevated permissions. This should not cause issues on a local environment. 
-> The only affected folders are `storage/` and `bootstrap/cache/`, which is in line with GitHub's official Laravel workflow.
-> Windows filesystems (Both native and WSL) are unaffected due to external file protection.\
-> [Understanding chmod and why 777 is bad practice.](https://www.redhat.com/sysadmin/introduction-chmod)
+#### Optional steps:
+
+- In some versions of Linux, permissions aren't set correctly. If you run into that issue,
+  run `chmod -R 777 storage bootstrap/cache`. [Understanding chmod and why 777 is a security issue.](https://www.redhat.com/sysadmin/introduction-chmod)
+- Instead of repeatedly running ./vendor/bin/sail commands, you
+  can [set an alias.](https://laravel.com/docs/10.x/sail#configuring-a-shell-alias) In that case, `./vendor/bin/sail` is
+  shortened to `sail`.
 
 ## Running the tests
-Tests are currently only supported through [GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions) and will
-run automatically when you push to the repository. Local testing is being worked on.
 
-<!-- Explain how to run the automated tests for this system -->
+[GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions) will trigger a workflow when you push your code to
+the repository, which will run the tests automatically.
+
+On a local machine, you may run `./vendor/bin/sail phpunit`. If you get a large amount of errors, check whether the
+application key has been set successfully, and that either `npm run build` or `npm run dev` have been run.
 
 <!-- ### Break down into end-to-end tests -->
 
