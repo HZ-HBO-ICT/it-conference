@@ -25,8 +25,8 @@ purposes. See deployment for notes on how to deploy the project on a live system
 ### Prerequisites
 
 This application uses PHP (Composer), NodeJS, and Docker.\
-For consistent performance and speed, store the files within native Linux or on the WSL filesystem, and use a Linux
-shell such as bash. [See the Microsoft documentation.](https://learn.microsoft.com/en-us/windows/wsl/filesystems)
+The development environment must be in Linux for optimal performance and compatibility with Laravel Sail; either use native Linux or use [WSL](https://learn.microsoft.com/en-us/windows/wsl/filesystems).\
+For instructions on how to properly install the project within WSL, refer to the [wiki](https://github.com/HZ-HBO-ICT/it-conference/wiki).
 
 ### Installing
 
@@ -35,9 +35,8 @@ shell such as bash. [See the Microsoft documentation.](https://learn.microsoft.c
 3. Copy `.env.example` to `.env`.
 4. Run `php artisan key:generate`.
 5. Run `./vendor/bin/sail up -d`.
-6. Run `./vendor/bin/sail shell`
-7. Run `php artisan migrate`.
-8. Run `npm run dev`.
+6. Run `php artisan migrate`.
+7. Run `npm run dev`.
 
 #### Optional steps:
 
