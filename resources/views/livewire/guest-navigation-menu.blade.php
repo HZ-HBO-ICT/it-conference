@@ -5,15 +5,36 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto"/>
-                    </a>
+                    <x-home-link href="{{ route('welcome') }}" class="text-center"
+                                 :active="request()->routeIs('welcome')">
+                        {{ __('We are in IT together') }}<br>{{ __('conference') }}
+                    </x-home-link>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                        {{ __('Speakers') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                        {{ __('Companies') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                        {{ __('FAQ') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                        {{ __('Contact') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -23,10 +44,11 @@
                 <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                     {{ __('Login') }}
                 </x-nav-link>
-
-                <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                    {{ __('Register') }}
-                </x-nav-link>
+                <div class="pl-2">
+                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                        {{ __('Register') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Hamburger -->
