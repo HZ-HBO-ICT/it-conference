@@ -26,3 +26,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
