@@ -15,8 +15,6 @@ class SpeakerController extends Controller
     {
         $speakers = Speaker::all();
 
-        //dd($speakers);
-
         return view('speakers.index', compact('speakers'));
     }
 
