@@ -14,9 +14,17 @@
                             style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
-                        <h2 class="pt-1 text-2xl sm:text-3xl text-white font-montserrat text-center italic">
-                            "A buzz-worthy experience"
+                        <h2 class="pt-1 text-2xl sm:text-xl text-white font-montserrat text-center italic uppercase">
+                            "it does not only build a bridge, it involves us all"
                         </h2>
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="basis-1/2 pr-6">
+                            <x-countdown/>
+                        </div>
+                        <div class="basis-1/2 pt-16">
+                            <p class="uppercase pt-2 pl-20 text-gray-200">sponsored by [logo]</p>
+                        </div>
                     </div>
                     <div class="mt-16 flex flex-col items-center">
                         <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
@@ -30,7 +38,8 @@
             </div>
             <!-- Blob -->
             <img src="/img/rose-blob.png"
-                 class="absolute -top-24 -right-48 h-[34rem] opacity-75" style="transform: rotate(110deg) scaleX(-1)">
+                 class="absolute -top-24 -right-48 h-[34rem] opacity-75"
+                 style="transform: rotate(110deg) scaleX(-1)">
         </div>
         <!-- Second banner -->
         <div class="relative isolate py-72 bg-cover bg-center"
@@ -49,9 +58,11 @@
                         What is this conference?
                     </h2>
                     <p class="text-white text-center" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-                        We are so proud to present you with this inspirational and fun conference for and by you all!
+                        We are so proud to present you with this inspirational and fun conference for and by you
+                        all!
                         Teachers, students and our valued company representatives have come together to create this
-                        special program. Talk to companies about their projects in the presentation market. Experiment,
+                        special program. Talk to companies about their projects in the presentation market.
+                        Experiment,
                         learn and play around during the workshops and get motivated by the various talks. There is
                         enough for everyone!
                     </p>
@@ -74,7 +85,8 @@
                     </h2>
                 </div>
                 <div class="flex justify-center mt-4">
-                    <p class="text-white text-xl mr-7 hover:underline hover:text-yellow-500 transition-all">Check out
+                    <p class="text-white text-xl mr-7 hover:underline hover:text-yellow-500 transition-all">Check
+                                                                                                            out
                                                                                                             our
                                                                                                             speakers</p>
                     <p class="text-white text-xl hover:underline hover:text-yellow-500 transition-all">Check out the
