@@ -94,6 +94,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Valeria Stamenova** - *Conference Website Developer* - [v-stamenova](https://github.com/v-stamenova)
 * **Ihor Novikov** - *Conference Website Developer* - [IGORnvk](https://github.com/IGORnvk)
 * **Jesper Bertijn** - *Conference Website Developer* - [Ex6tenze](https://github.com/Ex6tenze)
+* **Bartosz Adamczyk** - *Conference Website Developer* - [Bartan02](https://github.com/Bartan02)
+*  **Tomas Tomkevicius** - *Conference Website Developer* - [tomasx420](https://github.com/tomasx420)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 
