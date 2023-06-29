@@ -13,7 +13,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('welcome') }}" {{--:active="request()->routeIs('dashboard')"--}}>
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
@@ -28,7 +28,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('faq') }}" {{--:active="request()->routeIs('dashboard')"--}}>
                         {{ __('FAQ') }}
                     </x-nav-link>
                 </div>
