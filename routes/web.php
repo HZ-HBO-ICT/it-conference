@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,6 @@ Route::middleware([
 Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
+
+Route::resource('/speakers', SpeakerController::class);
+
