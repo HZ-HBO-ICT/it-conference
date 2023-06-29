@@ -28,4 +28,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
+
 Route::resource('/speakers', SpeakerController::class);
+
