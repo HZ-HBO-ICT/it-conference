@@ -2,7 +2,7 @@
     <div style="overflow-x: hidden;"> {{--don't allow side scrolling--}}
         <!-- The main banner -->
         <div class="relative isolate bg-gray-900 py-72 bg-cover bg-center"
-             style="background-image: url('/img/hz-building.jpg');">
+             style="background-image: url('/img/auditorium.jpg');">
             <div class="absolute inset-0">
                 <!-- The gradient -->
                 <div
@@ -22,17 +22,13 @@
                         <div class="basis-1/2 pr-6">
                             <x-countdown/>
                         </div>
-                        <div class="basis-1/2 pt-16">
+                        <!-- The div for the logo of the sponsor -->
+                        {{--<div class="basis-1/2 pt-16">
                             <p class="uppercase pt-2 pl-20 text-gray-200">sponsored by [logo]</p>
-                        </div>
+                        </div>--}}
                     </div>
                     <div class="mt-16 flex flex-col items-center">
                         <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
-                        <p class="mt-4 text-white">or</p>
-                        <p>
-                            <a href="#" class="text-white hover:border-b-2 hover:border-yellow-500 transition-all">
-                                learn more about us</a>
-                        </p>
                     </div>
                 </div>
             </div>
