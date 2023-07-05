@@ -19,9 +19,9 @@ class CreateTeamTest extends TestCase
         Livewire::test(CreateTeamForm::class)
             ->set(['state' => [
                 'name' => 'Test Team',
-                'address' => '123 Main St',
-                'website' => 'https://example.com',
-                'description' => 'Lorem ipsum dolar sit amet'
+                'company_address' => '123 Main St',
+                'company_website' => 'https://example.com',
+                'company_description' => 'Lorem ipsum dolar sit amet'
             ]])
             ->call('createTeam');
 
