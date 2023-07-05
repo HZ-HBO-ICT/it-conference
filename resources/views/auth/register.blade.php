@@ -45,7 +45,36 @@
             </div>
 
             <div id="company">
+                @if(old('company_name'))
+                    <div class="mt-4">
+                        <x-label for="company_name" value="{{ __('Company Name') }}"/>
+                        <x-input id="company_name" class="block mt-1 w-full" type="text" name="company_name"
+                                 :value="old('company_name')" required
+                                 autofocus autocomplete="name"/>
+                    </div>
 
+                    <div class="mt-4">
+                        <x-label for="company_description" value="{{ __('Company Description') }}"/>
+                        <textarea id="email"
+                                  class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
+                                  name="company_description" required
+                        >{{old('company_description')}}</textarea>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="company_website" value="{{ __('Company Website') }}"/>
+                        <x-input id="company_website" class="block mt-1 w-full" type="text" name="company_website"
+                                 required
+                                 autocomplete="company_website" :value="old('company_website')"/>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="company_address" value="{{ __('Company Address') }}"/>
+                        <x-input id="company_address" class="block mt-1 w-full" type="text"
+                                 name="company_address" required autocomplete="company_address"
+                                 :value="old('company_address')"/>
+                    </div>
+                @endif
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -81,79 +110,82 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-    const buttons = document.querySelectorAll('.flow');
-    const companyDiv = document.getElementById('company');
-    buttons[0].className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
-    buttons[0].style.cursor = 'default';
-    buttons[0].addEventListener('click', clearCompanyDetails);
-    buttons[1].style.cursor = 'pointer';
-    buttons[1].addEventListener('click', addCompanyDetails);
+        const buttons = document.querySelectorAll('.flow');
+        const companyDiv = document.getElementById('company');
 
-    function switchRegistrationFlow(event) {
+        switchActiveFlow(buttons[0], buttons[1]);
+        if (document.getElementById('company_name')) {
+            console.log(companyDiv.firstChild);
+            switchActiveFlow(buttons[1], buttons[0]);
+        }
+
+        function switchRegistrationFlow(event) {
+            buttons.forEach(button => {
+                button.className = 'flow bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center';
+                button.style.cursor = 'pointer';
+            });
+
+            event.target.className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
+            event.target.style.cursor = 'default';
+        }
+
         buttons.forEach(button => {
-            button.className = 'flow bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center';
-            button.style.cursor = 'pointer';
+            button.addEventListener('click', switchRegistrationFlow);
         });
 
-        event.target.className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
-        event.target.style.cursor = 'default';
-    }
+        function addCompanyDetails() {
+            const lineBreak = document.createElement('hr');
+            lineBreak.className = 'mt-4';
 
-    buttons.forEach(button => {
-        button.addEventListener('click', switchRegistrationFlow);
+            companyDiv.appendChild(lineBreak);
+            companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
+            companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
+            companyDiv.appendChild(createField('company_website', 'Company Website', 'input'));
+            companyDiv.appendChild(createField('company_address', 'Company Address', 'input'));
+        }
+
+        function clearCompanyDetails() {
+            companyDiv.innerHTML = '';
+        }
+
+        function createField(fieldName, displayName, fieldType) {
+            const div = document.createElement('div');
+            div.className = 'mt-4';
+
+            let label = document.createElement('label');
+            label.className = 'block font-medium text-sm text-gray-700 dark:text-gray-300';
+            label.setAttribute('for', fieldName);
+            label.innerHTML = displayName;
+
+            let field;
+            if (fieldType == 'input') {
+                field = document.createElement('input');
+                field.setAttribute('id', fieldName);
+                field.setAttribute('type', 'text');
+                field.className = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full';
+                field.setAttribute('name', fieldName);
+                field.setAttribute('required', '');
+            } else {
+                field = document.createElement('textarea');
+                field.setAttribute('id', fieldName);
+                field.className = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full';
+                field.setAttribute('name', fieldName);
+                field.setAttribute('required', '');
+            }
+
+            div.appendChild(label);
+            div.appendChild(field);
+
+            return div;
+        }
+
+        function switchActiveFlow(activeFlowElement, inactiveFlowElement) {
+            activeFlowElement.className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
+            activeFlowElement.style.cursor = 'default';
+            activeFlowElement.addEventListener('click', clearCompanyDetails);
+            inactiveFlowElement.className = 'flow bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center';
+            inactiveFlowElement.style.cursor = 'pointer';
+            inactiveFlowElement.addEventListener('click', addCompanyDetails);
+        }
     });
-
-    function addCompanyDetails()
-    {
-        const lineBreak = document.createElement('hr');
-        lineBreak.className = 'mt-4';
-
-        companyDiv.appendChild(lineBreak);
-        companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
-        companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
-        companyDiv.appendChild(createField('company_website', 'Company Website', 'input'));
-        companyDiv.appendChild(createField('company_address', 'Company Address', 'input'));
-    }
-
-    function clearCompanyDetails()
-    {
-        companyDiv.innerHTML = '';
-    }
-
-    function createField(fieldName, displayName, fieldType)
-    {
-       const div = document.createElement('div');
-       div.className = 'mt-4';
-
-       let label = document.createElement('label');
-       label.className = 'block font-medium text-sm text-gray-700 dark:text-gray-300';
-       label.setAttribute('for', fieldName);
-       label.innerHTML = displayName;
-
-       let field;
-       if(fieldType == 'input')
-       {
-       field = document.createElement('input');
-       field.setAttribute('id', fieldName);
-       field.setAttribute('type', 'text');
-       field.className = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full';
-       field.setAttribute('name', fieldName);
-       field.setAttribute('required', '');
-       } else {
-       field = document.createElement('textarea');
-       field.setAttribute('id', fieldName);
-       field.className = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full';
-       field.setAttribute('name', fieldName);
-       field.setAttribute('required', '');
-       }
-
-      div.appendChild(label);
-      div.appendChild(field);
-
-      return div;
-    }
-});
-
-
-
 </script>

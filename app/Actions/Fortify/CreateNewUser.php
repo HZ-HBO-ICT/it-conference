@@ -22,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        $commonRules = [
+        $defaultRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
@@ -30,13 +30,13 @@ class CreateNewUser implements CreatesNewUsers
         ];
 
         $validationRules = array_key_exists('company_name', $input)
-            ? array_merge($commonRules, [
+            ? array_merge($defaultRules, [
                 'company_name' => 'required',
                 'company_description' => 'required',
                 'company_website' => 'required',
                 'company_address' => 'required',
             ])
-            : $commonRules;
+            : $defaultRules;
 
         Validator::make($input, $validationRules)->validate();
 
@@ -59,10 +59,16 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createTeam(User $user, string $company_name, string $company_address, string $company_website, string $company_description): void
     {
-        $user->ownedTeams()->save(Team::forceCreate([
+        $team = Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0] . "'s Team",
-            'personal_team' => true,
-        ]));
+            'name' => $company_name,
+            'address' => $company_address,
+            'website' => $company_website,
+            'description' => $company_description,
+            'personal_team' => false,
+        ]);
+
+        $user->ownedTeams()->save($team);
+        $user->switchTeam($team);
     }
 }
