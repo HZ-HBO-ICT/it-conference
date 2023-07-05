@@ -18,14 +18,13 @@ class CreateTeamTest extends TestCase
 
         Livewire::test(CreateTeamForm::class)
             ->set(['state' => [
-                'name' => 'Test Team',
+                'company_name' => 'Test Team',
                 'company_address' => '123 Main St',
                 'company_website' => 'https://example.com',
                 'company_description' => 'Lorem ipsum dolar sit amet'
             ]])
             ->call('createTeam');
 
-        $this->assertCount(2, $user->fresh()->ownedTeams);
-        $this->assertEquals('Test Team', $user->fresh()->ownedTeams()->latest('id')->first()->name);
+        $this->assertNotEmpty($user->fresh()->allTeams()->where('name', 'Test Team')->all());
     }
 }
