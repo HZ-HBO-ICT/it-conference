@@ -34,3 +34,7 @@ Route::get('/faq', function () {
 
 Route::resource('/speakers', SpeakerController::class);
 
+Route::get('/content-dashboard', function () {
+    return view('idkthename');
+})->name('content');
+
