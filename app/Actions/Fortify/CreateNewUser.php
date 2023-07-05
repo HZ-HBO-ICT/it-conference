@@ -16,25 +16,40 @@ class CreateNewUser implements CreatesNewUsers
 
     /**
      * Create a newly registered user.
+     * If the user is a company representative, create a team (company) as well
      *
-     * @param  array<string, string>  $input
+     * @param array<string, string> $input
      */
     public function create(array $input): User
     {
-        Validator::make($input, [
+        $commonRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-        ])->validate();
+        ];
+
+        $validationRules = array_key_exists('company_name', $input)
+            ? array_merge($commonRules, [
+                'company_name' => 'required',
+                'company_description' => 'required',
+                'company_website' => 'required',
+                'company_address' => 'required',
+            ])
+            : $commonRules;
+
+        Validator::make($input, $validationRules)->validate();
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
-            ]), function (User $user) {
-                $this->createTeam($user);
+            ]), function (User $user) use ($input) {
+                $user->assignRole('participant');
+                if (array_key_exists('company_name', $input)) {
+                    $this->createTeam($user, $input['company_name'], $input['company_address'], $input['company_website'], $input['company_description']);
+                }
             });
         });
     }
@@ -42,11 +57,11 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a personal team for the user.
      */
-    protected function createTeam(User $user): void
+    protected function createTeam(User $user, string $company_name, string $company_address, string $company_website, string $company_description): void
     {
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'name' => explode(' ', $user->name, 2)[0] . "'s Team",
             'personal_team' => true,
         ]));
     }
