@@ -26,6 +26,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/content-dashboard', function () {
+        return view('idkthename');
+    })->name('content');
+
 });
 
 Route::get('/faq', function () {
@@ -33,8 +38,4 @@ Route::get('/faq', function () {
 })->name('faq');
 
 Route::resource('/speakers', SpeakerController::class);
-
-Route::get('/content-dashboard', function () {
-    return view('idkthename');
-})->name('content');
 
