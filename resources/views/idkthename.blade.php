@@ -5,16 +5,16 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
 
-    <div class="container flex">
-        <div class="sidebar w-1/5 top-0 h-full bottom-0 lg:left-0 p-2 overflow-y-auto text-center bg-gray-900">
+    <div class="container flex h-full">
+        <div class="sidebar pb-56 w-1/5 top-0 h-full bottom-0 lg:left-0 p-2 overflow-y-auto text-center bg-gray-900">
             <span class="absolute text-white text-4xl top-5 left-4 cursor-pointer">
                 <i class="bi bi-filter-left px-2 bg-gray-900 rounded-md"></i>
             </span>
             <div class="text-gray-100 text-xl">
                 <div class="p-2.5 mt-1 flex items-center">
-                    <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
+{{--                    <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>--}}
+                    <i class="bi bi-shield-fill-check px-2 py-1 rounded-md bg-gray-800"></i>
                     <h1 class="font-bold text-gray-200 text-[15px] ml-3">Content Moderation</h1>
-                    <i class="bi bi-x cursor-pointer ml-28 lg:hidden"></i>
                 </div>
                 <div class="my-2 bg-gray-600 h-[1px]"></div>
             </div>
@@ -43,7 +43,9 @@
             </div>
             {{-- end logout --}}
         </div>
-        <div class="container bg-gradient-to-r from-gray-950 to-gray-800 w-4/5 ml-1/5">
+
+{{--        main content--}}
+        <div class="container bg-gradient-to-r from-gray-950 to-gray-800 w-4/5 ml-1/5 h-[34rem]">
             <div class="container flex pt-4">
 {{--                title--}}
                 <h2 class="text-4xl font-extrabold text-white ml-4">Requests</h2>
@@ -73,6 +75,74 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+
+
+            <div class="mt-7 container flex justify-center columns-3 items-center">
+{{--                company requests--}}
+                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950">
+{{--                    label--}}
+                    <div class="bg-indigo-700 text-white font-bold rounded-t px-4 py-2">
+                        <i class="mr-2 bi bi-people-fill display-5"></i>
+                        Company Requests:
+                    </div>
+                    <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
+                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">35</h1>
+                    </div>
+                        <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                </div>
+
+                        {{--speaker requests--}}
+                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950">
+                    {{--                    label--}}
+                    <div class="bg-indigo-700 text-white font-bold rounded-t px-4 py-2">
+                        <i class="mr-2 bi bi-megaphone-fill"></i>
+                        Speaker Requests:
+                    </div>
+                    <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
+                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">5</h1>
+                    </div>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                </div>
+
+
+                {{--booth requests--}}
+                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950">
+                    {{--                    label--}}
+                    <div class="bg-indigo-700 text-white font-bold rounded-t px-4 py-2">
+                        <i class="mr-2 bi bi-shop-window"></i>
+                        Booth Requests:
+                    </div>
+                    <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
+                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">12</h1>
+                    </div>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                </div>
+            </div>
+
+{{--            2nd row (workshop presentation)--}}
+            <div class="mt-10 container flex justify-center columns-2 items-center">
+                <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg">
+                    <div class="bg-sky-700 text-white font-bold rounded-t px-4 py-2">
+                        <i class="mr-2 bi bi-display"></i>
+                        Presentation Requests:
+                    </div>
+                    <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
+                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">11</h1>
+                    </div>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                </div>
+
+                <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg">
+                    <div class="bg-sky-700 text-white font-bold rounded-t px-4 py-2">
+                        <i class="mr-2 bi bi-tools"></i>
+                        Workshop Requests:
+                    </div>
+                    <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
+                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">9</h1>
+                    </div>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
                 </div>
 
             </div>
