@@ -14,12 +14,12 @@
                 <div class="p-2.5 mt-1 flex items-center">
 {{--                    <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>--}}
                     <i class="bi bi-shield-fill-check px-2 py-1 rounded-md bg-gray-800"></i>
-                    <h1 class="font-bold text-gray-200 text-[15px] ml-3">Content Moderation</h1>
+                    <h1 class="font-bold text-gray-200 text-[15px] ml-3 font-extrabold">Content Moderation</h1>
                 </div>
                 <div class="my-2 bg-gray-600 h-[1px]"></div>
             </div>
             {{-- dashboard navigation link --}}
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 bg-blue-600 cursor-pointer hover:bg-blue-600 text-white">
                 <i class="bi bi-bar-chart-line-fill"></i>
                 <span class="text-[15px] ml-4 text-gray-200 font-bold">Dashboard</span>
             </div>
@@ -30,17 +30,26 @@
             </div>
             <div class="my-4 bg-gray-600 h-[1px]"></div>
             {{-- it conference link --}}
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-                <i class="bi bi-house-door-fill"></i>
-                <div class="flex justify-between w-full items-center">
-                    <span class="text-[15px] ml-4 text-gray-200 font-bold">IT-Conference Page</span>
+            <a href="/">
+                <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                    <i class="bi bi-house-door-fill"></i>
+                    <div class="flex justify-between w-full items-center">
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">IT-Conference Page</span>
+                    </div>
                 </div>
-            </div>
+            </a>
             {{-- logout --}}
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
-            </div>
+            <!-- Authentication -->
+            <form method="POST" action="{{ route('logout') }}" x-data>
+                @csrf
+
+                <a href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+                    </div>
+                </a>
+            </form>
             {{-- end logout --}}
         </div>
 
@@ -90,7 +99,7 @@
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
                         <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">35</h1>
                     </div>
-                        <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
 
                         {{--speaker requests--}}
@@ -103,7 +112,7 @@
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
                         <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">5</h1>
                     </div>
-                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
 
 
@@ -117,7 +126,7 @@
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
                         <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">12</h1>
                     </div>
-                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
             </div>
 
@@ -131,7 +140,7 @@
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
                         <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">11</h1>
                     </div>
-                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
 
                 <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg">
@@ -142,12 +151,19 @@
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
                         <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">9</h1>
                     </div>
-                    <a href="#" class="text-white ml-4 underline underline-offset-8"> View All </a>
+                    <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
 
             </div>
         </div>
     </div>
+
+    <style>
+        #dropdown {
+            position: absolute;
+            top: 100%;
+        }
+    </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
