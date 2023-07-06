@@ -31,37 +31,36 @@
     <main>
 
     <div class="container flex h-full">
-        <div class="sidebar pb-56 w-1/5 top-0 h-full bottom-0 lg:left-0 p-2 overflow-y-auto text-center bg-gray-900">
+        <div class="sidebar w-1/5 top-0 h-[50rem] bottom-0 lg:left-0 p-2 overflow-y-auto text-center bg-white">
             <span class="absolute text-white text-4xl top-5 left-4 cursor-pointer">
             </span>
-            <div class="text-gray-100 text-xl">
+            <div class="text-gray-950 text-xl">
                 <a href="{{ route('profile.show') }}">
                 <div class="p-2.5 mt-1 flex items-center">
-{{--                    <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>--}}
-                    <img class="h-8 w-8 rounded-full object-cover bg-gray-800"
+                    <img class="h-8 w-8 rounded-full object-cover"
                          src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
-                    <h1 class="font-bold text-gray-200 text-[15px] ml-3 font-extrabold hover:underline underline-offset-8 transition-all">{{ Auth::user()->name }}</h1>
+                    <h1 class="font-bold text-gray-950 text-[15px] ml-3 font-extrabold hover:underline underline-offset-8 transition-all">{{ Auth::user()->name }}</h1>
                 </div>
                 <div class="my-2 bg-gray-600 h-[1px]"></div>
                 </a>
             </div>
             {{-- dashboard navigation link --}}
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 bg-blue-600 cursor-pointer hover:bg-blue-600 text-white">
+            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-cyan-600 hover:text-white text-gray-950">
                 <i class="bi bi-bar-chart-line-fill"></i>
-                <span class="text-[15px] ml-4 text-gray-200 font-bold">Dashboard</span>
+                <span class="text-[15px] ml-4 font-bold">Dashboard</span>
             </div>
 
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-cyan-600 hover:text-white text-gray-950 transition-all">
                 <i class="bi bi-bookmark-fill"></i>
-                <span class="text-[15px] ml-4 text-gray-200 font-bold">text</span>
+                <span class="text-[15px] ml-4 font-bold">text</span>
             </div>
             <div class="my-4 bg-gray-600 h-[1px]"></div>
             {{-- it conference link --}}
             <a href="/">
-                <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-cyan-600 hover:text-white text-gray-950">
                     <i class="bi bi-house-door-fill"></i>
                     <div class="flex justify-between w-full items-center">
-                        <span class="text-[15px] ml-4 text-gray-200 font-bold">IT-Conference Page</span>
+                        <span class="text-[15px] ml-4 font-bold">IT-Conference Page</span>
                     </div>
                 </div>
             </a>
@@ -71,9 +70,9 @@
                 @csrf
 
                 <a href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-cyan-600 hover:text-white text-gray-950">
                         <i class="bi bi-box-arrow-in-right"></i>
-                        <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+                        <span class="text-[15px] ml-4 font-bold">Logout</span>
                     </div>
                 </a>
             </form>
@@ -81,10 +80,10 @@
         </div>
 
 {{--        main content--}}
-        <div class="container bg-gradient-to-r from-gray-950 to-gray-800 w-4/5 ml-1/5 h-[34rem]">
+        <div class="container bg-gradient-to-r from-cyan-500 to-blue-500 w-4/5 ml-1/5 h-[50rem]">
             <div class="container flex pt-4">
 {{--                title--}}
-                <h2 class="text-4xl font-extrabold text-white ml-4">Requests</h2>
+                <h2 class="text-4xl font-extrabold text-white ml-4">Requests (72)</h2>
 
                 <div class="relative ml-auto mr-6">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-neutral-950 bg-gray-200 hover:bg-gray-900 hover:text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -117,7 +116,7 @@
 
             <div class="mt-7 container flex justify-center columns-3 items-center">
 {{--                company requests--}}
-                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950">
+                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950 drop-shadow-lg">
 {{--                    label--}}
                     <div class="bg-indigo-700 text-white font-bold rounded-t px-4 py-2">
                         <i class="mr-2 bi bi-people-fill display-5"></i>
@@ -130,7 +129,7 @@
                 </div>
 
                         {{--speaker requests--}}
-                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950">
+                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950 drop-shadow-lg">
                     {{--                    label--}}
                     <div class="bg-indigo-700 text-white font-bold rounded-t px-4 py-2">
                         <i class="mr-2 bi bi-megaphone-fill"></i>
@@ -144,7 +143,7 @@
 
 
                 {{--booth requests--}}
-                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950">
+                <div class="card w-72 h-40 ml-12 mr-12 rounded-md bg-indigo-950 drop-shadow-lg">
                     {{--                    label--}}
                     <div class="bg-indigo-700 text-white font-bold rounded-t px-4 py-2">
                         <i class="mr-2 bi bi-shop-window"></i>
@@ -159,7 +158,7 @@
 
 {{--            2nd row (workshop presentation)--}}
             <div class="mt-10 container flex justify-center columns-2 items-center">
-                <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg">
+                <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg drop-shadow-lg">
                     <div class="bg-sky-700 text-white font-bold rounded-t px-4 py-2">
                         <i class="mr-2 bi bi-display"></i>
                         Presentation Requests:
@@ -169,8 +168,8 @@
                     </div>
                     <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
-
-                <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg">
+{{--workshop requests:--}}
+                <div class="card w-96 h-40 bg-sky-950 ml-12 mr-12 rounded-lg drop-shadow-lg">
                     <div class="bg-sky-700 text-white font-bold rounded-t px-4 py-2">
                         <i class="mr-2 bi bi-tools"></i>
                         Workshop Requests:
@@ -182,7 +181,44 @@
                 </div>
 
             </div>
-            <h2 class="text-4xl font-extrabold text-white mt-5 ml-4">Overview</h2>
+                <h2 class="text-4xl font-extrabold text-white mt-6 ml-4">Overview</h2>
+                <div class="container flex justify-center columns-4 mt-10">
+                    <div class="card ml-12 mr-12 bg-gray-200 w-52 h-32 rounded-md">
+                        <div class="bg-gray-600 rounded-t px-2 py-1">
+                            <h2 class="title ml-1 font-extrabold text-2xl text-white">Companies:</h2>
+                        </div>
+                        <div class="mt-2 ml-4 mb-2 w-full h-auto">
+                            <h1 class="text-4xl leading-none tracking-tight text-cyan-900 md:text-5xl lg:text-6xl">56</h1>
+                        </div>
+                    </div>
+                    <div class="card ml-12 mr-12 bg-gray-200 w-52 h-32 rounded-md">
+                        <div class="bg-gray-600 rounded-t px-2 py-1">
+                            <h2 class="title ml-1 font-extrabold text-2xl text-white">Participants:</h2>
+                        </div>
+                        <div class="mt-2 ml-4 mb-2 w-full h-auto">
+                            <h1 class="text-4xl leading-none tracking-tight text-cyan-900 md:text-5xl lg:text-6xl">153</h1>
+                        </div>
+                    </div>
+                    <div class="card ml-12 mr-12 bg-gray-200 w-52 h-32 rounded-md">
+                        <div class="bg-gray-600 rounded-t px-2 py-1">
+                            <h2 class="title ml-1 font-extrabold text-2xl text-white">Speakers: </h2>
+                        </div>
+                        <div class="mt-2 ml-4 mb-2 w-full h-auto">
+                            <h1 class="text-4xl leading-none tracking-tight text-cyan-900 md:text-5xl lg:text-6xl">43</h1>
+                        </div>
+                    </div>
+                    <div class="card ml-12 mr-12 bg-gray-200 w-52 h-32 rounded-md">
+                        <div class="bg-gray-600 rounded-t px-2 py-1">
+                            <h2 class="title ml-1 font-extrabold text-2xl text-white">Companies:</h2>
+                        </div>
+                        <div class="mt-2 ml-4 mb-2 w-full h-auto">
+                            <h1 class="text-4xl leading-none tracking-tight text-cyan-900 md:text-5xl lg:text-6xl">56</h1>
+                        </div>
+                    </div>
+
+
+
+                </div>
 
 
         </div>
