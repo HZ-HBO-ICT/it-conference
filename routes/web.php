@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
-use App\Models\Team;
 use Illuminate\Support\Facades\Route;
-use Laravel\Jetstream\TeamInvitation as TeamInvitationModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +29,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/register/team-invitations/{invitation}', function (TeamInvitationModel $invitation) {
-    return view('auth.registration-via-invitation', compact('invitation'));
-})->middleware(['signed'])->name('registration.via.invitation');
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
 
 Route::get('/faq', function () {
     return view('faq');
