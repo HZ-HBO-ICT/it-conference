@@ -16,7 +16,7 @@ class SponsorTier extends Model
      *
      * @return HasMany
      */
-    public function team(): HasMany
+    public function teams(): HasMany
     {
         return $this->hasMany(Team::class);
     }
