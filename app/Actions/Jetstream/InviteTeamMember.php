@@ -2,6 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
+use App\Mail\CustomTeamInvitation;
 use App\Models\Team;
 use App\Models\User;
 use Closure;
@@ -34,7 +35,7 @@ class InviteTeamMember implements InvitesTeamMembers
             'role' => $role,
         ]);
 
-        Mail::to($email)->send(new TeamInvitation($invitation));
+        Mail::to($email)->send(new CustomTeamInvitation($invitation));
     }
 
     /**
