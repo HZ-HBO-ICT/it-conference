@@ -17,6 +17,10 @@ return new class extends Migration
             $table->decimal('length');
             $table->text('additional_information');
             $table->boolean('is_approved')->default(false);
+
+            $table->unsignedBigInteger('team_id');
+            $table->foreign('team_id')->references('id')->on('teams');
+
             $table->timestamps();
         });
     }

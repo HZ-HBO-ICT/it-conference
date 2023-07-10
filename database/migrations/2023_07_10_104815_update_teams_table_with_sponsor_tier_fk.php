@@ -15,11 +15,8 @@ return new class extends Migration {
                 ->nullable();
             $table->boolean('is_sponsor_approved')
                 ->nullable();
-            $table->unsignedBigInteger('booth_id')
-                ->nullable();
 
             $table->foreign('sponsor_tier_id')->references('id')->on('sponsor_tiers');
-            $table->foreign('booth_id')->references('id')->on('booths');
         });
     }
 
@@ -31,7 +28,6 @@ return new class extends Migration {
         Schema::table('teams', function (Blueprint $table) {
             $table->dropColumn('is_sponsor_approved');
             $table->dropColumn('sponsor_tier_id');
-            $table->dropColumn('booth_id');
         });
     }
 };
