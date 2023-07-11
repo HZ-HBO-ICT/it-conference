@@ -13,7 +13,7 @@ class Presentation extends Model
     use HasFactory;
 
     /**
-     * Returns the room that the presentation is in
+     * The room that the presentation is in
      * @return BelongsTo
      */
     public function room(): BelongsTo
@@ -22,7 +22,7 @@ class Presentation extends Model
     }
 
     /**
-     * Returns the timeslot that the presentation is in
+     * The timeslot that the presentation is in
      * @return BelongsTo
      */
     public function timeslot(): BelongsTo
@@ -31,7 +31,7 @@ class Presentation extends Model
     }
 
     /**
-     * Returns all participants that signed up for the presentation
+     * All participants that signed up for the presentation
      * @return BelongsToMany
      */
     public function participants(): BelongsToMany
@@ -40,7 +40,7 @@ class Presentation extends Model
     }
 
     /**
-     * Returns all speakers for the presentation
+     * All speakers for the presentation
      * @return HasMany
      */
     public function speakers(): HasMany

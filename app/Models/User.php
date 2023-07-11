@@ -64,7 +64,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Returns all participants that signed up for the presentation
+     * All participants that signed up for the presentation
      * @return BelongsToMany
      */
     public function presentations(): BelongsToMany

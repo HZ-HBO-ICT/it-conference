@@ -49,9 +49,7 @@ class Team extends JetstreamTeam
     ];
 
     /**
-     * Establishes the connection
-     * A team has zero-or-one sponsor tiers
-     *
+     * The sponsor tier of the team/company (if they have one)
      * @return BelongsTo
      */
     public function sponsorTier(): BelongsTo
@@ -60,7 +58,7 @@ class Team extends JetstreamTeam
     }
 
     /**
-     * Gets the booth associated with the team
+     * The booth associated with the team (if they have one)
      * @return HasOne
      */
     public function booth(): HasOne

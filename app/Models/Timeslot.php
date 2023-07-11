@@ -11,7 +11,7 @@ class Timeslot extends Model
     use HasFactory;
 
     /**
-     * Returns all the presentations that are in the timeslot
+     * All the presentations that are in the timeslot
      * @return HasMany
      */
     public function presentations(): HasMany

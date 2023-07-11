@@ -11,7 +11,7 @@ class Room extends Model
     use HasFactory;
 
     /**
-     * Returns all the presentations that are in the room
+     * All the presentations that are in the room
      * @return HasMany
      */
     public function presentations(): HasMany

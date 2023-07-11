@@ -11,9 +11,7 @@ class SponsorTier extends Model
     use HasFactory;
 
     /**
-     * Establishes the connection
-     * A sponsor tier has many teams
-     *
+     * All the teams that have this sponsorship tier
      * @return HasMany
      */
     public function teams(): HasMany

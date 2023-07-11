@@ -11,12 +11,10 @@ class Booth extends Model
     use HasFactory;
 
     /**
-     * Establishes the connection
-     * A booth belongs to a team
-     *
+     * The team/company that owns this booth
      * @return BelongsTo
      */
-    public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }

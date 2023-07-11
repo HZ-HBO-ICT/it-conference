@@ -12,7 +12,7 @@ class Speaker extends Model
 
 
     /**
-     * Returns the presentation the speaker has
+     * The presentation the speaker has
      * @return BelongsTo
      */
     public function presentation(): BelongsTo
@@ -21,8 +21,7 @@ class Speaker extends Model
     }
 
     /**
-     * Since the speaker is a user, it returns the user that
-     * is going to be speaker at the presentation
+     * The user that is going to be speaker at the presentation
      * @return BelongsTo
      */
     public function user(): BelongsTo
