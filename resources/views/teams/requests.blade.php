@@ -11,6 +11,8 @@
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             @livewire('booth-request', ['team' => $team])
+            <x-section-border/>
+            @livewire('sponsorship-request', ['team' => $team, 'tiers' => $tiers])
         </div>
     </div>
 </x-app-layout>
