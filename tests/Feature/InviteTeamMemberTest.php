@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\CustomTeamInvitation;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +18,7 @@ class InviteTeamMemberTest extends TestCase
 
     public function test_team_members_can_be_invited_to_team(): void
     {
-        if (! Features::sendsTeamInvitations()) {
+        if (!Features::sendsTeamInvitations()) {
             $this->markTestSkipped('Team invitations not enabled.');
 
             return;
@@ -30,17 +31,17 @@ class InviteTeamMemberTest extends TestCase
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
             ->set('addTeamMemberForm', [
                 'email' => 'test@example.com',
-                'role' => 'admin',
+                'role' => 'speaker',
             ])->call('addTeamMember');
 
-        Mail::assertSent(TeamInvitation::class);
+        Mail::assertSent(CustomTeamInvitation::class);
 
         $this->assertCount(1, $user->currentTeam->fresh()->teamInvitations);
     }
 
     public function test_team_member_invitations_can_be_cancelled(): void
     {
-        if (! Features::sendsTeamInvitations()) {
+        if (!Features::sendsTeamInvitations()) {
             $this->markTestSkipped('Team invitations not enabled.');
 
             return;
@@ -54,7 +55,7 @@ class InviteTeamMemberTest extends TestCase
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
             ->set('addTeamMemberForm', [
                 'email' => 'test@example.com',
-                'role' => 'admin',
+                'role' => 'speaker',
             ])->call('addTeamMember');
 
         $invitationId = $user->currentTeam->fresh()->teamInvitations->first()->id;
