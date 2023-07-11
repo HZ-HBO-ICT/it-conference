@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -45,4 +47,22 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    /**
+     * The sponsor tier of the team/company (if they have one)
+     * @return BelongsTo
+     */
+    public function sponsorTier(): BelongsTo
+    {
+        return $this->belongsTo(SponsorTier::class);
+    }
+
+    /**
+     * The booth associated with the team (if they have one)
+     * @return HasOne
+     */
+    public function booth(): HasOne
+    {
+        return $this->hasOne(Booth::class);
+    }
 }

@@ -44,12 +44,13 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures() && Auth::user()->currentTeam)
-                   <div class="pr-5">
-                       <x-nav-link
-                           href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                    <div class="pr-5">
+                        <x-nav-link
+                            href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                            :active="request()->routeIs('teams.show')">
                             {{ Auth::user()->currentTeam->name }}
-                       </x-nav-link>
-                   </div>
+                        </x-nav-link>
+                    </div>
                 @endif
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -131,15 +132,17 @@
             <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" href="{{ route('speakers.index') }}"
-                                   :active="request()->routeIs('speakers.index')">
+            <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link {{--:active="request()->routeIs('dashboard')"--}}>
                 {{ __('Companies') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" href="{{ route('faq') }}" :active="request()->routeIs('faq')">
+            <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+                {{ __('Contact') }}
             </x-responsive-nav-link>
         </div>
 
@@ -190,7 +193,7 @@
                         {{ __('Company') }}
                     </div>
 
-                    <!-- Team Settings -->
+                <!-- Team Settings -->
                     <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
                                            :active="request()->routeIs('teams.show')">
                         {{ Auth::user()->currentTeam->name }}
