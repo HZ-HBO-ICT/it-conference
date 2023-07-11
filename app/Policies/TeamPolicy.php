@@ -73,4 +73,12 @@ class TeamPolicy
     {
         return $user->ownsTeam($team);
     }
+
+    /**
+     * Determine whether the user can request booth or a sponsorship.
+     */
+    public function requestBoothOrSponsorship(User $user, Team $team): bool
+    {
+        return $user->ownsTeam($team);
+    }
 }

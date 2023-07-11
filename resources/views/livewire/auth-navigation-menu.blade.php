@@ -60,25 +60,35 @@
                                     </button>
                                 </span>
                             </x-slot>
-
-                            <x-slot name="content">
-                                <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
+                            @if (Auth::user()->ownsTeam(Auth::user()->currentTeam))
+                                <x-slot name="content">
+                                    <div class="w-60">
+                                        <!-- Team Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            Company details
+                                        </div>
+                                        <!-- Team Settings -->
+                                        <x-dropdown-link
+                                            href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                            {{ __('Team Management') }}
+                                        </x-dropdown-link>
+                                        <!-- Requests -->
+                                        <x-dropdown-link
+                                            href="{{ route('teams.requests', Auth::user()->currentTeam->id) }}">
+                                            {{ __('Requests') }}
+                                        </x-dropdown-link>
                                     </div>
-                                    <!-- Team Settings -->
-                                    <x-dropdown-link
-                                        href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Management') }}
-                                    </x-dropdown-link>
-                                    <!-- Requests -->
-                                    <x-dropdown-link
-                                        href="{{ route('teams.requests', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Requests') }}
-                                    </x-dropdown-link>
-                                </div>
-                            </x-slot>
+                                </x-slot>
+                            @else
+                                <x-slot name="content">
+                                    <div class="w-60">
+                                        <!-- Team Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            Company details
+                                        </div>
+                                    </div>
+                                </x-slot>
+                            @endif
                         </x-dropdown>
                     </div>
                 @endif
