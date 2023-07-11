@@ -115,7 +115,6 @@
 
         switchActiveFlow(buttons[0], buttons[1]);
         if (document.getElementById('company_name')) {
-            console.log(companyDiv.firstChild);
             switchActiveFlow(buttons[1], buttons[0]);
         }
 
@@ -134,14 +133,16 @@
         });
 
         function addCompanyDetails() {
-            const lineBreak = document.createElement('hr');
-            lineBreak.className = 'mt-4';
+            if (!document.getElementById('company_name')) {
+                const lineBreak = document.createElement('hr');
+                lineBreak.className = 'mt-4';
 
-            companyDiv.appendChild(lineBreak);
-            companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
-            companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
-            companyDiv.appendChild(createField('company_website', 'Company Website', 'input'));
-            companyDiv.appendChild(createField('company_address', 'Company Address', 'input'));
+                companyDiv.appendChild(lineBreak);
+                companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
+                companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
+                companyDiv.appendChild(createField('company_website', 'Company Website', 'input'));
+                companyDiv.appendChild(createField('company_address', 'Company Address', 'input'));
+            }
         }
 
         function clearCompanyDetails() {
@@ -188,4 +189,5 @@
             inactiveFlowElement.addEventListener('click', addCompanyDetails);
         }
     });
+
 </script>
