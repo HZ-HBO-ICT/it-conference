@@ -28,11 +28,11 @@ class InvitationController extends Controller
      */
     public function show(Request $request, TeamInvitation $invitation): View
     {
-        if ($request->hasValidSignature()) {
-            return view('auth.registration-via-invitation', compact('invitation'));
+        if (!$request->hasValidSignature()) {
+            abort(403);
         }
 
-        abort(403);
+        return view('auth.registration-via-invitation', compact('invitation'));
     }
 
     /**
