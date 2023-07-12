@@ -5,10 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Booth;
 use App\Models\Team;
 use App\Actions\Jetstream\DeleteTeam;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class ContentModeratorController extends Controller
 {
-    public function requests(string $type)
+    /**
+     * Gets all requests of a specific type
+     * @param string $type The type of requests ('teams', 'booths', or 'sponsorships').
+     * @return View
+     */
+    public function requests(string $type): View
     {
         if ($type == 'teams') {
             $teams = Team::where('is_approved', false)->get();
@@ -24,7 +34,13 @@ class ContentModeratorController extends Controller
         abort(404);
     }
 
-    public function details(string $type, int $id)
+    /**
+     * Gets the details for a specific request
+     * @param string $type The type of requests ('teams', 'booths', or 'sponsorships').
+     * @param int $id
+     * @return View
+     */
+    public function details(string $type, int $id): View
     {
         if ($type == 'teams') {
             $team = Team::find($id);
@@ -40,6 +56,13 @@ class ContentModeratorController extends Controller
         abort(404);
     }
 
+    /**
+     * Change the approval status of a request.
+     * @param string $type The type of the request ('teams', 'booths', or 'sponsorships').
+     * @param int $id The ID of the request.
+     * @param bool $isApproved Whether the request is approved or not.
+     * @return RedirectResponse|Redirector
+     */
     public function changeApprovalStatus(string $type, int $id, bool $isApproved)
     {
         if ($type == 'teams') {
@@ -53,7 +76,15 @@ class ContentModeratorController extends Controller
         abort(404);
     }
 
-    public function changeApprovalStatusOfTeam(Team $team, bool $isApproved)
+
+    /**
+     * Changes the approval status of the given team based
+     * on the given boolean
+     * @param Team $team
+     * @param bool $isApproved
+     * @return RedirectResponse
+     */
+    public function changeApprovalStatusOfTeam(Team $team, bool $isApproved): RedirectResponse
     {
         $message = '';
         if ($isApproved) {
@@ -73,7 +104,14 @@ class ContentModeratorController extends Controller
         return redirect(route('moderator.requests', 'teams'))->banner($message);
     }
 
-    public function changeApprovalStatusOfBooth(Booth $booth, bool $isApproved)
+    /**
+     * Changes the approval status of the given booth based
+     * on the given boolean
+     * @param Booth $booth
+     * @param bool $isApproved
+     * @return RedirectResponse
+     */
+    public function changeApprovalStatusOfBooth(Booth $booth, bool $isApproved): RedirectResponse
     {
         $message = '';
         if ($isApproved) {
@@ -91,6 +129,13 @@ class ContentModeratorController extends Controller
         return redirect(route('moderator.requests', 'booths'))->banner($message);
     }
 
+    /**
+     * Changes the approval status of the given booth based
+     * on the given boolean
+     * @param Booth $booth
+     * @param bool $isApproved
+     * @return RedirectResponse
+     */
     public function changeApprovalStatusOfSponsorship(Team $team, bool $isApproved)
     {
         $message = '';
