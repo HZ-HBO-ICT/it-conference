@@ -82,7 +82,9 @@
         <div class="container bg-gradient-to-r from-cyan-500 to-blue-500 w-4/5 ml-1/5 h-auto">
             <div class="container flex pt-4">
 {{--                title--}}
-                <h2 class="text-4xl font-extrabold text-white ml-4">Requests (72)</h2>
+                    <h2 class="text-4xl font-extrabold text-white ml-4">Requests (</h2>
+                    <h2 id="requests" class="text-4xl font-extrabold text-white ml-4">72</h2>
+                    <h2 class="text-4xl font-extrabold text-white ml-4">)</h2>
 
                 <div class="relative ml-auto mr-6">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-neutral-950 bg-gray-200 hover:bg-gray-900 hover:text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -122,7 +124,7 @@
                         Company Requests:
                     </div>
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
-                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">35</h1>
+                        <h1 id="companies" class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">35</h1>
                     </div>
                     <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
@@ -135,7 +137,7 @@
                         Speaker Requests:
                     </div>
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
-                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">5</h1>
+                        <h1 id="speakers" class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">5</h1>
                     </div>
                     <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
@@ -149,7 +151,7 @@
                         Booth Requests:
                     </div>
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
-                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">12</h1>
+                        <h1 id="booths" class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">12</h1>
                     </div>
                     <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
@@ -163,7 +165,7 @@
                         Presentation / Workshop Requests:
                     </div>
                     <div class="mt-4 mb-2 w-full h-auto flex flex-col justify-center items-center">
-                        <h1 class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">20</h1>
+                        <h1 id="workshops" class="text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">20</h1>
                     </div>
                     <a href="#" class="text-white ml-4 underline underline-offset-8 hover:text-gray-300"> View All </a>
                 </div>
@@ -259,6 +261,13 @@
                 dropdown.classList.toggle("hidden");
             });
 
+const companyRequests = parseInt(document.getElementById('companies').textContent);
+const speakerRequests = parseInt(document.getElementById('speakers').textContent);
+const boothRequests = parseInt(document.getElementById('booths').textContent);
+const workshopRequests = parseInt(document.getElementById('workshops').textContent);
+
+const requests = document.getElementById('requests');
+requests.textContent = companyRequests + speakerRequests + boothRequests + workshopRequests;
 
 
         });
