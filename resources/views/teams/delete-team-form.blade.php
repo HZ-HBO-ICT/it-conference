@@ -9,7 +9,7 @@
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team, please download any data or information regarding this team that you wish to retain.') }}
+            Once your team is deleted, everything regarding the company will be removed as well - booth, presentation, members.
         </div>
 
         <div class="mt-5">
@@ -25,7 +25,7 @@
             </x-slot>
 
             <x-slot name="content">
-                {{ __('Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be permanently deleted.') }}
+                'Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be permanently deleted.
             </x-slot>
 
             <x-slot name="footer">

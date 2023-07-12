@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Booth extends Model
 {
+    protected $fillable = ['width', 'length', 'additional_information', 'team_id'];
+
     use HasFactory;
 
     /**
