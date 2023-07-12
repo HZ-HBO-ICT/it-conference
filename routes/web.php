@@ -40,14 +40,21 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
-    ->name('moderator.requests');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'moderator'
+])->group(function () {
+    Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
+        ->name('moderator.requests');
 
-Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
-    ->name('moderator.request.details');
+    Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
+        ->name('moderator.request.details');
 
-Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
-    ->name('moderator.request.approve');
+    Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
+        ->name('moderator.request.approve');
+});
 
 Route::resource('/speakers', SpeakerController::class);
 
