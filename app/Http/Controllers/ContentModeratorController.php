@@ -14,6 +14,9 @@ class ContentModeratorController extends Controller
         if ($type == 'teams') {
             $teams = Team::where('is_approved', false)->get();
             return view('moderator.requests.teams', compact('type', 'teams'));
+        } else if ($type == 'booths') {
+            $booths = Booth::where('is_approved', false)->get();
+            return view('moderator.requests.booths', compact('type', 'booths'));
         }
 
         abort(404);
@@ -24,6 +27,20 @@ class ContentModeratorController extends Controller
         if ($type == 'teams') {
             $team = Team::find($id);
             return view('moderator.details.team', compact('team'));
+        } else if ($type == 'booths') {
+            $booth = Booth::find($id);
+            return view('moderator.details.booth', compact('booth'));
+        }
+
+        abort(404);
+    }
+
+    public function changeApprovalStatus(string $type, int $id, bool $isApproved)
+    {
+        if ($type == 'teams') {
+            return $this->changeApprovalStatusOfTeam(Team::find($id), $isApproved);
+        } else if ($type == 'booths') {
+            return $this->changeApprovalStatusOfBooth(Booth::find($id), $isApproved);
         }
 
         abort(404);
@@ -47,5 +64,23 @@ class ContentModeratorController extends Controller
         }
 
         return redirect(route('moderator.requests', 'teams'))->banner($message);
+    }
+
+    public function changeApprovalStatusOfBooth(Booth $booth, bool $isApproved)
+    {
+        $message = '';
+        if ($isApproved) {
+            $booth->is_approved = true;
+            $booth->save();
+
+            $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
+
+        } else {
+            $booth->delete();
+
+            $message = __('You denied the request of :company to have a booth', ['company' => $booth->team->name]);
+        }
+
+        return redirect(route('moderator.requests', 'booths'))->banner($message);
     }
 }

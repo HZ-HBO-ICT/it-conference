@@ -21,14 +21,14 @@
             <h2 class="text-xl">Email: <a href="mailto:{{$team->owner->email}}}">{{$team->owner->email}}</a></h2>
             <div>
                 <div class="mt-16 flex">
-                    <form method="POST" action="{{route('moderator.team.approve', [$team, 1])}}" class="mr-2">
+                    <form method="POST" action="{{route('moderator.request.approve', ['teams', $team, 1])}}" class="mr-2">
                         @csrf
                         <x-button
                             class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
                             Approve
                         </x-button>
                     </form>
-                    <form method="POST" action="{{ route('moderator.team.approve', [$team, 0]) }}" class="mr-2">
+                    <form method="POST" action="{{ route('moderator.request.approve', ['teams', $team, 0]) }}" class="mr-2">
                         @csrf
                         <x-button
                             class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">

@@ -46,8 +46,8 @@ Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
 Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
     ->name('moderator.request.details');
 
-Route::post('/requests/teams/{team}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatusOfTeam'])
-    ->name('moderator.team.approve');
+Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
+    ->name('moderator.request.approve');
 
 Route::resource('/speakers', SpeakerController::class);
 
