@@ -1,8 +1,10 @@
 @component('mail::message')
-    # You have secured your booth for the conference!
+# You have been invited to join {{$invitation->team->name}} for the IT Conference!
+Create an account and accept the invitation following the link bellow
 
-    We are writing to inform you that you have successfully secured your booth for the conference!
-    We look forward to seeing you on the 17th of November!
+@component('mail::button', ['url' => $acceptUrl])
+Join the IT Conference
+@endcomponent
 
-    If you did not expect to receive this, you may discard this email.
+If you did not expect to receive an invitation to this team, you may discard this email.
 @endcomponent
