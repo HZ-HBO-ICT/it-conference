@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BoothApproved;
+use App\Mail\BoothDisapproved;
+use App\Mail\CustomTeamInvitation;
+use App\Mail\SponsorshipApproved;
+use App\Mail\SponsorshipDisapproved;
+use App\Mail\TeamApproved;
+use App\Mail\TeamDisapproved;
 use App\Models\Booth;
 use App\Models\Team;
 use App\Actions\Jetstream\DeleteTeam;
@@ -10,6 +17,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Mail;
 
 class ContentModeratorController extends Controller
 {
@@ -91,10 +99,13 @@ class ContentModeratorController extends Controller
             $team->is_approved = true;
             $team->owner->assignRole('company representative');
             $team->save();
+            Mail::to($team->owner->email)->send(new TeamApproved($team));
 
             $message = __('You approved :company to join the IT Conference!', ['company' => $team->name]);
 
         } else {
+            Mail::to($team->owner->email)->send(new TeamDisapproved($team));
+
             $deleteTeam = new DeleteTeam();
             $deleteTeam->delete($team);
 
@@ -117,10 +128,12 @@ class ContentModeratorController extends Controller
         if ($isApproved) {
             $booth->is_approved = true;
             $booth->save();
+            Mail::to($booth->team->owner->email)->send(new BoothApproved($booth->team));
 
             $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
 
         } else {
+            Mail::to($booth->team->owner->email)->send(new BoothDisapproved($booth->team));
             $booth->delete();
 
             $message = __('You denied the request of :company to have a booth', ['company' => $booth->team->name]);
@@ -142,10 +155,12 @@ class ContentModeratorController extends Controller
         if ($isApproved) {
             $team->is_sponsor_approved = true;
             $team->save();
+            Mail::to($team->owner->email)->send(new SponsorshipApproved($team));
 
             $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
 
         } else {
+            Mail::to($team->owner->email)->send(new SponsorshipDisapproved($team));
             $team->is_sponsor_approved = null;
             $team->sponsor_tier_id = null;
             $team->save();
