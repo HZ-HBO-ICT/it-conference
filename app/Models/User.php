@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -60,4 +62,24 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * All participants that signed up for the presentation
+     * @return BelongsToMany
+     */
+    public function presentations(): BelongsToMany
+    {
+        return $this->belongsToMany(Presentation::class, 'participants', 'user_id', 'presentation_id');
+    }
+
+    /**
+     * Since a speaker can have only one presentation, in order to not allow the
+     * user to have more than one presentation, the relationship
+     * will be one to one between the Speaker and User
+     * @return HasOne
+     */
+    public function speaker(): HasOne
+    {
+        return $this->hasOne(Speaker::class);
+    }
 }

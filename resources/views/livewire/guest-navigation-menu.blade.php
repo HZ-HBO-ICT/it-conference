@@ -75,13 +75,13 @@
             <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
+            <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
                 {{ __('Companies') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" href="{{ route('faq') }}" :active="request()->routeIs('faq')">
+            <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
