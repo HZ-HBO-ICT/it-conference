@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
 
 Route::get('/faq', function () {
     return view('faq');
