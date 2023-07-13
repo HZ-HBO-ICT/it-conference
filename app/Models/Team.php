@@ -73,8 +73,15 @@ class Team extends JetstreamTeam
 
     public function presentation()
     {
-        return $this->speakers()->count() != 0 ?
-            ($this->speakers()->first()->speaker ? $this->speakers()->first()->speaker->presentation : null)
-            : null;
+        if($this->speakers()->count() != 0)
+        {
+            $user = $this->speakers()->first(function ($user) {
+                return $user->speaker !== null;
+            });
+
+            return !is_null($user) ? $user->speaker->presentation : null;
+        }
+
+        return null;
     }
 }
