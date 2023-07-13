@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\TeamRequestsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,3 +42,4 @@ Route::get('/faq', function () {
 
 Route::resource('/speakers', SpeakerController::class);
 
+Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
