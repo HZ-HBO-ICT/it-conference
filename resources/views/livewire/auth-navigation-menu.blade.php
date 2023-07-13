@@ -128,6 +128,27 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+                            @role('content moderator')
+                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Manage requests') }}
+                                </div>
+
+                                <x-dropdown-link href="{{ route('moderator.requests', 'teams') }}">
+                                    {{ __('Company requests') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('moderator.requests', 'booths') }}">
+                                    {{ __('Booth requests') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('moderator.requests', 'sponsorships') }}">
+                                    {{ __('Sponsorship requests') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('moderator.requests', 'presentations') }}">
+                                    {{ __('Presentation requests') }}
+                                </x-dropdown-link>
+                            @endrole
+
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}
