@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
 /*            SpeakerSeeder::class,*/
-            RoleSeeder::class
+            RoleSeeder::class,
+            SponsorTierSeeder::class
         ]);
 
         $user = User::create([

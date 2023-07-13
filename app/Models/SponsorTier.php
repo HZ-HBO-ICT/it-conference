@@ -18,4 +18,14 @@ class SponsorTier extends Model
     {
         return $this->hasMany(Team::class);
     }
+
+    public function areMoreSponsorsAllowed()
+    {
+        return $this->teams()->where('is_sponsor_approved','=', 1)->count() < $this->max_sponsors;
+    }
+
+    public function leftSpots()
+    {
+        return $this->max_sponsors - $this->teams()->where('is_sponsor_approved','=', 1)->count();
+    }
 }
