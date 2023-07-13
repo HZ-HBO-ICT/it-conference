@@ -65,4 +65,16 @@ class Team extends JetstreamTeam
     {
         return $this->hasOne(Booth::class);
     }
+
+    public function speakers()
+    {
+        return $this->users()->wherePivot('role', 'speaker')->get();
+    }
+
+    public function presentation()
+    {
+        return $this->speakers()->count() != 0 ?
+            ($this->speakers()->first()->speaker ? $this->speakers()->first()->speaker->presentation : null)
+            : null;
+    }
 }

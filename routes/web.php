@@ -39,5 +39,10 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::resource('/speakers', SpeakerController::class);
+Route::get('/speakers', [SpeakerController::class, 'index'])
+    ->name('speakers.index');
 
+Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
+    ->name('speakers.request.presentation');
+Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
+    ->name('speakers.request.process');

@@ -10,6 +10,7 @@ class Speaker extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'presentation_id', 'is_main_speaker', 'is_approved'];
 
     /**
      * The presentation the speaker has

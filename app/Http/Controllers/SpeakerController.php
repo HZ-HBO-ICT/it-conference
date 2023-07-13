@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Presentation;
 use App\Models\Speaker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class SpeakerController extends Controller
@@ -18,51 +20,27 @@ class SpeakerController extends Controller
         return view('speakers.index', compact('speakers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function requestPresentation()
     {
-        //
+        if (Auth::user()->cannot('sendRequest', Presentation::class)) {
+            abort(403);
+        }
+
+        return view('speakers.presentation-request');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function processRequest(Request $request)
     {
-        //
-    }
+        $presentation =
+            Presentation::create($request->validate(Presentation::rules()));
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Speaker $speaker)
-    {
-        //
-    }
+        Speaker::create([
+            'user_id' => Auth::user()->id,
+            'presentation_id' => $presentation->id,
+            'is_main_speaker' => 1,
+            'is_approved' => 0
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Speaker $speaker)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Speaker $speaker)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Speaker $speaker)
-    {
-        //
+        return redirect(route('welcome'))->banner("You successfully send your request to host a {$presentation->type}");
     }
 }
