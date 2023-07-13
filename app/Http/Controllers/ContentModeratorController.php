@@ -192,6 +192,7 @@ class ContentModeratorController extends Controller
         if ($isApproved) {
             $user = User::find($presentation->mainSpeaker()->user->id);
             $user->speaker->is_approved = 1;
+            $user->assignRole('speaker');
             $user->speaker->save();
 
             Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationApproved());
