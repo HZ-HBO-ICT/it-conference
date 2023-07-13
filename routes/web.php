@@ -41,6 +41,14 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
+Route::get('/speakers', [SpeakerController::class, 'index'])
+    ->name('speakers.index');
+
+Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
+    ->name('speakers.request.presentation');
+Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
+    ->name('speakers.request.process');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -56,7 +64,5 @@ Route::middleware([
     Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
         ->name('moderator.request.approve');
 });
-
-Route::resource('/speakers', SpeakerController::class);
 
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');

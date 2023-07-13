@@ -12,6 +12,18 @@ class Presentation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'max_participants', 'description', 'type'];
+
+    public static function rules()
+    {
+        return [
+            'name' => 'required',
+            'max_participants' => 'required|numeric',
+            'description' => 'required',
+            'type' => 'required|in:workshop,lecture'
+        ];
+    }
+
     /**
      * The room that the presentation is in
      * @return BelongsTo
