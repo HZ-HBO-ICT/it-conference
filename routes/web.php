@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContentModeratorController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TeamRequestsController;
@@ -39,6 +40,22 @@ Route::post('/register/team-invitations/{invitation}', [InvitationController::cl
 Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'moderator'
+])->group(function () {
+    Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
+        ->name('moderator.requests');
+
+    Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
+        ->name('moderator.request.details');
+
+    Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
+        ->name('moderator.request.approve');
+});
 
 Route::resource('/speakers', SpeakerController::class);
 

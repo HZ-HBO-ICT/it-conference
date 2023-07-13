@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,5 +19,13 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SponsorTierSeeder::class
         ]);
+
+        $user = User::create([
+            'name' => 'Content moderator',
+            'email' => 'mod@hz.nl',
+            'password' => Hash::make('123')
+        ]);
+
+        $user->assignRole('content moderator');
     }
 }

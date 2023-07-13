@@ -15,5 +15,6 @@ class RoleSeeder extends Seeder
     {
         Role::create(['name' => 'participant']);
         Role::create(['name' => 'company representative']);
+        Role::create(['name' => 'content moderator']);
     }
 }
