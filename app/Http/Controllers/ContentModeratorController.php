@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\Mail\BoothApproved;
 use App\Mail\BoothDisapproved;
 use App\Mail\CustomTeamInvitation;
+use App\Mail\PresentationApproved;
+use App\Mail\PresentationDisapproved;
 use App\Mail\SponsorshipApproved;
 use App\Mail\SponsorshipDisapproved;
 use App\Mail\TeamApproved;
 use App\Mail\TeamDisapproved;
 use App\Models\Booth;
+use App\Models\Presentation;
+use App\Models\Speaker;
 use App\Models\Team;
 use App\Actions\Jetstream\DeleteTeam;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -37,6 +42,11 @@ class ContentModeratorController extends Controller
         } else if ($type == 'sponsorships') {
             $teams = Team::where('is_sponsor_approved', false)->whereNotNull('sponsor_tier_id')->get();
             return view('moderator.requests.sponsorships', compact('type', 'teams'));
+        } else if ($type == 'presentations') {
+            $presentations = Presentation::whereHas('speakers', function ($query) {
+                $query->where('is_approved', false);
+            })->get();
+            return view('moderator.requests.presentations', compact('type', 'presentations'));
         }
 
         abort(404);
@@ -59,6 +69,9 @@ class ContentModeratorController extends Controller
         } else if ($type == 'sponsorships') {
             $team = Team::find($id);
             return view('moderator.details.sponsorship', compact('team'));
+        } else if ($type == 'presentations') {
+            $presentation = Presentation::find($id);
+            return view('moderator.details.presentation', compact('presentation'));
         }
 
         abort(404);
@@ -79,6 +92,8 @@ class ContentModeratorController extends Controller
             return $this->changeApprovalStatusOfBooth(Booth::find($id), $isApproved);
         } else if ($type == 'sponsorships') {
             return $this->changeApprovalStatusOfSponsorship(Team::find($id), $isApproved);
+        } else if ($type == 'presentations') {
+            return $this->changeApprovalStatusOfPresentation(Presentation::find($id), $isApproved);
         }
 
         abort(404);
@@ -169,5 +184,28 @@ class ContentModeratorController extends Controller
         }
 
         return redirect(route('moderator.requests', 'sponsorships'))->banner($message);
+    }
+
+    public function changeApprovalStatusOfPresentation(Presentation $presentation, bool $isApproved): RedirectResponse
+    {
+        $message = '';
+        if ($isApproved) {
+            $user = User::find($presentation->mainSpeaker()->user->id);
+            $user->speaker->is_approved = 1;
+            $user->speaker->save();
+
+            Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationApproved());
+
+            $message = __('You approved :name to host a presentation during the IT Conference!', ['name' => $presentation->mainSpeaker()->user->name]);
+
+        } else {
+            $message = __('You refused the request of :name to host presentation during the IT conference', ['name' => $presentation->mainSpeaker()->user->name]);
+
+            Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationDisapproved());
+            $presentation->speakers()->delete();
+            $presentation->delete();
+        }
+
+        return redirect(route('moderator.requests', 'presentations'))->banner($message);
     }
 }
