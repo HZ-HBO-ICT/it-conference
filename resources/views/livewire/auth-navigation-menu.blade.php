@@ -44,12 +44,13 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures() && Auth::user()->currentTeam)
-                   <div class="pr-5">
-                       <x-nav-link
-                           href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                    <div class="pr-5">
+                        <x-nav-link
+                            href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                            :active="request()->routeIs('teams.show')">
                             {{ Auth::user()->currentTeam->name }}
-                       </x-nav-link>
-                   </div>
+                        </x-nav-link>
+                    </div>
                 @endif
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -86,6 +87,19 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                            @can('sendRequest', App\Models\Presentation::class)
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Do you want to host a presentation?') }}
+                                </div>
+
+                                <x-dropdown-link href="{{ route('speakers.request.presentation') }}">
+                                    {{ __('Request to become a speaker') }}
+                                </x-dropdown-link>
+                            @endcan
+
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -167,6 +181,12 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
+                @can('sendRequest', App\Models\Presentation::class)
+                    <x-responsive-nav-link href="{{ route('speakers.request.presentation') }}">
+                        {{ __('Request to become a speaker') }}
+                    </x-responsive-nav-link>
+                @endcan
+
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}"
                                            :active="request()->routeIs('api-tokens.index')">
@@ -192,7 +212,7 @@
                         {{ __('Company') }}
                     </div>
 
-                    <!-- Team Settings -->
+                <!-- Team Settings -->
                     <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
                                            :active="request()->routeIs('teams.show')">
                         {{ Auth::user()->currentTeam->name }}
