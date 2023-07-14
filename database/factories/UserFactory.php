@@ -64,6 +64,10 @@ class UserFactory extends Factory
                     'name' => $user->name.'\'s Team',
                     'user_id' => $user->id,
                     'personal_team' => true,
+                    'name' => 'Test Team',
+                    'address' => '123 Main St',
+                    'website' => 'https://example.com',
+                    'description' => 'Lorem ipsum dolar sit amet'
                 ])
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
