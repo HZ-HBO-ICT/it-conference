@@ -20,9 +20,9 @@
                     <div
                         class="mt-12 z-20 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
                         <figure>
-                            <img class="h-72 w-full rounded" alt="speaker" src="{{ $speaker->picture }}">
+                            <img class="h-72 w-full rounded" alt="speaker" src="{{ $speaker->user->picture }}">
                             <figcaption class="p-4">
-                                <p class="text-gray-800 dark:text-gray-200">{{ $speaker->name }}</p>
+                                <p class="text-gray-800 dark:text-gray-200">{{ $speaker->user->name }}</p>
                             </figcaption>
                         </figure>
                     </div>
