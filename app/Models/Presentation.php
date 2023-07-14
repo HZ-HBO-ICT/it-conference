@@ -59,4 +59,9 @@ class Presentation extends Model
     {
         return $this->hasMany(Speaker::class);
     }
+
+    public function mainSpeaker()
+    {
+        return $this->speakers()->where('is_main_speaker', 1)->first();
+    }
 }
