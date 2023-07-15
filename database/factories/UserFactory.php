@@ -26,8 +26,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Ihor Novikov',
-            'email' => 'novi0003@hz.nl',
+            'name' => 'Test Account',
+            'email' => 'testacc@hz.nl',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'), // password
             'two_factor_secret' => null,
