@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 {{--sidebar for smartphones--}}
-                <div class="w-[4rem] left-0 rounded-lg md:hidden lg:hidden">
+                <div class="z-30 w-[4rem] left-0 rounded-lg md:hidden lg:hidden">
                     <div class="bg-white dark:bg-gray-800 h-fit overflow-hidden rounded-lg shadow-xl fixed">
                         <div class="px-3 py-4 bg-gray-50 dark:bg-gray-800">
                             <ul class="space-y-2">
