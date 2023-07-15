@@ -29,22 +29,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard/announcements', function () {
-        return view('myhub.announcement');
-    })->name('announcements');
+    //route for announcements
+    Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
 
-    Route::get('/dashboard/profile', function () {
-        return view('myhub.profile');
-    })->name('my-profile');
+    //route for my profile in personal hun
+    Route::get('/dashboard/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
-    Route::get('/dashboard/programme', function () {
-        $user = User::where('name', Auth::user()->name)->first();
-        $presentations = $user->presentations->sortBy('timeslot.start');
+    //route for personal programme
+    Route::get('/dashboard/programme', [HubController::class, 'getProgramme'])->name('my-programme');
 
-        //dd($presentations);
-
-        return view('myhub.programme', compact('presentations'));
-    })->name('my-programme');
+    //route for disenrolling from a presentation
+    Route::get('/dashboard/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
