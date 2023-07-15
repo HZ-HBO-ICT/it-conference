@@ -83,7 +83,7 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-dropdown-link href="{{ route('announcements', Auth::user()->name) }}">
+                            <x-dropdown-link href="{{ route('announcements') }}">
                                 {{ __('My hub') }}
                             </x-dropdown-link>
 
