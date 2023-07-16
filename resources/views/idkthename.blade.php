@@ -261,7 +261,7 @@
                 dropdown.classList.toggle("hidden");
             });
 
-            
+
 // dynamically update requests
 const companyRequests = parseInt(document.getElementById('companies').textContent);
 const speakerRequests = parseInt(document.getElementById('speakers').textContent);
