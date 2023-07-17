@@ -42,7 +42,7 @@
                              autocomplete="new-password"/>
 
                     <div id="password-rules" class="hidden text-sm text-gray-700 dark:text-gray-300 mt-2 pl-2">
-                        <p>password should be of the following format:</p>
+                        <p>Password should be of the following format:</p>
                         <ul class="pl-5 pt-0.5">
                             <li>
                                 <p id="length-false" class="before:content-['✗_'] text-red-500">length is at least 8 characters</p>
