@@ -26,7 +26,7 @@ class HubController extends Controller
      * get personal programme for the user
      */
     public function getProgramme() {
-        $user = User::where('name', Auth::user()->name)->first();
+        $user = Auth::user();
         $presentations = $user->presentations->sortBy('timeslot.start');
 
         return view('myhub.programme', compact('presentations'));
@@ -37,7 +37,7 @@ class HubController extends Controller
      * @param $presentationId id for presentation to detach from participants table
      */
     public function detachParticipation($presentationId) {
-        $user = User::where('name', Auth::user()->name)->first();
+        $user = Auth::user();
 
         //delete the record from participants table
         $user->presentations()->detach($presentationId);
