@@ -19,7 +19,7 @@ class UpdatePasswordTest extends TestCase
 
         Livewire::test(UpdatePasswordForm::class)
             ->set('state', [
-                'current_password' => 'VeryStrongPassword123098',
+                'current_password' => 'password',
                 'password' => 'new-VeryStrongPassword123098',
                 'password_confirmation' => 'new-VeryStrongPassword123098',
             ])
