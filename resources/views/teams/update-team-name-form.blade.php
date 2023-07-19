@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <!-- Team Name -->
+        <!-- Team Name input -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Team Name') }}" class="after:content-['*'] after:text-red-500" />
 
@@ -35,6 +35,7 @@
             <x-input-error for="name" class="mt-2" />
         </div>
 
+        <!-- Team Description input -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="description" value="{{ __('Team Description') }}" class="after:content-['*'] after:text-red-500" />
 
@@ -47,6 +48,7 @@
             <x-input-error for="description" class="mt-2" />
         </div>
 
+        <!-- Team Website input -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="website" value="{{ __('Team Website') }}" class="after:content-['*'] after:text-red-500" />
 
@@ -59,6 +61,7 @@
             <x-input-error for="website" class="mt-2" />
         </div>
 
+        <!-- Team Address input -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="address" value="{{ __('Team Address') }}" class="after:content-['*'] after:text-red-500" />
 
