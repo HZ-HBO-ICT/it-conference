@@ -1,10 +1,10 @@
 <x-form-section submit="updateTeamName">
     <x-slot name="title">
-        {{ __('Team Name') }}
+        {{ __('Team Details') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('The team\'s name and owner information.') }}
+        {{ __('The team\'s details and owner information.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -24,7 +24,7 @@
 
         <!-- Team Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Team Name') }}" />
+            <x-label for="name" value="{{ __('Team Name') }}" class="after:content-['*'] after:text-red-500" />
 
             <x-input id="name"
                         type="text"
@@ -33,6 +33,42 @@
                         :disabled="! Gate::check('update', $team)" />
 
             <x-input-error for="name" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="description" value="{{ __('Team Description') }}" class="after:content-['*'] after:text-red-500" />
+
+            <x-input id="description"
+                     type="text"
+                     class="mt-1 block w-full"
+                     wire:model.defer="state.description"
+                     :disabled="! Gate::check('update', $team)" />
+
+            <x-input-error for="description" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="website" value="{{ __('Team Website') }}" class="after:content-['*'] after:text-red-500" />
+
+            <x-input id="website"
+                     type="text"
+                     class="mt-1 block w-full"
+                     wire:model.defer="state.website"
+                     :disabled="! Gate::check('update', $team)" />
+
+            <x-input-error for="website" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="address" value="{{ __('Team Address') }}" class="after:content-['*'] after:text-red-500" />
+
+            <x-input id="address"
+                     type="text"
+                     class="mt-1 block w-full"
+                     wire:model.defer="state.address"
+                     :disabled="! Gate::check('update', $team)" />
+
+            <x-input-error for="address" class="mt-2" />
         </div>
     </x-slot>
 
