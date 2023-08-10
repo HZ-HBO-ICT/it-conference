@@ -1,49 +1,49 @@
 <div class="slideshow-container h-full" style="overflow: clip">
-    <div class="slide relative">
-        <div class="arrows absolute flex justify-between w-full mt-60">
+    <div class="slide relative h-full">
+        <div class="arrows absolute flex justify-between w-full mt-60 hidden md:block">
             <a class="prev" onclick="prevSlide()">&#10094;</a>
             <a class="next" onclick="nextSlide()">&#10095;</a>
         </div>
-        <img class="object-scale-down" src="/img/speakers-min.jpg" alt="Speakers">
+        <img class="h-full object-cover lg:h-fit lg:object-scale-down" src="/img/speakers-min.jpg" alt="Speakers">
         <div class="gradient absolute inset-0 bg-blue-500 opacity-80"></div>
         <div class="absolute inset-0 flex flex-col items-center mt-48" style="z-index: 3">
             <div>
                 <h2 class="title text-4xl font-bold text-white">Speakers</h2>
             </div>
             <div>
-                <h2 class="title text-xl text-white text-center py-2">During the conference you will have the chance to meet and speak to our speakers. <br> You can learn more about them <a href="#" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
+                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you will have the chance to meet and speak to our speakers. <br> You can learn more about them <a href="#" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
             </div>
         </div>
     </div>
-    <div class="slide relative" style="display: none">
+    <div class="slide relative h-full" style="display: none">
         <div class="arrows absolute flex justify-between w-full mt-60">
             <a class="prev" onclick="prevSlide()">&#10094;</a>
             <a class="next" onclick="nextSlide()">&#10095;</a>
         </div>
-        <img class="object-scale-down" src="/img/companies-min.jpg" alt="Companies">
+        <img class="h-full object-cover lg:h-fit lg:object-scale-down" src="/img/companies-min.jpg" alt="Companies">
         <div class="gradient absolute inset-0 bg-blue-500 opacity-80"></div>
         <div class="absolute inset-0 flex flex-col items-center mt-48" style="z-index: 3">
             <div>
                 <h2 class="title text-4xl font-bold text-white">Companies</h2>
             </div>
             <div>
-                <h2 class="title text-xl text-white text-center py-2">During the conference you will have the chance to meet different companies. <br> You can learn more about them <a href="#" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
+                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you will have the chance to meet different companies. <br> You can learn more about them <a href="#" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
             </div>
         </div>
     </div>
-    <div class="slide relative" style="display: none">
+    <div class="slide relative h-full" style="display: none">
         <div class="arrows absolute flex justify-between w-full mt-60">
             <a class="prev" onclick="prevSlide()">&#10094;</a>
             <a class="next" onclick="nextSlide()">&#10095;</a>
         </div>
-        <img class="object-scale-down" src="/img/lectures-min.jpg" alt="Lectures and workshops">
+        <img class="h-full object-cover lg:h-fit lg:object-scale-down" src="/img/lectures-min.jpg" alt="Lectures and workshops">
         <div class="gradient absolute inset-0 bg-blue-500 opacity-80"></div>
         <div class="absolute inset-0 flex flex-col items-center mt-48" style="z-index: 3">
             <div>
                 <h2 class="title text-4xl font-bold text-white">Lectures & Workshops</h2>
             </div>
             <div>
-                <h2 class="title text-xl text-white text-center py-2">During the conference you can visit a lot of different workshops and lectures. <br> You can learn more about them <a href="#" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
+                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you can visit a lot of different workshops and lectures. <br> You can learn more about them <a href="#" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
             </div>
         </div>
     </div>

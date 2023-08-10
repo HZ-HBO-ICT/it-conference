@@ -51,6 +51,12 @@
                         {{ __('Register') }}
                     </x-nav-link>
                 </div>
+                <div class="pl-4">
+                    <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(107 114 128)"
+                         class="bi bi-circle-half" viewBox="0 0 16 16" style="cursor: pointer;">
+                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- Hamburger -->
@@ -93,6 +99,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                 {{ __('Register') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link onclick="changeTheme()">
+                Change theme
             </x-responsive-nav-link>
         </div>
     </div>
