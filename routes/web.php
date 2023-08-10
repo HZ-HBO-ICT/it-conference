@@ -30,6 +30,14 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/content-dashboard', function () {
+        return view('idkthename');
+    })->name('content');
+
     //route for announcements
     Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
 
@@ -41,6 +49,7 @@ Route::middleware([
 
     //route for disenrolling from a presentation
     Route::get('/dashboard/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
