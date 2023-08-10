@@ -1,8 +1,12 @@
 <?php
-
-use App\Http\Controllers\ContentModeratorController;
+use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
+use App\Models\Presentation;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ContentModeratorController;
 use App\Http\Controllers\TeamRequestsController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +30,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    //route for announcements
+    Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
+
+    //route for my profile in personal hun
+    Route::get('/dashboard/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
+
+    //route for personal programme
+    Route::get('/dashboard/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+
+    //route for disenrolling from a presentation
+    Route::get('/dashboard/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])

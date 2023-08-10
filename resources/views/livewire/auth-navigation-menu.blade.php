@@ -124,6 +124,10 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            <x-dropdown-link href="{{ route('announcements') }}">
+                                {{ __('My hub') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -240,11 +244,17 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
+
+                <x-dropdown-link href="{{ route('announcements', Auth::user()->name) }}">
+                    {{ __('My hub') }}
+                </x-dropdown-link>
+
                 @can('sendRequest', App\Models\Presentation::class)
                     <x-responsive-nav-link href="{{ route('speakers.request.presentation') }}">
                         {{ __('Request to become a speaker') }}
                     </x-responsive-nav-link>
                 @endcan
+
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}"
