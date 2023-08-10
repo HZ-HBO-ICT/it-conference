@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
@@ -7,6 +6,10 @@ use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ContentModeratorController;
+use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\TeamRequestsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,5 +55,28 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::resource('/speakers', SpeakerController::class);
+Route::get('/speakers', [SpeakerController::class, 'index'])
+    ->name('speakers.index');
 
+Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
+    ->name('speakers.request.presentation');
+Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
+    ->name('speakers.request.process');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'moderator'
+])->group(function () {
+    Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
+        ->name('moderator.requests');
+
+    Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
+        ->name('moderator.request.details');
+
+    Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
+        ->name('moderator.request.approve');
+});
+
+Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
