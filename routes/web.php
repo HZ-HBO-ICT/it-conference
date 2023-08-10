@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ContentModeratorController;
-use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TeamRequestsController;
 use Illuminate\Support\Facades\Route;
