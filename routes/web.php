@@ -1,6 +1,13 @@
 <?php
-
+use App\Http\Controllers\HubController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SpeakerController;
+use App\Models\Presentation;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ContentModeratorController;
+use App\Http\Controllers\TeamRequestsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,11 +38,52 @@ Route::middleware([
         return view('idkthename');
     })->name('content');
 
+    //route for announcements
+    Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
+
+    //route for my profile in personal hun
+    Route::get('/dashboard/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
+
+    //route for personal programme
+    Route::get('/dashboard/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+
+    //route for disenrolling from a presentation
+    Route::get('/dashboard/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+
 });
+
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
 
 Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::resource('/speakers', SpeakerController::class);
+Route::get('/speakers', [SpeakerController::class, 'index'])
+    ->name('speakers.index');
 
+Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
+    ->name('speakers.request.presentation');
+Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
+    ->name('speakers.request.process');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'moderator'
+])->group(function () {
+    Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
+        ->name('moderator.requests');
+
+    Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
+        ->name('moderator.request.details');
+
+    Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
+        ->name('moderator.request.approve');
+});
+
+Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');

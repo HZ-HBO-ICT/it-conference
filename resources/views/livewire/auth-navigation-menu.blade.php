@@ -1,25 +1,26 @@
 <nav x-data="{ open: false }"
-     class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 relative z-10">
+     class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 relative z-10">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <!-- Leaving it just in case we get logo -->
+                {{--<div class="shrink-0 flex items-center">
                     <x-home-link href="{{ route('welcome') }}" class="text-center"
                                  :active="request()->routeIs('welcome')">
                         {{ __('We are in IT together') }}<br>{{ __('conference') }}
                     </x-home-link>
-                </div>
+                </div>--}}
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('speakers.index') }}" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                         {{ __('Speakers') }}
                     </x-nav-link>
                 </div>
@@ -29,7 +30,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
                     </x-nav-link>
                 </div>
@@ -42,7 +43,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures() && Auth::user()->currentTeam)
                     <div class="ml-3 relative">
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -59,43 +60,38 @@
                                     </button>
                                 </span>
                             </x-slot>
-
-                            <x-slot name="content">
-                                <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
-                                    </div>
-
-                                    <!-- Team Settings -->
-                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
-                                    </x-dropdown-link>
-
-                                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
-                                        </x-dropdown-link>
-                                    @endcan
-
-                                    <!-- Team Switcher -->
-                                    @if (Auth::user()->allTeams()->count() > 1)
-                                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
+                            @if (Auth::user()->ownsTeam(Auth::user()->currentTeam))
+                                <x-slot name="content">
+                                    <div class="w-60">
+                                        <!-- Team Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Switch Teams') }}
+                                            Company details
                                         </div>
-
-                                        @foreach (Auth::user()->allTeams() as $team)
-                                            <x-switchable-team :team="$team"/>
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </x-slot>
+                                        <!-- Team Settings -->
+                                        <x-dropdown-link
+                                            href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                            {{ __('Team Management') }}
+                                        </x-dropdown-link>
+                                        <!-- Requests -->
+                                        <x-dropdown-link
+                                            href="{{ route('teams.requests', Auth::user()->currentTeam->id) }}">
+                                            {{ __('Requests') }}
+                                        </x-dropdown-link>
+                                    </div>
+                                </x-slot>
+                            @else
+                                <x-slot name="content">
+                                    <div class="w-60">
+                                        <!-- Team Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            Company details
+                                        </div>
+                                    </div>
+                                </x-slot>
+                            @endif
                         </x-dropdown>
                     </div>
                 @endif
-
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-dropdown align="right" width="48">
@@ -128,9 +124,45 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            <x-dropdown-link href="{{ route('announcements') }}">
+                                {{ __('My hub') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+                            @role('content moderator')
+                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Manage requests') }}
+                                </div>
+
+                                <x-dropdown-link href="{{ route('moderator.requests', 'teams') }}">
+                                    {{ __('Company requests') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('moderator.requests', 'booths') }}">
+                                    {{ __('Booth requests') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('moderator.requests', 'sponsorships') }}">
+                                    {{ __('Sponsorship requests') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('moderator.requests', 'presentations') }}">
+                                    {{ __('Presentation requests') }}
+                                </x-dropdown-link>
+                            @endrole
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                            @can('sendRequest', App\Models\Presentation::class)
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('Do you want to host a presentation?') }}
+                                </div>
+
+                                <x-dropdown-link href="{{ route('speakers.request.presentation') }}">
+                                    {{ __('Request to become a speaker') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -173,16 +205,16 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link {{--:active="request()->routeIs('dashboard')"--}}>
                 {{ __('Companies') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
@@ -212,6 +244,18 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
+
+                <x-dropdown-link href="{{ route('announcements', Auth::user()->name) }}">
+                    {{ __('My hub') }}
+                </x-dropdown-link>
+
+                @can('sendRequest', App\Models\Presentation::class)
+                    <x-responsive-nav-link href="{{ route('speakers.request.presentation') }}">
+                        {{ __('Request to become a speaker') }}
+                    </x-responsive-nav-link>
+                @endcan
+
+
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}"
                                            :active="request()->routeIs('api-tokens.index')">
@@ -230,38 +274,18 @@
                 </form>
 
                 <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures() && Auth::user()->currentTeam)
                     <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
+                        {{ __('Company') }}
                     </div>
 
                 <!-- Team Settings -->
                     <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
                                            :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
+                        {{ Auth::user()->currentTeam->name }}
                     </x-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}"
-                                               :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-responsive-nav-link>
-                    @endcan
-
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
-
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
-                        </div>
-
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link"/>
-                        @endforeach
-                    @endif
                 @endif
             </div>
         </div>
