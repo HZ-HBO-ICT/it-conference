@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,8 +61,27 @@ class Presentation extends Model
         return $this->hasMany(Speaker::class);
     }
 
+    // TODO: Refactor with accessor to return the actual user
     public function mainSpeaker()
     {
         return $this->speakers()->where('is_main_speaker', 1)->first();
+    }
+
+    /**
+     * Checks if the main speaker is approved, therefore if the presentation is approved
+     * @return Attribute
+     */
+    public function isApproved(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->mainSpeaker()->is_approved,
+        );
+    }
+
+    public function isScheduled(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => !is_null($this->timeslot) && !is_null($this->room),
+        );
     }
 }

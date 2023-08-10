@@ -18,8 +18,9 @@ class SpeakerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'picture' => $this->faker->imageUrl(60, 90)
+            'user_id' => 10,
+            'is_main_speaker' => 1,
+            'is_approved' => 1
         ];
     }
 }
