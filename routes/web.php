@@ -99,6 +99,13 @@ Route::middleware([
     Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
         ->name('moderator.schedule.timeslots.store');
 
+    Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
+        ->name('moderator.presentations-for-scheduling');
+    Route::get('/schedule/{presentation}', [ScheduleController::class, 'schedulePresentation'])
+        ->name('moderator.schedule.presentation');
+    Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
+        ->name('moderator.schedule.presentation.store');
+
     Route::resource('/rooms', RoomController::class);
 });
 

@@ -44,7 +44,7 @@ class ScheduleController extends Controller
 
         $numberOfAvailableRooms = Room::all()->count();
 
-        return view('moderator.schedule.schedule',
+        return view('moderator.schedule.index',
             compact('lectures',
                 'lectureTimeslots',
                 'workshops',
@@ -82,6 +82,34 @@ class ScheduleController extends Controller
         }
 
         return redirect(route('moderator.schedule.overview'))->banner($message);
+    }
+
+    public function presentationsForScheduling()
+    {
+        $presentations = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        });
+
+        return view('moderator.schedule.presentations-for-scheduling', compact('presentations'));
+    }
+
+    public function schedulePresentation(Presentation $presentation)
+    {
+        return view('moderator.schedule.presentation-schedule', compact('presentation'));
+    }
+
+    public function storeSchedulePresentation(Request $request, Presentation $presentation)
+    {
+        $data = $request->validate([
+            'room_id' => 'required|exists:rooms,id',
+            'timeslot_id' => 'required|exists:timeslots,id',
+        ]);
+
+        $presentation->room_id = $data['room_id'];
+        $presentation->timeslot_id = $data['timeslot_id'];
+        $presentation->save();
+
+        return redirect(route('moderator.schedule.overview'))->banner('The presentation was successfully scheduled!');
     }
 
     private function schedulePresentations(): int
@@ -122,7 +150,7 @@ class ScheduleController extends Controller
      * @param $timeslot
      * @return bool
      */
-    private function checkIfTimeslotAndRoomAreAvailable($room, $timeslot): bool
+    public function checkIfTimeslotAndRoomAreAvailable($room, $timeslot): bool
     {
         // Checks the unique combination
         $isRoomAvailable = Presentation::whereHas('room', function ($query) use ($room) {
@@ -134,9 +162,29 @@ class ScheduleController extends Controller
         // Checks if the presentations already assigned to this room have ended
         if ($isRoomAvailable) {
             foreach ($room->presentations as $presentation) {
-                if (Carbon::parse($presentation->timeslot->start)
-                        ->addMinutes($presentation->timeslot->duration) > Carbon::parse($timeslot->start))
-                    return false;
+                $presentationStart = Carbon::parse($presentation->timeslot->start);
+                $presentationEnd = Carbon::parse($presentation->timeslot->start)
+                    ->copy()
+                    ->addMinutes($presentation->timeslot->duration);
+
+                $timeslotStart = Carbon::parse($timeslot->start);
+                $timeslotEnd = Carbon::parse($timeslot->start)
+                    ->addMinutes($timeslot->duration);
+
+                if ($presentationEnd <= $timeslotStart) {
+                    continue;
+                }
+
+                if ($presentationStart >= $timeslotEnd) {
+                    continue;
+                }
+
+                return false;
+            }
+
+            if($room->presentations->count() == 0)
+            {
+                return true;
             }
         }
 

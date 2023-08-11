@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Http;
 
@@ -17,8 +18,10 @@ class SpeakerFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory()->create();
+
         return [
-            'user_id' => 10,
+            'user_id' => $user->id,
             'is_main_speaker' => 1,
             'is_approved' => 1
         ];
