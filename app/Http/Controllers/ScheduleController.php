@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Ramsey\Uuid\Type\Time;
 
 class ScheduleController extends Controller
 {
@@ -20,8 +21,8 @@ class ScheduleController extends Controller
         }])->where('type', 'lecture')
             ->get()
             ->filter(function ($presentation) {
-            return $presentation->isApproved;
-        });
+                return $presentation->isApproved;
+            });
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
 
         $workshops = Presentation::with(['timeslot' => function ($query) {
@@ -41,29 +42,52 @@ class ScheduleController extends Controller
             return !$presentation->isScheduled && $presentation->isApproved;
         })->count();
 
+        $numberOfAvailableRooms = Room::all()->count();
+
         return view('moderator.schedule.schedule',
             compact('lectures',
                 'lectureTimeslots',
                 'workshops',
                 'workshopTimeslots',
                 'numberOfPresentationRequest',
-                'numberOfUnscheduledPresentations'));
+                'numberOfUnscheduledPresentations',
+                'numberOfAvailableRooms'));
     }
 
-    public function generateSchedule(): RedirectResponse
+    public function generate(): RedirectResponse
     {
-        $this->schedulePresentations();
+        if (Timeslot::all()->count() == 0) {
+            return redirect(route('moderator.schedule.timeslots.create'));
+        }
 
-        return redirect(route('moderator.schedule.overview'));
+        $presentationsScheduled = $this->schedulePresentations();
+        $unscheduled = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        })->count();
+
+        $message = '';
+
+        if ($presentationsScheduled > 0) {
+            $message = 'The autofill scheduled successfully ' . $presentationsScheduled . ' presentations.';
+
+            if ($unscheduled > 0) {
+                $message = $message . 'There are ' . $unscheduled . ' more presentations not scheduled due to lack of rooms or timeslots. Add new rooms or assign manually the presentations.';
+            }
+        } else {
+            if ($unscheduled) {
+                $message = 'There are ' . $unscheduled . ' presentations not scheduled due to lack of rooms or timeslots. Add new rooms or schedule manually the presentations.';
+            } else {
+                $message = 'There are no presentations to be scheduled';
+            }
+        }
+
+        return redirect(route('moderator.schedule.overview'))->banner($message);
     }
 
-    public function scheduleDraft(): View
+    private function schedulePresentations(): int
     {
+        $presentationsScheduled = 0;
 
-    }
-
-    private function schedulePresentations()
-    {
         $presentations = Presentation::whereDoesntHave('room')
             ->whereDoesntHave('timeslot')
             ->get();
@@ -82,8 +106,12 @@ class ScheduleController extends Controller
                 $presentation->room_id = $availableCombination[0]->id;
                 $presentation->timeslot_id = $availableCombination[1]->id;
                 $presentation->save();
+
+                $presentationsScheduled += 1;
             }
         }
+
+        return $presentationsScheduled;
     }
 
     /**

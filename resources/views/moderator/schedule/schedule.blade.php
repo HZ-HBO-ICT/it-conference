@@ -11,7 +11,7 @@
 
     <div class="pb-12">
         <div class="max-w-7xl mx-auto py-5 mt-12 sm:px-6 lg:px-8 dark:bg-gray-800 bg-gray-200 rounded">
-            <div class="grid grid-cols-6 gap-4 pb-12">
+            <div class="grid grid-cols-7 gap-4 pb-12">
                 <div style="grid-column: span 3;">
                     <h2 class="text-2xl text-gray-800 dark:text-gray-200 leading-tight">
                         Current version of schedule
@@ -19,19 +19,25 @@
                 </div>
                 <div>
                     <a href="{{route('moderator.requests', 'presentations')}}"
-                       class="bg-blue-500 text-sm text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                        {{$numberOfPresentationRequest}}<br>Presentations<br>waiting for approval
+                       class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                        {{$numberOfPresentationRequest}}<br>Presentations<br>waiting to be approved
                     </a>
                 </div>
                 <div>
                     <a href=""
-                       class="bg-green-500 text-sm text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                        {{$numberOfUnscheduledPresentations}}<br>Presentations<br>waiting for schedule
+                       class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                        {{$numberOfUnscheduledPresentations}}<br>Presentations<br>waiting to be scheduled
+                    </a>
+                </div>
+                <div>
+                    <a href="{{route('rooms.index')}}"
+                       class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full">
+                        <span class="flex items-center h-full justify-center">{{$numberOfAvailableRooms}}<br>Rooms available for the conference</span>
                     </a>
                 </div>
                 <div>
                     <a href="{{route('moderator.schedule.draft')}}"
-                       class="h-full bg-red-500 text-sm text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                       class="h-full bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
                         <span class="flex items-center h-full justify-center">Automatically fill</span>
                     </a>
                 </div>

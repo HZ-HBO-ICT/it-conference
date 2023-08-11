@@ -6,6 +6,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\TeamRequestsController;
+use App\Http\Controllers\TimeslotController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,8 +70,13 @@ Route::middleware([
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
         ->name('moderator.schedule.overview');
 
-    Route::get('/schedule/draft', [ScheduleController::class, 'generateSchedule'])
+    Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('moderator.schedule.draft');
+
+    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
+        ->name('moderator.schedule.timeslots.create');
+    Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
+        ->name('moderator.schedule.timeslots.store');
 
     Route::resource('/rooms', RoomController::class);
 });

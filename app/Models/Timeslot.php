@@ -21,16 +21,4 @@ class Timeslot extends Model
     {
         return $this->hasMany(Presentation::class);
     }
-
-    /**
-     * Generates timeslots for the presentations
-     * @param $startingTime
-     * @param $endingTime
-     * @return void
-     */
-    public static function generate($startingTime, $endingTime)
-    {
-        (new TimeslotController())->generateTimeslots($startingTime, '12:30');
-        (new TimeslotController())->generateTimeslots('13:00', $endingTime);
-    }
 }
