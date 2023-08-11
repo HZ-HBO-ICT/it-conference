@@ -21,6 +21,6 @@ class ContentModeratorMiddleware
             return $next($request);
         }
 
-        abort(401);
+        abort(403);
     }
 }

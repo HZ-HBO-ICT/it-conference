@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpeakerController;
 use App\Models\Presentation;
 use App\Models\User;
@@ -84,6 +85,8 @@ Route::middleware([
 
     Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
         ->name('moderator.request.approve');
+
+    Route::resource('/rooms', RoomController::class);
 });
 
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');

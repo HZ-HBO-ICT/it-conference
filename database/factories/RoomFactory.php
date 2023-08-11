@@ -3,9 +3,10 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Http;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Speaker>
  */
 class RoomFactory extends Factory
 {
@@ -17,8 +18,8 @@ class RoomFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(['GW308', 'GW212', 'GW401', 'GW305', 'GW317', 'GW319', 'GW027']),
-            'max_participants' => $this->faker->numberBetween(20, 30)
+            'name' => $this->faker->name(),
+            'max_participants' => $this->faker->numberBetween(2, 30)
         ];
     }
 }
