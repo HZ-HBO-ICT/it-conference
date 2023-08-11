@@ -124,29 +124,33 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            <x-dropdown-link href="{{ route('announcements') }}">
+                                {{ __('My hub') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
                             @role('content moderator')
-                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage requests') }}
-                                </div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage requests') }}
+                            </div>
 
-                                <x-dropdown-link href="{{ route('moderator.requests', 'teams') }}">
-                                    {{ __('Company requests') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('moderator.requests', 'booths') }}">
-                                    {{ __('Booth requests') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('moderator.requests', 'sponsorships') }}">
-                                    {{ __('Sponsorship requests') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('moderator.requests', 'presentations') }}">
-                                    {{ __('Presentation requests') }}
-                                </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('moderator.requests', 'teams') }}">
+                                {{ __('Company requests') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('moderator.requests', 'booths') }}">
+                                {{ __('Booth requests') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('moderator.requests', 'sponsorships') }}">
+                                {{ __('Sponsorship requests') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('moderator.requests', 'presentations') }}">
+                                {{ __('Presentation requests') }}
+                            </x-dropdown-link>
                             @endrole
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
@@ -180,6 +184,13 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
+                <div class="pl-4">
+                    <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(107 114 128)"
+                         class="bi bi-circle-half" viewBox="0 0 16 16" style="cursor: pointer;">
+                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+                    </svg>
+                </div>
+
             </div>
 
             <!-- Hamburger -->
@@ -233,18 +244,26 @@
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
             </div>
-
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link onclick="changeTheme()">
+                    Change theme
+                </x-responsive-nav-link>
                 <!-- Account Management -->
                 <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+
+                <x-dropdown-link href="{{ route('announcements', Auth::user()->name) }}">
+                    {{ __('My hub') }}
+                </x-dropdown-link>
 
                 @can('sendRequest', App\Models\Presentation::class)
                     <x-responsive-nav-link href="{{ route('speakers.request.presentation') }}">
                         {{ __('Request to become a speaker') }}
                     </x-responsive-nav-link>
                 @endcan
+
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}"
