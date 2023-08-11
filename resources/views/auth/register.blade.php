@@ -24,26 +24,52 @@
 
 
                 <div class="mt-5">
-                    <x-label for="name" value="{{ __('Name') }}"/>
+                    <x-label for="name" value="{{ __('Name') }}" class="after:content-['*'] after:text-red-500"/>
                     <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
                              autofocus autocomplete="name"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="email" value="{{ __('Email') }}"/>
+                    <x-label for="email" value="{{ __('Email') }}" class="after:content-['*'] after:text-red-500"/>
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                              required
                              autocomplete="username"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}"/>
+                    <x-label for="password" value="{{ __('Password') }}" class="after:content-['*'] after:text-red-500"/>
                     <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
                              autocomplete="new-password"/>
+
+                    <div id="password-rules" class="hidden text-sm text-gray-700 dark:text-gray-300 mt-2 pl-2">
+                        <p>Password should be of the following format:</p>
+                        <ul class="pl-5 pt-0.5">
+                            <li>
+                                <p id="length-false" class="before:content-['✗_'] text-red-500">length is at least 8 characters</p>
+
+                                <p id="length-true" class="hidden before:content-['✓_'] text-green-500">length is at least 8 characters</p>
+                            </li>
+                            <li>
+                                <p id="number-false" class="before:content-['✗_'] text-red-500">contains at least one number</p>
+
+                                <p id="number-true" class=" hidden before:content-['✓_'] text-green-500">contains at least one number</p>
+                            </li>
+                            <li>
+                                <p id="lowercase-false" class="before:content-['✗_'] text-red-500">contains at least one lowercase letter</p>
+
+                                <p id="lowercase-true" class=" hidden before:content-['✓_'] text-green-500">contains at least one lowercase letter</p>
+                            </li>
+                            <li>
+                                <p id="uppercase-false" class="before:content-['✗_'] text-red-500">contains at least one uppercase letter</p>
+
+                                <p id="uppercase-true" class=" hidden before:content-['✓_'] text-green-500">contains at least one uppercase letter</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}"/>
+                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" class="after:content-['*'] after:text-red-500"/>
                     <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                              name="password_confirmation" required autocomplete="new-password"/>
                 </div>
@@ -51,14 +77,14 @@
                 <div id="company">
                     @if(old('company_name'))
                         <div class="mt-4">
-                            <x-label for="company_name" value="{{ __('Company Name') }}"/>
+                            <x-label for="company_name" value="{{ __('Company Name') }}" class="after:content-['*'] after:text-red-500"/>
                             <x-input id="company_name" class="block mt-1 w-full" type="text" name="company_name"
                                      :value="old('company_name')" required
                                      autofocus autocomplete="name"/>
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_description" value="{{ __('Company Description') }}"/>
+                            <x-label for="company_description" value="{{ __('Company Description') }}" class="after:content-['*'] after:text-red-500"/>
                             <textarea id="email"
                                       class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
                                       name="company_description" required
@@ -66,14 +92,14 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_website" value="{{ __('Company Website') }}"/>
+                            <x-label for="company_website" value="{{ __('Company Website') }}" class="after:content-['*'] after:text-red-500"/>
                             <x-input id="company_website" class="block mt-1 w-full" type="text" name="company_website"
                                      required
                                      autocomplete="company_website" :value="old('company_website')"/>
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_address" value="{{ __('Company Address') }}"/>
+                            <x-label for="company_address" value="{{ __('Company Address') }}" class="after:content-['*'] after:text-red-500"/>
                             <x-input id="company_address" class="block mt-1 w-full" type="text"
                                      name="company_address" required autocomplete="company_address"
                                      :value="old('company_address')"/>
@@ -117,6 +143,55 @@
     document.addEventListener("DOMContentLoaded", function() {
         const buttons = document.querySelectorAll('.flow');
         const companyDiv = document.getElementById('company');
+        const passwordRulesDiv = document.getElementById('password-rules');
+        const passwordInput = document.getElementById('password');
+
+        //show password rules when user clicks on password field
+        passwordInput.addEventListener('click', function () {
+            passwordRulesDiv.classList.remove('hidden');
+        });
+
+        //perform input checks
+        passwordInput.addEventListener('input', function () {
+            //in case user used 'Tab' to move between fields
+            passwordRulesDiv.classList.remove('hidden');
+
+            //check for length
+            if (passwordInput.value.length >= 8) {
+                document.getElementById('length-true').classList.remove('hidden');
+                document.getElementById('length-false').classList.add('hidden');
+            } else {
+                document.getElementById('length-false').classList.remove('hidden');
+                document.getElementById('length-true').classList.add('hidden');
+            }
+
+            //check for numbers
+            if (/\d/.test(passwordInput.value)) {
+                document.getElementById('number-true').classList.remove('hidden');
+                document.getElementById('number-false').classList.add('hidden');
+            } else {
+                document.getElementById('number-false').classList.remove('hidden');
+                document.getElementById('number-true').classList.add('hidden');
+            }
+
+            //check for lowercase letter
+            if (/[a-z]/.test(passwordInput.value)) {
+                document.getElementById('lowercase-true').classList.remove('hidden');
+                document.getElementById('lowercase-false').classList.add('hidden');
+            } else {
+                document.getElementById('lowercase-false').classList.remove('hidden');
+                document.getElementById('lowercase-true').classList.add('hidden');
+            }
+
+            //check for uppercase letter
+            if (/[A-Z]/.test(passwordInput.value)) {
+                document.getElementById('uppercase-true').classList.remove('hidden');
+                document.getElementById('uppercase-false').classList.add('hidden');
+            } else {
+                document.getElementById('uppercase-false').classList.remove('hidden');
+                document.getElementById('uppercase-true').classList.add('hidden');
+            }
+        });
 
         switchActiveFlow(buttons[0], buttons[1]);
         if (document.getElementById('company_name')) {
@@ -159,7 +234,7 @@
             div.className = 'mt-4';
 
             let label = document.createElement('label');
-            label.className = 'block font-medium text-sm text-gray-700 dark:text-gray-300';
+            label.className = "block font-medium text-sm text-gray-700 dark:text-gray-300 after:content-['_*'] after:text-red-500";
             label.setAttribute('for', fieldName);
             label.innerHTML = displayName;
 

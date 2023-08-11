@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('timeslots', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start');
+            $table->time('start');
             $table->unsignedInteger('duration')
                 ->comment('The duration of the presentation in minutes');
             $table->timestamps();
