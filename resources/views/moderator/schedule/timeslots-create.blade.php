@@ -2,7 +2,7 @@
     <div>
         <x-slot name="header">
             <h2 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
-                Create timeslots
+                Generate timeslots
             </h2>
         </x-slot>
 
