@@ -54,7 +54,7 @@
                         <tbody>
                         @foreach($lectureTimeslots as $timeslot)
                             <tr>
-                                <td class="text-left align-top">
+                                <td class="text-left text-gray-900 dark:text-white align-top">
                                     {{Carbon::parse($timeslot->start)->format('H:i')}}
                                     - {{(Carbon::parse($timeslot->start)->addMinutes(30))->format('H:i')}}
                                 </td>
@@ -83,7 +83,7 @@
                         <tbody>
                         @foreach($workshopTimeslots as $timeslot)
                             <tr>
-                                <td class="text-left align-top">
+                                <td class="text-left text-gray-900 dark:text-white align-top">
                                     {{Carbon::parse($timeslot->start)->format('H:i')}}
                                     - {{(Carbon::parse($timeslot->start)->addMinutes(90))->format('H:i')}}
                                 </td>

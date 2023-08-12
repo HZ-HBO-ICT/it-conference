@@ -10,13 +10,13 @@
             <form method="POST" action="{{route('moderator.schedule.timeslots.store')}}">
                 @csrf
                 <div class="max-w-7xl mx-auto py-5 mt-12 sm:px-6 lg:px-8 dark:bg-gray-800 bg-gray-200 rounded">
-                    <p class="text-lg text-white">
+                    <p class="text-md text-gray-900 dark:text-white">
                         In order to use the autofill option for the schedule, you need to provide information for the
-                        starting and ending time of the conference. Please note that by starting and ending time of the
+                        starting and ending time of the conference.<br>Please note that by starting and ending time of the
                         conference is meant the starting hour of the first presentation and the ending time of the last
                         presentation - not including openings/closings.
                     </p>
-                    <p class="text-md text-white underline pt-3">Note: There is going to be 10 minutes between the slots so that the
+                    <p class="text-md text-gray-900 dark:text-white underline pt-3">Note: There is going to be 10 minutes between the slots so that the
                                                   participants have time to switch rooms</p>
                     <div class="col-span-6 sm:col-span-4 pt-5">
                         <x-label for="starting" value="Starting time"/>
@@ -31,7 +31,7 @@
                         <x-input-error for="ending" class="mt-2"/>
                     </div>
                     <hr>
-                    <h3 class="text-lg text-white pt-5">Lunch break</h3>
+                    <h3 class="text-lg text-gray-900 dark:text-white pt-5">Lunch break</h3>
                     <div class="col-span-6 sm:col-span-4 pt-5">
                         <x-label for="breakStart" value="Starting time of lunch break (default is 12:30)"/>
                         <x-input id="breakStart" name="breakStart" type="time" value="{{old('breakStart')}}"
