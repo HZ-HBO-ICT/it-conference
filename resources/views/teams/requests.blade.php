@@ -10,9 +10,23 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @livewire('booth-request', ['team' => $team])
-            <x-section-border/>
-            @livewire('sponsorship-request', ['team' => $team, 'tiers' => $tiers])
+            @if($team->is_approved)
+                @livewire('booth-request', ['team' => $team])
+                <x-section-border/>
+                @livewire('sponsorship-request', ['team' => $team, 'tiers' => $tiers])
+            @else
+                <p class="text-md text-gray-900 dark:text-gray-200">
+                    You currently cannot request a booth or sponsorship since your company is waiting for approval.<br>
+                    You will be notified as soon as your company is approved, and you will be able to send requests.
+                </p>
+
+                <div class="pt-5">
+                    <a href="{{ url()->previous()}}"
+                       class="bg-purple-800 text-white py-2 px-4 rounded text-center transition-all duration-300 transform hover:scale-105">
+                        Go back
+                    </a>
+                </div>
+            @endif
         </div>
     </div>
 </x-app-layout>
