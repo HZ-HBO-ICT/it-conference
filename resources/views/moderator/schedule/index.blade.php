@@ -58,21 +58,23 @@
                         </thead>
                         <tbody>
                         @foreach($lectureTimeslots as $timeslot)
-                            <tr>
-                                <td class="text-left text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse($timeslot->start)->format('H:i')}}
-                                    - {{(Carbon::parse($timeslot->start)->addMinutes(30))->format('H:i')}}
-                                </td>
-                                <td class="pb-3">
-                                    @foreach($lectures as $lecture)
-                                        @if($lecture->timeslot == $timeslot)
-                                            <a href="{{route('moderator.schedule.presentation', $lecture)}}">
-                                                <x-schedule-block :presentation="$lecture"/>
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </td>
-                            </tr>
+                            @if($timeslot->presentations->count() > 0)
+                                <tr>
+                                    <td class="text-left text-gray-900 dark:text-white align-top">
+                                        {{Carbon::parse($timeslot->start)->format('H:i')}}
+                                        - {{(Carbon::parse($timeslot->start)->addMinutes(30))->format('H:i')}}
+                                    </td>
+                                    <td class="pb-3">
+                                        @foreach($timeslot->presentations as $lecture)
+                                            @if($lecture->timeslot_id == $timeslot->id)
+                                                <a href="{{route('moderator.schedule.presentation', $lecture)}}">
+                                                    <x-schedule-block :presentation="$lecture"/>
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
@@ -87,21 +89,23 @@
                         </thead>
                         <tbody>
                         @foreach($workshopTimeslots as $timeslot)
-                            <tr>
-                                <td class="text-left text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse($timeslot->start)->format('H:i')}}
-                                    - {{(Carbon::parse($timeslot->start)->addMinutes(90))->format('H:i')}}
-                                </td>
-                                <td class="pb-3">
-                                    @foreach($workshops as $workshop)
-                                        @if($workshop->timeslot == $timeslot)
-                                            <a href="{{route('moderator.schedule.presentation', $workshop)}}">
-                                                <x-schedule-block :presentation="$workshop"/>
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </td>
-                            </tr>
+                            @if($timeslot->presentations->count() > 0)
+                                <tr>
+                                    <td class="text-left text-gray-900 dark:text-white align-top">
+                                        {{Carbon::parse($timeslot->start)->format('H:i')}}
+                                        - {{(Carbon::parse($timeslot->start)->addMinutes(90))->format('H:i')}}
+                                    </td>
+                                    <td class="pb-3">
+                                        @foreach($timeslot->presentations as $workshop)
+                                            @if($workshop->timeslot_id == $timeslot->id)
+                                                <a href="{{route('moderator.schedule.presentation', $workshop)}}">
+                                                    <x-schedule-block :presentation="$workshop"/>
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

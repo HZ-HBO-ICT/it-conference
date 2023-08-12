@@ -16,22 +16,7 @@ class ScheduleController extends Controller
 {
     public function overview(): View
     {
-        $lectures = Presentation::with(['timeslot' => function ($query) {
-            $query->orderBy('start');
-        }])->where('type', 'lecture')
-            ->get()
-            ->filter(function ($presentation) {
-                return $presentation->isApproved;
-            });
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
-
-        $workshops = Presentation::with(['timeslot' => function ($query) {
-            $query->orderBy('start');
-        }])->where('type', 'workshop')
-            ->get()
-            ->filter(function ($presentation) {
-                return $presentation->isApproved;
-            });
         $workshopTimeslots = Timeslot::where('duration', 90)->get();
 
         $numberOfPresentationRequest = Presentation::all()->filter(function ($presentation) {
@@ -45,9 +30,8 @@ class ScheduleController extends Controller
         $numberOfAvailableRooms = Room::all()->count();
 
         return view('moderator.schedule.index',
-            compact('lectures',
+            compact(
                 'lectureTimeslots',
-                'workshops',
                 'workshopTimeslots',
                 'numberOfPresentationRequest',
                 'numberOfUnscheduledPresentations',
