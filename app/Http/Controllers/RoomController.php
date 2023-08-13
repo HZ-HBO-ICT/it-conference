@@ -81,6 +81,7 @@ class RoomController extends Controller
     {
         foreach ($room->presentations as $presentation) {
             $presentation->room_id = null;
+            $presentation->timeslot_id = null;
             $presentation->save();
         }
 
