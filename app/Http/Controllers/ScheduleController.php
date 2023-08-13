@@ -6,6 +6,8 @@ use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +16,11 @@ use Ramsey\Uuid\Type\Time;
 
 class ScheduleController extends Controller
 {
+    /**
+     * Display the overview for scheduling
+     *
+     * @return View
+     */
     public function overview(): View
     {
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
@@ -38,8 +45,14 @@ class ScheduleController extends Controller
                 'numberOfAvailableRooms'));
     }
 
+    /**
+     * Automatically generates a schedule
+     *
+     * @return RedirectResponse
+     */
     public function generate(): RedirectResponse
     {
+        // If there are no timeslots generated yet, generate timeslots first
         if (Timeslot::all()->count() == 0) {
             return redirect(route('moderator.schedule.timeslots.create'));
         }
@@ -68,7 +81,12 @@ class ScheduleController extends Controller
         return redirect(route('moderator.schedule.overview'))->banner($message);
     }
 
-    public function presentationsForScheduling()
+    /**
+     * Displays list of all presentations that need to be scheduled
+     *
+     * @return View
+     */
+    public function presentationsForScheduling(): View
     {
         $presentations = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isScheduled && $presentation->isApproved;
@@ -77,11 +95,24 @@ class ScheduleController extends Controller
         return view('moderator.schedule.presentations-for-scheduling', compact('presentations'));
     }
 
-    public function schedulePresentation(Presentation $presentation)
+    /**
+     * Displays a view in which you can schedule manually a presentation
+     *
+     * @param Presentation $presentation
+     * @return View
+     */
+    public function schedulePresentation(Presentation $presentation): View
     {
         return view('moderator.schedule.presentation-schedule', compact('presentation'));
     }
 
+    /**
+     * Stores the scheduling details of the given presentation
+     *
+     * @param Request $request
+     * @param Presentation $presentation
+     * @return mixed
+     */
     public function storeSchedulePresentation(Request $request, Presentation $presentation)
     {
         $data = $request->validate([
@@ -96,6 +127,12 @@ class ScheduleController extends Controller
         return redirect(route('moderator.schedule.overview'))->banner('The presentation was successfully scheduled!');
     }
 
+    /**
+     * Automatically schedules presentations that are not scheduled yet - if it can find a
+     * slot and a room available for them.
+     *
+     * @return int The number of successfully scheduled presentations
+     */
     private function schedulePresentations(): int
     {
         $presentationsScheduled = 0;
@@ -143,7 +180,8 @@ class ScheduleController extends Controller
             $query->where('timeslots.id', $timeslot->id);
         })->doesntExist();
 
-        // Checks if the presentations already assigned to this room have ended
+        // Checks if the timeslot is not overlapping the timeslots of the
+        // presentations already assigned to this room
         if ($isRoomAvailable) {
             foreach ($room->presentations as $presentation) {
                 $presentationStart = Carbon::parse($presentation->timeslot->start);
@@ -166,8 +204,7 @@ class ScheduleController extends Controller
                 return false;
             }
 
-            if($room->presentations->count() == 0)
-            {
+            if ($room->presentations->count() == 0) {
                 return true;
             }
         }

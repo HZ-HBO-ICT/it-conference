@@ -4,17 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\Timeslot;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
 class TimeslotController extends Controller
 {
-    public function create()
+    /**
+     * Displays the view for generating timeslots
+     *
+     * @return View
+     */
+    public function create() : View
     {
         return view('moderator.schedule.timeslots-create');
     }
 
-    public function store(Request $request)
+    /**
+     * Generates all timeslots based on the data passed by the request
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request) : RedirectResponse
     {
         $validatedData = $request->validate([
             'starting' => 'required|date_format:H:i',
@@ -39,6 +52,14 @@ class TimeslotController extends Controller
         return redirect(route('moderator.schedule.draft'));
     }
 
+    /**
+     * Generates timeslots for lectures and workshop
+     * from the starting time till the ending time
+     *
+     * @param $starting
+     * @param $ending
+     * @return void
+     */
     private function generate($starting, $ending)
     {
         $current = Carbon::parse($starting);

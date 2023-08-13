@@ -74,14 +74,34 @@ class Presentation extends Model
     public function isApproved(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->mainSpeaker()->is_approved,
+            get: fn() => $this->mainSpeaker()->is_approved,
         );
     }
 
+    /**
+     * Checks if the presentation is scheduled
+     * @return Attribute
+     */
     public function isScheduled(): Attribute
     {
         return Attribute::make(
             get: fn() => !is_null($this->timeslot) && !is_null($this->room),
+        );
+    }
+
+    /**
+     * The maximum number of participants for the presentation is determined
+     * by the smaller value between the room's capacity and the specified
+     * maximum participants for the presentation.
+     *
+     * @return Attribute
+     */
+    public function maxParticipants(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->max_participants > $this->room->max_participants
+                ? $this->room->max_participants
+                : $this->max_participants,
         );
     }
 }
