@@ -35,10 +35,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/content-dashboard', function () {
-        return view('idkthename');
-    })->name('content');
-
     //route for announcements
     Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
 
@@ -77,6 +73,9 @@ Route::middleware([
     'verified',
     'moderator'
 ])->group(function () {
+    Route::get('moderator/overview', [ContentModeratorController::class, 'overview'])
+        ->name('moderator.overview');
+
     Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
         ->name('moderator.requests');
 

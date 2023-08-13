@@ -209,4 +209,23 @@ class ContentModeratorController extends Controller
 
         return redirect(route('moderator.requests', 'presentations'))->banner($message);
     }
+
+    public function overview()
+    {
+        $numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
+            $query->where('is_approved', false);
+        })->count();
+
+        $numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        })->count();
+
+        $numberOfScheduledPresentations = Presentation::all()->count() - $numberOfUnscheduledPresentations;
+
+        return view('moderator.overview', compact(
+            'numberOfPresentationRequests',
+            'numberOfUnscheduledPresentations',
+            'numberOfScheduledPresentations'
+        ));
+    }
 }
