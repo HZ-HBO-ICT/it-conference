@@ -94,14 +94,12 @@ class Presentation extends Model
      * by the smaller value between the room's capacity and the specified
      * maximum participants for the presentation.
      *
-     * @return Attribute
+     * @return int
      */
-    public function maxParticipants(): Attribute
+    public function maxParticipants() : int
     {
-        return Attribute::make(
-            get: fn() => $this->max_participants > $this->room->max_participants
-                ? $this->room->max_participants
-                : $this->max_participants,
-        );
+        return $this->room->max_participants < $this->max_participants
+            ? $this->room->max_participants
+            : $this->max_participants;
     }
 }

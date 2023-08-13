@@ -14,14 +14,15 @@ class RoomAndTimeslotSelector extends Component
     public $rooms;
     public $timeslots;
 
+    public $maxParticipants;
+
     public $selectedRoom;
 
     public function mount()
     {
         $this->rooms = Room::all();
 
-        if($this->presentation->room)
-        {
+        if ($this->presentation->room) {
             $this->selectedRoom = $this->presentation->room_id;
             $this->updatedSelectedRoom($this->presentation->room_id);
         }
@@ -38,13 +39,20 @@ class RoomAndTimeslotSelector extends Component
                 return (new ScheduleController())->checkIfTimeslotAndRoomAreAvailable($room, $timeslot);
             })->pluck('id');
 
-            if($this->selectedRoom == $this->presentation->room_id)
-            {
+            if ($this->selectedRoom == $this->presentation->room_id) {
                 $timeslotIds[] = $this->presentation->timeslot_id;
             }
 
             $this->timeslots = Timeslot::whereIn('id', $timeslotIds)->get();
+            $this->getMaxParticipants();
         }
+    }
+
+    public function getMaxParticipants(): void
+    {
+        $this->maxParticipants = Room::find($this->selectedRoom)->max_participants < $this->presentation->max_participants
+            ? Room::find($this->selectedRoom)->max_participants
+            : $this->presentation->max_participants;
     }
 
     public function render()

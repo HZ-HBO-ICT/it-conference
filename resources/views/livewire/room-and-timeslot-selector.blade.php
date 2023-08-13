@@ -12,9 +12,9 @@
                 @endif
                 @foreach ($rooms as $room)
                     @if($presentation->room_id == $room->id)
-                        <option selected value="{{ $room->id }}">{{ $room->name }}</option>
+                        <option selected value="{{ $room->id }}">{{ $room->name }} (max participants: {{$room->max_participants}})</option>
                     @else
-                        <option value="{{ $room->id }}">{{ $room->name }}</option>
+                        <option value="{{ $room->id }}">{{ $room->name }}  (max participants: {{$room->max_participants}})</option>
                     @endif
                 @endforeach
             </select>
@@ -54,5 +54,8 @@
         <button class="bg-indigo-800 hover:bg-indigo-700 text-white py-2 px-4 rounded">
             Save
         </button>
+        @if($selectedRoom)
+            <p class="text-sm text-gray-900 dark:text-gray-200">This means that the presentation's maximum participants is {{$maxParticipants}}</p>
+        @endif
     </form>
 </div>
