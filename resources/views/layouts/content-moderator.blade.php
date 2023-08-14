@@ -1,13 +1,18 @@
 <x-app-layout>
     <!-- TODO: Responsive version -->
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Content management dashboard
+        </h2>
+    </x-slot>
     <div class="relative w-full py-10 pr-10">
         <div
             class="absolute inset-0 bg-gradient-to-br from-gradient-blue via-gradient-pink via-gradient-purple to-gradient-blue py-10 px-10 opacity-75"></div>
         <div class="relative min-h-screen">
             <div class="grid grid-cols-4">
-                <div class="pl-10">
+                <div class="pl-24">
                     {{--sidebar--}}
-                    <div class="w-4/5 basis-1/4 hidden pl-8 lg:block md:block">
+                    <div class="w-4/5 basis-1/4 hidden lg:block md:block">
                         <div
                             class="bg-white dark:bg-gray-800 h-fit sticky overflow-hidden sm:rounded-lg shadow-xl fixed">
                             <div class="px-3 py-4 bg-gray-50 dark:bg-gray-800">
