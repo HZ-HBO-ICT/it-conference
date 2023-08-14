@@ -1,8 +1,9 @@
 <x-app-layout>
+    <!-- TODO: Responsive version -->
     <div class="relative w-full py-10 pr-10">
         <div
             class="absolute inset-0 bg-gradient-to-br from-gradient-blue via-gradient-pink via-gradient-purple to-gradient-blue py-10 px-10 opacity-75"></div>
-        <div class="relative">
+        <div class="relative min-h-screen">
             <div class="grid grid-cols-4">
                 <div class="pl-10">
                     {{--sidebar--}}
@@ -13,13 +14,14 @@
                                 <ul class="space-y-2">
                                     <x-sidebar-link :label="'Overview'" :route="'moderator.overview'"/>
                                     <x-sidebar-link :label="'Company requests'" :route="'moderator.requests'"
-                                                    :param="'companies'"/>
+                                                    :param="'teams'"/>
                                     <x-sidebar-link :label="'Presentation requests'" :route="'moderator.requests'"
                                                     :param="'presentations'"/>
                                     <x-sidebar-link :label="'Booth requests'" :route="'moderator.requests'"
                                                     :param="'booths'"/>
                                     <x-sidebar-link :label="'Sponsorships requests'" :route="'moderator.requests'"
                                                     :param="'sponsorships'"/>
+                                    <!-- TODO: When schedule management is added fix route -->
                                     <x-sidebar-link :label="'Schedule management'" :route="'moderator.requests'"
                                                     :param="'sponsorships'"/>
                                     <li class="pt-24">

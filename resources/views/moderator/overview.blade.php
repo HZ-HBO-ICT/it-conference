@@ -6,7 +6,7 @@
 @endphp
 
 <x-content-moderator-layout>
-    <div >
+    <div>
         <h2 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Overview</h2>
         <h2 class="text-3xl font-extrabold text-gray-700 dark:text-white ml-4">Requests</h2>
         <div class="grid grid-cols-3 pr-10 pt-5">
