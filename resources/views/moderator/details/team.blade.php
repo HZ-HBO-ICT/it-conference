@@ -7,7 +7,8 @@
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Company request details</h1>
 
     <div class="pl-5 text-gray-800 dark:text-gray-200">
-        <h2 class="text-xl py-2">Name of the company: {{$team->name}} </h2>
+        <h2 class="text-xl pt-2">Name of the company: {{$team->name}} </h2>
+        <h2 class="text-xl py-2">Added on: {{\Carbon\Carbon::parse($team->created_at)->format('d/m/y H:i')}} </h2>
         <h2 class="text-xl">Description:</h2>
         <p class="text-lg">{{$team->description}}</p>
         <h2 class="text-xl py-2">Address: {{$team->address}} </h2>
