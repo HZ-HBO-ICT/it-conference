@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
 /*            SpeakerSeeder::class,*/
             RoleSeeder::class,
             ParticipantSeeder::class,
-            SponsorTierSeeder::class
+            SponsorTierSeeder::class,
+            DifficultySeeder::class
         ]);
 
         $user = User::create([

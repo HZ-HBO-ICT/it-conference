@@ -12,7 +12,7 @@ class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type'];
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id'];
 
     public static function rules()
     {
@@ -20,7 +20,8 @@ class Presentation extends Model
             'name' => 'required',
             'max_participants' => 'required|numeric',
             'description' => 'required',
-            'type' => 'required|in:workshop,lecture'
+            'type' => 'required|in:workshop,lecture',
+            'difficulty_id' => 'required'
         ];
     }
 
@@ -58,6 +59,15 @@ class Presentation extends Model
     public function speakers(): HasMany
     {
         return $this->hasMany(Speaker::class);
+    }
+
+    /**
+     * The difficulty of the presentation
+     * @return BelongsTo
+     */
+    public function difficulty(): BelongsTo
+    {
+        return $this->belongsTo(Difficulty::class);
     }
 
     public function mainSpeaker()
