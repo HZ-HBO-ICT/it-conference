@@ -20,7 +20,7 @@
 
             <!-- Tiers -->
             <div class="col-span-6 sm:col-span-4">
-                @if(!$this->requestSent)
+                @if(!$this->requestSent && !is_null($chosenTierName))
                     <div class="col-span-6 lg:col-span-4">
                         <x-label for="tier" value="{{ __('Sponsor tier') }}"/>
                         <div
@@ -47,6 +47,8 @@
                                 You are approved and confirmed as a {{ucfirst($this->team->sponsorTier->name)}} sponsor!
                             </div>
                         </div>
+                    @elseif(is_null($chosenTierName))
+                        There is no more space for sponsors
                     @else
                         <div class="row">
                             <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded">
@@ -66,7 +68,7 @@
         </x-slot>
 
         <x-slot name="actions">
-            @if(!$this->requestSent)
+            @if(!$this->requestSent && !is_null($chosenTierName))
                 <x-button>
                     {{ __('Send request') }}
                 </x-button>
