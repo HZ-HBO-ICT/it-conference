@@ -42,14 +42,20 @@ Route::middleware([
     //route for announcements
     Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
 
-    //route for my profile in personal hun
+    //route for my profile in personal hub
     Route::get('/dashboard/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
     //route for personal programme
     Route::get('/dashboard/programme', [HubController::class, 'getProgramme'])->name('my-programme');
 
+    //route for page for registering for presentations
+    Route::get('/dashboard/programme/register', [HubController::class, 'registerForPresentations'])->name('my-programme-register');
+
+    //route for enrolling for a presentation
+    Route::get('/dashboard/programme/register/attach/{presentationId}', [HubController::class, 'attachParticipation'])->name('create-participant');
+
     //route for disenrolling from a presentation
-    Route::get('/dashboard/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+    Route::get('/dashboard/programme/register/detach/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 
 });
 

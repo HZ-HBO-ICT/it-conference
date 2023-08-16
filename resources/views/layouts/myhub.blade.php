@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="relative bg-cover isolate overflow-hidden h-screen" style="background-image: url('/img/hz-building.jpg')">
+    <div class="relative bg-cover isolate overflow-hidden min-h-screen" style="background-image: url('/img/hz-building.jpg')">
         {{--gradient--}}
         <div
-            class="before:absolute before:bg-gradient-to-r before:from-blue-500 before:to-cyan-500 before:opacity-70 before:h-screen before:w-full"></div>
+            class="before:absolute before:bg-gradient-to-r before:from-blue-500 before:to-cyan-500 before:opacity-70 before:h-full before:w-full"></div>
 
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
