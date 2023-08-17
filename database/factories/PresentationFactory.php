@@ -22,7 +22,7 @@ class PresentationFactory extends Factory
             'name' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'max_participants' => $this->faker->numberBetween(10, 20),
-            'type' => $this->faker->randomElement(['Presentation', 'Workshop']),
+            'type' => $this->faker->randomElement(['presentation', 'workshop']),
             'timeslot_id' => Timeslot::factory()->create()->id,
             'room_id' => Room::factory()->create()->id
         ];

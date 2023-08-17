@@ -20,7 +20,7 @@
                     <ul class="space-y-2 list-disc list-inside dark:text-gray-800 mt-8 pl-5">
                         @foreach($presentations as $presentation)
                             <li class="flex gap-4">
-                                <p class="text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }} — {{ $presentation->name }} — {{ $presentation->room->name }} — {{ $presentation->type }}</p>
+                                <p class="text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }} — {{ $presentation->name }} — {{ $presentation->room->name }} — {{ ucfirst($presentation->type) }}</p>
                             </li>
                         @endforeach
                     </ul>

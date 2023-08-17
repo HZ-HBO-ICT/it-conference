@@ -12,18 +12,28 @@
                 <ul class="space-y-2 list-disc list-inside dark:text-gray-800 mt-8 pl-5">
                     @foreach($presentations as $presentation)
                         <li class="flex gap-4">
-                            <p class="presentations text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }} — {{ $presentation->name }} — {{ $presentation->room->name }} — {{ $presentation->type }} — Participants: {{ $presentation->participants->count() }}/{{ $presentation->max_participants }}</p>
+                            <p class="presentations text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }} — {{ $presentation->name }} — {{ $presentation->room->name }} — {{ ucfirst($presentation->type) }} — Participants: {{ $presentation->participants->count() }}/{{ $presentation->max_participants }}</p>
 
                             @if (in_array($presentation->id, $enrolledPresentations))
-                                <div>
-                                    <a type="button" href="{{ route('destroy-participant', $presentation->id) }}"
-                                       class="participation-buttons text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-sm px-5 py-0.5 text-center mr-2 mb-2">Disenroll</a>
-                                </div>
-                            @elseif($presentation->participants->count() < $presentation->max_participants)
-                                <div>
-                                    <a type="button" href="{{ route('create-participant', $presentation->id) }}"
-                                       class="participation-buttons text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-full text-sm px-8 py-0.5 text-center mr-2 mb-2">Enroll</a>
-                                </div>
+                                <form action="{{ route('destroy-participant', $presentation->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <div>
+                                        <button type="submit"
+                                           class="participation-buttons text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-sm px-5 py-0.5 text-center mr-2 mb-2">Disenroll</button>
+                                    </div>
+                                </form>
+                            @elseif($presentation->participants->count() < $presentation->max_participants && !in_array($presentation->id, $disabledPresentations))
+                                <form action="{{ route('create-participant', $presentation->id) }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+
+                                    <div>
+                                        <button type="submit"
+                                           class="participation-buttons text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-full text-sm px-8 py-0.5 text-center mr-2 mb-2">Enroll</button>
+                                    </div>
+                                </form>
                             @else
                                 <div>
                                     <a type="button" href="#"
@@ -42,5 +52,4 @@
             </div>
         </div>
     </div>
-    <script src="/js/enroll-button.js"></script>
 </x-hub-layout>

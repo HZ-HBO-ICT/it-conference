@@ -17,8 +17,8 @@ class TimeslotFactory extends Factory
     public function definition(): array
     {
         return [
-            'start' => $this->faker->dateTimeBetween('9:00', '17:00'),
-            'duration' => $this->faker->numberBetween(60, 90)
+            'start' => $this->faker->dateTimeBetween('9:00', '17:00')->format('H:i'),
+            'duration' => $this->faker->randomElement([60, 90])
         ];
     }
 }
