@@ -109,3 +109,7 @@ Route::middleware([
 });
 
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
