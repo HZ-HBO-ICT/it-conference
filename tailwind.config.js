@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
                       'montserrat': ['Montserrat', 'sans-serif'],
             },
             colors: {
