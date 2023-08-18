@@ -1,35 +1,36 @@
-<x-app-layout>
-<x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Sponsorship request details
-        </h2>
-    </x-slot>
+<x-content-moderator-layout>
+    <div id="breadcrumbs" class="pl-5">
+        <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
+                    href="{{route('moderator.requests', 'sponsorships')}}">Sponsorship requests</a></span> /
+            <span>{{$team->name}}</span></p>
+    </div>
+    <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Sponsorship request details</h1>
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 dark:text-gray-200">
-            <h2 class="text-xl py-2">Name of the company: {{$team->name}} </h2>
-            <h2 class="text-xl py-2">Sponsorship tier: {{$team->sponsorTier->name}}</h2>
-            <x-section-border/>
-            <h2 class="text-xl py-2">Company representative: {{$team->owner->name}}</h2>
-            <h2 class="text-xl py-2">Email: <a href="mailto:{{$team->owner->email}}}">{{$team->owner->email}}</a></h2>
-            <div>
-                <div class="mt-16 flex">
-                    <form method="POST" action="{{route('moderator.request.approve', ['sponsorships', $team, 1])}}" class="mr-2">
-                        @csrf
-                        <x-button
-                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                            Approve
-                        </x-button>
-                    </form>
-                    <form method="POST" action="{{ route('moderator.request.approve', ['sponsorships', $team, 0]) }}" class="mr-2">
-                        @csrf
-                        <x-button
-                            class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                            Disapprove
-                        </x-button>
-                    </form>
-                </div>
+    <div class="pl-5 text-gray-800 dark:text-gray-200">
+        <h2 class="text-xl py-2">Name of the company: {{$team->name}} </h2>
+        <h2 class="text-xl py-2">Sponsorship tier: {{$team->sponsorTier->name}}</h2>
+        <x-section-border/>
+        <h2 class="text-xl py-2">Company representative: {{$team->owner->name}}</h2>
+        <h2 class="text-xl py-2">Email: <a href="mailto:{{$team->owner->email}}}">{{$team->owner->email}}</a></h2>
+        <div>
+            <div class="mt-16 flex">
+                <form method="POST" action="{{route('moderator.request.approve', ['sponsorships', $team, 1])}}"
+                      class="mr-2">
+                    @csrf
+                    <x-button
+                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                        Approve
+                    </x-button>
+                </form>
+                <form method="POST" action="{{ route('moderator.request.approve', ['sponsorships', $team, 0]) }}"
+                      class="mr-2">
+                    @csrf
+                    <x-button
+                        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+                        Disapprove
+                    </x-button>
+                </form>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-content-moderator-layout>>
