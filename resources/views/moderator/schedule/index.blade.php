@@ -18,21 +18,28 @@
                     </h2>
                 </div>
                 <div>
-                    <a href="{{route('moderator.requests', 'presentations')}}"
+                    <a href="{{ route('moderator.requests', 'presentations') }}"
                        class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                        {{$numberOfPresentationRequest}}<br>Presentations<br>waiting to be approved
+                        {{ $numberOfPresentationRequest }}
+                        <span class="mt-1 block">Presentations</span>
+                        <span class="mt-0.5 block leading-relaxed">waiting to be approved</span>
                     </a>
                 </div>
+
                 <div>
                     <a href="{{route('moderator.presentations-for-scheduling')}}"
                        class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                        {{$numberOfUnscheduledPresentations}}<br>Presentations<br>waiting to be scheduled
+                        {{$numberOfUnscheduledPresentations}}
+                        <span class="mt-1 block">Presentations</span>
+                        <span class="mt-0.5 block leading-relaxed">waiting to be scheduled</span>
                     </a>
                 </div>
                 <div>
                     <a href="{{route('rooms.index')}}"
                        class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full">
-                        <span class="flex items-center h-full justify-center">{{$numberOfAvailableRooms}}<br>Rooms available for the conference</span>
+                        {{$numberOfAvailableRooms}}
+                        <span class="mt-1 block">Rooms</span>
+                        <span class="mt-0.5 block leading-relaxedg">available for the conference</span>
                     </a>
                 </div>
                 @if(\App\Models\Timeslot::all()->count() > 0)
