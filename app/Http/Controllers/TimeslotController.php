@@ -16,7 +16,7 @@ class TimeslotController extends Controller
      *
      * @return View
      */
-    public function create() : View
+    public function create(): View
     {
         return view('moderator.schedule.timeslots-create');
     }
@@ -27,25 +27,37 @@ class TimeslotController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $validatedData = $request->validate([
+        $rules = [
             'starting' => 'required|date_format:H:i',
             'ending' => 'required|date_format:H:i|after:starting',
-            'breakStart' => 'date_format:H:i|after:starting|before:ending',
-            'breakEnd' => 'date_format:H:i|after:breakStart|before:ending'
-        ]);
+        ];
+
+        if ($request->all()['breakStart'])
+            $rules['breakStart'] = 'date_format:H:i|after:starting|before:ending';
+
+        if ($request->all()['breakEnd'])
+            $rules['breakEnd'] = 'date_format:H:i|after:breakStart|before:ending';
+
+        $validatedData = $request->validate($rules);
 
         $starting = $validatedData['starting'];
         $ending = $validatedData['ending'];
-        $breakStart = $validatedData['breakStart'];
-        $breakEnd = $validatedData['breakEnd'];
+        $breakStart = key_exists('breakStart', $validatedData) ? $validatedData['breakStart'] : '12:30';
+        $breakEnd = key_exists('breakEnd', $validatedData) ? $validatedData['breakEnd'] : '13:00';
 
-        $this->generate($starting, is_null($breakStart) ? '12:30' : $breakStart);
-        $this->generate(is_null($breakEnd) ? '13:00' : $breakEnd, $ending);
-
-        if(Room::all()->count() == 0)
+        if($breakEnd < $breakStart)
         {
+            return redirect(route('moderator.schedule.timeslots.create'))
+                ->withInput()
+                ->withErrors(['breakEnd' => 'The ending time of the break cannot be before the starting time']);
+        }
+
+        $this->generate($starting, $breakStart);
+        $this->generate($breakEnd, $ending);
+
+        if (Room::all()->count() == 0) {
             return redirect(route('rooms.index'));
         }
 
