@@ -16,8 +16,10 @@
                 @livewire('sponsorship-request', ['team' => $team, 'tiers' => $tiers])
             @else
                 <p class="text-md text-gray-900 dark:text-gray-200">
-                    You currently cannot request a booth or sponsorship since your company is waiting for approval.<br>
+                    You currently cannot request a booth or sponsorship since your company is waiting for approval.
+                    <span class="mt-0.5 block">
                     You will be notified as soon as your company is approved, and you will be able to send requests.
+                        </span>
                 </p>
 
                 <div class="pt-5">
