@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Presentation;
+use App\Models\Speaker;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,8 +18,6 @@ class ParticipantSeeder extends Seeder
      */
     public function run(): void
     {
-        Presentation::factory(5)->create();
-
         DB::table('users')->insert([
             'name' => 'Test Account',
             'email' => 'testacc@hz.nl',
@@ -31,6 +30,7 @@ class ParticipantSeeder extends Seeder
             'current_team_id' => null,
         ]);
 
+        Presentation::factory(15)->has(Speaker::factory())->create();
         $presentations = Presentation::all();
 
         // Populate the pivot table
