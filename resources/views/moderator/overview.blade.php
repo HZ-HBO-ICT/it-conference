@@ -24,7 +24,7 @@
             <div class="pr-10">
                 <x-content-moderator-block :label="'Presentations to be scheduled'"
                                            :count="$numberOfUnscheduledPresentations"
-                                           :routeName="route('moderator.requests', 'presentations')"/>
+                                           :routeName="route('moderator.presentations-for-scheduling')"/>
             </div>
         </div>
         <div class="flex items-center justify-center pr-10">
