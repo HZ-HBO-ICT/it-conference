@@ -1,49 +1,19 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Presentations that need to be scheduled
-        </h2>
-    </x-slot>
-
-    <div>
-        <div class="max-w-7xl mx-auto py-5 mt-12 sm:px-6 lg:px-8 dark:bg-gray-800 bg-gray-200 rounded">
-            <table class="table-auto w-full ">
-                <thead>
-                <tr>
-                    <th class="px-4 py-2 text-left bg-indigo-500 text-white rounded rounded-r-none">Speaker</th>
-                    <th class="px-4 py-2 text-left bg-indigo-500 text-white rounded rounded-r-none rounded-l-none">
-                        Presentation title
-                    </th>
-                    <th class="px-4 py-2 text-left bg-indigo-500 text-white rounded rounded-l-none">Type</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($presentations as $index => $presentation)
-                    <tr class="{{ $index % 2 === 0 ? 'dark:bg-gray-900 bg-gray-100' : 'dark:bg-gray-700 bg-gray-200' }} dark:text-gray-200">
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none">
-                            <a href="{{route('moderator.schedule.presentation', $presentation)}}">
-                                {{$presentation->mainSpeaker()->user->name}}
-                            </a>
-                        </td>
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none rounded-l-none">
-                            <a href="{{route('moderator.schedule.presentation', $presentation)}}">
-                                {{$presentation->name}}
-                            </a>
-                        </td>
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-l-none">
-                            <a href="{{route('moderator.schedule.presentation', $presentation)}}">
-                                {{ucfirst($presentation->type)}}
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+<x-content-moderator-layout>
+    <div id="breadcrumbs" class="pl-5">
+        <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
+                    href="{{route('moderator.schedule.overview')}}">Schedule management</a></span> /
+            <span>Presentations for scheduling</span></p>
     </div>
-</x-app-layout>
-<style>
-    td a {
-        display: block;
-    }
-</style>
+    <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Presentations that are approved and need to be scheduled</h1>
+    <div class="pr-7">
+        @foreach($presentations as $presentation)
+            <a href="{{route('moderator.schedule.presentation', $presentation)}}">
+                <div
+                    class="card w-full rounded-md bg-violet-700 text-white font-bold px-4 py-4 mb-2 drop-shadow-l  transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+                    {{$presentation->name}}
+                    <span class="text-xs mb-1 block">Speaker: {{$presentation->mainSpeaker()->user->name}}</span>
+                </div>
+            </a>
+        @endforeach
+    </div>
+</x-content-moderator-layout>

@@ -90,6 +90,7 @@ Route::middleware([
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
         ->name('moderator.schedule.overview');
 
+    // TODO: Fix with a post request instead
     Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('moderator.schedule.draft');
 

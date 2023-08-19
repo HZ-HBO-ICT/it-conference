@@ -26,9 +26,7 @@
                                                     :param="'booths'"/>
                                     <x-sidebar-link :label="'Sponsorships requests'" :route="'moderator.requests'"
                                                     :param="'sponsorships'"/>
-                                    <!-- TODO: When schedule management is added fix route -->
-                                    <x-sidebar-link :label="'Schedule management'" :route="'moderator.requests'"
-                                                    :param="'sponsorships'"/>
+                                    <x-sidebar-link :label="'Schedule management'" :route="'moderator.schedule.overview'"/>
                                     <li class="pt-24">
                                         <form method="POST" action="{{ route('logout') }}" x-data>
                                             @csrf
