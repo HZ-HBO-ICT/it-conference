@@ -99,7 +99,6 @@ class ContentModeratorController extends Controller
         abort(404);
     }
 
-
     /**
      * Changes the approval status of the given team based
      * on the given boolean
@@ -227,5 +226,25 @@ class ContentModeratorController extends Controller
             'numberOfUnscheduledPresentations',
             'numberOfScheduledPresentations'
         ));
+    }
+
+    public function showList(string $type)
+    {
+        $list = [];
+
+        if ($type === 'teams')
+            $list = Team::where('is_approved', 1)->get();
+        else if ($type === 'users')
+            $list = User::all();
+        else if ($type === 'participants')
+            $list = User::role('participant')->get();
+        else if ($type === 'speakers')
+            $list = User::role('speaker')->get();
+        else if ($type === 'booths')
+            $list = Booth::where('is_approved, 1')->get();
+        else if ($type === 'presentations')
+            $list = Presentation::all()->filter(fn($presentation) => $presentation->isApproved && $presentation->isScheduled);
+
+        return view('moderator.lists.general', compact('list', 'type'));
     }
 }

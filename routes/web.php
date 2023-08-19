@@ -107,6 +107,9 @@ Route::middleware([
         ->name('moderator.schedule.presentation.store');
 
     Route::resource('/rooms', RoomController::class);
+
+    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
+        ->name('moderator.list');
 });
 
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
