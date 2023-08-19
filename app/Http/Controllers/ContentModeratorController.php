@@ -241,7 +241,7 @@ class ContentModeratorController extends Controller
         else if ($type === 'speakers')
             $list = User::role('speaker')->get();
         else if ($type === 'booths')
-            $list = Booth::where('is_approved, 1')->get();
+            $list = Booth::where('is_approved', 1)->get();
         else if ($type === 'presentations')
             $list = Presentation::all()->filter(fn($presentation) => $presentation->isApproved && $presentation->isScheduled);
 
