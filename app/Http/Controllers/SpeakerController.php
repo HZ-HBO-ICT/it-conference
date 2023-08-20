@@ -38,7 +38,7 @@ class SpeakerController extends Controller
             'user_id' => Auth::user()->id,
             'presentation_id' => $presentation->id,
             'is_main_speaker' => 1,
-            'is_approved' => 0
+            'is_approved' => 0,
         ]);
 
         return redirect(route('welcome'))->banner("You successfully send your request to host a {$presentation->type}");
