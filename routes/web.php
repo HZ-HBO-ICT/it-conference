@@ -95,6 +95,7 @@ Route::middleware([
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
         ->name('moderator.schedule.overview');
 
+    // TODO: Fix with a post request instead
     Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('moderator.schedule.draft');
 
@@ -111,6 +112,9 @@ Route::middleware([
         ->name('moderator.schedule.presentation.store');
 
     Route::resource('/rooms', RoomController::class);
+
+    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
+        ->name('moderator.list');
 });
 
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');

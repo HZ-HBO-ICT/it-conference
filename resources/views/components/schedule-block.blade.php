@@ -1,8 +1,8 @@
 <div
     class="w-full rounded overflow-hidden shadow-lg bg-indigo-900 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
     <div class="px-3 py-1">
-        <div class="font-bold text-md">{{$presentation->name}}</div>
-        <div class="text-sm mb-2">{{$presentation->mainSpeaker()->user->name}}
+        <div class="font-bold text-gray-200 text-md">{{$presentation->name}}</div>
+        <div class="text-sm mb-2 text-gray-200">{{$presentation->mainSpeaker()->user->name}}
             @if($presentation->mainSpeaker()->user->allTeams()->count() > 0)
                 - {{$presentation->mainSpeaker()->user->currentTeam->name}}
             @endif

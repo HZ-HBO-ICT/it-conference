@@ -2,16 +2,18 @@
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Booth requests</h1>
     <div class="grid grid-cols-1 gap-2 pr-12 pl-4">
         <h2 class="text-2xl text-gray-700 dark:text-white">Companies that requested a booth</h2>
-        @foreach($booths as $index => $booth)
+        @forelse($booths as $index => $booth)
             <a href="{{route('moderator.request.details', ['booths', $booth])}}">
                 <div
                     class="card w-full rounded-md bg-violet-700 text-white font-bold px-4 py-4 drop-shadow-l  transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
                     {{$booth->team->name}}
                 </div>
             </a>
-        @endforeach
+        @empty
+            <p class="text-violet-600 text-lg">There are currently no booth requests.</p>
+        @endforelse
         <div class="pt-2">
             {{ $booths->links() }}
         </div>
     </div>
-</x-content-moderator-layout>>
+</x-content-moderator-layout>
