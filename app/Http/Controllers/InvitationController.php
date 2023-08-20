@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\ResetUserPassword;
+use App\Models\Team;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
@@ -61,4 +63,27 @@ class InvitationController extends Controller
             __('Great! You have accepted the invitation to join :team.', ['team' => $invitation->team->name]),
         );
     }
+
+    public function companyRepShow(Request $request, TeamInvitation $invitation): View
+    {
+        if (!$request->hasValidSignature()) {
+            abort(403);
+        }
+
+        return view('auth.company-rep-invitation', compact('invitation'));
+    }
+
+    public function companyRepStore(Request $request, TeamInvitation $invitation)
+    {
+        (new ResetUserPassword())->reset($invitation->team->owner, $request->all());
+        $this->guard->login($invitation->team->owner);
+
+        $invitation->team->owner->switchTeam($invitation->team);
+        $invitation->delete();
+
+        return redirect(config('fortify.home'))->banner(
+            __('Great! You have accepted the invitation to be company representative!'),
+        );
+    }
+
 }

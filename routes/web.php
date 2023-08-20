@@ -57,6 +57,11 @@ Route::get('/register/team-invitations/{invitation}', [InvitationController::cla
 Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
     ->name('register.via.invitation');
 
+Route::get('/company-representative-invitation/{invitation}', [InvitationController::class, 'companyRepShow'])
+    ->middleware(['signed'])->name('company-rep.invitation');
+Route::post('/company-representative-invitation/{invitation}', [InvitationController::class, 'companyRepStore'])
+    ->name('company-rep.registration');
+
 Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
