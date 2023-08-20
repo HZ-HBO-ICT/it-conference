@@ -2,6 +2,7 @@
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SpeakerController;
 use App\Models\Presentation;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ContentModeratorController;
 use App\Http\Controllers\TeamRequestsController;
+use App\Http\Controllers\TimeslotController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,10 +36,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-    Route::get('/content-dashboard', function () {
-        return view('idkthename');
-    })->name('content');
 
     //route for announcements
     Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
@@ -77,6 +75,9 @@ Route::middleware([
     'verified',
     'moderator'
 ])->group(function () {
+    Route::get('moderator/overview', [ContentModeratorController::class, 'overview'])
+        ->name('moderator.overview');
+
     Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
         ->name('moderator.requests');
 
@@ -85,6 +86,24 @@ Route::middleware([
 
     Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
         ->name('moderator.request.approve');
+
+    Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
+        ->name('moderator.schedule.overview');
+
+    Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
+        ->name('moderator.schedule.draft');
+
+    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
+        ->name('moderator.schedule.timeslots.create');
+    Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
+        ->name('moderator.schedule.timeslots.store');
+
+    Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
+        ->name('moderator.presentations-for-scheduling');
+    Route::get('/schedule/{presentation}', [ScheduleController::class, 'schedulePresentation'])
+        ->name('moderator.schedule.presentation');
+    Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
+        ->name('moderator.schedule.presentation.store');
 
     Route::resource('/rooms', RoomController::class);
 });

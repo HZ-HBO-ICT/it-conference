@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Room;
-use App\Models\Timeslot;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +17,10 @@ class PresentationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'max_participants' => $this->faker->numberBetween(10, 20),
-            'type' => $this->faker->randomElement(['presentation', 'workshop']),
-            'timeslot_id' => Timeslot::factory()->create()->id,
-            'room_id' => Room::factory()->create()->id
+            'name' => $this->faker->name,
+            'description' => $this->faker->paragraph,
+            'max_participants' => $this->faker->numberBetween(1, 50),
+            'type' => $this->faker->boolean ? 'lecture' : 'workshop',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Room;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             SponsorTierSeeder::class,
             DifficultySeeder::class
         ]);
+
+        Room::factory(5)->create();
 
         $user = User::create([
             'name' => 'Content moderator',

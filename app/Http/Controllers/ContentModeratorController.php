@@ -34,18 +34,18 @@ class ContentModeratorController extends Controller
     public function requests(string $type): View
     {
         if ($type == 'teams') {
-            $teams = Team::where('is_approved', false)->get();
+            $teams = Team::where('is_approved', false)->paginate(5);
             return view('moderator.requests.teams', compact('type', 'teams'));
         } else if ($type == 'booths') {
-            $booths = Booth::where('is_approved', false)->get();
+            $booths = Booth::where('is_approved', false)->paginate(5);
             return view('moderator.requests.booths', compact('type', 'booths'));
         } else if ($type == 'sponsorships') {
-            $teams = Team::where('is_sponsor_approved', false)->whereNotNull('sponsor_tier_id')->get();
+            $teams = Team::where('is_sponsor_approved', false)->whereNotNull('sponsor_tier_id')->paginate(5);
             return view('moderator.requests.sponsorships', compact('type', 'teams'));
         } else if ($type == 'presentations') {
             $presentations = Presentation::whereHas('speakers', function ($query) {
                 $query->where('is_approved', false);
-            })->get();
+            })->paginate(5);
             return view('moderator.requests.presentations', compact('type', 'presentations'));
         }
 
@@ -208,5 +208,24 @@ class ContentModeratorController extends Controller
         }
 
         return redirect(route('moderator.requests', 'presentations'))->banner($message);
+    }
+
+    public function overview()
+    {
+        $numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
+            $query->where('is_approved', false);
+        })->count();
+
+        $numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        })->count();
+
+        $numberOfScheduledPresentations = Presentation::all()->count() - $numberOfUnscheduledPresentations;
+
+        return view('moderator.overview', compact(
+            'numberOfPresentationRequests',
+            'numberOfUnscheduledPresentations',
+            'numberOfScheduledPresentations'
+        ));
     }
 }

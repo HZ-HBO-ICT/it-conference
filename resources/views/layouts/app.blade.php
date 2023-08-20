@@ -61,7 +61,7 @@
         @endif
 
         <!-- Page Content -->
-        <main>
+        <main class="{{ request()->routeIs('welcome') ? '' : 'pb-5' }}">
             {{ $slot }}
         </main>
     </div>
