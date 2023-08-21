@@ -80,6 +80,18 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * All the speakers that are within a team, even though they may not
+     * be approved globally
+     * @return Attribute
+     */
+    public function allSpeakers(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->users()->wherePivot('role', 'speaker')->get(),
+        );
+    }
+
+    /**
      * All the presentations that the team has. All teams should have only one but
      * the gold sponsor.
      * @return Attribute
