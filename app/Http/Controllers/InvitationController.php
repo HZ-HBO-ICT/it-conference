@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\Speaker;
 use App\Models\Team;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -58,6 +59,36 @@ class InvitationController extends Controller
 
         $invitation->delete();
         $user->switchTeam($invitation->team);
+
+        // This checks if the team already has an approved presentation - add the speaker as supporter
+        // and automatically approve. If the team doesn't have an approved presentation, but they have
+        // a request, then add the speaker but don't approve it
+        if ($user->currentTeam->presentations) {
+            Speaker::create([
+                'user_id' => $user->id,
+                'presentation_id' => $user->currentTeam->presentations->first()->id,
+                'is_approved' => 1,
+                'is_main_speaker' => 0
+            ]);
+
+            $user->assignRole('speaker');
+        } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+
+            $presentationId = 0;
+            foreach ($user->currentTeam->allSpeakers as $user) {
+                if ($user->speaker) {
+                    $presentationId = $user->speaker->presentation_id;
+                    break;
+                }
+            }
+
+            Speaker::create([
+                'user_id' => $user->id,
+                'presentation_id' => $presentationId,
+                'is_approved' => 0,
+                'is_main_speaker' => 0
+            ]);
+        }
 
         return redirect(config('fortify.home'))->banner(
             __('Great! You have accepted the invitation to join :team.', ['team' => $invitation->team->name]),

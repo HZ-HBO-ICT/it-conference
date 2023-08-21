@@ -106,7 +106,7 @@ class Team extends JetstreamTeam
                         $presentations[] = $user->speaker->presentation()->get();
                     }
 
-                    return collect($presentations)->unique();
+                    return collect($presentations)->flatten();
                 }
 
                 return null;
