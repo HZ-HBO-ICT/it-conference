@@ -365,22 +365,24 @@
             inactiveFlowElement.addEventListener('click', addCompanyDetails);
         }
 
-        // Get a reference to the email input element
         const emailInput = document.getElementById('email');
 
         emailInput.addEventListener('blur', function() {
-            const enteredEmail = emailInput.value.trim();
+            let enteredEmail = emailInput.value.trim();
+            let domain = getEmailDomain(enteredEmail);
 
-            const domain = getEmailDomain(enteredEmail);
-            if(domain === 'hz.nl') {
-                document.getElementById('institution').setAttribute('value', 'HZ University of Applied Sciences');
-                document.getElementById('institution').setAttribute('readonly', true);
-            } else if(domain === 'scalda.nl') {
-                document.getElementById('institution').setAttribute('value', 'Scalda');
-                document.getElementById('institution').setAttribute('readonly', true);
-            } else {
-                document.getElementById('institution').setAttribute('value', '');
-                document.getElementById('institution').removeAttribute('readonly');
+            if(document.getElementById('institution')) {
+                const institutionInput = document.getElementById('institution');
+                institutionInput.value = '';
+                institutionInput.removeAttribute('readonly');
+
+                if (domain === 'hz.nl') {
+                    institutionInput.value = 'HZ University of Applied Sciences';
+                    institutionInput.setAttribute('readonly', true);
+                } else if (domain === 'scalda.nl') {
+                    institutionInput.value = 'Scalda';
+                    institutionInput.setAttribute('readonly', true);
+                }
             }
         });
 
