@@ -37,13 +37,15 @@
                 </div>
 
                 <div id="institutionDiv">
-                    <div class="mt-4">
-                        <x-label for="institution" value="{{ __('Institution') }}"
-                                 class="after:content-['*'] after:text-red-500"/>
-                        <x-input id="institution" class="block mt-1 w-full" type="text" name="institution"
-                                 :value="old('institution')" required
-                                 autofocus autocomplete="institution"/>
-                    </div>
+                    @if(!old('company_name'))
+                        <div class="mt-4">
+                            <x-label for="institution" value="{{ __('Institution') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="institution" class="block mt-1 w-full" type="text" name="institution"
+                                     :value="old('institution')" required
+                                     autofocus autocomplete="institution"/>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="mt-4">
@@ -394,14 +396,4 @@
             return null;
         }
     });
-
-
-
-
-
-
-
-
-
-
 </script>
