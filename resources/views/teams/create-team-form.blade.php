@@ -20,11 +20,26 @@
                       name="description" required
             >{{old('company_description')}}</textarea>
         </div>
-        <!-- TODO: Once the company address is fixed with proper fields, refactor here and in the CreateTeam class -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="address" value="{{ __('Company Address') }}"/>
-            <x-input id="address" type="text" class="mt-1 block w-full" wire:model.defer="state.address" autofocus/>
-            <x-input-error for="address" class="mt-2"/>
+            <x-label for="postcode" value="{{ __('Postcode') }}"/>
+            <x-input id="postcode" type="text" class="mt-1 block w-full" wire:model.defer="state.postcode" autofocus/>
+            <x-input-error for="postcode" class="mt-2"/>
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="house_number" value="{{ __('House Number') }}"/>
+            <x-input id="house_number" type="text" class="mt-1 block w-full" wire:model.defer="state.house_number"
+                     autofocus/>
+            <x-input-error for="house_number" class="mt-2"/>
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="street" value="{{ __('Street') }}"/>
+            <x-input id="street" type="text" class="mt-1 block w-full" wire:model.defer="state.street" autofocus/>
+            <x-input-error for="street" class="mt-2"/>
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="city" value="{{ __('City') }}"/>
+            <x-input id="city" type="text" class="mt-1 block w-full" wire:model.defer="state.city" autofocus/>
+            <x-input-error for="city" class="mt-2"/>
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-label for="website" value="{{ __('Company Website') }}"/>
@@ -32,14 +47,15 @@
             <x-input-error for="website" class="mt-2"/>
         </div>
         <div class="col-span-6 sm:col-span-4">
-            <x-section-border />
+            <x-section-border/>
             <x-label for="rep_name" value="{{ __('Company Representative Name') }}"/>
             <x-input id="rep_name" type="text" class="mt-1 block w-full" wire:model.defer="state.rep_name" autofocus/>
             <x-input-error for="rep_name" class="mt-2"/>
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-label for="rep_email" value="{{ __('Company Representative Email') }}"/>
-            <x-input id="rep_email" type="email" class="mt-1 block w-full" wire:model.defer="state.rep_email" autofocus/>
+            <x-input id="rep_email" type="email" class="mt-1 block w-full" wire:model.defer="state.rep_email"
+                     autofocus/>
             <x-input-error for="rep_email" class="mt-2"/>
         </div>
     </x-slot>
