@@ -25,6 +25,7 @@ class CreateNewUser implements CreatesNewUsers
         $defaultRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'institution' => [array_key_exists('company_name', $input) ? '' : 'required'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ];
@@ -51,6 +52,10 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
                 $user->assignRole('participant');
+                if(array_key_exists('institution', $input)) {
+                    $user->institution = $input['institution'];
+                    $user->save();
+                }
                 if (array_key_exists('company_name', $input)) {
                     $this->createTeam($user, $input['company_name'], $input['company_postcode'], $input['company_housenumber'], $input['company_street'], $input['company_city'], $input['company_website'], $input['company_description']);
                 }
