@@ -6,10 +6,10 @@
         </div>
             <ul class="gap-x-8 gap-y-8 grid-cols-3 max-w-none mx-0 grid" role="list">
                 @foreach ($teams as $team)
-                    <li class="px-10 py-8 rounded-2xl border border-gray-300 shadow">
-                        <img class="w-56 h-56 rounded-full mx-auto my-auto max-w-full block" src="./img/teacher.png" alt="Logo of {{$team->name}}">
-                        <h3 class="tracking-tight leading-7 font-semibold text-base mt-6 text-center">{{$team->name}}</h3>
-                        <p class="leading-6 text-sm text-center">{{$team->description}}</p>
+                    <li class="px-10 py-8 rounded-2xl border border-gray-300 shadow dark:bg-gray-800 dark:border-gray-700">
+                        <img class="w-56 h-56 rounded-full mx-auto my-auto max-w-full block dark:text-white" src="./img/teacher.png" alt="Logo of {{$team->name}}">
+                        <h3 class="tracking-tight leading-7 font-semibold text-base mt-6 text-center dark:text-white">{{$team->name}}</h3>
+                        <p class="leading-6 text-sm text-center dark:text-gray-200">{{$team->description}}</p>
                     </li>
                 @endforeach
             </ul>
