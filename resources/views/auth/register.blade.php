@@ -36,6 +36,16 @@
                              autocomplete="username"/>
                 </div>
 
+                <div id="institutionDiv">
+                    <div class="mt-4">
+                        <x-label for="institution" value="{{ __('Institution') }}"
+                                 class="after:content-['*'] after:text-red-500"/>
+                        <x-input id="institution" class="block mt-1 w-full" type="text" name="institution"
+                                 :value="old('institution')" required
+                                 autofocus autocomplete="institution"/>
+                    </div>
+                </div>
+
                 <div class="mt-4">
                     <x-label for="password" value="{{ __('Password') }}"
                              class="after:content-['*'] after:text-red-500"/>
@@ -188,6 +198,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const buttons = document.querySelectorAll('.flow');
         const companyDiv = document.getElementById('company');
+        const institutionDiv = document.getElementById('institutionDiv');
         const passwordRulesDiv = document.getElementById('password-rules');
         const passwordInput = document.getElementById('password');
 
@@ -263,6 +274,7 @@
 
         function addCompanyDetails() {
             if (!document.getElementById('company_name')) {
+                institutionDiv.innerHTML = '';
                 const lineBreak = document.createElement('hr');
                 lineBreak.className = 'mt-4';
 
@@ -308,6 +320,9 @@
 
         function clearCompanyDetails() {
             companyDiv.innerHTML = '';
+            if(institutionDiv.innerHTML == '') {
+               institutionDiv.appendChild(createField('institution', 'Institution', 'input'));
+            }
         }
 
         function createField(fieldName, displayName, fieldType) {
@@ -349,7 +364,40 @@
             inactiveFlowElement.style.cursor = 'pointer';
             inactiveFlowElement.addEventListener('click', addCompanyDetails);
         }
+
+        // Get a reference to the email input element
+        const emailInput = document.getElementById('email');
+
+        emailInput.addEventListener('blur', function() {
+            const enteredEmail = emailInput.value.trim();
+
+            const domain = getEmailDomain(enteredEmail);
+            if(domain === 'hz.nl') {
+                document.getElementById('institution').setAttribute('value', 'HZ University of Applied Sciences');
+                document.getElementById('institution').setAttribute('readonly', true);
+            } else if(domain === 'scalda.nl') {
+                document.getElementById('institution').setAttribute('value', 'Scalda');
+                document.getElementById('institution').setAttribute('readonly', true);
+            } else {
+                document.getElementById('institution').setAttribute('value', '');
+                document.getElementById('institution').removeAttribute('readonly');
+            }
+        });
+
+        function getEmailDomain(email) {
+            const atIndex = email.indexOf('@');
+            if (atIndex !== -1) {
+                return email.slice(atIndex + 1);
+            }
+            return null;
+        }
     });
+
+
+
+
+
+
 
 
 
