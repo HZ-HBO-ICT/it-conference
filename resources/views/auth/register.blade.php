@@ -37,7 +37,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}" class="after:content-['*'] after:text-red-500"/>
+                    <x-label for="password" value="{{ __('Password') }}"
+                             class="after:content-['*'] after:text-red-500"/>
                     <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
                              autocomplete="new-password"/>
 
@@ -45,31 +46,46 @@
                         <p>Password should be of the following format:</p>
                         <ul class="pl-5 pt-0.5">
                             <li>
-                                <p id="length-false" class="before:content-['✗_'] text-red-500">length is at least 8 characters</p>
+                                <p id="length-false" class="before:content-['✗_'] text-red-500">length is at least 8
+                                                                                                characters</p>
 
-                                <p id="length-true" class="hidden before:content-['✓_'] text-green-500">length is at least 8 characters</p>
+                                <p id="length-true" class="hidden before:content-['✓_'] text-green-500">length is at
+                                                                                                        least 8
+                                                                                                        characters</p>
                             </li>
                             <li>
-                                <p id="number-false" class="before:content-['✗_'] text-red-500">contains at least one number</p>
+                                <p id="number-false" class="before:content-['✗_'] text-red-500">contains at least one
+                                                                                                number</p>
 
-                                <p id="number-true" class=" hidden before:content-['✓_'] text-green-500">contains at least one number</p>
+                                <p id="number-true" class=" hidden before:content-['✓_'] text-green-500">contains at
+                                                                                                         least one
+                                                                                                         number</p>
                             </li>
                             <li>
-                                <p id="lowercase-false" class="before:content-['✗_'] text-red-500">contains at least one lowercase letter</p>
+                                <p id="lowercase-false" class="before:content-['✗_'] text-red-500">contains at least one
+                                                                                                   lowercase letter</p>
 
-                                <p id="lowercase-true" class=" hidden before:content-['✓_'] text-green-500">contains at least one lowercase letter</p>
+                                <p id="lowercase-true" class=" hidden before:content-['✓_'] text-green-500">contains at
+                                                                                                            least one
+                                                                                                            lowercase
+                                                                                                            letter</p>
                             </li>
                             <li>
-                                <p id="uppercase-false" class="before:content-['✗_'] text-red-500">contains at least one uppercase letter</p>
+                                <p id="uppercase-false" class="before:content-['✗_'] text-red-500">contains at least one
+                                                                                                   uppercase letter</p>
 
-                                <p id="uppercase-true" class=" hidden before:content-['✓_'] text-green-500">contains at least one uppercase letter</p>
+                                <p id="uppercase-true" class=" hidden before:content-['✓_'] text-green-500">contains at
+                                                                                                            least one
+                                                                                                            uppercase
+                                                                                                            letter</p>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" class="after:content-['*'] after:text-red-500"/>
+                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}"
+                             class="after:content-['*'] after:text-red-500"/>
                     <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                              name="password_confirmation" required autocomplete="new-password"/>
                 </div>
@@ -77,14 +93,16 @@
                 <div id="company">
                     @if(old('company_name'))
                         <div class="mt-4">
-                            <x-label for="company_name" value="{{ __('Company Name') }}" class="after:content-['*'] after:text-red-500"/>
+                            <x-label for="company_name" value="{{ __('Company Name') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
                             <x-input id="company_name" class="block mt-1 w-full" type="text" name="company_name"
                                      :value="old('company_name')" required
                                      autofocus autocomplete="name"/>
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_description" value="{{ __('Company Description') }}" class="after:content-['*'] after:text-red-500"/>
+                            <x-label for="company_description" value="{{ __('Company Description') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
                             <textarea id="email"
                                       class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
                                       name="company_description" required
@@ -92,17 +110,44 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_website" value="{{ __('Company Website') }}" class="after:content-['*'] after:text-red-500"/>
+                            <x-label for="company_website" value="{{ __('Company Website') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
                             <x-input id="company_website" class="block mt-1 w-full" type="text" name="company_website"
                                      required
                                      autocomplete="company_website" :value="old('company_website')"/>
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_address" value="{{ __('Company Address') }}" class="after:content-['*'] after:text-red-500"/>
-                            <x-input id="company_address" class="block mt-1 w-full" type="text"
-                                     name="company_address" required autocomplete="company_address"
-                                     :value="old('company_address')"/>
+                            <x-label for="company_postcode" value="{{ __('Company Postcode') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="company_postcode" class="block mt-1 w-full" type="text" name="company_postcode"
+                                     :value="old('company_postcode')" required
+                                     autofocus autocomplete="postcode"/>
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="company_housenumber" value="{{ __('Company House Number') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="company_housenumber" class="block mt-1 w-full" type="text"
+                                     name="company_housenumber"
+                                     :value="old('company_housenumber')" required
+                                     autofocus autocomplete="name"/>
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="company_street" value="{{ __('Company Street') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="company_street" class="block mt-1 w-full" type="text" name="company_street"
+                                     :value="old('company_street')" required
+                                     autofocus autocomplete="name"/>
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="company_city" value="{{ __('Company City') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="company_city" class="block mt-1 w-full" type="text" name="company_city"
+                                     :value="old('company_city')" required
+                                     autofocus autocomplete="name"/>
                         </div>
                     @endif
                 </div>
@@ -145,6 +190,10 @@
         const companyDiv = document.getElementById('company');
         const passwordRulesDiv = document.getElementById('password-rules');
         const passwordInput = document.getElementById('password');
+
+        if(document.getElementById('company_postcode')) {
+            postcodeValidation();
+        }
 
         //show password rules when user clicks on password field
         passwordInput.addEventListener('click', function () {
@@ -221,8 +270,40 @@
                 companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
                 companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
                 companyDiv.appendChild(createField('company_website', 'Company Website', 'input'));
-                companyDiv.appendChild(createField('company_address', 'Company Address', 'input'));
+                companyDiv.appendChild(createField('company_postcode', 'Postcode - format: 1234 AB', 'input'));
+                companyDiv.appendChild(createField('company_housenumber', 'House number', 'input'));
+                companyDiv.appendChild(createField('company_street', 'Street', 'input'));
+                companyDiv.appendChild(createField('company_city', 'City', 'input'));
+
+                document.getElementById('company_housenumber').setAttribute('type', 'number');
+                postcodeValidation();
             }
+        }
+
+        function postcodeValidation() {
+            document.getElementById('company_postcode').addEventListener('keydown', function(event) {
+                const position = document.getElementById('company_postcode').selectionStart;
+                const userInput = document.getElementById('company_postcode').value;
+
+                if (
+                    event.key === 'Backspace' ||
+                    event.key === 'ArrowLeft' ||
+                    event.key === 'ArrowRight' ||
+                    event.key === 'ArrowUp' ||
+                    event.key === 'ArrowDown' ||
+                    event.key === 'Tab'
+                ) {
+                    return;
+                }
+
+                if (
+                    !((position < 4 && /[0-9]/.test(event.key)) ||
+                        (position === 4 && event.key === ' ') ||
+                        (position >= 5 && position <= 6 && /[A-Za-z]/.test(event.key)))
+                ) {
+                    event.preventDefault();
+                }
+            });
         }
 
         function clearCompanyDetails() {
@@ -269,6 +350,8 @@
             inactiveFlowElement.addEventListener('click', addCompanyDetails);
         }
     });
+
+
 
 
 </script>
