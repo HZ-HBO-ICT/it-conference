@@ -34,7 +34,8 @@ class Team extends JetstreamTeam
         'address',
         'website',
         'is_approved',
-        'description'
+        'description',
+        'logo_path'
     ];
 
     /**
