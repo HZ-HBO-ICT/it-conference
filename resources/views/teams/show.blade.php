@@ -15,6 +15,10 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            @livewire('manage-company-logo', ['team' => $team])
+
+            <x-section-border/>
+
             @livewire('teams.update-team-name-form', ['team' => $team])
 
             @if($team->is_approved)
