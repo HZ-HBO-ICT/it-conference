@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\TeamApproved;
+use App\Events\TeamDisapproved;
 use App\Mail\BoothApproved;
 use App\Mail\BoothDisapproved;
 use App\Mail\CustomTeamInvitation;
@@ -11,7 +12,7 @@ use App\Mail\PresentationDisapproved;
 use App\Mail\SponsorshipApproved;
 use App\Mail\SponsorshipDisapproved;
 use App\Mail\TeamApprovedMailable;
-use App\Mail\TeamDisapproved;
+use App\Mail\TeamDisapprovedMailable;
 use App\Models\Booth;
 use App\Models\Presentation;
 use App\Models\Speaker;
@@ -114,11 +115,7 @@ class ContentModeratorController extends Controller
             TeamApproved::dispatch($team);
             $message = __('You approved :company to join the IT Conference!', ['company' => $team->name]);
         } else {
-            Mail::to($team->owner->email)->send(new TeamDisapproved($team));
-
-            $deleteTeam = new DeleteTeam();
-            $deleteTeam->delete($team);
-
+            TeamDisapproved::dispatch($team);
             $message = __('You refused the request of :company to join the IT conference', ['company' => $team->name]);
         }
 

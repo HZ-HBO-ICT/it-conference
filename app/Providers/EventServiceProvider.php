@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\TeamApproved;
+use App\Events\TeamDisapproved;
 use App\Listeners\HandleTeamApproved;
+use App\Listeners\HandleTeamDisapproved;
 use App\Listeners\SendTeamApprovedNotifications;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -31,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(
             TeamApproved::class,
             [HandleTeamApproved::class, 'handle']
+        );
+        Event::listen(
+            TeamDisapproved::class,
+            [HandleTeamDisapproved::class, 'handle']
         );
     }
 
