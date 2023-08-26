@@ -83,15 +83,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Speaker::class);
     }
-
-    /**
-     * From all users it retrieves only the one that are at least participants
-     * and the ones that have receive emails as true in the database
-     * @param Builder $query
-     * @return mixed
-     */
-    public function scopeEmailRecipients(Builder $query)
-    {
-        return $query->role('participant')->where('receive_emails', true);
-    }
 }
