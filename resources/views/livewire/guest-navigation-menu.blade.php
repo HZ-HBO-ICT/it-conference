@@ -84,7 +84,7 @@
             <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
