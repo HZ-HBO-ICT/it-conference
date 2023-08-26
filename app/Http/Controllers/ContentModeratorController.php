@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Events\BoothApproved;
+use App\Events\BoothDisapproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
 use App\Mail\BoothApprovedMailable;
-use App\Mail\BoothDisapproved;
+use App\Mail\BoothDisapprovedMailable;
 use App\Mail\CustomTeamInvitation;
 use App\Mail\PresentationApproved;
 use App\Mail\PresentationDisapproved;
@@ -138,9 +139,7 @@ class ContentModeratorController extends Controller
             $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
 
         } else {
-            Mail::to($booth->team->owner->email)->send(new BoothDisapproved($booth->team));
-            $booth->delete();
-
+            BoothDisapproved::dispatch($booth);
             $message = __('You denied the request of :company to have a booth', ['company' => $booth->team->name]);
         }
 

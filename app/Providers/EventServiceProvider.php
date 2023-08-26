@@ -3,12 +3,15 @@
 namespace App\Providers;
 
 use App\Events\BoothApproved;
+use App\Events\BoothDisapproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
 use App\Listeners\HandleBoothApproved;
+use App\Listeners\HandleBoothDisapproved;
 use App\Listeners\HandleTeamApproved;
 use App\Listeners\HandleTeamDisapproved;
 use App\Listeners\SendTeamApprovedNotifications;
+use App\Mail\BoothDisapprovedMailable;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -43,6 +46,10 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(
             BoothApproved::class,
             [HandleBoothApproved::class, 'handle']
+        );
+        Event::listen(
+            BoothDisapproved::class,
+            [HandleBoothDisapproved::class, 'handle']
         );
     }
 
