@@ -27,7 +27,6 @@ class HandleTeamApproved
     {
         $team = $event->team;
 
-        $team->owner->notify(new NotifyTeamApproved($team));
         foreach (User::role('participant')->get() as $user)
         {
             $user->notify(new NotifyTeamApproved($team));
