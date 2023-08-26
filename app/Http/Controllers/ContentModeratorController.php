@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TeamApproved;
 use App\Mail\BoothApproved;
 use App\Mail\BoothDisapproved;
 use App\Mail\CustomTeamInvitation;
@@ -9,7 +10,7 @@ use App\Mail\PresentationApproved;
 use App\Mail\PresentationDisapproved;
 use App\Mail\SponsorshipApproved;
 use App\Mail\SponsorshipDisapproved;
-use App\Mail\TeamApproved;
+use App\Mail\TeamApprovedMailable;
 use App\Mail\TeamDisapproved;
 use App\Models\Booth;
 use App\Models\Presentation;
@@ -110,13 +111,8 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            $team->is_approved = true;
-            $team->owner->assignRole('company representative');
-            $team->save();
-            Mail::to($team->owner->email)->send(new TeamApproved($team));
-
+            TeamApproved::dispatch($team);
             $message = __('You approved :company to join the IT Conference!', ['company' => $team->name]);
-
         } else {
             Mail::to($team->owner->email)->send(new TeamDisapproved($team));
 
