@@ -41,7 +41,7 @@ class HandleSponsorshipApproved
             $team->booth->save();
         }
 
-        foreach (User::role('participant')->get() as $user) {
+        foreach (User::emailRecipients()->get() as $user) {
             $user->notify(new NotifySponsorshipApproved($team));
         }
     }

@@ -31,7 +31,7 @@ class HandlePresentationApproved
         $user->assignRole('speaker');
         $user->speaker->save();
 
-        foreach (User::role('participant')->get() as $user) {
+        foreach (User::emailRecipients()->get() as $user) {
             $user->notify(new NotifyPresentationApproved($presentation));
         }
     }

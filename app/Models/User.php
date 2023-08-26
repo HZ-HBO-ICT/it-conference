@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -81,5 +82,16 @@ class User extends Authenticatable
     public function speaker(): HasOne
     {
         return $this->hasOne(Speaker::class);
+    }
+
+    /**
+     * From all users it retrieves only the one that are at least participants
+     * and the ones that have receive emails as true in the database
+     * @param Builder $query
+     * @return mixed
+     */
+    public function scopeEmailRecipients(Builder $query)
+    {
+        return $query->role('participant')->where('receive_emails', true);
     }
 }
