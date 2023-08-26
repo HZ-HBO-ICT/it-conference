@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\BoothApproved;
 use App\Events\BoothDisapproved;
+use App\Events\SponsorshipApproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
 use App\Mail\BoothApprovedMailable;
@@ -11,7 +12,7 @@ use App\Mail\BoothDisapprovedMailable;
 use App\Mail\CustomTeamInvitation;
 use App\Mail\PresentationApproved;
 use App\Mail\PresentationDisapproved;
-use App\Mail\SponsorshipApproved;
+use App\Mail\SponsorshipApprovedMailable;
 use App\Mail\SponsorshipDisapproved;
 use App\Mail\TeamApprovedMailable;
 use App\Mail\TeamDisapprovedMailable;
@@ -157,10 +158,7 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            $team->is_sponsor_approved = true;
-            $team->save();
-            Mail::to($team->owner->email)->send(new SponsorshipApproved($team));
-
+            SponsorshipApproved::dispatch($team);
             $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
 
         } else {
