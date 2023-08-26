@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\BoothApproved;
 use App\Events\BoothDisapproved;
+use App\Events\PresentationApproved;
 use App\Events\SponsorshipApproved;
 use App\Events\SponsorshipDisapproved;
 use App\Events\TeamApproved;
@@ -11,7 +12,7 @@ use App\Events\TeamDisapproved;
 use App\Mail\BoothApprovedMailable;
 use App\Mail\BoothDisapprovedMailable;
 use App\Mail\CustomTeamInvitation;
-use App\Mail\PresentationApproved;
+use App\Mail\PresentationApprovedMailable;
 use App\Mail\PresentationDisapproved;
 use App\Mail\SponsorshipApprovedMailable;
 use App\Mail\SponsorshipDisapprovedMailable;
@@ -174,13 +175,7 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            $user = User::find($presentation->mainSpeaker()->user->id);
-            $user->speaker->is_approved = 1;
-            $user->assignRole('speaker');
-            $user->speaker->save();
-
-            Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationApproved());
-
+            PresentationApproved::dispatch($presentation);
             $message = __('You approved :name to host a presentation during the IT Conference!', ['name' => $presentation->mainSpeaker()->user->name]);
 
         } else {

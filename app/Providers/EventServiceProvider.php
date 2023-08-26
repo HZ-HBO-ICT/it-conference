@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use App\Events\BoothApproved;
 use App\Events\BoothDisapproved;
+use App\Events\PresentationApproved;
 use App\Events\SponsorshipApproved;
 use App\Events\SponsorshipDisapproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
 use App\Listeners\HandleBoothApproved;
 use App\Listeners\HandleBoothDisapproved;
+use App\Listeners\HandlePresentationApproved;
 use App\Listeners\HandleSponsorshipApproved;
 use App\Listeners\HandleSponsorshipDisapproved;
 use App\Listeners\HandleTeamApproved;
@@ -62,6 +64,10 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(
             SponsorshipDisapproved::class,
             [HandleSponsorshipDisapproved::class, 'handle']
+        );
+        Event::listen(
+            PresentationApproved::class,
+            [HandlePresentationApproved::class, 'handle']
         );
     }
 
