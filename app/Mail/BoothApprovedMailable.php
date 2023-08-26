@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class BoothApproved extends Mailable
+class BoothApprovedMailable extends Mailable
 {
     use Queueable, SerializesModels;
 

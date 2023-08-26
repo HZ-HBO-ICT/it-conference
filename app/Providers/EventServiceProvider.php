@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\BoothApproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
+use App\Listeners\HandleBoothApproved;
 use App\Listeners\HandleTeamApproved;
 use App\Listeners\HandleTeamDisapproved;
 use App\Listeners\SendTeamApprovedNotifications;
@@ -37,6 +39,10 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(
             TeamDisapproved::class,
             [HandleTeamDisapproved::class, 'handle']
+        );
+        Event::listen(
+            BoothApproved::class,
+            [HandleBoothApproved::class, 'handle']
         );
     }
 

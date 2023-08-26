@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BoothApproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
-use App\Mail\BoothApproved;
+use App\Mail\BoothApprovedMailable;
 use App\Mail\BoothDisapproved;
 use App\Mail\CustomTeamInvitation;
 use App\Mail\PresentationApproved;
@@ -133,10 +134,7 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            $booth->is_approved = true;
-            $booth->save();
-            Mail::to($booth->team->owner->email)->send(new BoothApproved($booth->team));
-
+            BoothApproved::dispatch($booth);
             $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
 
         } else {
