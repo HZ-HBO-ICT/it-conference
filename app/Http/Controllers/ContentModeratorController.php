@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\BoothApproved;
 use App\Events\BoothDisapproved;
 use App\Events\PresentationApproved;
+use App\Events\PresentationDisapproved;
 use App\Events\SponsorshipApproved;
 use App\Events\SponsorshipDisapproved;
 use App\Events\TeamApproved;
@@ -13,7 +14,7 @@ use App\Mail\BoothApprovedMailable;
 use App\Mail\BoothDisapprovedMailable;
 use App\Mail\CustomTeamInvitation;
 use App\Mail\PresentationApprovedMailable;
-use App\Mail\PresentationDisapproved;
+use App\Mail\PresentationDisapprovedMailable;
 use App\Mail\SponsorshipApprovedMailable;
 use App\Mail\SponsorshipDisapprovedMailable;
 use App\Mail\TeamApprovedMailable;
@@ -180,10 +181,7 @@ class ContentModeratorController extends Controller
 
         } else {
             $message = __('You refused the request of :name to host presentation during the IT conference', ['name' => $presentation->mainSpeaker()->user->name]);
-
-            Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationDisapproved());
-            $presentation->speakers()->delete();
-            $presentation->delete();
+            PresentationDisapproved::dispatch($presentation);
         }
 
         return redirect(route('moderator.requests', 'presentations'))->banner($message);
