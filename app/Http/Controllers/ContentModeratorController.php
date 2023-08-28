@@ -24,6 +24,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Mail;
 
+// TODO: All status changes need to be refactored in events
 class ContentModeratorController extends Controller
 {
     /**
@@ -192,10 +193,7 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            $user = User::find($presentation->mainSpeaker()->user->id);
-            $user->speaker->is_approved = 1;
-            $user->assignRole('speaker');
-            $user->speaker->save();
+            $presentation->approve();
 
             Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationApproved());
 
