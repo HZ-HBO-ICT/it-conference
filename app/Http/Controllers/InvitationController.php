@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Models\Speaker;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
@@ -12,10 +14,13 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
+use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\TeamInvitation;
 
 class InvitationController extends Controller
 {
+    use PasswordValidationRules;
+
     protected $guard;
 
     public function __construct(StatefulGuard $guard)
@@ -47,7 +52,16 @@ class InvitationController extends Controller
      */
     public function register(Request $request, TeamInvitation $invitation, CreatesNewUsers $creator): RedirectResponse
     {
-        event(new Registered($user = $creator->create($request->all())));
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ];
+
+        $user = User::create($request->validate($rules));
+
+        event(new Registered($user));
         $this->guard->login($user);
 
         app(AddsTeamMembers::class)->add(
@@ -75,9 +89,9 @@ class InvitationController extends Controller
         } elseif ($user->currentTeam->hasPendingPresentationRequest) {
 
             $presentationId = 0;
-            foreach ($user->currentTeam->allSpeakers as $user) {
-                if ($user->speaker) {
-                    $presentationId = $user->speaker->presentation_id;
+            foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
+                if ($userSpeaker->speaker) {
+                    $presentationId = $userSpeaker->speaker->presentation_id;
                     break;
                 }
             }
