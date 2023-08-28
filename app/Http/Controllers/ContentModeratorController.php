@@ -169,6 +169,9 @@ class ContentModeratorController extends Controller
         if ($isApproved) {
             $team->is_sponsor_approved = true;
             $team->save();
+            if($team->sponsorTier->leftSpots() == 0)
+                $team->sponsorTier->rejectAllExceptApproved();
+
             Mail::to($team->owner->email)->send(new SponsorshipApproved($team));
 
             $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
