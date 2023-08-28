@@ -132,6 +132,7 @@
                         <div class="mt-4">
                             <x-label for="company_postcode" value="{{ __('Company Postcode') }}"
                                      class="after:content-['*'] after:text-red-500"/>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Format: 1234 AB</p>
                             <x-input id="company_postcode" class="block mt-1 w-full" type="text" name="company_postcode"
                                      :value="old('company_postcode')" required
                                      autofocus autocomplete="postcode"/>
@@ -284,10 +285,16 @@
                 companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
                 companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
                 companyDiv.appendChild(createField('company_website', 'Company Website', 'input'));
-                companyDiv.appendChild(createField('company_postcode', 'Postcode - format: 1234 AB', 'input'));
-                companyDiv.appendChild(createField('company_housenumber', 'House number', 'input'));
-                companyDiv.appendChild(createField('company_street', 'Street', 'input'));
-                companyDiv.appendChild(createField('company_city', 'City', 'input'));
+                companyDiv.appendChild(createField('company_postcode', 'Company Postcode', 'input'));
+                companyDiv.appendChild(createField('company_housenumber', 'Company House number', 'input'));
+                companyDiv.appendChild(createField('company_street', 'Company Street', 'input'));
+                companyDiv.appendChild(createField('company_city', 'Company City', 'input'));
+
+                let postcodeLabel = document.querySelector("[for=company_postcode]");
+                let subLabel = document.createElement('p');
+                subLabel.innerHTML = 'Format: 1234 AB';
+                subLabel.className = 'text-xs text-gray-600 dark:text-gray-400';
+                postcodeLabel.parentNode.insertBefore(subLabel, postcodeLabel.nextSibling);
 
                 document.getElementById('company_housenumber').setAttribute('type', 'number');
                 postcodeValidation();
