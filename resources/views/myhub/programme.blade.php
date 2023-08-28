@@ -6,24 +6,29 @@
                 <div class="flex flex-row justify-between">
                     <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">Programme</h2>
 
-                    <div>
-                        <a type="button"
-                           href="#"
-                           class="hidden lg:block md:block text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                            Do you want to host lecture/workshop?
-                        </a>
-                    </div>
+                    @can('sendRequest', App\Models\Presentation::class)
+                        <div>
+                            <a type="button"
+                               href="{{ route('speakers.request.presentation') }}"
+                               class="hidden lg:block md:block text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                Do you want to host lecture/workshop?
+                            </a>
+                        </div>
+                    @endcan
                 </div>
 
                 @if($presentations->isEmpty())
-                    <p class="text-l pt-16 text-gray-800 dark:text-gray-200">You need to register to a presentation or workshop first!</p>
+                    <p class="text-l pt-16 text-gray-800 dark:text-gray-200">You need to register to a presentation or
+                                                                             workshop first!</p>
                 @else
-                    <p class="text-l pt-16 text-gray-800 dark:text-gray-200">The lectures/workshops you are registered for:</p>
+                    <p class="text-l pt-16 text-gray-800 dark:text-gray-200">The lectures/workshops you are registered
+                                                                             for:</p>
 
                     <ul class="space-y-2 list-disc list-inside dark:text-gray-800 mt-8 pl-5">
                         @foreach($presentations as $presentation)
                             <li class="flex gap-4">
-                                <p class="text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }} — {{ $presentation->name }} — {{ $presentation->room->name }}</p>
+                                <p class="text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }}
+                                    — {{ $presentation->name }} — {{ $presentation->room->name }}</p>
 
                                 <div>
                                     <a type="button" href="{{ route('destroy-participant', $presentation->id) }}"

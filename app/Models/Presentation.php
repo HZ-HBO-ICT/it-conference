@@ -106,10 +106,21 @@ class Presentation extends Model
      *
      * @return int
      */
-    public function maxParticipants() : int
+    public function maxParticipants(): int
     {
         return $this->room->max_participants < $this->max_participants
             ? $this->room->max_participants
             : $this->max_participants;
+    }
+
+    /**
+     * Called in order to approve the speakers connected to the presentation
+     * @return void
+     */
+    public function approve()
+    {
+        foreach ($this->speakers as $speaker) {
+            $speaker->approve();
+        }
     }
 }

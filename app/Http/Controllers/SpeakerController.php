@@ -34,12 +34,23 @@ class SpeakerController extends Controller
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
 
-        Speaker::create([
-            'user_id' => Auth::user()->id,
-            'presentation_id' => $presentation->id,
-            'is_main_speaker' => 1,
-            'is_approved' => 0,
-        ]);
+        if (Auth::user()->currentTeam) {
+            foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
+                Speaker::create([
+                    'user_id' => $speaker->id,
+                    'presentation_id' => $presentation->id,
+                    'is_main_speaker' => Auth::user()->id == $speaker->id ? 1 : 0,
+                    'is_approved' => 0,
+                ]);
+            }
+        } else {
+            Speaker::create([
+                'user_id' => Auth::user()->id,
+                'presentation_id' => $presentation->id,
+                'is_main_speaker' => 1,
+                'is_approved' => 0,
+            ]);
+        }
 
         return redirect(route('welcome'))->banner("You successfully send your request to host a {$presentation->type}");
     }
