@@ -26,7 +26,10 @@ class TeamFactory extends Factory
             'name' => $this->faker->unique()->company(),
             'user_id' => User::factory(),
             'personal_team' => true,
-            'address' => '123 Main St',
+            'postcode' => '1234 AB',
+            'house_number' => '1',
+            'street' => '123 Main St',
+            'city' => 'Lorem ipsum',
             'website' => 'https://example.com',
             'description' => 'Lorem ipsum dolar sit amet'
         ];

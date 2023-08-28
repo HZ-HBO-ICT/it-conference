@@ -32,7 +32,10 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'personal_team',
-        'address',
+        'postcode',
+        'house_number',
+        'street',
+        'city',
         'website',
         'is_approved',
         'description'
