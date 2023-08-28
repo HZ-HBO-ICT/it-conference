@@ -21,7 +21,7 @@
                         @else
                             <h2 class="text-md">Speakers:
                                 @foreach($presentation->speakers()->get() as $speaker)
-                                {{$speaker->name}},
+                                {{$speaker->user->name}},
                                 @endforeach</h2>
                         @endif
                         <h2 class="text-sm pb-2">{{$presentation->mainSpeaker()->user->currentTeam ? $presentation->mainSpeaker()->user->currentTeam->name : 'Independent speaker' }} </h2>
