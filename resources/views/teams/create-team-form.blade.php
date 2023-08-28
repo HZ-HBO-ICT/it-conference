@@ -42,7 +42,7 @@
             <x-input-error for="city" class="mt-2"/>
         </div>
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="website" value="{{ __('Company Website') }}"/>
+            <x-label for="website" value="{{ __('Website') }}"/>
             <x-input id="website" type="text" class="mt-1 block w-full" wire:model.defer="state.website" autofocus/>
             <x-input-error for="website" class="mt-2"/>
         </div>
