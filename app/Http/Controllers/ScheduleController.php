@@ -16,6 +16,20 @@ use Ramsey\Uuid\Type\Time;
 
 class ScheduleController extends Controller
 {
+    public function index(): View
+    {
+        $lectureTimeslots = Timeslot::where('duration', 30)->get();
+        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+
+        return view('presentations.index',
+            compact('lectureTimeslots', 'workshopTimeslots'));
+    }
+
+    public function show(Presentation $presentation): View
+    {
+        return view('presentations.show', compact('presentation'));
+    }
+
     /**
      * Display the overview for scheduling
      *
