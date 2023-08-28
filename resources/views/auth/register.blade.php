@@ -256,6 +256,9 @@
             }
         });
 
+        buttons[0].addEventListener('click', clearCompanyDetails);
+        buttons[1].addEventListener('click', addCompanyDetails);
+
         switchActiveFlow(buttons[0], buttons[1]);
         if (document.getElementById('company_name')) {
             switchActiveFlow(buttons[1], buttons[0]);
@@ -368,10 +371,8 @@
         function switchActiveFlow(activeFlowElement, inactiveFlowElement) {
             activeFlowElement.className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
             activeFlowElement.style.cursor = 'default';
-            activeFlowElement.addEventListener('click', clearCompanyDetails);
             inactiveFlowElement.className = 'flow bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center';
             inactiveFlowElement.style.cursor = 'pointer';
-            inactiveFlowElement.addEventListener('click', addCompanyDetails);
         }
 
         const emailInput = document.getElementById('email');
