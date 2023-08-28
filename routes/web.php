@@ -67,6 +67,12 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
+Route::get('/programme', [ScheduleController::class, 'index'])
+    ->name('programme');
+
+Route::get('/presentations/{presentation}', [ScheduleController::class, 'show'])
+    ->name('presentations.show');
+
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
 
