@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\FinalProgrammeReleased;
 use App\Models\Presentation;
 use Livewire\Component;
 
@@ -16,6 +17,12 @@ class ReleaseFinalProgramme extends Component
         $this->numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isScheduled && $presentation->isApproved;
         })->count();
+    }
+
+    public function confirm()
+    {
+        FinalProgrammeReleased::dispatch();
+        return redirect(request()->header('Referer'));
     }
 
     public function render()

@@ -39,9 +39,11 @@
                     <span class="flex items-center h-full justify-center">Automatically fill</span>
                 </a>
             </div>
-            <div>
-                @livewire('release-final-programme')
-            </div>
+            @if(!App\Models\GlobalEvent::isFinalProgrammeReleased())
+                <div>
+                    @livewire('release-final-programme')
+                </div>
+            @endif
         </div>
         <h1 class="text-2xl font-extrabold text-gray-700 dark:text-white py-3">Current version of schedule</h1>
         <div class="grid grid-cols-2 gap-4">
