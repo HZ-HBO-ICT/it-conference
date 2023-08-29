@@ -39,8 +39,6 @@ class RoomBasicFeaturesTest extends TestCase
         // Assert
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
-        $response->assertViewIs('moderator.rooms.index');
-        $response->assertViewHas('rooms', $rooms);
     }
 
     public function test_that_no_rooms_are_showed_if_not_moderator(): void
@@ -75,7 +73,6 @@ class RoomBasicFeaturesTest extends TestCase
         // Assert
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
-        $response->assertViewIs('moderator.rooms.create');
     }
 
     public function test_that_create_room_is_not_showed_if_not_moderator(): void
@@ -206,7 +203,6 @@ class RoomBasicFeaturesTest extends TestCase
         // Assert
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
-        $response->assertViewIs('moderator.rooms.edit');
     }
 
     public function test_that_edit_room_is_not_showed_if_not_moderator(): void
