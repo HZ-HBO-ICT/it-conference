@@ -25,11 +25,7 @@ class HandlePresentationApproved
     public function handle(PresentationApproved $event): void
     {
         $presentation = $event->presentation;
-
-        $user = User::find($presentation->mainSpeaker()->user->id);
-        $user->speaker->is_approved = 1;
-        $user->assignRole('speaker');
-        $user->speaker->save();
+        $presentation->approve();
 
         foreach (User::role('participant')->get() as $user) {
             $user->notify(new NotifyPresentationApproved($presentation));

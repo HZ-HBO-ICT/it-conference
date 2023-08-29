@@ -15,7 +15,14 @@ class SponsorshipRequest extends Component
     {
         $this->team = $team;
         $this->tiers = $tiers;
-        $this->chosenTierName = 'golden';
+        foreach ($tiers as $tier)
+        {
+            if($tier->leftSpots() > 0)
+            {
+                $this->chosenTierName = $tier->name;
+                break;
+            }
+        }
 
         $this->requestSent = (bool)$this->team->sponsorTier;
     }

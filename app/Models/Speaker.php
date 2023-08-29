@@ -29,4 +29,15 @@ class Speaker extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Approves the speaker and makes it a global speaker
+     * @return void
+     */
+    public function approve() : void
+    {
+        $this->is_approved = 1;
+        $this->user->assignRole('speaker');
+        $this->save();
+    }
 }

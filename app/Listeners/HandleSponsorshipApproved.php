@@ -29,6 +29,9 @@ class HandleSponsorshipApproved
         $team->is_sponsor_approved = true;
         $team->save();
 
+        if($team->sponsorTier->leftSpots() == 0)
+            $team->sponsorTier->rejectAllExceptApproved();
+
         if ($team->booth) {
             if ($team->sponsorTier->name == 'golden') {
                 $team->booth->width = 2;

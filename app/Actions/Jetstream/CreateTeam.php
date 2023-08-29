@@ -33,7 +33,10 @@ class CreateTeam implements CreatesTeams
             'name' => 'required',
             'description' => 'required',
             'website' => 'required',
-            'address' => 'required',
+            'postcode' => 'required',
+            'house_number' => 'required',
+            'street' => 'required',
+            'city' => 'required',
             'rep_name' => 'required',
             'rep_email' => 'required'
         ])->validateWithBag('createTeam');
@@ -48,7 +51,10 @@ class CreateTeam implements CreatesTeams
         $team = Team::forceCreate([
             'user_id' => $user->id,
             'name' => $input['name'],
-            'address' => $input['address'],
+            'postcode' => $input['postcode'],
+            'house_number' => $input['house_number'],
+            'street' => $input['street'],
+            'city' => $input['city'],
             'website' => $input['website'],
             'description' => $input['description'],
             'personal_team' => false,

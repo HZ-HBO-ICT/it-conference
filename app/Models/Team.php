@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -31,7 +32,10 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'personal_team',
-        'address',
+        'postcode',
+        'house_number',
+        'street',
+        'city',
         'website',
         'is_approved',
         'description'
@@ -66,22 +70,66 @@ class Team extends JetstreamTeam
         return $this->hasOne(Booth::class);
     }
 
-    public function speakers()
+    /**
+     * All the speakers that are in the team and are approved.
+     * (Approved means that they have a global (spatie) role speaker)
+     * @return Attribute
+     */
+    public function speakers(): Attribute
     {
-        return $this->users()->wherePivot('role', 'speaker')->get();
+        return Attribute::make(
+            get: fn() => $this->users()->role('speaker')->get(),
+        );
     }
 
-    public function presentation()
+    /**
+     * All the speakers that are within a team, even though they may not
+     * be approved globally
+     * @return Attribute
+     */
+    public function allSpeakers(): Attribute
     {
-        if($this->speakers()->count() != 0)
-        {
-            $user = $this->speakers()->first(function ($user) {
-                return $user->speaker !== null;
-            });
+        return Attribute::make(
+            get: fn() => $this->users()->wherePivot('role', 'speaker')->get(),
+        );
+    }
 
-            return !is_null($user) ? $user->speaker->presentation : null;
-        }
+    /**
+     * All the presentations that the team has. All teams should have only one but
+     * the gold sponsor.
+     * @return Attribute
+     */
+    public function presentations(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->speakers->count() != 0) {
+                    $presentations = [];
+                    foreach ($this->speakers as $user) {
+                        $presentations[] = $user->speaker->presentation()->get();
+                    }
 
-        return null;
+                    return collect($presentations)->flatten();
+                }
+
+                return null;
+            }
+        );
+    }
+
+    /**
+     * Checks if currently there is a pending request for a presentation
+     * by the team
+     * @return Attribute
+     */
+    public function hasPendingPresentationRequest(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->users()->whereHas('speaker', function ($query) {
+                    $query->where('is_approved', 0)->where('is_main_speaker', 1);
+                })->wherePivot('role', 'speaker')->exists();
+            }
+        );
     }
 }
