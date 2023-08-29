@@ -13,9 +13,13 @@ class NotificationsList extends Component
 
     public function mount()
     {
-        $this->unreadNotifications = Auth::user()->unreadNotifications;
+        $this->refreshNotifications();
     }
 
+    public function refreshNotifications()
+    {
+        $this->unreadNotifications = Auth::user()->unreadNotifications;
+    }
 
     public function render()
     {
