@@ -13,7 +13,7 @@
                 <x-section-border/>
             @endif
 
-                @livewire('email-notification-preference');
+                @livewire('email-notification-preference')
                 <x-section-border/>
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
