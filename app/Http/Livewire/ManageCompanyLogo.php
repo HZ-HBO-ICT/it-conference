@@ -20,14 +20,14 @@ class ManageCompanyLogo extends Component
     public function updatedPhoto()
     {
         $this->validate([
-            'photo' => 'image|max:1024',
+            'photo' => 'image|max:5120',
         ]);
     }
 
     public function save()
     {
         $this->validate([
-            'photo' => 'image|max:1024',
+            'photo' => 'image|max:5120',
         ]);
 
         $path = $this->photo->store('logos', 'public');
