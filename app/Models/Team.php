@@ -38,7 +38,8 @@ class Team extends JetstreamTeam
         'city',
         'website',
         'is_approved',
-        'description'
+        'description',
+        'logo_path'
     ];
 
     /**
