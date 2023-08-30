@@ -20,8 +20,9 @@ class PresentationPolicy
     {
         return is_null($user->speaker)
             && (is_null($user->currentTeam)
-                || (is_null($user->currentTeam->presentation())
+                || (is_null($user->currentTeam->presentations)
                     && ($user->hasTeamRole($user->currentTeam, 'speaker')
-                        && $user->currentTeam->owner->id !== $user->id)));
+                        && $user->currentTeam->owner->id !== $user->id
+                        && !$user->hasRole('speaker'))));
     }
 }

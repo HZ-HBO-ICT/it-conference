@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Presentation;
+use App\Models\Speaker;
 use App\Models\User;
 use Database\Factories\PresentationFactory;
 use Database\Factories\UserFactory;
@@ -19,8 +20,6 @@ class ParticipantSeeder extends Seeder
      */
     public function run(): void
     {
-        Presentation::factory(10)->create();
-
         DB::table('users')->insert([
             'name' => 'Test Account',
             'email' => 'testacc@hz.nl',
@@ -33,21 +32,22 @@ class ParticipantSeeder extends Seeder
             'current_team_id' => null,
         ]);
 
+        Presentation::factory(15)->has(Speaker::factory())->create();
+        $presentations = Presentation::all();
+
         $presentation = Presentation::first();
 
         //fill presentation with maximum participants
         $presentation->participants()->attach(User::factory($presentation->max_participants)->create()->pluck('id')->toArray());
 
         //previous seeder, uncomment if needed
-//        $presentations = Presentation::all();
-//
-//        // Populate the pivot table
-//        User::all()->each(function ($user) use ($presentations) {
-//            $user->presentations()->attach(
-//                $presentations->random(rand(1, 5))->pluck('id')->toArray()
-//            );
-//        });
+        $presentations = Presentation::all();
 
-
+        // Populate the pivot table
+        User::all()->each(function ($user) use ($presentations) {
+            $user->presentations()->attach(
+                $presentations->random(rand(1, 5))->pluck('id')->toArray()
+            );
+        });
     }
 }

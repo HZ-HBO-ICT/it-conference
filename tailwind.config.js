@@ -14,14 +14,17 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
                       'montserrat': ['Montserrat', 'sans-serif'],
             },
             colors: {
                 'gradient-yellow': '#F9CD32',
                 'gradient-pink': '#7533A9',
                 'gradient-purple': '#7533A9',
-                'gradient-blue': '#151BB9'
+                'gradient-blue': '#151BB9',
+                'gold': '#FFD700',
+                'silver': '#C0C0C0',
+                'bronze': '#CD7F32',	
             }
         },
     },

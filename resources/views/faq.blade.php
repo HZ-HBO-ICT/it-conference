@@ -16,7 +16,7 @@
                 </div>
                 <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
                     <dt class="leading-7 font-semibold text-base dark:text-white">When and where does the “We are in IT together Conference” take place?</dt>
-                    <dd class="leading-7 mt-2 dark:text-gray-200">The conference will take place on November 18th at our location in Het Groenewoud Middelburg. Visit 
+                    <dd class="leading-7 mt-2 dark:text-gray-200">The conference will take place on November 17th at our location in Het Groenewoud Middelburg. Visit 
                     <a href="https://hz.nl/en/about-hz/contact/middelburg"> hz.nl </a> for information about parking.</dd>
                 </div>
                 <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">

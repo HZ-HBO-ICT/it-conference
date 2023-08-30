@@ -65,8 +65,10 @@ class UserFactory extends Factory
                     'name' => $user->name.'\'s Team',
                     'user_id' => $user->id,
                     'personal_team' => true,
-                    'name' => 'Test Team',
-                    'address' => '123 Main St',
+                    'postcode' => '1234 AB',
+                    'house_number' => '1',
+                    'city' => 'Lorem ipsum',
+                    'street' => '123 Main St',
                     'website' => 'https://example.com',
                     'description' => 'Lorem ipsum dolar sit amet'
                 ])

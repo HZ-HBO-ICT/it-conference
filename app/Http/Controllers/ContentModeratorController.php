@@ -24,6 +24,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Mail;
 
+// TODO: All status changes need to be refactored in events
 class ContentModeratorController extends Controller
 {
     /**
@@ -34,18 +35,18 @@ class ContentModeratorController extends Controller
     public function requests(string $type): View
     {
         if ($type == 'teams') {
-            $teams = Team::where('is_approved', false)->get();
+            $teams = Team::where('is_approved', false)->paginate(5);
             return view('moderator.requests.teams', compact('type', 'teams'));
         } else if ($type == 'booths') {
-            $booths = Booth::where('is_approved', false)->get();
+            $booths = Booth::where('is_approved', false)->paginate(5);
             return view('moderator.requests.booths', compact('type', 'booths'));
         } else if ($type == 'sponsorships') {
-            $teams = Team::where('is_sponsor_approved', false)->whereNotNull('sponsor_tier_id')->get();
+            $teams = Team::where('is_sponsor_approved', false)->whereNotNull('sponsor_tier_id')->paginate(5);
             return view('moderator.requests.sponsorships', compact('type', 'teams'));
         } else if ($type == 'presentations') {
             $presentations = Presentation::whereHas('speakers', function ($query) {
                 $query->where('is_approved', false);
-            })->get();
+            })->paginate(5);
             return view('moderator.requests.presentations', compact('type', 'presentations'));
         }
 
@@ -98,7 +99,6 @@ class ContentModeratorController extends Controller
 
         abort(404);
     }
-
 
     /**
      * Changes the approval status of the given team based
@@ -170,6 +170,9 @@ class ContentModeratorController extends Controller
         if ($isApproved) {
             $team->is_sponsor_approved = true;
             $team->save();
+            if($team->sponsorTier->leftSpots() == 0)
+                $team->sponsorTier->rejectAllExceptApproved();
+
             Mail::to($team->owner->email)->send(new SponsorshipApproved($team));
 
             $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
@@ -190,10 +193,7 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            $user = User::find($presentation->mainSpeaker()->user->id);
-            $user->speaker->is_approved = 1;
-            $user->assignRole('speaker');
-            $user->speaker->save();
+            $presentation->approve();
 
             Mail::to($presentation->mainSpeaker()->user->email)->send(new PresentationApproved());
 
@@ -208,5 +208,44 @@ class ContentModeratorController extends Controller
         }
 
         return redirect(route('moderator.requests', 'presentations'))->banner($message);
+    }
+
+    public function overview()
+    {
+        $numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
+            $query->where('is_approved', false);
+        })->count();
+
+        $numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        })->count();
+
+        $numberOfScheduledPresentations = Presentation::all()->count() - $numberOfUnscheduledPresentations;
+
+        return view('moderator.overview', compact(
+            'numberOfPresentationRequests',
+            'numberOfUnscheduledPresentations',
+            'numberOfScheduledPresentations'
+        ));
+    }
+
+    public function showList(string $type)
+    {
+        $list = [];
+
+        if ($type === 'teams')
+            $list = Team::where('is_approved', 1)->get();
+        else if ($type === 'users')
+            $list = User::all();
+        else if ($type === 'participants')
+            $list = User::role('participant')->get();
+        else if ($type === 'speakers')
+            $list = User::role('speaker')->get();
+        else if ($type === 'booths')
+            $list = Booth::where('is_approved', 1)->get();
+        else if ($type === 'presentations')
+            $list = Presentation::all()->filter(fn($presentation) => $presentation->isApproved && $presentation->isScheduled);
+
+        return view('moderator.lists.general', compact('list', 'type'));
     }
 }

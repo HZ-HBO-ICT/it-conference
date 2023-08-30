@@ -31,7 +31,7 @@ class TeamPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->hasRole('content moderator');
     }
 
     /**

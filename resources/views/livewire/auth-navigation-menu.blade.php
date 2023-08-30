@@ -25,7 +25,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
@@ -35,7 +35,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
@@ -136,25 +136,17 @@
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage requests') }}
+                                {{ __('Manage content') }}
                             </div>
 
-                            <x-dropdown-link href="{{ route('moderator.requests', 'teams') }}">
-                                {{ __('Company requests') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('moderator.requests', 'booths') }}">
-                                {{ __('Booth requests') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('moderator.requests', 'sponsorships') }}">
-                                {{ __('Sponsorship requests') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{ route('moderator.requests', 'presentations') }}">
-                                {{ __('Presentation requests') }}
+                            <x-dropdown-link href="{{ route('moderator.overview') }}">
+                                {{ __('Content management dashboard') }}
                             </x-dropdown-link>
                             @endrole
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                             @can('sendRequest', App\Models\Presentation::class)
+                                @unlessrole('content moderator')
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Do you want to host a presentation?') }}
                                 </div>
@@ -162,6 +154,7 @@
                                 <x-dropdown-link href="{{ route('speakers.request.presentation') }}">
                                     {{ __('Request to become a speaker') }}
                                 </x-dropdown-link>
+                                @endunlessrole
                             @endcan
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -218,7 +211,7 @@
             <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
