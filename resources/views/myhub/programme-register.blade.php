@@ -1,3 +1,5 @@
+@php use Carbon\Carbon; @endphp
+
 <x-hub-layout>
     {{--personal programme--}}
     <div class="z-20 w-full mr-8">
@@ -6,45 +8,66 @@
                 <div class="flex flex-row justify-between">
                     <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">Programme</h2>
                 </div>
-
-                <p class="text-l pt-16 text-gray-800 dark:text-gray-200">Available presentations/workshops:</p>
-
-                <ul class="space-y-2 list-disc list-inside dark:text-gray-800 mt-8 pl-5">
-                    @foreach($presentations as $presentation)
-                        <li class="flex gap-4">
-                            <p class="presentations text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }} — {{ $presentation->name }} — {{ $presentation->room->name }} — {{ ucfirst($presentation->type) }} — Participants: {{ $presentation->participants->count() }}/{{ $presentation->max_participants }}</p>
-
-                            @if (in_array($presentation->id, $enrolledPresentations))
-                                <form action="{{ route('destroy-participant', $presentation->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <div>
-                                        <button type="submit"
-                                           class="participation-buttons text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-sm px-5 py-0.5 text-center mr-2 mb-2">Disenroll</button>
-                                    </div>
-                                </form>
-                            @elseif($presentation->participants->count() < $presentation->max_participants && !in_array($presentation->id, $disabledPresentations))
-                                <form action="{{ route('create-participant', $presentation->id) }}" method="POST">
-                                    @csrf
-                                    @method('POST')
-
-                                    <div>
-                                        <button type="submit"
-                                           class="participation-buttons text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-full text-sm px-8 py-0.5 text-center mr-2 mb-2">Enroll</button>
-                                    </div>
-                                </form>
-                            @else
-                                <div>
-                                    <a type="button" href="#"
-                                       class="participation-buttons bg-gray-500 py-0.5 px-8 mr-2 mb-2 text-sm font-medium text-gray-300 rounded-full"
-                                       style="pointer-events: none;">Enroll</a>
-                                </div>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <table class="table-auto w-full text-gray-900 dark:text-gray-200">
+                            <thead>
+                            <tr class="text-left">
+                                <th>Timeframe</th>
+                                <th>Lectures</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($lectureTimeslots as $timeslot)
+                                @if($timeslot->presentations->count() > 0)
+                                    <tr>
+                                        <td class="text-left text-gray-900 dark:text-white align-top">
+                                            {{Carbon::parse($timeslot->start)->format('H:i')}}
+                                            - {{(Carbon::parse($timeslot->start)->addMinutes(30))->format('H:i')}}
+                                        </td>
+                                        <td class="pb-3">
+                                            @foreach($timeslot->presentations as $lecture)
+                                                @if($lecture->timeslot_id == $timeslot->id)
+                                                    <x-my-programme-block :presentation="$lecture"/>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table-auto w-full text-gray-900 dark:text-gray-200">
+                            <thead>
+                            <tr class="text-left">
+                                <th>Timeframe</th>
+                                <th>Workshops</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($workshopTimeslots as $timeslot)
+                                @if($timeslot->presentations->count() > 0)
+                                    <tr>
+                                        <td class="text-left text-gray-900 dark:text-white align-top">
+                                            {{Carbon::parse($timeslot->start)->format('H:i')}}
+                                            - {{(Carbon::parse($timeslot->start)->addMinutes(90))->format('H:i')}}
+                                        </td>
+                                        <td class="pb-3">
+                                            @foreach($timeslot->presentations as $workshop)
+                                                @if($workshop->timeslot_id == $timeslot->id)
+                                                    <x-my-programme-block :presentation="$workshop"/>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <a href="{{ route('my-programme') }}" type="button"
                    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-16">
                     Go back
