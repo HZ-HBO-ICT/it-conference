@@ -99,6 +99,7 @@ class Presentation extends Model
         );
     }
 
+    // TODO: Refactor with property
     /**
      * The maximum number of participants for the presentation is determined
      * by the smaller value between the room's capacity and the specified

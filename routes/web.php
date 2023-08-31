@@ -45,16 +45,16 @@ Route::middleware([
     Route::get('/dashboard/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
     //route for personal programme
-    Route::get('/dashboard/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+    Route::get('/dashboard/programme', [HubController::class, 'personalProgramme'])->name('my-programme');
 
     //route for page for registering for presentations
-    Route::get('/dashboard/programme/register', [HubController::class, 'registerForPresentations'])->name('my-programme-register');
+    Route::get('/dashboard/programme/register', [HubController::class, 'presentations'])->name('my-programme-register');
 
     //route for enrolling for a presentation
-    Route::post('/dashboard/programme/register/attach/{presentationId}', [HubController::class, 'attachParticipation'])->name('create-participant');
+    Route::post('/dashboard/programme/enroll/{presentation}', [HubController::class, 'enroll'])->name('presentation-enroll');
 
     //route for disenrolling from a presentation
-    Route::delete('/dashboard/programme/register/detach/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+    Route::post('/dashboard/programme/disenroll/{presentation}', [HubController::class, 'disenroll'])->name('presentation-disenroll');
 
 });
 
