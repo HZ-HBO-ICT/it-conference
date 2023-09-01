@@ -13,7 +13,7 @@ class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id'];
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
 
     public static function rules()
     {
@@ -22,7 +22,8 @@ class Presentation extends Model
             'max_participants' => 'required|numeric',
             'description' => 'required',
             'type' => 'required|in:workshop,lecture',
-            'difficulty_id' => 'required'
+            'difficulty_id' => 'required',
+            'file_path' => 'required'
         ];
     }
 
