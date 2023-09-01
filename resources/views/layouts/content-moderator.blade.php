@@ -2,7 +2,7 @@
     <div class="flex">
         <div class="flex-col w-72 flex z-50 inset-y-0 relative bg-white h-screen">
             <div class="pb-4 px-6 border-r border-b border-t overflow-y-auto gap-y-5 flex-col flex-grow flex">
-                <div class="items-center flex-shrink-0 h-16 flex">
+                <div class="items-center flex-shrink-0 h-16 flex mt-4">
                     <!-- TODO: Style heading -->
                     <h3>Content Management Dashboard</h3>
                 </div>
@@ -31,8 +31,8 @@
             </div>
         </div>
         <!-- Content -->
-        <div class="flex-grow overflow-y-auto bg-white border-b border-t">
-            
+        <div class="flex-grow max-h-screen overflow-y-auto bg-white border-b border-t">
+            {{ $slot }}
         </div>
     </div>
 </x-app-moderator-layout>
