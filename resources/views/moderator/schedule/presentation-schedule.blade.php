@@ -23,6 +23,8 @@
             <h2 class="text-lg py-2">Type: {{ucfirst($presentation->type)}} </h2>
             <h2 class="text-lg py-2">Max participants that the speaker wants: {{$presentation->max_participants}} </h2>
             </h2>
+            <x-section-border/>
+            @livewire('upload-presentation', ['presentation' => $presentation])
         </div>
         <div>
             <div>
