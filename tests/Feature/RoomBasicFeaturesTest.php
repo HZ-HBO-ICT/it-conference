@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Room;
+use App\Models\SponsorTier;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,6 +20,8 @@ class RoomBasicFeaturesTest extends TestCase
      */
     public function test_example(): void
     {
+        SponsorTier::factory()->has(Team::factory())->create();
+
         $response = $this->get('/');
 
         $response->assertStatus(200);
