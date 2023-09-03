@@ -18,7 +18,14 @@ class RoomBasicFeaturesTest extends TestCase
      */
     public function test_example(): void
     {
-        $response = $this->get('/');
+        SponsorTier::create([
+            'name' => 'silver',
+            'max_sponsors' => '2'
+        ]);
+        Team::factory()->create(['sponsor_tier_id' => SponsorTier::where('name', 'silver')->first()->id]);
+        $route = route('welcome');
+
+        $response = $this->get($route);
 
         $response->assertStatus(200);
     }

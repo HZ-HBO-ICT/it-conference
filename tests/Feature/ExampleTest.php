@@ -12,7 +12,14 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        SponsorTier::create([
+            'name' => 'golden',
+            'max_sponsors' => 1
+        ]);
+        Team::factory()->create(['sponsor_tier_id' => SponsorTier::where('name', 'golden')->first()->id]);
+        $route = route('welcome');
+
+        $response = $this->get($route);
 
         $response->assertStatus(200);
     }
