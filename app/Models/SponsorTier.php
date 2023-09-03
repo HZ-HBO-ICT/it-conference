@@ -12,6 +12,8 @@ class SponsorTier extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'max_sponsors'];
+
     /**
      * All the teams that have this sponsorship tier
      * @return HasMany
