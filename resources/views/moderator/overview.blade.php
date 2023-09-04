@@ -9,7 +9,7 @@
     <div>
         <div class="py-8 px-2 mx-auto max-w-7xl">
             <div>
-                <h3 class="leading-6 font-semibold text-xl">Pending requests</h3>
+                <h3 class="leading-6 font-semibold text-xl dark:text-white">Pending requests</h3>
                 <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
                     <dl class="gap-5 grid-cols-3 grid mt-5">
                         <x-content-moderator-block 
