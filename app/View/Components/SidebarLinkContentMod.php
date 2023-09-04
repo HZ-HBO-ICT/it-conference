@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SidebarLink extends Component
+class SidebarLinkContentMod extends Component
 {
     public $route;
     public $param;
@@ -16,7 +16,7 @@ class SidebarLink extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($route, $label, $icon,$param = '')
+    public function __construct($route, $label, $icon, $param = '')
     {
         $this->route = $route;
         $this->label = $label;

@@ -11,19 +11,19 @@
                         <!-- Content Management Links -->
                         <li>
                             <ul class="-mx-2" role="list">
-                                <x-sidebar-link-content-mod :label="'Dashboard'" :route="'moderator.overview'" :icon="''"/>
-                                <x-sidebar-link-content-mod :label="'Company requests'" :route="'moderator.requests'" :icon="''" :param="'teams'"/>
-                                <x-sidebar-link-content-mod :label="'Presentation requests'" :route="'moderator.requests'" :icon="''" :param="'presentations'"/>
-                                <x-sidebar-link-content-mod :label="'Booth requests'" :route="'moderator.requests'" :icon="''" :param="'booths'"/>
-                                <x-sidebar-link-content-mod :label="'Sponsorship requests'" :route="'moderator.requests'" :icon="''" :param="'sponsorships'"/>
-                                <x-sidebar-link-content-mod :label="'Schedule management'" :route="'moderator.schedule.overview'" :icon="''"/>
+                                <x-sidebar-link-content-mod :label="'Dashboard'" :route="'moderator.overview'" :icon=""/>
+                                <x-sidebar-link-content-mod :label="'Company requests'" :route="'moderator.requests'" :icon="" :param="'teams'"/>
+                                <x-sidebar-link-content-mod :label="'Presentation requests'" :route="'moderator.requests'" :icon="" :param="'presentations'"/>
+                                <x-sidebar-link-content-mod :label="'Booth requests'" :route="'moderator.requests'" :icon="" :param="'booths'"/>
+                                <x-sidebar-link-content-mod :label="'Sponsorship requests'" :route="'moderator.requests'" :icon="" :param="'sponsorships'"/>
+                                <x-sidebar-link-content-mod :label="'Schedule management'" :route="'moderator.schedule.overview'" :icon=""/>
                             </ul>
                         </li>
                         <!-- Profile Links -->
                         <li>
                             <div class="leading-6 font-semibold text-xs text-gray-400">Profile</div>
                             <ul class="mt-2 -mx-2 mb-auto" role="list">
-                                <x-sidebar-link-content-mod :label="'Edit profile'" :route="'profile.show'"/>
+                                <x-sidebar-link-content-mod :label="'Edit profile'" :route="'profile.show'" :icon=""/>
                             </ul>
                         </li>
                     </ul>
