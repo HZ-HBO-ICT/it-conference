@@ -11,6 +11,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
@@ -52,6 +55,7 @@ class InvitationController extends Controller
      */
     public function register(Request $request, TeamInvitation $invitation, CreatesNewUsers $creator): RedirectResponse
     {
+        $input = $request->all();
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -59,7 +63,13 @@ class InvitationController extends Controller
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ];
 
-        $user = User::create($request->validate($rules));
+        Validator::make($input, $rules)->validate();
+
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($input['password'])
+        ]);
 
         event(new Registered($user));
         $this->guard->login($user);
