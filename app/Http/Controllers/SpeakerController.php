@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Presentation;
 use App\Models\Speaker;
+use App\Models\User;
+use App\Notifications\RequestPresentationCancellation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -53,5 +55,20 @@ class SpeakerController extends Controller
         }
 
         return redirect(route('welcome'))->banner("You successfully send your request to host a {$presentation->type}");
+    }
+
+    public function requestCancellation()
+    {
+        $presentation = Auth::user()->speaker->presentation;
+
+        if ($presentation->isApproved) {
+            foreach (User::role('content moderator')->get() as $mod) {
+                $mod->notify(new RequestPresentationCancellation($presentation));
+            }
+            return redirect(route('welcome'))->banner("You sent a request to cancel your {$presentation->type}");
+        }
+
+        $presentation->cancel();
+        return redirect(route('welcome'))->banner("You cancelled your request to host a {$presentation->type}");
     }
 }

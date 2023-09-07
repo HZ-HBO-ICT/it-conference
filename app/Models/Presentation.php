@@ -123,4 +123,28 @@ class Presentation extends Model
             $speaker->approve();
         }
     }
+
+    /**
+     * Called when the presentation is getting deleted
+     * @return void
+     */
+    public function cancel()
+    {
+        // TODO: Refactor when the foreign keys are fixed
+        $this->room_id = null;
+        $this->timeslot_id = null;
+        $this->save();
+
+        foreach ($this->speakers as $speaker) {
+            $speaker->delete();
+        }
+
+        if ($this->participants) {
+            $participantsId = $this->participants->pluck('id');
+            $this->participants()->detach($participantsId);
+        }
+
+        $this->delete();
+    }
+
 }

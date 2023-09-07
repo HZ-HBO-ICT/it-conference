@@ -74,6 +74,8 @@ Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'
     ->name('speakers.request.presentation');
 Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
     ->name('speakers.request.process');
+Route::post('/speakers/request/cancel', [SpeakerController::class, 'requestCancellation'])
+    ->name('speakers.request.cancellation');
 
 Route::middleware([
     'auth:sanctum',
