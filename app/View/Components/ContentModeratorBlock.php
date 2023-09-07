@@ -14,10 +14,12 @@ class ContentModeratorBlock extends Component
     public function __construct(
         public string $label,
         public string $count,
-        public $routeName
+        public string $routeName,
+        public string $icon,
+        
     )
     {
-        //
+        $this->routeName = $routeName;
     }
 
     /**
