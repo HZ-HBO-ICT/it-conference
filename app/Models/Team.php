@@ -119,6 +119,29 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * All the approved and awaiting presentations that the team has. All teams should have only one but
+     * the gold sponsor.
+     * @return Attribute
+     */
+    public function allPresentations(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->allSpeakers->count() != 0) {
+                    $presentations = [];
+                    foreach ($this->allSpeakers as $user) {
+                        $presentations[] = $user->speaker->presentation()->get();
+                    }
+
+                    return collect($presentations)->flatten();
+                }
+
+                return null;
+            }
+        );
+    }
+
+    /**
      * Checks if currently there is a pending request for a presentation
      * by the team
      * @return Attribute
