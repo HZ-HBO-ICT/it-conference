@@ -24,7 +24,10 @@ export default {
                 'gradient-blue': '#151BB9',
                 'gold': '#FFD700',
                 'silver': '#C0C0C0',
-                'bronze': '#CD7F32',	
+                'bronze': '#CD7F32',
+                'crew': '#FF9919',
+                'participant': '#3666FF',
+                'partner': '#B862D6',
             }
         },
     },
