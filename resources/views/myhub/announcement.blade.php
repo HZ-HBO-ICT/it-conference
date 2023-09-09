@@ -28,7 +28,7 @@
                     <div
                         class="py-5 px-4 rounded-lg overflow-hidden relative bg-white dark:bg-gray-800 shadow-md dark:shadow-md dark:">
                         @if(Auth::user()->currentTeam->allPresentations)
-                            @foreach(Auth::user()->currentTeam->allPresentations as $presentation)
+                            @foreach(Auth::user()->currentTeam->allPresentations->unique() as $presentation)
                                 <dt>
                                     <div class="p-3 rounded-md absolute bg-purple-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
