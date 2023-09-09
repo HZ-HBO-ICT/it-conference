@@ -5,12 +5,12 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Team Members') }}
+                    {{ __('Company Members') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    All of the people that you have invited to join your team during the IT Conference and have accepted
-                    to be part of your team.
+                    All of the people that you have invited to join your team for the IT Conference and have accepted
+                    the invitation
                 </x-slot>
 
                 <!-- Team Member List -->
@@ -18,7 +18,7 @@
                     <div class="space-y-6">
                         @if($team->users->isEmpty())
                             <div class="flex items-center">
-                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no team members</div>
+                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no members of your company</div>
                             </div>
                         @else
 
@@ -65,11 +65,11 @@
         <div class="mt-10 sm:mt-0">
             <x-form-section submit="addTeamMember">
                 <x-slot name="title">
-                    Invite team member
+                    Invite company member
                 </x-slot>
 
                 <x-slot name="description">
-                    Add a new team member to your team to present {{$team->name}} during the IT Conference and choose
+                    Add a new member to your company to represent {{$team->name}} during the IT Conference and choose
                     their role
                 </x-slot>
 

@@ -30,13 +30,13 @@
                             <input type="file" id="photo" wire:model="photo"
                                    class="hidden">
                             <label for="photo"
-                                   class="flex items-center justify-center w-1/3 h-10 px-4 mt-2 text-sm font-medium text-white bg-indigo-600 rounded-md cursor-pointer hover:bg-indigo-700 focus-within:bg-indigo-700">
+                                   class="flex items-center justify-center w-1/3 h-10 px-4 mt-2 text-sm font-medium text-white bg-purple-600 rounded-md cursor-pointer hover:bg-purple-600 focus-within:bg-purple-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor" class="w-6 h-6 mr-2">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
-                                Upload Logo
+                                Upload {{$photo ||  $team->logo_path ? 'new' : ''}} logo
                             </label>
                         </div>
                         @error('photo') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -44,14 +44,18 @@
                 </div>
             </div>
 
-            <div class="pt-5">
-                <div class="flex justify-end">
-                    <button type="submit"
-                            class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Save Photo
-                    </button>
-                </div>
-            </div>
+            @if($photo)
+                @if($photo->temporaryUrl())
+                    <div class="pt-5">
+                        <div class="flex justify-end">
+                            <button type="submit"
+                                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Save Photo
+                            </button>
+                        </div>
+                    </div>
+                @endif
+            @endif
         </form>
     </x-slot>
 </x-action-section>
