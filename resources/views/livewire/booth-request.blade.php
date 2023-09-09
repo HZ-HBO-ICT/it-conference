@@ -56,7 +56,7 @@
 
         <x-slot name="actions">
             @if(!$this->requestSent)
-                <x-button>
+                <x-button class="bg-purple-600 dark:bg-purple-500 hover:bg-purple-500 dark:hover:bg-purple-600 text-gray-200 dark:text-gray-200">
                     {{ __('Send request') }}
                 </x-button>
             @endif
