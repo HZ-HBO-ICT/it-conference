@@ -11,15 +11,17 @@ class SidebarLink extends Component
     public $route;
     public $param;
     public $label;
+    public string $icon;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($route, $label, $param = '')
+    public function __construct($route, $label, $icon, $param = '')
     {
         $this->route = $route;
         $this->label = $label;
         $this->param = $param;
+        $this->icon = $icon;
     }
 
     /**
