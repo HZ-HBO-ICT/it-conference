@@ -5,6 +5,7 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use phpDocumentor\Reflection\Types\This;
 
 class SidebarLinkContentMod extends Component
 {
@@ -12,16 +13,18 @@ class SidebarLinkContentMod extends Component
     public $param;
     public $label;
     public string $icon;
+    public string $roleColour;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($route, $label, $icon, $param = '')
+    public function __construct($route, $label, $icon, $roleColour, $param = '')
     {
         $this->route = $route;
         $this->label = $label;
         $this->icon = $icon;
         $this->param = $param;
+        $this->roleColour = $roleColour;
     }
 
     /**
