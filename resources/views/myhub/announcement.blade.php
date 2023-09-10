@@ -62,43 +62,45 @@
                         class="py-5 px-4 rounded-lg overflow-hidden relative bg-white dark:bg-gray-800 shadow-md dark:shadow-md dark:">
                         @if(Auth::user()->currentTeam->allPresentations->count() > 0)
                             @foreach(Auth::user()->currentTeam->allPresentations->unique() as $presentation)
-                                <dt>
-                                    <div class="p-3 rounded-md absolute bg-purple-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1.5" stroke="white"
-                                             aria-hidden="true" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/>
-                                        </svg>
-                                    </div>
-                                    <p class="ml-16 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">
-                                        @php
-                                            $speakers = $presentation->speakers->filter(function ($speaker) {
-                                                return $speaker->is_main_speaker === 0;
-                                            });
+                                <div class="py-5">
+                                    <dt>
+                                        <div class="p-3 rounded-md absolute bg-purple-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 stroke-width="1.5" stroke="white"
+                                                 aria-hidden="true" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/>
+                                            </svg>
+                                        </div>
+                                        <p class="ml-16 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">
+                                            @php
+                                                $speakers = $presentation->speakers->filter(function ($speaker) {
+                                                    return $speaker->is_main_speaker === 0;
+                                                });
 
-                                            $cospeakers = [];
-                                            foreach ($speakers as $speaker) {
-                                                if ($speaker->user && $speaker->user->name) {
-                                                    $cospeakers[] = $speaker->user->name;
+                                                $cospeakers = [];
+                                                foreach ($speakers as $speaker) {
+                                                    if ($speaker->user && $speaker->user->name) {
+                                                        $cospeakers[] = $speaker->user->name;
+                                                    }
                                                 }
-                                            }
 
-                                            $cospeakersString = implode(', ', $cospeakers);
+                                                $cospeakersString = implode(', ', $cospeakers);
+                                            @endphp
+                                            {{$presentation->name}} <span
+                                                class="text-sm">by {{$presentation->mainSpeaker()->user->name}} {{$cospeakersString ? "(with {$cospeakersString})" : '' }}</span>
+                                        </p>
+                                    </dt>
+                                    <dd class="items-baseline flex ml-16">
+                                        @php
+                                            $status = $presentation->is_approved ? 'Approved' : 'Awaiting approval';
+                                            $accentColor = $status === 'Approved' ? 'purple' : 'yellow';
                                         @endphp
-                                        {{$presentation->name}} <span
-                                            class="text-sm">by {{$presentation->mainSpeaker()->user->name}} {{$cospeakersString ? "(with {$cospeakersString})" : '' }}</span>
-                                    </p>
-                                </dt>
-                                <dd class="items-baseline flex ml-16">
-                                    @php
-                                        $status = $presentation->is_approved ? 'Approved' : 'Awaiting approval';
-                                        $accentColor = $status === 'Approved' ? 'purple' : 'yellow';
-                                    @endphp
-                                    <p class="text-{{$accentColor}}-600 dark:text-{{$accentColor}}-500 font-medium text-md">
-                                        {{$status}}
-                                    </p>
-                                </dd>
+                                        <p class="text-{{$accentColor}}-600 dark:text-{{$accentColor}}-500 font-medium text-md">
+                                            {{$status}}
+                                        </p>
+                                    </dd>
+                                </div>
                             @endforeach
                         @else
                             <p class="text-purple-600 font-medium text-md dark:text-purple-500">
