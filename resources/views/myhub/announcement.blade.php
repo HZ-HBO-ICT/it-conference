@@ -10,8 +10,10 @@
         <div class="py-8 px-2 mx-auto max-w-7xl">
             <div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
-                @if(Auth::user()->currentTeam->owner == Auth::user() && Auth::user()->currentTeam->isGoldenSponsor && Auth::user()->currentTeam->allPresentations->count() < 2)
-                    <div class="px-6">
+                @if(Auth::user()->currentTeam->owner->id == Auth::user()->id
+                    && Auth::user()->currentTeam->isGoldenSponsor
+                    && Auth::user()->currentTeam->allPresentations->count() < 2)
+                    <div class="px-6 pt-5">
                         <div
                             class="py-5 px-4 rounded-lg overflow-hidden relative bg-amber-100 dark:bg-amber-900 shadow-md dark:shadow-md">
                             <div class="p-3 rounded-md absolute bg-orange-500">
@@ -35,7 +37,10 @@
                         </div>
                     </div>
                 @endif
-                @if(Auth::user()->currentTeam->isGoldenSponsor && Auth::user()->hasTeamRole(Auth::user()->currentTeam, 'speaker') && !Auth::user()->speaker)
+                @if(Auth::user()->currentTeam->isGoldenSponsor
+                    && Auth::user()->currentTeam->owner->id != Auth::user()->id
+                    && !Auth::user()->hasTeamRole(Auth::user()->currentTeam, 'booth owner')
+                    && !Auth::user()->speaker)
                     <x-gold-sponsor-speaker-block></x-gold-sponsor-speaker-block>
                 @endif
                 <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
@@ -81,7 +86,8 @@
 
                                             $cospeakersString = implode(', ', $cospeakers);
                                         @endphp
-                                        {{$presentation->name}} <span class="text-sm">by {{$presentation->mainSpeaker()->user->name}} (with {{$cospeakersString}})</span>
+                                        {{$presentation->name}} <span
+                                            class="text-sm">by {{$presentation->mainSpeaker()->user->name}} {{$cospeakersString ? "(with {$cospeakersString})" : '' }}</span>
                                     </p>
                                 </dt>
                                 <dd class="items-baseline flex ml-16">
