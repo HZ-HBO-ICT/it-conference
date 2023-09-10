@@ -10,6 +10,34 @@
         <div class="py-8 px-2 mx-auto max-w-7xl">
             <div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
+                @if(Auth::user()->currentTeam->owner == Auth::user() && Auth::user()->currentTeam->isGoldenSponsor && Auth::user()->currentTeam->allPresentations->count() < 2)
+                    <div class="px-6">
+                        <div
+                            class="py-5 px-4 rounded-lg overflow-hidden relative bg-amber-100 dark:bg-amber-900 shadow-md dark:shadow-md">
+                            <div class="p-3 rounded-md absolute bg-orange-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5" stroke="white"
+                                     aria-hidden="true" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+                                </svg>
+                            </div>
+                            <p class="ml-16 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis">
+                                Your company is the gold sponsor for the "We are in IT Together" Conference. As such
+                                your
+                                company can have two presentations. Currently, you have
+                                requested {{Auth::user()->currentTeam->allPresentations->count()}} presentations.
+                                <a href="{{route('teams.show', Auth::user()->currentTeam)}}"
+                                   class="text-purple-500">
+                                    Invite speakers to host a presentation
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                @endif
+                @if(Auth::user()->currentTeam->isGoldenSponsor && Auth::user()->hasTeamRole(Auth::user()->currentTeam, 'speaker') && !Auth::user()->speaker)
+                    <x-gold-sponsor-speaker-block></x-gold-sponsor-speaker-block>
+                @endif
                 <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
                     <dl class="gap-5 grid-cols-3 grid mt-5">
                         <x-company-rep-block
@@ -27,7 +55,7 @@
                 <dl class="py-11 px-6">
                     <div
                         class="py-5 px-4 rounded-lg overflow-hidden relative bg-white dark:bg-gray-800 shadow-md dark:shadow-md dark:">
-                        @if(Auth::user()->currentTeam->allPresentations)
+                        @if(Auth::user()->currentTeam->allPresentations->count() > 0)
                             @foreach(Auth::user()->currentTeam->allPresentations->unique() as $presentation)
                                 <dt>
                                     <div class="p-3 rounded-md absolute bg-purple-500">
@@ -39,7 +67,21 @@
                                         </svg>
                                     </div>
                                     <p class="ml-16 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">
-                                        {{$presentation->name}} <span class="text-sm">by {{$presentation->mainSpeaker()->user->name}}</span>
+                                        @php
+                                            $speakers = $presentation->speakers->filter(function ($speaker) {
+                                                return $speaker->is_main_speaker === 0;
+                                            });
+
+                                            $cospeakers = [];
+                                            foreach ($speakers as $speaker) {
+                                                if ($speaker->user && $speaker->user->name) {
+                                                    $cospeakers[] = $speaker->user->name;
+                                                }
+                                            }
+
+                                            $cospeakersString = implode(', ', $cospeakers);
+                                        @endphp
+                                        {{$presentation->name}} <span class="text-sm">by {{$presentation->mainSpeaker()->user->name}} (with {{$cospeakersString}})</span>
                                     </p>
                                 </dt>
                                 <dd class="items-baseline flex ml-16">
