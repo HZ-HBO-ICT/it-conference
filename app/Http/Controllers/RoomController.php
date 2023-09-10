@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GlobalEvent;
 use App\Models\Room;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -52,6 +53,9 @@ class RoomController extends Controller
      */
     public function edit(Room $room): View
     {
+        if(GlobalEvent::isFinalProgrammeReleased())
+            abort(403);
+
         return view('moderator.rooms.edit', compact('room'));
     }
 
@@ -64,6 +68,9 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room): RedirectResponse
     {
+        if(GlobalEvent::isFinalProgrammeReleased())
+            abort(403);
+
         $room->update($request->validate([
             'max_participants' => 'required|numeric|min:1'
         ]));
@@ -79,6 +86,9 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
+        if(GlobalEvent::isFinalProgrammeReleased())
+            abort(403);
+
         foreach ($room->presentations as $presentation) {
             $presentation->room_id = null;
             $presentation->timeslot_id = null;

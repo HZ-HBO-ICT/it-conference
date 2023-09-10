@@ -16,8 +16,12 @@
                 <thead>
                 <tr>
                     <th class="px-4 py-2 text-left bg-crew-500 text-white rounded rounded-r-none">Room name</th>
-                    <th class="px-4 py-2 text-left bg-crew-500 text-white rounded rounded-r-none rounded-l-none">Max capacity</th>
-                    <th class="px-4 py-2 text-left bg-crew-500 text-white rounded rounded-l-none">Actions</th>
+                    <th class="px-4 py-2 text-left bg-crew-500 text-white rounded rounded-r-none rounded-l-none">Max
+                                                                                                                 capacity
+                    </th>
+                    @if(!\App\Models\GlobalEvent::isFinalProgrammeReleased())
+                        <th class="px-4 py-2 text-left bg-crew-500 text-white rounded rounded-l-none">Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -29,22 +33,24 @@
                         <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none">
                             {{$room->max_participants}} participants
                         </td>
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none">
-                            <div class="flex">
-                                <a href="{{route('rooms.edit', $room)}}"
-                                   class="text-center font-semibold bg-crew-400 hover:bg-crew-500 text-white px-4 text-xs pt-2 uppercase rounded">
-                                    Edit
-                                </a>
-                                <form method="POST" action="{{ route('rooms.destroy', $room) }}" class="pl-2">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-button
-                                        class="dark:bg-red-500 dark:text-white bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                                        Delete
-                                    </x-button>
-                                </form>
-                            </div>
-                        </td>
+                        @if(!\App\Models\GlobalEvent::isFinalProgrammeReleased())
+                            <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none">
+                                <div class="flex">
+                                    <a href="{{route('rooms.edit', $room)}}"
+                                       class="text-center font-semibold bg-crew-400 hover:bg-crew-500 text-white px-4 text-xs pt-2 uppercase rounded">
+                                        Edit
+                                    </a>
+                                    <form method="POST" action="{{ route('rooms.destroy', $room) }}" class="pl-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-button
+                                            class="dark:bg-red-500 dark:text-white bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+                                            Delete
+                                        </x-button>
+                                    </form>
+                                </div>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
