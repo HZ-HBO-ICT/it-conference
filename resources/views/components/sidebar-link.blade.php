@@ -6,13 +6,15 @@
 
     $accentColor = \Illuminate\Support\Facades\Auth::user()->current_team_id ? 'purple' : 'orange';
     $bgColorClass = $isCurrentRoute ? "bg-gray-200 text-{$accentColor}-500 dark:bg-gray-700" : '';
-
 @endphp
+<!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
+<!-- Potential dynamic classes: text-crew-400 text-participant-400 text-partner-400 stroke-crew-500 stroke-participant-500 stroke-partner-500 -->
+<!-- dark:text-crew dark:text-participant dark:text-partner hover:text-crew hover:text-participant hover:text-partner dark:hover:text-crew dark:hover:text-participant dark:hover:text-partner-->
 
 <li class="m-1">
     <a href="{{ empty($param) ? route($route) : route($route, $param) }}"
-       class="leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{$accentColor}}-500 dark:hover:text-{{$accentColor}}-500 dark:text-white {{ $bgColorClass }}">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-purple-500">
+       class="leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-500 dark:hover:text-{{ $roleColour }}-500 dark:text-white {{ $bgColorClass }}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-500">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="{{ $icon }}">
             </path>
