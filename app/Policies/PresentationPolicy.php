@@ -25,4 +25,23 @@ class PresentationPolicy
                         && $user->currentTeam->owner->id !== $user->id
                         && !$user->hasRole('speaker'))));
     }
+
+    /**
+     * Allows the user to send a request only if:
+     * Their company is the gold sponsor of the conference
+     * Their company has less than 2 presentations requested/approved
+     * The user is not approved as a global speaker (they don't have approved presentation)
+     * The user must not have requested a presentation
+     * The user has been given a speaker role by the company representative
+     * (and therefore the user is not the company rep)
+     */
+    public function sendRequestGoldenSponsor(User $user) : bool
+    {
+        return $user->currentTeam->sponsorTier && ($user->currentTeam->sponsorTier->name == 'golden' &&
+            $user->currentTeam->allPresentations->count() < 2 &&
+            ($user->hasTeamRole($user->currentTeam, 'speaker')
+            && !$user->speaker
+            && $user->currentTeam->owner->id !== $user->id
+            && !$user->hasRole('speaker')));
+    }
 }
