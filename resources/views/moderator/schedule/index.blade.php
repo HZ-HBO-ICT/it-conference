@@ -5,7 +5,7 @@
         <div class="grid grid-cols-6 gap-4 pb-12">
             <div>
                 <a href="{{ route('moderator.requests', 'presentations') }}"
-                   class="bg-purple-800 text-xs text-white py-2 h-full px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                   class="bg-crew-400 hover:bg-crew-500 text-xs text-white py-2 h-full px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
                     {{ $numberOfPresentationRequest }}
                     <span class="mt-1 block">Presentations</span>
                     <span class="mt-0.5 block leading-relaxed">waiting to be approved</span>
@@ -14,7 +14,7 @@
 
             <div>
                 <a href="{{route('moderator.presentations-for-scheduling')}}"
-                   class="bg-purple-800 text-xs text-white py-2 h-full px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                   class="bg-crew-400 hover:bg-crew-500 text-xs text-white py-2 h-full px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
                     {{$numberOfUnscheduledPresentations}}
                     <span class="mt-1 block">Presentations</span>
                     <span class="mt-0.5 block leading-relaxed">waiting to be scheduled</span>
@@ -22,7 +22,7 @@
             </div>
             <div>
                 <a href="{{route('rooms.index')}}"
-                   class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full">
+                   class="bg-crew-400 hover:bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full">
                     {{$numberOfAvailableRooms}}
                     <span class="mt-1 block">Rooms</span>
                     <span class="mt-0.5 block leading-relaxedg">available for the conference</span>
@@ -35,7 +35,7 @@
             @endif
             <div>
                 <a href="{{route('moderator.schedule.draft')}}"
-                   class="h-full bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                   class="h-full bg-crew-400 hover:bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
                     <span class="flex items-center h-full justify-center">Automatically fill</span>
                 </a>
             </div>
@@ -67,7 +67,7 @@
                                     @foreach($timeslot->presentations as $lecture)
                                         @if($lecture->timeslot_id == $timeslot->id)
                                             <a href="{{route('moderator.schedule.presentation', $lecture)}}">
-                                                <x-schedule-block :presentation="$lecture"/>
+                                                <x-schedule-block :presentation="$lecture" :roleColour="'crew'"/>
                                             </a>
                                         @endif
                                     @endforeach
@@ -98,7 +98,7 @@
                                     @foreach($timeslot->presentations as $workshop)
                                         @if($workshop->timeslot_id == $timeslot->id)
                                             <a href="{{route('moderator.schedule.presentation', $workshop)}}">
-                                                <x-schedule-block :presentation="$workshop"/>
+                                                <x-schedule-block :presentation="$workshop" :roleColour="'crew'"/>
                                             </a>
                                         @endif
                                     @endforeach
