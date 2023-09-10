@@ -13,12 +13,14 @@
         </p>
     </div>
     <div class="px-2 pb-2">
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">difficulty</span>
         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
             {{$presentation->room->name}}
         </span>
         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
             Participants: {{$presentation->participants->count()}}/{{$presentation->maxParticipants()}}
+        </span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+            {{ucfirst($presentation->difficulty->level)}}
         </span>
     </div>
 </div>

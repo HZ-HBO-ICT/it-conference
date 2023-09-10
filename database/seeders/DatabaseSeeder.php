@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -22,6 +23,12 @@ class DatabaseSeeder extends Seeder
             SponsorTierSeeder::class,
             DifficultySeeder::class
         ]);
+
+        foreach (Presentation::all() as $presentation)
+        {
+            $presentation->difficulty_id = rand(1, 3);
+            $presentation->save();
+        }
 
         Room::factory(5)->create();
 
