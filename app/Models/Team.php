@@ -96,7 +96,7 @@ class Team extends JetstreamTeam
     }
 
     /**
-     * All the presentations that the team has. All teams should have only one but
+     * All the presentations that the team has that are approved. All teams should have only one but
      * the gold sponsor.
      * @return Attribute
      */
@@ -120,7 +120,7 @@ class Team extends JetstreamTeam
 
     /**
      * All the approved and awaiting presentations that the team has. All teams should have only one but
-     * the gold sponsor.
+     * the gold sponsor. If there are no presentations returns an empty collection!
      * @return Attribute
      */
     public function allPresentations(): Attribute
@@ -130,13 +130,16 @@ class Team extends JetstreamTeam
                 if ($this->allSpeakers->count() != 0) {
                     $presentations = [];
                     foreach ($this->allSpeakers as $user) {
-                        $presentations[] = $user->speaker->presentation()->get();
+                        if($user->speaker)
+                        {
+                            $presentations[] = $user->speaker->presentation()->get();
+                        }
                     }
 
                     return collect($presentations)->flatten();
                 }
 
-                return null;
+                return [];
             }
         );
     }
