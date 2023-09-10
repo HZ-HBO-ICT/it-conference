@@ -130,16 +130,15 @@ class Team extends JetstreamTeam
                 if ($this->allSpeakers->count() != 0) {
                     $presentations = [];
                     foreach ($this->allSpeakers as $user) {
-                        if($user->speaker)
-                        {
+                        if ($user->speaker) {
                             $presentations[] = $user->speaker->presentation()->get();
                         }
                     }
 
-                    return collect($presentations)->flatten();
+                    return collect($presentations)->flatten()->unique();
                 }
 
-                return [];
+                return collect([]);
             }
         );
     }
@@ -157,6 +156,17 @@ class Team extends JetstreamTeam
                     $query->where('is_approved', 0)->where('is_main_speaker', 1);
                 })->wherePivot('role', 'speaker')->exists();
             }
+        );
+    }
+
+    /**
+     * Checks if the team is the golden sponsor
+     * @return Attribute
+     */
+    public function isGoldenSponsor(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->sponsorTier ? $this->sponsorTier->name === 'golden' : 0
         );
     }
 }
