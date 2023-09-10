@@ -47,6 +47,8 @@ Route::middleware([
     //route for personal programme
     Route::get('/dashboard/programme', [HubController::class, 'getProgramme'])->name('my-programme');
 
+    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
+
     //route for disenrolling from a presentation
     Route::get('/dashboard/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 
