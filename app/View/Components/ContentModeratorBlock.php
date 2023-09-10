@@ -16,7 +16,7 @@ class ContentModeratorBlock extends Component
         public string $count,
         public string $routeName,
         public string $icon,
-        
+        public string $roleColour,
     )
     {
         $this->routeName = $routeName;
