@@ -3,8 +3,16 @@
 Create an account and accept the invitation following the link bellow
 
 @component('mail::button', ['url' => $acceptUrl])
-Join the IT Conference
-@endcomponent
 
-If you did not expect to receive an invitation to this team, you may discard this email.
+When your account is created you can enter information in regards of your Talk/Workshop.
+You can enter a summery on the presentation topic which will also be shown on the website,
+the level you believe it is applicable for:
+Beginner = No specific knowledge/skill necessary
+Intermediate = basic level of knowledge/skill
+Advanced = experienced level of knowledge/skill
+
+You could also enter as a participant, as soon as the programme is released you can then make your own.
+
+Kind regards,
+We are in IT together conference team
 @endcomponent
