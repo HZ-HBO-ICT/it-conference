@@ -139,11 +139,14 @@ class ContentModeratorController extends Controller
     {
         $message = '';
         if ($isApproved) {
-            BoothApproved::dispatch($booth);
+            $booth->is_approved = true;
+            $booth->save();
+//            BoothApproved::dispatch($booth);
             $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
 
         } else {
-            BoothDisapproved::dispatch($booth);
+            $booth->delete();
+//            BoothDisapproved::dispatch($booth);
             $message = __('You denied the request of :company to have a booth', ['company' => $booth->team->name]);
         }
 

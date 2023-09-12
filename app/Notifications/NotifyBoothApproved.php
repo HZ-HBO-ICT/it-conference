@@ -30,7 +30,8 @@ class NotifyBoothApproved extends Notification
      */
     public function via(object $notifiable): array
     {
-        if ($notifiable->receive_mails)
+//        dd($notifiable);
+        if ($notifiable->receive_emails)
             return ['mail', 'database'];
 
         return ['database'];

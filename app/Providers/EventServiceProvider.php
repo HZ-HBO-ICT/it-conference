@@ -20,6 +20,8 @@ use App\Listeners\HandleTeamApproved;
 use App\Listeners\HandleTeamDisapproved;
 use App\Listeners\SendTeamApprovedNotifications;
 use App\Mail\BoothDisapprovedMailable;
+use App\Models\Booth;
+use App\Observers\BoothObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -43,6 +45,15 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Booth::observe(BoothObserver::class);
+//        Event::listen(
+//            BoothApproved::class,
+//            [HandleBoothApproved::class, 'handle']
+//        );
+//        Event::listen(
+//            BoothDisapproved::class,
+//            [HandleBoothDisapproved::class, 'handle']
+//        );
         Event::listen(
             TeamApproved::class,
             [HandleTeamApproved::class, 'handle']
@@ -50,14 +61,6 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(
             TeamDisapproved::class,
             [HandleTeamDisapproved::class, 'handle']
-        );
-        Event::listen(
-            BoothApproved::class,
-            [HandleBoothApproved::class, 'handle']
-        );
-        Event::listen(
-            BoothDisapproved::class,
-            [HandleBoothDisapproved::class, 'handle']
         );
         Event::listen(
             SponsorshipApproved::class,
