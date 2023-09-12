@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\NotifyBoothApproved;
+use App\Notifications\NotifySponsorshipApproved;
+use App\Notifications\NotifySponsorshipDisapproved;
 use App\Notifications\NotifyTeamApproved;
 use App\Notifications\NotifyTeamDisapproved;
 
@@ -33,6 +35,21 @@ class TeamObserver
                 $user->notify(new NotifyTeamApproved($team));
             }
         }
+
+        if (array_key_exists('is_sponsor_approved', $team->getChanges())
+            && $team->is_sponsor_approved) {
+
+            foreach (User::role('participant')->get()  as $user) {
+                $user->notify(new NotifySponsorshipApproved($team));
+            }
+        }
+
+        if (array_key_exists('is_sponsor_approved', $team->getChanges())
+            && !$team->is_sponsor_approved) {
+
+            $team->owner->notify(new NotifySponsorshipDisapproved($team));
+        }
+
     }
 
     /**

@@ -137,12 +137,12 @@ class Team extends JetstreamTeam
     }
 
     /**
-     * Handle a (dis)approval of this Team.
+     * Handle a (dis)approval of this Teams request to join the conference.
      *
      * @param bool $isApproved
      * @return void
      */
-    public function handleApproval(bool $isApproved) : void
+    public function handleTeamApproval(bool $isApproved) : void
     {
         if ($isApproved) {
             $this->is_approved = true;
@@ -151,7 +151,38 @@ class Team extends JetstreamTeam
         } else {
             $deleteTeam = new DeleteTeam();
             $deleteTeam->delete($this);
-            // TODO What do we do with the owner?
+        }
+    }
+
+    /**
+     * Handle a (dis)approval of this Teams request for a sponsorship.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleSponsorshipApproval(bool $isApproved) : void
+    {
+        if ($isApproved) {
+            $this->is_sponsor_approved = true;
+            $this->save();
+
+            if($this->sponsorTier->leftSpots() == 0)
+                $this->sponsorTier->rejectAllExceptApproved();
+
+            if ($this->booth) {
+                if ($this->sponsorTier->name == 'golden') {
+                    $this->booth->width = 2;
+                    $this->booth->length = 6;
+                } else {
+                    $this->booth->width = 2;
+                    $this->booth->length = 4;
+                }
+                $this->booth->save();
+            }
+        } else {
+            $this->is_sponsor_approved = null;
+            $this->sponsor_tier_id = null;
+            $this->save();
         }
     }
 }

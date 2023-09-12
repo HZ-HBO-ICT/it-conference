@@ -116,7 +116,7 @@ class ContentModeratorController extends Controller
      */
     public function changeApprovalStatusOfTeam(Team $team, bool $isApproved): RedirectResponse
     {
-        $team->handleApproval($isApproved);
+        $team->handleTeamApproval($isApproved);
 
         $template = $isApproved ? 'You approved :company to join the IT Conference!!'
             : 'You refused the request of :company to join the IT conference';
@@ -145,23 +145,29 @@ class ContentModeratorController extends Controller
     /**
      * Changes the approval status of the given booth based
      * on the given boolean
-     * @param Booth $booth
+     * @param Team $team
      * @param bool $isApproved
      * @return RedirectResponse
      */
-    public function changeApprovalStatusOfSponsorship(Team $team, bool $isApproved)
+    public function changeApprovalStatusOfSponsorship(Team $team, bool $isApproved): RedirectResponse
     {
+        $team->handleSponsorshipApproval($isApproved);
+
+        $template = $isApproved ? 'You approved the sponsorship of :company!'
+            : 'You denied the sponsorship of :company';
+        return redirect(route('moderator.requests', 'booths'))
+            ->banner(__($template, ['company' => $team->name]));
         $message = '';
-        if ($isApproved) {
-            SponsorshipApproved::dispatch($team);
-            $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
-
-        } else {
-            SponsorshipDisapproved::dispatch($team);
-            $message = __('You denied the sponsorship of :company', ['company' => $team->name]);
-        }
-
-        return redirect(route('moderator.requests', 'sponsorships'))->banner($message);
+//        if ($isApproved) {
+//            SponsorshipApproved::dispatch($team);
+//            $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
+//
+//        } else {
+//            SponsorshipDisapproved::dispatch($team);
+//            $message = __('You denied the sponsorship of :company', ['company' => $team->name]);
+//        }
+//
+//        return redirect(route('moderator.requests', 'sponsorships'))->banner($message);
     }
 
     public function changeApprovalStatusOfPresentation(Presentation $presentation, bool $isApproved): RedirectResponse
