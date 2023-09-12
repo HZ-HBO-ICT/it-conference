@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Actions\Jetstream\DeleteTeam;
+use App\Notifications\NotifyTeamApproved;
+use App\Notifications\NotifyTeamDisapproved;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -131,5 +134,24 @@ class Team extends JetstreamTeam
                 })->wherePivot('role', 'speaker')->exists();
             }
         );
+    }
+
+    /**
+     * Handle a (dis)approval of this Team.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleApproval(bool $isApproved) : void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->owner->assignRole('company representative');
+            $this->save();
+        } else {
+            $deleteTeam = new DeleteTeam();
+            $deleteTeam->delete($this);
+            // TODO What do we do with the owner?
+        }
     }
 }

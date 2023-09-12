@@ -116,16 +116,12 @@ class ContentModeratorController extends Controller
      */
     public function changeApprovalStatusOfTeam(Team $team, bool $isApproved): RedirectResponse
     {
-        $message = '';
-        if ($isApproved) {
-            TeamApproved::dispatch($team);
-            $message = __('You approved :company to join the IT Conference!', ['company' => $team->name]);
-        } else {
-            TeamDisapproved::dispatch($team);
-            $message = __('You refused the request of :company to join the IT conference', ['company' => $team->name]);
-        }
+        $team->handleApproval($isApproved);
 
-        return redirect(route('moderator.requests', 'teams'))->banner($message);
+        $template = $isApproved ? 'You approved :company to join the IT Conference!!'
+            : 'You refused the request of :company to join the IT conference';
+        return redirect(route('moderator.requests', 'teams'))
+            ->banner(__($template, ['company' => $team->name]));
     }
 
     /**
