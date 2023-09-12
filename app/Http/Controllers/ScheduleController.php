@@ -19,7 +19,7 @@ class ScheduleController extends Controller
 {
     public function index(): View
     {
-        if(!GlobalEvent::isFinalProgrammeReleased())
+        if (!GlobalEvent::isFinalProgrammeReleased())
             abort(404);
 
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
@@ -31,7 +31,7 @@ class ScheduleController extends Controller
 
     public function show(Presentation $presentation): View
     {
-        if(!GlobalEvent::isFinalProgrammeReleased())
+        if (!GlobalEvent::isFinalProgrammeReleased())
             abort(404);
 
         return view('presentations.show', compact('presentation'));
@@ -158,9 +158,9 @@ class ScheduleController extends Controller
     {
         $presentationsScheduled = 0;
 
-        $presentations = Presentation::whereDoesntHave('room')
-            ->whereDoesntHave('timeslot')
-            ->get();
+        $presentations = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        });
 
         foreach ($presentations as $presentation) {
             $timeslots = Timeslot::where('duration', $presentation->type == 'lecture' ? 30 : 90)
