@@ -12,6 +12,10 @@ send enquiries about sponsorship as well as setting up a company booth in our ma
 To gain access to the system as a company representative you just need to follow the link and change your password.
 
 @component('mail::button', ['url' => $acceptUrl])
+Finish your registration
+@endcomponent
+
 Kind regards,
+
 We are in IT together conference team
 @endcomponent
