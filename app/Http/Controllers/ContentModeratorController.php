@@ -97,7 +97,7 @@ class ContentModeratorController extends Controller
         if ($type == 'teams') {
             return $this->changeApprovalStatusOfTeam(Team::find($id), $isApproved);
         } else if ($type == 'booths') {
-            return $this->changeApprovalStatusOfBooth(Booth::find($id), $isApproved);
+            return $this->changeApprovalStatusOfBooth(Booth::findOrFail($id), $isApproved);
         } else if ($type == 'sponsorships') {
             return $this->changeApprovalStatusOfSponsorship(Team::find($id), $isApproved);
         } else if ($type == 'presentations') {
@@ -131,26 +131,19 @@ class ContentModeratorController extends Controller
     /**
      * Changes the approval status of the given booth based
      * on the given boolean
+     *
      * @param Booth $booth
      * @param bool $isApproved
      * @return RedirectResponse
      */
     public function changeApprovalStatusOfBooth(Booth $booth, bool $isApproved): RedirectResponse
     {
-        $message = '';
-        if ($isApproved) {
-            $booth->is_approved = true;
-            $booth->save();
-//            BoothApproved::dispatch($booth);
-            $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
+        $booth->handleApproval($isApproved);
 
-        } else {
-            $booth->delete();
-//            BoothDisapproved::dispatch($booth);
-            $message = __('You denied the request of :company to have a booth', ['company' => $booth->team->name]);
-        }
-
-        return redirect(route('moderator.requests', 'booths'))->banner($message);
+        $template = $isApproved ? 'You approved the booth of :company!'
+            : 'You denied the request of :company to have a booth';
+        return redirect(route('moderator.requests', 'booths'))
+            ->banner(__($template, ['company' => $booth->team->name]));
     }
 
     /**
