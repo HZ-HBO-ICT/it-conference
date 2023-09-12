@@ -45,7 +45,7 @@ class TeamObserver
         }
 
         if (array_key_exists('is_sponsor_approved', $team->getChanges())
-            && !$team->is_sponsor_approved) {
+            && $team->is_sponsor_approved === null) {
 
             $team->owner->notify(new NotifySponsorshipDisapproved($team));
         }
