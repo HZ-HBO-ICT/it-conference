@@ -22,7 +22,7 @@
         <x-section-border/>
         <div>
             <div class="flex">
-                <form method="POST" action="{{route('moderator.request.approve', ['presentations', $presentation, 1])}}"
+                <form method="POST" action="{{route('moderator.request.presentations.approve', [$presentation, 1])}}"
                       class="mr-2">
                     @csrf
                     <x-button
@@ -31,7 +31,7 @@
                     </x-button>
                 </form>
                 <form method="POST"
-                      action="{{ route('moderator.request.approve', ['presentations', $presentation, 0]) }}"
+                      action="{{ route('moderator.request.presentations.approve', [$presentation, 0]) }}"
                       class="mr-2">
                     @csrf
                     <x-button

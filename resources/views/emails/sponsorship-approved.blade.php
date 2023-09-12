@@ -1,8 +1,11 @@
 @component('mail::message')
-# Congratulations, {{$team->name}} is now a {{$team->sponsorTier->name}} sponsor in the conference!
-We are excited that you want to join us and support us.
+# Thank you so much, {{$team->name}} is now a {{$team->sponsorTier->name}} sponsor in for our conference!
+We are excited and grateful that you want to join us and support us making the conference a success.
+Depending on the package you chose we will get in touch with you through email soon, providing you with information on how to proceed
 
 If you have any questions do not hesitate to contact us!
 
-If you did not expect to receive this, you may discard this email.
+Kind regards,
+
+We are in IT together conference team
 @endcomponent
