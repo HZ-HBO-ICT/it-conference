@@ -26,7 +26,6 @@ class HandlePresentationDisapproved
     {
         $presentation = $event->presentation;
 
-        $presentation->mainSpeaker()->user->notify(new NotifyPresentationDisapproved());
         $presentation->speakers()->delete();
         $presentation->delete();
     }

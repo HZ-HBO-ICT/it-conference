@@ -27,8 +27,5 @@ class HandlePresentationApproved
         $presentation = $event->presentation;
         $presentation->approve();
 
-        foreach (User::role('participant')->get() as $user) {
-            $user->notify(new NotifyPresentationApproved($presentation));
-        }
     }
 }

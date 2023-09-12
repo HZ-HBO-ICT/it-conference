@@ -21,8 +21,12 @@ use App\Listeners\HandleTeamDisapproved;
 use App\Listeners\SendTeamApprovedNotifications;
 use App\Mail\BoothDisapprovedMailable;
 use App\Models\Booth;
+use App\Models\Presentation;
+use App\Models\Speaker;
 use App\Models\Team;
 use App\Observers\BoothObserver;
+use App\Observers\PresentationObserver;
+use App\Observers\SpeakerObserver;
 use App\Observers\TeamObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -49,22 +53,7 @@ class EventServiceProvider extends ServiceProvider
     {
         Booth::observe(BoothObserver::class);
         Team::observe(TeamObserver::class);
-        Event::listen(
-            SponsorshipApproved::class,
-            [HandleSponsorshipApproved::class, 'handle']
-        );
-        Event::listen(
-            SponsorshipDisapproved::class,
-            [HandleSponsorshipDisapproved::class, 'handle']
-        );
-        Event::listen(
-            PresentationApproved::class,
-            [HandlePresentationApproved::class, 'handle']
-        );
-        Event::listen(
-            PresentationDisapproved::class,
-            [HandlePresentationDisapproved::class, 'handle']
-        );
+        Speaker::observe(SpeakerObserver::class);
     }
 
     /**
