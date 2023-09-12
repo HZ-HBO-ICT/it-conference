@@ -7,5 +7,6 @@ are currently fully booked. For now we have placed you on our reserve list.
 We do still hope to greet you as an attendee of our conference.
 
 Kind regards,
+
 We are in IT together conference team
 @endcomponent
