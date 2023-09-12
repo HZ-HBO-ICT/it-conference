@@ -86,28 +86,6 @@ class ContentModeratorController extends Controller
     }
 
     /**
-     * Change the approval status of a request.
-     * @param string $type The type of the request ('teams', 'booths', or 'sponsorships').
-     * @param int $id The ID of the request.
-     * @param bool $isApproved Whether the request is approved or not.
-     * @return RedirectResponse|Redirector
-     */
-    public function changeApprovalStatus(string $type, int $id, bool $isApproved): Redirector|RedirectResponse
-    {
-        if ($type == 'teams') {
-            return $this->changeApprovalStatusOfTeam(Team::find($id), $isApproved);
-        } else if ($type == 'booths') {
-            return $this->changeApprovalStatusOfBooth(Booth::findOrFail($id), $isApproved);
-        } else if ($type == 'sponsorships') {
-            return $this->changeApprovalStatusOfSponsorship(Team::find($id), $isApproved);
-        } else if ($type == 'presentations') {
-            return $this->changeApprovalStatusOfPresentation(Presentation::find($id), $isApproved);
-        }
-
-        abort(404);
-    }
-
-    /**
      * Changes the approval status of the given team based
      * on the given boolean
      * @param Team $team
@@ -156,7 +134,7 @@ class ContentModeratorController extends Controller
 
         $template = $isApproved ? 'You approved the sponsorship of :company!'
             : 'You denied the sponsorship of :company';
-        return redirect(route('moderator.requests', 'booths'))
+        return redirect(route('moderator.requests', 'sponsorships'))
             ->banner(__($template, ['company' => $team->name]));
     }
 
