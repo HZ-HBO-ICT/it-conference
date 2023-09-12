@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Actions\Jetstream\DeleteTeam;
+use App\Notifications\NotifyTeamApproved;
+use App\Notifications\NotifyTeamDisapproved;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -131,5 +134,55 @@ class Team extends JetstreamTeam
                 })->wherePivot('role', 'speaker')->exists();
             }
         );
+    }
+
+    /**
+     * Handle a (dis)approval of this Teams request to join the conference.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleTeamApproval(bool $isApproved) : void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->owner->assignRole('company representative');
+            $this->save();
+        } else {
+            $deleteTeam = new DeleteTeam();
+            $deleteTeam->delete($this);
+        }
+    }
+
+    /**
+     * Handle a (dis)approval of this Teams request for a sponsorship.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleSponsorshipApproval(bool $isApproved) : void
+    {
+        if ($isApproved) {
+            $this->is_sponsor_approved = true;
+            $this->save();
+
+            if($this->sponsorTier->leftSpots() == 0)
+                $this->sponsorTier->rejectAllExceptApproved();
+
+            if ($this->booth) {
+                if ($this->sponsorTier->name == 'golden') {
+                    $this->booth->width = 2;
+                    $this->booth->length = 6;
+                } else {
+                    $this->booth->width = 2;
+                    $this->booth->length = 4;
+                }
+                $this->booth->save();
+            }
+        } else {
+            $this->is_sponsor_approved = null;
+            $this->sponsor_tier_id = null;
+            $this->save();
+        }
     }
 }

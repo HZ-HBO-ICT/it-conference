@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Presentation extends Model
 {
@@ -114,13 +115,22 @@ class Presentation extends Model
     }
 
     /**
-     * Called in order to approve the speakers connected to the presentation
+     * Handle a (dis)approval of this Presentation.
+     *
+     * @param bool $isApproved
      * @return void
      */
-    public function approve()
+    public function handleApproval(bool $isApproved) : void
     {
-        foreach ($this->speakers as $speaker) {
-            $speaker->approve();
+        if ($isApproved) {
+            DB::transaction(function() {
+               $this->speakers->each( fn($speaker) => $speaker->approve());
+            });
+        } else {
+            DB::transaction(function() {
+                $this->speakers->each( fn($speaker) => $speaker->delete());
+                $this->delete();
+            });
         }
     }
 }

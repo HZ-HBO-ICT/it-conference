@@ -86,28 +86,6 @@ class ContentModeratorController extends Controller
     }
 
     /**
-     * Change the approval status of a request.
-     * @param string $type The type of the request ('teams', 'booths', or 'sponsorships').
-     * @param int $id The ID of the request.
-     * @param bool $isApproved Whether the request is approved or not.
-     * @return RedirectResponse|Redirector
-     */
-    public function changeApprovalStatus(string $type, int $id, bool $isApproved)
-    {
-        if ($type == 'teams') {
-            return $this->changeApprovalStatusOfTeam(Team::find($id), $isApproved);
-        } else if ($type == 'booths') {
-            return $this->changeApprovalStatusOfBooth(Booth::find($id), $isApproved);
-        } else if ($type == 'sponsorships') {
-            return $this->changeApprovalStatusOfSponsorship(Team::find($id), $isApproved);
-        } else if ($type == 'presentations') {
-            return $this->changeApprovalStatusOfPresentation(Presentation::find($id), $isApproved);
-        }
-
-        abort(404);
-    }
-
-    /**
      * Changes the approval status of the given team based
      * on the given boolean
      * @param Team $team
@@ -116,78 +94,75 @@ class ContentModeratorController extends Controller
      */
     public function changeApprovalStatusOfTeam(Team $team, bool $isApproved): RedirectResponse
     {
-        $message = '';
-        if ($isApproved) {
-            TeamApproved::dispatch($team);
-            $message = __('You approved :company to join the IT Conference!', ['company' => $team->name]);
-        } else {
-            TeamDisapproved::dispatch($team);
-            $message = __('You refused the request of :company to join the IT conference', ['company' => $team->name]);
-        }
+        $team->handleTeamApproval($isApproved);
 
-        return redirect(route('moderator.requests', 'teams'))->banner($message);
+        $template = $isApproved ? 'You approved :company to join the IT Conference!!'
+            : 'You refused the request of :company to join the IT conference';
+        return redirect(route('moderator.requests', 'teams'))
+            ->banner(__($template, ['company' => $team->name]));
     }
 
     /**
      * Changes the approval status of the given booth based
      * on the given boolean
+     *
      * @param Booth $booth
      * @param bool $isApproved
      * @return RedirectResponse
      */
     public function changeApprovalStatusOfBooth(Booth $booth, bool $isApproved): RedirectResponse
     {
-        $message = '';
-        if ($isApproved) {
-            BoothApproved::dispatch($booth);
-            $message = __('You approved the booth of :company!', ['company' => $booth->team->name]);
+        $booth->handleApproval($isApproved);
 
-        } else {
-            BoothDisapproved::dispatch($booth);
-            $message = __('You denied the request of :company to have a booth', ['company' => $booth->team->name]);
-        }
-
-        return redirect(route('moderator.requests', 'booths'))->banner($message);
+        $template = $isApproved ? 'You approved the booth of :company!'
+            : 'You denied the request of :company to have a booth';
+        return redirect(route('moderator.requests', 'booths'))
+            ->banner(__($template, ['company' => $booth->team->name]));
     }
 
     /**
      * Changes the approval status of the given booth based
      * on the given boolean
-     * @param Booth $booth
+     *
+     * @param Team $team
      * @param bool $isApproved
      * @return RedirectResponse
      */
-    public function changeApprovalStatusOfSponsorship(Team $team, bool $isApproved)
+    public function changeApprovalStatusOfSponsorship(Team $team, bool $isApproved): RedirectResponse
     {
-        $message = '';
-        if ($isApproved) {
-            SponsorshipApproved::dispatch($team);
-            $message = __('You approved the sponsorship of :company!', ['company' => $team->name]);
+        $team->handleSponsorshipApproval($isApproved);
 
-        } else {
-            SponsorshipDisapproved::dispatch($team);
-            $message = __('You denied the sponsorship of :company', ['company' => $team->name]);
-        }
-
-        return redirect(route('moderator.requests', 'sponsorships'))->banner($message);
+        $template = $isApproved ? 'You approved the sponsorship of :company!'
+            : 'You denied the sponsorship of :company';
+        return redirect(route('moderator.requests', 'sponsorships'))
+            ->banner(__($template, ['company' => $team->name]));
     }
 
+    /**
+     * Changes the approval status of the given presentation based
+     * on the given boolean
+     *
+     * @param Presentation $presentation
+     * @param bool $isApproved
+     * @return RedirectResponse
+     */
     public function changeApprovalStatusOfPresentation(Presentation $presentation, bool $isApproved): RedirectResponse
     {
-        $message = '';
-        if ($isApproved) {
-            PresentationApproved::dispatch($presentation);
-            $message = __('You approved :name to host a presentation during the IT Conference!', ['name' => $presentation->mainSpeaker()->user->name]);
+        $mainSpeakerName = $presentation->mainSpeaker()->user->name;
+        $presentation->handleApproval($isApproved);
 
-        } else {
-            $message = __('You refused the request of :name to host presentation during the IT conference', ['name' => $presentation->mainSpeaker()->user->name]);
-            PresentationDisapproved::dispatch($presentation);
-        }
-
-        return redirect(route('moderator.requests', 'presentations'))->banner($message);
+        $template = $isApproved ? 'You approved :name to host a presentation during the IT Conference!'
+            : 'You refused the request of :name to host presentation during the IT conference';
+        return redirect(route('moderator.requests', 'presentations'))
+            ->banner(__($template, ['name' => $mainSpeakerName]));
     }
 
-    public function overview()
+    /**
+     * Returns the moderator overview view
+     *
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     */
+    public function overview(): \Illuminate\Foundation\Application|View|Factory|Application
     {
         $numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
             $query->where('is_approved', false);
@@ -206,7 +181,13 @@ class ContentModeratorController extends Controller
         ));
     }
 
-    public function showList(string $type)
+    /**
+     * Returns the moderator general list view
+     *
+     * @param string $type
+     * @return Factory|\Illuminate\Foundation\Application|View|Application
+     */
+    public function showList(string $type): Factory|\Illuminate\Foundation\Application|View|Application
     {
         $list = [];
 

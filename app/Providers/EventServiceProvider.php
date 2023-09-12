@@ -20,6 +20,14 @@ use App\Listeners\HandleTeamApproved;
 use App\Listeners\HandleTeamDisapproved;
 use App\Listeners\SendTeamApprovedNotifications;
 use App\Mail\BoothDisapprovedMailable;
+use App\Models\Booth;
+use App\Models\Presentation;
+use App\Models\Speaker;
+use App\Models\Team;
+use App\Observers\BoothObserver;
+use App\Observers\PresentationObserver;
+use App\Observers\SpeakerObserver;
+use App\Observers\TeamObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -43,38 +51,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen(
-            TeamApproved::class,
-            [HandleTeamApproved::class, 'handle']
-        );
-        Event::listen(
-            TeamDisapproved::class,
-            [HandleTeamDisapproved::class, 'handle']
-        );
-        Event::listen(
-            BoothApproved::class,
-            [HandleBoothApproved::class, 'handle']
-        );
-        Event::listen(
-            BoothDisapproved::class,
-            [HandleBoothDisapproved::class, 'handle']
-        );
-        Event::listen(
-            SponsorshipApproved::class,
-            [HandleSponsorshipApproved::class, 'handle']
-        );
-        Event::listen(
-            SponsorshipDisapproved::class,
-            [HandleSponsorshipDisapproved::class, 'handle']
-        );
-        Event::listen(
-            PresentationApproved::class,
-            [HandlePresentationApproved::class, 'handle']
-        );
-        Event::listen(
-            PresentationDisapproved::class,
-            [HandlePresentationDisapproved::class, 'handle']
-        );
+        Booth::observe(BoothObserver::class);
+        Team::observe(TeamObserver::class);
+        Speaker::observe(SpeakerObserver::class);
     }
 
     /**
