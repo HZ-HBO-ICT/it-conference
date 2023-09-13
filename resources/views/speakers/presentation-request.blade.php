@@ -51,7 +51,6 @@
                         <x-input id="max_participants" name="max_participants" type="number" class="mt-1 block w-full"/>
                         <x-input-error for="max_participants" class="mt-2"/>
                     </div>
-                    @livewire('helper-upload-presentation')
                     <x-button
                         class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
                         Submit
