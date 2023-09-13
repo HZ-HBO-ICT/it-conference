@@ -14,7 +14,7 @@
         <p class="text-lg">{{$booth->additional_information}}</p>
         <div>
             <div class="mt-16 flex">
-                <form method="POST" action="{{route('moderator.request.approve', ['booths', $booth, 1])}}"
+                <form method="POST" action="{{route('moderator.request.booths.approve', [$booth, 1])}}"
                       class="mr-2">
                     @csrf
                     <x-button
@@ -22,7 +22,7 @@
                         Approve
                     </x-button>
                 </form>
-                <form method="POST" action="{{ route('moderator.request.approve', ['booths', $booth, 0]) }}"
+                <form method="POST" action="{{ route('moderator.request.booths.approve', [$booth, 0]) }}"
                       class="mr-2">
                     @csrf
                     <x-button

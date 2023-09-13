@@ -67,6 +67,12 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
+Route::get('/programme', [ScheduleController::class, 'index'])
+    ->name('programme');
+
+Route::get('/presentations/{presentation}', [ScheduleController::class, 'show'])
+    ->name('presentations.show');
+
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
 
@@ -90,8 +96,21 @@ Route::middleware([
     Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
         ->name('moderator.request.details');
 
-    Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
-        ->name('moderator.request.approve');
+    Route::post('/requests/teams/{team}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfTeam'])
+        ->name('moderator.request.teams.approve');
+
+    Route::post('/requests/booths/{booth}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfBooth'])
+        ->name('moderator.request.booths.approve');
+
+    Route::post('/requests/sponsorships/{team}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfSponsorship'])
+        ->name('moderator.request.sponsorships.approve');
+
+    Route::post('/requests/presentations/{presentation}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfPresentation'])
+        ->name('moderator.request.presentations.approve');
 
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
         ->name('moderator.schedule.overview');

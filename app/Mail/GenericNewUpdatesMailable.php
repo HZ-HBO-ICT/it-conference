@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,16 +10,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PresentationApproved extends Mailable
+class GenericNewUpdatesMailable extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $unreadNotifications;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->unreadNotifications = $user->unreadNotifications->count() + 1;
     }
 
     /**
@@ -27,7 +30,7 @@ class PresentationApproved extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Presentation Approved',
+            subject: 'You have new updates in the IT Conference website!',
         );
     }
 
@@ -37,7 +40,7 @@ class PresentationApproved extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.presentation-approved',
+            markdown: 'emails.generic-new-updates',
         );
     }
 

@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SponsorshipApproved extends Mailable
+class BoothDisapprovedMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class SponsorshipApproved extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Sponsorship Approved',
+            subject: 'Booth Disapproved',
         );
     }
 
@@ -40,7 +40,7 @@ class SponsorshipApproved extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.sponsorship-approved',
+            markdown: 'emails.booth-disapproved',
         );
     }
 

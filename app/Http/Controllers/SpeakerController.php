@@ -15,7 +15,9 @@ class SpeakerController extends Controller
      */
     public function index()
     {
-        $speakers = Speaker::where('is_approved', 1)->get();
+        $speakers = Speaker::where('is_approved', 1)
+            ->where('is_main_speaker', 1)
+            ->get();
 
         return view('speakers.index', compact('speakers'));
     }
@@ -31,6 +33,14 @@ class SpeakerController extends Controller
 
     public function processRequest(Request $request)
     {
+        if (Auth::user()->team) {
+            if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
+                Auth::user()->currentTeam->users()->attach(
+                    Auth::user(), ['role' => 'speaker']
+                );
+            }
+        }
+
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
 

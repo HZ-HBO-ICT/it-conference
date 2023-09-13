@@ -29,6 +29,13 @@
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
+                @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                            {{ __('Programme') }}
+                        </x-nav-link>
+                    </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
@@ -146,7 +153,7 @@
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
                             @can('sendRequest', App\Models\Presentation::class)
-                                @unlessrole('content moderator')
+                            @unlessrole('content moderator')
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Do you want to host a presentation?') }}
                                 </div>
@@ -154,7 +161,7 @@
                                 <x-dropdown-link href="{{ route('speakers.request.presentation') }}">
                                     {{ __('Request to become a speaker') }}
                                 </x-dropdown-link>
-                                @endunlessrole
+                            @endunlessrole
                             @endcan
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -178,7 +185,8 @@
                     </x-dropdown>
                 </div>
                 <div class="pl-4">
-                    <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(107 114 128)"
+                    <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                         fill="rgb(107 114 128)"
                          class="bi bi-circle-half" viewBox="0 0 16 16" style="cursor: pointer;">
                         <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
                     </svg>
@@ -214,6 +222,11 @@
             <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
+            @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                    {{ __('Programme') }}
+                </x-responsive-nav-link>
+            @endif
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
