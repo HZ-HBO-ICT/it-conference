@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,16 +10,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PresentationDisapproved extends Mailable
+class SponsorshipDisapprovedMailable extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $team;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Team $team)
     {
-        //
+        $this->team = $team;
     }
 
     /**
@@ -27,7 +30,7 @@ class PresentationDisapproved extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Presentation Disapproved',
+            subject: 'Sponsorship Disapproved',
         );
     }
 
@@ -37,7 +40,7 @@ class PresentationDisapproved extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.presentation-disapproved',
+            markdown: 'emails.sponsorship-disapproved',
         );
     }
 

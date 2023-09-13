@@ -25,6 +25,11 @@
             </h2>
             <x-section-border/>
             @livewire('upload-presentation', ['presentation' => $presentation])
+
+            <x-section-border/>
+            <div>
+                @livewire('override-difficulty', ['presentation' => $presentation])
+            </div>
         </div>
         <div>
             <div>

@@ -20,4 +20,20 @@ class Booth extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    /**
+     * Handle a (dis)approval of this Booth.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleApproval(bool $isApproved) : void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->save();
+        } else {
+            $this->delete();
+        }
+    }
 }
