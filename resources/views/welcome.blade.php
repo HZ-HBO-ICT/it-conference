@@ -19,7 +19,7 @@
                         </h2>
                     </div>
                     <div class="flex flex-row">
-                        <div class="md:basis-1/2 basis-full md:pr-6">
+                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">
                             <x-countdown/>
                         </div>
                         <!-- The div for the logo of the sponsor -->
