@@ -58,6 +58,12 @@ Route::middleware([
 
     Route::get('/presentation/{presentation}', [PresentationController::class, 'show'])
         ->name('presentations.show');
+
+    Route::get('/presentation/{presentation}/edit', [PresentationController::class, 'edit'])
+        ->name('presentations.edit');
+
+    Route::put('/presentation/{presentation}/edit', [PresentationController::class, 'update'])
+        ->name('presentations.update');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])

@@ -17,7 +17,7 @@ class PresentationController extends Controller
             abort(403);
         }
 
-        return view('speakers.presentation-request');
+        return view('speakers.presentation.create');
     }
 
     public function store(Request $request)
@@ -58,7 +58,7 @@ class PresentationController extends Controller
     {
         // Shows the view to the host of the presentation
         if (Auth::user()->id == $presentation->mainSpeaker()->user->id)
-            return view('speakers.presentation-details', compact('presentation'));
+            return view('speakers.presentation.show', compact('presentation'));
 
         // To everyone else once the programme is released
         // TODO: Refactor with the new model Daan is implementing
@@ -66,5 +66,23 @@ class PresentationController extends Controller
             return view('presentations.show', compact('presentation'));
 
         abort(404);
+    }
+
+    public function edit(Presentation $presentation)
+    {
+        if (Auth::user()->id != $presentation->mainSpeaker()->user->id)
+            abort(403);
+
+        return view('speakers.presentation.edit', compact('presentation'));
+    }
+
+    public function update(Presentation $presentation, Request $request)
+    {
+        if (Auth::user()->id != $presentation->mainSpeaker()->user->id)
+            abort(403);
+
+        $presentation->update($request->validate(Presentation::rules()));
+
+        return redirect(route('presentations.show', $presentation))->banner("You successfully updated your presentation");
     }
 }
