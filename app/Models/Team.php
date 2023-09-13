@@ -14,6 +14,54 @@ use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
 
+/**
+ * App\Models\Team
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $name
+ * @property bool $personal_team
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $postcode
+ * @property string $house_number
+ * @property string $street
+ * @property string $city
+ * @property string $website
+ * @property string $description
+ * @property int $is_approved
+ * @property int|null $sponsor_tier_id
+ * @property int|null $is_sponsor_approved
+ * @property string|null $logo_path
+ * @property-read \App\Models\Booth|null $booth
+ * @property-read \App\Models\User $owner
+ * @property-read \App\Models\SponsorTier|null $sponsorTier
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TeamInvitation> $teamInvitations
+ * @property-read int|null $team_invitations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\TeamFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereHouseNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereIsApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereIsSponsorApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereLogoPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team wherePersonalTeam($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereSponsorTierId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereStreet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereWebsite($value)
+ * @mixin \Eloquent
+ */
 class Team extends JetstreamTeam
 {
     use HasFactory;

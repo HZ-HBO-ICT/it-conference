@@ -10,6 +10,42 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Presentation
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property int $max_participants The max number of participants that the presenter allows
+ * @property string $type
+ * @property int|null $timeslot_id
+ * @property int|null $room_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $difficulty_id
+ * @property-read \App\Models\Difficulty|null $difficulty
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $participants
+ * @property-read int|null $participants_count
+ * @property-read \App\Models\Room|null $room
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Speaker> $speakers
+ * @property-read int|null $speakers_count
+ * @property-read \App\Models\Timeslot|null $timeslot
+ * @method static \Database\Factories\PresentationFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereDifficultyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereMaxParticipants($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereRoomId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereTimeslotId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Presentation extends Model
 {
     use HasFactory;

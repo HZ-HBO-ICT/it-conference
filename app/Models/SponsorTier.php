@@ -8,6 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * App\Models\SponsorTier
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $max_sponsors The maximum companies that can have that tier
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property-read int|null $teams_count
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereMaxSponsors($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class SponsorTier extends Model
 {
     use HasFactory;
