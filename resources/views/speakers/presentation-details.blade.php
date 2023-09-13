@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 <x-app-layout>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Presentation details</h1>
     <div class="grid grid-cols-2 gap-4 text-gray-900 dark:text-gray-200">
@@ -11,9 +12,7 @@
             </h2>
             <x-section-border/>
             <h3 class="text-xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Presentation slides</h3>
-            @if(!\App\Models\GlobalEvent::isFinalProgrammeReleased())
-                @livewire('upload-presentation', ['presentation' => $presentation])
-            @endif
+            @livewire('upload-presentation', ['presentation' => $presentation])
         </div>
         <div>
             <div>
@@ -23,6 +22,7 @@
                     <p class="text-lg">Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
                                        - {{(Carbon::parse($presentation->timeslot->start)->addMinutes(30))->format('H:i')}}</p>
                     <p class="text-lg py-2">Room: {{$presentation->room->name}} </p>
+                    <p class="text-lg py-2">Participants: {{$presentation->maxParticipants()}} </p>
                 @else
                     <p class="text-lg">The programme hasn't been released yet</p>
                 @endif

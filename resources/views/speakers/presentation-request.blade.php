@@ -47,7 +47,7 @@
                         <x-input-error for="difficulty_id" class="mt-2"/>
                     </div>
                     <div class="col-span-6 sm:col-span-4">
-                        <x-label for="max_participants" value="Maximum participants"/>
+                        <x-label for="max_participants" value="Preferred number of maximum participants"/>
                         <x-input id="max_participants" name="max_participants" type="number" class="mt-1 block w-full"/>
                         <x-input-error for="max_participants" class="mt-2"/>
                     </div>
