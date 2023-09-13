@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\RoomController;
@@ -141,6 +143,5 @@ Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->
 
 Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

@@ -7,47 +7,57 @@
 
     <div class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
         <div class="py-40 max-w-7xl mx-auto">
-            <div class="flex flex-row space-x-16 justify-center items-start">
-                <div>
-                    <div>
-                        <h2 class="tracking-tight leading-10 font-bold text-4xl dark:text-white">Got a question?</h2>
-                        <p class="dark:text-gray-200 mt-3">Fill in the form, and we will get</p>
-                        <p class="dark:text-gray-200">back to you as soon as possible.</p>
-                    </div>
+            @if (session('status'))
+{{--            Message for large screens--}}
+                <div class="alert-success hidden lg:flex flex-row justify-center items-center" role="alert">
+                    <div
+                        class="px-5 py-4 text-sm font-medium text-green-800 rounded-lg bg-green-100 dark:bg-gray-700 dark:text-green-400">
+                        {{ session('status') }}
 
-                    <div class="mt-20">
-                        <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Contact Information</h2>
-                        <p class="dark:text-gray-200 mt-3">Het Groene Woud 1-3</p>
-                        <p class="dark:text-gray-200">4331 NB Middelburg</p>
-                        <a class="text-blue-600 hover:text-blue-400 visited:text-purple-600" href="mailto: info@weareinittogether.nl">info@weareinittogether.nl</a>
+                        <button type="button"
+                                class="close-alert lg:ml-40 -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-600">
+                            <span class="sr-only">Close</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
-                <div>
-                    <form class="flex flex-col w-80" action="/contact-request" method="POST">
-                        @csrf
-                        @method('POST')
+{{--            Message for mobile screens--}}
+                <div
+                     class="alert-success flex lg:hidden flex-col justify-center items-center px-5 py-4 mb-8 text-sm font-medium text-green-800 rounded-lg bg-green-100 dark:bg-gray-700 dark:text-green-400"
+                     role="alert">
+                    <div class="text-center">
+                        {{ session('status') }}
+                    </div>
 
-                        <x-label for="name" value="{{ __('Name') }}" class="after:content-['*'] after:text-red-500 text-xl"/>
-                        <x-input type="text" class="block mt-3 w-full" id="name" name="name" :value="old('name')" placeholder="e.g. John Doe" required
-                                 autofocus autocomplete="name"/>
-
-                        <x-label for="email" value="{{ __('Email') }}" class="mt-10 after:content-['*'] after:text-red-500 text-xl"/>
-                        <x-input type="text" class="block mt-3 w-full" id="email" name="email" :value="old('email')" placeholder="e.g. youremail@gmail.com" required
-                                 autofocus autocomplete="email"/>
-
-                        <x-label for="message" value="{{ __('Message') }}" class="mt-10 after:content-['*'] after:text-red-500 text-xl"/>
-                        <textarea type="text" class="block mt-3 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" id="message" name="message" required
-                                 autofocus autocomplete="message">{{ old('message') }}</textarea>
-
-                        <x-button class="mt-10 w-fit">
-                            {{ __('Send') }}
-                        </x-button>
-                    </form>
+                    <button type="button"
+                            class="close-alert mt-6 -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-600">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                    </button>
                 </div>
+            @endif
+
+{{--        Form for large screens--}}
+            <div class="hidden md:flex lg:flex flex-row space-x-16 justify-center items-start mt-10">
+                <x-contact-form />
             </div>
 
-            <p class="tracking-tight leading-10 font-bold text-4xl dark:text-white mt-24 text-center">Our location on the map</p>
+{{--        Form for small screens--}}
+            <div class="flex md:hidden lg:hidden flex-col space-y-16 justify-center items-center">
+                <x-contact-form />
+            </div>
+
+            <p class="tracking-tight leading-10 font-bold text-4xl dark:text-white mt-24 text-center">Our location on
+                the map</p>
 
             <div class="grid mt-10">
                 <div>
@@ -56,4 +66,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const alertSuccesses = document.querySelectorAll('.alert-success');
+        const closeAlertButtons = document.querySelectorAll('.close-alert');
+
+
+        closeAlertButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alertSuccesses.forEach(alert => {
+                    alert.parentNode.removeChild(alert);
+                });
+            });
+        });
+    </script>
 </x-app-layout>
