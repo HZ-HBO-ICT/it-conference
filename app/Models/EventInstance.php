@@ -14,4 +14,11 @@ class EventInstance extends Model
     const STATE_ENROLLMENT = 20;
     const STATE_EXECUTION = 30;
     const STATE_ARCHIVE = 40;
+
+    public static function current() {
+        $item = self::query()->whereNot('state', '=', self::STATE_ARCHIVE)->first();
+        if (!$item) {
+            //$item =
+        }
+    }
 }
