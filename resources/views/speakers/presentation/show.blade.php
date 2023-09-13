@@ -1,6 +1,19 @@
-@php use Carbon\Carbon; @endphp
+@php 
+use Carbon\Carbon; 
+@endphp
+
 <x-app-layout>
-    <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Presentation details</h1>
+    <x-presentation-details
+        :presentation="$presentation" 
+        :presentationName="$presentation->name"
+        :presentationDescription="$presentation->description"
+        :filename="basename($presentation->file_path)"
+        :presentationType="$presentation->type"
+        :presentationMaxParticipants="$presentation->max_participants"
+    />
+
+    
+    <!-- <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Presentation details</h1>
     <div class="grid grid-cols-2 gap-4 text-gray-900 dark:text-gray-200">
         <div class="pl-4">
             <h3 class="text-xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Details provided by you</h3>
@@ -16,17 +29,17 @@
         </div>
         <div>
             <div>
-                <h3 class="text-2xl font-semibold pb-3">Schedule</h3>
+                <h3 class="text-2xl font-semibold pb-3">Schedule</h3> -->
                 <!-- TODO: Refactor when changing the global event -->
-                @if(\App\Models\GlobalEvent::isFinalProgrammeReleased())
+                <!-- @if(\App\Models\GlobalEvent::isFinalProgrammeReleased())
                     <p class="text-lg">Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
                                        - {{(Carbon::parse($presentation->timeslot->start)->addMinutes(30))->format('H:i')}}</p>
                     <p class="text-lg py-2">Room: {{$presentation->room->name}} </p>
                     <p class="text-lg py-2">Participants: {{$presentation->maxParticipants()}} </p>
                 @else
                     <p class="text-lg">The programme hasn't been released yet</p>
-                @endif
-            </div>
+                @endif -->
+            <!-- </div>
         </div>
-    </div>
+    </div> -->
 </x-app-layout>
