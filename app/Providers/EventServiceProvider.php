@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\FinalProgrammeReleased;
+use App\Listeners\HandleFinalProgrammeReleased;
 use App\Events\BoothApproved;
 use App\Events\BoothDisapproved;
 use App\Events\PresentationApproved;
@@ -51,6 +53,11 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen(
+            FinalProgrammeReleased::class,
+            [HandleFinalProgrammeReleased::class, 'handle']
+        );
+
         Booth::observe(BoothObserver::class);
         Team::observe(TeamObserver::class);
         Speaker::observe(SpeakerObserver::class);
