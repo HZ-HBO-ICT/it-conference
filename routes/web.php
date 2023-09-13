@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SpeakerController;
@@ -76,9 +77,9 @@ Route::get('/presentations/{presentation}', [ScheduleController::class, 'show'])
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
 
-Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
+Route::get('/speakers/request', [PresentationController::class, 'create'])
     ->name('speakers.request.presentation');
-Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
+Route::post('/speakers/request', [PresentationController::class, 'store'])
     ->name('speakers.request.process');
 
 Route::middleware([
