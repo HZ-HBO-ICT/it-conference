@@ -87,8 +87,12 @@
                 @if(!$allSponsors->isEmpty())
                     <div class="flex flex-wrap justify-center gap-12 mt-16">
                         @foreach($allSponsors as $sponsor)
-                            <div>
-                                <img alt="{{ $sponsor->name }}" src="{{ $sponsor->logo_path }}" class="w-full h-full">
+                            <div class="border border-2 @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
+                            @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_approved) border-silver block
+                            @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_approved) border-bronze hidden xl:block @endif rounded-lg">
+                                <a href="{{ $sponsor->website }}">
+                                    <img alt="{{ $sponsor->name }}" src="{{ $sponsor->logo_path }}" class="w-full h-full px-6 py-6">
+                                </a>
                             </div>
                         @endforeach
                     </div>
