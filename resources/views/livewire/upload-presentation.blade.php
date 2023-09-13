@@ -18,7 +18,7 @@
                             </div>
                         @endif
                     @endif
-                    @if(Auth::user()->hasRole('speaker'))
+                    @if(!Auth::user()->hasRole('content moderator'))
                         @if(Auth::user()->speaker->presentation_id == $presentation->id)
                             <div class="mt-1 flex items-center">
                                 <input type="file" id="file" wire:model="file"
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        @if(Auth::user()->hasRole('speaker'))
+        @if(!Auth::user()->hasRole('content moderator'))
             @if(Auth::user()->speaker->presentation_id == $presentation->id)
                 <div class="pt-5">
                     <div class="flex justify-end">
