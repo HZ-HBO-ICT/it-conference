@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\EventInstance;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('global_events', function (Blueprint $table) {
+        Schema::create('event_instances', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->integer('state')->default(EventInstance::STATE_NEW);
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('global_events');
+        Schema::dropIfExists('event_instances');
     }
 };

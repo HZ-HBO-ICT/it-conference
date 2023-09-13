@@ -39,7 +39,7 @@
                     <span class="flex items-center h-full justify-center">Automatically fill</span>
                 </a>
             </div>
-            @if(!App\Models\GlobalEvent::isFinalProgrammeReleased())
+            @if(!\App\Models\EventInstance::current()->is_final_programme_released)
                 <div>
                     @livewire('release-final-programme')
                 </div>

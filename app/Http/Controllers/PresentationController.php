@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventInstance;
 use App\Models\GlobalEvent;
 use App\Models\Presentation;
 use App\Models\Speaker;
@@ -61,11 +62,10 @@ class PresentationController extends Controller
             return view('speakers.presentation.show', compact('presentation'));
 
         // To everyone else once the programme is released
-        // TODO: Refactor with the new model Daan is implementing
-        if (GlobalEvent::isFinalProgrammeReleased())
-            return view('presentations.show', compact('presentation'));
+        if (!EventInstance::current()->is_final_programme_released)
+            abort(404);
 
-        abort(404);
+        return view('presentations.show', compact('presentation'));
     }
 
     public function edit(Presentation $presentation)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GlobalEvent;
+use App\Models\EventInstance;
 use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
@@ -19,7 +19,7 @@ class ScheduleController extends Controller
 {
     public function index(): View
     {
-        if (!GlobalEvent::isFinalProgrammeReleased())
+        if (!EventInstance::current()->is_final_programme_released)
             abort(404);
 
         $lectureTimeslots = Timeslot::where('duration', 30)->get();

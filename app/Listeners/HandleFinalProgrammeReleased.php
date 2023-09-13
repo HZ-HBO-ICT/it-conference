@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\FinalProgrammeReleased;
-use App\Models\GlobalEvent;
+use App\Models\EventInstance;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -22,8 +22,8 @@ class HandleFinalProgrammeReleased
      */
     public function handle(FinalProgrammeReleased $event): void
     {
-        GlobalEvent::create([
-            'type' => 'App\Events\FinalProgrammeReleased'
-        ]);
+        $current = EventInstance::current();
+        $current->state = EventInstance::STATE_ENROLLMENT;
+        $current->save();
     }
 }
