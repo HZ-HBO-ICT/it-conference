@@ -22,7 +22,10 @@
             <p class="text-lg">{{$presentation->description}}</p>
             <h2 class="text-lg py-2">Type: {{ucfirst($presentation->type)}} </h2>
             <h2 class="text-lg py-2">Max participants that the speaker wants: {{$presentation->max_participants}} </h2>
-            </h2>
+            <x-section-border/>
+            <div>
+                @livewire('override-difficulty', ['presentation' => $presentation])
+            </div>
         </div>
         <div>
             <div>
