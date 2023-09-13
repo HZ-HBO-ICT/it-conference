@@ -29,7 +29,7 @@
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
-                @if(\App\Models\GlobalEvent::isFinalProgrammeReleased())
+                @if(\App\Models\EventInstance::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                             {{ __('Programme') }}
@@ -94,7 +94,7 @@
             <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
-            @if(\App\Models\GlobalEvent::isFinalProgrammeReleased())
+            @if(\App\Models\EventInstance::current()->is_final_programme_released)
                 <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                     {{ __('Programme') }}
                 </x-responsive-nav-link>

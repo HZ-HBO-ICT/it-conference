@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('event_instances', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->integer('state')->default(EventInstance::STATE_NEW);
             $table->timestamps();
         });
