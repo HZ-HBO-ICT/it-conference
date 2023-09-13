@@ -14,6 +14,7 @@ class UploadPresentation extends Component
 
     public $file;
     public $presentation;
+    public $filename;
 
     public function mount($presentation)
     {
@@ -33,6 +34,8 @@ class UploadPresentation extends Component
             'file.max' => 'The file must not be larger than 10MB',
             'file.mimetypes' => 'The file must be a pdf, powerpoint, or presentation document',
         ]);
+
+        $this->filename = $this->file->getClientOriginalName();
     }
 
     public function downloadFile()

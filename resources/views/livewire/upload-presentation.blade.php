@@ -39,12 +39,15 @@
                             </div>
                         @endif
                     @endif
+                    @if($file && !session()->has('message'))
+                        <p class="text-gray-500">{{ $filename }}</p>
+                    @endif
                     @error('file') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
             </div>
         </div>
         @if(!Auth::user()->hasRole('content moderator') && !\App\Models\GlobalEvent::isFinalProgrammeReleased())
-            @if(Auth::user()->speaker->presentation_id == $presentation->id)
+            @if(Auth::user()->speaker->presentation_id == $presentation->id && $file && !session()->has('message'))
                 <div class="pt-5">
                     <div class="flex justify-end">
                         <button type="submit"
