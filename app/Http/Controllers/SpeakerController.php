@@ -15,7 +15,9 @@ class SpeakerController extends Controller
      */
     public function index()
     {
-        $speakers = Speaker::where('is_approved', 1)->get();
+        $speakers = Speaker::where('is_approved', 1)
+            ->where('is_main_speaker', 1)
+            ->get();
 
         return view('speakers.index', compact('speakers'));
     }
