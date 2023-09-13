@@ -35,9 +35,8 @@ class CreateAdmin extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         // email address is taken as an argument
         $email = $this->argument('email');
