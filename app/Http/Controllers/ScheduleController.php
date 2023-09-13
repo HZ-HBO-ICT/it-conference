@@ -29,14 +29,6 @@ class ScheduleController extends Controller
             compact('lectureTimeslots', 'workshopTimeslots'));
     }
 
-    public function show(Presentation $presentation): View
-    {
-        if (!GlobalEvent::isFinalProgrammeReleased())
-            abort(404);
-
-        return view('presentations.show', compact('presentation'));
-    }
-
     /**
      * Display the overview for scheduling
      *

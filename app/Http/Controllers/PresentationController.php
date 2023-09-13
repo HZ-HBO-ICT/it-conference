@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GlobalEvent;
 use App\Models\Presentation;
 use App\Models\Speaker;
 use Illuminate\Http\Request;
@@ -50,6 +51,20 @@ class PresentationController extends Controller
             ]);
         }
 
-        return redirect(route('welcome'))->banner("You successfully send your request to host a {$presentation->type}");
+        return redirect(route('presentations.show', $presentation))->banner("You successfully send your request to host a {$presentation->type}");
+    }
+
+    public function show(Presentation $presentation)
+    {
+        // Shows the view to the host of the presentation
+        if (Auth::user()->id == $presentation->mainSpeaker()->user->id)
+            return view('speakers.presentation-details', compact('presentation'));
+
+        // To everyone else once the programme is released
+        // TODO: Refactor with the new model Daan is implementing
+        if (GlobalEvent::isFinalProgrammeReleased())
+            return view('presentations.show', compact('presentation'));
+
+        abort(404);
     }
 }

@@ -55,6 +55,9 @@ Route::middleware([
         ->name('speakers.request.presentation');
     Route::post('/speakers/request', [PresentationController::class, 'store'])
         ->name('speakers.request.process');
+
+    Route::get('/presentation/{presentation}', [PresentationController::class, 'show'])
+        ->name('presentations.show');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
@@ -74,9 +77,6 @@ Route::get('/faq', function () {
 
 Route::get('/programme', [ScheduleController::class, 'index'])
     ->name('programme');
-
-Route::get('/presentations/{presentation}', [ScheduleController::class, 'show'])
-    ->name('presentations.show');
 
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
