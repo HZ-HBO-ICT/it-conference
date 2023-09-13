@@ -23,9 +23,14 @@
                             <x-countdown/>
                         </div>
                         <!-- The div for the logo of the sponsor -->
-                        {{--<div class="basis-1/2 pt-16">
-                            <p class="uppercase pt-2 pl-20 text-gray-200">sponsored by [logo]</p>
-                        </div>--}}
+                        @if($goldSponsor)
+                            <div class="basis-1/3 pt-16">
+                                <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
+                            </div>
+                            <div class="basis-1/3 pt-16">
+                                <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
+                            </div>
+                        @endif
                     </div>
                     @guest()
                         <div class="mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
