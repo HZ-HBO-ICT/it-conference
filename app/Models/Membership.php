@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Laravel\Jetstream\Membership as JetstreamMembership;
 
 /**
@@ -11,18 +14,18 @@ use Laravel\Jetstream\Membership as JetstreamMembership;
  * @property int $team_id
  * @property int $user_id
  * @property string|null $role
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Membership newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Membership newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Membership query()
- * @method static \Illuminate\Database\Eloquent\Builder|Membership whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Membership whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Membership whereRole($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Membership whereTeamId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Membership whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Membership whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Membership newModelQuery()
+ * @method static Builder|Membership newQuery()
+ * @method static Builder|Membership query()
+ * @method static Builder|Membership whereCreatedAt($value)
+ * @method static Builder|Membership whereId($value)
+ * @method static Builder|Membership whereRole($value)
+ * @method static Builder|Membership whereTeamId($value)
+ * @method static Builder|Membership whereUpdatedAt($value)
+ * @method static Builder|Membership whereUserId($value)
+ * @mixin Eloquent
  */
 class Membership extends JetstreamMembership
 {

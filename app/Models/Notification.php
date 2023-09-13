@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Notification
@@ -15,20 +18,20 @@ use Illuminate\Database\Eloquent\Prunable;
  * @property int $notifiable_id
  * @property string $data
  * @property string|null $read_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Notification newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Notification newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Notification query()
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereNotifiableId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereNotifiableType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereReadAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Notification newModelQuery()
+ * @method static Builder|Notification newQuery()
+ * @method static Builder|Notification query()
+ * @method static Builder|Notification whereCreatedAt($value)
+ * @method static Builder|Notification whereData($value)
+ * @method static Builder|Notification whereId($value)
+ * @method static Builder|Notification whereNotifiableId($value)
+ * @method static Builder|Notification whereNotifiableType($value)
+ * @method static Builder|Notification whereReadAt($value)
+ * @method static Builder|Notification whereType($value)
+ * @method static Builder|Notification whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Notification extends Model
 {
@@ -37,7 +40,7 @@ class Notification extends Model
     /**
      * Get the prunable model query.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function prunable()
     {

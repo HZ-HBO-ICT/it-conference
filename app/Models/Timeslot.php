@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use App\Http\Controllers\TimeslotController;
+use Database\Factories\TimeslotFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Timeslot
@@ -13,20 +18,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $start
  * @property int $duration The duration of the presentation in minutes
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Presentation> $presentations
  * @property-read int|null $presentations_count
- * @method static \Database\Factories\TimeslotFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot query()
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot whereDuration($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot whereStart($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Timeslot whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static TimeslotFactory factory($count = null, $state = [])
+ * @method static Builder|Timeslot newModelQuery()
+ * @method static Builder|Timeslot newQuery()
+ * @method static Builder|Timeslot query()
+ * @method static Builder|Timeslot whereCreatedAt($value)
+ * @method static Builder|Timeslot whereDuration($value)
+ * @method static Builder|Timeslot whereId($value)
+ * @method static Builder|Timeslot whereStart($value)
+ * @method static Builder|Timeslot whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Timeslot extends Model
 {

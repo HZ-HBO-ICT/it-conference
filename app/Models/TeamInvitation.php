@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
 
@@ -13,19 +16,19 @@ use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
  * @property int $team_id
  * @property string $email
  * @property string|null $role
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Team $team
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation query()
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereRole($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereTeamId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TeamInvitation whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Team $team
+ * @method static Builder|TeamInvitation newModelQuery()
+ * @method static Builder|TeamInvitation newQuery()
+ * @method static Builder|TeamInvitation query()
+ * @method static Builder|TeamInvitation whereCreatedAt($value)
+ * @method static Builder|TeamInvitation whereEmail($value)
+ * @method static Builder|TeamInvitation whereId($value)
+ * @method static Builder|TeamInvitation whereRole($value)
+ * @method static Builder|TeamInvitation whereTeamId($value)
+ * @method static Builder|TeamInvitation whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class TeamInvitation extends JetstreamTeamInvitation
 {

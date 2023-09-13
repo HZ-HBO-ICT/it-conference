@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\SpeakerFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Speaker
@@ -14,22 +18,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $presentation_id
  * @property int $is_main_speaker Since there can be multiple presenters for a single presentation
  * @property int $is_approved
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Presentation $presentation
- * @property-read \App\Models\User $user
- * @method static \Database\Factories\SpeakerFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker query()
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker whereIsApproved($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker whereIsMainSpeaker($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker wherePresentationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Speaker whereUserId($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Presentation $presentation
+ * @property-read User $user
+ * @method static SpeakerFactory factory($count = null, $state = [])
+ * @method static Builder|Speaker newModelQuery()
+ * @method static Builder|Speaker newQuery()
+ * @method static Builder|Speaker query()
+ * @method static Builder|Speaker whereCreatedAt($value)
+ * @method static Builder|Speaker whereId($value)
+ * @method static Builder|Speaker whereIsApproved($value)
+ * @method static Builder|Speaker whereIsMainSpeaker($value)
+ * @method static Builder|Speaker wherePresentationId($value)
+ * @method static Builder|Speaker whereUpdatedAt($value)
+ * @method static Builder|Speaker whereUserId($value)
+ * @mixin Eloquent
  */
 class Speaker extends Model
 {

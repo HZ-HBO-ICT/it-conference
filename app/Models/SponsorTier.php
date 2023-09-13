@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use App\Mail\SponsorshipDisapproved;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -14,19 +18,19 @@ use Illuminate\Support\Facades\Mail;
  * @property int $id
  * @property string $name
  * @property int $max_sponsors The maximum companies that can have that tier
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Team> $teams
  * @property-read int|null $teams_count
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier query()
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereMaxSponsors($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SponsorTier whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder|SponsorTier newModelQuery()
+ * @method static Builder|SponsorTier newQuery()
+ * @method static Builder|SponsorTier query()
+ * @method static Builder|SponsorTier whereCreatedAt($value)
+ * @method static Builder|SponsorTier whereId($value)
+ * @method static Builder|SponsorTier whereMaxSponsors($value)
+ * @method static Builder|SponsorTier whereName($value)
+ * @method static Builder|SponsorTier whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class SponsorTier extends Model
 {

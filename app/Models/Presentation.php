@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use Database\Factories\PresentationFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -20,31 +25,31 @@ use Illuminate\Support\Facades\DB;
  * @property string $type
  * @property int|null $timeslot_id
  * @property int|null $room_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int|null $difficulty_id
- * @property-read \App\Models\Difficulty|null $difficulty
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $participants
+ * @property-read Difficulty|null $difficulty
+ * @property-read Collection<int, User> $participants
  * @property-read int|null $participants_count
- * @property-read \App\Models\Room|null $room
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Speaker> $speakers
+ * @property-read Room|null $room
+ * @property-read Collection<int, Speaker> $speakers
  * @property-read int|null $speakers_count
- * @property-read \App\Models\Timeslot|null $timeslot
- * @method static \Database\Factories\PresentationFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation query()
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereDifficultyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereMaxParticipants($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereRoomId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereTimeslotId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Presentation whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property-read Timeslot|null $timeslot
+ * @method static PresentationFactory factory($count = null, $state = [])
+ * @method static Builder|Presentation newModelQuery()
+ * @method static Builder|Presentation newQuery()
+ * @method static Builder|Presentation query()
+ * @method static Builder|Presentation whereCreatedAt($value)
+ * @method static Builder|Presentation whereDescription($value)
+ * @method static Builder|Presentation whereDifficultyId($value)
+ * @method static Builder|Presentation whereId($value)
+ * @method static Builder|Presentation whereMaxParticipants($value)
+ * @method static Builder|Presentation whereName($value)
+ * @method static Builder|Presentation whereRoomId($value)
+ * @method static Builder|Presentation whereTimeslotId($value)
+ * @method static Builder|Presentation whereType($value)
+ * @method static Builder|Presentation whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Presentation extends Model
 {

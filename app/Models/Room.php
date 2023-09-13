@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\RoomFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Room
@@ -12,20 +17,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property int $max_participants The max number of participants that the room allows
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Presentation> $presentations
  * @property-read int|null $presentations_count
- * @method static \Database\Factories\RoomFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Room newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Room newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Room query()
- * @method static \Illuminate\Database\Eloquent\Builder|Room whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Room whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Room whereMaxParticipants($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Room whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Room whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static RoomFactory factory($count = null, $state = [])
+ * @method static Builder|Room newModelQuery()
+ * @method static Builder|Room newQuery()
+ * @method static Builder|Room query()
+ * @method static Builder|Room whereCreatedAt($value)
+ * @method static Builder|Room whereId($value)
+ * @method static Builder|Room whereMaxParticipants($value)
+ * @method static Builder|Room whereName($value)
+ * @method static Builder|Room whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Room extends Model
 {
