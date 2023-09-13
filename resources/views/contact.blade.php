@@ -21,10 +21,6 @@
                         <p class="dark:text-gray-200">4331 NB Middelburg</p>
                         <a class="text-blue-600 hover:text-blue-400 visited:text-purple-600" href="mailto: info@weareinittogether.nl">info@weareinittogether.nl</a>
                     </div>
-
-                    <div class="col-span-12 md:col-span-5">
-                        <x-map/>
-                    </div>
                 </div>
 
                 <div>
@@ -48,6 +44,14 @@
                             {{ __('Send') }}
                         </x-button>
                     </form>
+                </div>
+            </div>
+
+            <p class="tracking-tight leading-10 font-bold text-4xl dark:text-white mt-24 text-center">Our location on the map</p>
+
+            <div class="grid mt-10">
+                <div>
+                    <x-map/>
                 </div>
             </div>
         </div>
