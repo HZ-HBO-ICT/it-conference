@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GlobalEvent;
 use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
@@ -16,6 +17,26 @@ use Ramsey\Uuid\Type\Time;
 
 class ScheduleController extends Controller
 {
+    public function index(): View
+    {
+        if (!GlobalEvent::isFinalProgrammeReleased())
+            abort(404);
+
+        $lectureTimeslots = Timeslot::where('duration', 30)->get();
+        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+
+        return view('presentations.index',
+            compact('lectureTimeslots', 'workshopTimeslots'));
+    }
+
+    public function show(Presentation $presentation): View
+    {
+        if (!GlobalEvent::isFinalProgrammeReleased())
+            abort(404);
+
+        return view('presentations.show', compact('presentation'));
+    }
+
     /**
      * Display the overview for scheduling
      *
@@ -137,9 +158,9 @@ class ScheduleController extends Controller
     {
         $presentationsScheduled = 0;
 
-        $presentations = Presentation::whereDoesntHave('room')
-            ->whereDoesntHave('timeslot')
-            ->get();
+        $presentations = Presentation::all()->filter(function ($presentation) {
+            return !$presentation->isScheduled && $presentation->isApproved;
+        });
 
         foreach ($presentations as $presentation) {
             $timeslots = Timeslot::where('duration', $presentation->type == 'lecture' ? 30 : 90)
