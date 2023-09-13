@@ -24,7 +24,6 @@ class Presentation extends Model
             'description' => 'required',
             'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required',
-            'file_path' => 'required'
         ];
     }
 
