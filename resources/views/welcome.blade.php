@@ -25,10 +25,10 @@
                         <!-- The div for the logo of the sponsor -->
                         @if($goldSponsor)
                             <div class="basis-1/3 pt-16">
-                                <p class="uppercase pt-2 pl-20 text-gray-200">sponsored by</p>
+                                <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
                             </div>
-                            <div class="basis-1/6 pt-5">
-                                <img alt="{{ $goldSponsor->name }}" src="{{ $goldSponsor->logo_path }}" class="w-full h-full">
+                            <div class="basis-1/3 pt-16">
+                                <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
                             </div>
                         @endif
                     </div>

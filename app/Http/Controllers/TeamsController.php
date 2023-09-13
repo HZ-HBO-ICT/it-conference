@@ -17,11 +17,4 @@ class TeamsController extends Controller
 
         return view('companies', compact('teams'));
     }
-
-    public function getSponsors() {
-        $goldSponsor = SponsorTier::where('name', 'golden')->first()->teams->first();
-        $allSponsors = Team::where('is_sponsor_approved', 1)->get();
-
-        return view('welcome', compact(['goldSponsor', 'allSponsors']));
-    }
 }
