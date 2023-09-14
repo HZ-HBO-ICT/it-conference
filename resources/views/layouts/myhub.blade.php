@@ -2,11 +2,9 @@
     use Illuminate\Support\Facades\Auth;
     use App\Models\Presentation;
 
-    $canRequestPresentation = true;
-    if (Auth::user()->cannot('sendRequest', Presentation::class)
-        && Auth::user()->cannot('sendRequestGoldenSponsor', Presentation::class)) {
-        $canRequestPresentation = false;
-    }
+    $canRequestPresentation = Auth::user()->currentTeam->isGoldenSponsor
+    ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
+    : Auth::user()->can('sendRequest', Presentation::class);
 @endphp
 
 <x-app-moderator-layout>

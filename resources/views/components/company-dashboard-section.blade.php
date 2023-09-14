@@ -22,6 +22,13 @@
                        class="text-purple-500">
                         Invite speakers to host a presentation
                     </a>
+                    @if(!Auth::user()->speaker)
+                        or
+                        <a href="{{route('speakers.request.presentation')}}"
+                           class="text-purple-500">
+                            host one yourself
+                        </a>
+                    @endif
                 </p>
             </div>
         </div>
@@ -93,7 +100,7 @@
                 @endforeach
             @else
                 <p class="text-purple-600 font-medium text-md dark:text-purple-500">
-                    Your speakers have not requested any presentations yet
+                    Your company has not requested any presentations yet
                 </p>
             @endif
         </div>

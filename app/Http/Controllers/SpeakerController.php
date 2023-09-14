@@ -24,8 +24,11 @@ class SpeakerController extends Controller
 
     public function requestPresentation()
     {
-        if (Auth::user()->cannot('sendRequest', Presentation::class)
-            && Auth::user()->cannot('sendRequestGoldenSponsor', Presentation::class)) {
+        $canRequestPresentation = Auth::user()->currentTeam->isGoldenSponsor
+            ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
+            : Auth::user()->can('sendRequest', Presentation::class);
+
+        if (!$canRequestPresentation) {
             abort(403);
         }
 
