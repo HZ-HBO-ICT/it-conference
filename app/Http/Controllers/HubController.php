@@ -26,6 +26,11 @@ class HubController extends Controller
      * get personal programme for the user
      */
     public function getProgramme() {
+
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
+
         $user = Auth::user();
         $presentations = $user->presentations->sortBy('timeslot.start');
 
