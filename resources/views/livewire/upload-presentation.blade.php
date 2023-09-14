@@ -1,4 +1,7 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
+@php
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\EventInstance;
+@endphp
 <div>
     <form wire:submit.prevent="save" class="space-y-8">
         <div class="space-y-8 divide-y divide-gray-200">
@@ -18,7 +21,7 @@
                             </div>
                         @endif
                     @endif
-                    @if(!Auth::user()->hasRole('content moderator') && !\App\Models\GlobalEvent::isFinalProgrammeReleased())
+                    @if(!Auth::user()->hasRole('content moderator') && !EventInstance::current()->is_final_programme_released)
                         @if(Auth::user()->speaker->presentation_id == $presentation->id)
                             <div class="mt-1 flex items-center">
                                 <input type="file" id="file" wire:model="file"
@@ -46,7 +49,7 @@
                 </div>
             </div>
         </div>
-        @if(!Auth::user()->hasRole('content moderator') && !\App\Models\GlobalEvent::isFinalProgrammeReleased())
+        @if(!Auth::user()->hasRole('content moderator') && !EventInstance::current()->is_final_programme_released)
             @if(Auth::user()->speaker->presentation_id == $presentation->id && $file && !session()->has('message'))
                 <div class="pt-5">
                     <div class="flex justify-end">

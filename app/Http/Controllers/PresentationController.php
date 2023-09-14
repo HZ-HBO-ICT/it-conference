@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\EventInstance;
-use App\Models\GlobalEvent;
 use App\Models\Presentation;
 use App\Models\Speaker;
 use Illuminate\Http\Request;
