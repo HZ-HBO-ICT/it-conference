@@ -222,7 +222,7 @@ class Team extends JetstreamTeam
     public function isGoldenSponsor(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->sponsorTier ? $this->sponsorTier->name === 'golden' : 0
+            get: fn() => $this->sponsorTier ? $this->sponsorTier->name === 'golden' && $this->is_sponsor_approved : 0
         );
     }
 
