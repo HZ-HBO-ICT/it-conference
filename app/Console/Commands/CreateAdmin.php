@@ -47,7 +47,7 @@ class CreateAdmin extends Command
         // get the password as argument.
         // Note, we have to take this as an argument, on our STRATO server the STDIN is not available
         // therefore $this->ask and $this->secret won't work
-        $password = $this->argument('password?');
+        $password = $this->argument('password');
 
         $this->createUser($email, $name, $password);
     }
