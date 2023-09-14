@@ -8,6 +8,21 @@ use Illuminate\Auth\Access\Response;
 
 class PresentationPolicy
 {
+
+    public function request(User $user)
+    {
+        // If the user already is a speaker
+        if ($user->speaker) {
+            return false;
+        }
+
+        if ($user->currentTeam) {
+            return $user->currentTeam->has_presentations_left;
+        }
+
+        return false;
+    }
+
     /**
      * Allows the user to send a request only if:
      * The user has no other presentation
