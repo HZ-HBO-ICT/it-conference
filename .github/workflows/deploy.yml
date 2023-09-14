@@ -73,6 +73,7 @@ jobs:
           cp -r $LATEST_RELEASE/storage $NEW_DIR/storage/
           cd $NEW_DIR
           php artisan migrate --force
+          php artisan storage:link
           cd -
 
           # Undo maintenance mode
