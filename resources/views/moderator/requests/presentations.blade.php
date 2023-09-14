@@ -1,49 +1,20 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Requests for {{$type}}
-        </h2>
-    </x-slot>
-
-    <div>
-        <div class="max-w-7xl mx-auto py-5 mt-12 sm:px-6 lg:px-8 dark:bg-gray-800 bg-gray-200 rounded">
-            <table class="table-auto w-full ">
-                <thead>
-                <tr>
-                    <th class="px-4 py-2 text-left bg-indigo-500 text-white rounded rounded-r-none">Speaker</th>
-                    <th class="px-4 py-2 text-left bg-indigo-500 text-white rounded rounded-r-none rounded-l-none">
-                        Presentation title
-                    </th>
-                    <th class="px-4 py-2 text-left bg-indigo-500 text-white rounded rounded-l-none">Type</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($presentations as $index => $presentation)
-                    <tr class="{{ $index % 2 === 0 ? 'dark:bg-gray-900 bg-gray-100' : 'dark:bg-gray-700 bg-gray-200' }} dark:text-gray-200">
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none">
-                            <a href="{{route('moderator.request.details', ['presentations', $presentation])}}">
-                                {{$presentation->mainSpeaker()->user->name}}
-                            </a>
-                        </td>
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none rounded-l-none">
-                            <a href="{{route('moderator.request.details', ['presentations', $presentation])}}">
-                                {{$presentation->name}}
-                            </a>
-                        </td>
-                        <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-l-none">
-                            <a href="{{route('moderator.request.details', ['presentations', $presentation])}}">
-                                {{ucfirst($presentation->type)}}
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+<x-content-moderator-layout>
+    <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Presentation requests</h1>
+    <div class="grid grid-cols-1 gap-2 pr-12 pl-4">
+        <h2 class="text-2xl text-gray-700 dark:text-white">Speakers and the presentations</h2>
+        @forelse($presentations as $presentation)
+            <a href="{{route('moderator.request.details', ['presentations', $presentation])}}">
+                <div
+                    class="card w-full rounded-md bg-violet-700 text-white font-bold px-4 py-4 drop-shadow-l  transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+                    {{$presentation->mainSpeaker()->user->name}} - {{$presentation->name}}
+                                                                 ({{ucfirst($presentation->type)}})
+                </div>
+            </a>
+        @empty
+            <p class="text-violet-600 text-lg">There are currently no presentation requests.</p>
+        @endforelse
+        <div class="pt-2">
+            {{ $presentations->links() }}
         </div>
     </div>
-</x-app-layout>
-<style>
-    td a {
-        display: block;
-    }
-</style>
+</x-content-moderator-layout>

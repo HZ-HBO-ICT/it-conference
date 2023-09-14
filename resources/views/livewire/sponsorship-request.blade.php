@@ -6,7 +6,7 @@
 
         <x-slot name="description">
             If you decide to become a sponsor of the conference, there are different tiers that you can choose of with
-            different privileges. Check out <a class="dark:text-gray-400 underline" href="/files/sponsor-packages.pdf">this
+            different privileges. Check out <a class="text-purple-600 dark:text-purple-500 underline" href="/files/sponsor-packages.pdf">this
                                                                                                                        link</a>
             for more detailed information.
         </x-slot>
@@ -20,7 +20,7 @@
 
             <!-- Tiers -->
             <div class="col-span-6 sm:col-span-4">
-                @if(!$this->requestSent)
+                @if(!$this->requestSent && !is_null($chosenTierName))
                     <div class="col-span-6 lg:col-span-4">
                         <x-label for="tier" value="{{ __('Sponsor tier') }}"/>
                         <div
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     @if($chosenTierName)
-                        <div class="pt-2 text-gray-900 dark:text-gray-400 text-sm">
+                        <div class="pt-2 text-purple-600 dark:text-purple-500 text-sm">
                             Available spots: {{$tiers->firstWhere('name', $chosenTierName)->leftSpots()}}
                         </div>
                     @endif
@@ -47,6 +47,8 @@
                                 You are approved and confirmed as a {{ucfirst($this->team->sponsorTier->name)}} sponsor!
                             </div>
                         </div>
+                    @elseif(is_null($chosenTierName))
+                        There is no more space for sponsors
                     @else
                         <div class="row">
                             <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded">
@@ -66,8 +68,8 @@
         </x-slot>
 
         <x-slot name="actions">
-            @if(!$this->requestSent)
-                <x-button>
+            @if(!$this->requestSent && !is_null($chosenTierName))
+                <x-button class="bg-purple-600 dark:bg-purple-500 hover:bg-purple-500 dark:hover:bg-purple-600 text-gray-200 dark:text-gray-200">
                     {{ __('Send request') }}
                 </x-button>
             @endif

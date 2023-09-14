@@ -1,7 +1,7 @@
 <x-app-layout>
     <div style="overflow-x: hidden;"> {{--don't allow side scrolling--}}
         <!-- The main banner -->
-        <div class="relative isolate bg-gray-900 py-72 bg-cover bg-center"
+        <div class="relative isolate bg-gray-900 py-80 sm:py-72 bg-cover bg-center"
              style="background-image: url('/img/auditorium.jpg');">
             <div class="absolute inset-0">
                 <!-- The gradient -->
@@ -10,16 +10,16 @@
                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16">
                     <!-- Titles -->
                     <div>
-                        <h1 class="text-white text-3xl sm:text-5xl font-bold text-center whitespace-nowrap"
+                        <h1 class="text-white text-5xl leading-snug font-bold text-center md:whitespace-nowrap"
                             style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
-                        <h2 class="pt-1 text-2xl sm:text-xl text-white font-montserrat text-center italic uppercase">
+                        <h2 class="pt-1 text-xl text-white font-montserrat text-center italic uppercase">
                             "it does not only build a bridge, it involves us all"
                         </h2>
                     </div>
                     <div class="flex flex-row">
-                        <div class="basis-1/2 pr-6">
+                        <div class="md:basis-1/2 basis-full md:pr-6">
                             <x-countdown/>
                         </div>
                         <!-- The div for the logo of the sponsor -->
@@ -28,23 +28,39 @@
                         </div>--}}
                     </div>
                     @guest()
-                        <div class="mt-16 flex flex-col items-center">
+                        <div class="mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
                             <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
                         </div>
                     @endguest
                 </div>
             </div>
             <!-- Blob -->
-            <img src="/img/rose-blob.png"
-                 class="absolute -top-24 -right-48 h-[34rem] opacity-75"
-                 style="transform: rotate(110deg) scaleX(-1)">
+            <!-- the auth/guest is necessary because the register now button changes the layout -->
+            @auth()
+                <img src="/img/rose-blob.png"
+                     class="absolute -top-52 -right-64 sm:-top-24 sm:-right-72 md:-top-64 md:-right-80 lg:-top-40 lg:-right-80 xl:-top-24 xl:-right-48 h-[34rem] opacity-75"
+                     style="transform: rotate(110deg) scaleX(-1);">
+            @endauth
+            @guest()
+                <img src="/img/rose-blob.png"
+                     class="absolute -top-64 -right-64 sm:-top-24 sm:-right-80 md:-top-80 md:-right-80 lg:-top-24 lg:-right-80 xl:-top-24 xl:-right-48 h-[34rem] opacity-75"
+                     style="transform: rotate(110deg) scaleX(-1);">
+            @endguest
         </div>
         <!-- Second banner -->
         <div class="relative isolate h-[29rem] border-red-700">
             <!-- Blob -->
-            <img src="/img/blue-blob.png"
-                 class="absolute -top-96 -left-48 h-[34rem] transform translate-x-1/2 translate-y-1/2 z-10  opacity-75"
-                 style="transform: rotate(61deg)">
+            <!-- the auth/guest is necessary because the register now button changes the layout -->
+            @auth()
+                <img src="/img/blue-blob.png"
+                     class="absolute -top-80 -left-96 md:-top-52 md:-left-80 lg:-top-80 lg:-left-72 xl:-top-96 xl:-left-48 h-[34rem] transform translate-x-1/2 translate-y-1/2 z-10  opacity-75"
+                     style="transform: rotate(61deg)">
+            @endauth
+            @guest()
+                <img src="/img/blue-blob.png"
+                     class="absolute -top-96 -left-96 md:-top-64 md:-left-80 lg:-top-96 lg:-left-72 xl:-top-96 xl:-left-48 h-[34rem] transform translate-x-1/2 translate-y-1/2 z-10  opacity-75"
+                     style="transform: rotate(61deg)">
+            @endguest
             <x-slideshow/>
         </div>
         <!-- Third banner + gradient (since empty bg) -->

@@ -1,42 +1,15 @@
 <x-action-section>
     <x-slot name="title">
-        {{ __('Delete Team') }}
+        {{ __('Delete company') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Permanently delete this team.') }}
+        {{ __('Delete your company if you wish to no longer be participating in the IT Conference.') }}
     </x-slot>
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-            Once your team is deleted, everything regarding the company will be removed as well - booth, presentation, members.
+            If you wish to not be present during the conference contact us at <a href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
         </div>
-
-        <div class="mt-5">
-            <x-danger-button wire:click="$toggle('confirmingTeamDeletion')" wire:loading.attr="disabled">
-                {{ __('Delete Team') }}
-            </x-danger-button>
-        </div>
-
-        <!-- Delete Team Confirmation Modal -->
-        <x-confirmation-modal wire:model="confirmingTeamDeletion">
-            <x-slot name="title">
-                {{ __('Delete Team') }}
-            </x-slot>
-
-            <x-slot name="content">
-                'Are you sure you want to delete this team? Once a team is deleted, all of its resources and data will be permanently deleted.
-            </x-slot>
-
-            <x-slot name="footer">
-                <x-secondary-button wire:click="$toggle('confirmingTeamDeletion')" wire:loading.attr="disabled">
-                    {{ __('Cancel') }}
-                </x-secondary-button>
-
-                <x-danger-button class="ml-3" wire:click="deleteTeam" wire:loading.attr="disabled">
-                    {{ __('Delete Team') }}
-                </x-danger-button>
-            </x-slot>
-        </x-confirmation-modal>
     </x-slot>
 </x-action-section>

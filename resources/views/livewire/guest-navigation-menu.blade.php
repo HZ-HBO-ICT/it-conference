@@ -25,17 +25,24 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
+                @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                            {{ __('Programme') }}
+                        </x-nav-link>
+                    </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="#" {{--:active="request()->routeIs('dashboard')"--}}>
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
@@ -50,6 +57,12 @@
                     <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-nav-link>
+                </div>
+                <div class="pl-4">
+                    <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(107 114 128)"
+                         class="bi bi-circle-half" viewBox="0 0 16 16" style="cursor: pointer;">
+                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+                    </svg>
                 </div>
             </div>
 
@@ -78,9 +91,14 @@
             <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
+            @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                    {{ __('Programme') }}
+                </x-responsive-nav-link>
+            @endif
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
@@ -93,6 +111,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                 {{ __('Register') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link onclick="changeTheme()">
+                Change theme
             </x-responsive-nav-link>
         </div>
     </div>

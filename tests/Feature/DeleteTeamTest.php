@@ -20,7 +20,10 @@ class DeleteTeamTest extends TestCase
         $user->ownedTeams()->save($team = Team::factory()->make([
             'personal_team' => false,
             'name' => 'Test Team',
-            'address' => '123 Main St',
+            'postcode' => '1234 AB',
+            'house_number' => '1',
+            'city' => 'Lorem ipsum',
+            'street' => '123 Main St',
             'website' => 'https://example.com',
             'description' => 'Lorem ipsum dolar sit amet'
         ]));

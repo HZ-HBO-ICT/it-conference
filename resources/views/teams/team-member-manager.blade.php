@@ -5,12 +5,12 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Team Members') }}
+                    {{ __('Company Members') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    All of the people that you have invited to join your team during the IT Conference and have accepted
-                    to be part of your team.
+                    All of the people that you have invited to join your team for the IT Conference and have accepted
+                    the invitation
                 </x-slot>
 
                 <!-- Team Member List -->
@@ -18,41 +18,43 @@
                     <div class="space-y-6">
                         @if($team->users->isEmpty())
                             <div class="flex items-center">
-                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no team members</div>
+                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no members of your company</div>
                             </div>
                         @else
 
                             @foreach ($team->users->sortBy('name') as $user)
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <img class="w-8 h-8 rounded-full object-cover"
-                                             src="{{ $user->profile_photo_url }}"
-                                             alt="{{ $user->name }}">
-                                        <div class="ml-4 dark:text-white">{{ $user->name }}</div>
-                                    </div>
+                                @if($user->id != $team->owner->id)
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <img class="w-8 h-8 rounded-full object-cover"
+                                                 src="{{ $user->profile_photo_url }}"
+                                                 alt="{{ $user->name }}">
+                                            <div class="ml-4 dark:text-white">{{ $user->name }}</div>
+                                        </div>
 
-                                    <div class="flex items-center">
-                                        <!-- Manage Team Member Role -->
-                                        @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
-                                            <button class="ml-2 text-sm text-gray-400 underline"
-                                                    wire:click="manageRole('{{ $user->id }}')">
-                                                {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
-                                            </button>
-                                        @elseif (Laravel\Jetstream\Jetstream::hasRoles())
-                                            <div class="ml-2 text-sm text-gray-400">
-                                                {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
-                                            </div>
-                                        @endif
+                                        <div class="flex items-center">
+                                            <!-- Manage Team Member Role -->
+                                            @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
+                                                <button class="ml-2 text-sm text-gray-400 underline"
+                                                        wire:click="manageRole('{{ $user->id }}')">
+                                                    {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
+                                                </button>
+                                            @elseif (Laravel\Jetstream\Jetstream::hasRoles())
+                                                <div class="ml-2 text-sm text-gray-400">
+                                                    {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
+                                                </div>
+                                            @endif
 
-                                        <!-- Remove Team Member -->
-                                        @if (Gate::check('removeTeamMember', $team))
-                                            <button class="cursor-pointer ml-6 text-sm text-red-500"
-                                                    wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
-                                                {{ __('Remove') }}
-                                            </button>
-                                        @endif
+                                            <!-- Remove Team Member -->
+                                            @if (Gate::check('removeTeamMember', $team))
+                                                <button class="cursor-pointer ml-6 text-sm text-red-500"
+                                                        wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
+                                                    {{ __('Remove') }}
+                                                </button>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         @endif
                     </div>
@@ -65,11 +67,11 @@
         <div class="mt-10 sm:mt-0">
             <x-form-section submit="addTeamMember">
                 <x-slot name="title">
-                    Invite team member
+                    Invite company member
                 </x-slot>
 
                 <x-slot name="description">
-                    Add a new team member to your team to present {{$team->name}} during the IT Conference and choose
+                    Add a new member to your company to represent {{$team->name}} during the IT Conference and choose
                     their role
                 </x-slot>
 

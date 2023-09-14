@@ -47,9 +47,9 @@ class InviteTeamMember implements InvitesTeamMembers
             'email' => $email,
             'role' => $role,
         ], $this->rules($team), [
-            'email.unique' => __('This user has already been invited to the team.'),
-        ])->after(
-            $this->ensureUserIsNotAlreadyOnTeam($team, $email)
+            'email.unique' => __('This email address is already registered.'),
+            'email.unique_team' => __('This user has already been invited to the team.'),        ])->after(
+            $this->ensureUserIsNotAlreadyOnTeam($team, $email),
         )->validateWithBag('addTeamMember');
     }
 
@@ -62,7 +62,7 @@ class InviteTeamMember implements InvitesTeamMembers
     {
         return array_filter([
             'email' => [
-                'required', 'email',
+                'required', 'email', 'unique:users',
                 Rule::unique('team_invitations')->where(function (Builder $query) use ($team) {
                     $query->where('team_id', $team->id);
                 }),

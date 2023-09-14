@@ -15,13 +15,13 @@
                     let div = document.createElement('div');
 
                     let value = document.createElement('h2');
-                    value.className = 'text-2xl font-bold';
+                    value.className = 'text-2xl font-bold text-center md:text-left';
                     value.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.3)";
                     valueElements.push(value);
 
                     let label = document.createElement('p');
                     label.innerHTML = unit.charAt(0).toUpperCase() + unit.slice(1);
-                    label.className = 'text-base';
+                    label.className = 'text-xs sm:text-base text-center md:text-left';
                     label.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.3)";
                     labelElements.push(label);
 

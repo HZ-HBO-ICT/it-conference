@@ -19,6 +19,26 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+        });
+
+        function changeTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark')
+                localStorage.theme = 'light'
+            } else {
+                document.documentElement.classList.add('dark')
+                localStorage.theme = 'dark'
+            }
+        }
+    </script>
 </head>
 <body class="font-sans antialiased">
     <x-banner/>
@@ -41,7 +61,7 @@
         @endif
 
         <!-- Page Content -->
-        <main>
+        <main class="{{ request()->routeIs('welcome') ? '' : 'pb-5' }}">
             {{ $slot }}
         </main>
     </div>

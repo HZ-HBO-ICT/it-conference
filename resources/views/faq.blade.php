@@ -1,116 +1,43 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('FAQ') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-gray-200 shadow-xl sm:rounded-lg">
-                <div class="py-5 px-4">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                            <span class="text-xl"> What is the “We are in IT together Conference”?</span>
-                            <span class="transition group-open:rotate-180">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
-                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path
-                                        d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            </span>
-                        </summary>
-                        <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                            It is a conference where students and teachers from the HZ University of Applied sciences - HBO-ICT program together with representatives of IT companies get to learn from each other through workshops, presentations and company booths on the latest IT trends. The primary focus is to bring the IT community together and give the opportunity to students to find out more about the diverse working environment of IT. IT company members will have the opportunity to meet our students from years 1 to 4, follow workshops, network, find future employees, offer internships opportunities and experience first hand how we educate.
-                        </p>
-                    </details>
+    <div class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
+        <div class="text-center max-w-2xl mx-auto">
+            <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Frequently Asked Questions</h2>
+            <p class="leading-7 text-base dark:text-gray-200">
+                Have a different question and can’t find the answer you’re looking for? Reach out to our support team by emailing 
+                <a class="text-blue-600 hover:text-blue-400 visited:text-purple-600" href="mailto: info@weareinittogether.nl">info@weareinittogether.nl</a>
+                and we’ll get back to you as soon as we can.
+            </p>
+        </div>
+        <div class="m-20">
+            <dl class="gap-x-10 gap-y-16 grid-cols-2 grid">
+                <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
+                    <dt class="leading-7 font-semibold text-base dark:text-white">What is the “We are in IT together Conference”?</dt>
+                    <dd class="leading-7 mt-2 dark:text-gray-200">The 'We are in IT together Conference' is an inclusive platform where students, teachers, and IT company representatives collaborate through workshops, presentations, and booths. This event promotes knowledge exchange, enabling students to explore the dynamic IT industry and providing companies opportunities to connect with potential employees, offer internships, and engage with the university's educational approach.</dd>
                 </div>
-                <div class="h-1 border border-slate-400"></div>
-                <div class="py-5 px-4">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                            <span class="text-xl"> When and where does the “We are in IT together Conference” take place?</span>
-                            <span class="transition group-open:rotate-180">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
-                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path
-                                        d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            </span>
-                        </summary>
-                        <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                            The conference will take place on November 18th at our location in Het Groenewoud Middelburg. Visit <a href="https://hz.nl/en/about-hz/contact/middelburg"> hz.nl </a> for information about parking.
-                        </p>
-                    </details>
+                <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
+                    <dt class="leading-7 font-semibold text-base dark:text-white">When and where does the “We are in IT together Conference” take place?</dt>
+                    <dd class="leading-7 mt-2 dark:text-gray-200">The conference will take place on November 17th at our location in Het Groenewoud Middelburg. Visit 
+                    <a href="https://hz.nl/en/about-hz/contact/middelburg"> hz.nl </a> for information about parking.</dd>
                 </div>
-                <div class="h-1 border border-slate-400"></div>
-                <div class="py-5 px-4">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                            <span class="text-xl"> Is there an Online conference? </span>
-                            <span class="transition group-open:rotate-180">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
-                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path
-                                        d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            </span>
-                        </summary>
-                        <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                            Unfortunately, we will not be able to provide online attendance or record sessions.
-                        </p>
-                    </details>
+                <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
+                    <dt class="leading-7 font-semibold text-base dark:text-white">Can I follow the conference online?</dt>
+                    <dd class="leading-7 mt-2 dark:text-gray-200">Unfortunately, we will not be able to provide online attendance or record sessions.</dd>
                 </div>
-                <div class="h-1 border border-slate-400"></div>
-                <div class="py-5 px-4">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                            <span class="text-xl"> How can I contact the “We are in IT together Conference” team?</span>
-                            <span class="transition group-open:rotate-180">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
-                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path
-                                        d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            </span>
-                        </summary>
-                        <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                            You can contact our team by sending an email to info@weareinittogether.nl.
-                        </p>
-                    </details>
+                {{-- This should be left out or link directly to our contact page. The email address is mentioned at the top of this page.
+                    <div>
+                    <dt class="leading-7 font-semibold text-base">How can I contact the “We are in IT together Conference” team?</dt>
+                    <dd class="leading-7 mt-2">You can contact our team by sending an email to info@weareinittogether.nl.</dd>
+                </div> 
+                --}}
+                <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
+                    <dt class="leading-7 font-semibold text-base dark:text-white">Can I join the conference as a participant?</dt>
+                    <dd class="leading-7 mt-2 dark:text-gray-200">You can if you are a HZ-ICT student, Scalda student, an Alumni HZ-ICT student, a company with a dedicated IT department or a member of our partnering company representatives. You can register using this website as soon as registrations have opened.</dd>
                 </div>
-                <div class="h-1 border border-slate-400"></div>
-                <div class="py-5 px-4">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                            <span class="text-xl"> Can I join the conference as a participant? </span>
-                            <span class="transition group-open:rotate-180">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
-                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path
-                                        d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            </span>
-                        </summary>
-                        <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                            You can if you are a HZ-ICT student, an Alumni HZ-ICT student, a company with a dedicated IT department or a member of our partnering company representatives. You can register using the form at [?].
-                        </p>
-                    </details>
+                <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
+                    <dt class="leading-7 font-semibold text-base dark:text-white">Can I be a partner with the 'We are in IT together Conference'?</dt>
+                    <dd class="leading-7 mt-2 dark:text-gray-200">If you work in the field of ICT, we would very much appreciate you wanting to join us and have our students get acquainted with your IT company. You can apply through the form to join the program.</dd>
                 </div>
-                <div class="h-1 border border-slate-400"></div>
-                <div class="py-5 px-4">
-                    <details class="group">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                            <span class="text-xl"> Partnering with the “We are in IT together Conference”</span>
-                            <span class="transition group-open:rotate-180">
-                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
-                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path
-                                        d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            </span>
-                        </summary>
-                        <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                            If you work in the field of ICT, we would very much appreciate you wanting to join us and have our students get acquainted with your IT company. You can apply through the form to join the program. The applying for this year’s conference closes on <strong> ???. </strong> If you apply after this date participation might not be possible when all available timeslots have been booked.
-                        </p>
-                    </details>
-                </div>
-
-            </div>
+            </dl>
         </div>
     </div>
 </x-app-layout>
