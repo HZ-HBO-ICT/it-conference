@@ -34,7 +34,7 @@ class SpeakerController extends Controller
 
     public function processRequest(Request $request)
     {
-        if (Auth::user()->team) {
+        if (Auth::user()->currentTeam) {
             if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
                 Auth::user()->currentTeam->users()->attach(
                     Auth::user(), ['role' => 'speaker']
