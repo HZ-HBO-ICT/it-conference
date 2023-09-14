@@ -1,11 +1,11 @@
 <div>
     <div>
         <h2 class="tracking-tight leading-10 font-bold text-4xl dark:text-white">Got a question?</h2>
-        <p class="dark:text-gray-200 mt-3">Fill in the form, and we will get</p>
-        <p class="dark:text-gray-200">back to you as soon as possible.</p>
+        <p class="dark:text-gray-200 mt-3">Fill in the form, and we will get back to you</p>
+        <p class="dark:text-gray-200">as soon as possible.</p>
     </div>
 
-    <div class="mt-20">
+    <div class="pt-20">
         <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Contact
             Information</h2>
         <p class="dark:text-gray-200 mt-3">Het Groene Woud 1-3</p>
@@ -52,4 +52,8 @@
             {{ __('Send') }}
         </x-button>
     </form>
+</div>
+
+<div class="w-full h-full">
+    <x-map/>
 </div>
