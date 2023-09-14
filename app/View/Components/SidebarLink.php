@@ -8,6 +8,7 @@ use Illuminate\View\Component;
 
 class SidebarLink extends Component
 {
+    public $type;
     public $route;
     public $param;
     public $label;
@@ -17,13 +18,14 @@ class SidebarLink extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($route, $label, $icon, $roleColour, $param = '')
+    public function __construct($type, $route, $label, $icon, $roleColour, $param = '')
     {
         $this->route = $route;
         $this->label = $label;
         $this->icon = $icon;
         $this->roleColour = $roleColour;
         $this->param = $param;
+        $this->type = $type;
     }
 
     /**
