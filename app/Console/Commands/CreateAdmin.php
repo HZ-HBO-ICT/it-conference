@@ -13,7 +13,7 @@ class CreateAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:create-admin-user {email}';
+    protected $signature = 'admin:create-admin-user {email} {name} {password}';
 
     /**
      * The console command description.
@@ -41,18 +41,15 @@ class CreateAdmin extends Command
         // email address is taken as an argument
         $email = $this->argument('email');
 
-        // ask for the username
-        $name = $this->ask('What is your name?');
+        // get the name as argument
+        $name = $this->argument('name');
 
-        // ask for password and confirmation
-        $password = $this->secret('What is the password?');
-        $password_confirm = $this->secret('Confirm the password');
+        // get the password as argument.
+        // Note, we have to take this as an argument, on our STRATO server the STDIN is not available
+        // therefore $this->ask and $this->secret won't work
+        $password = $this->argument('password?');
 
-        if ($password == $password_confirm) {
-            $this->createUser($email, $name, $password);
-        } else {
-            $this->error('Passwords do not match');
-        }
+        $this->createUser($email, $name, $password);
     }
 
     /**
