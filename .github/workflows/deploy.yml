@@ -7,7 +7,7 @@ on:
     branches: [ "release" ]
 
 jobs:
-  laravel-deploy:
+  strato-deploy:
 
     runs-on: ubuntu-latest
 
