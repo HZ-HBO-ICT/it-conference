@@ -23,36 +23,38 @@
                         @else
 
                             @foreach ($team->users->sortBy('name') as $user)
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <img class="w-8 h-8 rounded-full object-cover"
-                                             src="{{ $user->profile_photo_url }}"
-                                             alt="{{ $user->name }}">
-                                        <div class="ml-4 dark:text-white">{{ $user->name }}</div>
-                                    </div>
+                                @if($user->id != $team->owner->id)
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <img class="w-8 h-8 rounded-full object-cover"
+                                                 src="{{ $user->profile_photo_url }}"
+                                                 alt="{{ $user->name }}">
+                                            <div class="ml-4 dark:text-white">{{ $user->name }}</div>
+                                        </div>
 
-                                    <div class="flex items-center">
-                                        <!-- Manage Team Member Role -->
-                                        @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
-                                            <button class="ml-2 text-sm text-gray-400 underline"
-                                                    wire:click="manageRole('{{ $user->id }}')">
-                                                {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
-                                            </button>
-                                        @elseif (Laravel\Jetstream\Jetstream::hasRoles())
-                                            <div class="ml-2 text-sm text-gray-400">
-                                                {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
-                                            </div>
-                                        @endif
+                                        <div class="flex items-center">
+                                            <!-- Manage Team Member Role -->
+                                            @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
+                                                <button class="ml-2 text-sm text-gray-400 underline"
+                                                        wire:click="manageRole('{{ $user->id }}')">
+                                                    {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
+                                                </button>
+                                            @elseif (Laravel\Jetstream\Jetstream::hasRoles())
+                                                <div class="ml-2 text-sm text-gray-400">
+                                                    {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
+                                                </div>
+                                            @endif
 
-                                        <!-- Remove Team Member -->
-                                        @if (Gate::check('removeTeamMember', $team))
-                                            <button class="cursor-pointer ml-6 text-sm text-red-500"
-                                                    wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
-                                                {{ __('Remove') }}
-                                            </button>
-                                        @endif
+                                            <!-- Remove Team Member -->
+                                            @if (Gate::check('removeTeamMember', $team))
+                                                <button class="cursor-pointer ml-6 text-sm text-red-500"
+                                                        wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
+                                                    {{ __('Remove') }}
+                                                </button>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         @endif
                     </div>

@@ -5,9 +5,13 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Presentation;
 use App\Models\Room;
+use App\Models\Speaker;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,28 +20,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-/*            SpeakerSeeder::class,*/
-            RoleSeeder::class,
-            ParticipantSeeder::class,
-            SponsorTierSeeder::class,
-            DifficultySeeder::class
-        ]);
-
-        foreach (Presentation::all() as $presentation)
-        {
-            $presentation->difficulty_id = rand(1, 3);
-            $presentation->save();
-        }
-
-        Room::factory(5)->create();
+        // First seed all the master data
+        Artisan::call('admin:upsert-master-data');
 
         $user = User::create([
             'name' => 'Content moderator',
             'email' => 'mod@hz.nl',
             'password' => Hash::make('123')
         ]);
-
         $user->assignRole('content moderator');
+
+        User::create([
+            'name' => 'Test Account',
+            'email' => 'testacc@hz.nl',
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'), // password
+        ]);
+
+        // Create some rooms
+        Room::factory(5)->create();
+
+        Presentation::factory(15)->has(Speaker::factory())->create();
+        $presentations = Presentation::all();
+
+        // Populate the presentations with participants
+        User::all()->each(function ($user) use ($presentations) {
+            $user->presentations()->attach(
+                $presentations->random(rand(1, 5))->pluck('id')->toArray()
+            );
+        });
+
     }
 }

@@ -14,7 +14,7 @@
         <h2 class="text-xl py-2">Email: <a href="mailto:{{$team->owner->email}}}">{{$team->owner->email}}</a></h2>
         <div>
             <div class="mt-16 flex">
-                <form method="POST" action="{{route('moderator.request.approve', ['sponsorships', $team, 1])}}"
+                <form method="POST" action="{{route('moderator.request.sponsorships.approve', [$team, 1])}}"
                       class="mr-2">
                     @csrf
                     <x-button
@@ -22,7 +22,7 @@
                         Approve
                     </x-button>
                 </form>
-                <form method="POST" action="{{ route('moderator.request.approve', ['sponsorships', $team, 0]) }}"
+                <form method="POST" action="{{ route('moderator.request.sponsorships.approve', [$team, 0]) }}"
                       class="mr-2">
                     @csrf
                     <x-button

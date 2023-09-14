@@ -14,7 +14,7 @@ class PresentationPolicy
      * The user is independent or if they are from a team
      * then the team shouldn't have an already existing presentation
      * and the user has been given a speaker role by the company representative
-     * (and therefore the user is not the company rep)
+     * or is the company representative themselves
      */
     public function sendRequest(User $user): bool
     {
@@ -22,7 +22,7 @@ class PresentationPolicy
             && (is_null($user->currentTeam)
                 || (is_null($user->currentTeam->presentations)
                     && ($user->hasTeamRole($user->currentTeam, 'speaker')
-                        && $user->currentTeam->owner->id !== $user->id
+                        || $user->currentTeam->owner->id === $user->id
                         && !$user->hasRole('speaker'))));
     }
 
