@@ -25,7 +25,6 @@ jobs:
         port: 22
         script: |
           sed -E -i 's/site_[a-zA-Z0-9_-]*/maintenance/g' .htaccess
-          sed -E -i 's/APP_ENV=production/APP_ENV=local/g' .env
     
     - uses: shivammathur/setup-php@2.25.5
       with:
@@ -72,10 +71,11 @@ jobs:
           cp $LATEST_RELEASE/.env $NEW_DIR
           cp -r $LATEST_RELEASE/storage $NEW_DIR/storage/
           cd $NEW_DIR
+          sed -E -i 's/APP_ENV=production/APP_ENV=local/g' .env
           php artisan migrate
+          sed -E -i 's/APP_ENV=local/APP_ENV=production/g' .env
           cd -
 
-          # Undo maintenance mode
-          sed -E -i 's/APP_ENV=local/APP_ENV=production/g' .env
+          # Undo maintenance mode          
           PATTERN='s/maintenance/'$NEW_DIR'/g'
           sed -E -i $PATTERN .htaccess
