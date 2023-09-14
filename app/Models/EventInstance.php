@@ -52,7 +52,7 @@ class EventInstance extends Model
     }
 
     /**
-     * Gets or creates an instance that represents the current envent, meaning the
+     * Gets or creates an instance that represents the current event, meaning the
      * event that is currently in planning or executed
      *
      * @return Builder|Model|object|null

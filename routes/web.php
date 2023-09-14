@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SpeakerController;
@@ -52,6 +53,19 @@ Route::middleware([
     //route for disenrolling from a presentation
     Route::get('/myconference/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 
+    Route::get('/speakers/request', [PresentationController::class, 'create'])
+        ->name('speakers.request.presentation');
+    Route::post('/speakers/request', [PresentationController::class, 'store'])
+        ->name('speakers.request.process');
+
+    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
+        ->name('presentations.show');
+
+    Route::get('/presentations/{presentation}/edit', [PresentationController::class, 'edit'])
+        ->name('presentations.edit');
+
+    Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
+        ->name('presentations.update');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
@@ -72,16 +86,16 @@ Route::get('/faq', function () {
 Route::get('/programme', [ScheduleController::class, 'index'])
     ->name('programme');
 
-Route::get('/presentations/{presentation}', [ScheduleController::class, 'show'])
-    ->name('presentations.show');
-
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
 
-Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
-    ->name('speakers.request.presentation');
-Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
-    ->name('speakers.request.process');
+Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
+
+Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 Route::middleware([
     'auth:sanctum',
@@ -138,11 +152,3 @@ Route::middleware([
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
         ->name('moderator.list');
 });
-
-Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
-
-Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');

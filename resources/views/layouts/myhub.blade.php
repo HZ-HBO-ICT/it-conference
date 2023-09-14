@@ -2,7 +2,7 @@
     use Illuminate\Support\Facades\Auth;
     use App\Models\Presentation;
 
-    $canRequestPresentation = Auth::user()->currentTeam->isGoldenSponsor
+    $canRequestPresentation = Auth::user()->currentTeam && Auth::user()->currentTeam->isGoldenSponsor
     ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
     : Auth::user()->can('sendRequest', Presentation::class);
 @endphp
