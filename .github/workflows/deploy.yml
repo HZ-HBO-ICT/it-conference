@@ -72,9 +72,7 @@ jobs:
           cp $LATEST_RELEASE/.env $NEW_DIR
           cp -r $LATEST_RELEASE/storage $NEW_DIR/storage/
           cd $NEW_DIR
-          sed -E -i 's/APP_ENV=production/APP_ENV=local/g' .env
-          php artisan migrate
-          sed -E -i 's/APP_ENV=local/APP_ENV=production/g' .env
+          php artisan migrate --force
           cd -
 
           # Undo maintenance mode
