@@ -32,8 +32,7 @@ class TeamFactory extends Factory
             'city' => 'Lorem ipsum',
             'website' => 'https://example.com',
             'description' => 'Lorem ipsum dolar sit amet',
-            //random pic for logo
-            'logo_path' => 'https://picsum.photos/100/50',
+            'logo_path' => null,
             'is_approved' => true,
             'is_sponsor_approved' => true
         ];

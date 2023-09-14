@@ -91,7 +91,12 @@
                             @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_approved) border-silver block
                             @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_approved) border-bronze hidden xl:block @endif rounded-lg">
                                 <a href="{{ $sponsor->website }}">
-                                    <img alt="{{ $sponsor->name }}" src="{{ $sponsor->logo_path }}" class="w-full h-full">
+                                    @if($sponsor->logo_path)
+                                        <img alt="{{ $sponsor->name }}" src="{{ url('storage/'. $sponsor->logo_path) }}"
+                                             class="w-6">
+                                    @else
+                                        <p>{{ $sponsor->name }}</p>
+                                    @endif
                                 </a>
                             </div>
                         @endforeach
