@@ -75,4 +75,5 @@ jobs:
           cd -
 
           # Undo maintenance mode
-          sed -E -i 's/site_[a-zA-Z0-9_-]*/$NEW_DIR/g' .htaccess
+          PATTERN='s/site_[a-zA-Z0-9_-]*/'$NEW_DIR'/g'
+          sed -E -i $PATTERN .htaccess
