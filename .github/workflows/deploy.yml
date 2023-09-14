@@ -69,7 +69,7 @@ jobs:
           mkdir $NEW_DIR
           tar -xf ${{env.REMOTE_DIR}}/${{env.OUTPUT_FILE}} -C $NEW_DIR
           cp $LATEST_RELEASE/.env $NEW_DIR
-          cp -r $LATEST_RELEASE/storage $NEW_DIR
+          cp -r $LATEST_RELEASE/storage $NEW_DIR/storage/
           cd $NEW_DIR
           php artisan migrate
           cd -
