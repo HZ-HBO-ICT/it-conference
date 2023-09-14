@@ -8,8 +8,7 @@
             @endif
         </div>
         <p class="text-gray-300 text-sm">
-            {{substr('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-            eaque, exercitationem praesentium nihil.', 0, 55) . '...' }}
+            {{substr($presentation->description, 0, 55) . '...' }}
         </p>
     </div>
     <div class="px-2 pb-2">

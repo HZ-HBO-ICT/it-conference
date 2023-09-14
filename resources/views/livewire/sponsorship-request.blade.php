@@ -6,7 +6,7 @@
 
         <x-slot name="description">
             If you decide to become a sponsor of the conference, there are different tiers that you can choose of with
-            different privileges. Check out <a class="dark:text-gray-400 underline" href="/files/sponsor-packages.pdf">this
+            different privileges. Check out <a class="text-purple-600 dark:text-purple-500 underline" href="/files/sponsor-packages.pdf">this
                                                                                                                        link</a>
             for more detailed information.
         </x-slot>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     @if($chosenTierName)
-                        <div class="pt-2 text-gray-900 dark:text-gray-400 text-sm">
+                        <div class="pt-2 text-purple-600 dark:text-purple-500 text-sm">
                             Available spots: {{$tiers->firstWhere('name', $chosenTierName)->leftSpots()}}
                         </div>
                     @endif
@@ -69,7 +69,7 @@
 
         <x-slot name="actions">
             @if(!$this->requestSent && !is_null($chosenTierName))
-                <x-button>
+                <x-button class="bg-purple-600 dark:bg-purple-500 hover:bg-purple-500 dark:hover:bg-purple-600 text-gray-200 dark:text-gray-200">
                     {{ __('Send request') }}
                 </x-button>
             @endif

@@ -1,17 +1,15 @@
 @php use App\Models\Difficulty; @endphp
-<x-app-layout>
-    <div>
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Presentation request
+<x-hub-layout>
+    <div class="pt-8 mx-auto max-w-7xl">
+        <div class="px-8">
+            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                Request presentation
             </h2>
             <h2 class="text-md text-gray-800 dark:text-gray-200 pt-2">
                 If you would like to host a lecture or a workshop during the IT Conference please fill out the form
-                bellow,
-                and we will get in touch with you
+                bellow, and we will get in touch with you
             </h2>
-        </x-slot>
-
+        </div>
         <div>
             <form method="POST" action="{{route('speakers.request.process')}}">
                 @csrf
@@ -47,16 +45,17 @@
                         <x-input-error for="difficulty_id" class="mt-2"/>
                     </div>
                     <div class="col-span-6 sm:col-span-4">
-                        <x-label for="max_participants" value="Maximum participants"/>
+                        <x-label for="max_participants" value="Preferred number of maximum participants"/>
                         <x-input id="max_participants" name="max_participants" type="number" class="mt-1 block w-full"/>
                         <x-input-error for="max_participants" class="mt-2"/>
+
                     </div>
                     <x-button
-                        class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                        class="mt-5 dark:bg-purple-500 bg-purple-500 hover:bg-purple-600 hover:dark:bg-purple-600 active:bg-purple-600 active:dark:bg-purple-600">
                         Submit
                     </x-button>
                 </div>
             </form>
         </div>
     </div>
-</x-app-layout>
+</x-hub-layout>
