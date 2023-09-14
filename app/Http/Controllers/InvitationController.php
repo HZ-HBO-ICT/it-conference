@@ -85,31 +85,37 @@ class InvitationController extends Controller
         // This checks if the team already has an approved presentation - add the speaker as supporter
         // and automatically approve. If the team doesn't have an approved presentation, but they have
         // a request, then add the speaker but don't approve it
-        if ($user->currentTeam->presentations) {
-            Speaker::create([
-                'user_id' => $user->id,
-                'presentation_id' => $user->currentTeam->presentations->first()->id,
-                'is_approved' => 1,
-                'is_main_speaker' => 0
-            ]);
 
-            $user->assignRole('speaker');
-        } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+        // New update: when the sponsor is gold this should not be executed
+        $sponsorTier = $user->currentTeam->sponsorTier;
 
-            $presentationId = 0;
-            foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
-                if ($userSpeaker->speaker) {
-                    $presentationId = $userSpeaker->speaker->presentation_id;
-                    break;
+        if (!$sponsorTier || $sponsorTier->name !== 'golden') {
+            if ($user->currentTeam->presentations) {
+                Speaker::create([
+                    'user_id' => $user->id,
+                    'presentation_id' => $user->currentTeam->presentations->first()->id,
+                    'is_approved' => 1,
+                    'is_main_speaker' => 0
+                ]);
+
+                $user->assignRole('speaker');
+            } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+
+                $presentationId = 0;
+                foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
+                    if ($userSpeaker->speaker) {
+                        $presentationId = $userSpeaker->speaker->presentation_id;
+                        break;
+                    }
                 }
-            }
 
-            Speaker::create([
-                'user_id' => $user->id,
-                'presentation_id' => $presentationId,
-                'is_approved' => 0,
-                'is_main_speaker' => 0
-            ]);
+                Speaker::create([
+                    'user_id' => $user->id,
+                    'presentation_id' => $presentationId,
+                    'is_approved' => 0,
+                    'is_main_speaker' => 0
+                ]);
+            }
         }
 
         return redirect(config('fortify.home'))->banner(

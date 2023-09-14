@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class ManageCompanyLogo extends Component
 {
@@ -32,6 +33,9 @@ class ManageCompanyLogo extends Component
 
         $path = $this->photo->store('logos', 'public');
         $this->team->update(['logo_path' => $path]);
+
+        ImageOptimizer::optimize('storage/' . $path);
+
         $this->reset(['photo']);
         session()->flash('message', 'Logo successfully updated.');
     }

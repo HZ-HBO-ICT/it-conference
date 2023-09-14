@@ -11,8 +11,8 @@ class HubController extends Controller
     /**
      * get view for announcements
      */
-    public function getAnnouncements() {
-        return view('myhub.announcement');
+    public function getConferenceHome() {
+        return view('myhub.home');
     }
 
     /**

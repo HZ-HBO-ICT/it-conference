@@ -13,7 +13,11 @@ class PresentationController extends Controller
 
     public function create()
     {
-        if (Auth::user()->cannot('sendRequest', Presentation::class)) {
+        $canRequestPresentation = Auth::user()->currentTeam && Auth::user()->currentTeam->isGoldenSponsor
+            ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
+            : Auth::user()->can('sendRequest', Presentation::class);
+
+        if (!$canRequestPresentation) {
             abort(403);
         }
 
@@ -22,7 +26,7 @@ class PresentationController extends Controller
 
     public function store(Request $request)
     {
-        if (Auth::user()->team) {
+        if (Auth::user()->currentTeam) {
             if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
                 Auth::user()->currentTeam->users()->attach(
                     Auth::user(), ['role' => 'speaker']
