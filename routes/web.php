@@ -56,13 +56,13 @@ Route::middleware([
     Route::post('/speakers/request', [PresentationController::class, 'store'])
         ->name('speakers.request.process');
 
-    Route::get('/presentation/{presentation}', [PresentationController::class, 'show'])
+    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
         ->name('presentations.show');
 
-    Route::get('/presentation/{presentation}/edit', [PresentationController::class, 'edit'])
+    Route::get('/presentations/{presentation}/edit', [PresentationController::class, 'edit'])
         ->name('presentations.edit');
 
-    Route::put('/presentation/{presentation}/edit', [PresentationController::class, 'update'])
+    Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
         ->name('presentations.update');
 });
 
