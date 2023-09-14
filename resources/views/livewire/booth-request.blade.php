@@ -8,8 +8,8 @@
             Signing up for our company market will after confirmation grant a standard 8m2 (sponsor package size may
             differ) sized area where we will present you with a round standing table. Electricity is available. You can
             bring your own banner to place in the area. Floorplans with location will be provided no later than two
-            weeks before the start of the conference. We will expand making more room but you can see an imression from
-            last years floorplan here
+            weeks before the start of the conference. We will expand making more room but you can see an impression from
+            last years floorplan
             <LINK>
 
         </x-slot>
