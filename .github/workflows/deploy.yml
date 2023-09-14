@@ -1,8 +1,6 @@
 name: Laravel
 
 on: 
-  push:
-    branches: [ "feature/add-deployment-workflow" ]
   pull_request:
     branches: [ "release" ]
 
@@ -18,7 +16,6 @@ jobs:
       REMOTE_DIR: './deploy'
 
     steps:
-
     - name: Put the website in maintenance mode
       uses: appleboy/ssh-action@v1.0.0
       with:
@@ -74,14 +71,7 @@ jobs:
           cp $LATEST_RELEASE/.env $NEW_DIR
           cp -r $LATEST_RELEASE/storage 
           cd $NEW_DIR
-          # php artisan migrate
+          php artisan migrate
 
-    - name: Put the website in production mode
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        port: 22
-        script: |
-          sed -E -i 's/site_[a-zA-Z0-9_-]*/site_construction/g' .htaccess
+          # Undo maintenance mode
+          sed -E -i 's/site_[a-zA-Z0-9_-]*/$NEW_DIR/g' .htaccess
