@@ -1,7 +1,7 @@
 @php
     $isCurrentRoute = empty($param) ? request()->routeIs($route) : (
         request()->routeIs($route) &&
-        (request()->route()->parameter('type') == $param || request()->route()->parameter('team') == $param)
+        (request()->route()->parameter('type') == $param || request()->route()->parameter('team') == $param || request()->route()->parameter('presentation') == $param)
     );
 
     $bgColorClass = $isCurrentRoute ? 'bg-gray-200 text-' . $roleColour . '-500 dark:text-' . $roleColour . '-500 dark:bg-gray-700 ' : 'dark:text-white';
