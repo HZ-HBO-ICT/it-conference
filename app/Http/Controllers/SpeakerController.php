@@ -24,7 +24,11 @@ class SpeakerController extends Controller
 
     public function requestPresentation()
     {
-        if (Auth::user()->cannot('sendRequest', Presentation::class)) {
+        $canRequestPresentation = Auth::user()->currentTeam->isGoldenSponsor
+            ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
+            : Auth::user()->can('sendRequest', Presentation::class);
+
+        if (!$canRequestPresentation) {
             abort(403);
         }
 
@@ -33,7 +37,7 @@ class SpeakerController extends Controller
 
     public function processRequest(Request $request)
     {
-        if (Auth::user()->team) {
+        if (Auth::user()->currentTeam) {
             if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
                 Auth::user()->currentTeam->users()->attach(
                     Auth::user(), ['role' => 'speaker']
@@ -44,7 +48,7 @@ class SpeakerController extends Controller
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
 
-        if (Auth::user()->currentTeam) {
+        if (Auth::user()->currentTeam && Auth::user()->currentTeam->sponsorTier && Auth::user()->currentTeam->sponsorTier->name !== 'golden') {
             foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
                 Speaker::create([
                     'user_id' => $speaker->id,
@@ -63,5 +67,31 @@ class SpeakerController extends Controller
         }
 
         return redirect(route('welcome'))->banner("You successfully send your request to host a {$presentation->type}");
+    }
+
+    // TODO: Refactor with gate
+    /**
+     * Allows the auth user to cohost a presentation if they are not already
+     * hosting/cohosting a presentation; accessible only to the gold sponsor
+     * @param Presentation $presentation
+     * @return mixed
+     */
+    public function cohostPresentation(Presentation $presentation)
+    {
+        if (Auth::user()->currentTeam->sponsorTier && Auth::user()->currentTeam->sponsorTier->name !== 'golden') {
+            abort(403);
+        }
+        if (Auth::user()->speaker) {
+            abort(403);
+        }
+
+        Speaker::create([
+            'user_id' => Auth::user()->id,
+            'presentation_id' => $presentation->id,
+            'is_main_speaker' => 0,
+            'is_approved' => $presentation->mainSpeaker()->is_approved,
+        ]);
+
+        return redirect(route('announcements'))->banner("You successfully became a cohost to {$presentation->name}");
     }
 }

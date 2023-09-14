@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Mail\SponsorshipDisapproved;
+use App\Mail\SponsorshipDisapprovedMailable;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -63,7 +63,7 @@ class SponsorTier extends Model
     {
         foreach ($this->teams as $team) {
             if (!$team->is_sponsor_approved) {
-                Mail::to($team->owner->email)->send(new SponsorshipDisapproved($team));
+                Mail::to($team->owner->email)->send(new SponsorshipDisapprovedMailable($team));
 
                 $team->sponsor_tier_id = null;
                 $team->is_sponsor_approved = null;
