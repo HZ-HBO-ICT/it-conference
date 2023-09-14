@@ -38,9 +38,10 @@ class PresentationPolicy
     public function sendRequestGoldenSponsor(User $user): bool
     {
         return $user->currentTeam->isGoldenSponsor &&
-                $user->currentTeam->allPresentations->count() < 2
-                && ($user->hasTeamRole($user->currentTeam, 'speaker')
-                    || $user->currentTeam->owner->id === $user->id
-                    && !$user->hasRole('speaker'));
+            $user->currentTeam->allPresentations->count() < 2
+            && !$user->speaker
+            && ($user->hasTeamRole($user->currentTeam, 'speaker')
+                || $user->currentTeam->owner->id === $user->id
+                && !$user->hasRole('speaker'));
     }
 }
