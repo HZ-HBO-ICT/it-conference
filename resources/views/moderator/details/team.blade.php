@@ -29,7 +29,7 @@
             </li>
         </ol>
     </nav>
-    <x-content-mod-company-request-details 
+    <x-content-mod-company-request-details
         :companyName="$team->name"
         :createdAt="\Carbon\Carbon::parse($team->created_at)->format('d/m/y H:i')"
         :description="$team->description"
@@ -37,6 +37,6 @@
         :website="$team->website"
         :teamOwnerName="$team->owner->name"
         :teamOwnerEmail="$team->owner->email"
-        :formActionApprove="route('moderator.request.teams.approve', ['teams', $team, 1])"
-        :formActionReject="route('moderator.request.teams.approve', ['teams', $team, 0])"/>
+        :formActionApprove="route('moderator.request.teams.approve', [$team, 1])"
+        :formActionReject="route('moderator.request.teams.approve', [$team, 0])"/>
 </x-content-moderator-layout>
