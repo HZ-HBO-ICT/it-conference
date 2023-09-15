@@ -36,5 +36,7 @@
         :address="$team->address"
         :website="$team->website"
         :teamOwnerName="$team->owner->name"
-        :teamOwnerEmail="$team->owner->email"/>
+        :teamOwnerEmail="$team->owner->email"
+        :formActionApprove="route('moderator.request.teams.approve', ['teams', $team, 1])"
+        :formActionReject="route('moderator.request.teams.approve', ['teams', $team, 0])"/>
 </x-content-moderator-layout>
