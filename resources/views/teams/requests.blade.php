@@ -1,15 +1,15 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{$team->name}} requests
-        </h2>
-        <h2 class="text-md text-gray-800 dark:text-gray-200 leading-tight pt-3">
-            Here you can request to become a sponsor or request to have a booth
-        </h2>
-    </x-slot>
-
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+@php use Illuminate\Support\Facades\Auth; @endphp
+<x-hub-layout>
+    <div class="sm:px-6 lg:px-8">
+        <div class="pt-7">
+            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{$team->name}} requests
+            </h2>
+            <h2 class="text-md text-gray-800 dark:text-gray-200 leading-tight pt-3">
+                Here you can request to become a sponsor or request to have a booth
+            </h2>
+        </div>
+        <div class="max-w-7xl mx-auto py-10">
             @if($team->is_approved)
                 @livewire('booth-request', ['team' => $team])
                 <x-section-border/>
@@ -31,4 +31,4 @@
             @endif
         </div>
     </div>
-</x-app-layout>
+</x-hub-layout>

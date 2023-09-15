@@ -15,7 +15,7 @@ class LoginResponse implements LoginResponseContract
     {
         $user = auth()->user();
 
-        $home = $user->hasRole('content moderator') ? '/moderator/overview' : '/dashboard/announcements';
+        $home = $user->hasRole('content moderator') ? '/moderator/overview' : '/myconference';
         
         return redirect()->intended($home);
     }

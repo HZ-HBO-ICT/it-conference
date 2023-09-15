@@ -11,21 +11,36 @@ class HubController extends Controller
     /**
      * get view for announcements
      */
-    public function getAnnouncements() {
-        return view('myhub.announcement');
+    public function getConferenceHome()
+    {
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
+
+        return view('myhub.home');
     }
 
     /**
      * get view for profile information
      */
-    public function getProfileInfo() {
+    public function getProfileInfo()
+    {
+        if (Auth::user()->hasRole('content moderator')) {
+            return view('moderator.profile');
+        }
+
         return view('myhub.profile');
     }
 
     /**
      * get personal programme for the user
      */
-    public function getProgramme() {
+    public function getProgramme()
+    {
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
+
         $user = Auth::user();
         $presentations = $user->presentations->sortBy('timeslot.start');
 
@@ -36,7 +51,12 @@ class HubController extends Controller
      * detach participation in specified presentation for a user
      * @param $presentationId id for presentation to detach from participants table
      */
-    public function detachParticipation($presentationId) {
+    public function detachParticipation($presentationId)
+    {
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
+
         $user = Auth::user();
 
         //delete the record from participants table

@@ -2,18 +2,60 @@
 
 namespace App\Models;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\PresentationFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Presentation
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property int $max_participants The max number of participants that the presenter allows
+ * @property string $type
+ * @property int|null $timeslot_id
+ * @property int|null $room_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property int|null $difficulty_id
+ * @property-read Difficulty|null $difficulty
+ * @property-read Collection<int, User> $participants
+ * @property-read int|null $participants_count
+ * @property-read Room|null $room
+ * @property-read Collection<int, Speaker> $speakers
+ * @property-read int|null $speakers_count
+ * @property-read Timeslot|null $timeslot
+ * @method static PresentationFactory factory($count = null, $state = [])
+ * @method static Builder|Presentation newModelQuery()
+ * @method static Builder|Presentation newQuery()
+ * @method static Builder|Presentation query()
+ * @method static Builder|Presentation whereCreatedAt($value)
+ * @method static Builder|Presentation whereDescription($value)
+ * @method static Builder|Presentation whereDifficultyId($value)
+ * @method static Builder|Presentation whereId($value)
+ * @method static Builder|Presentation whereMaxParticipants($value)
+ * @method static Builder|Presentation whereName($value)
+ * @method static Builder|Presentation whereRoomId($value)
+ * @method static Builder|Presentation whereTimeslotId($value)
+ * @method static Builder|Presentation whereType($value)
+ * @method static Builder|Presentation whereUpdatedAt($value)
+ * @mixin Eloquent
+ */
 class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id'];
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
 
     public static function rules()
     {
@@ -22,7 +64,7 @@ class Presentation extends Model
             'max_participants' => 'required|numeric',
             'description' => 'required',
             'type' => 'required|in:workshop,lecture',
-            'difficulty_id' => 'required'
+            'difficulty_id' => 'required',
         ];
     }
 
@@ -114,13 +156,22 @@ class Presentation extends Model
     }
 
     /**
-     * Called in order to approve the speakers connected to the presentation
+     * Handle a (dis)approval of this Presentation.
+     *
+     * @param bool $isApproved
      * @return void
      */
-    public function approve()
+    public function handleApproval(bool $isApproved) : void
     {
-        foreach ($this->speakers as $speaker) {
-            $speaker->approve();
+        if ($isApproved) {
+            DB::transaction(function() {
+               $this->speakers->each( fn($speaker) => $speaker->approve());
+            });
+        } else {
+            DB::transaction(function() {
+                $this->speakers->each( fn($speaker) => $speaker->delete());
+                $this->delete();
+            });
         }
     }
 }
