@@ -4,8 +4,8 @@
             <div class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto gap-y-5 flex-col flex-grow flex">
                 <div class="items-center flex-shrink-0 h-16 flex mt-4">
                     <!-- TODO: Style heading -->
-                    <img class="w-auto h-8" src="../img/logo-small-orange.png" alt="Orange logo">
-                    <h3 class=" ml-4 font-semibold dark:text-white">Content Management Dashboard</h3>
+                    <img class="w-auto h-8" src="../img/logo-small-crew.png" alt="Orange logo">
+                    <h3 class="ml-4 font-semibold dark:text-white">Content Management Dashboard</h3>
                 </div>
                 <nav class="flex-col flex-1 flex">
                     <ul class="gap-y-7 flex-col flex-1 flex" role="list">
