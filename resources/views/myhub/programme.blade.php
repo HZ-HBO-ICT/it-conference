@@ -6,7 +6,7 @@
                 <div class="flex flex-row justify-between">
                     <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">Programme</h2>
 
-                    @can('sendRequest', App\Models\Presentation::class)
+                    @can('request', App\Models\Presentation::class)
                         <div>
                             <a type="button"
                                href="{{ route('speakers.request.presentation') }}"
