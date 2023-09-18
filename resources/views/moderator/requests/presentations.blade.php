@@ -11,7 +11,7 @@
                 </div>
             </a>
         @empty
-            <p class="text-violet-600 text-lg">There are currently no presentation requests.</p>
+            <p class="text-crew-600 text-lg">There are currently no presentation requests.</p>
         @endforelse
         <div class="pt-2">
             {{ $presentations->links() }}
