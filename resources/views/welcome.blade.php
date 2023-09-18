@@ -85,17 +85,39 @@
                 </div>
 
                 @if(!$allSponsors->isEmpty())
-                    <div class="flex flex-wrap justify-center gap-12 mt-16">
+                    <div class="flex flex-wrap justify-center w-full gap-8 mt-16">
                         @foreach($allSponsors as $sponsor)
-                            <div class="border border-2 @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
-                            @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_approved) border-silver block
-                            @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_approved) border-bronze hidden xl:block @endif rounded-lg">
+                            <div class="border shadow-lg border-2 w-full xl:w-1/5 @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
+                            @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_sponsor_approved) border-silver block
+                            @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_sponsor_approved) border-bronze hidden xl:block @endif rounded-lg">
                                 <a href="{{ $sponsor->website }}">
                                     @if($sponsor->logo_path)
                                         <img alt="{{ $sponsor->name }}" src="{{ url('storage/'. $sponsor->logo_path) }}"
-                                             class="w-6">
+                                             class="w-full h-24 rounded-lg">
                                     @else
-                                        <p>{{ $sponsor->name }}</p>
+                                        <div class="flex flex-col justify-center items-center px-2 h-24">
+                                            @php
+                                                $color = '';
+                                                 if ($sponsor->sponsorTier->name === 'golden' && $sponsor->is_sponsor_approved) $color='#FFD700';
+                                                 elseif ($sponsor->sponsorTier->name === 'silver' && $sponsor->is_sponsor_approved) $color='#C0C0C0';
+                                                 elseif ($sponsor->sponsorTier->name === 'bronze' && $sponsor->is_sponsor_approved) $color='#CD7F32';
+                                                 else $color='#60a5fa'
+                                            @endphp
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 stroke-width="1.5"
+                                                 stroke="{{$color}}" aria-hidden="true" class="w-14 h-14">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
+                                            </svg>
+
+                                            <p class="tracking-tight leading-7 text-base mt-2 text-center dark:text-white">
+                                                @if (Str::length($sponsor->name) > 14)
+                                                    {{ substr($sponsor->name, 0, 10) . '...' }}
+                                                @else
+                                                    {{ $sponsor->name }}
+                                                @endif
+                                            </p>
+                                        </div>
                                     @endif
                                 </a>
                             </div>
