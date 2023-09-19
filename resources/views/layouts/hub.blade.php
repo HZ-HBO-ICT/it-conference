@@ -3,7 +3,7 @@
     use App\Models\Presentation;
 @endphp
 
-<x-app-moderator-layout>
+<x-app-layout>
     <div class="flex">
         <div class="flex-col w-72 flex z-50 inset-y-0 relative bg-white dark:bg-gray-900 h-screen">
             <div
@@ -26,4 +26,4 @@
             {{ $slot }}
         </div>
     </div>
-</x-app-moderator-layout>
+</x-app-layout>
