@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SponsorTier;
 use Illuminate\Http\Request;
 use App\Models\Team;
 
