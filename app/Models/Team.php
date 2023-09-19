@@ -227,6 +227,20 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * Checks if the team is the golden sponsor
+     * @return Attribute
+     */
+    public function hasPresentationsLeft(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $max_presentations = $this->is_golden_sponsor ? 2 : 1;
+                return $this->is_approved && $this->all_presentations->count() < $max_presentations;
+            }
+        );
+    }
+
+    /**
      * Handle a (dis)approval of this Teams request to join the conference.
      *
      * @param bool $isApproved
