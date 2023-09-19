@@ -54,6 +54,7 @@
                     </ul>
                 </dd>
             </div>
+            @can('update', $presentation)
             <div class="pt-5">
                 <div class="flex justify-end">
                     <a href="{{route('presentations.edit', $presentation)}}"
@@ -62,6 +63,7 @@
                     </a>
                 </div>
             </div>
+            @endcan
         </dl>
     </div>
 </div>

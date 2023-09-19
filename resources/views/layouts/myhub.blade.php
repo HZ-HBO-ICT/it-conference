@@ -1,10 +1,6 @@
 @php
     use Illuminate\Support\Facades\Auth;
     use App\Models\Presentation;
-
-    $canRequestPresentation = Auth::user()->currentTeam && Auth::user()->currentTeam->isGoldenSponsor
-    ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
-    : Auth::user()->can('sendRequest', Presentation::class);
 @endphp
 
 <x-app-moderator-layout>
@@ -49,7 +45,7 @@
                                             :param="Auth::user()->currentTeam"
                                             :roleColour="'partner'"/>
                                     @endif
-                                    @if($canRequestPresentation)
+                                    @can('request', \App\Models\Presentation::class)
                                         @unlessrole('content moderator')
                                         <x-sidebar-link
                                             :type="'link'"
@@ -58,7 +54,7 @@
                                             :icon="'M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6'"
                                             :roleColour="'partner'"/>
                                         @endunlessrole
-                                    @endif
+                                    @endcan
                                     @if(Auth::user()->speaker->presentation_id)
                                         <x-sidebar-link
                                             :type="'link'"
@@ -71,7 +67,7 @@
                                 </ul>
                             </li>
                         @else
-                            @if($canRequestPresentation)
+                            @can('request', \App\Models\Presentation::class)
                         @unlessrole('content moderator')
                             <li>
                                 <ul class="-mx-2" role="list">
@@ -84,7 +80,7 @@
                                 </ul>
                             </li>
                         @endunlessrole
-                            @endif
+                            @endcan
                             @if(Auth::user()->speaker)
                                 <li>
                                     <ul class="-mx-2" role="list">
@@ -97,7 +93,7 @@
                                             :roleColour="'partner'"/>
                                     </ul>
                                 </li>
-                            @endif
+                            @endcan
                         @endif
 
 

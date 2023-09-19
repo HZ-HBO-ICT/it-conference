@@ -13,19 +13,15 @@ class PresentationController extends Controller
 
     public function create()
     {
-        $canRequestPresentation = Auth::user()->currentTeam && Auth::user()->currentTeam->isGoldenSponsor
-            ? Auth::user()->can('sendRequestGoldenSponsor', Presentation::class)
-            : Auth::user()->can('sendRequest', Presentation::class);
-
-        if (!$canRequestPresentation) {
-            abort(403);
-        }
+        $this->authorize('request', Presentation::class);
 
         return view('speakers.presentation.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('request', Presentation::class);
+
         if (Auth::user()->currentTeam) {
             if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
                 Auth::user()->currentTeam->users()->attach(
@@ -36,6 +32,8 @@ class PresentationController extends Controller
 
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
+
+        Auth::user()->setRelations([]);
 
         if (Auth::user()->currentTeam) {
             foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
@@ -60,6 +58,7 @@ class PresentationController extends Controller
 
     public function show(Presentation $presentation)
     {
+        // TODO one route should return one view. This should be split up into two different routes
         // Shows the view to the host of the presentation
         if (Auth::user()->id == $presentation->mainSpeaker()->user->id)
             return view('speakers.presentation.show', compact('presentation'));
@@ -73,16 +72,14 @@ class PresentationController extends Controller
 
     public function edit(Presentation $presentation)
     {
-        if (Auth::user()->id != $presentation->mainSpeaker()->user->id)
-            abort(403);
+        $this->authorize('update', $presentation);
 
         return view('speakers.presentation.edit', compact('presentation'));
     }
 
     public function update(Presentation $presentation, Request $request)
     {
-        if (Auth::user()->id != $presentation->mainSpeaker()->user->id)
-            abort(403);
+        $this->authorize('update', $presentation);
 
         $presentation->update($request->validate(Presentation::rules()));
 
