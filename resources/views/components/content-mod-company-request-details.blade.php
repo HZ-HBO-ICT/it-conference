@@ -1,38 +1,38 @@
-<div class="mx-20 my-20 p-10 bg-white">
+<div class="mx-20 my-20 p-10 bg-white dark:bg-gray-800">
   <div class="px-4 sm:px-0">
-    <h3 class="text-base font-semibold leading-7 text-gray-900">Company details</h3>
-    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Information about the company that wants to join the
+    <h3 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Company details</h3>
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500 dark:text-gray-300">Information about the company that wants to join the
       conference.</p>
   </div>
-  <div class="mt-6 border-t border-gray-100">
-    <dl class="divide-y divide-gray-100">
+  <div class="mt-6 border-t border-gray-100 dark:border-gray-400">
+    <dl class="divide-y divide-gray-100 dark:divide-gray-400">
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Full name</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$teamOwnerName}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Full name</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$teamOwnerName}}</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Email</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$teamOwnerEmail}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Email</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$teamOwnerEmail}}</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Company</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$companyName}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Company</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$companyName}}</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Address</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$address}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Address</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$address}}</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Website</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$website}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Website</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$website}}</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Description</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$description}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Description</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$description}}</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Created at</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$createdAt}}</dd>
+        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Created at</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">{{$createdAt}}</dd>
       </div>
     </dl>
     <div class="flex">
