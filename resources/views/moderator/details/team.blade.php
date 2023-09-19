@@ -1,6 +1,6 @@
 <x-content-moderator-layout>
     <nav class="bg-white border-gray-200 border-b flex" aria-label="Breadcrumb">
-        <ol class="px-8 max-w-7xl w-full flex mx-auto" role="list">
+        <ol class="px-8 max-w-7xl w-full flex mx-1" role="list">
             <li class="flex">
                 <div class="items-center flex">
                     <a href="{{route('moderator.overview')}}">
