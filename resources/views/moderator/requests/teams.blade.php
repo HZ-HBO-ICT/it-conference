@@ -13,7 +13,7 @@
                                 <div class="shrink-0 mt-2 ml-4">
                                     <!-- Add hover effects -->
                                     <a href="{{route('teams.create', ['teams'])}}" class="shadow-sm dark:shadow-s text-white font-semibold text-sm py-2 px-3 bg-crew-400 rounded-md items-center inline-flex relative">
-                                        Create new job
+                                        Create new company
                                     </a>
                                 </div>
                             </div>
