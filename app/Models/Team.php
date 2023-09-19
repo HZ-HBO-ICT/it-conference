@@ -235,7 +235,7 @@ class Team extends JetstreamTeam
         return Attribute::make(
             get: function() {
                 $max_presentations = $this->is_golden_sponsor ? 2 : 1;
-                return $this->is_sponsor_approved && $this->all_presentations->count() < $max_presentations;
+                return $this->is_approved && $this->all_presentations->count() < $max_presentations;
             }
         );
     }
