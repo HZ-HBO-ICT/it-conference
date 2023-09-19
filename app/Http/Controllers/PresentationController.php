@@ -33,6 +33,8 @@ class PresentationController extends Controller
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
 
+        Auth::user()->setRelations([]);
+
         if (Auth::user()->currentTeam) {
             foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
                 Speaker::create([
