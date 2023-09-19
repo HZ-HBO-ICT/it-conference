@@ -1,6 +1,6 @@
 <x-content-moderator-layout>
     <!-- TODO: Refactor into component for reusability -->
-    <nav class="bg-white border-gray-200 border-b flex" aria-label="Breadcrumb">
+    <nav class="bg-white border-gray-200 dark:bg-slate-900 dark:border-gray-800 border-b flex" aria-label="Breadcrumb">
         <ol class="px-8 max-w-7xl w-full flex mx-1" role="list">
             <li class="flex">
                 <div class="items-center flex">
@@ -14,18 +14,18 @@
             </li>
             <li class="flex">
                 <div class="items-center flex">
-                    <svg class="shrink-0 w-6 h-full fill-gray-300" viewbox="0 0 24 44" preserveAspectRatio="none" aria-hidden="true">
+                    <svg class="shrink-0 w-6 h-full fill-gray-300 dark:fill-gray-600" viewbox="0 0 24 44" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z"></path>
                     </svg>
-                    <a class="text-gray-500 font-medium text-sm ml-4" href="{{route('moderator.requests', 'teams')}}">Company requests</a>
+                    <a class="text-gray-500 dark:text-white font-medium text-sm ml-4" href="{{route('moderator.requests', 'teams')}}">Company requests</a>
                 </div>
             </li>
             <li class="flex">
                 <div class="items-center flex">
-                    <svg class="shrink-0 w-6 h-full fill-gray-300" viewbox="0 0 24 44" preserveAspectRatio="none" aria-hidden="true">
+                    <svg class="shrink-0 w-6 h-full fill-gray-300 dark:fill-gray-600" viewbox="0 0 24 44" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z"></path>
                     </svg>
-                    <a class="text-gray-500 font-medium text-sm ml-4" href="{{route('moderator.requests', 'teams')}}">{{$team->name}}</a>
+                    <a class="text-gray-500 dark:text-white font-medium text-sm ml-4" href="{{route('moderator.requests', 'teams')}}">{{$team->name}}</a>
                 </div>
             </li>
         </ol>
