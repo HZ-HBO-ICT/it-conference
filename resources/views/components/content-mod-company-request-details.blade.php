@@ -35,19 +35,21 @@
         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$createdAt}}</dd>
       </div>
     </dl>
-    <form method="POST" action="{{$formActionApprove}}" class="mr-2">
-      @csrf
-      <x-button
-        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-        Approve
-      </x-button>
-    </form>
-    <form method="POST" action="{{$formActionReject}}" class="mr-2">
-      @csrf
-      <x-button
-        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-        Deny
-      </x-button>
-    </form>
+    <div class="flex">
+      <form method="POST" action="{{$formActionApprove}}" class="mr-2">
+        @csrf
+        <x-button
+          class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+          Approve
+        </x-button>
+      </form>
+      <form method="POST" action="{{$formActionReject}}" class="mr-2">
+        @csrf
+        <x-button
+          class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+          Deny
+        </x-button>
+      </form>
+    </div>
   </div>
 </div>
