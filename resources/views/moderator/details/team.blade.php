@@ -1,6 +1,6 @@
 <x-content-moderator-layout>
     <!-- TODO: Refactor into component for reusability -->
-    <nav class="bg-white border-gray-200 dark:bg-slate-900 dark:border-gray-800 border-b flex" aria-label="Breadcrumb">
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-800 border-b flex" aria-label="Breadcrumb">
         <ol class="px-8 max-w-7xl w-full flex mx-1" role="list">
             <li class="flex">
                 <div class="items-center flex">
