@@ -55,7 +55,7 @@
                                             :roleColour="'partner'"/>
                                         @endunlessrole
                                     @endcan
-                                    @if(Auth::user()->speaker->presentation_id)
+                                    @if(Auth::user()->speaker)
                                         <x-sidebar-link
                                             :type="'link'"
                                             :label="'View presentation'"
