@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <div id="breadcrumbs" class="pl-5">
         <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
                     href="{{route('moderator.requests', 'sponsorships')}}">Sponsorship requests</a></span> /
@@ -33,4 +33,4 @@
             </div>
         </div>
     </div>
-</x-content-moderator-layout>>
+</x-hub-layout>

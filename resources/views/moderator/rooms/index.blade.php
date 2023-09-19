@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <div id="breadcrumbs">
         <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
                     href="{{route('moderator.schedule.overview')}}">Schedule management</a></span> /
@@ -49,4 +49,4 @@
             </tbody>
         </table>
     </div>
-</x-content-moderator-layout>
+</x-hub-layout>
