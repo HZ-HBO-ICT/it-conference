@@ -12,8 +12,6 @@
                     <div>
                         <h1 class="text-white text-5xl leading-snug font-bold text-center md:whitespace-nowrap"
                             style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-                            17 November 2023
-                            <br>
                             We are in IT together Conference
                         </h1>
                         <h2 class="pt-1 text-xl text-white font-montserrat text-center italic uppercase">
@@ -22,7 +20,10 @@
                     </div>
                     <div class="flex flex-row">
                         <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">
-                            <x-countdown/>
+                            <div class="flex flex-col items-end pt-10">
+                                <p class="text-white uppercase pb-2">17 November 2023</p>
+                                <x-countdown/>
+                            </div>
                         </div>
                         <!-- The div for the logo of the sponsor -->
                         @if($goldSponsor)
