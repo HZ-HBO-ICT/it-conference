@@ -7,7 +7,7 @@
                 <!-- The gradient -->
                 <div
                     class="before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70"></div>
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-6 md:mt-16 lg:mt-16 xl:mt-16">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16">
                     <!-- Titles -->
                     <div>
                         <h1 class="text-white text-5xl leading-snug font-bold text-center md:whitespace-nowrap"
@@ -27,10 +27,10 @@
                         </div>
                         <!-- The div for the logo of the sponsor -->
                         @if($goldSponsor)
-                            <div class="hidden md:flex lg:flex xl:flex basis-1/3 pt-16">
+                            <div class="basis-1/3 pt-16">
                                 <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
                             </div>
-                            <div class="hidden md:flex lg:flex xl:flex basis-1/3 pt-16">
+                            <div class="basis-1/3 pt-16">
                                 <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
                             </div>
                         @endif
