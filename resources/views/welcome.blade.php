@@ -7,11 +7,13 @@
                 <!-- The gradient -->
                 <div
                     class="before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70"></div>
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-6 md:mt-16 lg:mt-16 xl:mt-16">
                     <!-- Titles -->
                     <div>
                         <h1 class="text-white text-5xl leading-snug font-bold text-center md:whitespace-nowrap"
                             style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
+                            17 November 2023
+                            <br>
                             We are in IT together Conference
                         </h1>
                         <h2 class="pt-1 text-xl text-white font-montserrat text-center italic uppercase">
@@ -24,16 +26,16 @@
                         </div>
                         <!-- The div for the logo of the sponsor -->
                         @if($goldSponsor)
-                            <div class="basis-1/3 pt-16">
+                            <div class="hidden md:flex lg:flex xl:flex basis-1/3 pt-16">
                                 <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
                             </div>
-                            <div class="basis-1/3 pt-16">
+                            <div class="hidden md:flex lg:flex xl:flex basis-1/3 pt-16">
                                 <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
                             </div>
                         @endif
                     </div>
                     @guest()
-                        <div class="mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
+                        <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
                             <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
                         </div>
                     @endguest
