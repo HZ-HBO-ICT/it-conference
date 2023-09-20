@@ -20,7 +20,10 @@
                     </div>
                     <div class="flex flex-row">
                         <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">
-                            <x-countdown/>
+                            <div class="flex flex-col items-start pt-10">
+                                <p class="text-gray-200 uppercase pb-2">17 November 2023</p>
+                                <x-countdown/>
+                            </div>
                         </div>
                         <!-- The div for the logo of the sponsor -->
                         @if($goldSponsor)
@@ -33,7 +36,7 @@
                         @endif
                     </div>
                     @guest()
-                        <div class="mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
+                        <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
                             <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
                         </div>
                     @endguest
