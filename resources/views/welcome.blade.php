@@ -21,7 +21,7 @@
                     <div class="flex flex-row">
                         <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">
                             <div class="flex flex-col items-end pt-10">
-                                <p class="text-white uppercase pb-2">17 November 2023</p>
+                                <p class="text-gray-200 uppercase pb-2">17 November 2023</p>
                                 <x-countdown/>
                             </div>
                         </div>
