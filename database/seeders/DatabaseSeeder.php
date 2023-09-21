@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Speaker;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -49,6 +50,18 @@ class DatabaseSeeder extends Seeder
                 $presentations->random(rand(1, 5))->pluck('id')->toArray()
             );
         });
+
+        Team::factory(1)->create([
+            'sponsor_tier_id' => 1
+        ]);
+
+        Team::factory(2)->create([
+            'sponsor_tier_id' => 2
+        ]);
+
+        Team::factory(5)->create([
+            'sponsor_tier_id' => 3
+        ]);
 
     }
 }

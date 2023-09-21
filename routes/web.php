@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
@@ -26,9 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 Route::middleware([
     'auth:sanctum',

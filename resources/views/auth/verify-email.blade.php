@@ -1,7 +1,9 @@
 <x-app-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <h1 class="text-gray-800 dark:text-white text-3xl font-bold text-center pt-12">
+                We are in IT together</br>Conference
+            </h1>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
