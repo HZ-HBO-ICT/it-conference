@@ -16,14 +16,19 @@
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
-            <div class="px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                @if ($presentation->file_path)
-                    <div class="bg-gray-50 dark:bg-gray-800 mt-5 p-3 pl-2">
-                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                            <div class="sm:col-span-6">
-                                <x-label for="preview" value="{{ __('Current presentation') }}" class="pt-3 pb-1"/>
+            <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
+                <div class="grid grid-cols-6 gap-6">
+                    <!-- Profile Photo -->
+                    <div class="col-span-6">
+                        <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="photo">
+                            Presentation
+                        </label>
+
+                        <!-- Current Profile Photo -->
+                        @if ($presentation->file_path)
+                            <div class="mt-2">
                                 <label wire:click="downloadFile" style="cursor: pointer;"
-                                       class="flex items-center justify-center w-1/2 h-10 px-4 mt-2 text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus-within:bg-indigo-700">
+                                       class="flex w-1/2 h-7 mt-2 text-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                          viewBox="0 0 24 24"
                                          stroke="currentColor" class="w-6 h-6 mr-2">
@@ -34,61 +39,50 @@
                                     Download presentation
                                 </label>
                             </div>
-                        </div>
-                    </div>
-                @endif
-                <div class="bg-gray-50 dark:bg-gray-800 mt-5 p-3 pl-2 flex items-center rounded justify-center">
-                    <form wire:submit.prevent="save" class="space-y-8 w-full max-w-screen-md">
-                        <div class="divide-y divide-gray-200">
-                            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                                <div class="sm:col-span-6">
-                                    <x-label for="photo" value="{{ __('Upload presentation') }}"/>
-                                    @if(!Auth::user()->hasRole('content moderator') && !EventInstance::current()->is_final_programme_released)
-                                        @if(Auth::user()->speaker->presentation_id == $presentation->id)
-                                            <div class="mt-1 flex items-center">
-                                                <input type="file" id="file" wire:model="file"
-                                                       class="hidden">
-                                                <label for="file"
-                                                class="flex items-center justify-center w-1/2 h-10 px-4 mt-2 text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus-within:bg-indigo-700">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                         viewBox="0 0 24 24"
-                                                         stroke="currentColor" class="w-6 h-6 mr-2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                              stroke-width="2"
-                                                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                                    </svg>
-                                                    @if($presentation->file_path)
-                                                        Change file
-                                                    @else
-                                                        Upload file
-                                                    @endif
-                                                </label>
-                                            </div>
-                                        @endif
-                                    @endif
-                                    @if($file && !$errors->has('file') && !session()->has('message'))
-                                        <p class="text-gray-500">Uploaded file: {{ $filename }}</p>
-                                    @endif
-                                    @if (session()->has('message'))
-                                        <div class="text-sm text-green-600">
-                                            {{ session('message') }}
-                                        </div>
-                                    @endif
-                                    @error('file') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
-                                </div>
-                            </div>
-                        </div>
-                        @if(!Auth::user()->hasRole('content moderator') && !EventInstance::current()->is_final_programme_released)
-                            @if(Auth::user()->speaker->presentation_id == $presentation->id && $file && !$errors->has('file') && !session()->has('message'))
-                                <div class="flex justify-end">
-                                    <button type="submit"
-                                            class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Save
-                                    </button>
-                                </div>
-                            @endif
                         @endif
-                    </form>
+
+                        <!-- New Profile Photo Preview -->
+                        @if($file && !$errors->has('file') && !session()->has('message'))
+                            <div class="mt-2">
+                                <p class="text-gray-500 text-sm">Uploaded file: {{ $filename }}</p>
+                            </div>
+                        @endif
+                        @if (session()->has('message'))
+                            <div class="text-sm mt-2 text-green-600">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+                        @error('file') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+
+                        <form wire:submit.prevent="save" class="space-y-8 w-full max-w-screen-md">
+                            <div class="flex flex-wrap">
+                                <div class="mt-2 mr-2">
+                                    <input type="file" id="file" wire:model="file" class="hidden">
+                                    <label for="file"
+                                           class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
+                                        Select A New Presentation
+                                    </label>
+                                </div>
+                                <button type="button"
+                                        class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150 mt-2"
+                                        wire:click="delete">
+                                    Remove Presentation
+                                </button>
+                            </div>
+
+                            @if(!Auth::user()->hasRole('content moderator') && !EventInstance::current()->is_final_programme_released)
+                                @if(Auth::user()->speaker->presentation_id == $presentation->id && $file && !$errors->has('file') && !session()->has('message'))
+                                    <div
+                                        class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                                        <button type="submit"
+                                                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            Save
+                                        </button>
+                                    </div>
+                                @endif
+                            @endif
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
