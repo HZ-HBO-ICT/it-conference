@@ -36,7 +36,7 @@
                                               stroke-width="2"
                                               d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
                                     </svg>
-                                    Download presentation
+                                    Download {{$presentation->file_original_name}}
                                 </label>
                             </div>
                         @endif
@@ -44,7 +44,7 @@
                         <!-- New Profile Photo Preview -->
                         @if($file && !$errors->has('file') && !session()->has('message'))
                             <div class="mt-2">
-                                <p class="text-gray-500 text-sm">Uploaded file: {{ $filename }}</p>
+                                <p class="text-gray-500 text-sm">Uploaded file: {{ $file->getClientOriginalName() }}</p>
                             </div>
                         @endif
                         @if (session()->has('message'))
