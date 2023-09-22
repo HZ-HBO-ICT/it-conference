@@ -64,6 +64,16 @@ class UploadPresentation extends Component
         session()->flash('message', 'Presentation is successfully updated.');
     }
 
+    public function delete()
+    {
+        $this->filename = null;
+        $this->file = null;
+        Storage::delete('presentations' . explode('@', Auth::user()->email)[0] . '-presentation');
+        $this->presentation->file_path = '';
+        $this->presentation->save();
+        session()->flash('message', 'Presentation is successfully removed.');
+    }
+
     public function render()
     {
         return view('livewire.upload-presentation');
