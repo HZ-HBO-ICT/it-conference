@@ -233,7 +233,7 @@ class Team extends JetstreamTeam
     public function hasPresentationsLeft(): Attribute
     {
         return Attribute::make(
-            get: function() {
+            get: function () {
                 $max_presentations = $this->is_golden_sponsor ? 2 : 1;
                 return $this->is_approved && $this->all_presentations->count() < $max_presentations;
             }
@@ -288,5 +288,18 @@ class Team extends JetstreamTeam
             $this->sponsor_tier_id = null;
             $this->save();
         }
+    }
+
+    /**
+     * Checks if the team is the team of HZ University of Applied Sciences
+     *
+     * @return Attribute
+     */
+    public function isHz() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->name == 'HZ University of Applied Sciences';
+            });
     }
 }
