@@ -23,6 +23,10 @@ class PresentationPolicy
         }
 
         if ($user->currentTeam) {
+            // Allow HZ to have unlimited presentations
+            if($user->currentTeam->isHz)
+                return true;
+
             return $user->currentTeam->has_presentations_left;
         }
 
