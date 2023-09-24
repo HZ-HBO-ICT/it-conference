@@ -92,7 +92,7 @@ class InvitationController extends Controller
         // Another update: when the team is HZ it also should not be executed
         $sponsorTier = $user->currentTeam->sponsorTier;
 
-        if (!$sponsorTier || $sponsorTier->name !== 'golden') {
+        if ((!$sponsorTier || $sponsorTier->name !== 'golden') && !$user->currentTeam->isHz) {
             if ($user->currentTeam->presentations) {
                 Speaker::create([
                     'user_id' => $user->id,
