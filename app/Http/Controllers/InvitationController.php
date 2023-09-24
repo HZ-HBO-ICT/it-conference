@@ -6,6 +6,7 @@ use App\Actions\Fortify\PasswordValidationRules;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Models\Speaker;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
@@ -66,7 +67,8 @@ class InvitationController extends Controller
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
-            'password' => Hash::make($input['password'])
+            'password' => Hash::make($input['password']),
+            'email_verified_at' => now()->timestamp
         ]);
 
         event(new Registered($user));
@@ -87,6 +89,7 @@ class InvitationController extends Controller
         // a request, then add the speaker but don't approve it
 
         // New update: when the sponsor is gold this should not be executed
+        // Another update: when the team is HZ it also should not be executed
         $sponsorTier = $user->currentTeam->sponsorTier;
 
         if (!$sponsorTier || $sponsorTier->name !== 'golden') {
