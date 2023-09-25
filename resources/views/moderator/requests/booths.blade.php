@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Booth requests</h1>
     <div class="grid grid-cols-1 gap-2 pr-12 pl-4">
         <h2 class="text-2xl text-gray-700 dark:text-white">Companies that requested a booth</h2>
@@ -16,4 +16,4 @@
             {{ $booths->links() }}
         </div>
     </div>
-</x-content-moderator-layout>
+</x-hub-layout>

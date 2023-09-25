@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <div id="breadcrumbs" class="pl-5">
         <p class="text-gray-800 dark:text-gray-200">
             <a href="{{route('moderator.schedule.overview')}}"
@@ -38,4 +38,4 @@
             </div>
         </div>
     </div>
-</x-content-moderator-layout>
+</x-hub-layout>
