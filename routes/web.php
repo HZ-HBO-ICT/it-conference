@@ -43,15 +43,15 @@ Route::middleware([
     Route::get('/my', [HubController::class, 'getConferenceHome'])->name('announcements');
 
     //route for my profile in personal hub
-    Route::get('/myconference/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
+    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
     //route for personal programme
-    Route::get('/myconference/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+    Route::get('/my/programme', [HubController::class, 'getProgramme'])->name('my-programme');
 
     Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
 
     //route for disenrolling from a presentation
-    Route::get('/myconference/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+    Route::get('/my/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 
     Route::get('/speakers/request', [PresentationController::class, 'create'])
         ->name('speakers.request.presentation');
