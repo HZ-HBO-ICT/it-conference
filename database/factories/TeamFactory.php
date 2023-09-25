@@ -31,7 +31,10 @@ class TeamFactory extends Factory
             'street' => '123 Main St',
             'city' => 'Lorem ipsum',
             'website' => 'https://example.com',
-            'description' => 'Lorem ipsum dolar sit amet'
+            'description' => 'Lorem ipsum dolar sit amet',
+            'logo_path' => null,
+            'is_approved' => true,
+            'is_sponsor_approved' => true
         ];
     }
 }

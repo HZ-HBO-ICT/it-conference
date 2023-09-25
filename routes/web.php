@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
@@ -26,32 +28,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     //route for announcements
-    Route::get('/myconference', [HubController::class, 'getConferenceHome'])->name('announcements');
+    Route::get('/my', [HubController::class, 'getConferenceHome'])->name('announcements');
 
     //route for my profile in personal hub
-    Route::get('/myconference/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
+    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
     //route for personal programme
-    Route::get('/myconference/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+    Route::get('/my/programme', [HubController::class, 'getProgramme'])->name('my-programme');
 
     Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
 
     //route for disenrolling from a presentation
-    Route::get('/myconference/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+    Route::get('/my/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 
     Route::get('/speakers/request', [PresentationController::class, 'create'])
         ->name('speakers.request.presentation');
@@ -103,9 +99,6 @@ Route::middleware([
     'verified',
     'moderator'
 ])->group(function () {
-    Route::get('moderator/overview', [ContentModeratorController::class, 'overview'])
-        ->name('moderator.overview');
-
     Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
         ->name('moderator.requests');
 

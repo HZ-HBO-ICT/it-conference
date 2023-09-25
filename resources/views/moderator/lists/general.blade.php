@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">List of {{$type}}</h1>
     <div class="grid grid-cols-1 gap-2 pr-12 pl-4">
         @forelse($list as $item)
@@ -30,4 +30,4 @@
             <p class="text-violet-600 text-lg">There are currently no {{$type}}.</p>
         @endforelse
     </div>
-</x-content-moderator-layout>
+</x-hub-layout>
