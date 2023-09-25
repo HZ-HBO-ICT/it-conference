@@ -21,10 +21,6 @@ class HubController extends Controller
      */
     public function getProfileInfo()
     {
-        if (Auth::user()->hasRole('content moderator')) {
-            return view('moderator.profile');
-        }
-
         return view('myhub.profile');
     }
 
