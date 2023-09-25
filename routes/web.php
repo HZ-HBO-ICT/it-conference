@@ -40,7 +40,7 @@ Route::middleware([
     })->name('dashboard');
 
     //route for announcements
-    Route::get('/myconference', [HubController::class, 'getConferenceHome'])->name('announcements');
+    Route::get('/my', [HubController::class, 'getConferenceHome'])->name('announcements');
 
     //route for my profile in personal hub
     Route::get('/myconference/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
@@ -103,9 +103,6 @@ Route::middleware([
     'verified',
     'moderator'
 ])->group(function () {
-    Route::get('moderator/overview', [ContentModeratorController::class, 'overview'])
-        ->name('moderator.overview');
-
     Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
         ->name('moderator.requests');
 
