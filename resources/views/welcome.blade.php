@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <!-- The div for the logo of the sponsor -->
-                        @if($goldSponsor)
+                        @if($goldSponsor && $goldSponsor->is_sponsor_approved)
                             <div class="basis-1/3 pt-16">
                                 <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
                             </div>
