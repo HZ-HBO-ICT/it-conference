@@ -13,6 +13,9 @@
                 @if(Auth::user()->currentTeam)
                     <x-company-dashboard-section></x-company-dashboard-section>
                 @endif
+                @if(Auth::user()->hasRole('content moderator'))
+                    <x-content-moderator-dashboard></x-content-moderator-dashboard>
+                @endif
             </div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Notifications</h3>
                 <dl class="py-11 px-4">

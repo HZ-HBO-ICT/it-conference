@@ -13,10 +13,6 @@ class HubController extends Controller
      */
     public function getConferenceHome()
     {
-        if (Auth::user()->hasRole('content moderator')) {
-            abort(404);
-        }
-
         return view('myhub.home');
     }
 
@@ -25,10 +21,6 @@ class HubController extends Controller
      */
     public function getProfileInfo()
     {
-        if (Auth::user()->hasRole('content moderator')) {
-            return view('moderator.profile');
-        }
-
         return view('myhub.profile');
     }
 

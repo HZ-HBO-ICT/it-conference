@@ -13,9 +13,6 @@ class HubLayout extends Component
      */
     public function render(): View
     {
-        if (Auth::user()->hasRole('content moderator')) {
-            abort(404);
-        }
-        return view('layouts.myhub');
+        return view('layouts.hub');
     }
 }

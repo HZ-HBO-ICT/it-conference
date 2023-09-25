@@ -81,4 +81,12 @@ class TeamPolicy
     {
         return $user->ownsTeam($team);
     }
+
+    /**
+     * Determine whether the user can change the logo of the company.
+     */
+    public function changeLogo(User $user, Team $team): bool
+    {
+        return $user->ownsTeam($team);
+    }
 }

@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Company requests</h1>
     <div class="pr-12 pl-4">
         <h2 class="text-2xl text-gray-700 dark:text-white">Companies currently awaiting approval</h2>
@@ -49,5 +49,12 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-</x-content-moderator-layout>
+            </a>
+        @empty
+            <p class="text-violet-600 text-lg">There are currently no sponsorship requests.</p>
+        @endforelse
+        <div class="pt-2">
+            {{ $teams->links() }}
+        </div>
+    </div>
+</x-hub-layout>
