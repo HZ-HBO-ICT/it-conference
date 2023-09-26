@@ -50,9 +50,6 @@
                     </div>
                 </div>
             </a>
-        @empty
-            <p class="text-violet-600 text-lg">There are currently no sponsorship requests.</p>
-        @endforelse
         <div class="pt-2">
             {{ $teams->links() }}
         </div>
