@@ -20,7 +20,6 @@
                         </div>
                         <ul role="list">
                             @forelse($teams as $index => $team)
-                                <!--  -->
                                 <li>
                                     <a href="{{route('moderator.request.details', ['teams', $team])}}" class="block">
                                         <div class="px-6 py-6 hover:bg-crew-100 dark:hover:bg-slate-600">
