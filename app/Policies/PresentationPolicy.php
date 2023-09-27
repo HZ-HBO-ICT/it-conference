@@ -24,7 +24,7 @@ class PresentationPolicy
 
         if ($user->currentTeam) {
             // Allow HZ to have unlimited presentations
-            if($user->currentTeam->isHz)
+            if ($user->currentTeam->isHz)
                 return true;
 
             return $user->currentTeam->has_presentations_left;
@@ -43,6 +43,18 @@ class PresentationPolicy
     public function update(User $user, Presentation $presentation): bool
     {
         return $user->id == $presentation->mainSpeaker()->user->id;
+    }
+
+    /**
+     * Determine whether the user can view the presentation details/edits
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function view(User $user, Presentation $presentation): bool
+    {
+        return $user->speaker && $user->speaker->presentation_id == $presentation->id;
     }
 
 }
