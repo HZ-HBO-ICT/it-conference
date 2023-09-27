@@ -158,30 +158,6 @@ class ContentModeratorController extends Controller
     }
 
     /**
-     * Returns the moderator overview view
-     *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
-    public function overview(): \Illuminate\Foundation\Application|View|Factory|Application
-    {
-        $numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
-            $query->where('is_approved', false);
-        })->count();
-
-        $numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
-            return !$presentation->isScheduled && $presentation->isApproved;
-        })->count();
-
-        $numberOfScheduledPresentations = Presentation::all()->count() - $numberOfUnscheduledPresentations;
-
-        return view('moderator.overview', compact(
-            'numberOfPresentationRequests',
-            'numberOfUnscheduledPresentations',
-            'numberOfScheduledPresentations'
-        ));
-    }
-
-    /**
      * Returns the moderator general list view
      *
      * @param string $type

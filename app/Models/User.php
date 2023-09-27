@@ -23,6 +23,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * App\Models\User
@@ -148,5 +149,24 @@ class User extends Authenticatable implements MustVerifyEmail
     public function speaker(): HasOne
     {
         return $this->hasOne(Speaker::class);
+    }
+
+    /**
+     * Set the role colour for the user
+     * @return string
+     */
+    public function roleColour() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->currentTeam) {
+                    return 'partner';
+                } elseif ($this->hasRole('content moderator')) {
+                    return 'crew';
+                } else {
+                    return 'participant';
+                }
+            }
+        );
     }
 }
