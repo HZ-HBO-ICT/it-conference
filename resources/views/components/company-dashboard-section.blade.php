@@ -4,8 +4,8 @@
                         && Auth::user()->currentTeam->allPresentations->count() < 2)
         <div class="px-6 pt-5">
             <div
-                class="py-5 px-4 rounded-lg overflow-hidden relative bg-amber-100 dark:bg-amber-900 shadow-md dark:shadow-md">
-                <div class="p-3 rounded-md absolute bg-orange-500">
+                class="py-5 px-4 rounded-lg overflow-hidden relative bg-crew-100 dark:bg-crew-800 shadow-md dark:shadow-md">
+                <div class="p-3 rounded-md absolute bg-crew-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke-width="1.5" stroke="white"
                          aria-hidden="true" class="w-6 h-6">
@@ -19,13 +19,13 @@
                     company can have two presentations. Currently, you have
                     requested {{Auth::user()->currentTeam->allPresentations->count()}} presentations.
                     <a href="{{route('teams.show', Auth::user()->currentTeam)}}"
-                       class="text-purple-500">
+                       class="text-partner-500">
                         Invite speakers to host a presentation
                     </a>
                     @if(!Auth::user()->speaker)
                         or
                         <a href="{{route('speakers.request.presentation')}}"
-                           class="text-purple-500">
+                           class="text-partner-500">
                             host one yourself
                         </a>
                     @endif
@@ -99,7 +99,7 @@
                     </div>
                 @endforeach
             @else
-                <p class="text-purple-600 font-medium text-md dark:text-purple-500">
+                <p class="text-partner-600 font-medium text-md dark:text-partner-500">
                     Your company has not requested any presentations yet
                 </p>
             @endif
