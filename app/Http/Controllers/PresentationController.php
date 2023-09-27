@@ -35,7 +35,8 @@ class PresentationController extends Controller
 
         Auth::user()->setRelations([]);
 
-        if (Auth::user()->currentTeam) {
+        if (Auth::user()->currentTeam &&
+            !(Auth::user()->currentTeam->isHz || Auth::user()->currentTeam->isGoldenSponsor)) {
             foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
                 Speaker::create([
                     'user_id' => $speaker->id,
