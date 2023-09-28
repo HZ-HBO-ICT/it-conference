@@ -5,11 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\EventInstance;
 use App\Models\Presentation;
 use App\Models\Speaker;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PresentationController extends Controller
 {
+
+    public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
+        $presentations = Presentation::join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
+            ->orderBy('speakers.is_approved')->paginate(15);
+        return view('moderator.requests.presentations', compact('presentations'));
+
+    }
 
     public function create()
     {

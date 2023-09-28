@@ -144,4 +144,7 @@ Route::middleware([
 
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
         ->name('moderator.list');
+
+    Route::get('/presentations', [PresentationController::class, 'index'])
+        ->name('moderator.presentations');
 });

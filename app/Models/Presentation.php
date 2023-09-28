@@ -120,6 +120,18 @@ class Presentation extends Model
     }
 
     /**
+     * Returns a comma separated list of all the speaker names for this presentation.
+     *
+     * @return Attribute
+     */
+    public function speakernames(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->speakers->map(fn($item) => $item->user->name)->join(', ')
+        );
+    }
+
+    /**
      * Checks if the main speaker is approved, therefore if the presentation is approved
      * @return Attribute
      */
