@@ -42,7 +42,7 @@
                             </p>
                         @endcan
                         <a href="{{route('teams.show', Auth::user()->currentTeam->id)}}"
-                           class="flex items-center bg-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-900 text-gray-600 dark:text-white font-semibold justify-center py-2 px-4 w-3/4 rounded-lg transition duration-300 ease-in-out">
+                           class="flex items-center bg-partner-500 hover:bg-partner-400 dark:bg-partner-700 dark:hover:bg-partner-600 text-white dark:text-white font-semibold justify-center py-2 px-4 w-3/4 rounded-lg transition duration-300 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor"
                                  class="w-6 h-6 mr-2">
@@ -71,7 +71,7 @@
                             </svg>
                         </div>
                         <p class="ml-16 pt-3 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis">
-                            As a member of the HZ team you can <a class="underline" href="{{route('speakers.request.presentation')}}">request a presentation</a> or join one of the
+                            As a member of the HZ team you can <a class="underline" href="{{route('speakers.request.presentation')}}">request a presentation</a> or join one of the existing
                             presentations
                             shown below.
                         </p>
