@@ -11,7 +11,9 @@ class HomeController extends Controller
     public function index()
     {
         $goldSponsor = SponsorTier::where('name', 'golden')->first()->teams->first();
-        $allSponsors = Team::where('is_sponsor_approved', 1)->get();
+        $allSponsors = Team::where('is_sponsor_approved', 1)
+            ->orderBy('sponsor_tier_id', 'asc')
+            ->get();
 
         return view('welcome', compact(['goldSponsor', 'allSponsors']));
     }
