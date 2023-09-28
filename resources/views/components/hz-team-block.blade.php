@@ -15,15 +15,13 @@
                     <p class="ml-16 font-semibold text-md text-gray-600 dark:text-gray-100 overflow-hidden text-ellipsis">
                         You are the team manager of the HZ University of Applied Sciences.
                         @can('request', \App\Models\Presentation::class)
-                        As such you can request presentation, invite others to present and join their presentation. As
+                        As such you can a request presentation, invite others to present and join their presentation. As
                         HZ
-                        UAS there is no limit on presentations, except one person can participate in a single
-                        presentation.
+                        UAS there is no limit on presentations, except that a user can only host or co-host for one presentation.
                         @endcan
                         @cannot('request', \App\Models\Presentation::class)
-                        You already have requested presentation, but you still can invite others to present. As HZ
-                        UAS there is no limit on presentations, except one person can participate in a single
-                        presentation.
+                        You have already requested a presentation, but you can still invite others to present. As HZ
+                        UAS there is no limit on presentations, except that a user can only host or co-host for one presentation.
                     @endcannot
                 </dt>
                 <dd class="pt-4">
