@@ -72,8 +72,7 @@
                         </div>
                         <p class="ml-16 pt-3 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis">
                             As a member of the HZ team you can <a class="underline" href="{{route('speakers.request.presentation')}}">request a presentation</a> or join one of the existing
-                            presentations
-                            shown below.
+                            presentations shown below.
                         </p>
                     </dt>
                     <dd class="pt-4">
