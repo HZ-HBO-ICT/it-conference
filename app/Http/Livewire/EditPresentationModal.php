@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Livewire\Attributes\Rule;
 
 class EditPresentationModal extends Component
 {
@@ -38,6 +37,10 @@ class EditPresentationModal extends Component
 
     public function save()
     {
+        if (!$this->presentation->speakerCanEdit)
+            return redirect(route('presentations.show', $this->presentation))
+                ->with('status', 'Presentation cannot be updated.');
+
         $this->validate();
 
         $this->presentation->name = $this->name;

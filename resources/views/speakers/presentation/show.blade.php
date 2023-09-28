@@ -47,9 +47,11 @@
                             {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
-                    <div class="mt-5">
-                        @livewire('edit-presentation-modal', ['presentation' => $presentation])
-                    </div>
+                    @if($presentation->speakerCanEdit)
+                        <div class="mt-5">
+                            @livewire('edit-presentation-modal', ['presentation' => $presentation])
+                        </div>
+                    @endif
                 </x-slot>
 
             </x-action-section>

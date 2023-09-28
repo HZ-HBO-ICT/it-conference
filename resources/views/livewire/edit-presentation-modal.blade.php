@@ -24,7 +24,7 @@
                     </x-slot>
 
                     <x-slot name="description">
-                        {{ __('Here you can still edit your presentation details.') }}
+                        {{ __('Here you can edit your presentation details until 12th of October.') }}
                     </x-slot>
 
                     <x-slot name="content">
