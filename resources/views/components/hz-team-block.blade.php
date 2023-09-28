@@ -2,7 +2,7 @@
     @if(Auth::user()->ownsTeam(Auth::user()->currentTeam))
         <dl class="pt-11 pb-5 px-6">
             <div
-                class="py-5 px-4 rounded-lg overflow-hidden relative bg-sky-100 dark:bg-sky-900 shadow-md dark:shadow-md">
+                class="py-5 px-4 rounded-lg overflow-hidden relative bg-sky-200 dark:bg-sky-900 shadow-md dark:shadow-md">
                 <dt>
                     <div class="p-3 rounded-md absolute bg-sky-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -12,7 +12,7 @@
                                   d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/>
                         </svg>
                     </div>
-                    <p class="ml-16 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis">
+                    <p class="ml-16 font-semibold text-md text-gray-600 dark:text-gray-100 overflow-hidden text-ellipsis">
                         You are the team manager of the HZ University of Applied Sciences.
                         @can('request', \App\Models\Presentation::class)
                         As such you can request presentation, invite others to present and join their presentation. As
