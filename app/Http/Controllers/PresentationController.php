@@ -69,20 +69,4 @@ class PresentationController extends Controller
 
         return view('presentations.show', compact('presentation'));
     }
-
-    public function edit(Presentation $presentation)
-    {
-        $this->authorize('update', $presentation);
-
-        return view('speakers.presentation.edit', compact('presentation'));
-    }
-
-    public function update(Presentation $presentation, Request $request)
-    {
-        $this->authorize('update', $presentation);
-
-        $presentation->update($request->validate(Presentation::rules()));
-
-        return redirect(route('presentations.show', $presentation))->banner("You successfully updated your presentation");
-    }
 }
