@@ -174,4 +174,19 @@ class Presentation extends Model
             });
         }
     }
+
+    /**
+     * Checks if the speakers can still edit the presentations
+     *
+     * @return Attribute
+     */
+    protected function speakerCanEdit() : Attribute
+    {
+        $currentDate = Carbon::now();
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+
+        return Attribute::make(
+            get: fn() => $currentDate->lt($deadline)
+        );
+    }
 }
