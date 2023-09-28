@@ -37,7 +37,8 @@ class CreateNewUser implements CreatesNewUsers
                 'company_website' => 'required',
                 'company_postcode' => ['required',
                     'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
-                'company_housenumber' => 'required',
+                'company_housenumber' => ['required',
+                    'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i'],
                 'company_street' => 'required',
                 'company_city' => 'required',
             ])
@@ -52,7 +53,7 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
                 $user->assignRole('participant');
-                if(array_key_exists('institution', $input)) {
+                if (array_key_exists('institution', $input)) {
                     $user->institution = $input['institution'];
                     $user->save();
                 }
