@@ -22,32 +22,33 @@
 
                 <x-slot name="content">
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Presentation title</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$presentation->name}}</dd>
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation title</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->name}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Presentation description</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$presentation-> description}}</dd>
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation
+                                                                                                description
+                        </dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation-> description}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Presentation type</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$presentation->type}}</dd>
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation type</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->type}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Suggested max participants</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$presentation->max_participants}}</dd>
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Suggested max
+                                                                                                participants
+                        </dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->max_participants}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Presentation status</dt>
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation status</dt>
                         <dd class="mt-1 text-sm leading-6 {{$presentation->mainSpeaker()->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
                             {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
                     <div class="mt-5">
-                        <x-button type="button" wire:loading.attr="disabled">
-                            {{ __('Edit') }}
-                        </x-button>
-
+                        @livewire('edit-presentation-modal', ['presentation' => $presentation])
                     </div>
                 </x-slot>
 
@@ -59,9 +60,6 @@
         </div>
     </div>
 </x-hub-layout>
-
-
-
 
 
 {{--<x-hub-layout>--}}
