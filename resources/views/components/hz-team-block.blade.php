@@ -2,7 +2,7 @@
     @if(Auth::user()->ownsTeam(Auth::user()->currentTeam))
         <dl class="pt-11 pb-5 px-6">
             <div
-                class="py-5 px-4 rounded-lg overflow-hidden relative bg-sky-200 dark:bg-sky-900 shadow-md dark:shadow-md">
+                class="py-5 px-4 rounded-lg overflow-hidden relative bg-sky-100 dark:bg-sky-900 shadow-md dark:shadow-md">
                 <dt>
                     <div class="p-3 rounded-md absolute bg-sky-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -28,7 +28,7 @@
                     <div class="grid place-items-center">
                         @can('request', \App\Models\Presentation::class)
                             <a href="{{route('speakers.request.presentation')}}"
-                               class="flex items-center bg-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-900 text-gray-600 dark:text-white font-semibold justify-center py-2 px-4 w-3/4 rounded-lg transition duration-300 ease-in-out">
+                               class="flex items-center bg-partner-500 hover:bg-partner-400 dark:bg-partner-700 dark:hover:bg-partner-600 text-white dark:text-white font-semibold justify-center py-2 px-4 w-3/4 rounded-lg transition duration-300 ease-in-out">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor"
                                      class="w-6 h-6 mr-2">
@@ -82,7 +82,7 @@
                                     <form action="{{route('cohost.presentation', $presentation)}}" method="POST">
                                         @csrf
                                         <button
-                                            class="flex items-center bg-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-900 text-gray-600 dark:text-white font-semibold justify-center py-3 px-6 w-full rounded-lg transition duration-300 ease-in-out break-all">
+                                            class="flex items-center bg-partner-500 hover:bg-partner-400 dark:bg-partner-700 dark:hover:bg-partner-600 text-white dark:text-white font-semibold justify-center py-3 px-6 w-full rounded-lg transition duration-300 ease-in-out break-all">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor"
                                                  class="w-6 h-6 mr-2">
