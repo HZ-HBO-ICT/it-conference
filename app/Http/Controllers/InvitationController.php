@@ -138,6 +138,7 @@ class InvitationController extends Controller
     public function companyRepStore(Request $request, TeamInvitation $invitation)
     {
         (new ResetUserPassword())->reset($invitation->team->owner, $request->all());
+        $invitation->team->owner->email_verified_at = now()->timestamp;
         $this->guard->login($invitation->team->owner);
 
         $invitation->team->owner->switchTeam($invitation->team);
