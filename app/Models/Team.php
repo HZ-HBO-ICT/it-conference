@@ -291,6 +291,19 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * Checks if the team is the team of HZ University of Applied Sciences
+     *
+     * @return Attribute
+     */
+    public function isHz() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->name == 'HZ University of Applied Sciences';
+            });
+    }
+
+    /**
      * Scope a query to only include companies that require approval
      *
      * @param $query
