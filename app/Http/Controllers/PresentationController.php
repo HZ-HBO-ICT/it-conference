@@ -54,7 +54,7 @@ class PresentationController extends Controller
             ]);
         }
 
-        return redirect(route('presentations.show', $presentation))->banner("You successfully send your request to host a {$presentation->type}");
+        return redirect(route('presentations.show', $presentation))->banner("We successfully received your request to host a {$presentation->type}");
     }
 
     public function show(Presentation $presentation)
