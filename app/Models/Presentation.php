@@ -186,4 +186,16 @@ class Presentation extends Model
             });
         }
     }
+
+    /**
+     * Scope a query to only include presentations that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
+            ->where('speakers.is_approved', '=', 0);
+    }
 }
