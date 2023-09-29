@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Exception;
+use Laravel\Jetstream\Contracts\AddsTeamMembers;
 
 class AddToHz extends Command
 {
@@ -49,10 +50,14 @@ class AddToHz extends Command
         }
 
         try {
-            $user->switchTeam($teamHz);
-            $teamHz->users()->attach(
-                $user->id, ['role' => 'speaker']
+
+            app(AddsTeamMembers::class)->add(
+                $teamHz->owner,
+                $teamHz,
+                $user->email,
+                'speaker'
             );
+            $user->switchTeam($teamHz);
 
             $this->info("You successfully added {$user->name} (email: {$user->email}) to the HZ team");
         } catch (Exception) {
