@@ -40,7 +40,7 @@ class UploadPresentation extends Component
 
     public function downloadFile()
     {
-        return Storage::download($this->presentation->file_path);
+        return Storage::download($this->presentation->file_path, $this->presentation->file_original_name);
     }
 
     public function save()
@@ -60,8 +60,20 @@ class UploadPresentation extends Component
         Storage::delete('presentations' . explode('@', Auth::user()->email)[0] . '-presentation');
         $path = $this->file->storeAs('presentations', explode('@', Auth::user()->email)[0] . '-presentation');
         $this->presentation->file_path = $path;
+        $this->presentation->file_original_name = $this->file->getClientOriginalName();
         $this->presentation->save();
         session()->flash('message', 'Presentation is successfully updated.');
+    }
+
+    public function delete()
+    {
+        $this->filename = null;
+        $this->file = null;
+        Storage::delete('presentations' . explode('@', Auth::user()->email)[0] . '-presentation');
+        $this->presentation->file_path = '';
+        $this->presentation->file_original_name = '';
+        $this->presentation->save();
+        session()->flash('message', 'Presentation is successfully removed.');
     }
 
     public function render()

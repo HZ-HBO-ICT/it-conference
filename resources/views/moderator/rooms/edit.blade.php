@@ -1,14 +1,14 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <div id="breadcrumbs">
         <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
                     href="{{route('moderator.schedule.overview')}}">Schedule management</a></span> /
             <span class="hover:text-violet-500"><a
-                    href="{{route('rooms.index')}}">Available rooms</a></span> / Edit {{$room->name}}</p>
+                    href="{{route('moderator.rooms.index')}}">Available rooms</a></span> / Edit {{$room->name}}</p>
     </div>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white py-5">Edit {{$room->name}}</h1>
 
     <div class="pr-5">
-        <form method="POST" action="{{route('rooms.update', $room)}}">
+        <form method="POST" action="{{route('moderator.rooms.update', $room)}}">
             @csrf
             @method('PUT')
             <div class="col-span-6 sm:col-span-4">
@@ -29,4 +29,4 @@
             </x-button>
         </form>
     </div>
-</x-content-moderator-layout>
+</x-hub-layout>

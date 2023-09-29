@@ -102,7 +102,7 @@
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
             <div class="border-t border-gray-200 dark:border-gray-600"></div>

@@ -120,6 +120,18 @@ class Presentation extends Model
     }
 
     /**
+     * Returns a comma separated list of all the speaker names for this presentation.
+     *
+     * @return Attribute
+     */
+    public function speakernames(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->speakers->map(fn($item) => $item->user->name)->join(', ')
+        );
+    }
+
+    /**
      * Checks if the main speaker is approved, therefore if the presentation is approved
      * @return Attribute
      */
@@ -173,5 +185,32 @@ class Presentation extends Model
                 $this->delete();
             });
         }
+    }
+
+    /**
+     * Checks if the speakers can still edit the presentations
+     *
+     * @return Attribute
+     */
+    protected function speakerCanEdit() : Attribute
+    {
+        $currentDate = Carbon::now();
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+
+        return Attribute::make(
+            get: fn() => $currentDate->lt($deadline)
+        );
+    }
+
+    /**
+     * Scope a query to only include presentations that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
+            ->where('speakers.is_approved', '=', 0);
     }
 }

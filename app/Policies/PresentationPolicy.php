@@ -5,43 +5,66 @@ namespace App\Policies;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 class PresentationPolicy
 {
+
     /**
-     * Allows the user to send a request only if:
-     * The user has no other presentation
-     * The user is independent or if they are from a team
-     * then the team shouldn't have an already existing presentation
-     * and the user has been given a speaker role by the company representative
-     * or is the company representative themselves
+     * Determine whether the user can request for a presentation.
+     *
+     * @param User $user
+     * @return bool
      */
-    public function sendRequest(User $user): bool
+    public function request(User $user): bool
     {
-        return is_null($user->speaker)
-            && (is_null($user->currentTeam)
-                || (is_null($user->currentTeam->presentations)
-                    && ($user->hasTeamRole($user->currentTeam, 'speaker')
-                        || $user->currentTeam->owner->id === $user->id
-                        && !$user->hasRole('speaker'))));
+        $currentDate = Carbon::now();
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+
+        // If the deadline for the 12th of October has passed
+        if ($currentDate->gt($deadline)) {
+            return false;
+        }
+
+        // If the user already is a speaker
+        if ($user->speaker) {
+            return false;
+        }
+
+        if ($user->currentTeam) {
+            // Allow HZ to have unlimited presentations
+            if ($user->currentTeam->isHz)
+                return true;
+
+            return $user->currentTeam->has_presentations_left;
+        }
+
+        return true;
     }
 
     /**
-     * Allows the user to send a request only if:
-     * Their company is the gold sponsor of the conference
-     * Their company has less than 2 presentations requested/approved
-     * The user is not approved as a global speaker (they don't have approved presentation)
-     * The user must not have requested a presentation
-     * The user has been given a speaker role by the company representative
-     * or is the company representative themselves
+     * Determine whether the user can update the model.
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
      */
-    public function sendRequestGoldenSponsor(User $user): bool
+    public function update(User $user, Presentation $presentation): bool
     {
-        return $user->currentTeam->isGoldenSponsor &&
-            $user->currentTeam->allPresentations->count() < 2
-            && !$user->speaker
-            && ($user->hasTeamRole($user->currentTeam, 'speaker')
-                || $user->currentTeam->owner->id === $user->id
-                && !$user->hasRole('speaker'));
+        return $user->id == $presentation->mainSpeaker()->user->id;
     }
+
+    /**
+     * Determine whether the user can view the presentation details/edits
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function view(User $user, Presentation $presentation): bool
+    {
+        return $user->speaker && $user->speaker->presentation_id == $presentation->id;
+    }
+
 }

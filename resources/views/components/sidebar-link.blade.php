@@ -1,7 +1,7 @@
 @php
     $isCurrentRoute = empty($param) ? request()->routeIs($route) : (
         request()->routeIs($route) &&
-        (request()->route()->parameter('type') == $param || request()->route()->parameter('team') == $param)
+        (request()->route()->parameter('type') == $param || request()->route()->parameter('team') == $param || request()->route()->parameter('presentation') == $param)
     );
 
     $bgColorClass = $isCurrentRoute ? 'bg-gray-200 text-' . $roleColour . '-500 dark:text-' . $roleColour . '-500 dark:bg-gray-700 ' : 'dark:text-white';
@@ -14,8 +14,8 @@
     @if($type == "form")
         <form method="POST" action="{{ route($route) }}">
             @csrf
-            <button type="submit" class="w-full leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-500 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-500">
+            <button type="submit" class="w-full leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-400 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-400">
                     <path stroke-linecap="round" stroke-linejoin="round"
                           d="{{ $icon }}">
                     </path>
@@ -29,8 +29,8 @@
         </form>
     @else
     <a href="{{ empty($param) ? route($route) : route($route, $param) }}"
-       class="leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-500 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-500">
+       class="leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-400 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-400">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="{{ $icon }}">
             </path>

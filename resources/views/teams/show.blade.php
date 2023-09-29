@@ -23,9 +23,10 @@
 
             <div>
                 <div class="py-10">
-                    @livewire('manage-company-logo', ['team' => $team])
-
-                    <x-section-border/>
+                    @can('changeLogo', Auth::user()->currentTeam)
+                        @livewire('manage-company-logo', ['team' => $team])
+                        <x-section-border/>
+                    @endcan
 
                     @livewire('teams.update-team-name-form', ['team' => $team])
 

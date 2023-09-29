@@ -23,7 +23,7 @@
                         Invite speakers to host a presentation
                     </a>
                     @if(!Auth::user()->speaker)
-                        or
+                    or
                         <a href="{{route('speakers.request.presentation')}}"
                            class="text-purple-500">
                             host one yourself
@@ -32,6 +32,9 @@
                 </p>
             </div>
         </div>
+    @endif
+    @if(Auth::user()->currentTeam->isHz)
+        <x-hz-team-block></x-hz-team-block>
     @endif
     @if(Auth::user()->currentTeam->isGoldenSponsor
         && Auth::user()->currentTeam->owner->id != Auth::user()->id
