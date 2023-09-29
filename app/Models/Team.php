@@ -233,7 +233,7 @@ class Team extends JetstreamTeam
     public function hasPresentationsLeft(): Attribute
     {
         return Attribute::make(
-            get: function() {
+            get: function () {
                 $max_presentations = $this->is_golden_sponsor ? 2 : 1;
                 return $this->is_approved && $this->all_presentations->count() < $max_presentations;
             }

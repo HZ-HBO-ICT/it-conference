@@ -186,6 +186,7 @@ class Presentation extends Model
             });
         }
     }
+
     /**
      * Checks if the speakers can still edit the presentations
      *

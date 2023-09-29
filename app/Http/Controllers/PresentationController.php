@@ -38,7 +38,8 @@ class PresentationController extends Controller
 
         Auth::user()->setRelations([]);
 
-        if (Auth::user()->currentTeam) {
+        if (Auth::user()->currentTeam &&
+            !(Auth::user()->currentTeam->isHz || Auth::user()->currentTeam->isGoldenSponsor)) {
             foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
                 Speaker::create([
                     'user_id' => $speaker->id,
@@ -56,14 +57,14 @@ class PresentationController extends Controller
             ]);
         }
 
-        return redirect(route('presentations.show', $presentation))->banner("You successfully send your request to host a {$presentation->type}");
+        return redirect(route('presentations.show', $presentation))->banner("We successfully received your request to host a {$presentation->type}");
     }
 
     public function show(Presentation $presentation)
     {
         // TODO one route should return one view. This should be split up into two different routes
-        // Shows the view to the host of the presentation
-        if (Auth::user()->id == $presentation->mainSpeaker()->user->id)
+        // Shows the view to the host and cohosts of the presentation
+        if (Auth::user()->can('view', $presentation))
             return view('speakers.presentation.show', compact('presentation'));
 
         // To everyone else once the programme is released
@@ -71,21 +72,5 @@ class PresentationController extends Controller
             abort(404);
 
         return view('presentations.show', compact('presentation'));
-    }
-
-    public function edit(Presentation $presentation)
-    {
-        $this->authorize('update', $presentation);
-
-        return view('speakers.presentation.edit', compact('presentation'));
-    }
-
-    public function update(Presentation $presentation, Request $request)
-    {
-        $this->authorize('update', $presentation);
-
-        $presentation->update($request->validate(Presentation::rules()));
-
-        return redirect(route('presentations.show', $presentation))->banner("You successfully updated your presentation");
     }
 }
