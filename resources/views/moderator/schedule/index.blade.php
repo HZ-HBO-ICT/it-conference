@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div>
-                <a href="{{route('rooms.index')}}"
+                <a href="{{route('moderator.rooms.index')}}"
                    class="bg-purple-800 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full">
                     {{$numberOfAvailableRooms}}
                     <span class="mt-1 block">Rooms</span>

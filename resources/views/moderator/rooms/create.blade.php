@@ -3,12 +3,12 @@
         <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
                     href="{{route('moderator.schedule.overview')}}">Schedule management</a></span> /
             <span class="hover:text-violet-500"><a
-                    href="{{route('rooms.index')}}">Available rooms</a></span> / Add new room</p>
+                    href="{{route('moderator.rooms.index')}}">Available rooms</a></span> / Add new room</p>
     </div>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white py-5">Add new room</h1>
 
     <div class="pr-5">
-        <form method="POST" action="{{route('rooms.store')}}">
+        <form method="POST" action="{{route('moderator.rooms.store')}}">
             @csrf
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="name" value="Room name"/>

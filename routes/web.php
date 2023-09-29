@@ -95,50 +95,56 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
     'moderator'
-])->group(function () {
+])->name('moderator.')->group(function () {
     Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
-        ->name('moderator.requests');
+        ->name('requests');
 
     Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
-        ->name('moderator.request.details');
+        ->name('request.details');
 
     Route::post('/requests/teams/{team}/approve/{isApproved}',
         [ContentModeratorController::class, 'changeApprovalStatusOfTeam'])
-        ->name('moderator.request.teams.approve');
+        ->name('request.teams.approve');
 
     Route::post('/requests/booths/{booth}/approve/{isApproved}',
         [ContentModeratorController::class, 'changeApprovalStatusOfBooth'])
-        ->name('moderator.request.booths.approve');
+        ->name('request.booths.approve');
 
     Route::post('/requests/sponsorships/{team}/approve/{isApproved}',
         [ContentModeratorController::class, 'changeApprovalStatusOfSponsorship'])
-        ->name('moderator.request.sponsorships.approve');
+        ->name('request.sponsorships.approve');
 
     Route::post('/requests/presentations/{presentation}/approve/{isApproved}',
         [ContentModeratorController::class, 'changeApprovalStatusOfPresentation'])
-        ->name('moderator.request.presentations.approve');
+        ->name('request.presentations.approve');
 
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
-        ->name('moderator.schedule.overview');
+        ->name('schedule.overview');
 
     // TODO: Fix with a post request instead
     Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
-        ->name('moderator.schedule.draft');
+        ->name('schedule.draft');
 
     Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
-        ->name('moderator.schedule.timeslots.create');
+        ->name('schedule.timeslots.create');
     Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
-        ->name('moderator.schedule.timeslots.store');
+        ->name('schedule.timeslots.store');
 
     Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
-        ->name('moderator.presentations-for-scheduling');
+        ->name('presentations-for-scheduling');
     Route::get('/schedule/{presentation}', [ScheduleController::class, 'schedulePresentation'])
-        ->name('moderator.schedule.presentation');
+        ->name('schedule.presentation');
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
-        ->name('moderator.schedule.presentation.store');
+        ->name('schedule.presentation.store');
 
     Route::resource('/rooms', RoomController::class);
 
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
-        ->name('moderator.list');
+        ->name('list');
+
+    Route::resource('/moderator/presentations',
+        App\Http\Controllers\ContentModerator\PresentationController::class);
+    Route::post('/moderator/presentations/{presentation}/approve', [
+        App\Http\Controllers\ContentModerator\PresentationController::class, 'approve'
+    ])->name('presentations.approve');
 });
