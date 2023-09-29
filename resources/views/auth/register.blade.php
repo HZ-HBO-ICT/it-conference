@@ -300,7 +300,6 @@
                 subLabel.className = 'text-xs text-gray-600 dark:text-gray-400';
                 postcodeLabel.parentNode.insertBefore(subLabel, postcodeLabel.nextSibling);
 
-                document.getElementById('company_housenumber').setAttribute('type', 'number');
                 postcodeValidation();
                 document.getElementById('company_postcode').setAttribute('maxlength', '6');
                 document.getElementById('company_postcode').addEventListener('input', function() {

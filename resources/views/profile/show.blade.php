@@ -1,4 +1,6 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
 <x-hub-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -12,7 +14,7 @@
             @endif
 
                 @livewire('email-notification-preference')
-                <x-section-border/>
+            <x-section-border/>
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <div class="mt-10 sm:mt-0">

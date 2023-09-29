@@ -227,6 +227,20 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * Checks if the team is the golden sponsor
+     * @return Attribute
+     */
+    public function hasPresentationsLeft(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $max_presentations = $this->is_golden_sponsor ? 2 : 1;
+                return $this->is_approved && $this->all_presentations->count() < $max_presentations;
+            }
+        );
+    }
+
+    /**
      * Handle a (dis)approval of this Teams request to join the conference.
      *
      * @param bool $isApproved
@@ -274,5 +288,29 @@ class Team extends JetstreamTeam
             $this->sponsor_tier_id = null;
             $this->save();
         }
+    }
+
+    /**
+     * Checks if the team is the team of HZ University of Applied Sciences
+     *
+     * @return Attribute
+     */
+    public function isHz() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->name == 'HZ University of Applied Sciences';
+            });
+    }
+
+    /**
+     * Scope a query to only include companies that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->where('is_approved', '=', 0);
     }
 }

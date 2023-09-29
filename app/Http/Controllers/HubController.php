@@ -11,21 +11,28 @@ class HubController extends Controller
     /**
      * get view for announcements
      */
-    public function getConferenceHome() {
+    public function getConferenceHome()
+    {
         return view('myhub.home');
     }
 
     /**
      * get view for profile information
      */
-    public function getProfileInfo() {
+    public function getProfileInfo()
+    {
         return view('myhub.profile');
     }
 
     /**
      * get personal programme for the user
      */
-    public function getProgramme() {
+    public function getProgramme()
+    {
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
+
         $user = Auth::user();
         $presentations = $user->presentations->sortBy('timeslot.start');
 
@@ -36,7 +43,12 @@ class HubController extends Controller
      * detach participation in specified presentation for a user
      * @param $presentationId id for presentation to detach from participants table
      */
-    public function detachParticipation($presentationId) {
+    public function detachParticipation($presentationId)
+    {
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
+
         $user = Auth::user();
 
         //delete the record from participants table

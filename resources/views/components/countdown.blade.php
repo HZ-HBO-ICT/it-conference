@@ -1,4 +1,4 @@
-<div id="parent" class="grid grid-cols-5 text-gray-200 pt-12">
+<div id="parent" class="grid grid-cols-5 text-gray-200">
 </div>
 
 @push('scripts')
