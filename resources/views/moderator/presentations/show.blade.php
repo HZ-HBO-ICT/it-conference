@@ -13,6 +13,9 @@
         <x-details-list-item label="Presentation type">
             {{ $presentation->type }}
         </x-details-list-item>
+        <x-details-list-item label="Difficulty">
+            {{ $presentation->difficulty->level }}
+        </x-details-list-item>
         <x-details-list-item label="Presentation max participants">
             {{ $presentation->max_participants }}
         </x-details-list-item>
@@ -40,7 +43,7 @@
                     </x-button>
                 </form>
                 @else
-                <a href="{{route('presentations.edit', $presentation)}}"
+                <a href="{{route('moderator.presentations.edit', $presentation)}}"
                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Edit
                 </a>
