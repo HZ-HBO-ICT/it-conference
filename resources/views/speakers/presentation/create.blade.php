@@ -7,7 +7,7 @@
             </h2>
             <h2 class="text-md text-gray-800 dark:text-gray-200 pt-2">
                 If you would like to host a lecture or a workshop during the IT Conference please fill out the form
-                bellow, and we will get in touch with you
+                below, and we will get in touch with you
             </h2>
         </div>
         <div>
