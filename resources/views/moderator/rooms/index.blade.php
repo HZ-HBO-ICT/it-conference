@@ -6,7 +6,7 @@
     </div>
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white py-5">Room available</h1>
 
-    <a href="{{route('rooms.create')}}"
+    <a href="{{route('moderator.rooms.create')}}"
        class="text-center bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
         Add a new room
     </a>
@@ -30,11 +30,11 @@
                     </td>
                     <td class="px-4 py-5 rounded rounded-t-none text-lg rounded-r-none">
                         <div class="flex">
-                            <a href="{{route('rooms.edit', $room)}}"
+                            <a href="{{route('moderator.rooms.edit', $room)}}"
                                class="text-center bg-indigo-500 hover:bg-indigo-700 text-white px-4 text-xs pt-2 uppercase rounded">
                                 Edit
                             </a>
-                            <form method="POST" action="{{ route('rooms.destroy', $room) }}" class="pl-2">
+                            <form method="POST" action="{{ route('moderator.rooms.destroy', $room) }}" class="pl-2">
                                 @csrf
                                 @method('DELETE')
                                 <x-button

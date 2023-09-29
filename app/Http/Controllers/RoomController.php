@@ -41,7 +41,7 @@ class RoomController extends Controller
     {
         Room::create($request->validate(Room::rules()));
 
-        return redirect(route('rooms.index'))->banner('You successfully added the room!');
+        return redirect(route('moderator.rooms.index'))->banner('You successfully added the room!');
     }
 
     /**
@@ -68,7 +68,7 @@ class RoomController extends Controller
             'max_participants' => 'required|numeric|min:1'
         ]));
 
-        return redirect(route('rooms.index'))->banner('You successfully updated the room!');
+        return redirect(route('moderator.rooms.index'))->banner('You successfully updated the room!');
     }
 
     /**
@@ -87,7 +87,7 @@ class RoomController extends Controller
 
         $room->delete();
 
-        return redirect(route('rooms.index'))->banner('The room was successfully deleted');
+        return redirect(route('moderator.rooms.index'))->banner('The room was successfully deleted');
     }
 
     /**
