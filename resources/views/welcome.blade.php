@@ -90,7 +90,7 @@
                 @if(!$allSponsors->isEmpty())
                     <div class="flex flex-wrap justify-center w-full gap-8 mt-16">
                         @foreach($allSponsors as $sponsor)
-                            <div class="border shadow-lg border-2 w-full @if($allSponsors->count() > 3) px-3 lg:w-1/3 xl:w-1/4 @endif @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
+                            <div class="bg-white border shadow-lg border-2 w-full @if($allSponsors->count() > 3) px-3 lg:w-1/3 xl:w-1/4 @endif @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
                             @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_sponsor_approved) border-silver block
                             @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_sponsor_approved) border-bronze hidden xl:block @endif rounded-lg">
                                 <a href="{{ $sponsor->website }}" target="_blank">
