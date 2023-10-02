@@ -78,4 +78,4 @@ jobs:
 
           # Undo maintenance mode
           rm site
-          ln -s $NEW_DIR/public site
+          ln -s $NEW_DIR/ site
