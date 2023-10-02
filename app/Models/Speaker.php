@@ -47,7 +47,7 @@ class Speaker extends Model
      */
     public function presentation(): BelongsTo
     {
-        return $this->belongsTo(Presentation::class);
+        return $this->belongsTo(Presentation::class, 'presentation_id', 'id');
     }
 
     /**
