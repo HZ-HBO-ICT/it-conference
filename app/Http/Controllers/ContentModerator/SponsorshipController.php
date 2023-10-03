@@ -58,7 +58,17 @@ class SponsorshipController extends Controller
      */
     public function approve(Request $request, Team $team)
     {
-        //
+        $validated = $request->validate([
+            'approved' => 'required|boolean'
+        ]);
+
+        $isApproved = $validated['approved'];
+        $team->handleSponsorshipApproval($isApproved);
+
+        $template = $isApproved ? 'You approved the sponsorship of :company!'
+            : 'You denied the sponsorship of :company';
+        return redirect(route('moderator.requests', 'sponsorships'))
+            ->banner(__($template, ['company' => $team->name]));
     }
 
     /**
