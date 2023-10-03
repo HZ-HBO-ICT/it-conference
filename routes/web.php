@@ -102,20 +102,28 @@ Route::middleware([
     Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
         ->name('request.details');
 
-    Route::post('/requests/teams/{team}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfTeam'])
+    Route::post(
+        '/requests/teams/{team}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfTeam']
+    )
         ->name('request.teams.approve');
 
-    Route::post('/requests/booths/{booth}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfBooth'])
+    Route::post(
+        '/requests/booths/{booth}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfBooth']
+    )
         ->name('request.booths.approve');
 
-    Route::post('/requests/sponsorships/{team}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfSponsorship'])
+    Route::post(
+        '/requests/sponsorships/{team}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfSponsorship']
+    )
         ->name('request.sponsorships.approve');
 
-    Route::post('/requests/presentations/{presentation}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfPresentation'])
+    Route::post(
+        '/requests/presentations/{presentation}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfPresentation']
+    )
         ->name('request.presentations.approve');
 
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
@@ -142,8 +150,10 @@ Route::middleware([
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
         ->name('list');
 
-    Route::resource('/moderator/presentations',
-        App\Http\Controllers\ContentModerator\PresentationController::class);
+    Route::resource(
+        '/moderator/presentations',
+        App\Http\Controllers\ContentModerator\PresentationController::class
+    );
     Route::post('/moderator/presentations/{presentation}/approve', [
         App\Http\Controllers\ContentModerator\PresentationController::class, 'approve'
     ])->name('presentations.approve');

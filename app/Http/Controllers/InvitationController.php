@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
@@ -25,6 +26,10 @@ class InvitationController extends Controller
 
     protected $guard;
 
+    /**
+     * Establishes a guard.
+     * @param StatefulGuard $guard
+     */
     public function __construct(StatefulGuard $guard)
     {
         $this->guard = $guard;
@@ -51,6 +56,7 @@ class InvitationController extends Controller
      * @param TeamInvitation $invitation
      * @param CreatesNewUsers $creator
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function register(Request $request, TeamInvitation $invitation, CreatesNewUsers $creator): RedirectResponse
     {
@@ -103,7 +109,6 @@ class InvitationController extends Controller
 
                 $user->assignRole('speaker');
             } elseif ($user->currentTeam->hasPendingPresentationRequest) {
-
                 $presentationId = 0;
                 foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
                     if ($userSpeaker->speaker) {
@@ -126,6 +131,12 @@ class InvitationController extends Controller
         );
     }
 
+    /**
+     * Displays the invitation for a company rep.
+     * @param Request $request
+     * @param TeamInvitation $invitation
+     * @return View
+     */
     public function companyRepShow(Request $request, TeamInvitation $invitation): View
     {
         if (!$request->hasValidSignature()) {
@@ -135,7 +146,13 @@ class InvitationController extends Controller
         return view('auth.company-rep-invitation', compact('invitation'));
     }
 
-    public function companyRepStore(Request $request, TeamInvitation $invitation)
+    /**
+     * If the rep accepts the request, store their information.
+     * @param Request $request
+     * @param TeamInvitation $invitation
+     * @return mixed
+     */
+    public function companyRepStore(Request $request, TeamInvitation $invitation): mixed
     {
         (new ResetUserPassword())->reset($invitation->team->owner, $request->all());
         $invitation->team->owner->email_verified_at = now()->timestamp;
@@ -148,5 +165,4 @@ class InvitationController extends Controller
             __('Great! You have accepted the invitation to be company representative!'),
         );
     }
-
 }

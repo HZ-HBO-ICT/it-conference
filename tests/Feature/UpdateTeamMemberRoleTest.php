@@ -17,7 +17,8 @@ class UpdateTeamMemberRoleTest extends TestCase
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $user->currentTeam->users()->attach(
-            $otherUser = User::factory()->create(), ['role' => 'speaker']
+            $otherUser = User::factory()->create(),
+            ['role' => 'speaker']
         );
 
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
@@ -26,7 +27,8 @@ class UpdateTeamMemberRoleTest extends TestCase
             ->call('updateRole');
 
         $this->assertTrue($otherUser->fresh()->hasTeamRole(
-            $user->currentTeam->fresh(), 'booth_owner'
+            $user->currentTeam->fresh(),
+            'booth_owner'
         ));
     }
 
@@ -35,7 +37,8 @@ class UpdateTeamMemberRoleTest extends TestCase
         $user = User::factory()->withPersonalTeam()->create();
 
         $user->currentTeam->users()->attach(
-            $otherUser = User::factory()->create(), ['role' => 'speaker']
+            $otherUser = User::factory()->create(),
+            ['role' => 'speaker']
         );
 
         $this->actingAs($otherUser);
@@ -47,7 +50,8 @@ class UpdateTeamMemberRoleTest extends TestCase
             ->assertStatus(403);
 
         $this->assertTrue($otherUser->fresh()->hasTeamRole(
-            $user->currentTeam->fresh(), 'speaker'
+            $user->currentTeam->fresh(),
+            'speaker'
         ));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Booth;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class BoothRequest extends Component
@@ -12,19 +13,32 @@ class BoothRequest extends Component
     public $requestSent;
 
 
-    public function mount($team)
+    /**
+     * @param $team
+     * @return void
+     */
+    public function mount($team): void
     {
         $this->team = $team;
 
         $this->requestSent = $this->team->booth ? true : false;
     }
 
-    public function render()
+    /**
+     * Displays the livewire booth-request element.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.booth-request');
     }
 
-    public function requestBooth()
+    /**
+     * TODO: Unused function
+     * Sends a request for a booth.
+     * @return void
+     */
+    public function requestBooth(): void
     {
         if (!$this->team->booth) {
             Booth::create(
@@ -33,7 +47,8 @@ class BoothRequest extends Component
                     'length' => 3,
                     'additional_information' => is_null($this->additionalInformation) ? 'No additional demands' : $this->additionalInformation,
                     'team_id' => $this->team->id
-                ]);
+                ]
+            );
 
             $this->additionalInformation = '';
             $this->requestSent = true;

@@ -5,8 +5,10 @@ namespace App\Http\Livewire;
 use App\Models\Presentation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UploadPresentation extends Component
 {
@@ -16,12 +18,20 @@ class UploadPresentation extends Component
     public $presentation;
     public $filename;
 
-    public function mount($presentation)
+    /**
+     * @param $presentation
+     * @return void
+     */
+    public function mount($presentation): void
     {
         $this->presentation = $presentation;
     }
 
-    public function updatedFile()
+    /**
+     * TODO: Unused function
+     * @return void
+     */
+    public function updatedFile(): void
     {
         $this->validate([
             'file' => ['required',
@@ -38,12 +48,21 @@ class UploadPresentation extends Component
         $this->filename = $this->file->getClientOriginalName();
     }
 
-    public function downloadFile()
+    /**
+     * TODO: Unused function
+     * Function to download a presentation file from the storage.
+     * @return StreamedResponse
+     */
+    public function downloadFile(): StreamedResponse
     {
         return Storage::download($this->presentation->file_path, $this->presentation->file_original_name);
     }
 
-    public function save()
+    /**
+     * Function to update an existing presentation file.
+     * @return void
+     */
+    public function save(): void
     {
         $this->validate([
             'file' => ['required',
@@ -65,7 +84,11 @@ class UploadPresentation extends Component
         session()->flash('message', 'Presentation is successfully updated.');
     }
 
-    public function delete()
+    /**
+     * Function to delete an existing presentation file.
+     * @return void
+     */
+    public function delete(): void
     {
         $this->filename = null;
         $this->file = null;
@@ -76,7 +99,11 @@ class UploadPresentation extends Component
         session()->flash('message', 'Presentation is successfully removed.');
     }
 
-    public function render()
+    /**
+     * Renders the presentation file.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.upload-presentation');
     }

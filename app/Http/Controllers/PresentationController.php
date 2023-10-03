@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EventInstance;
 use App\Models\Presentation;
 use App\Models\Speaker;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -14,21 +15,33 @@ use Illuminate\Support\Facades\Auth;
 class PresentationController extends Controller
 {
 
-    public function create()
+    /**
+     * Creates a presentation.
+     * @return View
+     * @throws AuthorizationException If the user is not authorized.
+     */
+    public function create(): View
     {
         $this->authorize('request', Presentation::class);
 
         return view('speakers.presentation.create');
     }
 
-    public function store(Request $request)
+    /**
+     * Stores presentation data.
+     * @param Request $request
+     * @return mixed
+     * @throws AuthorizationException
+     */
+    public function store(Request $request): mixed
     {
         $this->authorize('request', Presentation::class);
 
         if (Auth::user()->currentTeam) {
             if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
                 Auth::user()->currentTeam->users()->attach(
-                    Auth::user(), ['role' => 'speaker']
+                    Auth::user(),
+                    ['role' => 'speaker']
                 );
             }
         }
@@ -57,19 +70,27 @@ class PresentationController extends Controller
             ]);
         }
 
-        return redirect(route('presentations.show', $presentation))->banner("We successfully received your request to host a {$presentation->type}");
+        return redirect(route('presentations.show', $presentation))
+            ->banner("We successfully received your request to host a {$presentation->type}");
     }
 
+    /**
+     * Displays the presentation.
+     * @param Presentation $presentation
+     * @return View
+     */
     public function show(Presentation $presentation)
     {
         // TODO one route should return one view. This should be split up into two different routes
         // Shows the view to the host and cohosts of the presentation
-        if (Auth::user()->can('view', $presentation))
+        if (Auth::user()->can('view', $presentation)) {
             return view('speakers.presentation.show', compact('presentation'));
+        }
 
         // To everyone else once the programme is released
-        if (!EventInstance::current()->is_final_programme_released)
+        if (!EventInstance::current()->is_final_programme_released) {
             abort(404);
+        }
 
         return view('presentations.show', compact('presentation'));
     }

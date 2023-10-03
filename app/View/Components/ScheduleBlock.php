@@ -13,8 +13,7 @@ class ScheduleBlock extends Component
      */
     public function __construct(
         public $presentation
-    )
-    {
+    ) {
     }
 
     /**

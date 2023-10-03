@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Presentation;
 use App\Models\Timeslot;
+use Illuminate\View\View;
 use Livewire\Component;
 use Ramsey\Uuid\Type\Time;
 
@@ -11,6 +12,10 @@ class ResetTimeslots extends Component
 {
     public $isOpen = false;
 
+    /**
+     * Function to confirm a timeslot.
+     * @return void
+     */
     public function confirm()
     {
         $presentations = Presentation::all();
@@ -25,7 +30,11 @@ class ResetTimeslots extends Component
         $this->redirect(route('moderator.schedule.timeslots.create'));
     }
 
-    public function render()
+    /**
+     * Function that renders the reset-timeslots element.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.reset-timeslots');
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Routing\Redirector;
 use Livewire\Component;
 
 class EditPresentationModal extends Component
@@ -26,7 +28,10 @@ class EditPresentationModal extends Component
         'difficulty_id' => 'required|numeric',
     ];
 
-    public function mount()
+    /**
+     * @return void
+     */
+    public function mount(): void
     {
         $this->name = $this->presentation->name;
         $this->description = $this->presentation->description;
@@ -35,11 +40,16 @@ class EditPresentationModal extends Component
         $this->difficulty_id = $this->presentation->difficulty_id;
     }
 
-    public function save()
+    /**
+     * Saves presentation data and redirects the user.
+     * @return Redirector
+     */
+    public function save(): Redirector
     {
-        if (!$this->presentation->speakerCanEdit)
+        if (!$this->presentation->speakerCanEdit) {
             return redirect(route('presentations.show', $this->presentation))
                 ->with('status', 'Presentation cannot be updated.');
+        }
 
         $this->validate();
 
@@ -55,8 +65,11 @@ class EditPresentationModal extends Component
             ->with('status', 'Presentation successfully updated.');
     }
 
-
-    public function render()
+    /**
+     * Displays the edit-presentation element.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.edit-presentation-modal');
     }

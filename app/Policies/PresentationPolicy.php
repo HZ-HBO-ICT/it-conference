@@ -34,8 +34,9 @@ class PresentationPolicy
 
         if ($user->currentTeam) {
             // Allow HZ to have unlimited presentations
-            if ($user->currentTeam->isHz)
+            if ($user->currentTeam->isHz) {
                 return true;
+            }
 
             return $user->currentTeam->has_presentations_left;
         }
@@ -66,5 +67,4 @@ class PresentationPolicy
     {
         return $user->speaker && $user->speaker->presentation_id == $presentation->id;
     }
-
 }

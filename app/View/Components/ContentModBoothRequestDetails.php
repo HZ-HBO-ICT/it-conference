@@ -19,8 +19,7 @@ class ContentModBoothRequestDetails extends Component
         public $createdAt,
         public $formActionApprove,
         public $formActionReject,
-    )
-    {
+    ) {
         //
     }
 

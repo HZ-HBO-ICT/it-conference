@@ -37,7 +37,11 @@ class Room extends Model
     use HasFactory;
     protected $fillable = ['name', 'max_participants'];
 
-    public static function rules()
+    /**
+     * Function that returns the rules.
+     * @return string[]
+     */
+    public static function rules(): array
     {
         return [
             'name' => 'required|unique:rooms',

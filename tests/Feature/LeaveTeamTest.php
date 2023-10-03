@@ -17,7 +17,8 @@ class LeaveTeamTest extends TestCase
         $user = User::factory()->withPersonalTeam()->create();
 
         $user->currentTeam->users()->attach(
-            $otherUser = User::factory()->create(), ['role' => 'speaker']
+            $otherUser = User::factory()->create(),
+            ['role' => 'speaker']
         );
 
         $this->actingAs($otherUser);

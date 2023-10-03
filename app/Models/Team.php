@@ -270,8 +270,9 @@ class Team extends JetstreamTeam
             $this->is_sponsor_approved = true;
             $this->save();
 
-            if ($this->sponsorTier->leftSpots() == 0)
+            if ($this->sponsorTier->leftSpots() == 0) {
                 $this->sponsorTier->rejectAllExceptApproved();
+            }
 
             if ($this->booth) {
                 if ($this->sponsorTier->name == 'golden') {
@@ -300,7 +301,8 @@ class Team extends JetstreamTeam
         return Attribute::make(
             get: function () {
                 return $this->name == 'HZ University of Applied Sciences';
-            });
+            }
+        );
     }
 
     /**

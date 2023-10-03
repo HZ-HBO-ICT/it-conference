@@ -17,16 +17,23 @@ use Ramsey\Uuid\Type\Time;
 
 class ScheduleController extends Controller
 {
+    /**
+     * Shows all the timeslots.
+     * @return View
+     */
     public function index(): View
     {
-        if (!EventInstance::current()->is_final_programme_released)
+        if (!EventInstance::current()->is_final_programme_released) {
             abort(404);
+        }
 
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
         $workshopTimeslots = Timeslot::where('duration', 90)->get();
 
-        return view('presentations.index',
-            compact('lectureTimeslots', 'workshopTimeslots'));
+        return view(
+            'presentations.index',
+            compact('lectureTimeslots', 'workshopTimeslots')
+        );
     }
 
     /**
@@ -49,13 +56,16 @@ class ScheduleController extends Controller
 
         $numberOfAvailableRooms = Room::all()->count();
 
-        return view('moderator.schedule.index',
+        return view(
+            'moderator.schedule.index',
             compact(
                 'lectureTimeslots',
                 'workshopTimeslots',
                 'numberOfPresentationRequest',
                 'numberOfUnscheduledPresentations',
-                'numberOfAvailableRooms'));
+                'numberOfAvailableRooms'
+            )
+        );
     }
 
     /**

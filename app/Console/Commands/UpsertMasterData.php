@@ -104,7 +104,7 @@ class UpsertMasterData extends Command
      *
      * @return object - model instantiation
      */
-    private function getRecord (string $model, int $id): object
+    private function getRecord(string $model, int $id): object
     {
         if ($this->isSoftDeletable($model)) {
             $record = $model::withTrashed()->find($id);
@@ -122,13 +122,13 @@ class UpsertMasterData extends Command
      *
      * @return void
      */
-    private function upsertRecord (object $record, array $row): void
+    private function upsertRecord(object $record, array $row): void
     {
         foreach ($row as $key => $value) {
             if ($key === 'deleted_at' && $this->isSoftDeletable($record)) {
                 if ($record->trashed() && !$value) {
                     $record->restore();
-                } else if (!$record->trashed() && $value) {
+                } elseif (!$record->trashed() && $value) {
                     $record->delete();
                 }
             } else {
@@ -145,8 +145,9 @@ class UpsertMasterData extends Command
      *
      * @return boolean
      */
-    private function isSoftDeletable (string $model): bool
+    private function isSoftDeletable(string $model): bool
     {
         $uses = array_merge(class_uses($model), class_uses(get_parent_class($model)));
         return in_array('Illuminate\Database\Eloquent\SoftDeletes', $uses);
-    }}
+    }
+}

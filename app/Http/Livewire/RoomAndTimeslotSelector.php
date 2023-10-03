@@ -5,20 +5,21 @@ namespace App\Http\Livewire;
 use App\Http\Controllers\ScheduleController;
 use App\Models\Room;
 use App\Models\Timeslot;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class RoomAndTimeslotSelector extends Component
 {
     public $presentation;
-
     public $rooms;
     public $timeslots;
-
     public $maxParticipants;
-
     public $selectedRoom;
 
-    public function mount()
+    /**
+     * @return void
+     */
+    public function mount(): void
     {
         $this->rooms = Room::all();
 
@@ -28,7 +29,12 @@ class RoomAndTimeslotSelector extends Component
         }
     }
 
-    public function updatedSelectedRoom($value)
+    /**
+     * Updates info from the selected room from $value.
+     * @param $value
+     * @return void
+     */
+    public function updatedSelectedRoom($value): void
     {
         if ($this->selectedRoom) {
             $allTimeslots = Timeslot::where('duration', $this->presentation->type == 'lecture' ? 30 : 90)
@@ -48,6 +54,10 @@ class RoomAndTimeslotSelector extends Component
         }
     }
 
+    /**
+     * Returns the maximum amount of participants.
+     * @return void
+     */
     public function getMaxParticipants(): void
     {
         $this->maxParticipants = Room::find($this->selectedRoom)->max_participants < $this->presentation->max_participants
@@ -55,7 +65,11 @@ class RoomAndTimeslotSelector extends Component
             : $this->presentation->max_participants;
     }
 
-    public function render()
+    /**
+     * Displays the room and timeslot view selector.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.room-and-timeslot-selector');
     }

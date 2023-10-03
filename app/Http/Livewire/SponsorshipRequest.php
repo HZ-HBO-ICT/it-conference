@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class SponsorshipRequest extends Component
@@ -11,14 +12,17 @@ class SponsorshipRequest extends Component
     public $chosenTierName;
     public $requestSent;
 
-    public function mount($team, $tiers)
+    /**
+     * @param $team
+     * @param $tiers
+     * @return void
+     */
+    public function mount($team, $tiers): void
     {
         $this->team = $team;
         $this->tiers = $tiers;
-        foreach ($tiers as $tier)
-        {
-            if($tier->leftSpots() > 0)
-            {
+        foreach ($tiers as $tier) {
+            if ($tier->leftSpots() > 0) {
                 $this->chosenTierName = $tier->name;
                 break;
             }
@@ -27,15 +31,22 @@ class SponsorshipRequest extends Component
         $this->requestSent = (bool)$this->team->sponsorTier;
     }
 
-    public function render()
+    /**
+     * Returns a view of the sponsorship request.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.sponsorship-request');
     }
 
-    public function requestSponsorship()
+    /**
+     * Function that allows someone to request a sponsorship.
+     * @return void
+     */
+    public function requestSponsorship(): void
     {
-        if(!$this->team->sponsorTier)
-        {
+        if (!$this->team->sponsorTier) {
             $chosenTier = $this->tiers->firstWhere('name', $this->chosenTierName);
             $this->team->sponsor_tier_id = $chosenTier->id;
             $this->team->is_sponsor_approved = 0;

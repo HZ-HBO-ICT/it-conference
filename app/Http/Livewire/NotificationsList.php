@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class NotificationsList extends Component
@@ -11,17 +12,28 @@ class NotificationsList extends Component
 
     public $unreadNotifications;
 
-    public function mount()
+    /**
+     * @return void
+     */
+    public function mount(): void
     {
         $this->refreshNotifications();
     }
 
-    public function refreshNotifications()
+    /**
+     * Refreshes the notifications on screen.
+     * @return void
+     */
+    public function refreshNotifications(): void
     {
         $this->unreadNotifications = Auth::user()->unreadNotifications;
     }
 
-    public function render()
+    /**
+     * Renders the notification list element.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.notifications-list');
     }

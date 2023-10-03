@@ -47,12 +47,21 @@ class SponsorTier extends Model
         return $this->hasMany(Team::class);
     }
 
-    public function areMoreSponsorsAllowed()
+    /**
+     * TODO: Unused function
+     * Function to check if any more sponsors are allowed or not.
+     * @return bool
+     */
+    public function areMoreSponsorsAllowed(): bool
     {
         return $this->teams()->where('is_sponsor_approved', '=', 1)->count() < $this->max_sponsors;
     }
 
-    public function leftSpots()
+    /**
+     * Function that returns the remaining amount of sponsors that can still join.
+     * @return int
+     */
+    public function leftSpots(): int
     {
         return $this->max_sponsors - $this->teams()->where('is_sponsor_approved', '=', 1)->count();
     }
@@ -61,7 +70,7 @@ class SponsorTier extends Model
      * Reject all companies that have requested this sponsorship but are not approved
      * @return void
      */
-    public function rejectAllExceptApproved()
+    public function rejectAllExceptApproved(): void
     {
         foreach ($this->teams as $team) {
             if (!$team->is_sponsor_approved) {
@@ -75,8 +84,8 @@ class SponsorTier extends Model
     }
 
     /**
+     * TODO: Unused function
      * Scope a query to only include companies that require approval
-     *
      * @param $query
      * @return mixed
      */

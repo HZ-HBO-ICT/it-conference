@@ -50,7 +50,6 @@ class AddToHz extends Command
         }
 
         try {
-
             app(AddsTeamMembers::class)->add(
                 $teamHz->owner,
                 $teamHz,

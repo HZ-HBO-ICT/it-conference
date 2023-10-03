@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
@@ -13,11 +14,20 @@ class ManageCompanyLogo extends Component
     public $photo;
     public $team;
 
-    public function mount($team)
+    /**
+     * @param $team
+     * @return void
+     */
+    public function mount($team): void
     {
         $this->team = $team;
     }
 
+    /**
+     * TODO: Unused function
+     * Checks that the image is not too big.
+     * @return void
+     */
     public function updatedPhoto()
     {
         $this->validate([
@@ -25,7 +35,11 @@ class ManageCompanyLogo extends Component
         ]);
     }
 
-    public function save()
+    /**
+     * Saves the picture and adds it to the company.
+     * @return void
+     */
+    public function save(): void
     {
         $this->validate([
             'photo' => 'image|max:5120',
@@ -40,7 +54,11 @@ class ManageCompanyLogo extends Component
         session()->flash('message', 'Logo successfully updated.');
     }
 
-    public function render()
+    /**
+     * Displays the livewire logo element.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.manage-company-logo');
     }

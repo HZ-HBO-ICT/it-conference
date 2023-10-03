@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\SponsorTier;
 use App\Models\Team;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
+    /**
+     * Lists all sponsors by tier.
+     * @return View
+     */
     public function index()
     {
         $goldSponsor = SponsorTier::where('name', 'golden')->first()->teams->first();

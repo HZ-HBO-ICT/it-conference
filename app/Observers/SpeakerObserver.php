@@ -26,7 +26,6 @@ class SpeakerObserver
         // it should be a key in the returning associative array
         if (array_key_exists('is_approved', $speaker->getChanges())
             && $speaker->is_approved && $speaker->is_main_speaker) {
-
             foreach (User::role('participant')->get() as $user) {
                 $user->notify(new NotifyPresentationApproved($speaker->presentation));
             }

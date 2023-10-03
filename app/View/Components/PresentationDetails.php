@@ -18,8 +18,7 @@ class PresentationDetails extends Component
         public $filename,
         public $presentationType,
         public $presentationMaxParticipants,
-    )
-    {
+    ) {
         //
     }
 

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
@@ -17,8 +18,8 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a newly registered user.
      * If the user is a company representative, create a team (company) as well
-     *
      * @param array<string, string> $input
+     * @throws ValidationException
      */
     public function create(array $input): User
     {
@@ -58,7 +59,16 @@ class CreateNewUser implements CreatesNewUsers
                     $user->save();
                 }
                 if (array_key_exists('company_name', $input)) {
-                    $this->createTeam($user, $input['company_name'], $input['company_postcode'], $input['company_housenumber'], $input['company_street'], $input['company_city'], $input['company_website'], $input['company_description']);
+                    $this->createTeam(
+                        $user,
+                        $input['company_name'],
+                        $input['company_postcode'],
+                        $input['company_housenumber'],
+                        $input['company_street'],
+                        $input['company_city'],
+                        $input['company_website'],
+                        $input['company_description']
+                    );
                 }
             });
         });
@@ -67,11 +77,16 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a personal team for the user.
      */
-    protected function createTeam(User   $user, string $company_name, string $company_postcode,
-                                  string $company_housenumber, string $company_street,
-                                  string $company_city, string $company_website,
-                                  string $company_description): void
-    {
+    protected function createTeam(
+        User   $user,
+        string $company_name,
+        string $company_postcode,
+        string $company_housenumber,
+        string $company_street,
+        string $company_city,
+        string $company_website,
+        string $company_description
+    ): void {
         $team = Team::forceCreate([
             'user_id' => $user->id,
             'name' => $company_name,

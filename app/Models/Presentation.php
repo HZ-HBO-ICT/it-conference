@@ -57,6 +57,10 @@ class Presentation extends Model
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
 
+    /**
+     * Function that returns the rules for a presentation.
+     * @return string[]
+     */
     public static function rules()
     {
         return [
@@ -176,12 +180,12 @@ class Presentation extends Model
     public function handleApproval(bool $isApproved) : void
     {
         if ($isApproved) {
-            DB::transaction(function() {
-               $this->speakers->each( fn($speaker) => $speaker->approve());
+            DB::transaction(function () {
+                $this->speakers->each(fn($speaker) => $speaker->approve());
             });
         } else {
-            DB::transaction(function() {
-                $this->speakers->each( fn($speaker) => $speaker->delete());
+            DB::transaction(function () {
+                $this->speakers->each(fn($speaker) => $speaker->delete());
                 $this->delete();
             });
         }

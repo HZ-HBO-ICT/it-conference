@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 
 class OverrideDifficulty extends Component
@@ -9,17 +10,26 @@ class OverrideDifficulty extends Component
     public $presentation;
     public $selectedDifficultyId;
 
-    protected $rules = [
+    protected array $rules = [
         'selectedDifficultyId' => 'required'
     ];
 
+    /**
+     * @param $presentation
+     * @return void
+     */
     public function mount($presentation)
     {
         $this->presentation = $presentation;
         $this->selectedDifficultyId = $presentation->difficulty->id;
     }
 
-    public function updateDifficulty()
+    /**
+     * TODO: Unused function
+     * Updates the presentation's difficulty.
+     * @return void
+     */
+    public function updateDifficulty(): void
     {
         $this->presentation->update([
             'difficulty_id' => $this->selectedDifficultyId
@@ -28,7 +38,11 @@ class OverrideDifficulty extends Component
         session()->flash('message', 'The difficulty level is successfully updated.');
     }
 
-    public function render()
+    /**
+     * Renders the difficulty adjustment element.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.override-difficulty');
     }

@@ -102,5 +102,4 @@ class RoomController extends Controller
             ->orderByRaw('ABS(signed_capacity - ?)', [$maxCapacity])
             ->get();
     }
-
 }

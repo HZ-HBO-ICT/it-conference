@@ -62,6 +62,5 @@ class DatabaseSeeder extends Seeder
         Team::factory(5)->create([
             'sponsor_tier_id' => 3
         ]);
-
     }
 }

@@ -21,8 +21,7 @@ class ContentModCompanyRequestDetails extends Component
         public $teamOwnerEmail,
         public $formActionApprove,
         public $formActionReject,
-    )
-    {
+    ) {
         //
     }
 

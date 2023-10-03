@@ -10,27 +10,14 @@ use App\Events\SponsorshipApproved;
 use App\Events\SponsorshipDisapproved;
 use App\Events\TeamApproved;
 use App\Events\TeamDisapproved;
-use App\Mail\BoothApprovedMailable;
-use App\Mail\BoothDisapprovedMailable;
-use App\Mail\CustomTeamInvitation;
-use App\Mail\PresentationApprovedMailable;
-use App\Mail\PresentationDisapprovedMailable;
-use App\Mail\SponsorshipApprovedMailable;
-use App\Mail\SponsorshipDisapprovedMailable;
-use App\Mail\TeamApprovedMailable;
-use App\Mail\TeamDisapprovedMailable;
 use App\Models\Booth;
 use App\Models\Presentation;
-use App\Models\Speaker;
 use App\Models\Team;
-use App\Actions\Jetstream\DeleteTeam;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Mail;
 
 class ContentModeratorController extends Controller
 {
@@ -44,13 +31,13 @@ class ContentModeratorController extends Controller
         if ($type == 'teams') {
             $teams = Team::where('is_approved', false)->paginate(5);
             return view('moderator.requests.teams', compact('type', 'teams'));
-        } else if ($type == 'booths') {
+        } elseif ($type == 'booths') {
             $booths = Booth::where('is_approved', false)->paginate(5);
             return view('moderator.requests.booths', compact('type', 'booths'));
-        } else if ($type == 'sponsorships') {
+        } elseif ($type == 'sponsorships') {
             $teams = Team::where('is_sponsor_approved', false)->whereNotNull('sponsor_tier_id')->paginate(5);
             return view('moderator.requests.sponsorships', compact('type', 'teams'));
-        } else if ($type == 'presentations') {
+        } elseif ($type == 'presentations') {
             $presentations = Presentation::whereHas('speakers', function ($query) {
                 $query->where('is_approved', false);
             })->paginate(5);
@@ -71,13 +58,13 @@ class ContentModeratorController extends Controller
         if ($type == 'teams') {
             $team = Team::find($id);
             return view('moderator.details.team', compact('team'));
-        } else if ($type == 'booths') {
+        } elseif ($type == 'booths') {
             $booth = Booth::find($id);
             return view('moderator.details.booth', compact('booth'));
-        } else if ($type == 'sponsorships') {
+        } elseif ($type == 'sponsorships') {
             $team = Team::find($id);
             return view('moderator.details.sponsorship', compact('team'));
-        } else if ($type == 'presentations') {
+        } elseif ($type == 'presentations') {
             $presentation = Presentation::find($id);
             return view('moderator.details.presentation', compact('presentation'));
         }
@@ -167,18 +154,19 @@ class ContentModeratorController extends Controller
     {
         $list = [];
 
-        if ($type === 'teams')
+        if ($type === 'teams') {
             $list = Team::where('is_approved', 1)->get();
-        else if ($type === 'users')
+        } elseif ($type === 'users') {
             $list = User::all();
-        else if ($type === 'participants')
+        } elseif ($type === 'participants') {
             $list = User::role('participant')->get();
-        else if ($type === 'speakers')
+        } elseif ($type === 'speakers') {
             $list = User::role('speaker')->get();
-        else if ($type === 'booths')
+        } elseif ($type === 'booths') {
             $list = Booth::where('is_approved', 1)->get();
-        else if ($type === 'presentations')
+        } elseif ($type === 'presentations') {
             $list = Presentation::all()->filter(fn($presentation) => $presentation->isApproved && $presentation->isScheduled);
+        }
 
         return view('moderator.lists.general', compact('list', 'type'));
     }

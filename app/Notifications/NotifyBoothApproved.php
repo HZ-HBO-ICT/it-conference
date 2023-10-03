@@ -19,8 +19,7 @@ class NotifyBoothApproved extends Notification
      */
     public function __construct(
         public Team $team
-    )
-    {
+    ) {
     }
 
     /**
@@ -30,8 +29,9 @@ class NotifyBoothApproved extends Notification
      */
     public function via(object $notifiable): array
     {
-        if ($notifiable->receive_emails)
+        if ($notifiable->receive_emails) {
             return ['mail', 'database'];
+        }
 
         return ['database'];
     }

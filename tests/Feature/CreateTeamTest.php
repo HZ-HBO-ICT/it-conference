@@ -40,5 +40,4 @@ class CreateTeamTest extends TestCase
         Livewire::test(CreateTeamForm::class)
             ->assertSet('state.name', '');
     }
-
 }
