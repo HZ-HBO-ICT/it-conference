@@ -99,18 +99,13 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    @forelse($company->users as $user)
-                        {{-- TODO render users properly when I know how roles function --}}
-                        {{ $user->name }} | {{ $user->role }}
+                    @forelse($company->allUsers() as $user)
+                        {{ $user->name }} | {{ $user->email }}
+                        @if($user->ownsTeam($company)) (Owner) @endif
+                        <br>
                     @empty
                         {{ __('There are currently no users in this company') }}
                     @endforelse
-                    <p>
-                        TODO: connect existing users to this company (app might suggest based on email domain name
-                        that equals the company rep's domain
-                        TODO: invite users
-                        TODO: remove users from team
-                    </p>
                 </x-slot>
             </x-action-section>
 
