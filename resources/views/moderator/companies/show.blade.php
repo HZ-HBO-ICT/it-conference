@@ -43,8 +43,8 @@
                 </x-slot>
 
                 <x-slot name="actions">
-                    <x-button-link href="#">{{ __('Edit') }}</x-button-link>
                     {{-- TODO create Edit page or, even better, a LiveWire component --}}
+                    <x-button-link href="#">{{ __('Edit') }}</x-button-link>
                 </x-slot>
             </x-action-section>
 
