@@ -64,7 +64,7 @@
                 <x-label for="rep_email" value="{{ __('Company Representative') }}"></x-label>
                 <x-select name="rep_email" class="mt-1 block w-full">
                     @foreach(App\Models\User::forCompanyRep()->get() as $user)
-                        @if(!$user->team)
+                        @if(!$user->hasRole('company representative'))
                         <option value="{{ $user->email }}">
                             {{ $user->name }} | {{ $user->email }}
                         </option>

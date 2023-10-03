@@ -49,8 +49,6 @@ class CompanyController extends Controller
         ]);
 
         $user = User::where('email', '=', $input['rep_email'])->firstOrFail();
-        // Add user as owner
-        $user->assignRole('company representative');
 
         // Create the team
         $team = Team::forceCreate([
@@ -65,6 +63,12 @@ class CompanyController extends Controller
             'personal_team' => false,
             'is_approved' => true,
         ]);
+
+        // Assign the company rep role. Important for????
+        $user->assignRole('company representative');
+        // Switch the user context to the created team. Important to show the correct sidemenu
+        $user->switchTeam($team);
+        // FIXME somehow a different user is assigned this role but the correct user is added as the owner.
 
         // Send user an email
         // TODO send the mail
