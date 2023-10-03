@@ -60,6 +60,24 @@ class BoothController extends Controller
     }
 
     /**
+     * Approve or reject the specified resource in storage.
+     */
+    public function approve(Request $request, Booth $booth)
+    {
+        $validated = $request->validate([
+            'approved' => 'required|boolean'
+        ]);
+
+        $isApproved = $validated['approved'];
+        $booth->handleApproval($isApproved);
+
+        $template = $isApproved ? 'You approved the booth of :company!'
+            : 'You denied the request of :company to have a booth';
+        return redirect(route('moderator.requests', 'booths'))
+            ->banner(__($template, ['company' => $booth->team->name]));
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Booth $booth)

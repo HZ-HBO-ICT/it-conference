@@ -41,6 +41,27 @@
                         {{ $booth->team->description }}
                     </div>
                 </x-slot>
+
+                <x-slot name="actions">
+                    {{-- TODO create Edit page or, even better, a LiveWire component --}}
+                    <x-button-link href="#">Edit</x-button-link>
+                </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Booth Additional information') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Additional information the company representative added to the booth request.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    {{ $booth->additional_information }}
+                </x-slot>
             </x-action-section>
 
             <x-section-border/>

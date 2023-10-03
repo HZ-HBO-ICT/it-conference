@@ -116,7 +116,7 @@ class ContentModeratorController extends Controller
 
         $template = $isApproved ? 'You approved the booth of :company!'
             : 'You denied the request of :company to have a booth';
-        return redirect(route('moderator.requests', 'booths'))
+        return redirect(route('moderator.booths.index'))
             ->banner(__($template, ['company' => $booth->team->name]));
     }
 

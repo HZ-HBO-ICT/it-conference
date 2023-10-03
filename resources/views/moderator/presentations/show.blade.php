@@ -36,12 +36,12 @@
                         </div>
                     </x-details-list-item>
                     <x-details-list-item label="Presentation max participants">
-                        {{-- TODO create Edit page or, even better, a LiveWire component --}}
                         {{ $presentation->max_participants }}
                     </x-details-list-item>
                 </x-slot>
 
                 <x-slot name="actions">
+                    {{-- TODO create Edit page or, even better, a LiveWire component --}}
                     <x-button-link href="#">Edit</x-button-link>
                 </x-slot>
             </x-action-section>
