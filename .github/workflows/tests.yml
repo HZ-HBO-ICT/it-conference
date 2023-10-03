@@ -1,15 +1,17 @@
-name: Build
-
-on: push
+name: tests
+on: [workflow_call, push, pull_request]
 
 jobs:
-  Backend-tests:
+  #  Perform unit tests with PHPUnit
+  #  Local: ./vendor/bin/sail phpunit
+  PHPUnit:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [ 18.x, 20.x ]
 
+    # NodeJS
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -19,6 +21,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
 
+      # PHP
       - name: Use PHP 8.1
         uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
@@ -40,3 +43,25 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
+
+  # Check code quality and consistency with PHPCS
+  PHPCS:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: cs2pr, phpcs
+
+      # Run PHPCS
+      - name: Check PHP code style
+        id: phpcs
+        run: phpcs --report-full --report-checkstyle=./phpcs-report.xml
+
+      # Format failing tests to a readable format
+      - name: Show PHPCS results in PR
+        if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+        run: cs2pr ./phpcs-report.xml
+
