@@ -137,14 +137,33 @@ Route::middleware([
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
         ->name('schedule.presentation.store');
 
-    Route::resource('/rooms', RoomController::class);
-
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
         ->name('list');
+
+    Route::resource('/moderator/booths',
+        App\Http\Controllers\ContentModerator\BoothController::class);
+    Route::post('/moderator/booths/{booth}/approve', [
+        App\Http\Controllers\ContentModerator\BoothController::class, 'approve'
+    ])->name('booths.approve');
+
+    Route::resource('/moderator/companies',
+        App\Http\Controllers\ContentModerator\CompanyController::class);
+    Route::post('/moderator/companies/{company}/approve', [
+        App\Http\Controllers\ContentModerator\CompanyController::class, 'approve'
+    ])->name('companies.approve');
 
     Route::resource('/moderator/presentations',
         App\Http\Controllers\ContentModerator\PresentationController::class);
     Route::post('/moderator/presentations/{presentation}/approve', [
         App\Http\Controllers\ContentModerator\PresentationController::class, 'approve'
     ])->name('presentations.approve');
+
+    Route::resource('/moderator/sponsors',
+        App\Http\Controllers\ContentModerator\SponsorshipController::class);
+    Route::post('/moderator/sponsors/{sponsor}/approve', [
+        App\Http\Controllers\ContentModerator\SponsorshipController::class, 'approve'
+    ])->name('sponsors.approve');
+
+    Route::resource('/moderator/rooms',
+        App\Http\Controllers\ContentModerator\RoomController::class);
 });
