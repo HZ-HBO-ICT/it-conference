@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ContentModerator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -35,7 +36,43 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate and fetch the user
+        $input = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'website' => 'required',
+            'postcode' => 'required',
+            'house_number' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'rep_email' => 'required'
+        ]);
+
+        $user = User::where('email', '=', $input['rep_email'])->firstOrFail();
+        // Add user as owner
+        $user->assignRole('company representative');
+
+        // Create the team
+        $team = Team::forceCreate([
+            'user_id' => $user->id,
+            'name' => $input['name'],
+            'postcode' => $input['postcode'],
+            'house_number' => $input['house_number'],
+            'street' => $input['street'],
+            'city' => $input['city'],
+            'website' => $input['website'],
+            'description' => $input['description'],
+            'personal_team' => false,
+            'is_approved' => true,
+        ]);
+
+        // Send user an email
+        // TODO send the mail
+
+        $template = 'You created the :company company and added :user as its owner';
+        return redirect(route('moderator.companies.index'))
+            ->banner(__($template, [
+                'company' => $team->name, 'user' => $user->name]));
     }
 
     /**
