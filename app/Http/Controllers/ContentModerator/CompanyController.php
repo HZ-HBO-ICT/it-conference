@@ -65,6 +65,24 @@ class CompanyController extends Controller
     }
 
     /**
+     * Approve or reject the specified resource in storage.
+     */
+    public function approve(Request $request, Team $team)
+    {
+        $validated = $request->validate([
+            'approved' => 'required|boolean'
+        ]);
+
+        $isApproved = $validated['approved'];
+        $team->handleTeamApproval($isApproved);
+
+        $template = $isApproved ? 'You approved :company to join the IT Conference!!'
+            : 'You refused the request of :company to join the IT conference';
+        return redirect(route('moderator.companies.index'))
+            ->banner(__($template, ['company' => $team->name]));
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Team $team)

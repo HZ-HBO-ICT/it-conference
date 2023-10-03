@@ -7,7 +7,7 @@
             <x-list-section>
                 <x-slot name="actions">
                     <x-button-link href="{{route('moderator.companies.create')}}">
-                        {{ __('Create a new company') }}
+                        {{ __('Invite a company') }}
                     </x-button-link>
                 </x-slot>
 
