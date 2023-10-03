@@ -13,7 +13,7 @@
                     @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze
                     @else border-gray-200 dark:border-gray-500 @endif">
                         @if($team->logo_path)
-                            <img class="w-56 h-56 rounded-full mx-auto my-auto max-w-full block dark:text-white"
+                            <img class="object-scale-down w-56 h-56 mx-auto my-auto max-w-full block dark:text-white"
                                  src="{{ url('storage/'. $team->logo_path) }}" alt="Logo of {{$team->name}}">
                         @else
                             @php
