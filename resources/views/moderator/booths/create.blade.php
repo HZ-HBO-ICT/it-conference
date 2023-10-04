@@ -23,11 +23,11 @@
 
                 <x-slot name="content">
                     <div class="pr-5">
-                        <form method="POST" action="{{route('moderator.companies.store')}}">
+                        <form method="POST" action="{{route('moderator.booths.store')}}">
                             @csrf
-                            <div class="col-span-6 sm:col-span-4">
-                                <x-label for="company_id" value="{{ __('Company name') }}"></x-label>
-                                <x-select name="company_id" class="mt-1 block w-full">
+                            <div class="col-span-6 sm:col-span-4 ">
+                                <x-label for="team_id" class="after:content-['*'] after:text-red-500" value="{{ __('Company name') }}"></x-label>
+                                <x-select name="team_id" class="mt-1 block w-full">
                                     @foreach(Team::whereDoesntHave('booth')
                                                 ->where('is_approved', '=', '1')->get() as $team)
                                         <option value="{{ $team->id }}">
@@ -38,19 +38,19 @@
                                         </option>
                                     @endforeach
                                 </x-select>
-                                <x-input-error for="rep_email" class="mt-2"></x-input-error>
+                                <x-input-error for="team_id" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
-                                <x-label for="width" value="{{ __('Width') }}"></x-label>
+                                <x-label for="width" class="after:content-['*'] after:text-red-500" value="{{ __('Width') }}"></x-label>
                                 <x-input name="width" type="number" class="mt-1 block w-full"
                                          value="{{ old('width') }}"></x-input>
                                 <x-input-error for="width" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
-                                <x-label for="height" value="{{ __('Height') }}"></x-label>
-                                <x-input name="height" type="number" class="mt-1 block w-full"
-                                         value="{{ old('height') }}"></x-input>
-                                <x-input-error for="height" class="mt-2"></x-input-error>
+                                <x-label for="length" class="after:content-['*'] after:text-red-500" value="{{ __('Length') }}"></x-label>
+                                <x-input name="length" type="number" class="mt-1 block w-full"
+                                         value="{{ old('length') }}"></x-input>
+                                <x-input-error for="length" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
                                 <x-label for="description" value="{{ __('Additional information') }}"></x-label>
@@ -62,7 +62,7 @@
                             <div id="calculatedArea" class="mt-2 text-sm text-gray-600 dark:text-gray-400"></div>
                             <x-button
                                 class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                Save
+                                Create
                             </x-button>
                         </form>
                     </div>
