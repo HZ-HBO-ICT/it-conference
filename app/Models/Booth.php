@@ -36,7 +36,7 @@ use Illuminate\Support\Carbon;
  */
 class Booth extends Model
 {
-    protected $fillable = ['width', 'length', 'additional_information', 'team_id'];
+    protected $fillable = ['width', 'length', 'additional_information', 'team_id', 'is_approved'];
 
     use HasFactory;
 
