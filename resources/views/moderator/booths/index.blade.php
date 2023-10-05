@@ -43,7 +43,7 @@
                         </x-list-section-item>
                     @empty
                         <p class="text-crew-400 text-lg justify-center flex m-12">There are currently no new
-                                                                                  presentations waiting on approval.</p>
+                                                                                  booths waiting on approval.</p>
                     @endforelse
 
                     <div class="pt-2">
