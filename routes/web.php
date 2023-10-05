@@ -166,4 +166,7 @@ Route::middleware([
 
     Route::resource('/moderator/rooms',
         App\Http\Controllers\ContentModerator\RoomController::class);
+
+    Route::resource('/moderator/users',
+        \App\Http\Controllers\ContentModerator\UserController::class);
 });
