@@ -101,7 +101,7 @@ class Presentation extends Model
      */
     public function speakers(): HasMany
     {
-        return $this->hasMany(Speaker::class, 'presentation_id', 'id');
+        return $this->hasMany(Speaker::class);
     }
 
     /**
