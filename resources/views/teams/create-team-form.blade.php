@@ -1,6 +1,6 @@
 <x-form-section submit="createTeam">
     <x-slot name="title">
-        {{ __('Company Details') }}
+        {{ __('Create a new company') }}
     </x-slot>
 
     <x-slot name="description">
