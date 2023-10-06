@@ -19,8 +19,10 @@ class PresentationController extends Controller
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         // Sort them so the presentations that await approval appear on top
-        $presentations = Presentation::join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
-            ->orderBy('speakers.is_approved')->paginate(15);
+        $presentations = Presentation::with(['speakers' => function ($query) {
+            $query->orderBy('is_approved');
+        }])->orderBy('created_at', 'desc')
+            ->paginate(15);
 
         return view('moderator.presentations.index', compact('presentations'));
     }
