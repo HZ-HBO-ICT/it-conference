@@ -5,9 +5,14 @@
         </h2>
         <div class="pt-5">
             <x-list-section>
+
                 <x-slot name="actions">
                     <x-button-link href="{{route('moderator.companies.create')}}">
                         {{ __('Invite a company') }}
+                    </x-button-link>
+
+                    <x-button-link href="{{route('teams.create')}}" class="ml-2">
+                        {{__('Create a company')}}
                     </x-button-link>
                 </x-slot>
 

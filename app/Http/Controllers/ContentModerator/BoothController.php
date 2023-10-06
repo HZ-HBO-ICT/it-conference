@@ -24,7 +24,7 @@ class BoothController extends Controller
      */
     public function create()
     {
-        //
+        return view('moderator.booths.create');
     }
 
     /**
@@ -32,7 +32,21 @@ class BoothController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->validate([
+            'team_id' => ['required', 'numeric'],
+            'width' => ['required', 'numeric'],
+            'length' => ['required', 'numeric'],
+            'additional_information' => ''
+        ]);
+
+        $input['is_approved'] = 1;
+
+        $booth = Booth::create($input);
+
+        $template = 'You created a booth for the :company';
+        return redirect(route('moderator.booths.index'))
+            ->banner(__($template, [
+                'company' => $booth->team->name]));
     }
 
     /**
