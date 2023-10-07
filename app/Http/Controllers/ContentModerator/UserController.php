@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ContentModerator;
 
+use App\Actions\Jetstream\DeleteUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return view('moderator.users.show', compact('user'));
     }
 
     /**
@@ -60,8 +61,24 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user, DeleteUser $deleteUser)
     {
-        //
+        if($user->speaker) {
+            if($user->speaker->presentation->mainSpeaker()->id == $user->id) {
+                $user->speaker->presentation->fullDelete();
+            } else {
+                $user->speaker->presentation->removeSpeaker($user);
+            }
+        }
+
+        if($user->presentations)
+            $user->presentations()->detach();
+
+        $user->roles()->detach();
+
+        // TODO: Proper team delete
+        $deleteUser->delete($user);
+
+        return redirect(route('moderator.users.index'));
     }
 }
