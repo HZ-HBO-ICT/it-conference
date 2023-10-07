@@ -17,7 +17,7 @@
         <x-slot name="form">
             <div class="col-span-6">
                 <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                    If you want to be a sponsor, choose a tier and we will be soon in touch with you to discuss further.
+                    If you're interested in sponsoring, please select a tier and we'll reach out to you for further discussions.
                 </div>
             </div>
 
