@@ -5,9 +5,12 @@
         </x-slot>
 
         <x-slot name="description">
-            If you decide to become a sponsor of the conference, there are different tiers that you can choose of with
-            different privileges. Check out <a class="text-purple-600 dark:text-purple-500 underline" href="/files/sponsor-packages.pdf">this
-                                                                                                                       link</a>
+            If you choose to sponsor the conference, there are various tiers available, 
+            each offering distinct benefits. 
+            Check out 
+            <a class="text-purple-600 dark:text-purple-500 underline" href="/files/sponsor-packages.pdf">
+            this link
+            </a>
             for more detailed information.
         </x-slot>
 
