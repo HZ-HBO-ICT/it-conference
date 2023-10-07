@@ -5,13 +5,11 @@
         </x-slot>
 
         <x-slot name="description">
-            Signing up for our company market will after confirmation grant a standard 8m2 (sponsor package size may
-            differ) sized area where we will present you with a round standing table. Electricity is available. You can
-            bring your own banner to place in the area. Floorplans with location will be provided no later than two
-            weeks before the start of the conference. We will expand making more room but you can see an impression from
-            last years floorplan
-            <LINK>
-
+            Signing up for our company market will, after confirmation, grant a standard 8m2 booth. 
+            Choosing the gold sponsor package gives you a 12m2 booth. 
+            The standard and gold package booth both include a standing table and electricity. 
+            It is possible to bring your own banner to place at your booth. 
+            Floorplans for the location of your booth will be provided no later than two weeks before the conference. 
         </x-slot>
 
         <x-slot name="form">
