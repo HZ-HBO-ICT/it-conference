@@ -17,6 +17,7 @@ class ContentModeratorBlock extends Component
         public string $route,
         public string $icon,
         public string $roleColour,
+        public string $param = ''
     )
     {
 
