@@ -15,8 +15,8 @@
         <x-slot name="form">
             <div class="col-span-6">
                 <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                    Any additional supplies or preferences you need to fill the area please let us know so we can try to
-                    think with you and accommodate you as best as we can.
+                    If there are any additional materials or specific preferences you require for your booth, 
+                    please inform us. We'll do our best to understand your needs and accommodate them.
                 </div>
             </div>
 
