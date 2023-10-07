@@ -302,4 +302,15 @@ class Team extends JetstreamTeam
                 return $this->name == 'HZ University of Applied Sciences';
             });
     }
+
+    /**
+     * Scope a query to only include companies that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->where('is_approved', '=', 0);
+    }
 }

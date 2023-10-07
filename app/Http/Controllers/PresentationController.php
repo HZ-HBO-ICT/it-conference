@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\EventInstance;
 use App\Models\Presentation;
 use App\Models\Speaker;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

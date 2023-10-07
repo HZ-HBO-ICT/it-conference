@@ -73,4 +73,16 @@ class SponsorTier extends Model
             }
         }
     }
+
+    /**
+     * Scope a query to only include companies that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->join('teams', 'teams.sponsor_tier_id', '=', 'sponsor_tiers.id')
+            ->where('teams.is_sponsor_approved', '=', 0);
+    }
 }

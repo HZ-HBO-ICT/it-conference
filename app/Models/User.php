@@ -169,4 +169,15 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         );
     }
+
+    /**
+     * Scope a query to only include users who can be company representatives.
+     */
+    public function scopeForCompanyRep(Builder $query): void
+    {
+        // Only userss who:
+        // Do not have an @hz.nl
+        $query->whereNot('email', 'like', '%@hz.nl')
+        ->orderBy('name');
+    }
 }
