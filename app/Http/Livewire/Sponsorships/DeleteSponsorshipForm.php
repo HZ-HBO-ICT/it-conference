@@ -33,7 +33,7 @@ class DeleteSponsorshipForm extends Component
 
     /**
      * Render this component
-     * 
+     *
      * @return Factory|Application|View|ApplicationContract
      */
     public function render(): Factory|Application|View|ApplicationContract

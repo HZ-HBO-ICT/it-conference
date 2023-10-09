@@ -3,7 +3,8 @@
 namespace App\Http\Livewire\Rooms;
 
 use App\Models\Room;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -19,25 +20,25 @@ class DeleteRoomForm extends Component
     /**
      * @var bool determines whether the confirmation modal is visible
      */
-    public bool $confirmingRoomDeletion = false;
+    public bool $confirmingDeletion = false;
 
     /**
      * Trigger the confirmation modal to be visible
      *
      * @return void
      */
-    public function confirmRoomDeletion()
+    public function confirmDeletion()
     {
-        $this->confirmingRoomDeletion = true;
+        $this->confirmingDeletion = true;
     }
 
     /**
      * Render the component
      *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     * @return View|Factory|Application|ApplicationContract
      */
-    public function render(): \Illuminate\Foundation\Application|View|Factory|Application
+    public function render(): View|Factory|Application|ApplicationContract
     {
-        return view('livewire.rooms.delete-room-form');
+        return view('moderator.rooms.delete-room-form');
     }
 }

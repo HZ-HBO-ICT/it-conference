@@ -28,7 +28,7 @@
                 </ul>
             @endif
             <!-- Delete User Confirmation Modal -->
-            <x-dialog-modal wire:model="confirmingRoomDeletion">
+            <x-dialog-modal wire:model="confirmingDeletion">
                 <x-slot name="title">
                     {{ __('Delete Room') }}
                 </x-slot>
@@ -39,7 +39,7 @@
                 </x-slot>
 
                 <x-slot name="footer">
-                    <x-secondary-button wire:click="$toggle('confirmingRoomDeletion')" wire:loading.attr="disabled">
+                    <x-secondary-button wire:click="$toggle('confirmingDeletion')" wire:loading.attr="disabled">
                         {{ __('Cancel') }}
                     </x-secondary-button>
 
@@ -57,7 +57,7 @@
 
     <x-slot name="actions">
         @if($room->can_be_deleted)
-            <x-danger-button wire:click="confirmRoomDeletion" wire:loading.attr="disabled">
+            <x-danger-button wire:click="confirmDeletion" wire:loading.attr="disabled">
                 {{ __('Delete Room') }}
             </x-danger-button>
         @endif
