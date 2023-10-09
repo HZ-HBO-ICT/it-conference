@@ -26,7 +26,8 @@ class PresentationFactory extends Factory
             'description' => $this->faker->paragraph,
             'max_participants' => $this->faker->numberBetween(1, 50),
             'type' => $this->faker->boolean ? 'lecture' : 'workshop',
-            'file_path' => $path
+            'file_path' => $path,
+            'difficulty_id' => $this->faker->numberBetween(1, 3),
         ];
     }
 }
