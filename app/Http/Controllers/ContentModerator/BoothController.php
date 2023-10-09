@@ -96,6 +96,10 @@ class BoothController extends Controller
      */
     public function destroy(Booth $booth)
     {
-        //
+        $booth->delete();
+
+        $template = 'You removed the booth of :company!';
+        return redirect(route('moderator.booths.index'))
+            ->banner(__($template, ['company' => $booth->team->name]));
     }
 }

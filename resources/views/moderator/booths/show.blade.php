@@ -105,22 +105,10 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Booth') }}
-                </x-slot>
+            <div class="mt-10 sm:mt-0">
+                @livewire('booths.delete-booth-form', ['booth' => $booth])
+            </div>
 
-                <x-slot name="description">
-                    {{ __('Permanently delete this booth and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button>Remove this booth</x-danger-button>
-                </x-slot>
-            </x-action-section>
         </div>
     </div>
 </x-hub-layout>
