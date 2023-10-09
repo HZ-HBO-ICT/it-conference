@@ -84,22 +84,10 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Booth') }}
-                </x-slot>
+            <div class="mt-10 sm:mt-0">
+                @livewire('sponsorships.delete-sponsorship-form', ['team' => $sponsor])
+            </div>
 
-                <x-slot name="description">
-                    {{ __('Permanently delete this booth and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button>Remove this sponsorship</x-danger-button>
-                </x-slot>
-            </x-action-section>
         </div>
     </div>
 </x-hub-layout>
