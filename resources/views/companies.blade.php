@@ -5,15 +5,18 @@
             <div class="text-center max-w-2xl mx-auto mb-5">
                 <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Conference Line-up</h2>
             </div>
-            <ul class="gap-x-8 gap-y-8 grid-cols-3 max-w-none mx-0 grid" role="list">
+            <ul class="grid-cols-1 gap-y-5 md:gap-x-8 md:gap-y-8 md:grid-cols-3 max-w-none mx-0 grid" role="list">
                 @foreach ($teams as $team)
-                    <li class="px-10 py-8 rounded-2xl border-2 shadow dark:bg-gray-800
+                    <li class="px-3 py-6 lg:px-10 lg:py-8 rounded-2xl border-2 shadow dark:bg-gray-800
                     @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold
                     @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver
                     @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze
                     @else border-gray-200 dark:border-gray-500 @endif">
                         @if($team->logo_path)
-                            <img class="w-56 h-56 rounded-full mx-auto my-auto max-w-full block dark:text-white"
+                            <img class="object-scale-down p-2 @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold
+                            @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver
+                            @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze
+                            @else border-gray-200 dark:border-gray-500 @endif w-56 h-56 mx-auto my-auto max-w-full block dark:text-white"
                                  src="{{ url('storage/'. $team->logo_path) }}" alt="Logo of {{$team->name}}">
                         @else
                             @php
@@ -24,7 +27,7 @@
                                  else $color='#60a5fa'
                             @endphp
                             <div
-                                class="flex items-center justify-center w-56 h-56 rounded-full mx-auto my-auto max-w-full block dark:text-white border-2
+                                class="flex items-center justify-center w-56 h-56 mx-auto my-auto max-w-full block dark:text-white
                                 @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold
                                 @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver
                                 @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze

@@ -6,6 +6,7 @@ use App\Actions\Fortify\PasswordValidationRules;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Models\Speaker;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
@@ -66,7 +67,8 @@ class InvitationController extends Controller
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
-            'password' => Hash::make($input['password'])
+            'password' => Hash::make($input['password']),
+            'email_verified_at' => now()->timestamp
         ]);
 
         event(new Registered($user));
@@ -85,31 +87,38 @@ class InvitationController extends Controller
         // This checks if the team already has an approved presentation - add the speaker as supporter
         // and automatically approve. If the team doesn't have an approved presentation, but they have
         // a request, then add the speaker but don't approve it
-        if ($user->currentTeam->presentations) {
-            Speaker::create([
-                'user_id' => $user->id,
-                'presentation_id' => $user->currentTeam->presentations->first()->id,
-                'is_approved' => 1,
-                'is_main_speaker' => 0
-            ]);
 
-            $user->assignRole('speaker');
-        } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+        // New update: when the sponsor is gold this should not be executed
+        // Another update: when the team is HZ it also should not be executed
+        $sponsorTier = $user->currentTeam->sponsorTier;
 
-            $presentationId = 0;
-            foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
-                if ($userSpeaker->speaker) {
-                    $presentationId = $userSpeaker->speaker->presentation_id;
-                    break;
+        if ((!$sponsorTier || $sponsorTier->name !== 'golden') && !$user->currentTeam->isHz) {
+            if ($user->currentTeam->presentations) {
+                Speaker::create([
+                    'user_id' => $user->id,
+                    'presentation_id' => $user->currentTeam->presentations->first()->id,
+                    'is_approved' => 1,
+                    'is_main_speaker' => 0
+                ]);
+
+                $user->assignRole('speaker');
+            } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+
+                $presentationId = 0;
+                foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
+                    if ($userSpeaker->speaker) {
+                        $presentationId = $userSpeaker->speaker->presentation_id;
+                        break;
+                    }
                 }
-            }
 
-            Speaker::create([
-                'user_id' => $user->id,
-                'presentation_id' => $presentationId,
-                'is_approved' => 0,
-                'is_main_speaker' => 0
-            ]);
+                Speaker::create([
+                    'user_id' => $user->id,
+                    'presentation_id' => $presentationId,
+                    'is_approved' => 0,
+                    'is_main_speaker' => 0
+                ]);
+            }
         }
 
         return redirect(config('fortify.home'))->banner(
@@ -129,6 +138,7 @@ class InvitationController extends Controller
     public function companyRepStore(Request $request, TeamInvitation $invitation)
     {
         (new ResetUserPassword())->reset($invitation->team->owner, $request->all());
+        $invitation->team->owner->email_verified_at = now()->timestamp;
         $this->guard->login($invitation->team->owner);
 
         $invitation->team->owner->switchTeam($invitation->team);

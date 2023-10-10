@@ -55,7 +55,7 @@ class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id'];
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
 
     public static function rules()
     {
@@ -64,7 +64,7 @@ class Presentation extends Model
             'max_participants' => 'required|numeric',
             'description' => 'required',
             'type' => 'required|in:workshop,lecture',
-            'difficulty_id' => 'required'
+            'difficulty_id' => 'required',
         ];
     }
 
@@ -117,6 +117,18 @@ class Presentation extends Model
     public function mainSpeaker()
     {
         return $this->speakers()->where('is_main_speaker', 1)->first();
+    }
+
+    /**
+     * Returns a comma separated list of all the speaker names for this presentation.
+     *
+     * @return Attribute
+     */
+    public function speakernames(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->speakers->map(fn($item) => $item->user->name)->join(', ')
+        );
     }
 
     /**
@@ -173,5 +185,32 @@ class Presentation extends Model
                 $this->delete();
             });
         }
+    }
+
+    /**
+     * Checks if the speakers can still edit the presentations
+     *
+     * @return Attribute
+     */
+    protected function speakerCanEdit() : Attribute
+    {
+        $currentDate = Carbon::now();
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+
+        return Attribute::make(
+            get: fn() => $currentDate->lt($deadline)
+        );
+    }
+
+    /**
+     * Scope a query to only include presentations that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
+            ->where('speakers.is_approved', '=', 0);
     }
 }

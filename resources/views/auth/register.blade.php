@@ -24,7 +24,7 @@
 
 
                 <div class="mt-5">
-                    <x-label for="name" value="{{ __('Name') }}" class="after:content-['*'] after:text-red-500"/>
+                    <x-label for="name" value="{{ __('Full Name') }}" class="after:content-['*'] after:text-red-500"/>
                     <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
                              autofocus autocomplete="name"/>
                 </div>
@@ -132,10 +132,19 @@
                         <div class="mt-4">
                             <x-label for="company_postcode" value="{{ __('Postcode') }}"
                                      class="after:content-['*'] after:text-red-500"/>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">Format: 1234 AB</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Format: 1234AB</p>
                             <x-input id="company_postcode" class="block mt-1 w-full" type="text" name="company_postcode"
                                      :value="old('company_postcode')" required
+                                     oninput="this.value = this.value.toUpperCase()"
                                      autofocus autocomplete="postcode"/>
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="company_street" value="{{ __('Street') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="company_street" class="block mt-1 w-full" type="text" name="company_street"
+                                     :value="old('company_street')" required
+                                     autofocus autocomplete="name"/>
                         </div>
 
                         <div class="mt-4">
@@ -144,14 +153,6 @@
                             <x-input id="company_housenumber" class="block mt-1 w-full" type="text"
                                      name="company_housenumber"
                                      :value="old('company_housenumber')" required
-                                     autofocus autocomplete="name"/>
-                        </div>
-
-                        <div class="mt-4">
-                            <x-label for="company_street" value="{{ __('Street') }}"
-                                     class="after:content-['*'] after:text-red-500"/>
-                            <x-input id="company_street" class="block mt-1 w-full" type="text" name="company_street"
-                                     :value="old('company_street')" required
                                      autofocus autocomplete="name"/>
                         </div>
 
@@ -289,18 +290,21 @@
                 companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
                 companyDiv.appendChild(createField('company_website', 'Website', 'input'));
                 companyDiv.appendChild(createField('company_postcode', 'Postcode', 'input'));
-                companyDiv.appendChild(createField('company_housenumber', 'House number', 'input'));
                 companyDiv.appendChild(createField('company_street', 'Street', 'input'));
+                companyDiv.appendChild(createField('company_housenumber', 'House number', 'input'));
                 companyDiv.appendChild(createField('company_city', 'City', 'input'));
 
                 let postcodeLabel = document.querySelector("[for=company_postcode]");
                 let subLabel = document.createElement('p');
-                subLabel.innerHTML = 'Format: 1234 AB';
+                subLabel.innerHTML = 'Format: 1234AB';
                 subLabel.className = 'text-xs text-gray-600 dark:text-gray-400';
                 postcodeLabel.parentNode.insertBefore(subLabel, postcodeLabel.nextSibling);
 
-                document.getElementById('company_housenumber').setAttribute('type', 'number');
                 postcodeValidation();
+                document.getElementById('company_postcode').setAttribute('maxlength', '6');
+                document.getElementById('company_postcode').addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
             }
         }
 
@@ -322,8 +326,7 @@
 
                 if (
                     !((position < 4 && /[0-9]/.test(event.key)) ||
-                        (position === 4 && event.key === ' ') ||
-                        (position >= 5 && position <= 6 && /[A-Za-z]/.test(event.key)))
+                        (position >= 4 && position <= 5 && /[A-Za-z]/.test(event.key)))
                 ) {
                     event.preventDefault();
                 }
@@ -404,4 +407,5 @@
             return null;
         }
     });
+
 </script>

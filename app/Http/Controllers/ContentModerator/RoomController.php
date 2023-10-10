@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ContentModerator;
 
+use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
@@ -41,7 +41,15 @@ class RoomController extends Controller
     {
         Room::create($request->validate(Room::rules()));
 
-        return redirect(route('rooms.index'))->banner('You successfully added the room!');
+        return redirect(route('moderator.rooms.index'))->banner('You successfully added the room!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Room $room)
+    {
+        return view('moderator.rooms.show', compact('room'));
     }
 
     /**
@@ -68,7 +76,7 @@ class RoomController extends Controller
             'max_participants' => 'required|numeric|min:1'
         ]));
 
-        return redirect(route('rooms.index'))->banner('You successfully updated the room!');
+        return redirect(route('moderator.rooms.index'))->banner('You successfully updated the room!');
     }
 
     /**
@@ -87,20 +95,6 @@ class RoomController extends Controller
 
         $room->delete();
 
-        return redirect(route('rooms.index'))->banner('The room was successfully deleted');
+        return redirect(route('moderator.rooms.index'))->banner('The room was successfully deleted');
     }
-
-    /**
-     * List with the rooms with closest capacity to the maximum participants passed
-     * @param $capacity
-     * @return mixed
-     */
-    public function getRoomsWithClosestCapacity($maxCapacity)
-    {
-        return Room::select('*')
-            ->selectRaw('CAST(max_participants AS SIGNED) AS signed_capacity')
-            ->orderByRaw('ABS(signed_capacity - ?)', [$maxCapacity])
-            ->get();
-    }
-
 }

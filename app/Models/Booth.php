@@ -36,7 +36,7 @@ use Illuminate\Support\Carbon;
  */
 class Booth extends Model
 {
-    protected $fillable = ['width', 'length', 'additional_information', 'team_id'];
+    protected $fillable = ['width', 'length', 'additional_information', 'team_id', 'is_approved'];
 
     use HasFactory;
 
@@ -63,5 +63,16 @@ class Booth extends Model
         } else {
             $this->delete();
         }
+    }
+
+    /**
+     * Scope a query to only include companies that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->where('is_approved', '=', 0);
     }
 }

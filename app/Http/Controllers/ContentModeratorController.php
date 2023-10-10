@@ -116,7 +116,7 @@ class ContentModeratorController extends Controller
 
         $template = $isApproved ? 'You approved the booth of :company!'
             : 'You denied the request of :company to have a booth';
-        return redirect(route('moderator.requests', 'booths'))
+        return redirect(route('moderator.booths.index'))
             ->banner(__($template, ['company' => $booth->team->name]));
     }
 
@@ -155,30 +155,6 @@ class ContentModeratorController extends Controller
             : 'You refused the request of :name to host presentation during the IT conference';
         return redirect(route('moderator.requests', 'presentations'))
             ->banner(__($template, ['name' => $mainSpeakerName]));
-    }
-
-    /**
-     * Returns the moderator overview view
-     *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
-    public function overview(): \Illuminate\Foundation\Application|View|Factory|Application
-    {
-        $numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
-            $query->where('is_approved', false);
-        })->count();
-
-        $numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
-            return !$presentation->isScheduled && $presentation->isApproved;
-        })->count();
-
-        $numberOfScheduledPresentations = Presentation::all()->count() - $numberOfUnscheduledPresentations;
-
-        return view('moderator.overview', compact(
-            'numberOfPresentationRequests',
-            'numberOfUnscheduledPresentations',
-            'numberOfScheduledPresentations'
-        ));
     }
 
     /**

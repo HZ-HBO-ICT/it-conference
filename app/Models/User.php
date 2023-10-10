@@ -23,6 +23,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * App\Models\User
@@ -81,7 +82,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -97,7 +98,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password', 'institution'
+        'name', 'email', 'password', 'institution', 'email_verified_at'
     ];
 
     /**
@@ -148,5 +149,35 @@ class User extends Authenticatable
     public function speaker(): HasOne
     {
         return $this->hasOne(Speaker::class);
+    }
+
+    /**
+     * Set the role colour for the user
+     * @return string
+     */
+    public function roleColour() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->currentTeam) {
+                    return 'partner';
+                } elseif ($this->hasRole('content moderator')) {
+                    return 'crew';
+                } else {
+                    return 'participant';
+                }
+            }
+        );
+    }
+
+    /**
+     * Scope a query to only include users who can be company representatives.
+     */
+    public function scopeForCompanyRep(Builder $query): void
+    {
+        // Only userss who:
+        // Do not have an @hz.nl
+        $query->whereNot('email', 'like', '%@hz.nl')
+        ->orderBy('name');
     }
 }

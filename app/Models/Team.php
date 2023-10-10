@@ -152,7 +152,7 @@ class Team extends JetstreamTeam
     }
 
     /**
-     * All the presentations that the team has. All teams should have only one but
+     * All the presentations that the team has that are approved. All teams should have only one but
      * the gold sponsor.
      * @return Attribute
      */
@@ -175,6 +175,31 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * All the approved and awaiting presentations that the team has. All teams should have only one but
+     * the gold sponsor. If there are no presentations returns an empty collection!
+     * @return Attribute
+     */
+    public function allPresentations(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->allSpeakers->count() != 0) {
+                    $presentations = [];
+                    foreach ($this->allSpeakers as $user) {
+                        if ($user->speaker) {
+                            $presentations[] = $user->speaker->presentation()->get();
+                        }
+                    }
+
+                    return collect($presentations)->flatten()->unique();
+                }
+
+                return collect([]);
+            }
+        );
+    }
+
+    /**
      * Checks if currently there is a pending request for a presentation
      * by the team
      * @return Attribute
@@ -191,12 +216,37 @@ class Team extends JetstreamTeam
     }
 
     /**
+     * Checks if the team is the golden sponsor
+     * @return Attribute
+     */
+    public function isGoldenSponsor(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->sponsorTier ? $this->sponsorTier->name === 'golden' && $this->is_sponsor_approved : 0
+        );
+    }
+
+    /**
+     * Checks if the team is the golden sponsor
+     * @return Attribute
+     */
+    public function hasPresentationsLeft(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $max_presentations = $this->is_golden_sponsor ? 2 : 1;
+                return $this->is_approved && $this->all_presentations->count() < $max_presentations;
+            }
+        );
+    }
+
+    /**
      * Handle a (dis)approval of this Teams request to join the conference.
      *
      * @param bool $isApproved
      * @return void
      */
-    public function handleTeamApproval(bool $isApproved) : void
+    public function handleTeamApproval(bool $isApproved): void
     {
         if ($isApproved) {
             $this->is_approved = true;
@@ -214,13 +264,13 @@ class Team extends JetstreamTeam
      * @param bool $isApproved
      * @return void
      */
-    public function handleSponsorshipApproval(bool $isApproved) : void
+    public function handleSponsorshipApproval(bool $isApproved): void
     {
         if ($isApproved) {
             $this->is_sponsor_approved = true;
             $this->save();
 
-            if($this->sponsorTier->leftSpots() == 0)
+            if ($this->sponsorTier->leftSpots() == 0)
                 $this->sponsorTier->rejectAllExceptApproved();
 
             if ($this->booth) {
@@ -238,5 +288,29 @@ class Team extends JetstreamTeam
             $this->sponsor_tier_id = null;
             $this->save();
         }
+    }
+
+    /**
+     * Checks if the team is the team of HZ University of Applied Sciences
+     *
+     * @return Attribute
+     */
+    public function isHz() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->name == 'HZ University of Applied Sciences';
+            });
+    }
+
+    /**
+     * Scope a query to only include companies that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->where('is_approved', '=', 0);
     }
 }
