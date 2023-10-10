@@ -51,6 +51,28 @@
                 </x-slot>
 
                 <x-slot name="description">
+                    {{ __('The tier of sponsorship the company applied for.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    @if($sponsor->sponsor_tier_id == 1)
+                        Gold
+                    @elseif($sponsor->sponsor_tier_id == 2)
+                        Silver
+                    @else
+                        Bronze
+                    @endif
+                </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Sponsorship Approval Status') }}
+                </x-slot>
+
+                <x-slot name="description">
                     {{ __('When the status is Approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
                 </x-slot>
 

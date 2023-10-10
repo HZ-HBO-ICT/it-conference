@@ -141,6 +141,14 @@
                     <div class="mt-1 text-sm leading-6 {{ is_null($company->is_sponsor_approved) ? 'text-grey-500' : ($company->is_sponsor_approved ? 'text-green-500' : 'text-yellow-500') }}
                         sm:col-span-2 sm:mt-0">
                         {{ is_null($company->is_sponsor_approved) ? 'Not requested' : ($company->is_sponsor_approved ? 'Approved' : 'Awaiting approval') }}
+                        with tier
+                        @if($company->sponsor_tier_id == 1)
+                            Gold
+                        @elseif($company->sponsor_tier_id == 2)
+                            Silver
+                        @else
+                            Bronze
+                        @endif
                     </div>
                 </x-slot>
 
