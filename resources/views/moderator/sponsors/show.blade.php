@@ -47,7 +47,7 @@
 
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Sponsorship Approval Status') }}
+                    {{ __('Sponsorship Tier') }}
                 </x-slot>
 
                 <x-slot name="description">
