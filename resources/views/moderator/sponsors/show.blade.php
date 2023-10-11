@@ -108,11 +108,11 @@
 
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Delete This Booth') }}
+                    {{ __('Delete this sponsor') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Permanently delete this booth and related data') }}
+                    {{ __('Permanently delete this sponsor and related data') }}
                 </x-slot>
 
                 <x-slot name="content">
