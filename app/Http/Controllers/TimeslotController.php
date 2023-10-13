@@ -34,28 +34,12 @@ class TimeslotController extends Controller
             'ending' => 'required|date_format:H:i|after:starting',
         ];
 
-        if ($request->all()['breakStart'])
-            $rules['breakStart'] = 'date_format:H:i|after:starting|before:ending';
-
-        if ($request->all()['breakEnd'])
-            $rules['breakEnd'] = 'date_format:H:i|after:breakStart|before:ending';
-
         $validatedData = $request->validate($rules);
 
         $starting = $validatedData['starting'];
         $ending = $validatedData['ending'];
-        $breakStart = key_exists('breakStart', $validatedData) ? $validatedData['breakStart'] : '12:30';
-        $breakEnd = key_exists('breakEnd', $validatedData) ? $validatedData['breakEnd'] : '13:00';
 
-        if($breakEnd < $breakStart)
-        {
-            return redirect(route('moderator.schedule.timeslots.create'))
-                ->withInput()
-                ->withErrors(['breakEnd' => 'The ending time of the break cannot be before the starting time']);
-        }
-
-        $this->generate($starting, $breakStart);
-        $this->generate($breakEnd, $ending);
+        $this->generate($starting, $ending);
 
         if (Room::all()->count() == 0) {
             return redirect(route('rooms.index'));
