@@ -20,7 +20,9 @@ class PresentationPolicy
     public function request(User $user): bool
     {
         $currentDate = Carbon::now();
-        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 27);
+        $deadline->setTime(12, 0, 0);
+        $deadline->setTimezone('Europe/Amsterdam');
 
         // If the deadline for the 12th of October has passed
         if ($currentDate->gt($deadline)) {
