@@ -3,9 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\Team;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class EditTeamForm extends Component
+class EditTeamModal extends Component
 {
     public Team $team;
 
@@ -31,11 +32,19 @@ class EditTeamForm extends Component
         $this->validate();
 
         $this->team->save();
-        session()->flash('message', 'The company details are successfully updated.');
+
+        if (Auth::user()->ownsTeam($this->team)) {
+            return redirect(route('teams.show', $this->team))
+                ->with('status', 'Company successfully updated.');
+        } else {
+            return redirect(route('moderator.companies.show', $this->team))
+                ->with('status', 'Company successfully updated.');
+        }
+
     }
 
     public function render()
     {
-        return view('teams.edit-team-form');
+        return view('teams.edit-team-modal');
     }
 }
