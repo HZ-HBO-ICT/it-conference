@@ -6,6 +6,7 @@ use App\Models\Presentation;
 use App\Models\Speaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class SpeakerController extends Controller
@@ -15,15 +16,18 @@ class SpeakerController extends Controller
      */
     public function index()
     {
-        $speakers = Speaker::where('is_approved', 1)
-            ->where('is_main_speaker', 1)
-            ->get();
+        $speakers = Speaker::join('users', 'speakers.user_id', '=', 'users.id')
+            ->leftJoin('teams', 'users.current_team_id', '=', 'teams.id')
+            ->where('speakers.is_approved', '=', 1)
+            ->orderByRaw('ISNULL(teams.sponsor_tier_id), teams.sponsor_tier_id ASC, users.name ASC')
+            ->get('speakers.*');
 
         return view('speakers.index', compact('speakers'));
     }
 
 
     // TODO: Refactor with gate
+
     /**
      * Allows the auth user to cohost a presentation if they are not already
      * hosting/cohosting a presentation; accessible only to the gold sponsor
