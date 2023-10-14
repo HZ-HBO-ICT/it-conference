@@ -37,4 +37,9 @@
             <div class="text-gray-900 dark:text-white">{{$team->street}} {{$team->house_number}},<br>{{$team->postcode}}, {{$team->city}}</div>
         </div>
     </x-slot>
+    <x-slot name="actions">
+        @can('update', Auth::user()->currentTeam)
+            @livewire('edit-team-form', ['team' => $team])
+        @endcan
+    </x-slot>
 </x-form-section>
