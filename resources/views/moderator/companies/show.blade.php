@@ -44,7 +44,7 @@
 
                 <x-slot name="actions">
                     @can('update', $company)
-                        @livewire('edit-team-form', ['team' => $company])
+                        @livewire('edit-team-modal', ['team' => $company])
                     @endcan
                 </x-slot>
             </x-action-section>

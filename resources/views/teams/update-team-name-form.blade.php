@@ -39,7 +39,7 @@
     </x-slot>
     <x-slot name="actions">
         @can('update', Auth::user()->currentTeam)
-            @livewire('edit-team-form', ['team' => $team])
+            @livewire('edit-team-modal', ['team' => $team])
         @endcan
     </x-slot>
 </x-form-section>

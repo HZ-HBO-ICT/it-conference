@@ -30,7 +30,7 @@
                     <x-slot name="content">
                         <div class="col-span-6 sm:col-span-4 pb-5">
                             <x-label for="name" value="{{ __('Company Name') }}"/>
-                            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="team.name" :disabled="true" autofocus/>
+                            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="team.name" autofocus/>
                             @error('team.name') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
                         <div class="col-span-6 sm:col-span-4 pb-5">
