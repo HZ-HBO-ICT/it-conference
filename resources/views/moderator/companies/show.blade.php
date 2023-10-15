@@ -130,29 +130,31 @@
 
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Company sponsorship Status') }}
+                    {{ __('Company Sponsorship Status') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('When the status is Approved, the company will sponsor the conference.') }}
+                    {{ __('When the status is approved, the company will sponsor the conference.') }}
                 </x-slot>
 
                 <x-slot name="content">
                     <div class="mt-1 text-sm leading-6 {{ is_null($company->is_sponsor_approved) ? 'text-grey-500' : ($company->is_sponsor_approved ? 'text-green-500' : 'text-yellow-500') }}
                         sm:col-span-2 sm:mt-0">
                         {{ is_null($company->is_sponsor_approved) ? 'Not requested' : ($company->is_sponsor_approved ? 'Approved' : 'Awaiting approval') }}
-                        with tier
-                        @if($company->sponsor_tier_id == 1)
+                        @if($company->sponsor_tier_id)
+                            with tier
+                            @if($company->sponsor_tier_id == 1)
                             Gold
-                        @elseif($company->sponsor_tier_id == 2)
+                            @elseif($company->sponsor_tier_id == 2)
                             Silver
-                        @else
+                            @else
                             Bronze
+                            @endif
                         @endif
                     </div>
                 </x-slot>
 
-                @if(!$company->is_sponsor_approved)
+                @if(!$company->is_sponsor_approved && !is_null($company->sponsor_tier_id))
                     <x-slot name="actions">
                         <form method="POST" action="{{ route('moderator.sponsors.approve', $company) }}" class="mr-2">
                             @csrf
