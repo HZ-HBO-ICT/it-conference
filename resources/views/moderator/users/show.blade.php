@@ -57,31 +57,11 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This User') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('Permanently delete this user and all related data.') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <p>
-                        {{ __('If the user is main speaker of presentation, the presentation will be deleted as well.
-                        If the user is company representative, the company will be deleted, all presentations inside
-                        of it as well, and all people in the company will only be participants.') }}
-                    </p>
-                </x-slot>
-
-                <x-slot name="actions">
-                    <form method="POST" action="{{route('moderator.users.show', $user)}}">
-                        @method('DELETE')
-                        @csrf
-                        <x-danger-button type="submit">Remove this user</x-danger-button>
-                    </form>
-                </x-slot>
-            </x-action-section>
+            @can('delete', $user)
+                <div class="mt-10 sm:mt-0">
+                    @livewire('users.delete-user-form', ['user' => $user])
+                </div>
+            @endcan
         </div>
     </div>
 </x-hub-layout>
