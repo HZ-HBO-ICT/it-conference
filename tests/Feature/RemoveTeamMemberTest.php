@@ -20,7 +20,7 @@ class RemoveTeamMemberTest extends TestCase
             $otherUser = User::factory()->create(), ['role' => 'speaker']
         );
 
-        $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
+        $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam, 'model'])
             ->set('teamMemberIdBeingRemoved', $otherUser->id)
             ->call('removeTeamMember');
 
