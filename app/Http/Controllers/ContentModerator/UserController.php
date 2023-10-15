@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ContentModerator;
 
+use App\Actions\Jetstream\DeleteTeam;
 use App\Actions\Jetstream\DeleteUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -65,18 +66,26 @@ class UserController extends Controller
     {
         if($user->speaker) {
             if($user->speaker->presentation->mainSpeaker()->id == $user->id) {
+                // If the user is main speaker, remove the whole presentation
                 $user->speaker->presentation->fullDelete();
             } else {
+                // If the user is not main speaker, just remove the user from the linking
                 $user->speaker->presentation->removeSpeaker($user);
             }
         }
 
+        // If the user has signed up for any presentations, detach him from them
         if($user->presentations)
             $user->presentations()->detach();
 
+        // If the user owns a team, delete the team, leave the other users active ONLY as participants
+        if($user->ownsTeam($user->currentTeam))
+            (new DeleteTeam())->delete($user->currentTeam);
+
+        // Detach all spatie roles just in case
         $user->roles()->detach();
 
-        // TODO: Proper team delete
+        // Delete the user
         $deleteUser->delete($user);
 
         return redirect(route('moderator.users.index'));
