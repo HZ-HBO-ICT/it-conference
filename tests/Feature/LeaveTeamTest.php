@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
 use Livewire\Livewire;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class LeaveTeamTest extends TestCase
@@ -14,6 +15,7 @@ class LeaveTeamTest extends TestCase
 
     public function test_users_can_leave_teams(): void
     {
+        Role::create(['id' => 1, 'name' => 'participant', 'guard_name' => 'web']);
         $user = User::factory()->withPersonalTeam()->create();
 
         $user->currentTeam->users()->attach(

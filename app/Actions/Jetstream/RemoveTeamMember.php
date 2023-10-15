@@ -21,6 +21,11 @@ class RemoveTeamMember implements RemovesTeamMembers
 
         $this->ensureUserDoesNotOwnTeam($teamMember, $team);
 
+        if ($teamMember->speaker) {
+            $teamMember->speaker->presentation->fullDelete();
+        }
+
+        $teamMember->syncRoles(['participant']);
         $team->removeUser($teamMember);
 
         TeamMemberRemoved::dispatch($team, $teamMember);
@@ -31,7 +36,7 @@ class RemoveTeamMember implements RemovesTeamMembers
      */
     protected function authorize(User $user, Team $team, User $teamMember): void
     {
-        if (! Gate::forUser($user)->check('removeTeamMember', [$team, $teamMember]) &&
+        if (!Gate::forUser($user)->check('removeTeamMember', [$team, $teamMember]) &&
             $user->id !== $teamMember->id) {
             throw new AuthorizationException;
         }
