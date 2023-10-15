@@ -47,6 +47,28 @@
 
             <x-action-section>
                 <x-slot name="title">
+                    {{ __('Sponsorship Tier') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('The tier of sponsorship the company applied for.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    @if($sponsor->sponsor_tier_id == 1)
+                        Gold
+                    @elseif($sponsor->sponsor_tier_id == 2)
+                        Silver
+                    @else
+                        Bronze
+                    @endif
+                </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
                     {{ __('Sponsorship Approval Status') }}
                 </x-slot>
 
@@ -86,11 +108,11 @@
 
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Delete This Booth') }}
+                    {{ __('Delete this sponsor') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Permanently delete this booth and related data') }}
+                    {{ __('Permanently delete this sponsor and related data') }}
                 </x-slot>
 
                 <x-slot name="content">
