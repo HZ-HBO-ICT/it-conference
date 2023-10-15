@@ -67,7 +67,7 @@ class SponsorshipController extends Controller
 
         $template = $isApproved ? 'You approved the sponsorship of :company!'
             : 'You denied the sponsorship of :company';
-        return redirect(route('moderator.requests', 'sponsorships'))
+        return redirect(route('moderator.sponsors.show', $team))
             ->banner(__($template, ['company' => $team->name]));
     }
 
