@@ -49,7 +49,7 @@
                     </div>
                     @can('update', $presentation)
                         <div class="mt-5">
-                            @livewire('edit-presentation-modal', ['presentation' => $presentation])
+                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
                         </div>
                     @endcan
                 </x-slot>

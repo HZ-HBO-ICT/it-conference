@@ -45,7 +45,7 @@
                 @can('update', $presentation)
                     <x-slot name="actions">
                         <div class="text-left">
-                            @livewire('edit-presentation-modal', ['presentation' => $presentation])
+                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
                         </div>
                     </x-slot>
                 @endcan
