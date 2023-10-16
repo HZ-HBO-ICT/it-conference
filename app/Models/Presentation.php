@@ -195,7 +195,9 @@ class Presentation extends Model
     protected function speakerCanEdit() : Attribute
     {
         $currentDate = Carbon::now();
-        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 27);
+        $deadline->setTime(12, 0, 0);
+        $deadline->setTimezone('Europe/Amsterdam');
 
         return Attribute::make(
             get: fn() => $currentDate->lt($deadline)
