@@ -96,22 +96,13 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Presentation') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('Permanently delete this presentation and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button>Remove this presentation</x-danger-button>
-                </x-slot>
-            </x-action-section>
+            {{--@can('delete', $user)--}}
+                <div class="mt-10 sm:mt-0">
+                    @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
+                </div>
+{{--
+            @endcan
+--}}
         </div>
     </div>
 </x-hub-layout>
