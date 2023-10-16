@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Presentations;
 
 use Livewire\Component;
 
@@ -58,6 +58,6 @@ class EditPresentationModal extends Component
 
     public function render()
     {
-        return view('livewire.edit-presentation-modal');
+        return view('presentations.edit-presentation-modal');
     }
 }
