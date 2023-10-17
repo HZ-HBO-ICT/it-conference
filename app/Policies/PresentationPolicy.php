@@ -86,4 +86,12 @@ class PresentationPolicy
         return $user->speaker && $user->speaker->presentation_id == $presentation->id;
     }
 
+    public function delete(User $user, Presentation $presentation): bool
+    {
+        if($user->hasRole('content moderator'))
+            return true;
+
+        return false;
+    }
+
 }

@@ -92,6 +92,11 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        //
+        $this->authorize('delete', $presentation);
+
+        $presentation->fullDelete();
+
+        return redirect(route('moderator.presentations.index'))
+            ->banner('You deleted the presentation successfully');
     }
 }
