@@ -47,6 +47,28 @@
 
             <x-action-section>
                 <x-slot name="title">
+                    {{ __('Sponsorship Tier') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('The tier of sponsorship the company applied for.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    @if($sponsor->sponsor_tier_id == 1)
+                        Gold
+                    @elseif($sponsor->sponsor_tier_id == 2)
+                        Silver
+                    @else
+                        Bronze
+                    @endif
+                </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
                     {{ __('Sponsorship Approval Status') }}
                 </x-slot>
 
@@ -55,7 +77,8 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="mt-1 text-sm leading-6 text-{{ $sponsor->is_sponsor_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
+                    <div
+                        class="mt-1 text-sm leading-6 text-{{ $sponsor->is_sponsor_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
                         {{ $sponsor->is_sponsor_approved ? 'Approved' : 'Awaiting approval' }}
                     </div>
                 </x-slot>
@@ -87,7 +110,6 @@
             <div class="mt-10 sm:mt-0">
                 @livewire('sponsorships.delete-sponsorship-form', ['team' => $sponsor])
             </div>
-
         </div>
     </div>
 </x-hub-layout>

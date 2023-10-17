@@ -36,6 +36,7 @@ use Illuminate\Support\Carbon;
 class Room extends Model
 {
     use HasFactory;
+
     protected $fillable = ['name', 'max_participants'];
 
     public static function rules()
@@ -60,10 +61,24 @@ class Room extends Model
      *
      * @return Attribute
      */
-    public function canBeDeleted() : Attribute
+    public function canBeDeleted(): Attribute
     {
         return Attribute::make(
             get: fn() => true
         );
+
+    }
+
+    /**
+     * List with the rooms with the closest capacity to the maximum participants passed
+     * @param $maxCapacity
+     * @return mixed
+     */
+    public static function getWithClosestCapacity($maxCapacity)
+    {
+        return Room::select('*')
+            ->selectRaw('CAST(max_participants AS SIGNED) AS signed_capacity')
+            ->orderByRaw('ABS(signed_capacity - ?)', [$maxCapacity])
+            ->get();
     }
 }

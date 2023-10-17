@@ -47,11 +47,11 @@
                             {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
-                    @if($presentation->speakerCanEdit)
+                    @can('update', $presentation)
                         <div class="mt-5">
-                            @livewire('edit-presentation-modal', ['presentation' => $presentation])
+                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
                         </div>
-                    @endif
+                    @endcan
                 </x-slot>
 
             </x-action-section>
