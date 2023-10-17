@@ -26,9 +26,12 @@ class DeleteTeam implements DeletesTeams
         }
 
         // All team members have the spatie (global) role of participant only
-        $team->allUsers()->each(function (User $user) {
-            $user->syncRoles(['participant']);
-        });
+        if ($team->users) {
+            $team->users->each(function (User $user) {
+                $user->syncRoles(['participant']);
+            });
+        }
+        $team->owner->syncRoles(['participant']);
 
         // Remove the team and relations between the users and the team
         $team->purge();
