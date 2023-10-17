@@ -59,6 +59,9 @@ Route::middleware([
 
     Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
         ->name('presentations.update');
+
+    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+        ->name('presentations.destroy');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])

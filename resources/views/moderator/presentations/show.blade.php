@@ -96,13 +96,11 @@
 
             <x-section-border/>
 
-            {{--@can('delete', $user)--}}
+            @can('delete', $presentation)
                 <div class="mt-10 sm:mt-0">
                     @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
                 </div>
-{{--
             @endcan
---}}
         </div>
     </div>
 </x-hub-layout>

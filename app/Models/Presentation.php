@@ -222,11 +222,21 @@ class Presentation extends Model
      * @param User $user
      * @return void
      */
-    public function removeSpeaker(User $user) : void
+    public function removeSpeaker(User $user): void
     {
         $speaker = $this->speakers->where('user_id', '=', $user->id)->first();
 
         if ($speaker)
             $speaker->delete();
+    }
+
+    /**
+     * Checks if the presentation can be deleted
+     *
+     * @return Attribute
+     */
+    public function canBeDeleted()
+    {
+        return !$this->isApproved;
     }
 }

@@ -88,8 +88,11 @@ class PresentationPolicy
 
     public function delete(User $user, Presentation $presentation): bool
     {
-        if($user->hasRole('content moderator'))
+        if ($user->hasRole('content moderator'))
             return true;
+
+        if ($user->id == $presentation->mainSpeaker()->user->id)
+            return $presentation->canBeDeleted();
 
         return false;
     }

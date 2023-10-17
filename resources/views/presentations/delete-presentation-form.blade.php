@@ -1,3 +1,5 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
+
 <x-action-section>
     <x-slot name="title">
         {{ __('Delete This Presentation') }}
@@ -9,8 +11,12 @@
 
     <x-slot name="content">
         <div class="dark:text-gray-200">
-            {{ __('If you delete this presentation, the speaker/s will no longer have this presentation, it will be gone
+            @if(Auth::user()->hasRole('content moderator'))
+                {{ __('If you delete this presentation, the speaker/s will no longer have this presentation, it will be gone
                 from the schedule and all participants that have registered for it will be dis-enrolled from it') }}
+            @else
+                {{ __('Your presentation is still not approved and you can still remove your presentation') }}
+            @endif
         </div>
         <!-- Delete User Confirmation Modal -->
         <x-dialog-modal wire:model="confirmingDeletion">
@@ -28,7 +34,11 @@
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <form method="POST" action="{{ route('moderator.presentations.destroy', $presentation) }}" class="pl-2">
+                <form method="POST"
+                      action="{{ Auth::user()->hasRole('content moderator')
+                                ? route('moderator.presentations.destroy', $presentation)
+                                : route('presentations.destroy', $presentation)}}"
+                      class="pl-2">
                     @csrf
                     @method('DELETE')
                     <x-danger-button class="ml-3" type="submit">
