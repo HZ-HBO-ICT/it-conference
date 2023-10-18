@@ -14,8 +14,8 @@
                         <p>{{ __('Add manually a new company that will join the conference.') }}</p>
                         <p>{{__(' NOTE: the user will be added as participant by default')}}</p>
                         <p class="pt-3">If you want the user to be a speaker, after inviting them, you can add
-                                        the presentation. If you want them to be a company representative, you can add
-                                        them directly from here, without creating them from here.</p>
+                                        the presentation. If you want them to be a company representative, you can
+                                        <a class="text-crew-500 underline" href="{{route('moderator.companies.create')}}">add them directly from here</a>, without creating them now.</p>
                     </div>
                 </x-slot>
 
