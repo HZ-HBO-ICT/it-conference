@@ -29,15 +29,15 @@
 
                             @endif
                         </div>
-                        <div class="flex-col flex-grow pl-2">
+                        <div class="flex-col flex-grow pl-2 text-gray-800 dark:text-gray-200">
                             <h3>{{ $sponsor->name }}</h3>
-                            <p class="text-gray-500 text-sm">
+                            <p class="text-sm">
                                 {{ $sponsor->street }} {{ $sponsor->house_number }} <br>
                                 {{ $sponsor->postcode }}  {{ $sponsor->city }}
                             </p>
                         </div>
                     </div>
-                    <div>
+                    <div class="text-gray-800 dark:text-gray-200">
                         {{ $sponsor->description }}
                     </div>
                 </x-slot>
@@ -55,13 +55,15 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    @if($sponsor->sponsor_tier_id == 1)
-                        Gold
-                    @elseif($sponsor->sponsor_tier_id == 2)
-                        Silver
-                    @else
-                        Bronze
-                    @endif
+                    <div class="text-gray-800 dark:text-gray-200">
+                        @if($sponsor->sponsor_tier_id == 1)
+                            Gold
+                        @elseif($sponsor->sponsor_tier_id == 2)
+                            Silver
+                        @else
+                            Bronze
+                        @endif
+                    </div>
                 </x-slot>
             </x-action-section>
 
@@ -77,7 +79,8 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="mt-1 text-sm leading-6 text-{{ $sponsor->is_sponsor_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
+                    <div
+                        class="mt-1 text-sm leading-6 text-{{ $sponsor->is_sponsor_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
                         {{ $sponsor->is_sponsor_approved ? 'Approved' : 'Awaiting approval' }}
                     </div>
                 </x-slot>
