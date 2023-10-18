@@ -20,7 +20,7 @@ class EditPresentationModal extends Component
 
     protected $rules = [
         'name' => 'required',
-        'max_participants' => 'required|numeric',
+        'max_participants' => 'required|numeric|min:1',
         'description' => 'required',
         'type' => 'required|in:workshop,lecture',
         'difficulty_id' => 'required|numeric',
