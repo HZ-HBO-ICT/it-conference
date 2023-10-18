@@ -29,15 +29,15 @@
 
                             @endif
                         </div>
-                        <div class="flex-col flex-grow pl-2">
+                        <div class="flex-col flex-grow pl-2 pt-3 text-gray-800 dark:text-gray-200">
                             <h3>{{ $company->name }}</h3>
-                            <p class="text-gray-500 text-sm">
+                            <p class="text-sm">
                                 {{ $company->street }} {{ $company->house_number }} <br>
                                 {{ $company->postcode }}  {{ $company->city }}
                             </p>
                         </div>
                     </div>
-                    <div>
+                    <div class="text-gray-800 dark:text-gray-200">
                         {{ $company->description }}
                     </div>
                 </x-slot>
@@ -57,7 +57,7 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('When the status is Approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
+                    {{ __('When the status is approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
                 </x-slot>
 
                 <x-slot name="content">
@@ -97,12 +97,12 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('When the status is Approved, the company will have a booth at the conference.') }}
+                    {{ __('When the status is approved, the company will have a booth at the conference.') }}
                 </x-slot>
 
                 <x-slot name="content">
                     <div
-                        class="mt-1 text-sm leading-6 {{ $company->booth && $company->booth->is_approved ? 'text-green-500' : ($company->booth ? 'text-yellow-500' : 'text-grey-500') }} sm:col-span-2 sm:mt-0">
+                        class="mt-1 text-sm text-gray-800 dark:text-gray-200 leading-6 {{ $company->booth && $company->booth->is_approved ? 'text-green-500' : ($company->booth ? 'text-yellow-500' : 'text-grey-500') }} sm:col-span-2 sm:mt-0">
                         {{ $company->booth && $company->booth->is_approved ? 'Approved' : ($company->booth ? 'Awaiting approval' : 'Not requested') }}
                     </div>
                 </x-slot>
@@ -135,29 +135,31 @@
 
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Company sponsorship Status') }}
+                    {{ __('Company Sponsorship Status') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('When the status is Approved, the company will sponsor the conference.') }}
+                    {{ __('When the status is approved, the company will sponsor the conference.') }}
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="mt-1 text-sm leading-6 {{ is_null($company->is_sponsor_approved) ? 'text-grey-500' : ($company->is_sponsor_approved ? 'text-green-500' : 'text-yellow-500') }}
+                    <div class="mt-1 text-sm text-gray-800 dark:text-gray-200 leading-6 {{ is_null($company->is_sponsor_approved) ? 'text-grey-500' : ($company->is_sponsor_approved ? 'text-green-500' : 'text-yellow-500') }}
                         sm:col-span-2 sm:mt-0">
                         {{ is_null($company->is_sponsor_approved) ? 'Not requested' : ($company->is_sponsor_approved ? 'Approved' : 'Awaiting approval') }}
-                        with tier
-                        @if($company->sponsor_tier_id == 1)
-                        Gold
-                        @elseif($company->sponsor_tier_id == 2)
-                        Silver
-                        @else
-                        Bronze
+                        @if($company->sponsor_tier_id)
+                            with tier
+                            @if($company->sponsor_tier_id == 1)
+                            Gold
+                            @elseif($company->sponsor_tier_id == 2)
+                            Silver
+                            @else
+                            Bronze
+                            @endif
                         @endif
                     </div>
                 </x-slot>
 
-                @if(!$company->is_sponsor_approved)
+                @if(!$company->is_sponsor_approved && !is_null($company->sponsor_tier_id))
                     <x-slot name="actions">
                         <form method="POST" action="{{ route('moderator.sponsors.approve', $company) }}" class="mr-2">
                             @csrf
@@ -191,23 +193,59 @@
                 </x-slot>
 
                 <x-slot name="content">
+                    <<<<<<< HEAD
                     @forelse($company->allUsers() as $user)
                         {{ $user->name }} | {{ $user->email }}
                         @if($user->ownsTeam($company))
-                                          (Owner)
+                    (Owner)
                         @endif
                         <br>
                     @empty
                         {{ __('There are currently no users in this company') }}
                     @endforelse
+                    =======
+                    <div class="text-gray-800 dark:text-gray-200">
+                        @forelse($company->allUsers() as $user)
+                            {{ $user->name }} | {{ $user->email }}
+                            @if($user->ownsTeam($company))
+                                              (Owner)
+                            @endif
+                            <br>
+                        @empty
+                            {{ __('There are currently no users in this company') }}
+                        @endforelse
+                    </div>
+                    >>>>>>> development
                 </x-slot>
             </x-action-section>
 
             <x-section-border/>
 
+            <<<<<<< HEAD
             <div class="mt-10 sm:mt-0">
                 @livewire('companies.delete-company-form', ['company' => $company])
             </div>
+            =======
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Delete This Company') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Permanently delete this company and related data') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="text-gray-800 dark:text-gray-200">
+                        {{ __('All company users, presentations sponsor tiers and booths will be removed.') }}
+                    </div>
+                </x-slot>
+
+                <x-slot name="actions">
+                    <x-danger-button>Remove this team</x-danger-button>
+                </x-slot>
+            </x-action-section>
+            >>>>>>> development
         </div>
     </div>
 </x-hub-layout>

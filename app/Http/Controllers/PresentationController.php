@@ -25,6 +25,9 @@ class PresentationController extends Controller
     {
         $this->authorize('request', Presentation::class);
 
+        $presentation =
+            Presentation::create($request->validate(Presentation::rules()));
+
         if (Auth::user()->currentTeam) {
             if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
                 Auth::user()->currentTeam->users()->attach(
@@ -32,9 +35,6 @@ class PresentationController extends Controller
                 );
             }
         }
-
-        $presentation =
-            Presentation::create($request->validate(Presentation::rules()));
 
         Auth::user()->setRelations([]);
 

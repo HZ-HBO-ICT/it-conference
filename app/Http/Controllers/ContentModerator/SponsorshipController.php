@@ -48,6 +48,10 @@ class SponsorshipController extends Controller
      */
     public function show(Team $sponsor): Factory|Application|View|ApplicationContract
     {
+        if (!$sponsor->sponsor_tier_id) {
+            abort(404);
+        }
+
         return view('moderator.sponsors.show', compact('sponsor'));
     }
 
@@ -67,7 +71,13 @@ class SponsorshipController extends Controller
 
         $template = $isApproved ? 'You approved the sponsorship of :company!'
             : 'You denied the sponsorship of :company';
-        return redirect(route('moderator.sponsors.index'))
+
+        if ($isApproved) {
+            return redirect(route('moderator.sponsors.show', $sponsor))
+                ->banner(__($template, ['company' => $sponsor->name]));
+        }
+
+        return redirect(route('moderator.sponsors.index', $sponsor))
             ->banner(__($template, ['company' => $sponsor->name]));
     }
 
