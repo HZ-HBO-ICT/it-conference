@@ -30,7 +30,7 @@ class SponsorshipController extends Controller
      */
     public function create()
     {
-        //
+        return view('moderator.sponsors.create');
     }
 
     /**

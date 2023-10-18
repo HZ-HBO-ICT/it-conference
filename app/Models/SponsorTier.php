@@ -85,4 +85,17 @@ class SponsorTier extends Model
         return $query->join('teams', 'teams.sponsor_tier_id', '=', 'sponsor_tiers.id')
             ->where('teams.is_sponsor_approved', '=', 0);
     }
+
+    public static function canAddSponsor()
+    {
+        $availableTierNumber = SponsorTier::all()->filter(function ($tier) {
+            return $tier->areMoreSponsorsAllowed();
+        })->count();
+
+        $availableTeam = Team::all()->filter(function ($team) {
+            return is_null($team->sponsor_tier_id);
+        })->count();
+
+        return $availableTeam > 0 && $availableTierNumber > 0;
+    }
 }
