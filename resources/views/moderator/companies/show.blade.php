@@ -43,8 +43,9 @@
                 </x-slot>
 
                 <x-slot name="actions">
-                    {{-- TODO create Edit page or, even better, a LiveWire component --}}
-                    <x-button-link href="#">{{ __('Edit') }}</x-button-link>
+                    @can('update', $company)
+                        @livewire('edit-team-modal', ['team' => $company])
+                    @endcan
                 </x-slot>
             </x-action-section>
 
