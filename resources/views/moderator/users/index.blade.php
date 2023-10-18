@@ -5,6 +5,13 @@
         </h2>
         <div class="pt-5">
             <x-list-section>
+
+                <x-slot name="actions">
+                    <x-button-link href="{{route('moderator.users.create')}}">
+                        {{ __('Invite a new user') }}
+                    </x-button-link>
+                </x-slot>
+
                 <x-slot name="content">
                     @forelse($users as $index => $user)
                         <x-list-section-item class="{{ !$user->email_verified_at ? 'bg-red-300 dark:bg-red-800' : '' }}"

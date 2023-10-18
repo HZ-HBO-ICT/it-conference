@@ -6,6 +6,7 @@ use App\Actions\Fortify\PasswordValidationRules;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Models\Speaker;
 use App\Models\User;
+use App\Models\UserInvitation;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -149,4 +150,41 @@ class InvitationController extends Controller
         );
     }
 
+    public function userShow(Request $request, UserInvitation $invitation)
+    {
+        if (!$request->hasValidSignature()) {
+            abort(403);
+        }
+
+        return view('auth.user-invitation-registration', compact('invitation'));
+    }
+
+    public function userStore(Request $request, UserInvitation $invitation)
+    {
+        $input = $request->all();
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ];
+
+        Validator::make($input, $rules)->validate();
+
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($input['password']),
+            'email_verified_at' => now()->timestamp
+        ]);
+
+        event(new Registered($user));
+        $this->guard->login($user);
+
+        $invitation->delete();
+
+        return redirect(config('fortify.home'))->banner(
+            __('Great! You have accepted the invitation to join the IT Conference!')
+        );
+    }
 }

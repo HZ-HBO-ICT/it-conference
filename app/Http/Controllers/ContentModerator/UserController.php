@@ -5,8 +5,12 @@ namespace App\Http\Controllers\ContentModerator;
 use App\Actions\Jetstream\DeleteTeam;
 use App\Actions\Jetstream\DeleteUser;
 use App\Http\Controllers\Controller;
+use App\Mail\InviteCompany;
+use App\Mail\InviteUser;
 use App\Models\User;
+use App\Models\UserInvitation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -24,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('moderator.users.create');
     }
 
     /**
@@ -32,7 +36,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $invitation = UserInvitation::create(
+            $request->validate(UserInvitation::rules())
+        );
+
+        Mail::to($invitation->email)->send(new InviteUser($invitation));
+
+        return redirect(route('moderator.users.index'))
+            ->banner("You successfully sent out an invitation to {$invitation->name}");
     }
 
     /**
