@@ -40,6 +40,8 @@ class BoothController extends Controller
         ]);
 
         $input['is_approved'] = 1;
+        if (is_null($input['additional_information']))
+            $input['additional_information'] = 'No additional demands';
 
         $booth = Booth::create($input);
 
