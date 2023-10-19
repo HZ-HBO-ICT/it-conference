@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Team;
 use Illuminate\Support\Facades\DB;
 
-class TeamsController extends Controller
+class
+TeamsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,5 +21,10 @@ class TeamsController extends Controller
             ->get();
 
         return view('companies', compact('teams'));
+    }
+
+    public function show(Team $team)
+    {
+        return view('teams.public.show', compact($team));
     }
 }

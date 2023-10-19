@@ -85,6 +85,7 @@ Route::get('/speakers', [SpeakerController::class, 'index'])
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
 
 Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
+Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 
 Route::get('/contact', function () {
     return view('contact');
