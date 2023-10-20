@@ -50,7 +50,6 @@
                 @endforeach
             </ul>
         </div>
-        </div>
     @else
         <div
             class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
