@@ -53,17 +53,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sm:col-span-2 py-2 pl-3">
+                        <div class="sm:col-span-2 py-2 pl-3 dark:text-white">
                             <div>
-                                <h3 class="tracking-tight text-3xl font-semibold text-left dark:text-white">{{$team->name}}</h3>
+                                <h3 class="tracking-tight text-3xl font-semibold text-left">{{$team->name}}</h3>
                             </div>
                             <div>
-                                <h3 class="tracking-tight text-xl font-semibold mt-6 text-left dark:text-white">
+                                <h3 class="tracking-tight text-xl font-semibold mt-6 text-left">
                                     Company Description</h3>
                                 <p>{{$team->description}}</p>
                             </div>
                             <div>
-                                <h3 class="tracking-tight text-xl font-semibold mt-6 text-left dark:text-white">
+                                <h3 class="tracking-tight text-xl font-semibold mt-6 text-left">
                                     Where you can find us</h3>
                                 <p>
                                     {{ $team->street }} {{ $team->house_number }} <br>
@@ -71,22 +71,22 @@
                                 </p>
                             </div>
                             <div>
-                                <h3 class="tracking-tight text-xl font-semibold mt-6 text-left dark:text-white">
+                                <h3 class="tracking-tight text-xl font-semibold mt-6 text-left">
                                     Learn more about us</h3>
                                 <p>Visit our
-                                    <a class="text-violet-600 underline font-semibold hover:text-violet-900"
+                                    <a class="text-violet-600 underline font-semibold dark:hover:text-violet-500 hover:text-violet-900"
                                        href="{{ Str::startsWith($team->website, 'https://www.') ? $team->website : 'https://www.' . $team->website }}">
                                         website</a>
                                    for more information</p>
                             </div>
                             @if($team->presentations)
                                 <div class="pr-2">
-                                    <h3 class="tracking-tight text-xl font-semibold mt-6 pb-1 text-left dark:text-white">
+                                    <h3 class="tracking-tight text-xl font-semibold mt-6 pb-1 text-left">
                                         Presentations</h3>
                                     @foreach($team->presentations as $presentation)
                                         <!-- TODO: Add proper link when presentation show is fixed -->
                                         <a href=""
-                                           class="group relative w-full flex bg-violet-50 p-3 border-2 border-violet-100 rounded-md hover:bg-violet-100 transition duration-300 focus:outline-none">
+                                           class="group relative w-full flex bg-violet-50 dark:bg-violet-600 p-3 border-2 border-violet-100 dark:border-violet-800 rounded-md hover:bg-violet-100 dark:hover:bg-violet-500 transition duration-300 focus:outline-none">
                                             <div class="py-1">
                                                 <dt>
                                                     <div class="p-3 rounded-md absolute bg-violet-200">
@@ -118,7 +118,7 @@
                                                     </p>
                                                 </dt>
                                                 <dd class="items-baseline flex ml-16">
-                                                    <p class="text-violet-500 dark:text-indigo-500 font-medium text-sm">
+                                                    <p class="text-violet-500 dark:text-violet-100 font-medium text-sm">
                                                         {{substr($team->description, 0, 70) . '...' }}
                                                     </p>
                                                 </dd>
