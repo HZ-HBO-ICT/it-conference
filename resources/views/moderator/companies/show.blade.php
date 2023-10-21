@@ -193,17 +193,6 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <<<<<<< HEAD
-                    @forelse($company->allUsers() as $user)
-                        {{ $user->name }} | {{ $user->email }}
-                        @if($user->ownsTeam($company))
-                    (Owner)
-                        @endif
-                        <br>
-                    @empty
-                        {{ __('There are currently no users in this company') }}
-                    @endforelse
-                    =======
                     <div class="text-gray-800 dark:text-gray-200">
                         @forelse($company->allUsers() as $user)
                             {{ $user->name }} | {{ $user->email }}
@@ -215,37 +204,14 @@
                             {{ __('There are currently no users in this company') }}
                         @endforelse
                     </div>
-                    >>>>>>> development
                 </x-slot>
             </x-action-section>
 
             <x-section-border/>
 
-            <<<<<<< HEAD
             <div class="mt-10 sm:mt-0">
                 @livewire('companies.delete-company-form', ['company' => $company])
             </div>
-            =======
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Company') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('Permanently delete this company and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div class="text-gray-800 dark:text-gray-200">
-                        {{ __('All company users, presentations sponsor tiers and booths will be removed.') }}
-                    </div>
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button>Remove this team</x-danger-button>
-                </x-slot>
-            </x-action-section>
-            >>>>>>> development
         </div>
     </div>
 </x-hub-layout>

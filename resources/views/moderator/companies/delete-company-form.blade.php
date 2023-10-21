@@ -8,8 +8,10 @@
     </x-slot>
 
     <x-slot name="content">
-        {{ __('When deleted the company will no longer exist and all data related to it as well - all presentations
+        <div class="text-gray-800 dark:text-gray-200">
+            {{ __('When deleted the company will no longer exist and all data related to it as well - all presentations
                will be removed, booth as well. Company members will just be participants ') }}
+        </div>
         <!-- Delete Company Confirmation Modal -->
         <x-dialog-modal wire:model="confirmingDeletion">
             <x-slot name="title">
