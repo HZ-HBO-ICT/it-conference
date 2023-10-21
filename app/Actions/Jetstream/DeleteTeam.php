@@ -31,7 +31,9 @@ class DeleteTeam implements DeletesTeams
                 $user->syncRoles(['participant']);
             });
         }
-        $team->owner->syncRoles(['participant']);
+        if ($team->owner) {
+            $team->owner->syncRoles(['participant']);
+        }
 
         // Remove the team and relations between the users and the team
         $team->purge();

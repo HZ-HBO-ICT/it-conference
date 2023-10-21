@@ -127,9 +127,9 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function destroy(Team $company)
     {
-        (new DeleteTeam())->delete($team);
+        (new DeleteTeam())->delete($company);
 
         return redirect(route('moderator.companies.index'))
             ->banner('You successfully removed the company');
