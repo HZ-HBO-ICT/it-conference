@@ -6,18 +6,15 @@ Create an account and accept the invitation following the link bellow
 Accept your invitation
 @endcomponent
 
-You will be registered as a participant by default, as soon as the programme is released
-you can enrol for presentations.
+You will be registered as a participant by default. When the final program is released you can enrol in any of the presentations using your account.
 
-When your account is created if you decide, you can request to host a presentation. Enter information in regard
-to your Presentation/Workshop. You can enter a summery on the presentation topic which will also be shown on the website,
-the level you believe it is applicable for:
+As soon as your account has been created, you can request to host a presentation. When requesting a presentation make sure to enter the necessary information such as: a summary of the topic which will be shown on the website and the level of difficulty intended for the participants. There are three difficulty levels:
 
-Beginner = No specific knowledge/skill necessary
+Beginner: No specific knowledge/skill necessary.
 
-Intermediate = Basic level of knowledge/skill
+Intermediate: Basic level of knowledge/skill.
 
-Advanced = Experienced level of knowledge/skill
+Advanced: Experienced level of knowledge/skill.
 
 Kind regards,
 
