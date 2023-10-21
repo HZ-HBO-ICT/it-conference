@@ -1,6 +1,6 @@
 @component('mail::message')
 # You have been invited to join us at the IT Conference!
-Create an account and accept the invitation following the link bellow
+Create an account and accept the invitation following the link below
 
 @component('mail::button', ['url' => $acceptUrl])
 Accept your invitation
