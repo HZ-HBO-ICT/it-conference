@@ -1,41 +1,53 @@
-<x-hub-layout>
-    <div id="breadcrumbs" class="pl-5">
-        <p class="text-gray-800 dark:text-gray-200">
-            <a href="{{route('moderator.schedule.overview')}}"
-               class="hover:text-violet-500">Schedule management</a> /
-            <a href="{{route('moderator.presentations-for-scheduling')}}"
-               class="hover:text-violet-500">Schedule presentations</a> /
-            <span>{{$presentation->name}}</span></p>
-    </div>
-    <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Schedule presentation</h1>
-    <div class="grid grid-cols-2 gap-4 text-gray-900 dark:text-gray-200">
-        <div class="pl-4">
-            <h2 class="text-2xl font-semibold pb-3">Details</h2>
-            <h2 class="text-lg">Speaker: {{$presentation->mainSpeaker()->user->name}} </h2>
-            <h2 class="text-md pb-2">{{$presentation->mainSpeaker()->user->currentTeam ? $presentation->mainSpeaker()->user->currentTeam->name : 'Independent speaker' }} </h2>
-            <h2 class="text-lg">Email: <a
-                    href="mailto:{{$presentation->mainSpeaker()->user->email}}">{{$presentation->mainSpeaker()->user->email}}</a>
-            </h2>
-            <x-section-border/>
-            <h2 class="text-lg pb-2">Title of presentation: {{$presentation->name}} </h2>
-            <h2 class="text-lg">Description of the presentation:</h2>
-            <p class="text-lg">{{$presentation->description}}</p>
-            <h2 class="text-lg py-2">Type: {{ucfirst($presentation->type)}} </h2>
-            <h2 class="text-lg py-2">Max participants that the speaker wants: {{$presentation->max_participants}} </h2>
-            </h2>
-            <x-section-border/>
-            @livewire('upload-presentation', ['presentation' => $presentation])
+@php
+    $speakers = $presentation->speakers->filter(function ($speaker) {
+        return $speaker->is_main_speaker === 0;
+    });
 
-            <x-section-border/>
-            <div>
-                @livewire('override-difficulty', ['presentation' => $presentation])
+    $cospeakers = [];
+    foreach ($speakers as $speaker) {
+        if ($speaker->user && $speaker->user->name) {
+            $cospeakers[] = $speaker->user->name;
+        }
+    }
+
+    $cospeakersString = implode(', ', $cospeakers);
+@endphp
+
+<x-hub-layout>
+    <div class="py-8 px-8 mx-auto max-w-7xl">
+        <h1 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Schedule presentation') }}
+        </h1>
+        <div class="pt-5">
+            <div class="grid mt-5 grid-cols-2 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
+                <div class="pt-1 p-2">
+                    <h3 class="text-xl font-bold pb-3">Details</h3>
+                    <p class="text-md"><span class="font-semibold">Main speaker:</span> {{$presentation->mainSpeaker()->user->name}} </p>
+                    <p class="text-sm pb-2">{{$presentation->mainSpeaker()->user->currentTeam ? $presentation->mainSpeaker()->user->currentTeam->name : 'Independent speaker' }} </p>
+                    @if($speakers->count() > 0)
+                        <p class="text-sm">Cohosted with: {{$cospeakersString}}</p>
+                    @endif
+                    <p class="text-md"><span class="font-semibold">Email:</span> <a
+                            href="mailto:{{$presentation->mainSpeaker()->user->email}}"
+                            class="text-crew-500">{{$presentation->mainSpeaker()->user->email}}</a>
+                    </p>
+                    <x-section-border/>
+                    <h2 class="text-md pb-2"><span class="font-semibold">Title of presentation:</span> {{$presentation->name}} </h2>
+                    <h2 class="text-md font-semibold">Description of the presentation:</h2>
+                    <p class="text-md">{{$presentation->description}}</p>
+                    <h2 class="text-md py-2"><span class="font-semibold">Type:</span> {{ucfirst($presentation->type)}} </h2>
+                    <h2 class="text-md pb-2"><span class="font-semibold">Max participants that the speaker
+                                             wants:</span> {{$presentation->max_participants}} </h2>
+                    </h2>
+                    <x-section-border/>
+                    @livewire('download-presentation', ['presentation' => $presentation])
+
+                </div>
+                <div>
+                    <div>
+                        <h2 class="text-2xl font-semibold pb-3">Schedule</h2>
+                        @livewire('room-and-timeslot-selector', ['presentation' => $presentation])
+                    </div>
+                </div>
             </div>
-        </div>
-        <div>
-            <div>
-                <h2 class="text-2xl font-semibold pb-3">Schedule</h2>
-                @livewire('room-and-timeslot-selector', ['presentation' => $presentation])
-            </div>
-        </div>
-    </div>
 </x-hub-layout>
