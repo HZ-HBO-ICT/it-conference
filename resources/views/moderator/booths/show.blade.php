@@ -61,7 +61,7 @@
 
 
                 <x-slot name="actions">
-                    @livewire('edit-booth-modal', ['booth' => $booth])
+                    @livewire('booths.edit-booth-modal', ['booth' => $booth])
                 </x-slot>
             </x-action-section>
 
