@@ -75,7 +75,7 @@
                                     Learn more about us</h3>
                                 <p>Visit our
                                     <a class="text-violet-600 underline font-semibold dark:hover:text-violet-500 hover:text-violet-900"
-                                       href="{{ Str::startsWith($team->website, 'https://www.') ? $team->website : 'https://www.' . $team->website }}">
+                                       href="{{ $team->website }}">
                                         website</a>
                                    for more information</p>
                             </div>
