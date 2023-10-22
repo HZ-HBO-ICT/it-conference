@@ -10,6 +10,14 @@ use Illuminate\Support\Carbon;
 
 class PresentationPolicy
 {
+    private function deadline(): Carbon
+    {
+        $deadline = Carbon::createFromDate(2023, 10, 27);
+        $deadline->setTime(12, 0, 0);
+        $deadline->setTimezone('Europe/Amsterdam');
+
+        return $deadline;
+    }
 
     /**
      * Determine whether the user can request for a presentation.
@@ -20,12 +28,9 @@ class PresentationPolicy
     public function request(User $user): bool
     {
         $currentDate = Carbon::now();
-        $deadline = Carbon::createFromDate($currentDate->year, 10, 27);
-        $deadline->setTime(12, 0, 0);
-        $deadline->setTimezone('Europe/Amsterdam');
 
-        // If the deadline for the 12th of October has passed
-        if ($currentDate->gt($deadline)) {
+        // If the deadline for the 27th of October has passed
+        if ($currentDate->gt($this->deadline())) {
             return false;
         }
 
@@ -54,7 +59,19 @@ class PresentationPolicy
      */
     public function update(User $user, Presentation $presentation): bool
     {
-        return $user->id == $presentation->mainSpeaker()->user->id;
+        $currentDate = Carbon::now();
+
+        // If the user is the content moderator they can always update
+        if ($user->hasRole('content moderator')) {
+            return true;
+        }
+
+        // If the deadline for the 27th of October has not passed and user is main speaker
+        if ($currentDate->lt($this->deadline()) && $user->id == $presentation->mainSpeaker()->user->id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,6 +84,17 @@ class PresentationPolicy
     public function view(User $user, Presentation $presentation): bool
     {
         return $user->speaker && $user->speaker->presentation_id == $presentation->id;
+    }
+
+    public function delete(User $user, Presentation $presentation): bool
+    {
+        if ($user->hasRole('content moderator'))
+            return true;
+
+        if ($user->id == $presentation->mainSpeaker()->user->id)
+            return $presentation->canBeDeleted();
+
+        return false;
     }
 
 }

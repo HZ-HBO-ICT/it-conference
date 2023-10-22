@@ -18,7 +18,9 @@
                     <div class="space-y-6">
                         @if($team->users->isEmpty())
                             <div class="flex items-center">
-                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no members of your company</div>
+                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no members of your
+                                                                             company
+                                </div>
                             </div>
                         @else
 
@@ -46,7 +48,7 @@
                                             @endif
 
                                             <!-- Remove Team Member -->
-                                            @if (Gate::check('removeTeamMember', $team))
+                                            @if (Gate::check('removeTeamMember', [$team, $user]))
                                                 <button class="cursor-pointer ml-6 text-sm text-red-500"
                                                         wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
                                                     {{ __('Remove') }}
@@ -174,7 +176,7 @@
                                 <div class="text-gray-600 dark:text-gray-400">{{ $invitation->email }}</div>
 
                                 <div class="flex items-center">
-                                    @if (Gate::check('removeTeamMember', $team))
+                                    @if (Gate::check('removeTeamMember', [$team, $invitation]))
                                         <!-- Cancel Team Invitation -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
                                                 wire:click="cancelTeamInvitation({{ $invitation->id }})">
@@ -200,9 +202,10 @@
             <div class="relative z-0 mt-1 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer">
                 @foreach ($this->roles as $index => $role)
                     <button type="button" {{!$team->booth && $role->key == "booth_owner" ? 'disabled' : ''}}
-                            class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 {{ $index > 0 ? 'border-t border-gray-200 dark:border-gray-700 focus:border-none rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
+                    class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 {{ $index > 0 ? 'border-t border-gray-200 dark:border-gray-700 focus:border-none rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
                             wire:click="$set('currentRole', '{{ $role->key }}')">
-                        <div class="{{!$team->booth && $role->key == "booth_owner" ? 'opacity-50' : ''}} {{ $currentRole !== $role->key ? 'opacity-50' : '' }}">
+                        <div
+                            class="{{!$team->booth && $role->key == "booth_owner" ? 'opacity-50' : ''}} {{ $currentRole !== $role->key ? 'opacity-50' : '' }}">
                             <!-- Role Name -->
                             <div class="flex items-center">
                                 <div

@@ -47,11 +47,11 @@
                             {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
-                    @if($presentation->speakerCanEdit)
+                    @can('update', $presentation)
                         <div class="mt-5">
-                            @livewire('edit-presentation-modal', ['presentation' => $presentation])
+                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
                         </div>
-                    @endif
+                    @endcan
                 </x-slot>
 
             </x-action-section>
@@ -59,6 +59,31 @@
             <x-section-border/>
 
             @livewire('upload-presentation', ['presentation' => $presentation])
+
+            <x-section-border/>
+
+            @can('delete', $presentation)
+                <div class="mt-10 sm:mt-0">
+                    @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
+                </div>
+            @else
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Delete Presentation') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Permanently delete your presentation.') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+                            If you wish to not be present during the conference contact us at <a
+                                href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
+                        </div>
+                    </x-slot>
+                </x-action-section>
+            @endcan
         </div>
     </div>
 </x-hub-layout>

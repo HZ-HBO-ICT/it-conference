@@ -43,8 +43,9 @@
                 </x-slot>
 
                 <x-slot name="actions">
-                    {{-- TODO create Edit page or, even better, a LiveWire component --}}
-                    <x-button-link href="#">{{ __('Edit') }}</x-button-link>
+                    @can('update', $company)
+                        @livewire('edit-team-modal', ['team' => $company])
+                    @endcan
                 </x-slot>
             </x-action-section>
 
@@ -60,7 +61,8 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="mt-1 text-sm leading-6 text-{{ $company->is_approved ? 'green-500' : 'ygellow-500' }} sm:col-span-2 sm:mt-0">
+                    <div
+                        class="mt-1 text-sm leading-6 text-{{ $company->is_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
                         {{ $company->is_approved ? 'Approved' : 'Awaiting approval' }}
                     </div>
                 </x-slot>
@@ -99,14 +101,16 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="mt-1 text-sm text-gray-800 dark:text-gray-200 leading-6 {{ $company->booth && $company->booth->is_approved ? 'text-green-500' : ($company->booth ? 'text-yellow-500' : 'text-grey-500') }} sm:col-span-2 sm:mt-0">
+                    <div
+                        class="mt-1 text-sm text-gray-800 dark:text-gray-200 leading-6 {{ $company->booth && $company->booth->is_approved ? 'text-green-500' : ($company->booth ? 'text-yellow-500' : 'text-grey-500') }} sm:col-span-2 sm:mt-0">
                         {{ $company->booth && $company->booth->is_approved ? 'Approved' : ($company->booth ? 'Awaiting approval' : 'Not requested') }}
                     </div>
                 </x-slot>
 
                 @if($company->booth && !$company->booth->is_approved)
                     <x-slot name="actions">
-                        <form method="POST" action="{{ route('moderator.booths.approve', $company->booth) }}" class="mr-2">
+                        <form method="POST" action="{{ route('moderator.booths.approve', $company->booth) }}"
+                              class="mr-2">
                             @csrf
                             <input type="hidden" name="approved" value="1"/>
                             <x-button
@@ -114,7 +118,8 @@
                                 {{ __('Approve') }}
                             </x-button>
                         </form>
-                        <form method="POST" action="{{ route('moderator.booths.approve', $company->booth) }}" class="mr-2">
+                        <form method="POST" action="{{ route('moderator.booths.approve', $company->booth) }}"
+                              class="mr-2">
                             @csrf
                             <input type="hidden" name="approved" value="0"/>
                             <x-button
@@ -191,7 +196,9 @@
                     <div class="text-gray-800 dark:text-gray-200">
                         @forelse($company->allUsers() as $user)
                             {{ $user->name }} | {{ $user->email }}
-                            @if($user->ownsTeam($company)) (Owner) @endif
+                            @if($user->ownsTeam($company))
+                                              (Owner)
+                            @endif
                             <br>
                         @empty
                             {{ __('There are currently no users in this company') }}
@@ -202,25 +209,9 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Company') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('Permanently delete this company and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div class="text-gray-800 dark:text-gray-200">
-                        {{ __('All company users, presentations sponsor tiers and booths will be removed.') }}
-                    </div>
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button>Remove this team</x-danger-button>
-                </x-slot>
-            </x-action-section>
+            <div class="mt-10 sm:mt-0">
+                @livewire('companies.delete-company-form', ['company' => $company])
+            </div>
         </div>
     </div>
 </x-hub-layout>

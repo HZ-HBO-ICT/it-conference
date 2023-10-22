@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ContentModerator;
 
+use App\Actions\Jetstream\DeleteTeam;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
 use App\Models\User;
@@ -126,8 +127,11 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function destroy(Team $company)
     {
-        //
+        (new DeleteTeam())->delete($company);
+
+        return redirect(route('moderator.companies.index'))
+            ->banner('You successfully removed the company');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Jetstream\Http\Livewire\DeleteTeamForm;
 use Livewire\Livewire;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class DeleteTeamTest extends TestCase
@@ -16,6 +17,7 @@ class DeleteTeamTest extends TestCase
     public function test_teams_can_be_deleted(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        Role::create(['id' => 1, 'name' => 'participant', 'guard_name' => 'web']);
 
         $user->ownedTeams()->save($team = Team::factory()->make([
             'personal_team' => false,
