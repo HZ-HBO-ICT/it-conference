@@ -41,12 +41,30 @@
                         {{ $booth->team->description }}
                     </div>
                 </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Booth Size') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('The dimensions of the booth') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <p>Width: {{ $booth->width }}</p>
+                    <p>Length: {{$booth->length}}</p>
+                </x-slot>
+
 
                 <x-slot name="actions">
-                    {{-- TODO create Edit page or, even better, a LiveWire component --}}
-                    <x-button-link href="#">Edit</x-button-link>
+                    @livewire('edit-booth-modal', ['booth' => $booth])
                 </x-slot>
             </x-action-section>
+
 
             <x-section-border/>
 
