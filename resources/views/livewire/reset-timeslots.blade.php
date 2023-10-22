@@ -1,6 +1,6 @@
 <div x-data="{ open: @entangle('isOpen') }" class="w-full h-full">
     <button
-        class="bg-purple-800 h-full w-full text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full"
+        class="bg-crew-500 h-full w-full text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105 h-full"
         @click="open = true"
     >
         <span class="flex items-center h-full justify-center">Reset timeslots</span>
