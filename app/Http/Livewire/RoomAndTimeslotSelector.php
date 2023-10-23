@@ -55,6 +55,15 @@ class RoomAndTimeslotSelector extends Component
             : $this->presentation->max_participants;
     }
 
+    public function resetTimeslot()
+    {
+        $this->presentation->timeslot_id = null;
+        $this->presentation->room_id = null;
+        $this->presentation->save();
+
+        return redirect()->to(route('moderator.schedule.presentation', $this->presentation));
+    }
+
     public function render()
     {
         return view('livewire.room-and-timeslot-selector');
