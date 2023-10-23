@@ -42,16 +42,22 @@
                             <span class="flex items-center h-full justify-center">Generate timeslots</span>
                         </a>
                     @endif
-                    <div>
-                        <a href="{{route('moderator.schedule.draft')}}"
-                           class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                            <span class="flex items-center h-full justify-center">Automatically schedule presentations</span>
-                        </a>
-                    </div>
-                    @if(!\App\Models\EventInstance::current()->is_final_programme_released)
+                    @if($numberOfUnscheduledPresentations > 0)
                         <div>
-                            @livewire('release-final-programme')
+                            <form class="h-full" action="{{route('moderator.schedule.draft')}}" method="POST">
+                                @csrf
+                                <button
+                                    class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                                    <span class="flex items-center h-full justify-center">Automatically schedule presentations</span>
+                                </button>
+                            </form>
                         </div>
+                    @else
+                        @if(!\App\Models\EventInstance::current()->is_final_programme_released)
+                            <div>
+                                @livewire('release-final-programme')
+                            </div>
+                        @endif
                     @endif
                 </div>
                 <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">

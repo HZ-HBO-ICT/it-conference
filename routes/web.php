@@ -129,8 +129,7 @@ Route::middleware([
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
         ->name('schedule.overview');
 
-    // TODO: Fix with a post request instead
-    Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
+    Route::post('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('schedule.draft');
 
     Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
