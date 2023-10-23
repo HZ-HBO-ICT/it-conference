@@ -45,7 +45,7 @@ class TimeslotController extends Controller
             return redirect(route('rooms.index'));
         }
 
-        return redirect(route('moderator.schedule.draft'));
+        return redirect(route('moderator.schedule.overview'));
     }
 
     /**

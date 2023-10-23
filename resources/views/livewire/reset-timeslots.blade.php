@@ -12,7 +12,7 @@
                                                         It also means that new timeslots will be generated in case there was something mistaken with the previous.</p>
             <div class="mt-4 flex justify-end">
                 <button @click="open = false" class="text-gray-500 dark:text-gray-200 mr-4">Cancel</button>
-                <button wire:click="confirm" class="bg-purple-800 text-white px-4 py-2 rounded">Confirm</button>
+                <button wire:click="confirm" class="bg-crew-500 text-white px-4 py-2 rounded">Confirm</button>
             </div>
         </div>
     </div>

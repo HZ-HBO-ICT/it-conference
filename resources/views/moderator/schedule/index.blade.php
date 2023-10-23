@@ -36,11 +36,16 @@
                         <div>
                             @livewire('reset-timeslots')
                         </div>
+                    @else
+                        <a href="{{route('moderator.schedule.timeslots.create')}}"
+                           class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                            <span class="flex items-center h-full justify-center">Generate timeslots</span>
+                        </a>
                     @endif
                     <div>
                         <a href="{{route('moderator.schedule.draft')}}"
                            class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                            <span class="flex items-center h-full justify-center">Automatically fill</span>
+                            <span class="flex items-center h-full justify-center">Automatically schedule presentations</span>
                         </a>
                     </div>
                     @if(!\App\Models\EventInstance::current()->is_final_programme_released)
