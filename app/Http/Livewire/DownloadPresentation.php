@@ -17,6 +17,6 @@ class DownloadPresentation extends Component
 
     public function downloadFile()
     {
-        return Storage::download($this->presentation->file_path, $this->presentation->file_original_name);
+        return Storage::download($this->presentation->file_path);
     }
 }
