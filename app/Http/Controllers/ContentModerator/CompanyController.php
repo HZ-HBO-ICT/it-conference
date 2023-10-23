@@ -119,7 +119,7 @@ class CompanyController extends Controller
 
         $template = $isApproved ? 'You approved :company to join the IT Conference!!'
             : 'You refused the request of :company to join the IT conference';
-        return redirect(route('moderator.companies.index'))
+        return redirect(route('moderator.companies.show', $team))
             ->banner(__($template, ['company' => $team->name]));
     }
 

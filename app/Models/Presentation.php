@@ -61,7 +61,7 @@ class Presentation extends Model
     {
         return [
             'name' => 'required',
-            'max_participants' => 'required|numeric',
+            'max_participants' => 'required|numeric|min:1',
             'description' => 'required',
             'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required',
@@ -195,7 +195,9 @@ class Presentation extends Model
     protected function speakerCanEdit() : Attribute
     {
         $currentDate = Carbon::now();
-        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
+        $deadline = Carbon::createFromDate($currentDate->year, 10, 27);
+        $deadline->setTime(12, 0, 0);
+        $deadline->setTimezone('Europe/Amsterdam');
 
         return Attribute::make(
             get: fn() => $currentDate->lt($deadline)

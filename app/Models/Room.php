@@ -53,4 +53,17 @@ class Room extends Model
     {
         return $this->hasMany(Presentation::class);
     }
+
+    /**
+     * List with the rooms with the closest capacity to the maximum participants passed
+     * @param $maxCapacity
+     * @return mixed
+     */
+    public static function getWithClosestCapacity($maxCapacity)
+    {
+        return Room::select('*')
+            ->selectRaw('CAST(max_participants AS SIGNED) AS signed_capacity')
+            ->orderByRaw('ABS(signed_capacity - ?)', [$maxCapacity])
+            ->get();
+    }
 }
