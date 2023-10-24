@@ -5,10 +5,9 @@ We look forward to seeing you on the 17th of November!
 
 In the meanwhile you can add other employees from {{$team->name}} that will be joining during the conference, request a booth or become a sponsor.
 @component('mail::button', ['url' => route('teams.show', $team)])
-Manage your team
+    Manage your team
 @endcomponent
 
 If you have any additional questions do not hesitate to contact us!
 
-If you did not expect to receive this, you may discard this email.
 @endcomponent

@@ -5,16 +5,19 @@
         </x-slot>
 
         <x-slot name="description">
-            If you decide to become a sponsor of the conference, there are different tiers that you can choose of with
-            different privileges. Check out <a class="dark:text-gray-400 underline" href="/files/sponsor-packages.pdf">this
-                                                                                                                       link</a>
+            If you choose to sponsor the conference, there are various tiers available, 
+            each offering distinct benefits. 
+            Check out 
+            <a class="text-purple-600 dark:text-purple-500 underline" href="/files/sponsor-packages.pdf">
+            this link
+            </a>
             for more detailed information.
         </x-slot>
 
         <x-slot name="form">
             <div class="col-span-6">
                 <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                    If you want to be a sponsor, choose a tier and we will be soon in touch with you to discuss further.
+                    If you're interested in sponsoring, please select a tier and we'll reach out to you for further discussions.
                 </div>
             </div>
 
@@ -36,7 +39,7 @@
                         </div>
                     </div>
                     @if($chosenTierName)
-                        <div class="pt-2 text-gray-900 dark:text-gray-400 text-sm">
+                        <div class="pt-2 text-purple-600 dark:text-purple-500 text-sm">
                             Available spots: {{$tiers->firstWhere('name', $chosenTierName)->leftSpots()}}
                         </div>
                     @endif
@@ -69,7 +72,7 @@
 
         <x-slot name="actions">
             @if(!$this->requestSent && !is_null($chosenTierName))
-                <x-button>
+                <x-button class="bg-purple-600 dark:bg-purple-500 hover:bg-purple-500 dark:hover:bg-purple-600 text-gray-200 dark:text-gray-200">
                     {{ __('Send request') }}
                 </x-button>
             @endif

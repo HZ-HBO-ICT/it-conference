@@ -3,9 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Room;
+use App\Models\SponsorTier;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -13,22 +16,19 @@ class RoomBasicFeaturesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    public function setUp(): void
     {
-        $response = $this->get('/');
+        parent::setUp();
 
-        $response->assertStatus(200);
+        // Seed all the master data
+        Artisan::call('admin:upsert-master-data');
     }
 
     public function test_that_all_rooms_are_showed_if_moderator(): void
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
-        $route = route('rooms.index');
+        $route = route('moderator.rooms.index');
         $rooms = Room::factory(5)->create();
 
         $user->assignRole('content moderator');
@@ -47,8 +47,7 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'participant']);
-        $route = route('rooms.index');
+        $route = route('moderator.rooms.index');
         $rooms = Room::factory(5)->create();
 
         $user->assignRole('participant');
@@ -64,8 +63,7 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
-        $route = route('rooms.create');
+        $route = route('moderator.rooms.create');
 
         $user->assignRole('content moderator');
 
@@ -82,8 +80,7 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'participant']);
-        $route = route('rooms.create');
+        $route = route('moderator.rooms.create');
 
         $user->assignRole('participant');
 
@@ -98,10 +95,9 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $user->assignRole('content moderator');
 
-        $route = route('rooms.store');
+        $route = route('moderator.rooms.store');
         $requestBody = [
             'name' => 'GW317',
             'max_participants' => 15
@@ -113,7 +109,7 @@ class RoomBasicFeaturesTest extends TestCase
 
         // Assert
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect(route('rooms.index'));
+        $response->assertRedirect(route('moderator.rooms.index'));
 
         $this->assertDatabaseCount('rooms', $roomsOldCount + 1);
         $this->assertDatabaseHas('rooms', [
@@ -125,10 +121,9 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $user->assignRole('content moderator');
 
-        $route = route('rooms.store');
+        $route = route('moderator.rooms.store');
         $requestBody = [
             'name' => 'GW317',
             'max_participants' => -1
@@ -147,14 +142,13 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $user->assignRole('content moderator');
         Room::create([
             'name' => 'GW317',
             'max_participants' => 12
         ]);
 
-        $route = route('rooms.store');
+        $route = route('moderator.rooms.store');
         $requestBody = [
             'name' => 'GW317',
             'max_participants' => -1
@@ -173,10 +167,9 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'participant']);
         $user->assignRole('participant');
 
-        $route = route('rooms.store');
+        $route = route('moderator.rooms.store');
         $requestBody = [
             'name' => 'GW317',
             'max_participants' => -1
@@ -194,9 +187,8 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $room = Room::factory()->create();
-        $route = route('rooms.edit', $room);
+        $route = route('moderator.rooms.edit', $room);
 
         $user->assignRole('content moderator');
 
@@ -213,9 +205,8 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'participant']);
         $room = Room::factory()->create();
-        $route = route('rooms.edit', $room);
+        $route = route('moderator.rooms.edit', $room);
 
         $user->assignRole('participant');
 
@@ -230,12 +221,11 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $user->assignRole('content moderator');
         $room = Room::factory()->create();
 
         $oldParticipants = $room->max_participants;
-        $route = route('rooms.update', $room);
+        $route = route('moderator.rooms.update', $room);
         $requestBody = [
             'max_participants' => $oldParticipants + 1
         ];
@@ -245,7 +235,7 @@ class RoomBasicFeaturesTest extends TestCase
 
         // Assert
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect(route('rooms.index'));
+        $response->assertRedirect(route('moderator.rooms.index'));
         $this->assertDatabaseHas('rooms', [
             'name' => $room->name,
             'max_participants' => $oldParticipants + 1
@@ -256,13 +246,12 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $user->assignRole('content moderator');
         $room = Room::factory()->create();
 
         $oldParticipants = $room->max_participants;
         $oldName = $room->name;
-        $route = route('rooms.update', $room);
+        $route = route('moderator.rooms.update', $room);
         $requestBody = [
             'name' => $room->name . '1',
             'max_participants' => $oldParticipants + 1
@@ -273,7 +262,7 @@ class RoomBasicFeaturesTest extends TestCase
 
         // Assert
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect(route('rooms.index'));
+        $response->assertRedirect(route('moderator.rooms.index'));
         $this->assertDatabaseHas('rooms', [
             'name' => $oldName,
             'max_participants' => $oldParticipants + 1
@@ -284,12 +273,11 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'participant']);
         $user->assignRole('participant');
         $room = Room::factory()->create();
 
         $oldParticipants = $room->max_participants;
-        $route = route('rooms.update', $room);
+        $route = route('moderator.rooms.update', $room);
         $requestBody = [
             'max_participants' => $oldParticipants + 1
         ];
@@ -305,11 +293,10 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $user->assignRole('content moderator');
         $room = Room::factory()->create();
 
-        $route = route('rooms.update', $room);
+        $route = route('moderator.rooms.update', $room);
         $requestBody = [
             'max_participants' => -1
         ];
@@ -326,9 +313,8 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'content moderator']);
         $room = Room::factory()->create();
-        $route = route('rooms.destroy', $room);
+        $route = route('moderator.rooms.destroy', $room);
         $oldRoomCount = Room::count();
 
         $user->assignRole('content moderator');
@@ -338,7 +324,7 @@ class RoomBasicFeaturesTest extends TestCase
 
         // Assert
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect(route('rooms.index'));
+        $response->assertRedirect(route('moderator.rooms.index'));
 
         $this->assertDatabaseCount('rooms', $oldRoomCount - 1);
     }
@@ -347,9 +333,8 @@ class RoomBasicFeaturesTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create();
-        Role::create(['name' => 'participant']);
         $room = Room::factory()->create();
-        $route = route('rooms.destroy', $room);
+        $route = route('moderator.rooms.destroy', $room);
         $oldRoomCount = Room::count();
 
         $user->assignRole('participant');

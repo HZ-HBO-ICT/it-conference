@@ -1,6 +1,9 @@
 <?php
+
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SpeakerController;
@@ -25,42 +28,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     //route for announcements
-    Route::get('/dashboard/announcements', [HubController::class, 'getAnnouncements'])->name('announcements');
-
-    //route for my profile in personal hub
-    Route::get('/dashboard/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
-
-    //route for personal programme
-    Route::get('/dashboard/programme', [HubController::class, 'personalProgramme'])->name('my-programme');
+    Route::get('/my', [HubController::class, 'getConferenceHome'])->name('announcements');
 
     //route for page for registering for presentations
     Route::get('/dashboard/programme/register', [HubController::class, 'presentations'])->name('my-programme-register');
 
+    //TODO: Fix uri by following the example of disenrolling (also most route names are with . instead of -)
     //route for enrolling for a presentation
     Route::post('/dashboard/programme/enroll/{presentation}', [HubController::class, 'enroll'])->name('presentation-enroll');
 
-    //route for disenrolling from a presentation
-    Route::post('/dashboard/programme/disenroll/{presentation}', [HubController::class, 'disenroll'])->name('presentation-disenroll');
+    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
+    //route for personal programme
+    Route::get('/my/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+
+    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
+
+    //route for disenrolling from a presentation
+    Route::get('/my/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+
+    Route::get('/speakers/request', [PresentationController::class, 'create'])
+        ->name('speakers.request.presentation');
+    Route::post('/speakers/request', [PresentationController::class, 'store'])
+        ->name('speakers.request.process');
+
+    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
+        ->name('presentations.show');
+
+    Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
+        ->name('presentations.update');
+
+    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+        ->name('presentations.destroy');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
     ->middleware(['signed'])->name('registration.page.via.invitation');
-
 Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
     ->name('register.via.invitation');
 
@@ -69,65 +80,107 @@ Route::get('/company-representative-invitation/{invitation}', [InvitationControl
 Route::post('/company-representative-invitation/{invitation}', [InvitationController::class, 'companyRepStore'])
     ->name('company-rep.registration');
 
+Route::get('/user/invitation/{invitation}', [InvitationController::class, 'userShow'])
+    ->middleware(['signed'])->name('user.invitation');
+Route::post('/user/invitation/{invitation}', [InvitationController::class, 'userStore'])
+    ->name('user.invitation.registration');
+
 Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
+Route::get('/programme', [ScheduleController::class, 'index'])
+    ->name('programme');
+
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
 
-Route::get('/speakers/request', [SpeakerController::class, 'requestPresentation'])
-    ->name('speakers.request.presentation');
-Route::post('/speakers/request', [SpeakerController::class, 'processRequest'])
-    ->name('speakers.request.process');
+Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
+
+Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
+Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
     'moderator'
-])->group(function () {
-    Route::get('moderator/overview', [ContentModeratorController::class, 'overview'])
-        ->name('moderator.overview');
-
+])->name('moderator.')->group(function () {
     Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
-        ->name('moderator.requests');
+        ->name('requests');
 
     Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
-        ->name('moderator.request.details');
+        ->name('request.details');
 
-    Route::post('/requests/{type}/{id}/approve/{isApproved}', [ContentModeratorController::class, 'changeApprovalStatus'])
-        ->name('moderator.request.approve');
+    Route::post('/requests/teams/{team}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfTeam'])
+        ->name('request.teams.approve');
+
+    Route::post('/requests/booths/{booth}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfBooth'])
+        ->name('request.booths.approve');
+
+    Route::post('/requests/sponsorships/{team}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfSponsorship'])
+        ->name('request.sponsorships.approve');
+
+    Route::post('/requests/presentations/{presentation}/approve/{isApproved}',
+        [ContentModeratorController::class, 'changeApprovalStatusOfPresentation'])
+        ->name('request.presentations.approve');
 
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
-        ->name('moderator.schedule.overview');
+        ->name('schedule.overview');
 
     // TODO: Fix with a post request instead
     Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
-        ->name('moderator.schedule.draft');
+        ->name('schedule.draft');
 
     Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
-        ->name('moderator.schedule.timeslots.create');
+        ->name('schedule.timeslots.create');
     Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
-        ->name('moderator.schedule.timeslots.store');
+        ->name('schedule.timeslots.store');
 
     Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
-        ->name('moderator.presentations-for-scheduling');
+        ->name('presentations-for-scheduling');
     Route::get('/schedule/{presentation}', [ScheduleController::class, 'schedulePresentation'])
-        ->name('moderator.schedule.presentation');
+        ->name('schedule.presentation');
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
-        ->name('moderator.schedule.presentation.store');
-
-    Route::resource('/rooms', RoomController::class);
+        ->name('schedule.presentation.store');
 
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
-        ->name('moderator.list');
+        ->name('list');
+
+    Route::resource('/moderator/booths',
+        App\Http\Controllers\ContentModerator\BoothController::class);
+    Route::post('/moderator/booths/{booth}/approve', [
+        App\Http\Controllers\ContentModerator\BoothController::class, 'approve'
+    ])->name('booths.approve');
+
+    Route::resource('/moderator/companies',
+        App\Http\Controllers\ContentModerator\CompanyController::class);
+    Route::post('/moderator/companies/{team}/approve', [
+        App\Http\Controllers\ContentModerator\CompanyController::class, 'approve'
+    ])->name('companies.approve');
+
+    Route::resource('/moderator/presentations',
+        App\Http\Controllers\ContentModerator\PresentationController::class);
+    Route::post('/moderator/presentations/{presentation}/approve', [
+        App\Http\Controllers\ContentModerator\PresentationController::class, 'approve'
+    ])->name('presentations.approve');
+
+    Route::resource('/moderator/sponsors',
+        App\Http\Controllers\ContentModerator\SponsorshipController::class);
+    Route::post('/moderator/sponsors/{sponsor}/approve', [
+        App\Http\Controllers\ContentModerator\SponsorshipController::class, 'approve'
+    ])->name('sponsors.approve');
+
+    Route::resource('/moderator/rooms',
+        App\Http\Controllers\ContentModerator\RoomController::class);
+
+    Route::resource('/moderator/users',
+        \App\Http\Controllers\ContentModerator\UserController::class);
 });
-
-Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
-
-Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');

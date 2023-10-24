@@ -15,9 +15,9 @@ class HubController extends Controller
     /**
      * get view for announcements
      */
-    public function getAnnouncements()
+    public function getConferenceHome()
     {
-        return view('myhub.announcement');
+        return view('myhub.home');
     }
 
     /**
@@ -31,11 +31,14 @@ class HubController extends Controller
     /**
      * get personal programme for the user
      */
-    public function personalProgramme()
+    public function getProgramme()
     {
-        $presentations = Auth::user()->presentations->sortBy('timeslot.start');
+        if (Auth::user()->hasRole('content moderator')) {
+            abort(404);
+        }
 
-        return view('myhub.programme', compact('presentations'));
+        $user = Auth::user();
+        $presentations = $user->presentations->sortBy('timeslot.start');
     }
 
     /**

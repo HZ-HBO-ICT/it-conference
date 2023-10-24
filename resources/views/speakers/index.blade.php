@@ -1,33 +1,28 @@
 <x-app-layout>
-    <div class="relative bg-cover isolate overflow-hidden h-screen" style="background-image: url('/img/teacher.png')">
-        {{--gradient--}}
+    @if(!$speakers->isEmpty())
         <div
-            class="before:absolute before:bg-gradient-to-r before:from-blue-500 before:to-cyan-500 before:opacity-70 before:h-screen before:w-full"></div>
-        {{--red blob--}}
-        <img src="/img/red-blob.png"
-             class="absolute -left-52 -top-52 h-[34rem] z-0 opacity-75"
-             style="transform: rotate(45deg)">
-        {{--rose blob--}}
-        <img src="/img/rose-blob.png"
-             class="absolute bg-cover -bottom-48 -right-48 h-[34rem] z-0 opacity-75"
-             style="transform: rotate(50deg) scaleX(-1); overflow:hidden;">
-        {{--container for cards with speakers--}}
-        <div class="container px-40">
-            <div
-                class="grid grid-flow-row gap-10 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {{--display speakers in cards --}}
-                @foreach($speakers as $speaker)
-                    <div
-                        class="mt-12 z-20 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
-                        <figure>
-                            <img class="h-72 w-full rounded" alt="speaker" src="{{ $speaker->user->picture }}">
-                            <figcaption class="p-4">
-                                <p class="text-gray-800 dark:text-gray-200">{{ $speaker->user->name }}</p>
-                            </figcaption>
-                        </figure>
-                    </div>
+            class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
+            <div class="text-center max-w-2xl mx-auto mb-5">
+                <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Speakers Line-up</h2>
+            </div>
+            <ul class="grid-cols-1 gap-y-5 md:gap-x-8 md:gap-y-8 md:grid-cols-3 max-w-none mx-0 grid" role="list">
+                @foreach ($speakers as $speaker)
+                    <li class="px-3 py-6 lg:px-10 lg:py-8 rounded-2xl border-2 shadow dark:bg-gray-800 border-gray-200">
+                        <img class="w-56 h-56 rounded-full mx-auto my-auto max-w-full block dark:text-white"
+                             src="{{ $speaker->user->profile_photo_url }}" alt="Photo of {{$speaker->user->name}}">
+                        <h3 class="tracking-tight leading-7 font-semibold text-base mt-6 text-center dark:text-white">{{$speaker->user->name}}</h3>
+                        <p class="leading-6 text-sm italic text-center dark:text-gray-200">"{{$speaker->presentation->name}}"</p>
+                    </li>
                 @endforeach
+            </ul>
+        </div>
+        </div>
+    @else
+        <div
+            class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">There are currently no speakers available.</h2>
             </div>
         </div>
-    </div>
+    @endif
 </x-app-layout>

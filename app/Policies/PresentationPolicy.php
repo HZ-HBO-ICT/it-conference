@@ -5,24 +5,96 @@ namespace App\Policies;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 class PresentationPolicy
 {
-    /**
-     * Allows the user to send a request only if:
-     * The user has no other presentation
-     * The user is independent or if they are from a team
-     * then the team shouldn't have an already existing presentation
-     * and the user has been given a speaker role by the company representative
-     * (and therefore the user is not the company rep)
-     */
-    public function sendRequest(User $user): bool
+    private function deadline(): Carbon
     {
-        return is_null($user->speaker)
-            && (is_null($user->currentTeam)
-                || (is_null($user->currentTeam->presentations)
-                    && ($user->hasTeamRole($user->currentTeam, 'speaker')
-                        && $user->currentTeam->owner->id !== $user->id
-                        && !$user->hasRole('speaker'))));
+        $deadline = Carbon::createFromDate(2023, 10, 27);
+        $deadline->setTime(12, 0, 0);
+        $deadline->setTimezone('Europe/Amsterdam');
+
+        return $deadline;
     }
+
+    /**
+     * Determine whether the user can request for a presentation.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function request(User $user): bool
+    {
+        $currentDate = Carbon::now();
+
+        // If the deadline for the 27th of October has passed
+        if ($currentDate->gt($this->deadline())) {
+            return false;
+        }
+
+        // If the user already is a speaker
+        if ($user->speaker) {
+            return false;
+        }
+
+        if ($user->currentTeam) {
+            // Allow HZ to have unlimited presentations
+            if ($user->currentTeam->isHz)
+                return true;
+
+            return $user->currentTeam->has_presentations_left;
+        }
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function update(User $user, Presentation $presentation): bool
+    {
+        $currentDate = Carbon::now();
+
+        // If the user is the content moderator they can always update
+        if ($user->hasRole('content moderator')) {
+            return true;
+        }
+
+        // If the deadline for the 27th of October has not passed and user is main speaker
+        if ($currentDate->lt($this->deadline()) && $user->id == $presentation->mainSpeaker()->user->id) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can view the presentation details/edits
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function view(User $user, Presentation $presentation): bool
+    {
+        return $user->speaker && $user->speaker->presentation_id == $presentation->id;
+    }
+
+    public function delete(User $user, Presentation $presentation): bool
+    {
+        if ($user->hasRole('content moderator'))
+            return true;
+
+        if ($user->id == $presentation->mainSpeaker()->user->id)
+            return $presentation->canBeDeleted();
+
+        return false;
+    }
+
 }

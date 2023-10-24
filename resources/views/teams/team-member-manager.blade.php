@@ -5,12 +5,12 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Team Members') }}
+                    {{ __('Company Members') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    All of the people that you have invited to join your team during the IT Conference and have accepted
-                    to be part of your team.
+                    All of the people that you have invited to join your team for the IT Conference and have accepted
+                    the invitation
                 </x-slot>
 
                 <!-- Team Member List -->
@@ -18,41 +18,45 @@
                     <div class="space-y-6">
                         @if($team->users->isEmpty())
                             <div class="flex items-center">
-                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no team members</div>
+                                <div class="ml-4 text-sm dark:text-gray-400">Currently there are no members of your
+                                                                             company
+                                </div>
                             </div>
                         @else
 
                             @foreach ($team->users->sortBy('name') as $user)
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <img class="w-8 h-8 rounded-full object-cover"
-                                             src="{{ $user->profile_photo_url }}"
-                                             alt="{{ $user->name }}">
-                                        <div class="ml-4 dark:text-white">{{ $user->name }}</div>
-                                    </div>
+                                @if($user->id != $team->owner->id)
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <img class="w-8 h-8 rounded-full object-cover"
+                                                 src="{{ $user->profile_photo_url }}"
+                                                 alt="{{ $user->name }}">
+                                            <div class="ml-4 dark:text-white">{{ $user->name }}</div>
+                                        </div>
 
-                                    <div class="flex items-center">
-                                        <!-- Manage Team Member Role -->
-                                        @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
-                                            <button class="ml-2 text-sm text-gray-400 underline"
-                                                    wire:click="manageRole('{{ $user->id }}')">
-                                                {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
-                                            </button>
-                                        @elseif (Laravel\Jetstream\Jetstream::hasRoles())
-                                            <div class="ml-2 text-sm text-gray-400">
-                                                {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
-                                            </div>
-                                        @endif
+                                        <div class="flex items-center">
+                                            <!-- Manage Team Member Role -->
+                                            @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
+                                                <button class="ml-2 text-sm text-gray-400 underline"
+                                                        wire:click="manageRole('{{ $user->id }}')">
+                                                    {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
+                                                </button>
+                                            @elseif (Laravel\Jetstream\Jetstream::hasRoles())
+                                                <div class="ml-2 text-sm text-gray-400">
+                                                    {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
+                                                </div>
+                                            @endif
 
-                                        <!-- Remove Team Member -->
-                                        @if (Gate::check('removeTeamMember', $team))
-                                            <button class="cursor-pointer ml-6 text-sm text-red-500"
-                                                    wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
-                                                {{ __('Remove') }}
-                                            </button>
-                                        @endif
+                                            <!-- Remove Team Member -->
+                                            @if (Gate::check('removeTeamMember', [$team, $user]))
+                                                <button class="cursor-pointer ml-6 text-sm text-red-500"
+                                                        wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
+                                                    {{ __('Remove') }}
+                                                </button>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         @endif
                     </div>
@@ -65,11 +69,11 @@
         <div class="mt-10 sm:mt-0">
             <x-form-section submit="addTeamMember">
                 <x-slot name="title">
-                    Invite team member
+                    Invite company member
                 </x-slot>
 
                 <x-slot name="description">
-                    Add a new team member to your team to present {{$team->name}} during the IT Conference and choose
+                    Add a new member to your company to represent {{$team->name}} during the IT Conference and choose
                     their role
                 </x-slot>
 
@@ -172,7 +176,7 @@
                                 <div class="text-gray-600 dark:text-gray-400">{{ $invitation->email }}</div>
 
                                 <div class="flex items-center">
-                                    @if (Gate::check('removeTeamMember', $team))
+                                    @if (Gate::check('removeTeamMember', [$team, $invitation]))
                                         <!-- Cancel Team Invitation -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
                                                 wire:click="cancelTeamInvitation({{ $invitation->id }})">
@@ -198,9 +202,10 @@
             <div class="relative z-0 mt-1 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer">
                 @foreach ($this->roles as $index => $role)
                     <button type="button" {{!$team->booth && $role->key == "booth_owner" ? 'disabled' : ''}}
-                            class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 {{ $index > 0 ? 'border-t border-gray-200 dark:border-gray-700 focus:border-none rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
+                    class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 {{ $index > 0 ? 'border-t border-gray-200 dark:border-gray-700 focus:border-none rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
                             wire:click="$set('currentRole', '{{ $role->key }}')">
-                        <div class="{{!$team->booth && $role->key == "booth_owner" ? 'opacity-50' : ''}} {{ $currentRole !== $role->key ? 'opacity-50' : '' }}">
+                        <div
+                            class="{{!$team->booth && $role->key == "booth_owner" ? 'opacity-50' : ''}} {{ $currentRole !== $role->key ? 'opacity-50' : '' }}">
                             <!-- Role Name -->
                             <div class="flex items-center">
                                 <div

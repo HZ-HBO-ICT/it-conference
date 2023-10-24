@@ -5,20 +5,18 @@
         </x-slot>
 
         <x-slot name="description">
-            Signing up for our company market will after confirmation grant a standard 8m2 (sponsor package size may
-            differ) sized area where we will present you with a round standing table. Electricity is available. You can
-            bring your own banner to place in the area. Floorplans with location will be provided no later than two
-            weeks before the start of the conference. We will expand making more room but you can see an imression from
-            last years floorplan here
-            <LINK>
-
+            Signing up for our company market will, after confirmation, grant a standard 8m2 booth. 
+            Choosing the gold sponsor package gives you a 12m2 booth. 
+            The standard and gold package booth both include a standing table and electricity. 
+            It is possible to bring your own banner to place at your booth. 
+            Floorplans for the location of your booth will be provided no later than two weeks before the conference. 
         </x-slot>
 
         <x-slot name="form">
             <div class="col-span-6">
                 <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                    Any additional supplies or preferences you need to fill the area please let us know so we can try to
-                    think with you and accommodate you as best as we can.
+                    If there are any additional materials or specific preferences you require for your booth, 
+                    please inform us. We'll do our best to understand your needs and accommodate them.
                 </div>
             </div>
 
@@ -56,7 +54,7 @@
 
         <x-slot name="actions">
             @if(!$this->requestSent)
-                <x-button>
+                <x-button class="bg-purple-600 dark:bg-purple-500 hover:bg-purple-500 dark:hover:bg-purple-600 text-gray-200 dark:text-gray-200">
                     {{ __('Send request') }}
                 </x-button>
             @endif

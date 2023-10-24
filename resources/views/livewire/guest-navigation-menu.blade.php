@@ -29,6 +29,13 @@
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
+                @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                            {{ __('Programme') }}
+                        </x-nav-link>
+                    </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
@@ -87,10 +94,15 @@
             <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
+            @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                    {{ __('Programme') }}
+                </x-responsive-nav-link>
+            @endif
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="" {{--:active="request()->routeIs('dashboard')"--}}>
+            <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
             <div class="border-t border-gray-200 dark:border-gray-600"></div>

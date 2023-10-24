@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Models\Speaker;
-use App\Models\Team;
+use App\Models\User;
+use App\Models\UserInvitation;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
+use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\TeamInvitation;
 
 class InvitationController extends Controller
 {
+    use PasswordValidationRules;
+
     protected $guard;
 
     public function __construct(StatefulGuard $guard)
@@ -47,7 +55,24 @@ class InvitationController extends Controller
      */
     public function register(Request $request, TeamInvitation $invitation, CreatesNewUsers $creator): RedirectResponse
     {
-        event(new Registered($user = $creator->create($request->all())));
+        $input = $request->all();
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ];
+
+        Validator::make($input, $rules)->validate();
+
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($input['password']),
+            'email_verified_at' => now()->timestamp
+        ]);
+
+        event(new Registered($user));
         $this->guard->login($user);
 
         app(AddsTeamMembers::class)->add(
@@ -63,31 +88,38 @@ class InvitationController extends Controller
         // This checks if the team already has an approved presentation - add the speaker as supporter
         // and automatically approve. If the team doesn't have an approved presentation, but they have
         // a request, then add the speaker but don't approve it
-        if ($user->currentTeam->presentations) {
-            Speaker::create([
-                'user_id' => $user->id,
-                'presentation_id' => $user->currentTeam->presentations->first()->id,
-                'is_approved' => 1,
-                'is_main_speaker' => 0
-            ]);
 
-            $user->assignRole('speaker');
-        } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+        // New update: when the sponsor is gold this should not be executed
+        // Another update: when the team is HZ it also should not be executed
+        $sponsorTier = $user->currentTeam->sponsorTier;
 
-            $presentationId = 0;
-            foreach ($user->currentTeam->allSpeakers as $user) {
-                if ($user->speaker) {
-                    $presentationId = $user->speaker->presentation_id;
-                    break;
+        if ((!$sponsorTier || $sponsorTier->name !== 'golden') && !$user->currentTeam->isHz) {
+            if ($user->currentTeam->presentations) {
+                Speaker::create([
+                    'user_id' => $user->id,
+                    'presentation_id' => $user->currentTeam->presentations->first()->id,
+                    'is_approved' => 1,
+                    'is_main_speaker' => 0
+                ]);
+
+                $user->assignRole('speaker');
+            } elseif ($user->currentTeam->hasPendingPresentationRequest) {
+
+                $presentationId = 0;
+                foreach ($user->currentTeam->allSpeakers as $userSpeaker) {
+                    if ($userSpeaker->speaker) {
+                        $presentationId = $userSpeaker->speaker->presentation_id;
+                        break;
+                    }
                 }
-            }
 
-            Speaker::create([
-                'user_id' => $user->id,
-                'presentation_id' => $presentationId,
-                'is_approved' => 0,
-                'is_main_speaker' => 0
-            ]);
+                Speaker::create([
+                    'user_id' => $user->id,
+                    'presentation_id' => $presentationId,
+                    'is_approved' => 0,
+                    'is_main_speaker' => 0
+                ]);
+            }
         }
 
         return redirect(config('fortify.home'))->banner(
@@ -107,6 +139,7 @@ class InvitationController extends Controller
     public function companyRepStore(Request $request, TeamInvitation $invitation)
     {
         (new ResetUserPassword())->reset($invitation->team->owner, $request->all());
+        $invitation->team->owner->email_verified_at = now()->timestamp;
         $this->guard->login($invitation->team->owner);
 
         $invitation->team->owner->switchTeam($invitation->team);
@@ -117,4 +150,41 @@ class InvitationController extends Controller
         );
     }
 
+    public function userShow(Request $request, UserInvitation $invitation)
+    {
+        if (!$request->hasValidSignature()) {
+            abort(403);
+        }
+
+        return view('auth.user-invitation-registration', compact('invitation'));
+    }
+
+    public function userStore(Request $request, UserInvitation $invitation)
+    {
+        $input = $request->all();
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ];
+
+        Validator::make($input, $rules)->validate();
+
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($input['password']),
+            'email_verified_at' => now()->timestamp
+        ]);
+
+        event(new Registered($user));
+        $this->guard->login($user);
+
+        $invitation->delete();
+
+        return redirect(config('fortify.home'))->banner(
+            __('Great! You have accepted the invitation to join the IT Conference!')
+        );
+    }
 }

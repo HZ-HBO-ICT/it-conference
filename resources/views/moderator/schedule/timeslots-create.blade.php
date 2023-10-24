@@ -1,4 +1,4 @@
-<x-content-moderator-layout>
+<x-hub-layout>
     <div id="breadcrumbs">
         <p class="text-gray-800 dark:text-gray-200"><span class="hover:text-violet-500"><a
                     href="{{route('moderator.schedule.overview')}}">Schedule management</a></span>
@@ -31,24 +31,10 @@
                          class="mt-1 block w-full"/>
                 <x-input-error for="ending" class="mt-2"/>
             </div>
-            <hr>
-            <h3 class="text-lg text-gray-900 dark:text-white pt-5">Lunch break</h3>
-            <div class="col-span-6 sm:col-span-4 pt-5">
-                <x-label for="breakStart" value="Starting time of lunch break (default is 12:30)"/>
-                <x-input id="breakStart" name="breakStart" type="time" value="{{old('breakStart')}}"
-                         class="mt-1 block w-full"/>
-                <x-input-error for="breakStart" class="mt-2"/>
-            </div>
-            <div class="col-span-6 sm:col-span-4 py-4">
-                <x-label for="breakEnd" value="Ending time of lunch break (default is 13:00)"/>
-                <x-input id="breakEnd" name="breakEnd" type="time" value="{{old('breakEnd')}}"
-                         class="mt-1 block w-full"/>
-                <x-input-error for="breakEnd" class="mt-2"/>
-            </div>
             <x-button
                 class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
                 Save
             </x-button>
         </form>
     </div>
-</x-content-moderator-layout>
+</x-hub-layout>
