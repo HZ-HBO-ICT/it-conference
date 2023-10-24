@@ -1,4 +1,4 @@
-@php use Carbon\Carbon; @endphp
+@php use App\Models\DefaultPresentation;use Carbon\Carbon; @endphp
 @php
     $anyScheduledLectures = false;
     $anyScheduledWorkshops = false;
@@ -37,9 +37,9 @@
                         </a>
                     </div>
                     @if(\App\Models\Timeslot::all()->count() > 0)
-                        <div>
+                        {{--<div>
                             @livewire('reset-timeslots')
-                        </div>
+                        </div>--}}
                     @else
                         {{--<a href="{{route('moderator.schedule.timeslots.create')}}"
                            class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
@@ -68,7 +68,7 @@
                     {{ __('Current version of schedule') }}
                 </h2>
                 <div class="px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
-                    @if(\App\Models\DefaultPresentation::all()->count() == 0)
+                    @if(DefaultPresentation::all()->count() == 0)
                         <div>
                             <p class="pb-3 text-center font-italic text-md text-gray-800 dark:text-gray-200 leading-tight">
                                 To start assembling the schedule first you need to add opening and closing part of the
@@ -84,7 +84,7 @@
                                 <span>Add opening and closing part of the conference</span>
                             </a>
                         </div>
-                    @elseif(!\App\Models\DefaultPresentation::closing())
+                    @elseif(!DefaultPresentation::closing())
                         <div>
                             <p class="pb-3 text-center font-italic text-md text-gray-800 dark:text-gray-200 leading-tight">
                                 To start assembling the schedule first you need to add opening and closing part of the
@@ -101,20 +101,40 @@
                             </a>
                         </div>
                     @else
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-11">
+                            <div class="pr-2">
+                                <p class="text-left text-sm text-gray-900 dark:text-white align-top">
+                                    {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}
+                                    - {{(Carbon::parse(DefaultPresentation::opening()->timeslot->start)->addMinutes(DefaultPresentation::opening()->timeslot->duration))->format('H:i')}}
+                                </p>
+                            </div>
+                            <div class="sm:col-span-10">
+                                <div
+                                    class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+                                    <div class="px-3 py-1">
+                                        <div
+                                            class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
+                                        <p class="text-gray-100 text-sm">
+                                            {{substr(DefaultPresentation::opening()->description, 0, 150) . '...' }}
+                                        </p>
+                                    </div>
+                                    <div class="px-2 pb-2">
+                                        <span
+                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                            {{DefaultPresentation::opening()->room->name}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-2">
                             <div>
                                 <table class="table-auto w-full text-gray-900 dark:text-gray-200">
-                                    <thead>
-                                    <tr class="text-left">
-                                        <th>Timeframe</th>
-                                        <th>Lectures</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     @foreach($lectureTimeslots as $timeslot)
                                         @if($timeslot->presentations->count() > 0)
                                             <tr>
-                                                <td class="text-left text-gray-900 dark:text-white align-top">
+                                                <td class="pr-2 text-left text-sm text-gray-900 dark:text-white align-top">
                                                     {{Carbon::parse($timeslot->start)->format('H:i')}}
                                                     - {{(Carbon::parse($timeslot->start)->addMinutes(30))->format('H:i')}}
                                                 </td>
@@ -138,17 +158,11 @@
                             </div>
                             <div>
                                 <table class="table-auto w-full text-gray-900 dark:text-gray-200">
-                                    <thead>
-                                    <tr class="text-left">
-                                        <th>Timeframe</th>
-                                        <th>Workshops</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     @foreach($workshopTimeslots as $timeslot)
                                         @if($timeslot->presentations->count() > 0)
                                             <tr>
-                                                <td class="text-left text-gray-900 dark:text-white align-top">
+                                                <td class="text-left text-sm text-gray-900 dark:text-white align-top">
                                                     {{Carbon::parse($timeslot->start)->format('H:i')}}
                                                     - {{(Carbon::parse($timeslot->start)->addMinutes(90))->format('H:i')}}
                                                 </td>
@@ -171,13 +185,38 @@
                                 </table>
                             </div>
                         </div>
-
                         @if(!$anyScheduledLectures && !$anyScheduledWorkshops)
                             <div
-                                class="text-center  pt-5 font-italic text-lg text-gray-800 dark:text-gray-200 leading-tight">
+                                class="text-center py-3 font-italic text-lg text-gray-800 dark:text-gray-200 leading-tight">
                                 There are no presentation scheduled yet. Assign them manually or use the autofill
                             </div>
                         @endif
+                        <div class="grid grid-cols-11">
+                            <div class="pr-2">
+                                <p class="text-left text-sm text-gray-900 dark:text-white align-top">
+                                    {{Carbon::parse(DefaultPresentation::closing()->timeslot->start)->format('H:i')}}
+                                    - {{(Carbon::parse(DefaultPresentation::closing()->timeslot->start)->addMinutes(DefaultPresentation::closing()->timeslot->duration))->format('H:i')}}
+                                </p>
+                            </div>
+                            <div class="sm:col-span-10">
+                                <div
+                                    class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+                                    <div class="px-3 py-1">
+                                        <div
+                                            class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
+                                        <p class="text-gray-100 text-sm">
+                                            {{substr(DefaultPresentation::closing()->description, 0, 150) . '...' }}
+                                        </p>
+                                    </div>
+                                    <div class="px-2 pb-2">
+                                        <span
+                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                            {{DefaultPresentation::closing()->room->name}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
