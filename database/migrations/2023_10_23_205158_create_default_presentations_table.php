@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('name')->nullable(false);
             $table->string('description')->nullable(false);
 
+            $table->string('type')->comment('What part of the conference is the presentation')
+                ->nullable(false);
+
             $table->unsignedBigInteger('timeslot_id');
             $table->unsignedBigInteger('room_id');
             $table->foreign('timeslot_id')->references('id')->on('timeslots');

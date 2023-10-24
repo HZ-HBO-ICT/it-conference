@@ -144,6 +144,13 @@ Route::middleware([
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
         ->name('schedule.presentation.store');
 
+    Route::get('/schedule/create/{event}', [ScheduleController::class, 'createDefaultPresentation'])
+        ->name('schedule.default.presentation.create');
+    Route::post('/schedule/create/opening', [ScheduleController::class, 'storeOpeningPresentation'])
+        ->name('schedule.store.opening');
+    Route::post('/schedule/create/closing', [ScheduleController::class, 'storeClosingPresentation'])
+        ->name('schedule.store.closing');
+
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
         ->name('list');
 
