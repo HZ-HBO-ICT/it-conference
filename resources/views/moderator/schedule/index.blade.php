@@ -41,10 +41,10 @@
                             @livewire('reset-timeslots')
                         </div>
                     @else
-                        <a href="{{route('moderator.schedule.timeslots.create')}}"
+                        {{--<a href="{{route('moderator.schedule.timeslots.create')}}"
                            class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
                             <span class="flex items-center h-full justify-center">Generate timeslots</span>
-                        </a>
+                        </a>--}}
                     @endif
                     @if($numberOfUnscheduledPresentations > 0)
                         <div>
@@ -68,11 +68,37 @@
                     {{ __('Current version of schedule') }}
                 </h2>
                 <div class="px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
-                    @if(\App\Models\Timeslot::all()->count() == 0)
-                        <div class="text-center font-italic text-lg text-gray-800 dark:text-gray-200 leading-tight">
-                            There are no timeslots generated yet. <a
-                                href="{{route('moderator.schedule.timeslots.create')}}"
-                                class="underline text-crew-500">Generate timeslots first</a>
+                    @if(\App\Models\DefaultPresentation::all()->count() == 0)
+                        <div>
+                            <p class="pb-3 text-center font-italic text-md text-gray-800 dark:text-gray-200 leading-tight">
+                                To start assembling the schedule first you need to add opening and closing part of the
+                                conference day</p>
+                            <a href="{{route("moderator.schedule.default.presentation.create", "opening")}}"
+                               class="flex items-center bg-crew-100 hover:bg-crew-200 dark:bg-crew-700 dark:hover:bg-crew-900 text-gray-600 dark:text-white font-semibold justify-center py-3 px-6 w-full rounded-lg transition duration-300 ease-in-out break-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     class="w-6 h-6 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 4.5v15m7.5-7.5h-15"></path>
+                                </svg>
+                                <span>Add opening and closing part of the conference</span>
+                            </a>
+                        </div>
+                    @elseif(!\App\Models\DefaultPresentation::closing())
+                        <div>
+                            <p class="pb-3 text-center font-italic text-md text-gray-800 dark:text-gray-200 leading-tight">
+                                To start assembling the schedule first you need to add opening and closing part of the
+                                conference day</p>
+                            <a href="{{route("moderator.schedule.default.presentation.create", "closing")}}"
+                               class="flex items-center bg-crew-100 hover:bg-crew-200 dark:bg-crew-700 dark:hover:bg-crew-900 text-gray-600 dark:text-white font-semibold justify-center py-3 px-6 w-full rounded-lg transition duration-300 ease-in-out break-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     class="w-6 h-6 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 4.5v15m7.5-7.5h-15"></path>
+                                </svg>
+                                <span>Add closing part of the conference</span>
+                            </a>
                         </div>
                     @else
                         <div class="grid grid-cols-2 gap-4">
@@ -145,6 +171,7 @@
                                 </table>
                             </div>
                         </div>
+
                         @if(!$anyScheduledLectures && !$anyScheduledWorkshops)
                             <div
                                 class="text-center  pt-5 font-italic text-lg text-gray-800 dark:text-gray-200 leading-tight">

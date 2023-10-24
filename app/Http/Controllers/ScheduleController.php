@@ -312,6 +312,9 @@ class ScheduleController extends Controller
         $validated['timeslot_id'] = $timeslot->id;
         DefaultPresentation::create($validated);
 
+        TimeslotController::generate($openingTimeslotEnd->toTimeString(),
+            $closingTimeslotStart->toTimeString());
 
+        return redirect(route('moderator.schedule.overview'));
     }
 }

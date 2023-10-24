@@ -54,9 +54,8 @@ class TimeslotController extends Controller
      *
      * @param $starting
      * @param $ending
-     * @return void
      */
-    private function generate($starting, $ending)
+    public static function generate($starting, $ending)
     {
         $current = Carbon::parse($starting);
         $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(90);
