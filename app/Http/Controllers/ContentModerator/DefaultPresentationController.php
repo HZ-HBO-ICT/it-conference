@@ -66,7 +66,8 @@ class DefaultPresentationController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'room_id' => 'required|numeric'
+            'room_id' => 'required|numeric',
+            'duration' => 'required|numeric|min:0'
         ]);
 
         $timeslotValidated = $request->validate([
@@ -98,7 +99,8 @@ class DefaultPresentationController extends Controller
         DefaultPresentation::create($validated);
 
         TimeslotController::generate($openingTimeslotEnd->toTimeString(),
-            $closingTimeslotStart->toTimeString());
+            $closingTimeslotStart->toTimeString(),
+            $validated['duration']);
 
         return redirect(route('moderator.schedule.overview'));
     }

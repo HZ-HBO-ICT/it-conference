@@ -96,6 +96,8 @@ class EditDefaultPresentationForm extends Component
     {
         $this->saveChanges();
 
+        $timeslotPadding = Timeslot::paddingBetweenSlots();
+
         foreach (Presentation::all() as $presentation) {
             $presentation->timeslot_id = null;
             $presentation->room_id = null;
@@ -114,7 +116,7 @@ class EditDefaultPresentationForm extends Component
             ->format("H:i");
         $endingTimeOfNewTimeslots = DefaultPresentation::closing()->timeslot->start;
 
-        TimeslotController::generate($startTimeOfNewTimeslots, $endingTimeOfNewTimeslots);
+        TimeslotController::generate($startTimeOfNewTimeslots, $endingTimeOfNewTimeslots, $timeslotPadding);
 
         return redirect()->to(route('moderator.schedule.overview'));
     }

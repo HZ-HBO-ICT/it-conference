@@ -8,7 +8,7 @@
                 class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
                 <div class="pt-1 p-2">
                     <div class="pr-5">
-                        <form method="POST"
+                        <form method="POST" onkeydown="return event.key != 'Enter';"
                               action="{{route($event == 'opening' ? 'moderator.schedule.store.opening' : 'moderator.schedule.store.closing')}}">
                             @csrf
                             <p class="text-md text-gray-900 dark:text-white">
@@ -57,14 +57,14 @@
                                             <option value="{{ $room->id }}">{{ $room->name }}</option>
                                         @endforeach
                                     </select>
-                                    <x-button
-                                        class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 hover:dark:bg-crew-600 active:bg-green-600 active:dark:bg-green-600">
-                                        @if($event == 'opening')
-                                            Next
-                                        @else
-                                            Create
-                                        @endif
-                                    </x-button>
+                                    @if($event == 'opening')
+                                        <x-button
+                                            class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 hover:dark:bg-crew-600 active:bg-green-600 active:dark:bg-green-600">
+                                            Continue
+                                        </x-button>
+                                    @else
+                                        @livewire('schedule.add-timeslot-padding')
+                                    @endif
                                 </div>
                             </div>
                         </form>

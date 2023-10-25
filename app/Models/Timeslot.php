@@ -61,7 +61,7 @@ class Timeslot extends Model
     }
 
     /**
-     * Returns
+     * Returns the hour in which the last presentation excluding closing (default presentation)
      */
     public static function getTheLatestEndingUsed()
     {
@@ -73,5 +73,24 @@ class Timeslot extends Model
                 $start = Carbon::parse($timeslot->start);
                 return $start->addMinutes($timeslot->duration);
             });
+    }
+
+    /**
+     * Returns the usual free time (padding) between timeslots
+     * @return int
+     */
+    public static function paddingBetweenSlots(): int
+    {
+        $defaultPresentationTimeslotIds = [DefaultPresentation::opening()->timeslot->id,
+            DefaultPresentation::closing()->timeslot->id];
+
+        $timeslots = Timeslot::whereNotIn('id', $defaultPresentationTimeslotIds)
+            ->orderBy('duration', 'desc')
+            ->orderBy('start', 'asc')
+            ->take(2)
+            ->get();
+
+        return Carbon::parse($timeslots[1]->start)
+            ->diffInMinutes(Carbon::parse($timeslots[0]->start)->addMinutes($timeslots[0]->duration));
     }
 }

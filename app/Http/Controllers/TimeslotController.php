@@ -54,27 +54,28 @@ class TimeslotController extends Controller
      *
      * @param $starting
      * @param $ending
+     * @param $padding int free time between timeslots
      */
-    public static function generate($starting, $ending)
+    public static function generate($starting, $ending, $padding)
     {
-        $current = Carbon::parse($starting);
-        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(90);
+        $current = Carbon::parse($starting)->addMinutes($padding);
+        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(90 + $padding);
         while ($current <= $finalPossibleStartingTime) {
             Timeslot::create([
                 'start' => $current,
                 'duration' => 90
             ]);
-            $current->addMinutes(100);
+            $current->addMinutes(90 + $padding);
         }
 
-        $current = Carbon::parse($starting);
-        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(30);
+        $current = Carbon::parse($starting)->addMinutes($padding);
+        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(30 + $padding);
         while ($current <= $finalPossibleStartingTime) {
             Timeslot::create([
                 'start' => $current,
                 'duration' => 30
             ]);
-            $current->addMinutes(40);
+            $current->addMinutes(30 + $padding);
         }
     }
 }
