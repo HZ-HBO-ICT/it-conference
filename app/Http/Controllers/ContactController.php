@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactRequestMailable;
-use App\Models\ContactRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -29,6 +26,6 @@ class ContactController extends Controller
     {
         Mail::to('info@weareinittogether.nl')->send(new ContactRequestMailable($this->validateRequest($contactRequest)));
 
-        return redirect(route('contact'))->with('status', 'Thank you for your message! We will get in touch with you soon.');
+        return redirect(route('contact'))->with('success', 'Thank you for your message! We will get in touch with you soon.');
     }
 }

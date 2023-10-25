@@ -88,7 +88,9 @@ Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->
 Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::middleware(['throttle:uploads'])->group(function () {
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+});
 
 Route::middleware([
     'auth:sanctum',
