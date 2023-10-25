@@ -17,8 +17,13 @@
                                 conference day on a high note.
                             @endif
                         </p>
-                        @livewire('default-presentations.edit-default-presentation-form', ['presentation' =>
-                        \App\Models\DefaultPresentation::opening()])
+                        @if($event == 'opening')
+                            @livewire('default-presentations.edit-default-presentation-form',
+                            ['presentation' => \App\Models\DefaultPresentation::opening()])
+                        @elseif($event == 'closing')
+                            @livewire('default-presentations.edit-default-presentation-form',
+                            ['presentation' => \App\Models\DefaultPresentation::closing()])
+                        @endif
                     </div>
                 </div>
             </div>

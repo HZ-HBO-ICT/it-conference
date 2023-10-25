@@ -44,15 +44,21 @@
             </x-button>
         </div>
     </form>
-    <x-dialog-modal wire:model="confirmingOpeningChangeTime">
+    <x-dialog-modal wire:model="confirmationTimeslotRegeneration">
         <x-slot name="title">
             {{ __('New ending time') }}
         </x-slot>
 
         <x-slot name="content">
-            <h3 class="font-bold text-red-600">{{ __('WARNING: You set a new time for ending of the opening presentation for a later time
+            @if($presentation->type == 'opening')
+                <h3 class="font-bold text-red-600">{{ __('WARNING: You set a new time for ending of the opening presentation for a later time
                 than initially stated. This means that timeslots will start to overlap. In order to proceed you need to regenerate the timeslots
                 meaning that all scheduled presentations would lose their scheduling and you need to reschedule them again. Do you want to proceed?') }}
+                    @else
+                        <h3 class="font-bold text-red-600">{{ __('WARNING: You set a new time for starting of the closing presentation for an earlier time
+                than initially stated. This means that timeslots will start to overlap. In order to proceed you need to regenerate the timeslots
+                meaning that all scheduled presentations would lose their scheduling and you need to reschedule them again. Do you want to proceed?') }}
+            @endif
         </x-slot>
 
         <x-slot name="footer">
@@ -60,7 +66,7 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <form wire:submit.prevent="confirmedSaveOpening">
+            <form wire:submit.prevent="confirmedTimeslotRegeneration">
                 <x-danger-button class="ml-3" type="submit">
                     {{ __('Proceed and regenerate timeslots') }}
                 </x-danger-button>

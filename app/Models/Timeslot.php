@@ -56,4 +56,16 @@ class Timeslot extends Model
             ->orderByRaw('ABS(TIMESTAMPDIFF(SECOND, start, ?))', [$startDatetime])
             ->first();
     }
+
+    public static function getTheLatestEndingUsed()
+    {
+        $usedTimeslotsId = Presentation::pluck('timeslot_id');
+
+        return self::whereIn('id', $usedTimeslotsId)
+            ->get()
+            ->max(function (Timeslot $timeslot) {
+                $start = Carbon::parse($timeslot->start);
+                return $start->addMinutes($timeslot->duration);
+            });
+    }
 }

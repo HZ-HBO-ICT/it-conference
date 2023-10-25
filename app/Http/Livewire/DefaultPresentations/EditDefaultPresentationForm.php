@@ -16,7 +16,7 @@ class EditDefaultPresentationForm extends Component
     public $starting;
     public $ending;
 
-    public $confirmingOpeningChangeTime;
+    public $confirmationTimeslotRegeneration;
 
     public function mount()
     {
@@ -38,45 +38,51 @@ class EditDefaultPresentationForm extends Component
     {
         $this->validate();
 
-        $this->precheckSaveOpening();
+        if ($this->presentation->type == 'opening') {
+            $this->checkSaveOpening();
+        } else {
+            $this->checkSaveClosing();
+        }
     }
 
-    public function precheckSaveOpening()
+    public function checkSaveOpening()
     {
         $closestTimeslot = $this->presentation->timeslot->closestTo();
 
         if (Carbon::parse($this->ending)->gt(Carbon::parse($closestTimeslot->start))) {
-            $this->confirmingOpeningChangeTime = true;
+            $this->confirmationTimeslotRegeneration = true;
         } else {
-            $this->validate();
-
-            $this->presentation->timeslot->start = $this->starting;
-
-            $this->presentation->timeslot->duration = Carbon::parse($this->ending)
-                ->diffInMinutes(Carbon::parse($this->starting));
-
-            $this->presentation->timeslot->save();
-
-            $this->presentation->save();
-
-            return redirect()->to(route('moderator.schedule.overview'));
+            $this->saveWithoutTimeslotsIssues();
         }
     }
 
-    public function confirmedSaveOpening()
+    public function checkSaveClosing()
+    {
+        $latestEndingTime = Timeslot::getTheLatestEndingUsed();
+
+        if (Carbon::parse($this->starting)
+            ->lt(Carbon::parse($latestEndingTime))) {
+            $this->confirmationTimeslotRegeneration = true;
+        } else {
+            $this->saveWithoutTimeslotsIssues();
+        }
+    }
+
+    public function confirmedTimeslotRegeneration()
     {
         $this->validate();
-        $timeslotIdsToDelete = [];
 
         foreach (Presentation::all() as $presentation) {
-            $timeslotIdsToDelete[] = $presentation->timeslot_id;
-
             $presentation->timeslot_id = null;
             $presentation->room_id = null;
 
             $presentation->save();
         }
-        Timeslot::whereIn('id', $timeslotIdsToDelete)->delete();
+
+        Timeslot::where(function ($query) {
+            $query->where('id', '!=', DefaultPresentation::opening()->timeslot_id)
+                ->where('id', '!=', DefaultPresentation::closing()->timeslot_id);
+        })->delete();
 
         $newTimeslotDuration = Carbon::parse($this->ending)
             ->diffInMinutes(Carbon::parse($this->starting));
@@ -99,6 +105,22 @@ class EditDefaultPresentationForm extends Component
         $endingTimeOfNewTimeslots = DefaultPresentation::closing()->timeslot->start;
 
         TimeslotController::generate($startTimeOfNewTimeslots, $endingTimeOfNewTimeslots);
+
+        return redirect()->to(route('moderator.schedule.overview'));
+    }
+
+    public function saveWithoutTimeslotsIssues()
+    {
+        $this->validate();
+
+        $this->presentation->timeslot->start = $this->starting;
+
+        $this->presentation->timeslot->duration = Carbon::parse($this->ending)
+            ->diffInMinutes(Carbon::parse($this->starting));
+
+        $this->presentation->timeslot->save();
+
+        $this->presentation->save();
 
         return redirect()->to(route('moderator.schedule.overview'));
     }

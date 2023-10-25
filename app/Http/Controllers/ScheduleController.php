@@ -156,8 +156,11 @@ class ScheduleController extends Controller
         });
 
         foreach ($presentations as $presentation) {
-            $timeslots = Timeslot::where('duration', $presentation->type == 'lecture' ? 30 : 90)
-                ->get();
+            $timeslots = Timeslot::where(function ($query) use ($presentation) {
+                $query->where('id', '!=', DefaultPresentation::opening()->timeslot_id)
+                    ->where('id', '!=', DefaultPresentation::closing()->timeslot_id)
+                    ->where('duration', $presentation->type == 'lecture' ? 30 : 90);
+            })->get();
             $rooms = Room::getWithClosestCapacity($presentation->max_participants);
 
             $availableCombination = $rooms->crossJoin($timeslots)
