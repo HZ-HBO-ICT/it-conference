@@ -317,4 +317,10 @@ class ScheduleController extends Controller
 
         return redirect(route('moderator.schedule.overview'));
     }
+
+    // TODO: Move to a new controller
+    public function editDefaultPresentation(string $event)
+    {
+        return view('moderator.schedule.default-presentations.edit', compact('event'));
+    }
 }

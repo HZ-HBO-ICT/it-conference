@@ -47,4 +47,13 @@ class Timeslot extends Model
     {
         return $this->hasMany(Presentation::class);
     }
+
+    public function closestTo()
+    {
+        $startDatetime = date('Y-m-d H:i:s', strtotime('today ' . $this->start));
+
+        return $this->where('id', '!=', $this->id)
+            ->orderByRaw('ABS(TIMESTAMPDIFF(SECOND, start, ?))', [$startDatetime])
+            ->first();
+    }
 }
