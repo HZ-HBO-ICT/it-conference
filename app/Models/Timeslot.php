@@ -48,7 +48,10 @@ class Timeslot extends Model
         return $this->hasMany(Presentation::class);
     }
 
-    public function closestTo()
+    /**
+     * The timeslot that is with the closest starting time to the one that called the method
+     */
+    public function closestStartingTimeslot()
     {
         $startDatetime = date('Y-m-d H:i:s', strtotime('today ' . $this->start));
 
@@ -57,6 +60,9 @@ class Timeslot extends Model
             ->first();
     }
 
+    /**
+     * Returns
+     */
     public static function getTheLatestEndingUsed()
     {
         $usedTimeslotsId = Presentation::pluck('timeslot_id');

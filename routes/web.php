@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContentModerator\DefaultPresentationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
@@ -144,13 +145,13 @@ Route::middleware([
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
         ->name('schedule.presentation.store');
 
-    Route::get('/schedule/create/{event}', [ScheduleController::class, 'createDefaultPresentation'])
+    Route::get('/schedule/create/{event}', [DefaultPresentationController::class, 'create'])
         ->name('schedule.default.presentation.create');
-    Route::post('/schedule/create/opening', [ScheduleController::class, 'storeOpeningPresentation'])
+    Route::post('/schedule/create/opening', [DefaultPresentationController::class, 'storeOpening'])
         ->name('schedule.store.opening');
-    Route::post('/schedule/create/closing', [ScheduleController::class, 'storeClosingPresentation'])
+    Route::post('/schedule/create/closing', [DefaultPresentationController::class, 'storeClosing'])
         ->name('schedule.store.closing');
-    Route::get('/schedule/edit/{event}', [ScheduleController::class, 'editDefaultPresentation'])
+    Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
         ->name('schedule.default.presentation.edit');
 
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])

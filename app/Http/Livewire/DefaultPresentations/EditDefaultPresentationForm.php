@@ -7,6 +7,8 @@ use App\Models\DefaultPresentation;
 use App\Models\Presentation;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class EditDefaultPresentationForm extends Component
@@ -18,6 +20,9 @@ class EditDefaultPresentationForm extends Component
 
     public $confirmationTimeslotRegeneration;
 
+    /**
+     * After the component is instantiated set the starting and ending separately from the model
+     */
     public function mount()
     {
         $this->starting = Carbon::parse($this->presentation->timeslot->start);
@@ -34,6 +39,10 @@ class EditDefaultPresentationForm extends Component
         'ending' => 'required|date_format:H:i|after:starting'
     ];
 
+    /**
+     * Triggered by the save button, based on the default presentation type calls
+     * different checks
+     */
     public function save()
     {
         $this->validate();
@@ -45,17 +54,28 @@ class EditDefaultPresentationForm extends Component
         }
     }
 
+    /**
+     * Checks if the ending time of the opening presentation overlaps the generated timeslots and
+     * if it does, it opens another modal to confirm their regeneration, while if it doesn't it calls
+     * a method that saves the changes of the opening presentation
+     */
     public function checkSaveOpening()
     {
-        $closestTimeslot = $this->presentation->timeslot->closestTo();
+        $closestTimeslot = $this->presentation->timeslot->closestStartingTimeslot();
 
         if (Carbon::parse($this->ending)->gt(Carbon::parse($closestTimeslot->start))) {
             $this->confirmationTimeslotRegeneration = true;
         } else {
-            $this->saveWithoutTimeslotsIssues();
+            $this->saveChanges();
+            return redirect()->to(route('moderator.schedule.overview'));
         }
     }
 
+    /**
+     * Checks if the starting time of the closing presentation overlaps the generated timeslots and
+     * if it does, it opens another modal to confirm their regeneration, while if it doesn't it calls
+     * a method that saves the changes of the closing presentation
+     */
     public function checkSaveClosing()
     {
         $latestEndingTime = Timeslot::getTheLatestEndingUsed();
@@ -64,13 +84,17 @@ class EditDefaultPresentationForm extends Component
             ->lt(Carbon::parse($latestEndingTime))) {
             $this->confirmationTimeslotRegeneration = true;
         } else {
-            $this->saveWithoutTimeslotsIssues();
+            $this->saveChanges();
+            return redirect()->to(route('moderator.schedule.overview'));
         }
     }
 
+    /**
+     * Regenerates all timeslots
+     */
     public function confirmedTimeslotRegeneration()
     {
-        $this->validate();
+        $this->saveChanges();
 
         foreach (Presentation::all() as $presentation) {
             $presentation->timeslot_id = null;
@@ -84,20 +108,6 @@ class EditDefaultPresentationForm extends Component
                 ->where('id', '!=', DefaultPresentation::closing()->timeslot_id);
         })->delete();
 
-        $newTimeslotDuration = Carbon::parse($this->ending)
-            ->diffInMinutes(Carbon::parse($this->starting));
-
-        $newTimeslot = Timeslot::create([
-            'start' => $this->starting,
-            'duration' => $newTimeslotDuration
-        ]);
-
-        $oldTimeslot = $this->presentation->timeslot;
-        $this->presentation->timeslot_id = $newTimeslot->id;
-        $this->presentation->save();
-
-        $oldTimeslot->delete();
-
         $startTimeOfNewTimeslots = Carbon::parse(
             DefaultPresentation::opening()->timeslot->start)
             ->addMinutes(DefaultPresentation::opening()->timeslot->duration)
@@ -109,7 +119,10 @@ class EditDefaultPresentationForm extends Component
         return redirect()->to(route('moderator.schedule.overview'));
     }
 
-    public function saveWithoutTimeslotsIssues()
+    /**
+     * Saves the changes on the presentation
+     */
+    public function saveChanges()
     {
         $this->validate();
 
@@ -121,8 +134,6 @@ class EditDefaultPresentationForm extends Component
         $this->presentation->timeslot->save();
 
         $this->presentation->save();
-
-        return redirect()->to(route('moderator.schedule.overview'));
     }
 
     public function render()
