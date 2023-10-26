@@ -106,7 +106,7 @@ class ScheduleController extends Controller
             return !$presentation->isScheduled && $presentation->isApproved;
         });
 
-        return view('moderator.schedule.presentations-for-scheduling', compact('presentations'));
+        return view('moderator.schedule.presentations.index', compact('presentations'));
     }
 
     /**
@@ -117,7 +117,7 @@ class ScheduleController extends Controller
      */
     public function schedulePresentation(Presentation $presentation): View
     {
-        return view('moderator.schedule.presentation-schedule', compact('presentation'));
+        return view('moderator.schedule.presentations.show', compact('presentation'));
     }
 
     /**

@@ -46,6 +46,6 @@ class ReplacePresentation extends Component
 
     public function render()
     {
-        return view('moderator.schedule.replace-presentation');
+        return view('moderator.schedule.presentations.replace-presentation');
     }
 }

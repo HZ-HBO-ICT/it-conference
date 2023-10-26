@@ -11,7 +11,7 @@ class RemovePresentationFromSchedule extends Component
 
     public function render()
     {
-        return view('moderator.schedule.remove-presentation-from-schedule');
+        return view('moderator.schedule.presentations.remove-presentation-from-schedule');
     }
 
     public function remove()
