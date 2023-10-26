@@ -68,6 +68,8 @@
                             <p class="text-md pb-1">If you want you can replace the presentation with one of the
                             presentations that are not scheduled already</p>
                             @livewire('schedule.replace-presentation', ['presentationToBeReplaced' => $presentation])
+                            <x-section-border/>
+                            @livewire('schedule.remove-presentation-from-schedule', ['presentation' => $presentation])
                         @else
                             <div class="font-semibold pb-2">
                                 Select room and timeslot
