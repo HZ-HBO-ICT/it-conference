@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Schedule;
 
+use App\Models\DefaultPresentation;
 use App\Models\Presentation;
 use App\Models\Timeslot;
 use Livewire\Component;
@@ -20,8 +21,9 @@ class ResetTimeslots extends Component
         }
 
         // TODO: After refactoring the constraints, this can be switched to truncate
+        DefaultPresentation::truncate();
         Timeslot::where('id', '>', 0)->delete();
-        $this->redirect(route('moderator.schedule.timeslots.create'));
+        $this->redirect(route('moderator.schedule.default.presentation.create', 'opening'));
     }
 
     public function render()
