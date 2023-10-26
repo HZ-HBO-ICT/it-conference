@@ -232,11 +232,9 @@ class Presentation extends Model
 
     /**
      * Checks if the presentation can be deleted
-     *
-     * @return Attribute
      */
-    public function canBeDeleted()
+    public function canBeDeleted(): bool
     {
-        return !$this->isApproved;
+        return !EventInstance::current()->is_final_programme_released;
     }
 }
