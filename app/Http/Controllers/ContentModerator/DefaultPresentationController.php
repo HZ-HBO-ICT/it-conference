@@ -19,7 +19,13 @@ class DefaultPresentationController extends Controller
      */
     public function create(string $event): View
     {
-        return view('moderator.schedule.default-presentations.create', compact('event'));
+        // If the opening and closing don't exist already and the correct event is passed
+        if ((is_null(DefaultPresentation::opening()) && $event == 'opening')
+            || (is_null(DefaultPresentation::closing()) && $event == 'closing')) {
+            return view('moderator.schedule.default-presentations.create', compact('event'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -110,7 +116,7 @@ class DefaultPresentationController extends Controller
      * @param string $event
      * @return View
      */
-    public function edit(string $event) : View
+    public function edit(string $event): View
     {
         return view('moderator.schedule.default-presentations.edit', compact('event'));
     }
