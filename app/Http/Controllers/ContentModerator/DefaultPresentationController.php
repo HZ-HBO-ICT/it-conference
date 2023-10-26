@@ -118,6 +118,12 @@ class DefaultPresentationController extends Controller
      */
     public function edit(string $event): View
     {
-        return view('moderator.schedule.default-presentations.edit', compact('event'));
+        // If the opening and closing don't exist already and the correct event is passed
+        if ((DefaultPresentation::opening() && $event == 'opening')
+            || (DefaultPresentation::closing() && $event == 'closing')) {
+            return view('moderator.schedule.default-presentations.edit', compact('event'));
+        }
+
+        abort(404);
     }
 }

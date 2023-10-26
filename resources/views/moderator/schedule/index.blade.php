@@ -36,15 +36,10 @@
                             <span class="mt-0.5 block leading-relaxedg">available for the conference</span>
                         </a>
                     </div>
-                    @if(\App\Models\Timeslot::all()->count() > 0)
-                        {{--<div>
-                            @livewire('reset-timeslots')
-                        </div>--}}
-                    @else
-                        {{--<a href="{{route('moderator.schedule.timeslots.create')}}"
-                           class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
-                            <span class="flex items-center h-full justify-center">Generate timeslots</span>
-                        </a>--}}
+                    @if(\App\Models\Timeslot::all()->count() > 0 && !\App\Models\EventInstance::current()->is_final_programme_released)
+                        <div>
+                            @livewire('schedule.reset-timeslots')
+                        </div>
                     @endif
                     @if($numberOfUnscheduledPresentations > 0)
                         <div>
@@ -109,22 +104,24 @@
                                 </p>
                             </div>
                             <div class="sm:col-span-10">
-                                <div
-                                    class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
-                                    <div class="px-3 py-1">
-                                        <div
-                                            class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
-                                        <p class="text-gray-100 text-sm">
-                                            {{substr(DefaultPresentation::opening()->description, 0, 150) . '...' }}
-                                        </p>
-                                    </div>
-                                    <div class="px-2 pb-2">
+                                <a href="{{route('moderator.schedule.default.presentation.edit', 'opening')}}">
+                                    <div
+                                        class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+                                        <div class="px-3 py-1">
+                                            <div
+                                                class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
+                                            <p class="text-gray-100 text-sm">
+                                                {{substr(DefaultPresentation::opening()->description, 0, 150) . '...' }}
+                                            </p>
+                                        </div>
+                                        <div class="px-2 pb-2">
                                         <span
                                             class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
                                             {{DefaultPresentation::opening()->room->name}}
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4 mt-2">
@@ -199,22 +196,24 @@
                                 </p>
                             </div>
                             <div class="sm:col-span-10">
-                                <div
-                                    class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
-                                    <div class="px-3 py-1">
-                                        <div
-                                            class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
-                                        <p class="text-gray-100 text-sm">
-                                            {{substr(DefaultPresentation::closing()->description, 0, 150) . '...' }}
-                                        </p>
-                                    </div>
-                                    <div class="px-2 pb-2">
+                                <a href="{{route('moderator.schedule.default.presentation.edit', 'closing')}}">
+                                    <div
+                                        class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+                                        <div class="px-3 py-1">
+                                            <div
+                                                class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
+                                            <p class="text-gray-100 text-sm">
+                                                {{substr(DefaultPresentation::closing()->description, 0, 150) . '...' }}
+                                            </p>
+                                        </div>
+                                        <div class="px-2 pb-2">
                                         <span
                                             class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
                                             {{DefaultPresentation::closing()->room->name}}
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     @endif
