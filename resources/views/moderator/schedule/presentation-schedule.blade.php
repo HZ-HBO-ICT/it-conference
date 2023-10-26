@@ -1,5 +1,6 @@
 @php
     use Carbon\Carbon;
+    use App\Models\EventInstance;
 
     $speakers = $presentation->speakers->filter(function ($speaker) {
         return $speaker->is_main_speaker === 0;
@@ -60,10 +61,19 @@
                             </p>
                             <x-section-border/>
                         @endif
-                        <div class="font-semibold pb-2">
-                            Select room and timeslot
-                        </div>
-                        @livewire('room-and-timeslot-selector', ['presentation' => $presentation])
+                        @if(EventInstance::current()->is_final_programme_released && $presentation->isScheduled)
+                            <div class="font-semibold pb-2">
+                                Replace presentation
+                            </div>
+                            <p class="text-md pb-1">If you want you can replace the presentation with one of the
+                            presentations that are not scheduled already</p>
+                            @livewire('schedule.replace-presentation', ['presentationToBeReplaced' => $presentation])
+                        @else
+                            <div class="font-semibold pb-2">
+                                Select room and timeslot
+                            </div>
+                            @livewire('room-and-timeslot-selector', ['presentation' => $presentation])
+                        @endif
                     </div>
                 </div>
             </div>
