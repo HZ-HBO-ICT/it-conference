@@ -10,7 +10,7 @@ class AddTimeslotPadding extends Component
 
     public function render()
     {
-        return view('moderator.schedule.add-timeslot-padding');
+        return view('moderator.schedule.timeslots.add-timeslot-padding');
     }
 
     public function openModal()

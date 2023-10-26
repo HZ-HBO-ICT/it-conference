@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Schedule;
 
 use App\Models\Presentation;
 use App\Models\Timeslot;
 use Livewire\Component;
-use Ramsey\Uuid\Type\Time;
 
 class ResetTimeslots extends Component
 {
@@ -27,6 +26,6 @@ class ResetTimeslots extends Component
 
     public function render()
     {
-        return view('livewire.reset-timeslots');
+        return view('moderator.schedule.timeslots.reset-timeslots');
     }
 }
