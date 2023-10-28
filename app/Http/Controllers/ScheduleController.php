@@ -37,8 +37,8 @@ class ScheduleController extends Controller
      */
     public function overview(): View
     {
-        $lectureTimeslots = Timeslot::where('duration', 30)->get();
-        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+        $lectureTimeslots = Timeslot::where('duration', 30)->orderBy('start')->get();
+        $workshopTimeslots = Timeslot::where('duration', 90)->orderBy('start')->get();
 
         $numberOfPresentationRequest = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isApproved;
