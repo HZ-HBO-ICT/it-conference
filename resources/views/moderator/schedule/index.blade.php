@@ -96,35 +96,37 @@
                             </a>
                         </div>
                     @else
-                        <div class="grid grid-cols-11">
-                            <div class="pr-2">
-                                <p class="text-left text-sm text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}
-                                    - {{(Carbon::parse(DefaultPresentation::opening()->timeslot->start)->addMinutes(DefaultPresentation::opening()->timeslot->duration))->format('H:i')}}
-                                </p>
-                            </div>
-                            <div class="sm:col-span-10">
-                                <a href="{{route('moderator.schedule.default.presentation.edit', 'opening')}}">
-                                    <div
-                                        class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
-                                        <div class="px-3 py-1">
+                        <div class="grid grid-cols-2 gap-4 mt-2">
+                            <div class="sm:col-span-2">
+                                <table class="table-auto w-full text-gray-900 dark:text-gray-200">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left text-md text-gray-900 dark:text-white align-top">
+                                            {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}
+                                            - {{(Carbon::parse(DefaultPresentation::opening()->timeslot->start)->addMinutes(DefaultPresentation::opening()->timeslot->duration))->format('H:i')}}
+                                        </td>
+                                        <td class="pl-4 w-11/12">
                                             <div
-                                                class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
-                                            <p class="text-gray-100 text-sm">
-                                                {{substr(DefaultPresentation::opening()->description, 0, 150) . '...' }}
-                                            </p>
-                                        </div>
-                                        <div class="px-2 pb-2">
+                                                class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105">
+                                                <div class="px-3 py-1">
+                                                    <div
+                                                        class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
+                                                    <p class="text-gray-100 text-sm">
+                                                        {{DefaultPresentation::opening()->description}}
+                                                    </p>
+                                                </div>
+                                                <div class="px-2 pb-2">
                                         <span
                                             class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
                                             {{DefaultPresentation::opening()->room->name}}
                                         </span>
-                                        </div>
-                                    </div>
-                                </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 mt-2">
                             <div>
                                 <table class="table-auto w-full text-gray-900 dark:text-gray-200">
                                     <tbody>
@@ -139,7 +141,7 @@
                                                     @foreach($timeslot->presentations as $lecture)
                                                         @if($lecture->timeslot_id == $timeslot->id)
                                                             <a href="{{route('moderator.schedule.presentation', $lecture)}}">
-                                                                <x-schedule-block :presentation="$lecture"/>
+                                                                <x-schedule-block :presentation="$lecture" :colorName="'crew'"/>
                                                             </a>
                                                             @php
                                                                 $anyScheduledLectures = true
@@ -167,7 +169,7 @@
                                                     @foreach($timeslot->presentations as $workshop)
                                                         @if($workshop->timeslot_id == $timeslot->id)
                                                             <a href="{{route('moderator.schedule.presentation', $workshop)}}">
-                                                                <x-schedule-block :presentation="$workshop"/>
+                                                                <x-schedule-block :presentation="$workshop" :colorName="'crew'"/>
                                                             </a>
                                                             @php
                                                                 $anyScheduledWorkshops = true
@@ -181,6 +183,36 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="sm:col-span-2">
+                                <table class="table-auto w-full text-gray-900 dark:text-gray-200">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left text-md text-gray-900 dark:text-white align-top">
+                                            {{Carbon::parse(DefaultPresentation::closing()->timeslot->start)->format('H:i')}}
+                                            - {{(Carbon::parse(DefaultPresentation::closing()->timeslot->start)->addMinutes(DefaultPresentation::closing()->timeslot->duration))->format('H:i')}}
+                                        </td>
+                                        <td class="pl-4 w-11/12">
+                                            <div
+                                                class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105">
+                                                <div class="px-3 py-1">
+                                                    <div
+                                                        class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
+                                                    <p class="text-gray-100 text-sm">
+                                                        {{DefaultPresentation::closing()->description}}
+                                                    </p>
+                                                </div>
+                                                <div class="px-2 pb-2">
+                                        <span
+                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                            {{DefaultPresentation::closing()->room->name}}
+                                        </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         @if(!$anyScheduledLectures && !$anyScheduledWorkshops)
                             <div
@@ -189,32 +221,7 @@
                             </div>
                         @endif
                         <div class="grid grid-cols-11">
-                            <div class="pr-2">
-                                <p class="text-left text-sm text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse(DefaultPresentation::closing()->timeslot->start)->format('H:i')}}
-                                    - {{(Carbon::parse(DefaultPresentation::closing()->timeslot->start)->addMinutes(DefaultPresentation::closing()->timeslot->duration))->format('H:i')}}
-                                </p>
-                            </div>
-                            <div class="sm:col-span-10">
-                                <a href="{{route('moderator.schedule.default.presentation.edit', 'closing')}}">
-                                    <div
-                                        class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
-                                        <div class="px-3 py-1">
-                                            <div
-                                                class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
-                                            <p class="text-gray-100 text-sm">
-                                                {{substr(DefaultPresentation::closing()->description, 0, 150) . '...' }}
-                                            </p>
-                                        </div>
-                                        <div class="px-2 pb-2">
-                                        <span
-                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
-                                            {{DefaultPresentation::closing()->room->name}}
-                                        </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+
                         </div>
                     @endif
                 </div>
