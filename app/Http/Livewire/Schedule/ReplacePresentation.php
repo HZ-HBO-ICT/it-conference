@@ -20,7 +20,7 @@ class ReplacePresentation extends Component
                 && $presentation->type == $this->presentationToBeReplaced->type;
         });
 
-        if($this->availablePresentations->count() > 0)
+        if ($this->availablePresentations->count() > 0)
             $this->newPresentationId = $this->availablePresentations->first()->id;
     }
 
@@ -32,6 +32,11 @@ class ReplacePresentation extends Component
     public function replace()
     {
         $newPresentation = Presentation::find($this->newPresentationId);
+        if (is_null($newPresentation)) {
+            return redirect(route('moderator.schedule.presentation', $this->presentationToBeReplaced))
+                ->with('error', 'An issue occurred with replacement of the presentation. Please try again later or contact the dev team');
+        }
+
         $newPresentation->room_id = $this->presentationToBeReplaced->room_id;
         $newPresentation->timeslot_id = $this->presentationToBeReplaced->timeslot_id;
         $newPresentation->save();
