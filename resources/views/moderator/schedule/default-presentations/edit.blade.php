@@ -10,11 +10,9 @@
                     <div class="pr-5">
                         <p class="text-md text-gray-900 dark:text-white">
                             @if($event == 'opening')
-                                Create the opening presentation, give more details about the event that will be
-                                kicking off the conference day.
+                                Create the opening presentation. You can add more details about the opening presentation.
                             @elseif($event == 'closing')
-                                Create the closing presentation, give more details about the event that will end the
-                                conference day on a high note.
+                                Create the closing presentation. You can add more details about the closing presentation.
                             @endif
                         </p>
                         @if($event == 'opening')

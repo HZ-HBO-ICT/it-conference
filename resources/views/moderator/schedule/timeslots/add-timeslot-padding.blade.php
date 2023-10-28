@@ -11,7 +11,7 @@
 
         <x-slot name="content">
             <h3 class="font-bold text-gray-600 dark:text-gray-200">{{ __('In order to make it possible for participants to change rooms for presentations, they need to have
-                enough time to calmly navigate through the building. The default minutes for this is 10 minutes. Would you like to change it?') }}</h3>
+                enough time to calmly navigate through the building. The default changeover time is 10 minutes. Would you like to change it?') }}</h3>
 
             <div class="pt-3 col-span-6 sm:col-span-4">
                 <x-label for="duration" value="Duration (in minutes)" class="after:content-['*'] after:text-red-500"/>

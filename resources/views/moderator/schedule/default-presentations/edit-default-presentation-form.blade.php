@@ -51,13 +51,9 @@
 
         <x-slot name="content">
             @if($presentation->type == 'opening')
-                <h3 class="font-bold text-red-600">{{ __('WARNING: You set a new time for ending of the opening presentation for a later time
-                than initially stated. This means that timeslots will start to overlap. In order to proceed you need to regenerate the timeslots
-                meaning that all scheduled presentations would lose their scheduling and you need to reschedule them again. Do you want to proceed?') }}
-                    @else
-                        <h3 class="font-bold text-red-600">{{ __('WARNING: You set a new time for starting of the closing presentation for an earlier time
-                than initially stated. This means that timeslots will start to overlap. In order to proceed you need to regenerate the timeslots
-                meaning that all scheduled presentations would lose their scheduling and you need to reschedule them again. Do you want to proceed?') }}
+                <h3 class="font-bold text-red-600">{{ __('WARNING: By extending the end time of the opening presentation, timeslots will overlap. If you proceed, all presentations will need to be rescheduled. Do you want to continue? ') }}</h3>
+            @else
+                <h3 class="font-bold text-red-600">{{ __('WARNING: You have moved the start time of the closing presentation to an earlier slot, causing an overlap in timeslots. To continue, all presentations will need to be rescheduled. Do you want to continue?') }}</h3>
             @endif
         </x-slot>
 
