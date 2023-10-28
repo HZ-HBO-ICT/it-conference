@@ -4,6 +4,8 @@ namespace App\Http\Controllers\ContentModerator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Presentation;
+use App\Models\Speaker;
+use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -32,7 +34,10 @@ class PresentationController extends Controller
      */
     public function create()
     {
-        //
+        // TODO: Make better filter on people who cannot be speakers
+        $users = User::doesntHave('speaker')->get();
+
+        return view('moderator.presentations.create', compact('users'));
     }
 
     /**
@@ -40,7 +45,28 @@ class PresentationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'type' => 'required',
+            'difficulty_id' => 'required|numeric',
+            'max_participants' => 'required|numeric',
+            'user_id' => 'required|numeric'
+        ]);
+
+        $presentation = Presentation::create($request->validate(Presentation::rules()));
+
+        $user = User::find($validated['user_id']);
+
+        Speaker::create([
+            'user_id' => $user->id,
+            'presentation_id' => $presentation->id,
+            'is_main_speaker' => 1,
+            'is_approved' => 1
+        ]);
+
+        return redirect(route('moderator.presentations.index'))
+            ->banner('You successfully added a new presentation');
     }
 
     /**
@@ -92,6 +118,11 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        //
+        $this->authorize('delete', $presentation);
+
+        $presentation->fullDelete();
+
+        return redirect(route('moderator.presentations.index'))
+            ->banner('You deleted the presentation successfully');
     }
 }

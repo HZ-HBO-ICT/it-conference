@@ -9,12 +9,7 @@
     </x-slot>
 
     <x-slot name="content">
-        @if(Auth::user()->hasAnyRole(['company representative', 'speaker', 'booth owner']) || Auth::user()->current_team_id)
-            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                If you wish to not be present during the conference contact us at <a
-                    href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
-            </div>
-        @else
+        @can('delete', Auth::user())
             <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
                 {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
             </div>
@@ -23,6 +18,11 @@
                 <x-danger-button wire:click="confirmUserDeletion" wire:loading.attr="disabled">
                     {{ __('Delete Account') }}
                 </x-danger-button>
+            </div>
+        @else
+            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+                If you wish to not be present during the conference contact us at <a
+                    href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
             </div>
         @endif
 

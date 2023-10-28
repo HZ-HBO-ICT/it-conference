@@ -73,4 +73,17 @@ class PresentationController extends Controller
 
         return view('presentations.show', compact('presentation'));
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Presentation $presentation)
+    {
+        $this->authorize('delete', $presentation);
+
+        $presentation->fullDelete();
+
+        return redirect(route('announcements'))
+            ->banner('You deleted your presentation request successfully');
+    }
 }

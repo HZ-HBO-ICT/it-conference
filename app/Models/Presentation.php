@@ -173,35 +173,18 @@ class Presentation extends Model
      * @param bool $isApproved
      * @return void
      */
-    public function handleApproval(bool $isApproved) : void
+    public function handleApproval(bool $isApproved): void
     {
         if ($isApproved) {
-            DB::transaction(function() {
-               $this->speakers->each( fn($speaker) => $speaker->approve());
+            DB::transaction(function () {
+                $this->speakers->each(fn($speaker) => $speaker->approve());
             });
         } else {
-            DB::transaction(function() {
-                $this->speakers->each( fn($speaker) => $speaker->delete());
+            DB::transaction(function () {
+                $this->speakers->each(fn($speaker) => $speaker->delete());
                 $this->delete();
             });
         }
-    }
-
-    /**
-     * Checks if the speakers can still edit the presentations
-     *
-     * @return Attribute
-     */
-    protected function speakerCanEdit() : Attribute
-    {
-        $currentDate = Carbon::now();
-        $deadline = Carbon::createFromDate($currentDate->year, 10, 27);
-        $deadline->setTime(12, 0, 0);
-        $deadline->setTimezone('Europe/Amsterdam');
-
-        return Attribute::make(
-            get: fn() => $currentDate->lt($deadline)
-        );
     }
 
     /**
@@ -214,5 +197,46 @@ class Presentation extends Model
     {
         return $query->join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
             ->where('speakers.is_approved', '=', 0);
+    }
+
+    /**
+     * Deletes the whole presentation, removing all participants and speakers
+     *
+     * @return void
+     */
+    public function fullDelete(): void
+    {
+        $this->participants()->detach();
+
+        $this->speakers->each(function (Speaker $speaker) {
+            $speaker->user->removeRole('speaker');
+        });
+        $this->speakers()->delete();
+
+        $this->delete();
+    }
+
+    /**
+     * Removes the user from the speakers of this presentation
+     *
+     * @param User $user
+     * @return void
+     */
+    public function removeSpeaker(User $user): void
+    {
+        $speaker = $this->speakers->where('user_id', '=', $user->id)->first();
+
+        if ($speaker)
+            $speaker->delete();
+    }
+
+    /**
+     * Checks if the presentation can be deleted
+     *
+     * @return Attribute
+     */
+    public function canBeDeleted()
+    {
+        return !$this->isApproved;
     }
 }

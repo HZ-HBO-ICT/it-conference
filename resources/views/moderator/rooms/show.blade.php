@@ -41,27 +41,10 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Booth') }}
-                </x-slot>
+            <div class="mt-10 sm:mt-0">
+                @livewire('rooms.delete-room-form', ['room' => $room])
+            </div>
 
-                <x-slot name="description">
-                    {{ __('Permanently delete this booth and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <form id="destroy" method="POST" action="{{ route('moderator.rooms.destroy', $room) }}" class="pl-2">
-                        @csrf
-                        @method('DELETE')
-                        WARNING: this action cannot be undone
-                    </form>
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button type=submit form="destroy">Remove this room</x-danger-button>
-                </x-slot>
-            </x-action-section>
         </div>
     </div>
 </x-hub-layout>

@@ -59,11 +59,13 @@ Route::middleware([
 
     Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
         ->name('presentations.update');
+
+    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+        ->name('presentations.destroy');
 });
 
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
     ->middleware(['signed'])->name('registration.page.via.invitation');
-
 Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
     ->name('register.via.invitation');
 
@@ -71,6 +73,11 @@ Route::get('/company-representative-invitation/{invitation}', [InvitationControl
     ->middleware(['signed'])->name('company-rep.invitation');
 Route::post('/company-representative-invitation/{invitation}', [InvitationController::class, 'companyRepStore'])
     ->name('company-rep.registration');
+
+Route::get('/user/invitation/{invitation}', [InvitationController::class, 'userShow'])
+    ->middleware(['signed'])->name('user.invitation');
+Route::post('/user/invitation/{invitation}', [InvitationController::class, 'userStore'])
+    ->name('user.invitation.registration');
 
 Route::get('/faq', function () {
     return view('faq');
@@ -85,6 +92,7 @@ Route::get('/speakers', [SpeakerController::class, 'index'])
 Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
 
 Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
+Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -160,10 +168,13 @@ Route::middleware([
 
     Route::resource('/moderator/sponsors',
         App\Http\Controllers\ContentModerator\SponsorshipController::class);
-    Route::post('/moderator/sponsors/{team}/approve', [
+    Route::post('/moderator/sponsors/{sponsor}/approve', [
         App\Http\Controllers\ContentModerator\SponsorshipController::class, 'approve'
     ])->name('sponsors.approve');
 
     Route::resource('/moderator/rooms',
         App\Http\Controllers\ContentModerator\RoomController::class);
+
+    Route::resource('/moderator/users',
+        \App\Http\Controllers\ContentModerator\UserController::class);
 });
