@@ -12,14 +12,9 @@
                 @endif
                 @foreach ($rooms as $room)
                     @if($presentation->room_id == $room->id)
-                        <option selected value="{{ $room->id }}">{{ $room->name }} (max
-                                                                                   participants: {{$room->max_participants}}
-                                                                                   )
-                        </option>
+                        <option selected value="{{ $room->id }}">{{ $room->name }} (max participants: {{$room->max_participants}})</option>
                     @else
-                        <option value="{{ $room->id }}">{{ $room->name }} (max participants: {{$room->max_participants}}
-                                                                          )
-                        </option>
+                        <option value="{{ $room->id }}">{{ $room->name }} (max participants: {{$room->max_participants}})</option>
                     @endif
                 @endforeach
             </select>

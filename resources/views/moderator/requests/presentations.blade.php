@@ -13,8 +13,7 @@
                         <div class="px-6 py-5 bg-white dark:bg-slate-700 border-b dark:border-gray-500">
                             <div class="flex-nowrap justify-between items-center flex -mt-2 -ml-4">
                                 <div class="mt-2 ml-4">
-                                    <h3 class="text-gray-900 dark:text-white leading-6 font-semibold text-base">All
-                                                                                                                presentations</h3>
+                                    <h3 class="text-gray-900 dark:text-white leading-6 font-semibold text-base">All presentations</h3>
                                 </div>
                             </div>
                         </div>
@@ -36,11 +35,8 @@
                                                         <div class="ml-2 flex-grow">
                                                             <strong>{{$presentation->name}}</strong>
                                                             <br/>
-                                                            <span
-                                                                class="text-sm text-gray-500">{{ $presentation->speakernames }}</span>
-
+                                                            <span class="text-sm text-gray-500">{{ $presentation->speakernames }}</span>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                                 <div class="text-sm items-center flex ml-2 dark:text-white">
