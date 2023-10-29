@@ -66,10 +66,12 @@ class PresentationController extends Controller
         ]);
 
         if ($user->currentTeam) {
-            $user->currentTeam->users()->attach(
-                $user, ['role' => 'speaker']
-            );
-            $user->setRelations([]);
+            if ($user->currentTeam->owner->id === $user->id) {
+                $user->currentTeam->users()->attach(
+                    $user, ['role' => 'speaker']
+                );
+                $user->setRelations([]);
+            }
         }
 
         return redirect(route('moderator.presentations.index'))
