@@ -65,6 +65,13 @@ class PresentationController extends Controller
             'is_approved' => 1
         ]);
 
+        if ($user->currentTeam) {
+            $user->currentTeam->users()->attach(
+                $user, ['role' => 'speaker']
+            );
+            $user->setRelations([]);
+        }
+
         return redirect(route('moderator.presentations.index'))
             ->banner('You successfully added a new presentation');
     }
