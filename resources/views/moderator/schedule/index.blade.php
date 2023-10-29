@@ -41,7 +41,7 @@
                             @livewire('schedule.reset-timeslots')
                         </div>
                     @endif
-                    @if($numberOfUnscheduledPresentations > 0)
+                    @if($numberOfUnscheduledPresentations > 0 && DefaultPresentation::opening() && DefaultPresentation::closing())
                         <div>
                             <form class="h-full" action="{{route('moderator.schedule.draft')}}" method="POST">
                                 @csrf
@@ -51,7 +51,7 @@
                                 </button>
                             </form>
                         </div>
-                    @else
+                    @elseif($numberOfUnscheduledPresentations == 0)
                         @if(!\App\Models\EventInstance::current()->is_final_programme_released)
                             <div>
                                 @livewire('release-final-programme')
@@ -100,6 +100,7 @@
                             <div class="sm:col-span-2">
                                 <table class="table-auto w-full text-gray-900 dark:text-gray-200">
                                     <tbody>
+                                    <tr>
                                     <tr>
                                         <td class="text-left text-md text-gray-900 dark:text-white align-top">
                                             {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}

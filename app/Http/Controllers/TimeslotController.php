@@ -18,7 +18,7 @@ class TimeslotController extends Controller
      */
     public function create(): View
     {
-        return view('moderator.schedule.timeslots.timeslots-create');
+        return view('moderator.schedule.timeslots.create');
     }
 
     /**
