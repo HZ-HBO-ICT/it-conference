@@ -8,11 +8,8 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ContentModerator\RoomController;
 use App\Http\Controllers\ContentModerator\ScheduleController;
+use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SpeakerController;
-use App\Models\Presentation;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ContentModeratorController;
 use App\Http\Controllers\TeamRequestsController;
 use App\Http\Controllers\TeamsController;
@@ -85,8 +82,11 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::get('/programme', [ScheduleController::class, 'index'])
+Route::get('/programme', [ProgrammeController::class, 'index'])
     ->name('programme');
+
+Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
+    ->name('programme.presentation.show');
 
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');

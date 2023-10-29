@@ -61,7 +61,7 @@
                                         <td class="pb-3">
                                             @foreach($timeslot->presentations as $lecture)
                                                 @if($lecture->timeslot_id == $timeslot->id)
-                                                    <a href="{{route('presentations.show', $lecture)}}">
+                                                    <a href="{{route('programme.presentation.show', $lecture)}}">
                                                         <x-schedule-block :presentation="$lecture" :colorName="'violet'"/>
                                                     </a>
                                                 @endif
@@ -88,7 +88,7 @@
                                         <td class="pb-3">
                                             @foreach($timeslot->presentations as $workshop)
                                                 @if($workshop->timeslot_id == $timeslot->id)
-                                                    <a href="{{route('presentations.show', $workshop)}}">
+                                                    <a href="{{route('programme.presentation.show', $workshop)}}">
                                                         <x-schedule-block :presentation="$workshop" :colorName="'violet'"/>
                                                     </a>
                                                 @endif

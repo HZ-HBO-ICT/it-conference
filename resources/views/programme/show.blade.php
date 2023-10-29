@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 
-<x-hub-layout>
+<x-app-layout>
     <div
         class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
         <div id="breadcrumbs" class="pl-5 text-sm">
@@ -41,4 +41,4 @@
             </div>
         </div>
     </div>
-</x-hub-layout>
+</x-app-layout>
