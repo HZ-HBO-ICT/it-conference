@@ -18,7 +18,7 @@ class PresentationController extends Controller
     {
         $this->authorize('request', Presentation::class);
 
-        return view('speakers.presentation.create');
+        return view('presentations.create');
     }
 
     public function store(Request $request)
@@ -63,7 +63,7 @@ class PresentationController extends Controller
     public function show(Presentation $presentation)
     {
         if (Auth::user()->can('view', $presentation))
-            return view('speakers.presentation.show', compact('presentation'));
+            return view('presentations.show', compact('presentation'));
 
         abort(403);
     }
