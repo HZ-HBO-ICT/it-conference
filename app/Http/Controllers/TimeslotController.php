@@ -18,7 +18,7 @@ class TimeslotController extends Controller
      */
     public function create(): View
     {
-        return view('moderator.schedule.timeslots-create');
+        return view('moderator.schedule.timeslots.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class TimeslotController extends Controller
             return redirect(route('rooms.index'));
         }
 
-        return redirect(route('moderator.schedule.draft'));
+        return redirect(route('moderator.schedule.overview'));
     }
 
     /**
@@ -54,28 +54,28 @@ class TimeslotController extends Controller
      *
      * @param $starting
      * @param $ending
-     * @return void
+     * @param $padding int free time between timeslots
      */
-    private function generate($starting, $ending)
+    public static function generate($starting, $ending, $padding)
     {
-        $current = Carbon::parse($starting);
-        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(90);
+        $current = Carbon::parse($starting)->addMinutes($padding);
+        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(90 + $padding);
         while ($current <= $finalPossibleStartingTime) {
             Timeslot::create([
                 'start' => $current,
                 'duration' => 90
             ]);
-            $current->addMinutes(100);
+            $current->addMinutes(90 + $padding);
         }
 
-        $current = Carbon::parse($starting);
-        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(30);
+        $current = Carbon::parse($starting)->addMinutes($padding);
+        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(30 + $padding);
         while ($current <= $finalPossibleStartingTime) {
             Timeslot::create([
                 'start' => $current,
                 'duration' => 30
             ]);
-            $current->addMinutes(40);
+            $current->addMinutes(30 + $padding);
         }
     }
 }

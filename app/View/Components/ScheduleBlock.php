@@ -12,7 +12,8 @@ class ScheduleBlock extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $presentation
+        public $presentation,
+        public $colorName
     )
     {
     }

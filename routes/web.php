@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContentModerator\DefaultPresentationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
@@ -129,8 +130,7 @@ Route::middleware([
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
         ->name('schedule.overview');
 
-    // TODO: Fix with a post request instead
-    Route::get('/schedule/draft', [ScheduleController::class, 'generate'])
+    Route::post('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('schedule.draft');
 
     Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
@@ -144,6 +144,15 @@ Route::middleware([
         ->name('schedule.presentation');
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
         ->name('schedule.presentation.store');
+
+    Route::get('/schedule/create/{event}', [DefaultPresentationController::class, 'create'])
+        ->name('schedule.default.presentation.create');
+    Route::post('/schedule/create/opening', [DefaultPresentationController::class, 'storeOpening'])
+        ->name('schedule.store.opening');
+    Route::post('/schedule/create/closing', [DefaultPresentationController::class, 'storeClosing'])
+        ->name('schedule.store.closing');
+    Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
+        ->name('schedule.default.presentation.edit');
 
     Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
         ->name('list');
