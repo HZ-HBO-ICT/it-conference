@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\ContentModerator\DefaultPresentationController;
+use App\Http\Controllers\ContentModerator\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ContentModerator\RoomController;
+use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Http\Controllers\SpeakerController;
 use App\Models\Presentation;
 use App\Models\User;
@@ -181,9 +182,7 @@ Route::middleware([
         App\Http\Controllers\ContentModerator\SponsorshipController::class, 'approve'
     ])->name('sponsors.approve');
 
-    Route::resource('/moderator/rooms',
-        App\Http\Controllers\ContentModerator\RoomController::class);
+    Route::resource('/moderator/rooms', RoomController::class);
 
-    Route::resource('/moderator/users',
-        \App\Http\Controllers\ContentModerator\UserController::class);
+    Route::resource('/moderator/users', UserController::class);
 });

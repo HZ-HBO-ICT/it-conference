@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ContentModerator;
 
+use App\Http\Controllers\Controller;
 use App\Models\DefaultPresentation;
 use App\Models\EventInstance;
 use App\Models\Presentation;

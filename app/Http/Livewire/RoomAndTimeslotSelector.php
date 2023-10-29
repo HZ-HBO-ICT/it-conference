@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Models\DefaultPresentation;
 use App\Models\Room;
 use App\Models\Timeslot;
