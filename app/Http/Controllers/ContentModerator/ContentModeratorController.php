@@ -1,36 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ContentModerator;
 
-use App\Events\BoothApproved;
-use App\Events\BoothDisapproved;
-use App\Events\PresentationApproved;
-use App\Events\PresentationDisapproved;
-use App\Events\SponsorshipApproved;
-use App\Events\SponsorshipDisapproved;
-use App\Events\TeamApproved;
-use App\Events\TeamDisapproved;
-use App\Mail\BoothApprovedMailable;
-use App\Mail\BoothDisapprovedMailable;
-use App\Mail\CustomTeamInvitation;
-use App\Mail\PresentationApprovedMailable;
-use App\Mail\PresentationDisapprovedMailable;
-use App\Mail\SponsorshipApprovedMailable;
-use App\Mail\SponsorshipDisapprovedMailable;
-use App\Mail\TeamApprovedMailable;
-use App\Mail\TeamDisapprovedMailable;
+use App\Http\Controllers\Controller;
 use App\Models\Booth;
 use App\Models\Presentation;
-use App\Models\Speaker;
 use App\Models\Team;
-use App\Actions\Jetstream\DeleteTeam;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Mail;
 
 class ContentModeratorController extends Controller
 {

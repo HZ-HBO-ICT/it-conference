@@ -1,16 +1,16 @@
 <?php
 
+use App\Http\Controllers\ContentModerator\ContentModeratorController;
 use App\Http\Controllers\ContentModerator\DefaultPresentationController;
+use App\Http\Controllers\ContentModerator\RoomController;
+use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Http\Controllers\ContentModerator\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
-use App\Http\Controllers\ContentModerator\RoomController;
-use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SpeakerController;
-use App\Http\Controllers\ContentModeratorController;
 use App\Http\Controllers\TeamRequestsController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\TimeslotController;
