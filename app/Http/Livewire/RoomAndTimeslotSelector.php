@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Http\Controllers\ScheduleController;
+use App\Models\DefaultPresentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Livewire\Component;
@@ -43,7 +44,17 @@ class RoomAndTimeslotSelector extends Component
                 $timeslotIds[] = $this->presentation->timeslot_id;
             }
 
-            $this->timeslots = Timeslot::whereIn('id', $timeslotIds)->get();
+            if (DefaultPresentation::opening() && DefaultPresentation::closing()) {
+                $this->timeslots = Timeslot::whereIn('id', $timeslotIds)
+                    ->whereNotIn('id', [
+                        DefaultPresentation::opening()->timeslot->id,
+                        DefaultPresentation::closing()->timeslot->id
+                    ])
+                    ->get();
+            } else {
+                $this->timeslots = Timeslot::whereIn('id', $timeslotIds)->get();
+            }
+
             $this->getMaxParticipants();
         }
     }
