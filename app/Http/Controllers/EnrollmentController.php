@@ -15,9 +15,11 @@ class EnrollmentController extends Controller
      */
     public function enroll(Presentation $presentation)
     {
-        Auth::user()->can('enroll', $presentation);
-        Auth::user()->presentations()->attach($presentation);
+        if (!Auth::user()->can('enroll', $presentation)) {
+            return redirect()->back()->dangerBanner('You cannot enroll in this presentation');
+        }
 
+        Auth::user()->presentations()->attach($presentation);
         return redirect()->back()->banner('You successfully enrolled in this presentation');
     }
 
@@ -29,7 +31,7 @@ class EnrollmentController extends Controller
     public function disenroll(Presentation $presentation)
     {
         if (!Auth::user()->presentations->contains($presentation)) {
-            return redirect()->back()->banner('You are not enrolled in this presentation');
+            return redirect()->back()->dangerBanner('You are not enrolled in this presentation');
         }
 
         Auth::user()->presentations()->detach($presentation);
