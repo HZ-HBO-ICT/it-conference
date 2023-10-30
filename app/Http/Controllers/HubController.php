@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Presentation;
+use App\Models\Timeslot;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,11 +34,14 @@ class HubController extends Controller
     {
         $presentations = Auth::user()->presentations;
 
+        $lectureTimeslots = Timeslot::where('duration', 30)->get();
+        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+
         if (Auth::user()->speaker) {
             $presentations->push(Auth::user()->speaker->presentation);
         }
         $presentations = $presentations->sortBy('timeslot.start');
 
-        return view('myhub.programme', compact('presentations'));
+        return view('myhub.programme', compact('presentations','lectureTimeslots', 'workshopTimeslots'));
     }
 }
