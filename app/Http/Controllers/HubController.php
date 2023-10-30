@@ -41,24 +41,6 @@ class HubController extends Controller
         return view('myhub.programme', compact('presentations'));
     }
 
-    /**
-     * detach participation in specified presentation for a user
-     * @param $presentationId id for presentation to detach from participants table
-     */
-    public function detachParticipation($presentationId)
-    {
-        if (Auth::user()->hasRole('content moderator')) {
-            abort(404);
-        }
-
-        $user = Auth::user();
-
-        //delete the record from participants table
-        $user->presentations()->detach($presentationId);
-
-        return redirect(route('my-programme'));
-    }
-
     public function enroll(Presentation $presentation)
     {
         Auth::user()->can('enroll', $presentation);

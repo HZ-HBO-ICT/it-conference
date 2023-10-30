@@ -46,9 +46,6 @@ Route::middleware([
 
     Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
 
-    //route for disenrolling from a presentation
-    Route::get('/my/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
-
     Route::post('/my/enroll/{presentation}', [HubController::class, 'enroll'])
         ->name('my.programme.enroll');
 
