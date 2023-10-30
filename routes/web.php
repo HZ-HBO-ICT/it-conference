@@ -5,6 +5,7 @@ use App\Http\Controllers\ContentModerator\DefaultPresentationController;
 use App\Http\Controllers\ContentModerator\RoomController;
 use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Http\Controllers\ContentModerator\UserController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
@@ -46,10 +47,10 @@ Route::middleware([
 
     Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
 
-    Route::post('/my/enroll/{presentation}', [HubController::class, 'enroll'])
+    Route::post('/my/enroll/{presentation}', [EnrollmentController::class, 'enroll'])
         ->name('my.programme.enroll');
 
-    Route::post('/my/disenroll/{presentation}', [HubController::class, 'disenroll'])
+    Route::post('/my/disenroll/{presentation}', [EnrollmentController::class, 'disenroll'])
         ->name('my.programme.disenroll');
 
     Route::get('/speakers/request', [PresentationController::class, 'create'])

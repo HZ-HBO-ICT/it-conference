@@ -40,23 +40,4 @@ class HubController extends Controller
 
         return view('myhub.programme', compact('presentations'));
     }
-
-    public function enroll(Presentation $presentation)
-    {
-        Auth::user()->can('enroll', $presentation);
-        Auth::user()->presentations()->attach($presentation);
-
-        return redirect()->back()->banner('You successfully enrolled in this presentation');
-    }
-
-    public function disenroll(Presentation $presentation)
-    {
-        if (!Auth::user()->presentations->contains($presentation)) {
-            return redirect()->back()->banner('You are not enrolled in this presentation');
-        }
-
-        Auth::user()->presentations()->detach($presentation);
-
-        return redirect()->back()->banner('You successfully disenrolled of this presentation');
-    }
 }
