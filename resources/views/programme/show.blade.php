@@ -104,8 +104,8 @@
                                                     </button>
                                                 </form>
                                             </div>
-                                        @elseif(Auth::user()->speaker->presentation->id != $presentation->id)
-                                            <div class="pt-5" data-te-toggle="tooltip" title="You cannot sign up because you are already busy in this timeslot">
+                                        @elseif(!Auth::user()->speaker || (Auth::user()->speaker && Auth::user()->speaker->presentation->id != $presentation->id))
+                                            <div class="pt-5" data-te-toggle="tooltip" title="You cannot sign up because you are already busy during this time.">
                                                 <button class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
                                                     Sign up
                                                 </button>
