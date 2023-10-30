@@ -16,37 +16,37 @@
                 </h2>
             </div>
             <div class="mx-auto max-w-7xl">
-                <div class="pt-3 px-6 pb-12 rounded-lg overflow-hidden relative">
+                <div class="pt-3 px-6 pb-6 rounded-lg overflow-hidden relative">
                     <div
                         class="rounded-2xl py-3 px-3 border-2 shadow dark:bg-gray-800 border-gray-200 dark:border-gray-500">
                         <div class="py-5">
                             <h3 class="tracking-tight text-3xl font-semibold text-violet-700 text-center">{{$presentation->name}}</h3>
                         </div>
-                        <div class="grid grid-cols-3 gap-4 pt-5">
+                        <div class="grid grid-cols-3 pt-5 px-6">
                             <div>
                                 @if($presentation->speakers->count() > 1)
-                                    <h4 class="tracking-tight text-xl font-semibold pb-5 text-center">Speakers</h4>
+                                    <h4 class="tracking-tight text-xl font-semibold pb-5 pl-5 text-left">Speakers</h4>
                                 @else
-                                    <h4 class="tracking-tight text-xl font-semibold pb-5 text-center">Speaker</h4>
+                                    <h4 class="tracking-tight text-xl font-semibold pb-5 pl-5 text-left">Speaker</h4>
                                 @endif
-                                <div class="grid grid-cols-2">
+                                <div class="grid grid-cols-3">
                                     @foreach($presentation->speakers()->orderBy('is_main_speaker', 'desc')->get() as $speaker)
-                                        <div class="flex items-center justify-center">
-                                            <div class="px-3 lg:px-10">
+                                        <div class="flex justify-end">
+                                            <div class="justify-self-end pr-3">
                                                 <img
-                                                    class="object-scale-down p-2 rounded-full border-gray-200 dark:border-gray-500 mx-auto my-auto max-w-full block dark:text-white"
+                                                    class="object-scale-down w-24 h-24 p-2 rounded-full border-gray-200 dark:border-gray-500 max-w-full block dark:text-white"
                                                     src="{{ url($speaker->user->profile_photo_url) . ($speaker->user->profile_photo_path ? '' : '&size=240') }}"
                                                     alt="blq">
                                             </div>
                                         </div>
                                         <div
-                                            class="flex items-center tracking-tight text-lg font-semibold text-center">{{$speaker->user->name}}</div>
+                                            class="col-span-2 sm:col-span-2 flex items-center tracking-tight text-lg font-semibold">{{$speaker->user->name}}</div>
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="sm:col-span-2 pl-3 dark:text-white">
+                            <div class="sm:col-span-2 dark:text-white">
                                 <div>
-                                    <h3 class="tracking-tight text-xl font-semibold pb-5 text-left">
+                                    <h3 class="tracking-tight text-xl font-semibold text-left">
                                         About the presentation
                                     </h3>
                                     <p>{{$presentation->description}}</p>
@@ -81,6 +81,9 @@
                                     <p>Room: {{$presentation->room->name}}</p>
                                     <p>Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
                                        - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
+                                </div>
+                                <div class="pt-5">
+                                    <button class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">Sign up</button>
                                 </div>
                             </div>
                         </div>
