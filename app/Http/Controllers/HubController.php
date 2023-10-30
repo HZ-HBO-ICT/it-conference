@@ -29,14 +29,14 @@ class HubController extends Controller
     /**
      * get personal programme for the user
      */
-    public function getProgramme()
+    public function programme()
     {
-        if (Auth::user()->hasRole('content moderator')) {
-            abort(404);
-        }
+        $presentations = Auth::user()->presentations;
 
-        $user = Auth::user();
-        $presentations = $user->presentations->sortBy('timeslot.start');
+        if (Auth::user()->speaker) {
+            $presentations->push(Auth::user()->speaker->presentation);
+        }
+        $presentations = $presentations->sortBy('timeslot.start');
 
         return view('myhub.programme', compact('presentations'));
     }

@@ -41,7 +41,8 @@ Route::middleware([
     Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
     //route for personal programme
-    Route::get('/my/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+    Route::get('/my/programme', [HubController::class, 'programme'])
+        ->name('my.programme');
 
     Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
 

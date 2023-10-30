@@ -1,54 +1,79 @@
+@php
+    use Carbon\Carbon;
+    use App\Models\DefaultPresentation;
+@endphp
+
+<!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
+<!-- Potential dynamic classes: bg-crew-600 dark:bg-crew-600 bg-violet-600 dark:bg-violet-600 bg-partner-600 dark:bg-partner-600 bg-participant-600 -->
+
 <x-hub-layout>
-    {{--personal programme--}}
-    <div class="z-20 w-full mr-8">
-        <div class="bg-white dark:bg-gray-800 h-fit overflow-hidden rounded-lg shadow-xl">
-            <div class="px-6 py-6 bg-gray-50 dark:bg-gray-800">
-                <div class="flex flex-row justify-between">
-                    <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">Programme</h2>
-
-                    @can('request', App\Models\Presentation::class)
-                        <div>
-                            <a type="button"
-                               href="{{ route('speakers.request.presentation') }}"
-                               class="hidden lg:block md:block text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                                Do you want to host lecture/workshop?
-                            </a>
-                        </div>
-                    @endcan
+    <div class="py-8 px-2 mx-auto max-w-7xl">
+        <h2 class="font-semibold text-2xl px-6 text-gray-800 dark:text-gray-200 leading-tight">
+            My Programme
+        </h2>
+        <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden">
+            <div class="grid grid-cols-7 sm:gap-3">
+                <!-- Start of the opening -->
+                <div class="sm:col-span-1">
+                    <div class="text-left text-md text-gray-900 dark:text-white align-top">
+                        {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}
+                        - {{(Carbon::parse(DefaultPresentation::opening()->timeslot->start)->addMinutes(DefaultPresentation::opening()->timeslot->duration))->format('H:i')}}
+                    </div>
                 </div>
-
-                @if($presentations->isEmpty())
-                    <p class="text-l pt-16 text-gray-800 dark:text-gray-200">You need to register to a presentation or
-                                                                             workshop first!</p>
-                @else
-                    <p class="text-l pt-16 text-gray-800 dark:text-gray-200">The lectures/workshops you are registered
-                                                                             for:</p>
-
-                    <ul class="space-y-2 list-disc list-inside dark:text-gray-800 mt-8 pl-5">
-                        @foreach($presentations as $presentation)
-                            <li class="flex gap-4">
-                                <p class="text-l text-gray-800 dark:text-gray-200">{{ Carbon\Carbon::parse($presentation->timeslot->start)->format('H:i') }}
-                                    — {{ $presentation->name }} — {{ $presentation->room->name }}</p>
-
-                                <div>
-                                    <a type="button" href="{{ route('destroy-participant', $presentation->id) }}"
-                                       class="detach-buttons text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-sm px-5 py-0.5 text-center mr-2 mb-2"
-                                       style="display: none;">
-                                        Disenroll
-                                    </a>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-
-                    <button type="button"
-                            id="edit-button"
-                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-16">
-                        Edit
-                    </button>
-                @endif
+                <div class="col-span-6 sm:col-span-6">
+                    <div
+                        class="w-full rounded overflow-hidden shadow-lg bg-{{Auth::user()->roleColour}}-600 transition-all duration-300 transform hover:scale-105">
+                        <div class="px-3 py-1">
+                            <div
+                                class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
+                            <p class="text-gray-100 text-sm">
+                                {{DefaultPresentation::opening()->description}}
+                            </p>
+                        </div>
+                        <div class="px-2 pb-2">
+                            <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                {{DefaultPresentation::opening()->room->name}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @foreach($presentations as $presentation)
+                    <div class="sm:col-span-1">
+                        <div class="text-left text-md text-gray-900 dark:text-white align-top">
+                            {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
+                            - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}
+                        </div>
+                    </div>
+                    <div class="col-span-6 sm:col-span-6">
+                        <a href="{{route('programme.presentation.show', $presentation)}}">
+                            <x-schedule-block :presentation="$presentation" :colorName="Auth::user()->roleColour"/>
+                        </a>
+                    </div>
+                @endforeach
+                <div class="sm:col-span-1">
+                    <div class="text-left text-md text-gray-900 dark:text-white align-top">
+                        {{Carbon::parse(DefaultPresentation::closing()->timeslot->start)->format('H:i')}}
+                        - {{(Carbon::parse(DefaultPresentation::closing()->timeslot->start)->addMinutes(DefaultPresentation::closing()->timeslot->duration))->format('H:i')}}
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-6">
+                    <div
+                        class="w-full rounded overflow-hidden shadow-lg bg-{{Auth::user()->roleColour}}-600 transition-all duration-300 transform hover:scale-105">
+                        <div class="px-3 py-1">
+                            <div
+                                class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
+                            <p class="text-gray-100 text-sm">
+                                {{DefaultPresentation::closing()->description}}
+                            </p>
+                        </div>
+                        <div class="px-2 pb-2">
+                            <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                {{DefaultPresentation::closing()->room->name}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="/js/disenroll-button.js"></script>
 </x-hub-layout>
