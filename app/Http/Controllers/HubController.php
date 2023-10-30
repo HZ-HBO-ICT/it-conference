@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Presentation;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,5 +57,24 @@ class HubController extends Controller
         $user->presentations()->detach($presentationId);
 
         return redirect(route('my-programme'));
+    }
+
+    public function enroll(Presentation $presentation)
+    {
+        Auth::user()->can('enroll', $presentation);
+        Auth::user()->presentations()->attach($presentation);
+
+        return redirect()->back()->banner('You successfully enrolled in this presentation');
+    }
+
+    public function disenroll(Presentation $presentation)
+    {
+        if (!Auth::user()->presentations->contains($presentation)) {
+            return redirect()->back()->banner('You are not enrolled in this presentation');
+        }
+
+        Auth::user()->presentations()->detach($presentation);
+
+        return redirect()->back()->banner('You successfully disenrolled of this presentation');
     }
 }
