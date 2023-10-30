@@ -22,7 +22,7 @@
                         <div class="py-5">
                             <h3 class="tracking-tight text-3xl font-semibold text-violet-700 text-center">{{$presentation->name}}</h3>
                         </div>
-                        <div class="grid grid-cols-3 pt-5 px-6">
+                        <div class="grid grid-cols-3 pt-5 px-6 pb-5">
                             <div>
                                 @if($presentation->speakers->count() > 1)
                                     <h4 class="tracking-tight text-xl font-semibold pb-5 pl-5 text-left">Speakers</h4>
@@ -83,15 +83,35 @@
                                        - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
                                 </div>
                                 @if(Auth::user())
-                                    <div class="pt-5">
-                                        <form action="{{route('my.programme.enroll', $presentation)}}" method="POST">
-                                            @csrf
-                                            <button
-                                                class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
-                                                Sign up
-                                            </button>
-                                        </form>
-                                    </div>
+                                    @can('enroll', $presentation)
+                                        <div class="pt-5">
+                                            <form action="{{route('my.programme.enroll', $presentation)}}"
+                                                  method="POST">
+                                                @csrf
+                                                <button class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                                    Sign up
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        @if(Auth::user()->presentations->contains($presentation))
+                                            <div class="pt-5">
+                                                <form action="{{route('my.programme.disenroll', $presentation)}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <button class="bg-red-500 hover:bg-red-700 transition-all text-lg px-24 py-1 rounded-lg text-white">
+                                                        Deregister from presentation
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @elseif(Auth::user()->speaker->presentation->id != $presentation->id)
+                                            <div class="pt-5" data-te-toggle="tooltip" title="You cannot sign up because you are already busy in this timeslot">
+                                                <button class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                                    Sign up
+                                                </button>
+                                            </div>
+                                        @endif
+                                    @endcan
                                 @endif
                             </div>
                         </div>
