@@ -48,6 +48,12 @@ Route::middleware([
     //route for disenrolling from a presentation
     Route::get('/my/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
 
+    Route::post('/my/enroll/{presentation}', [HubController::class, 'enroll'])
+        ->name('my.programme.enroll');
+
+    Route::post('/my/disenroll/{presentation}', [HubController::class, 'disenroll'])
+        ->name('my.programme.disenroll');
+
     Route::get('/speakers/request', [PresentationController::class, 'create'])
         ->name('speakers.request.presentation');
     Route::post('/speakers/request', [PresentationController::class, 'store'])

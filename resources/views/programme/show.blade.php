@@ -82,9 +82,17 @@
                                     <p>Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
                                        - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
                                 </div>
-                                <div class="pt-5">
-                                    <button class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">Sign up</button>
-                                </div>
+                                @if(Auth::user())
+                                    <div class="pt-5">
+                                        <form action="{{route('my.programme.enroll', $presentation)}}" method="POST">
+                                            @csrf
+                                            <button
+                                                class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                                Sign up
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
