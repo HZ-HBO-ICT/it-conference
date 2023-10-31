@@ -18,7 +18,7 @@ class PresentationController extends Controller
     {
         $this->authorize('request', Presentation::class);
 
-        return view('speakers.presentation.create');
+        return view('presentations.create');
     }
 
     public function store(Request $request)
@@ -62,16 +62,10 @@ class PresentationController extends Controller
 
     public function show(Presentation $presentation)
     {
-        // TODO one route should return one view. This should be split up into two different routes
-        // Shows the view to the host and cohosts of the presentation
         if (Auth::user()->can('view', $presentation))
-            return view('speakers.presentation.show', compact('presentation'));
+            return view('presentations.show', compact('presentation'));
 
-        // To everyone else once the programme is released
-        if (!EventInstance::current()->is_final_programme_released)
-            abort(404);
-
-        return view('presentations.show', compact('presentation'));
+        abort(403);
     }
 
     /**

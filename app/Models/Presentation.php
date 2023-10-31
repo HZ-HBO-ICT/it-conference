@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -236,5 +237,45 @@ class Presentation extends Model
     public function canBeDeleted(): bool
     {
         return !EventInstance::current()->is_final_programme_released;
+    }
+
+    public function canEnroll(User $user): bool
+    {
+        if ($this->maxParticipants() <= $this->participants->count()) {
+            return false;
+        }
+        if ($user->presentations->contains($this)) {
+            return false;
+        }
+
+        $presentationStart = \Carbon\Carbon::parse($this->timeslot->start);
+        $presentationEnd = Carbon::parse($this->timeslot->start)
+            ->copy()
+            ->addMinutes($this->timeslot->duration);
+
+        if ($user->speaker) {
+            $speakerForPresentation = $user->speaker->presentation;
+
+            $speakingStart = Carbon::parse($speakerForPresentation->timeslot->start);
+            $speakingEnd = Carbon::parse($speakerForPresentation->timeslot->start)
+                ->copy()
+                ->addMinutes($speakerForPresentation->timeslot->duration);
+
+            if (!($presentationEnd <= $speakingStart) && !($presentationStart >= $speakingEnd)) {
+                return false;
+            }
+        }
+
+        foreach ($user->presentations as $enrolledPresentation) {
+            $enrolledStart = Carbon::parse($enrolledPresentation->timeslot->start);
+            $enrolledEnd = Carbon::parse($enrolledPresentation->timeslot->start)
+                ->addMinutes($enrolledPresentation->timeslot->duration);
+
+            if (!($presentationEnd <= $enrolledStart) && !($presentationStart >= $enrolledEnd)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -1,8 +1,8 @@
 <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
-<!-- Potential dynamic classes: bg-crew-600 dark:bg-crew-600 bg-violet-600 dark:bg-violet-600 bg-sky-600 bg-participant-600 -->
+<!-- Potential dynamic classes: bg-crew-500 dark:bg-crew-600 bg-violet-500 dark:bg-violet-600 bg-partner-500 dark:bg-partner-600 bg-participant-500 -->
 
 <div
-    class="w-full rounded overflow-hidden shadow-lg bg-{{$colorName}}-600 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
+    class="w-full rounded overflow-hidden shadow-lg bg-{{$colorName}}-500 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
     <div class="px-3 py-1">
         <div class="font-bold text-white text-md">{{$presentation->name}}</div>
         <div class="text-sm mb-2 text-gray-100">{{$presentation->mainSpeaker()->user->name}}

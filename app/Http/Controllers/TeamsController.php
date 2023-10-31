@@ -18,7 +18,7 @@ class TeamsController extends Controller
             ->orderByRaw('ISNULL(sponsor_tier_id), sponsor_tier_id ASC')
             ->get();
 
-        return view('companies', compact('teams'));
+        return view('teams.public.index', compact('teams'));
     }
 
     public function show(Team $team)

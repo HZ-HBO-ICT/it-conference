@@ -1,18 +1,17 @@
 <?php
 
+use App\Http\Controllers\ContentModerator\ContentModeratorController;
 use App\Http\Controllers\ContentModerator\DefaultPresentationController;
+use App\Http\Controllers\ContentModerator\RoomController;
+use App\Http\Controllers\ContentModerator\ScheduleController;
+use App\Http\Controllers\ContentModerator\UserController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SpeakerController;
-use App\Models\Presentation;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\ContentModeratorController;
 use App\Http\Controllers\TeamRequestsController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\TimeslotController;
@@ -43,12 +42,16 @@ Route::middleware([
     Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 
     //route for personal programme
-    Route::get('/my/programme', [HubController::class, 'getProgramme'])->name('my-programme');
+    Route::get('/my/programme', [HubController::class, 'programme'])
+        ->name('my.programme');
 
     Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
 
-    //route for disenrolling from a presentation
-    Route::get('/my/programme/{presentationId}', [HubController::class, 'detachParticipation'])->name('destroy-participant');
+    Route::post('/my/enroll/{presentation}', [EnrollmentController::class, 'enroll'])
+        ->name('my.programme.enroll');
+
+    Route::post('/my/disenroll/{presentation}', [EnrollmentController::class, 'disenroll'])
+        ->name('my.programme.disenroll');
 
     Route::get('/speakers/request', [PresentationController::class, 'create'])
         ->name('speakers.request.presentation');
@@ -84,8 +87,11 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::get('/programme', [ScheduleController::class, 'index'])
+Route::get('/programme', [ProgrammeController::class, 'index'])
     ->name('programme');
+
+Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
+    ->name('programme.presentation.show');
 
 Route::get('/speakers', [SpeakerController::class, 'index'])
     ->name('speakers.index');
@@ -181,9 +187,7 @@ Route::middleware([
         App\Http\Controllers\ContentModerator\SponsorshipController::class, 'approve'
     ])->name('sponsors.approve');
 
-    Route::resource('/moderator/rooms',
-        App\Http\Controllers\ContentModerator\RoomController::class);
+    Route::resource('/moderator/rooms', RoomController::class);
 
-    Route::resource('/moderator/users',
-        \App\Http\Controllers\ContentModerator\UserController::class);
+    Route::resource('/moderator/users', UserController::class);
 });

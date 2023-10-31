@@ -1,44 +1,100 @@
-@php use Carbon\Carbon; @endphp
-
+@php
+    use Carbon\Carbon;
+    use App\Models\EventInstance;
+@endphp
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
 <x-hub-layout>
-    <div
-        class="px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
-        <div id="breadcrumbs" class="pl-5 text-sm">
-            <p class="text-gray-800 dark:text-gray-200">
-                <a href="{{route('programme')}}"
-                   class="hover:text-violet-500 pl-4">Programme</a> /
-                <span>{{$presentation->name}}</span></p>
-        </div>
-        <div class="text-center max-w-2xl mx-auto">
-            <h1 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">{{$presentation->name}}</h1>
-        </div>
-        <div class="m-5">
-            <div class="text-gray-900 dark:text-gray-200">
-                <div class="grid grid-cols-2">
-                    <div class="pl-4">
-                        @if($presentation->speakers()->get()->count() == 1)
-                            <h2 class="text-md">Speaker: {{$presentation->mainSpeaker()->user->name}} </h2>
-                        @else
-                            <h2 class="text-md">Speakers:
-                                @foreach($presentation->speakers()->get() as $speaker)
-                                {{$speaker->user->name}},
-                                @endforeach</h2>
-                        @endif
-                        <h2 class="text-sm pb-2">{{$presentation->mainSpeaker()->user->currentTeam ? $presentation->mainSpeaker()->user->currentTeam->name : 'Independent speaker' }} </h2>
-                        <h2 class="text-md py-3">Type: {{ucfirst($presentation->type)}} </h2>
-                        <h2 class="text-md py-3">Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
-                                                 - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}} </h2>
-                        <h2 class="text-md py-3">Room: {{$presentation->room->name}} </h2>
+    <div class="py-8 px-8 mx-auto max-w-7xl">
+        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('My presentation') }}
+        </h2>
+        <div class="pt-5">
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Presentation information') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('The detail information about your presentation.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation title</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->name}}</dd>
                     </div>
-                    <div>
-                        <h2 class="text-md">Description of the presentation:</h2>
-                        <blockquote
-                            class="mt-1 pl-4 text-gray-600 border-gray-400 dark:text-gray-200 dark:border-gray-100 border-l-4 italic">
-                            {{$presentation->description}}
-                        </blockquote>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation
+                                                                                                description
+                        </dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation-> description}}</dd>
                     </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation type</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->type}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Suggested max
+                                                                                                participants
+                        </dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->max_participants}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation status</dt>
+                        <dd class="mt-1 text-sm leading-6 {{$presentation->mainSpeaker()->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
+                            {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
+                        </dd>
+                    </div>
+                    @can('update', $presentation)
+                        <div class="mt-5">
+                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
+                        </div>
+                    @endcan
+                </x-slot>
+
+            </x-action-section>
+
+            <x-section-border/>
+
+            @livewire('upload-presentation', ['presentation' => $presentation])
+
+            <x-section-border/>
+
+            @can('delete', $presentation)
+                <div class="mt-10 sm:mt-0">
+                    @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
                 </div>
-            </div>
+            @else
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Delete Presentation') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Permanently delete your presentation.') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+                            If you wish to not be present during the conference contact us at <a
+                                href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
+                        </div>
+                    </x-slot>
+                </x-action-section>
+            @endcan
         </div>
     </div>
 </x-hub-layout>
+
+
+{{--<x-hub-layout>--}}
+{{--    <x-presentation-details--}}
+{{--        :presentation="$presentation"--}}
+{{--        :presentationName="$presentation->name"--}}
+{{--        :presentationDescription="$presentation->description"--}}
+{{--        :filename="basename($presentation->file_path)"--}}
+{{--        :presentationType="$presentation->type"--}}
+{{--        :presentationMaxParticipants="$presentation->max_participants"--}}
+{{--    />--}}
