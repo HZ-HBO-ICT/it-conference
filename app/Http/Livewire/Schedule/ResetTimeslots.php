@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Schedule;
 
+use App\Models\DefaultPresentation;
 use App\Models\Presentation;
 use App\Models\Timeslot;
 use Livewire\Component;
-use Ramsey\Uuid\Type\Time;
 
 class ResetTimeslots extends Component
 {
@@ -21,12 +21,13 @@ class ResetTimeslots extends Component
         }
 
         // TODO: After refactoring the constraints, this can be switched to truncate
+        DefaultPresentation::truncate();
         Timeslot::where('id', '>', 0)->delete();
-        $this->redirect(route('moderator.schedule.timeslots.create'));
+        $this->redirect(route('moderator.schedule.default.presentation.create', 'opening'));
     }
 
     public function render()
     {
-        return view('livewire.reset-timeslots');
+        return view('moderator.schedule.timeslots.reset-timeslots');
     }
 }

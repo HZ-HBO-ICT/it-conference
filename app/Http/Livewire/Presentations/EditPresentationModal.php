@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Presentations;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class EditPresentationModal extends Component
 {
+    use AuthorizesRequests;
+
     public $presentation;
 
     public $name = '';
@@ -20,7 +24,7 @@ class EditPresentationModal extends Component
 
     protected $rules = [
         'name' => 'required',
-        'max_participants' => 'required|numeric',
+        'max_participants' => 'required|numeric|min:1',
         'description' => 'required',
         'type' => 'required|in:workshop,lecture',
         'difficulty_id' => 'required|numeric',
@@ -37,9 +41,7 @@ class EditPresentationModal extends Component
 
     public function save()
     {
-        if (!$this->presentation->speakerCanEdit)
-            return redirect(route('presentations.show', $this->presentation))
-                ->with('status', 'Presentation cannot be updated.');
+        $this->authorize('update', $this->presentation);
 
         $this->validate();
 
@@ -51,13 +53,18 @@ class EditPresentationModal extends Component
 
         $this->presentation->save();
 
-        return redirect(route('presentations.show', $this->presentation))
-            ->with('status', 'Presentation successfully updated.');
+        if (Auth::user()->id == $this->presentation->mainSpeaker()->user->id) {
+            return redirect(route('presentations.show', $this->presentation))
+                ->with('status', 'Presentation successfully updated.');
+        } else {
+            return redirect(route('moderator.presentations.show', $this->presentation))
+                ->with('status', 'Presentation successfully updated.');
+        }
     }
 
 
     public function render()
     {
-        return view('livewire.edit-presentation-modal');
+        return view('presentations.edit-presentation-modal');
     }
 }

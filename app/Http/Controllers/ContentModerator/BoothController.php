@@ -40,6 +40,8 @@ class BoothController extends Controller
         ]);
 
         $input['is_approved'] = 1;
+        if (is_null($input['additional_information']))
+            $input['additional_information'] = 'No additional demands';
 
         $booth = Booth::create($input);
 
@@ -96,6 +98,10 @@ class BoothController extends Controller
      */
     public function destroy(Booth $booth)
     {
-        //
+        $booth->delete();
+
+        $template = 'You removed the booth of :company!';
+        return redirect(route('moderator.booths.index'))
+            ->banner(__($template, ['company' => $booth->team->name]));
     }
 }

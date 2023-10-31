@@ -47,4 +47,50 @@ class Timeslot extends Model
     {
         return $this->hasMany(Presentation::class);
     }
+
+    /**
+     * The timeslot that is with the closest starting time to the one that called the method
+     */
+    public function closestStartingTimeslot()
+    {
+        $startDatetime = date('Y-m-d H:i:s', strtotime('today ' . $this->start));
+
+        return $this->where('id', '!=', $this->id)
+            ->orderByRaw('ABS(TIMESTAMPDIFF(SECOND, start, ?))', [$startDatetime])
+            ->first();
+    }
+
+    /**
+     * Returns the hour in which the last presentation excluding closing (default presentation)
+     */
+    public static function getTheLatestEndingUsed()
+    {
+        $usedTimeslotsId = Presentation::pluck('timeslot_id');
+
+        return self::whereIn('id', $usedTimeslotsId)
+            ->get()
+            ->max(function (Timeslot $timeslot) {
+                $start = Carbon::parse($timeslot->start);
+                return $start->addMinutes($timeslot->duration);
+            });
+    }
+
+    /**
+     * Returns the usual free time (padding) between timeslots
+     * @return int
+     */
+    public static function paddingBetweenSlots(): int
+    {
+        $defaultPresentationTimeslotIds = [DefaultPresentation::opening()->timeslot->id,
+            DefaultPresentation::closing()->timeslot->id];
+
+        $timeslots = Timeslot::whereNotIn('id', $defaultPresentationTimeslotIds)
+            ->orderBy('duration', 'desc')
+            ->orderBy('start', 'asc')
+            ->take(2)
+            ->get();
+
+        return Carbon::parse($timeslots[1]->start)
+            ->diffInMinutes(Carbon::parse($timeslots[0]->start)->addMinutes($timeslots[0]->duration));
+    }
 }
