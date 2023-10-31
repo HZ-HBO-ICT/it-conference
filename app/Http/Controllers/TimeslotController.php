@@ -39,7 +39,7 @@ class TimeslotController extends Controller
         $starting = $validatedData['starting'];
         $ending = $validatedData['ending'];
 
-        $this->generate($starting, $ending);
+        $this->generate($starting, $ending, 10);
 
         if (Room::all()->count() == 0) {
             return redirect(route('rooms.index'));
