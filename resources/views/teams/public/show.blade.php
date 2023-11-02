@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div class="mx-auto max-w-7xl">
-                <div class="pt-3 px-6 pb-12 rounded-lg overflow-hidden relative">
+                <div class="py-3 px-6 rounded-lg overflow-hidden relative">
                     <div class=" rounded-2xl py-3 px-3 border-2 shadow dark:bg-gray-800
                             @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold
                             @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver
@@ -86,9 +86,8 @@
                                     <div class="pr-2">
                                         <h3 class="tracking-tight text-xl font-semibold mt-6 pb-1 text-left">
                                             Presentations</h3>
-                                        @foreach($team->presentations as $presentation)
-                                            <!-- TODO: Add proper link when presentation show is fixed -->
-                                            <a href=""
+                                        @foreach($team->presentations->unique() as $presentation)
+                                            <a href="{{route('programme.presentation.show', $presentation)}}"
                                                class="group relative w-full flex bg-violet-50 dark:bg-violet-600 p-3 border-2 border-violet-100 dark:border-violet-800 rounded-md hover:bg-violet-100 dark:hover:bg-violet-500 transition duration-300 focus:outline-none">
                                                 <div class="py-1">
                                                     <dt>
@@ -102,6 +101,12 @@
                                                             </svg>
                                                         </div>
                                                         <p class="ml-16 font-semibold text-md overflow-hidden text-ellipsis whitespace-nowrap">
+                                                            {{substr($presentation->name, 0, 70)}}
+                                                        </p>
+                                                    </dt>
+                                                    <dd class="items-baseline flex ml-16">
+                                                        <p class="text-violet-500 dark:text-violet-100 font-medium text-sm">
+                                                            Hosted by:
                                                             @php
                                                                 $speakers = $presentation->speakers->filter(function ($speaker) {
                                                                     return $speaker->is_main_speaker === 0;
@@ -115,14 +120,12 @@
                                                                 }
 
                                                                 $cospeakersString = implode(', ', $cospeakers);
+                                                                $mainSpeakerName = $presentation->mainSpeaker()->user->name;
+                                                                $cospeakers = $cospeakersString ? " (with $cospeakersString)" : '';
+
+                                                                $speakersString = "$mainSpeakerName$cospeakers";
                                                             @endphp
-                                                            {{$presentation->name}} <span
-                                                                class="text-sm">by {{$presentation->mainSpeaker()->user->name}} {{$cospeakersString ? "(with {$cospeakersString})" : '' }}</span>
-                                                        </p>
-                                                    </dt>
-                                                    <dd class="items-baseline flex ml-16">
-                                                        <p class="text-violet-500 dark:text-violet-100 font-medium text-sm">
-                                                            {{substr($team->description, 0, 70) . '...' }}
+                                                            {{substr($speakersString, 0, 74)}}
                                                         </p>
                                                     </dd>
                                                 </div>
