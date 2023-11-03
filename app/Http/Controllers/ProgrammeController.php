@@ -19,7 +19,7 @@ class ProgrammeController extends Controller
             abort(404);
 
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
-        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+        $workshopTimeslots = Timeslot::where('duration', 80)->get();
 
         return view('programme.index',
             compact('lectureTimeslots', 'workshopTimeslots'));

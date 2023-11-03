@@ -19,7 +19,7 @@ class SpeakerController extends Controller
         $speakers = Speaker::join('users', 'speakers.user_id', '=', 'users.id')
             ->leftJoin('teams', 'users.current_team_id', '=', 'teams.id')
             ->where('speakers.is_approved', '=', 1)
-            ->orderByRaw('ISNULL(teams.sponsor_tier_id), teams.sponsor_tier_id ASC, users.name ASC')
+            ->orderByRaw('ISNULL(teams.sponsor_tier_id), teams.sponsor_tier_id ASC, teams.name ASC, users.name ASC')
             ->get('speakers.*');
 
         return view('speakers.index', compact('speakers'));
