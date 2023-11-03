@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ContentModerator;
 
+use App\Http\Controllers\Controller;
+use App\Models\DefaultPresentation;
 use App\Models\EventInstance;
 use App\Models\Presentation;
 use App\Models\Room;
@@ -17,18 +19,6 @@ use Ramsey\Uuid\Type\Time;
 
 class ScheduleController extends Controller
 {
-    public function index(): View
-    {
-        if (!EventInstance::current()->is_final_programme_released)
-            abort(404);
-
-        $lectureTimeslots = Timeslot::where('duration', 30)->get();
-        $workshopTimeslots = Timeslot::where('duration', 90)->get();
-
-        return view('presentations.index',
-            compact('lectureTimeslots', 'workshopTimeslots'));
-    }
-
     /**
      * Display the overview for scheduling
      *
@@ -36,8 +26,8 @@ class ScheduleController extends Controller
      */
     public function overview(): View
     {
-        $lectureTimeslots = Timeslot::where('duration', 30)->get();
-        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+        $lectureTimeslots = Timeslot::where('duration', 30)->orderBy('start')->get();
+        $workshopTimeslots = Timeslot::where('duration', 90)->orderBy('start')->get();
 
         $numberOfPresentationRequest = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isApproved;
@@ -105,7 +95,7 @@ class ScheduleController extends Controller
             return !$presentation->isScheduled && $presentation->isApproved;
         });
 
-        return view('moderator.schedule.presentations-for-scheduling', compact('presentations'));
+        return view('moderator.schedule.presentations.index', compact('presentations'));
     }
 
     /**
@@ -116,7 +106,7 @@ class ScheduleController extends Controller
      */
     public function schedulePresentation(Presentation $presentation): View
     {
-        return view('moderator.schedule.presentation-schedule', compact('presentation'));
+        return view('moderator.schedule.presentations.show', compact('presentation'));
     }
 
     /**
@@ -155,8 +145,11 @@ class ScheduleController extends Controller
         });
 
         foreach ($presentations as $presentation) {
-            $timeslots = Timeslot::where('duration', $presentation->type == 'lecture' ? 30 : 90)
-                ->get();
+            $timeslots = Timeslot::where(function ($query) use ($presentation) {
+                $query->where('id', '!=', DefaultPresentation::opening()->timeslot_id)
+                    ->where('id', '!=', DefaultPresentation::closing()->timeslot_id)
+                    ->where('duration', $presentation->type == 'lecture' ? 30 : 90);
+            })->get();
             $rooms = Room::getWithClosestCapacity($presentation->max_participants);
 
             $availableCombination = $rooms->crossJoin($timeslots)

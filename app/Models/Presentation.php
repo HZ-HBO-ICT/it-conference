@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -61,7 +62,7 @@ class Presentation extends Model
     {
         return [
             'name' => 'required',
-            'max_participants' => 'required|numeric',
+            'max_participants' => 'required|numeric|min:1',
             'description' => 'required',
             'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required',
@@ -173,33 +174,18 @@ class Presentation extends Model
      * @param bool $isApproved
      * @return void
      */
-    public function handleApproval(bool $isApproved) : void
+    public function handleApproval(bool $isApproved): void
     {
         if ($isApproved) {
-            DB::transaction(function() {
-               $this->speakers->each( fn($speaker) => $speaker->approve());
+            DB::transaction(function () {
+                $this->speakers->each(fn($speaker) => $speaker->approve());
             });
         } else {
-            DB::transaction(function() {
-                $this->speakers->each( fn($speaker) => $speaker->delete());
+            DB::transaction(function () {
+                $this->speakers->each(fn($speaker) => $speaker->delete());
                 $this->delete();
             });
         }
-    }
-
-    /**
-     * Checks if the speakers can still edit the presentations
-     *
-     * @return Attribute
-     */
-    protected function speakerCanEdit() : Attribute
-    {
-        $currentDate = Carbon::now();
-        $deadline = Carbon::createFromDate($currentDate->year, 10, 12);
-
-        return Attribute::make(
-            get: fn() => $currentDate->lt($deadline)
-        );
     }
 
     /**
@@ -212,5 +198,84 @@ class Presentation extends Model
     {
         return $query->join('speakers', 'speakers.presentation_id', '=', 'presentations.id')
             ->where('speakers.is_approved', '=', 0);
+    }
+
+    /**
+     * Deletes the whole presentation, removing all participants and speakers
+     *
+     * @return void
+     */
+    public function fullDelete(): void
+    {
+        $this->participants()->detach();
+
+        $this->speakers->each(function (Speaker $speaker) {
+            $speaker->user->removeRole('speaker');
+        });
+        $this->speakers()->delete();
+
+        $this->delete();
+    }
+
+    /**
+     * Removes the user from the speakers of this presentation
+     *
+     * @param User $user
+     * @return void
+     */
+    public function removeSpeaker(User $user): void
+    {
+        $speaker = $this->speakers->where('user_id', '=', $user->id)->first();
+
+        if ($speaker)
+            $speaker->delete();
+    }
+
+    /**
+     * Checks if the presentation can be deleted
+     */
+    public function canBeDeleted(): bool
+    {
+        return !EventInstance::current()->is_final_programme_released;
+    }
+
+    public function canEnroll(User $user): bool
+    {
+        if ($this->maxParticipants() <= $this->participants->count()) {
+            return false;
+        }
+        if ($user->presentations->contains($this)) {
+            return false;
+        }
+
+        $presentationStart = \Carbon\Carbon::parse($this->timeslot->start);
+        $presentationEnd = Carbon::parse($this->timeslot->start)
+            ->copy()
+            ->addMinutes($this->timeslot->duration);
+
+        if ($user->speaker) {
+            $speakerForPresentation = $user->speaker->presentation;
+
+            $speakingStart = Carbon::parse($speakerForPresentation->timeslot->start);
+            $speakingEnd = Carbon::parse($speakerForPresentation->timeslot->start)
+                ->copy()
+                ->addMinutes($speakerForPresentation->timeslot->duration);
+
+            if (!($presentationEnd <= $speakingStart) && !($presentationStart >= $speakingEnd)) {
+                return false;
+            }
+        }
+
+        foreach ($user->presentations as $enrolledPresentation) {
+            $enrolledStart = Carbon::parse($enrolledPresentation->timeslot->start);
+            $enrolledEnd = Carbon::parse($enrolledPresentation->timeslot->start)
+                ->addMinutes($enrolledPresentation->timeslot->duration);
+
+            if (!($presentationEnd <= $enrolledStart) && !($presentationStart >= $enrolledEnd)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

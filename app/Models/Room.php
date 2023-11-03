@@ -5,6 +5,7 @@ namespace App\Models;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\RoomFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,7 @@ use Illuminate\Support\Carbon;
 class Room extends Model
 {
     use HasFactory;
+
     protected $fillable = ['name', 'max_participants'];
 
     public static function rules()
@@ -52,6 +54,19 @@ class Room extends Model
     public function presentations(): HasMany
     {
         return $this->hasMany(Presentation::class);
+    }
+
+    /**
+     * Checks if this room can be deleted.
+     *
+     * @return Attribute
+     */
+    public function canBeDeleted(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => true
+        );
+
     }
 
     /**

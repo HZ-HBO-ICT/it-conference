@@ -41,12 +41,30 @@
                         {{ $booth->team->description }}
                     </div>
                 </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Booth Size') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('The dimensions of the booth') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <p>Width: {{ $booth->width }}</p>
+                    <p>Length: {{$booth->length}}</p>
+                </x-slot>
+
 
                 <x-slot name="actions">
-                    {{-- TODO create Edit page or, even better, a LiveWire component --}}
-                    <x-button-link href="#">Edit</x-button-link>
+                    @livewire('booths.edit-booth-modal', ['booth' => $booth])
                 </x-slot>
             </x-action-section>
+
 
             <x-section-border/>
 
@@ -105,22 +123,10 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Delete This Booth') }}
-                </x-slot>
+            <div class="mt-10 sm:mt-0">
+                @livewire('booths.delete-booth-form', ['booth' => $booth])
+            </div>
 
-                <x-slot name="description">
-                    {{ __('Permanently delete this booth and related data') }}
-                </x-slot>
-
-                <x-slot name="content">
-                </x-slot>
-
-                <x-slot name="actions">
-                    <x-danger-button>Remove this booth</x-danger-button>
-                </x-slot>
-            </x-action-section>
         </div>
     </div>
 </x-hub-layout>

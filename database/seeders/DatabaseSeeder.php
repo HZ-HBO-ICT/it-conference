@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'name' => 'Content moderator',
             'email' => 'mod@hz.nl',
-            'password' => Hash::make('123')
+            'password' => Hash::make('123'),
+            'email_verified_at' => now(),
         ]);
         $user->assignRole('content moderator');
 
