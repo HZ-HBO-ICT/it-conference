@@ -27,7 +27,7 @@ class ScheduleController extends Controller
     public function overview(): View
     {
         $lectureTimeslots = Timeslot::where('duration', 30)->orderBy('start')->get();
-        $workshopTimeslots = Timeslot::where('duration', 90)->orderBy('start')->get();
+        $workshopTimeslots = Timeslot::where('duration', 80)->orderBy('start')->get();
 
         $numberOfPresentationRequest = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isApproved;
@@ -148,7 +148,7 @@ class ScheduleController extends Controller
             $timeslots = Timeslot::where(function ($query) use ($presentation) {
                 $query->where('id', '!=', DefaultPresentation::opening()->timeslot_id)
                     ->where('id', '!=', DefaultPresentation::closing()->timeslot_id)
-                    ->where('duration', $presentation->type == 'lecture' ? 30 : 90);
+                    ->where('duration', $presentation->type == 'lecture' ? 30 : 80);
             })->get();
             $rooms = Room::getWithClosestCapacity($presentation->max_participants);
 

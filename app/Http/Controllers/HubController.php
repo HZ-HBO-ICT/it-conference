@@ -35,7 +35,7 @@ class HubController extends Controller
         $presentations = Auth::user()->presentations;
 
         $lectureTimeslots = Timeslot::where('duration', 30)->get();
-        $workshopTimeslots = Timeslot::where('duration', 90)->get();
+        $workshopTimeslots = Timeslot::where('duration', 80)->get();
 
         if (Auth::user()->speaker) {
             $presentations->push(Auth::user()->speaker->presentation);

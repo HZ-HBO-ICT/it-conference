@@ -65,7 +65,7 @@ class TimeslotController extends Controller
                 'start' => $current,
                 'duration' => 90
             ]);
-            $current->addMinutes(90 + $padding);
+            $current->addMinutes(80 + $padding);
         }
 
         $current = Carbon::parse($starting)->addMinutes($padding);
