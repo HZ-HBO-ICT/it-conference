@@ -93,10 +93,33 @@
                 @endif
             </x-action-section>
 
-
             <x-section-border/>
 
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Participants') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('List of people who signed up for the presentation.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <ul>
+                            @forelse($presentation->participants as $participant)
+                                <li class="py-2">{{$participant->name}} ({{$participant->email}})</li>
+                            @empty
+                                <li>There are no participants that have registered just yet.</li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </x-slot>
+
+            </x-action-section>
+
             @can('delete', $presentation)
+                <x-section-border/>
                 <div class="mt-10 sm:mt-0">
                     @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
                 </div>
