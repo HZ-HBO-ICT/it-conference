@@ -8,9 +8,16 @@
 
 <x-hub-layout>
     <div class="py-8 px-2 mx-auto max-w-7xl">
-        <h2 class="font-semibold text-2xl px-6 text-gray-800 dark:text-gray-200 leading-tight">
-            My Programme
-        </h2>
+        <div style="display: flex; justify-content: space-between;">
+            <h2 class="font-semibold text-2xl px-6 text-gray-800 dark:text-gray-200 leading-tight">
+                My Programme
+            </h2>
+            <div class="pr-5">
+                <a href="{{route('programme')}}" class="bg-{{Auth::user()->roleColour}}-600 rounded py-2 px-3 text-white">
+                    Sign up for presentations/workshops
+                </a>
+            </div>
+        </div>
         <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden">
             <div class="grid grid-cols-7 sm:gap-3">
                 <!-- Start of the opening -->
