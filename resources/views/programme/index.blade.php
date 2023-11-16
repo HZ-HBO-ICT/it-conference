@@ -83,7 +83,7 @@
                                     <tr>
                                         <td class="text-left text-gray-900 dark:text-white align-top">
                                             {{Carbon::parse($timeslot->start)->format('H:i')}}
-                                            - {{(Carbon::parse($timeslot->start)->addMinutes(90))->format('H:i')}}
+                                            - {{(Carbon::parse($timeslot->start)->addMinutes(80))->format('H:i')}}
                                         </td>
                                         <td class="pb-3">
                                             @foreach($timeslot->presentations as $workshop)

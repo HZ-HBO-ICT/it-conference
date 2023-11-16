@@ -32,7 +32,7 @@ class RoomAndTimeslotSelector extends Component
     public function updatedSelectedRoom($value)
     {
         if ($this->selectedRoom) {
-            $allTimeslots = Timeslot::where('duration', $this->presentation->type == 'lecture' ? 30 : 90)
+            $allTimeslots = Timeslot::where('duration', $this->presentation->type == 'lecture' ? 30 : 80)
                 ->get();
             $room = Room::find($this->selectedRoom);
 
