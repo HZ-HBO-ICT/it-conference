@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class TimeslotController extends Controller
 {
@@ -39,7 +40,7 @@ class TimeslotController extends Controller
         $starting = $validatedData['starting'];
         $ending = $validatedData['ending'];
 
-        $this->generate($starting, $ending, 10);
+        TimeslotController::generate($starting, $ending, 10);
 
         if (Room::all()->count() == 0) {
             return redirect(route('rooms.index'));
@@ -49,33 +50,39 @@ class TimeslotController extends Controller
     }
 
     /**
-     * Generates timeslots for lectures and workshop
+     * Generates timeslots for lectures and workshops
      * from the starting time till the ending time
      *
      * @param $starting
      * @param $ending
-     * @param $padding int free time between timeslots
+     * @param $padding
      */
     public static function generate($starting, $ending, $padding)
     {
-        $current = Carbon::parse($starting)->addMinutes($padding);
-        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(90 + $padding);
-        while ($current <= $finalPossibleStartingTime) {
-            Timeslot::create([
-                'start' => $current,
-                'duration' => 90
-            ]);
-            $current->addMinutes(80 + $padding);
-        }
+        self::generateTimeslots($starting, $ending, $padding, 90, 80);
+        self::generateTimeslots($starting, $ending, $padding, 30, 30);
+    }
 
+    /**
+     * Generates timeslots for a given duration and interval
+     *
+     * @param string $starting The start time
+     * @param string $ending The end time
+     * @param int $padding The padding time between timeslots
+     * @param int $duration The duration of the timeslot
+     * @param int $interval The interval between the start of each timeslot
+     */
+    private static function generateTimeslots(string $starting, string $ending, int $padding, int $duration, int $interval)
+    {
         $current = Carbon::parse($starting)->addMinutes($padding);
-        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes(30 + $padding);
+        $finalPossibleStartingTime = Carbon::parse($ending)->subMinutes($duration + $padding);
+
         while ($current <= $finalPossibleStartingTime) {
             Timeslot::create([
                 'start' => $current,
-                'duration' => 30
+                'duration' => $duration
             ]);
-            $current->addMinutes(30 + $padding);
+            $current->addMinutes($interval + $padding);
         }
     }
 }
