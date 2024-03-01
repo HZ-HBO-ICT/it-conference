@@ -86,7 +86,10 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use the following format for versioning: YYYY.R.B
+YYYY is the year of the release, so 2024.
+R represents the release within a year, so if it is the first it would be 1, if it is the second it would be 2.
+B represents bugfixes.
 
 ## Current Team
 
