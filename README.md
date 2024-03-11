@@ -17,34 +17,43 @@
 
 This repository contains the source code for the official HBO-ICT IT-Conference.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing
-purposes. See deployment for notes on how to deploy the project on a live system.
-
+## Environment Setup
 ### Prerequisites
+Since the application uses Docker, the development environment must be in Linux for optimal performance and compatibility with Laravel Sail; either use native Linux or use [WSL](https://learn.microsoft.com/en-us/windows/wsl/filesystems). Installing a Linux distribution also will be needed - the most used one during the development process was Ubuntu, but it is still a personal preference. NPM/Node should also be present on the distro as of this version.
 
-This application uses PHP (Composer), NodeJS, and Docker.\
-The development environment must be in Linux for optimal performance and compatibility with Laravel Sail; either use native Linux or use [WSL](https://learn.microsoft.com/en-us/windows/wsl/filesystems).\
-For instructions on how to properly install the project within WSL, refer to the [wiki](https://github.com/HZ-HBO-ICT/it-conference/wiki).
+### Configuration and Installation
+Since Laravel Sail takes on most of the configuration and installation of the project, the following steps need to be taken in order to install.
 
-### Installing
+1. Clone the repository (https://github.com/HZ-HBO-ICT/it-conference.git) onto your local machine (on the WSL)
+2. Open PHPStorm (or the editor of choice) in remote development in the WSL and find the folder
+3. Run in the root folder of the project 
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
+4. Install the NPM packages - `npm install`
+5. Set up the environment variables - `cp .env.example .env`
+6. Add the app key - `./vendor/bin/sail artisan key:generate` 
+7. After the dependencies are installed run `./vendor/bin/sail up -d`
+8. After the creation of the containers run `./vendor/bin/sail artisan migrate`
+9. Run `npm run dev`
 
-1. Clone the repository onto your local machine.
-2. Run `composer install` and `npm install`.
-3. Copy `.env.example` to `.env`.
-4. Run `php artisan key:generate`.
-5. Run `./vendor/bin/sail up -d`.
-6. Run `php artisan migrate`.
-7. Run `npm run dev`.
+### Possible complications 
+- __Incorrectly set permissions__
 
-#### Optional steps:
+This issue may be encountered after installing the application and trying to access it through the browser. It can be something along the lines of:
+> The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied
 
-- In some versions of Linux, permissions aren't set correctly. If you run into that issue,
-  run `chmod -R 777 storage bootstrap/cache`. [Understanding chmod and why 777 is a security issue.](https://www.redhat.com/sysadmin/introduction-chmod)
-- Instead of repeatedly running ./vendor/bin/sail commands, you
-  can [set an alias.](https://laravel.com/docs/10.x/sail#configuring-a-shell-alias) In that case, `./vendor/bin/sail` is
-  shortened to `sail`.
+In order to fix this run `chmod -R 777 storage bootstrap/cache`. This issue might even occur when the artisan commands are used via sail. If that occurs, try granting only the permissions only to the specified directories.
+
+- __Setting an alias__
+
+Instead of using every time `./vendor/bin/sail` this can be shorten by using an alias - `alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'`. This way the commands will shorten (e.g. `sail up -d`)
+
 
 ## Running the tests
 
