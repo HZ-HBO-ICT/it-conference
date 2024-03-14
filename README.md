@@ -108,6 +108,8 @@ We use the following format for versioning: YYYY.R.B
 * **Tim Kardol** - *Conference Website Project lead* - [TimKardol](https://github.com/TimKardol)
 * **Valeria Stamenova** - *Conference Senior Developer* - [v-stamenova](https://github.com/v-stamenova)
 * **Ihor Novikov** - *Conference Senior Developer* - [IGORnvk](https://github.com/IGORnvk)
+* **Silvia Popova** - *Conference Website Developer* - [popo0015](https://github.com/popo0015)
+* **Simeon Atanasov** - *Conference Website Developer* - [g0sh06](https://github.com/g0sh06)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 
