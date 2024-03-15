@@ -1,3 +1,0 @@
-<a {{ $attributes->merge(['class' => 'inline-flex items-center px-6 py-4 bg-gray-100 dark:bg-gray-800 dark:text-white border border-transparent rounded-full font-semibold text-sm text-grey-700 dark:text-gray-800 uppercase tracking-widest hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white focus:bg-gray-700 dark:focus:bg-indigo-900 active:bg-indigo-900 dark:active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150']) }} href="{{ $href }}">
-    {{ $slot }}
-</a>

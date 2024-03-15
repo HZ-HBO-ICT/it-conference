@@ -1,115 +1,66 @@
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
 <p align="center">
- <a href="https://hz.nl">
-        <img src="https://img.shields.io/badge/Made for-HZ University of Applied Sciences-blue.svg" alt="HZ University of Applied Sciences"/></a>
-</p>
-<p align="center">
-    <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
-        <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
-    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
-        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml/badge.svg" alt="PHPCS"/></a>
-    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
-        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
-    <a href="https://opensource.org/licenses/MIT">
-        <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"/></a>
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# IT-Conference Website
+## About Laravel
 
-This repository contains the source code for the official HBO-ICT IT-Conference.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Getting Started
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing
-purposes. See deployment for notes on how to deploy the project on a live system.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-### Prerequisites
+## Learning Laravel
 
-This application uses PHP (Composer), NodeJS, and Docker.\
-The development environment must be in Linux for optimal performance and compatibility with Laravel Sail; either use native Linux or use [WSL](https://learn.microsoft.com/en-us/windows/wsl/filesystems).\
-For instructions on how to properly install the project within WSL, refer to the [wiki](https://github.com/HZ-HBO-ICT/it-conference/wiki).
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-### Installing
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-1. Clone the repository onto your local machine.
-2. Run `composer install` and `npm install`.
-3. Copy `.env.example` to `.env`.
-4. Run `php artisan key:generate`.
-5. Run `./vendor/bin/sail up -d`.
-6. Run `php artisan migrate`.
-7. Run `npm run dev`.
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-#### Optional steps:
+## Laravel Sponsors
 
-- In some versions of Linux, permissions aren't set correctly. If you run into that issue,
-  run `chmod -R 777 storage bootstrap/cache`. [Understanding chmod and why 777 is a security issue.](https://www.redhat.com/sysadmin/introduction-chmod)
-- Instead of repeatedly running ./vendor/bin/sail commands, you
-  can [set an alias.](https://laravel.com/docs/10.x/sail#configuring-a-shell-alias) In that case, `./vendor/bin/sail` is
-  shortened to `sail`.
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-## Running the tests
+### Premium Partners
 
-[GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions) will trigger a workflow when you push your code to
-the repository, which will run the tests automatically.
-
-On a local machine, you may run `./vendor/bin/sail phpunit`. If you get a large amount of errors, check whether the
-application key has been set successfully, and that either `npm run build` or `npm run dev` have been run.
-
-<!-- ### Break down into end-to-end tests -->
-
-<!-- Explain what these tests test and why
-
-```
-Give an example
-``` -->
-
-<!-- ### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-``` -->
-
-## Deployment
-
-When the decision has been made to deploy the application to a server, the instructions can be found here.
-
-## Built With
-
-* [Laravel](https://laravel.com/docs) - The web framework used
-* [Composer](https://getcomposer.org/) - Dependency Management
-<!-- * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds -->
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Versioning
+## Code of Conduct
 
-We use the following format for versioning: YYYY.R.B
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-**YYYY** is the year of the release, so 2024.
+## Security Vulnerabilities
 
-**R** represents the release within a year, so if it is the first it would be 1, if it is the second it would be 2.
-
-**B** represents bugfixes.
-
-## Current Team
-
-* **Tim Kardol** - *Conference Website Project lead* - [TimKardol](https://github.com/TimKardol)
-* **Valeria Stamenova** - *Conference Senior Developer* - [v-stamenova](https://github.com/v-stamenova)
-* **Ihor Novikov** - *Conference Senior Developer* - [IGORnvk](https://github.com/IGORnvk)
-
-See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
-The code in this repository is licenced MIT. All creative works (photos and videos) on the website itself are copyrighted by HBO-ICT unless otherwise stated. Please contact us at kard0004@hz.nl if you would like to use our work.
 
-<!-- This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details -->
-
-<!-- ## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc -->
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
