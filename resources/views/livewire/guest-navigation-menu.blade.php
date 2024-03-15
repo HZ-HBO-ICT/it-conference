@@ -37,6 +37,7 @@
                         </x-nav-link>
                     </div>
                 @endif
+                --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
@@ -46,7 +47,7 @@
                     <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
-                </div>--}}
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -101,12 +102,14 @@
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
             @endif
+            --}}
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
+            {{--
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
             <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                 {{ __('Login') }}

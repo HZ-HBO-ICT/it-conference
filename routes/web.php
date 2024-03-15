@@ -32,17 +32,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+Route::view('/faq', 'faq')->name('faq');
+Route::view('/contact', 'contact')->name('contact');
 
 
 //Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
 //
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 //
-//Route::get('/contact', function () {
-//    return view('contact');
-//})->name('contact');
-//
-
 //
 //Route::middleware([
 //    'auth:sanctum',
@@ -97,10 +94,7 @@ Route::get('/companies', [CompanyController::class, 'index'])->name('companies.i
 //Route::post('/user/invitation/{invitation}', [InvitationController::class, 'userStore'])
 //    ->name('user.invitation.registration');
 //
-//Route::get('/faq', function () {
-//    return view('faq');
-//})->name('faq');
-//
+
 //Route::get('/programme', [ProgrammeController::class, 'index'])
 //    ->name('programme');
 //
