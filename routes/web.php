@@ -28,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
+
 //
 //Route::middleware([
 //    'auth:sanctum',
