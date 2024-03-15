@@ -18,12 +18,13 @@
                     <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                         {{ __('Home') }}
                     </x-nav-link>
-                </div>{{--
+                </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                         {{ __('Speakers') }}
                     </x-nav-link>
                 </div>
+                {{--
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                         {{ __('Companies') }}
@@ -88,9 +89,10 @@
             <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-           {{-- <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
+           <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
+            {{-- g
             <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
