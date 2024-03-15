@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContentModerator\ContentModeratorController;
 use App\Http\Controllers\ContentModerator\DefaultPresentationController;
 use App\Http\Controllers\ContentModerator\RoomController;
@@ -30,10 +31,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
+Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+
 
 //Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
 //
-//Route::get('/companies', [TeamsController::class, 'index'])->name('companies');
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 //
 //Route::get('/contact', function () {
