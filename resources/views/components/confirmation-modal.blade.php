@@ -9,7 +9,7 @@
                 </svg>
             </div>
 
-            <div class="mt-3 text-center sm:mt-0 sm:ms-4 sm:text-start">
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ $title }}
                 </h3>
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-end">
+    <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-right">
         {{ $footer }}
     </div>
 </x-modal>

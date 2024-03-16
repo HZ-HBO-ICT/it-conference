@@ -1,7 +1,7 @@
-<x-guest-layout>
+<x-app-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <x-authentication-card-logo/>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -20,8 +20,9 @@
             @csrf
 
             <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-label for="email" value="{{ __('Email') }}"/>
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
+                         autofocus autocomplete="username"/>
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -31,4 +32,4 @@
             </div>
         </form>
     </x-authentication-card>
-</x-guest-layout>
+</x-app-layout>

@@ -1,0 +1,81 @@
+name: Strato-deploy
+
+on: 
+  push:
+    branches: [ "release" ]
+
+jobs:
+  strato-deploy:
+
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_VERSION: '20.5'
+      TMP_DIR: './tmp'
+      OUTPUT_FILE: 'deploy.tar.gz'
+      REMOTE_DIR: './deploy'
+
+    steps:
+    - name: Put the website in maintenance mode
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        script: |
+          rm site
+          ln -s maintenance/ site
+    
+    - uses: shivammathur/setup-php@2.25.5
+      with:
+        php-version: '8.1'
+    - uses: actions/checkout@v3
+  
+    - name: Composer install
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      
+    - name: Build using Node.js ${{env.NODE_VERSION}}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{env.NODE_VERSION}}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+
+    - name: Compress build results
+      run: mkdir ${{env.TMP_DIR}} && tar --exclude="${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}" -czf ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}} . 
+
+    - name: Send compressed build result to server
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      with:
+        username: ${{ secrets.FTP_USERNAME }}
+        server: ${{ secrets.FTP_HOST }}
+        port: 22
+        local_path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
+        remote_path: .
+        sftp_only: true
+        password: ${{ secrets.FTP_PASSWORD }}
+
+    - name: Extract build results on server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        script: |
+          LATEST_RELEASE=$(find . -maxdepth 1 -name 'site_*' -type d | sort -n | tail -1)
+          NEW_DIR=$(date +"site_%F_%H%M%S")
+          mkdir $NEW_DIR
+          tar -xf ${{env.REMOTE_DIR}}/${{env.OUTPUT_FILE}} -C $NEW_DIR
+          cp $LATEST_RELEASE/.env $NEW_DIR
+          cp -r $LATEST_RELEASE/storage $NEW_DIR/
+          cd $NEW_DIR
+          php artisan migrate --force
+          php artisan storage:link
+          cd -
+
+          # Undo maintenance mode
+          rm site
+          ln -s $NEW_DIR/ site

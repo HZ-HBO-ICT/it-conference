@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Inter Var';
+    src: local('Inter-Var'), url(../fonts/Inter-Var.ttf) format('truetype');
+}
+
 [x-cloak] {
     display: none;
+}
+
+#map {
+    height: 100%;
 }

@@ -4,10 +4,12 @@
             :class="{ 'bg-indigo-500': style == 'success', 'bg-red-700': style == 'danger', 'bg-gray-500': style != 'success' && style != 'danger' }"
             style="display: none;"
             x-show="show && message"
-            x-on:banner-message.window="
-                style = event.detail.style;
-                message = event.detail.message;
-                show = true;
+            x-init="
+                document.addEventListener('banner-message', event => {
+                    style = event.detail.style;
+                    message = event.detail.message;
+                    show = true;
+                });
             ">
     <div class="max-w-screen-xl mx-auto py-2 px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between flex-wrap">
@@ -23,14 +25,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                     </svg>
                 </span>
-
-                <p class="ms-3 font-medium text-sm text-white truncate" x-text="message"></p>
+                <p class="ml-3 font-medium text-sm text-white truncate" x-text="message"></p>
             </div>
 
-            <div class="shrink-0 sm:ms-3">
+            <div class="shrink-0 sm:ml-3">
                 <button
                     type="button"
-                    class="-me-1 flex p-2 rounded-md focus:outline-none sm:-me-2 transition"
+                    class="-mr-1 flex p-2 rounded-md focus:outline-none sm:-mr-2 transition"
                     :class="{ 'hover:bg-indigo-600 focus:bg-indigo-600': style == 'success', 'hover:bg-red-600 focus:bg-red-600': style == 'danger' }"
                     aria-label="Dismiss"
                     x-on:click="show = false">
