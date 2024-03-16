@@ -25,17 +25,17 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
-                @if(\App\Models\EventInstance::current()->is_final_programme_released)
+                {{--@if(\App\Models\EventInstance::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                             {{ __('Programme') }}
                         </x-nav-link>
                     </div>
-                @endif
+                @endif--}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
@@ -68,7 +68,7 @@
                 @else
                     <span
                         class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                        <a href="{{ Auth::user()->hasRole('content moderator') ? route('announcements') :  route('announcements') }}"
+                        <a href="{{ route('dashboard') }}"
                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                             {{ Auth::user()->name }}
                         </a>
@@ -113,14 +113,14 @@
             <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+            <x-responsive-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
-            @if(\App\Models\EventInstance::current()->is_final_programme_released)
+            {{--@if(\App\Models\EventInstance::current()->is_final_programme_released)
                 <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
-            @endif
+            @endif--}}
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
@@ -128,7 +128,7 @@
                 {{ __('Contact') }}
             </x-responsive-nav-link>
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
-            <x-responsive-nav-link href="{{ route('announcements') }}" :active="request()->routeIs('announcements')">
+            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __(Auth::user()->name) }}
             </x-responsive-nav-link>
         </div>

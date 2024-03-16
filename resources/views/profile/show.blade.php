@@ -1,7 +1,7 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-<x-hub-layout>
+<x-app-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
             Profile
@@ -46,4 +46,4 @@
             @endif
         </div>
     </div>
-</x-hub-layout>
+</x-app-layout>

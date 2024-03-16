@@ -96,5 +96,9 @@
         <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
             Authentication and registration views are included with Laravel Jetstream, as well as support for user email verification and resetting forgotten passwords. So, you're free to get started with what matters most: building your application.
         </p>
+
+        <p class="pt-1 text-sm italic text-indigo-700">
+            <a href="{{route('profile.show')}}">Valeria's notes - if you want to access the profile management, the click here - route is `profile.show` and uri is /user/profile</a>
+        </p>
     </div>
 </div>
