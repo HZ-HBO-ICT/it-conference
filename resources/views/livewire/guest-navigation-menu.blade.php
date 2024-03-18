@@ -52,14 +52,14 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Login and Register Links -->
-                {{--<x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                     {{ __('Login') }}
                 </x-nav-link>
                 <div class="pl-2">
                     <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-nav-link>
-                </div>--}}
+                </div>
                 <div class="pl-4">
                     <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(107 114 128)"
                          class="bi bi-circle-half" viewBox="0 0 16 16" style="cursor: pointer;">
@@ -109,14 +109,13 @@
             <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
-            {{--
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
             <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                 {{ __('Login') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                 {{ __('Register') }}
-            </x-responsive-nav-link>--}}
+            </x-responsive-nav-link>
             <x-responsive-nav-link onclick="changeTheme()">
                 Change theme
             </x-responsive-nav-link>
