@@ -13,8 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          fetch-depth: 0 # important!
+          php-version: 8.2
 
       # we may use whatever way to install phpcs, just specify the path on the next step
       # however, curl seems to be the fastest
@@ -24,7 +27,4 @@ jobs:
           php phpcs.phar --version
 
       - name: PHP Code Sniffer
-        uses: php-actions/phpcs@v1
-        with:
-          php_version: 8.2
-          standard: .phpcs.xml
+        uses: navarr/phpcs-action@v3
