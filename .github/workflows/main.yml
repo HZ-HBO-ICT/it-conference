@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -25,3 +27,5 @@ jobs:
 
       - name: PHPCS check
         uses: navarr/phpcs-action@v3
+        with:
+          only_changed_files: true
