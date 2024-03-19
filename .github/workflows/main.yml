@@ -17,14 +17,11 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+            php-version: 8.2
+            tools: composer:v2
 
-      # we may use whatever way to install phpcs, just specify the path on the next step
-      # however, curl seems to be the fastest
-      - name: Install PHP_CodeSniffer
-        run: |
-          curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-          php phpcs.phar --version
+      - name: Install Dependencies
+        run: composer install
 
-      - name: PHP Code Sniffer
+      - name: PHPCS check
         uses: navarr/phpcs-action@v3
