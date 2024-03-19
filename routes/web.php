@@ -18,7 +18,6 @@ use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\TimeslotController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

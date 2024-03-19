@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -14,7 +17,11 @@ class EmailNotificationPreference extends Component
         $this->receiveEmails = Auth::user()->receive_emails;
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
+    public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.email-notification-preference');
     }
