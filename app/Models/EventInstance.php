@@ -57,7 +57,8 @@ class EventInstance extends Model
      *
      * @return Builder|Model|object|null
      */
-    public static function current() {
+    public static function current()
+    {
         $item = self::query()
             ->whereNot('state', '=', self::STATE_ARCHIVE)
             ->first();
@@ -66,6 +67,4 @@ class EventInstance extends Model
         }
         return $item;
     }
-
-
 }

@@ -63,7 +63,8 @@ class UserPolicy
         }*/
 
         // If they didn't pass anywhere above, either they are trying to remove another user or
-        // they have team, it means they are either company rep, speaker or booth owner, therefore cannot delete themselves;
+        // they have team, it means they are either company rep, speaker or booth owner,
+        // therefore cannot delete themselves;
         return false;
     }
 

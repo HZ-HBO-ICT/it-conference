@@ -12,6 +12,10 @@ class EmailNotificationPreference extends Component
 {
     public $receiveEmails;
 
+    /**
+     * Triggered when the component is created
+     * @return void
+     */
     public function mount()
     {
         $this->receiveEmails = Auth::user()->receive_emails;
@@ -26,6 +30,10 @@ class EmailNotificationPreference extends Component
         return view('livewire.email-notification-preference');
     }
 
+    /**
+     * Saves the preferences of the user
+     * @return void
+     */
     public function save()
     {
         Auth::user()->receive_emails = $this->receiveEmails;

@@ -18,9 +18,8 @@ class ContentModSponsorRequestDetails extends Component
         public $companyRepEmail,
         public $formActionApprove,
         public $formActionReject,
-    )
-    {
-
+    ) {
+        //
     }
 
     /**

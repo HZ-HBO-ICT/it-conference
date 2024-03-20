@@ -37,8 +37,11 @@ class CustomTeamInvitation extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.custom-team-invite', ['acceptUrl' => URL::signedRoute('registration.page.via.invitation', [
-            'invitation' => $this->invitation,
-        ])])->subject(__('Team Invitation'));
+        return $this->markdown(
+            'emails.custom-team-invite',
+            ['acceptUrl' => URL::signedRoute('registration.page.via.invitation', [
+                'invitation' => $this->invitation,
+            ])]
+        )->subject(__('Team Invitation'));
     }
 }

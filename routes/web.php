@@ -66,7 +66,8 @@ Route::view('/contact', 'contact')->name('contact');
 //    Route::get('/my/programme', [HubController::class, 'programme'])
 //        ->name('my.programme');
 //
-//    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])->name('cohost.presentation');
+//    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])
+//          ->name('cohost.presentation');
 //
 //    Route::post('/my/enroll/{presentation}', [EnrollmentController::class, 'enroll'])
 //        ->name('my.programme.enroll');

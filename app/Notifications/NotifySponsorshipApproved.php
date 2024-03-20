@@ -18,10 +18,9 @@ class NotifySponsorshipApproved extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(
-        public Team $team
-    )
+    public function __construct(public Team $team)
     {
+        //
     }
 
     /**
@@ -31,8 +30,9 @@ class NotifySponsorshipApproved extends Notification
      */
     public function via(object $notifiable): array
     {
-        if ($notifiable->receive_emails)
+        if ($notifiable->receive_emails) {
             return ['mail', 'database'];
+        }
 
         return ['database'];
     }
@@ -60,11 +60,13 @@ class NotifySponsorshipApproved extends Notification
     {
         if ($notifiable->id === $this->team->owner->id) {
             return [
-                'text' => "Your sponsorship has been approved and {$this->team->name} is our {$this->team->sponsorTier->name} sponsor",
+                'text' => "Your sponsorship has been approved and {$this->team->name}
+                 is our {$this->team->sponsorTier->name} sponsor",
             ];
         } else {
             return [
-                'text' => "The company {$this->team->name} is joining the conference as a {$this->team->sponsorTier->name} sponsor",
+                'text' => "The company {$this->team->name} is joining the conference
+                as a {$this->team->sponsorTier->name} sponsor",
             ];
         }
     }
