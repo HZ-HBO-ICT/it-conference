@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SponsorTier;
-use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    /**
+     * Returns the landing page
+     * @return View
+     */
+    public function index() : View
     {
-        $goldSponsor = SponsorTier::where('name', 'golden')->first()->teams->first();
-        $allSponsors = Team::where('is_sponsor_approved', 1)
-            ->orderBy('sponsor_tier_id', 'asc')
-            ->get();
-
-        return view('welcome', compact(['goldSponsor', 'allSponsors']));
+        return view('welcome');
     }
 }

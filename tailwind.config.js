@@ -14,8 +14,9 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+
                 sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
-                      'montserrat': ['Montserrat', 'sans-serif'],
+                'montserrat': ['Montserrat', 'sans-serif'],
             },
             colors: {
                 'gradient-yellow': '#F9CD32',
@@ -67,8 +68,6 @@ export default {
             }
         },
     },
-
     darkMode: 'class',
-
     plugins: [forms, typography],
 };

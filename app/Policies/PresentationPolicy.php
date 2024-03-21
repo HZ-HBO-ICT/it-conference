@@ -10,6 +10,10 @@ use Illuminate\Support\Carbon;
 
 class PresentationPolicy
 {
+    /**
+     * Calculates the deadline for signing up for speakers
+     * @return Carbon
+     */
     private function deadline(): Carbon
     {
         $deadline = Carbon::createFromDate(2023, 10, 27);
@@ -41,8 +45,9 @@ class PresentationPolicy
 
         if ($user->currentTeam) {
             // Allow HZ to have unlimited presentations
-            if ($user->currentTeam->isHz)
+            if ($user->currentTeam->isHz) {
                 return true;
+            }
 
             return $user->currentTeam->has_presentations_left;
         }
@@ -86,23 +91,39 @@ class PresentationPolicy
         return $user->speaker && $user->speaker->presentation_id == $presentation->id;
     }
 
+    /**
+     * Determines whether the user can delete the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
     public function delete(User $user, Presentation $presentation): bool
     {
-        if ($user->hasRole('content moderator'))
+        if ($user->hasRole('content moderator')) {
             return $presentation->canBeDeleted();
+        }
 
-        if ($user->id == $presentation->mainSpeaker()->user->id)
+        if ($user->id == $presentation->mainSpeaker()->user->id) {
             return !$presentation->isApproved;
+        }
 
         return false;
     }
 
+    /**
+     * Determines whether the user can enroll in presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
     public function enroll(User $user, Presentation $presentation): bool
     {
-        if(\App\Models\EventInstance::current()->is_final_programme_released)
+        if (\App\Models\EventInstance::current()->is_final_programme_released) {
             return $presentation->canEnroll($user);
+        }
 
         return false;
     }
-
 }

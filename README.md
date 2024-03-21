@@ -86,16 +86,19 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use the following format for versioning: YYYY.R.B
 
-## Authors
+**YYYY** is the year of the release, so 2024.
+
+**R** represents the release within a year, so if it is the first it would be 1, if it is the second it would be 2.
+
+**B** represents bugfixes.
+
+## Current Team
 
 * **Tim Kardol** - *Conference Website Project lead* - [TimKardol](https://github.com/TimKardol)
-* **Valeria Stamenova** - *Conference Website Developer* - [v-stamenova](https://github.com/v-stamenova)
-* **Ihor Novikov** - *Conference Website Developer* - [IGORnvk](https://github.com/IGORnvk)
-* **Jesper Bertijn** - *Conference Website Developer* - [Ex6tenze](https://github.com/Ex6tenze)
-* **Bartosz Adamczyk** - *Conference Website Developer* - [Bartan02](https://github.com/Bartan02)
-*  **Tomas Tomkevicius** - *Conference Website Developer* - [tomasx420](https://github.com/tomasx420)
+* **Valeria Stamenova** - *Conference Senior Developer* - [v-stamenova](https://github.com/v-stamenova)
+* **Ihor Novikov** - *Conference Senior Developer* - [IGORnvk](https://github.com/IGORnvk)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 

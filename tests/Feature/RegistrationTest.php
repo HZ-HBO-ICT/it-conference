@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Fortify\Features;
 use Laravel\Jetstream\Jetstream;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -17,8 +15,6 @@ class RegistrationTest extends TestCase
     {
         if (! Features::enabled(Features::registration())) {
             $this->markTestSkipped('Registration support is not enabled.');
-
-            return;
         }
 
         $response = $this->get('/register');
@@ -30,8 +26,6 @@ class RegistrationTest extends TestCase
     {
         if (Features::enabled(Features::registration())) {
             $this->markTestSkipped('Registration support is enabled.');
-
-            return;
         }
 
         $response = $this->get('/register');
@@ -41,24 +35,19 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
-        Role::create(['name' => 'participant']);
-
         if (! Features::enabled(Features::registration())) {
             $this->markTestSkipped('Registration support is not enabled.');
-
-            return;
         }
 
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'institution' => 'Lorem ipsum',
-            'password' => 'VeryStrongPassword123098',
-            'password_confirmation' => 'VeryStrongPassword123098',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        $response->assertRedirect(route('dashboard', absolute: false));
     }
 }

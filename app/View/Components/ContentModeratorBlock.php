@@ -18,9 +18,7 @@ class ContentModeratorBlock extends Component
         public string $icon,
         public string $roleColour,
         public string $param = ''
-    )
-    {
-
+    ) {
     }
 
     /**

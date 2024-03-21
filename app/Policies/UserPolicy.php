@@ -44,7 +44,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        // If the auth user is content moderator they can always delete the user unless the user is themselves
+        /*// If the auth user is content moderator they can always delete the user unless the user is themselves
         if ($user->hasRole('content moderator')) {
             return $user->id != $model->id;
         } elseif ($user->id == $model->id) {
@@ -60,18 +60,18 @@ class UserPolicy
                 // If they don't have a presentation, they are just a normal participant
                 return true;
             }
-        }
+        }*/
 
         // If they didn't pass anywhere above, either they are trying to remove another user or
-        // they have team, it means they are either company rep, speaker or booth owner, therefore cannot delete themselves;
+        // they have team, it means they are either company rep, speaker or booth owner,
+        // therefore cannot delete themselves;
         return false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public
-    function restore(User $user, User $model): bool
+    public function restore(User $user, User $model): bool
     {
         //
     }
@@ -79,8 +79,7 @@ class UserPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public
-    function forceDelete(User $user, User $model): bool
+    public function forceDelete(User $user, User $model): bool
     {
         //
     }

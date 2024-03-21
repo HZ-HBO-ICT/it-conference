@@ -67,10 +67,8 @@ class TeamPolicy
         if (get_class($model) == 'App\Models\User') {
             // If they are trying to remove another user, the auth user must be company rep (owner)
             if ($user->ownsTeam($team)) {
-
                 // The user to be removed also needs to be part of the same company and the company rep
                 if ($team->hasUser($user) && $team->hasUser($model)) {
-
                     // If the user is approved speaker, the company rep cannot delete them
                     if ($model->speaker) {
                         return !$model->speaker->is_approved;

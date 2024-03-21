@@ -29,27 +29,22 @@ class TeamObserver
         // it should be a key in the returning associative array
         if (array_key_exists('is_approved', $team->getChanges())
             && $team->is_approved) {
-
-            foreach (User::role('participant')->get() as $user)
-            {
+            foreach (User::role('participant')->get() as $user) {
                 $user->notify(new NotifyTeamApproved($team));
             }
         }
 
         if (array_key_exists('is_sponsor_approved', $team->getChanges())
             && $team->is_sponsor_approved) {
-
-            foreach (User::role('participant')->get()  as $user) {
+            foreach (User::role('participant')->get() as $user) {
                 $user->notify(new NotifySponsorshipApproved($team));
             }
         }
 
         if (array_key_exists('is_sponsor_approved', $team->getChanges())
             && $team->is_sponsor_approved === null) {
-
             $team->owner->notify(new NotifySponsorshipDisapproved($team));
         }
-
     }
 
     /**

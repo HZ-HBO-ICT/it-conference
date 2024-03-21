@@ -31,8 +31,7 @@ class ModifyTimeslotDuration extends Command
 
         $timeslots = Timeslot::where('duration', $currentDuration);
 
-        if($timeslots->count() == 0)
-        {
+        if ($timeslots->count() == 0) {
             $this->error('There are no timeslots with such duration');
             return;
         }

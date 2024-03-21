@@ -5,12 +5,19 @@ namespace App\Http\Livewire\Schedule;
 use App\Models\DefaultPresentation;
 use App\Models\Presentation;
 use App\Models\Timeslot;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 use Livewire\Component;
+use Symfony\Component\Console\Application;
 
 class ResetTimeslots extends Component
 {
     public $isOpen = false;
 
+    /**
+     * Resets all scheduled presentations
+     * @return void
+     */
     public function confirm()
     {
         $presentations = Presentation::all();
@@ -26,6 +33,10 @@ class ResetTimeslots extends Component
         $this->redirect(route('moderator.schedule.default.presentation.create', 'opening'));
     }
 
+    /**
+     * Renders the component
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
     public function render()
     {
         return view('moderator.schedule.timeslots.reset-timeslots');

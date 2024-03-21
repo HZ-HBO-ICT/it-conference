@@ -6,6 +6,9 @@ use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Models\DefaultPresentation;
 use App\Models\Room;
 use App\Models\Timeslot;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Livewire\Component;
 
 class RoomAndTimeslotSelector extends Component
@@ -19,6 +22,10 @@ class RoomAndTimeslotSelector extends Component
 
     public $selectedRoom;
 
+    /**
+     * Triggered on initializing the component
+     * @return void
+     */
     public function mount()
     {
         $this->rooms = Room::all();
@@ -29,6 +36,10 @@ class RoomAndTimeslotSelector extends Component
         }
     }
 
+    /**
+     * @param $value
+     * @return void
+     */
     public function updatedSelectedRoom($value)
     {
         if ($this->selectedRoom) {
@@ -59,13 +70,20 @@ class RoomAndTimeslotSelector extends Component
         }
     }
 
+    /**
+     * @return void
+     */
     public function getMaxParticipants(): void
     {
-        $this->maxParticipants = Room::find($this->selectedRoom)->max_participants < $this->presentation->max_participants
+        $this->maxParticipants =
+            Room::find($this->selectedRoom)->max_participants < $this->presentation->max_participants
             ? Room::find($this->selectedRoom)->max_participants
             : $this->presentation->max_participants;
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function resetTimeslot()
     {
         $this->presentation->timeslot_id = null;
@@ -75,6 +93,10 @@ class RoomAndTimeslotSelector extends Component
         return redirect()->to(route('moderator.schedule.presentation', $this->presentation));
     }
 
+    /**
+     * Render the component
+     * @return Factory|Application|\Illuminate\Contracts\View\View|ApplicationContract
+     */
     public function render()
     {
         return view('livewire.room-and-timeslot-selector');

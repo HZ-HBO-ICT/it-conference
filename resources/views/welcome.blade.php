@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div style="overflow-x: hidden;"> {{--don't allow side scrolling--}}
+    <div class="overflow-hidden" style="overflow-x: hidden;"> {{--don't allow side scrolling--}}
         <!-- The main banner -->
         <div class="relative isolate bg-gray-900 py-80 sm:py-72 bg-cover bg-center"
              style="background-image: url('/img/auditorium.jpg');">
@@ -26,20 +26,22 @@
                             </div>
                         </div>
                         <!-- The div for the logo of the sponsor -->
-                        @if($goldSponsor && $goldSponsor->is_sponsor_approved)
+                        <!-- TODO: Fix when database gets rebuilt -->
+                        {{--@if($goldSponsor && $goldSponsor->is_sponsor_approved)
                             <div class="basis-1/3 pt-16">
                                 <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
                             </div>
                             <div class="basis-1/3 pt-16">
                                 <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
                             </div>
-                        @endif
+                        @endif--}}
                     </div>
-                    @guest()
+                    <!-- TODO: Fix when authentication gets implemented -->
+                    {{--@guest()
                         <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
                             <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
                         </div>
-                    @endguest
+                    @endguest--}}
                 </div>
             </div>
             <!-- Blob -->
@@ -75,19 +77,19 @@
         <div class="relative bg-cover">
             <div
                 class="bg-center before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-purple before:via-red-500 before:to-orange-500 before:opacity-70 before:w-full before:h-full"></div>
-
             <!-- Blob -->
             <img src="/img/red-blob.png"
                  class="absolute -top-48 right-0 h-[25rem] transform translate-x-1/2 translate-y-1/2 z-0 opacity-75"
                  style="transform: rotate(61deg)">
 
-            <div class="isolate py-16 mx-4 md:mx-32 lg:mx-32 xl:mx-52">
+            <div class="isolate py-16 mx-4 md:mx-32 lg:mx-32 xl:mx-52 h-max">
                 <h2 class="z-30 text-white text-4xl sm:text-5xl font-bold text-center hover:animate-pulse"
                     style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
                     Sponsors
                 </h2>
 
-                @if(!$allSponsors->isEmpty())
+                <!-- TODO: Fix when database gets rebuilt -->
+                {{--@if(!$allSponsors->isEmpty())
                     <div class="isolate flex flex-wrap justify-center w-full gap-3 xl:gap-8 lg:gap-8 md:gap-8 mt-16">
                         @foreach(\App\Models\SponsorTier::all() as $sponsorTier)
                             <div class="w-full">
@@ -172,7 +174,7 @@
                             </div>
                         @endforeach
                     </div>
-                @endif
+                @endif--}}
             </div>
         </div>
     </div>

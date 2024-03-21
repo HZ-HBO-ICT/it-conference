@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Presentation;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -16,18 +19,28 @@ class UploadPresentation extends Component
     public $presentation;
     public $filename;
 
+    /**
+     * Triggered when initializing the component
+     * @param $presentation
+     * @return void
+     */
     public function mount($presentation)
     {
         $this->presentation = $presentation;
     }
 
+    /**
+     * If a file already is uploaded as presentation, it updates it
+     * @return void
+     */
     public function updatedFile()
     {
         $this->validate([
             'file' => ['required',
                 'file',
                 'max:10240',
-                'mimetypes:application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'mimetypes:application/pdf,application/vnd.ms-powerpoint,application
+                /vnd.openxmlformats-officedocument.presentationml.presentation',
             ]
         ], [
             'file.required' => 'The file is required',
@@ -38,18 +51,27 @@ class UploadPresentation extends Component
         $this->filename = $this->file->getClientOriginalName();
     }
 
+    /**
+     * Downloads the available file
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
     public function downloadFile()
     {
         return Storage::download($this->presentation->file_path, $this->presentation->file_original_name);
     }
 
+    /**
+     * The presentation is saved
+     * @return void
+     */
     public function save()
     {
         $this->validate([
             'file' => ['required',
                 'file',
                 'max:10240',
-                'mimetypes:application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'mimetypes:application/pdf,application/vnd.ms-powerpoint,application
+                /vnd.openxmlformats-officedocument.presentationml.presentation',
             ],
         ], [
             'file.required' => 'The file is required',
@@ -65,6 +87,10 @@ class UploadPresentation extends Component
         session()->flash('message', 'Presentation is successfully updated.');
     }
 
+    /**
+     * Removes the uploaded ifle
+     * @return void
+     */
     public function delete()
     {
         $this->filename = null;
@@ -76,6 +102,10 @@ class UploadPresentation extends Component
         session()->flash('message', 'Presentation is successfully removed.');
     }
 
+    /**
+     * Render the component
+     * @return Factory|Application|\Illuminate\Contracts\View\View|ApplicationContract
+     */
     public function render()
     {
         return view('livewire.upload-presentation');
