@@ -25,10 +25,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
+                {{--
                 @if(\App\Models\EventInstance::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
@@ -36,6 +37,7 @@
                         </x-nav-link>
                     </div>
                 @endif
+                --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                         {{ __('FAQ') }}
@@ -91,14 +93,16 @@
             <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+            <x-responsive-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
+            {{--
             @if(\App\Models\EventInstance::current()->is_final_programme_released)
                 <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
             @endif
+            --}}
             <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>

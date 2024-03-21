@@ -3,13 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Laravel\Fortify\Features;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class EmailVerificationTest extends TestCase
@@ -20,10 +18,7 @@ class EmailVerificationTest extends TestCase
     {
         if (! Features::enabled(Features::emailVerification())) {
             $this->markTestSkipped('Email verification not enabled.');
-
-            return;
         }
-        Role::create(['name' => 'speaker']);
 
         $user = User::factory()->withPersonalTeam()->unverified()->create();
 
@@ -36,8 +31,6 @@ class EmailVerificationTest extends TestCase
     {
         if (! Features::enabled(Features::emailVerification())) {
             $this->markTestSkipped('Email verification not enabled.');
-
-            return;
         }
 
         Event::fake();
@@ -55,15 +48,13 @@ class EmailVerificationTest extends TestCase
         Event::assertDispatched(Verified::class);
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
+        $response->assertRedirect(route('dashboard', absolute: false).'?verified=1');
     }
 
     public function test_email_can_not_verified_with_invalid_hash(): void
     {
         if (! Features::enabled(Features::emailVerification())) {
             $this->markTestSkipped('Email verification not enabled.');
-
-            return;
         }
 
         $user = User::factory()->unverified()->create();

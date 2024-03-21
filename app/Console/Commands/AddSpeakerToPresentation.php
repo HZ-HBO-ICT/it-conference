@@ -61,7 +61,8 @@ class AddSpeakerToPresentation extends Command
             return $teamMember->id === $user->id;
         })) {
             $user->currentTeam->users()->attach(
-                $user, ['role' => 'speaker']
+                $user,
+                ['role' => 'speaker']
             );
         }
 
@@ -73,9 +74,11 @@ class AddSpeakerToPresentation extends Command
         ]);
 
         if ($speaker) {
-            $this->info("You successfully added {$user->name} (email: {$user->email}) to be a speaker of {$presentation->name}");
+            $this->info("You successfully added {$user->name} (email: {$user->email})
+            to be a speaker of {$presentation->name}");
         } else {
-            $this->error("Seems that there was an issue in adding {$user->name} (email: {$user->email}) to be a speaker for {$presentation->name}");
+            $this->error("Seems that there was an issue in adding {$user->name}
+            (email: {$user->email}) to be a speaker for {$presentation->name}");
         }
     }
 }
