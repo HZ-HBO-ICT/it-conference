@@ -37,4 +37,12 @@ class Company extends Model
     public function invitations() : HasMany {
         return $this->hasMany(Invitation::class);
     }
+
+    /**
+     * Establishes relationship between the company and the employees
+     * @return HasMany
+     */
+    public function users() : HasMany {
+        return $this->hasMany(User::class);
+    }
 }

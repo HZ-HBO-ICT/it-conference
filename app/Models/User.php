@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -19,6 +20,15 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+
+    /**
+     * Establishes relationship between the user and the company they're part of
+     * (if they have a company)
+     * @return BelongsTo
+     */
+    public function company() : BelongsTo {
+        return $this->belongsTo(Company::class);
+    }
 
     /**
      * The attributes that are mass assignable.
