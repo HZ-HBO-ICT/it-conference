@@ -13,7 +13,7 @@ class Company extends Model
     use HasFactory;
 
     /**
-     * Establishes relationship between the company and
+     * Establishes a relationship between the company and
      * the sponsorship/sponsor tier
      * @return BelongsTo
      */
@@ -22,7 +22,7 @@ class Company extends Model
     }
 
     /**
-     * Establishes relationship between the company and its booth
+     * Establishes a relationship between the company and its booth
      * @return HasOne
      */
     public function booth() : HasOne {
@@ -30,7 +30,7 @@ class Company extends Model
     }
 
     /**
-     * Establishes relationship between the company and the invitation
+     * Establishes a relationship between the company and the invitation
      * for users to join it
      * @return HasMany
      */
@@ -39,10 +39,20 @@ class Company extends Model
     }
 
     /**
-     * Establishes relationship between the company and the employees
+     * Establishes a relationship between the company and the employees
      * @return HasMany
      */
     public function users() : HasMany {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * Establishes relationship between a company and their presentations
+     * NOTE 1: Not all companies have presentations
+     * NOTE 2: All companies can only have one presentation except gold sponsor (they have two)
+     * @return HasMany
+     */
+    public function presentations() : HasMany {
+        return $this->hasMany(Presentation::class);
     }
 }
