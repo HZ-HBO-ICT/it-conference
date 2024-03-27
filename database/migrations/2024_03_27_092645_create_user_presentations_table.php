@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('user_presentations', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('presentation_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('presentation_id');
             $table->string('role');
 
             $table->foreign('user_id')->references('id')->on('users')
