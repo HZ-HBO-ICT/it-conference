@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -22,12 +23,22 @@ class User extends Authenticatable
     use HasRoles;
 
     /**
-     * Establishes relationship between the user and the company they're part of
+     * Establishes a relationship between the user and the company they're part of
      * (if they have a company)
      * @return BelongsTo
      */
     public function company() : BelongsTo {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Hides a many-to-many relationship with presentations
+     * and implements relationship with linking table UserPresentation
+     * Note: Purposefully set on private, refer to docs in UserPresentation
+     * @return HasMany
+     */
+    private function userPresentations() : HasMany {
+        return $this->hasMany(UserPresentation::class);
     }
 
     /**

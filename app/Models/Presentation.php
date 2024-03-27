@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Ramsey\Uuid\Type\Time;
 
 class Presentation extends Model
@@ -49,5 +50,15 @@ class Presentation extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Hides a many-to-many relationship with users
+     * and implements relationship with linking table UserPresentation
+     * Note: Purposefully set on private, refer to docs in UserPresentation
+     * @return HasMany
+     */
+    private function userPresentations() : HasMany {
+        return $this->hasMany(UserPresentation::class);
     }
 }
