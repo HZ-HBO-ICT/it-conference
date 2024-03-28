@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Presentation;
+use App\Models\Room;
+use App\Models\Timeslot;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,5 +19,8 @@ class DatabaseSeeder extends Seeder
     {
         Artisan::call('admin:upsert-master-data');
 
+        Room::factory()->count(20)->create();
+        Timeslot::factory()->count(20)->create();
+        Presentation::factory()->count(20)->create();
     }
 }
