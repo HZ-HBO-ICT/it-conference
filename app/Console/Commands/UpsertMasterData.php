@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Difficulty;
+use App\Models\Sponsorship;
 use App\Models\SponsorTier;
 use Exception;
 use Illuminate\Console\Command;
@@ -36,8 +37,8 @@ class UpsertMasterData extends Command
             [ 'id'=> 3, 'name'=> 'content moderator',      'guard_name'=> 'web' ],
             [ 'id'=> 4, 'name'=> 'speaker',                'guard_name'=> 'web' ]
         ],
-        SponsorTier::class => [
-            [ 'id' => 1, 'name' => 'golden', 'max_sponsors' => '1' ],
+        Sponsorship::class => [
+            [ 'id' => 1, 'name' => 'gold', 'max_sponsors' => '1' ],
             [ 'id' => 2, 'name' => 'silver', 'max_sponsors' => '2' ],
             [ 'id' => 3, 'name' => 'bronze', 'max_sponsors' => '5' ]
         ],
