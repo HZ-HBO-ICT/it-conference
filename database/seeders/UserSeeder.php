@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             $user->joinPresentation($presentation, 'speaker');
         }
 
-        foreach (Presentation::all() as $presentation){
+        foreach (Presentation::all() as $presentation) {
             $users = User::factory(random_int(1, 10))->create();
 
             foreach ($users as $user) {

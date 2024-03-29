@@ -15,7 +15,8 @@ class Booth extends Model
      * the company that owns it
      * @return BelongsTo
      */
-    public function company() : BelongsTo {
+    public function company() : BelongsTo
+    {
         return $this->belongsTo(Company::class);
     }
 }

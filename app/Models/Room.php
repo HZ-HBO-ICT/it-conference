@@ -16,7 +16,8 @@ class Room extends Model
      * the presentations that will take place in it
      * @return HasMany
      */
-    public function presentations() : HasMany {
+    public function presentations() : HasMany
+    {
         return $this->hasMany(Presentation::class);
     }
 }

@@ -48,7 +48,8 @@ class CompanySeeder extends Seeder
      * @param $companies
      * @return void
      */
-    private function setPresentation($companies) {
+    private function setPresentation($companies)
+    {
         foreach ($companies as $company) {
             $presentation = Presentation::factory()->create();
             $presentation->company_id = $company->id;

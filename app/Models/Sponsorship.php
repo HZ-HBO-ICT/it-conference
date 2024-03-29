@@ -15,7 +15,8 @@ class Sponsorship extends Model
      * and all the companies that have this sponsorship tier
      * @return HasMany
      */
-    public function companies() : HasMany {
+    public function companies() : HasMany
+    {
         return $this->hasMany(Company::class);
     }
 }

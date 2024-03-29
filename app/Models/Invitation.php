@@ -15,7 +15,8 @@ class Invitation extends Model
      * Establishes relationship between the invitations and the company
      * @return BelongsTo
      */
-    public function company() : BelongsTo {
+    public function company() : BelongsTo
+    {
         return $this->belongsTo(Company::class);
     }
 
@@ -25,7 +26,8 @@ class Invitation extends Model
      * @param Builder $query
      * @return void
      */
-    public function scopeParticipants(Builder $query): void {
+    public function scopeParticipants(Builder $query): void
+    {
         $query->whereNull('company_id')
             ->where('role', '=', 'participant');
     }
@@ -37,8 +39,8 @@ class Invitation extends Model
      * @param Builder $query
      * @return void
      */
-    public function scopeEmployees(Builder $query) : void {
+    public function scopeEmployees(Builder $query) : void
+    {
         $query->whereNotNull('company_id');
     }
-
 }

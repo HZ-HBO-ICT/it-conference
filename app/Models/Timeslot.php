@@ -16,7 +16,8 @@ class Timeslot extends Model
      * the presentations in it
      * @return HasMany
      */
-    public function presentations() : HasMany {
+    public function presentations() : HasMany
+    {
         return $this->hasMany(Presentation::class);
     }
 }

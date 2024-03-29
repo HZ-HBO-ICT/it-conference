@@ -15,7 +15,8 @@ class Difficulty extends Model
      * and the presentations that have it
      * @return HasMany
      */
-    public function presentations() : HasMany {
+    public function presentations() : HasMany
+    {
         return $this->hasMany(Presentation::class);
     }
 }
