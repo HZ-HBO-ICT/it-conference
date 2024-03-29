@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Booth;
+use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserPresentation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
@@ -21,6 +24,7 @@ class DatabaseSeeder extends Seeder
 
         Room::factory()->count(20)->create();
         Timeslot::factory()->count(20)->create();
-        Presentation::factory()->count(20)->create();
+
+        $this->call([CompanySeeder::class, UserSeeder::class]);
     }
 }
