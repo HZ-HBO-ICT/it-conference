@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Nette\Schema\ValidationException;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -47,17 +48,38 @@ class User extends Authenticatable
     /**
      * Assign the user to a presentation, based on the role that
      * was passed - participant or speaker
+     * Returns true if the user successfully was added to the presentation with their role;
+     * Returns false if the user wasn't attached to the presentation
      * @param $presentation
      * @param string $role
      * @return void
      */
-    public function joinPresentation($presentation, string $role = 'participant'): void
+    public function joinPresentation($presentation, string $role = 'participant'): bool
     {
+        if ($this->speaker) {
+            // The user is already a speaker of another presentation
+            if ($role == 'speaker') {
+                return false;
+            }
+
+            // The user is a speaker of this presentation, and cannot be a participant
+            if ($this->speaker->id == $presentation->id && $role == 'participant') {
+                return false;
+            }
+        }
+
+        // The user is already enrolled as a participant in this presentation
+        if ($this->participant->contains($presentation)) {
+            return false;
+        }
+
         UserPresentation::create([
             'user_id' => $this->id,
             'presentation_id' => $presentation->id,
             'role' => $role
         ]);
+
+        return true;
     }
 
     /**
@@ -72,17 +94,22 @@ class User extends Authenticatable
             ->where('presentation_id', $presentation->id)
             ->first();
 
-        $userPresentation->delete();
+        if (!is_null($userPresentation)) {
+            $userPresentation->delete();
+        }
     }
 
     /**
      * Returns the presentation of which the user is a speaker
      * @return Attribute
      */
-    public function speaking(): Attribute
+    public function speaker(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->userPresentations->where('role', 'speaker')->first()->presentation,
+            get: fn() => Presentation::whereHas('userPresentations', function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('role', 'speaker');
+            })->first(),
         );
     }
 
@@ -91,7 +118,7 @@ class User extends Authenticatable
      * be a participant
      * @return Attribute
      */
-    public function participating(): Attribute
+    public function participant(): Attribute
     {
         return Attribute::make(
             get: fn() => Presentation::whereHas('userPresentations', function ($query) {
