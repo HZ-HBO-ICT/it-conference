@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,18 +28,78 @@ class User extends Authenticatable
      * (if they have a company)
      * @return BelongsTo
      */
-    public function company() : BelongsTo {
+    public function company(): BelongsTo
+    {
         return $this->belongsTo(Company::class);
     }
 
     /**
      * Hides a many-to-many relationship with presentations
      * and implements relationship with linking table UserPresentation
-     * Note: Purposefully set on private, refer to docs in UserPresentation
+     * Please don't use this, instead refer to the methods below
      * @return HasMany
      */
-    private function userPresentations() : HasMany {
+    public function userPresentations(): HasMany
+    {
         return $this->hasMany(UserPresentation::class);
+    }
+
+    /**
+     * Assign the user to a presentation, based on the role that
+     * was passed - participant or speaker
+     * @param $presentation
+     * @param string $role
+     * @return void
+     */
+    public function joinPresentation($presentation, string $role = 'participant'): void
+    {
+        UserPresentation::create([
+            'user_id' => $this->id,
+            'presentation_id' => $presentation->id,
+            'role' => $role
+        ]);
+    }
+
+    /**
+     * Dis-enrol participant from a presentation
+     * @param $presentation
+     * @return void
+     */
+    public function leavePresentation($presentation)
+    {
+        $userPresentation = $this->userPresentations
+            ->where('role', 'participant')
+            ->where('presentation_id', $presentation->id)
+            ->first();
+
+        $userPresentation->delete();
+    }
+
+    /**
+     * Returns the presentation of which the user is a speaker
+     * @return Attribute
+     */
+    public function speaking(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->userPresentations->where('role', 'speaker')->first()->presentation,
+        );
+
+    }
+
+    /**
+     * Returns the presentations in which the user enrolled to
+     * be a participant
+     * @return Attribute
+     */
+    public function participating(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Presentation::whereHas('userPresentations', function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('role', 'participant');
+            })->get(),
+        );
     }
 
     /**

@@ -55,10 +55,9 @@ class Presentation extends Model
     /**
      * Hides a many-to-many relationship with users
      * and implements relationship with linking table UserPresentation
-     * Note: Purposefully set on private, refer to docs in UserPresentation
      * @return HasMany
      */
-    private function userPresentations() : HasMany {
+    public function userPresentations() : HasMany {
         return $this->hasMany(UserPresentation::class);
     }
 }

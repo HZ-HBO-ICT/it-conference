@@ -17,6 +17,8 @@ class UserPresentation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'presentation_id', 'role'];
+
     /**
      * Establishes relationship between users and this model (linking table) to presentations
      * @return BelongsTo
