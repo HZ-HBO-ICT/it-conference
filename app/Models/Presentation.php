@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Ramsey\Uuid\Type\Time;
 
 class Presentation extends Model
 {
@@ -57,7 +57,36 @@ class Presentation extends Model
      * and implements relationship with linking table UserPresentation
      * @return HasMany
      */
-    public function userPresentations() : HasMany {
+    public function userPresentations(): HasMany
+    {
         return $this->hasMany(UserPresentation::class);
+    }
+
+    /**
+     * Retrieves all users that have enrolled in the presentation as participants
+     * @return Attribute
+     */
+    public function participants(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => User::whereHas('userPresentations', function ($query) {
+                $query->where('presentation_id', $this->id)
+                    ->where('role', 'participant');
+            })->get(),
+        );
+    }
+
+    /**
+     * Retrieves all the speakers of the presentation
+     * @return Attribute
+     */
+    public function speakers(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => User::whereHas('userPresentations', function ($query) {
+                $query->where('presentation_id', $this->id)
+                    ->where('role', 'speaker');
+            })->get(),
+        );
     }
 }

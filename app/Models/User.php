@@ -84,7 +84,6 @@ class User extends Authenticatable
         return Attribute::make(
             get: fn() => $this->userPresentations->where('role', 'speaker')->first()->presentation,
         );
-
     }
 
     /**
