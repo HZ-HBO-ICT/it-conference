@@ -29,6 +29,8 @@ class CompanySeeder extends Seeder
 
         foreach ($company->users as $user) {
             $presentation = Presentation::factory()->create();
+            $presentation->company_id = $company->id;
+            $presentation->save();
             $user->joinPresentation($presentation, 'speaker');
         }
 
@@ -49,7 +51,8 @@ class CompanySeeder extends Seeder
     private function setPresentation($companies) {
         foreach ($companies as $company) {
             $presentation = Presentation::factory()->create();
-            $presentation->company = $company;
+            $presentation->company_id = $company->id;
+            $presentation->save();
 
             foreach ($company->users as $user) {
                 $user->joinPresentation($presentation, 'speaker');
