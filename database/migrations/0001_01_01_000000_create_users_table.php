@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('institution')->nullable();
             $table->tinyInteger('receive_emails')->nullable()->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
