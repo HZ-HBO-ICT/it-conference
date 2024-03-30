@@ -20,7 +20,6 @@ return new class extends Migration
             $table->boolean('is_approved')->default(false);
             $table->unsignedBigInteger('sponsorship_id')->nullable();
             $table->boolean('is_sponsorship_approved')->nullable();
-            $table->unsignedBigInteger('booth_id')->nullable();
             $table->string('company_photo_path')->nullable();
             $table->string('postcode');
             $table->string('street');
