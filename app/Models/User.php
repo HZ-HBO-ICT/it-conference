@@ -129,7 +129,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Dis-enrol participant from a presentation
+     * Unenroll participant from a presentation
      * @param $presentation
      * @return void
      */
