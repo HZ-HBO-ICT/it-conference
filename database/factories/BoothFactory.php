@@ -17,8 +17,8 @@ class BoothFactory extends Factory
     public function definition(): array
     {
         return [
-            "width" => $this->faker->numberBetween(0, 10),
-            "length" => $this->faker->numberBetween(0, 10),
+            "width" => $this->faker->numberBetween(0, 3),
+            "length" => $this->faker->numberBetween(0, 3),
             "is_approved" => false
         ];
     }
