@@ -3,12 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Nette\Schema\ValidationException;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -17,6 +22,8 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
+
 
     /**
      * The attributes that are mass assignable.
@@ -61,5 +68,109 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Establishes a relationship between the user and the company they're part of
+     * (if they have a company)
+     * @return BelongsTo
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Hides a many-to-many relationship with presentations
+     * and implements relationship with linking table UserPresentation
+     * Please don't use this, instead refer to the methods below
+     * @return HasMany
+     */
+    public function userPresentations(): HasMany
+    {
+        return $this->hasMany(UserPresentation::class);
+    }
+
+    /**
+     * Assign the user to a presentation, based on the role that
+     * was passed - participant or speaker
+     * Returns true if the user successfully was added to the presentation with their role;
+     * Returns false if the user wasn't attached to the presentation
+     * @param $presentation
+     * @param string $role
+     * @return bool
+     */
+    public function joinPresentation($presentation, string $role = 'participant'): bool
+    {
+        if ($this->presenter_of) {
+            // The user is already a speaker of another presentation
+            if ($role == 'speaker') {
+                return false;
+            }
+
+            // The user is a speaker of this presentation, and cannot be a participant
+            if ($this->presenter_of->id == $presentation->id && $role == 'participant') {
+                return false;
+            }
+        }
+
+        // The user is already enrolled as a participant in this presentation
+        if ($this->participating_in->contains($presentation)) {
+            return false;
+        }
+
+        UserPresentation::create([
+            'user_id' => $this->id,
+            'presentation_id' => $presentation->id,
+            'role' => $role
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Disneroll participant from a presentation
+     * @param $presentation
+     * @return void
+     */
+    public function leavePresentation($presentation)
+    {
+        $userPresentation = $this->userPresentations
+            ->where('role', 'participant')
+            ->where('presentation_id', $presentation->id)
+            ->first();
+
+        if (!is_null($userPresentation)) {
+            $userPresentation->delete();
+        }
+    }
+
+    /**
+     * Returns the presentation of which the user is a speaker
+     * @return Attribute
+     */
+    public function presenterOf(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Presentation::whereHas('userPresentations', function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('role', 'speaker');
+            })->first(),
+        );
+    }
+
+    /**
+     * Returns the presentations in which the user enrolled to
+     * be a participant
+     * @return Attribute
+     */
+    public function participatingIn(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Presentation::whereHas('userPresentations', function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('role', 'participant');
+            })->get(),
+        );
     }
 }
