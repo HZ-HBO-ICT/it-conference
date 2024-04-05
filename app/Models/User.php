@@ -102,20 +102,20 @@ class User extends Authenticatable
      */
     public function joinPresentation($presentation, string $role = 'participant'): bool
     {
-        if ($this->speaker) {
+        if ($this->presenter_of) {
             // The user is already a speaker of another presentation
             if ($role == 'speaker') {
                 return false;
             }
 
             // The user is a speaker of this presentation, and cannot be a participant
-            if ($this->speaker->id == $presentation->id && $role == 'participant') {
+            if ($this->presenter_of->id == $presentation->id && $role == 'participant') {
                 return false;
             }
         }
 
         // The user is already enrolled as a participant in this presentation
-        if ($this->participant->contains($presentation)) {
+        if ($this->participating_in->contains($presentation)) {
             return false;
         }
 
@@ -129,7 +129,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Unenroll participant from a presentation
+     * Disneroll participant from a presentation
      * @param $presentation
      * @return void
      */
@@ -149,7 +149,7 @@ class User extends Authenticatable
      * Returns the presentation of which the user is a speaker
      * @return Attribute
      */
-    public function presenter_of(): Attribute
+    public function presenterOf(): Attribute
     {
         return Attribute::make(
             get: fn() => Presentation::whereHas('userPresentations', function ($query) {
@@ -164,7 +164,7 @@ class User extends Authenticatable
      * be a participant
      * @return Attribute
      */
-    public function participating_in(): Attribute
+    public function participatingIn(): Attribute
     {
         return Attribute::make(
             get: fn() => Presentation::whereHas('userPresentations', function ($query) {

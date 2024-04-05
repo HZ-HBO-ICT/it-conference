@@ -133,7 +133,7 @@ class UserTest extends TestCase
         $presentation = Presentation::factory()->create();
         $user->joinPresentation($presentation, 'speaker');
 
-        $retrievedPresentation = $user->speaker;
+        $retrievedPresentation = $user->presenter_of;
 
         $this->assertEquals($retrievedPresentation->id, $presentation->id);
     }
@@ -147,7 +147,7 @@ class UserTest extends TestCase
         }
         $user->refresh();
 
-        $retrievedPresentations = $user->participant;
+        $retrievedPresentations = $user->participating_in;
 
         $this->assertEquals($retrievedPresentations->count(), $presentations->count());
     }
