@@ -34,7 +34,7 @@ return new class extends Migration {
             $table->foreign('room_id')->references('id')->on('rooms')
                 ->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('difficulty_id')->references('id')->on('difficulties')
-                ->cascadeOnUpdate()->nullOnDelete();
+                ->cascadeOnUpdate()->restrictOnDelete();
             $table->foreign('company_id')->references('id')->on('companies')
                 ->cascadeOnUpdate()->cascadeOnDelete();
 

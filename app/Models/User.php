@@ -24,6 +24,52 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
     /**
      * Establishes a relationship between the user and the company they're part of
      * (if they have a company)
@@ -52,7 +98,7 @@ class User extends Authenticatable
      * Returns false if the user wasn't attached to the presentation
      * @param $presentation
      * @param string $role
-     * @return void
+     * @return bool
      */
     public function joinPresentation($presentation, string $role = 'participant'): bool
     {
@@ -103,7 +149,7 @@ class User extends Authenticatable
      * Returns the presentation of which the user is a speaker
      * @return Attribute
      */
-    public function speaker(): Attribute
+    public function presenter_of(): Attribute
     {
         return Attribute::make(
             get: fn() => Presentation::whereHas('userPresentations', function ($query) {
@@ -118,7 +164,7 @@ class User extends Authenticatable
      * be a participant
      * @return Attribute
      */
-    public function participant(): Attribute
+    public function participating_in(): Attribute
     {
         return Attribute::make(
             get: fn() => Presentation::whereHas('userPresentations', function ($query) {
@@ -126,50 +172,5 @@ class User extends Authenticatable
                     ->where('role', 'participant');
             })->get(),
         );
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
     }
 }

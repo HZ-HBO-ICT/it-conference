@@ -15,6 +15,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password')]);
+
         $users = User::factory(5)->create();
         foreach ($users as $user) {
             $presentation = Presentation::factory()->create();
