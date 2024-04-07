@@ -12,12 +12,15 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description', 'website', 'postcode',
+        'house_number', 'street', 'city'];
+
     /**
      * Establishes a relationship between the company and
      * the sponsorship/sponsor tier
      * @return BelongsTo
      */
-    public function sponsorship() : BelongsTo
+    public function sponsorship(): BelongsTo
     {
         return $this->belongsTo(Sponsorship::class);
     }
@@ -26,7 +29,7 @@ class Company extends Model
      * Establishes a relationship between the company and its booth
      * @return HasOne
      */
-    public function booth() : HasOne
+    public function booth(): HasOne
     {
         return $this->hasOne(Booth::class);
     }
@@ -36,7 +39,7 @@ class Company extends Model
      * for users to join it
      * @return HasMany
      */
-    public function invitations() : HasMany
+    public function invitations(): HasMany
     {
         return $this->hasMany(Invitation::class);
     }
@@ -45,7 +48,7 @@ class Company extends Model
      * Establishes a relationship between the company and the employees
      * @return HasMany
      */
-    public function users() : HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
@@ -56,7 +59,7 @@ class Company extends Model
      * NOTE 2: All companies can only have one presentation except gold sponsor (they have two)
      * @return HasMany
      */
-    public function presentations() : HasMany
+    public function presentations(): HasMany
     {
         return $this->hasMany(Presentation::class);
     }

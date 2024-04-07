@@ -148,11 +148,11 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="company_housenumber" value="{{ __('House Number') }}"
+                            <x-label for="company_house_number" value="{{ __('House Number') }}"
                                      class="after:content-['*'] after:text-red-500"/>
-                            <x-input id="company_housenumber" class="block mt-1 w-full" type="text"
-                                     name="company_housenumber"
-                                     :value="old('company_housenumber')" required
+                            <x-input id="company_house_number" class="block mt-1 w-full" type="text"
+                                     name="company_house_number"
+                                     :value="old('company_house_number')" required
                                      autofocus autocomplete="name"/>
                         </div>
 
@@ -291,7 +291,7 @@
                 companyDiv.appendChild(createField('company_website', 'Website', 'input'));
                 companyDiv.appendChild(createField('company_postcode', 'Postcode', 'input'));
                 companyDiv.appendChild(createField('company_street', 'Street', 'input'));
-                companyDiv.appendChild(createField('company_housenumber', 'House number', 'input'));
+                companyDiv.appendChild(createField('company_house_number', 'House number', 'input'));
                 companyDiv.appendChild(createField('company_city', 'City', 'input'));
 
                 let postcodeLabel = document.querySelector("[for=company_postcode]");
