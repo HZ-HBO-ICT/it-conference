@@ -54,10 +54,11 @@ Route::view('/contact', 'contact')->name('contact');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
 ])->group(function () {
-    //route for announcements
-    Route::get('/my', [HubController::class, 'landing'])->name('dashboard');
+    Route::prefix('/my')->group(function () {
+        Route::get('/', [HubController::class, 'dashboard'])->name('dashboard');
+    });
 });
 //
 //    //route for my profile in personal hub
