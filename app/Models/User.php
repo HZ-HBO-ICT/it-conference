@@ -174,6 +174,10 @@ class User extends Authenticatable
         );
     }
 
+    /**
+     * Determines the color scheme of the hub area based on the user's role
+     * @return Attribute
+     */
     public function roleColour() : Attribute
     {
         return Attribute::make(

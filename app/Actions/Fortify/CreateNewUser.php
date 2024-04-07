@@ -57,7 +57,16 @@ class CreateNewUser implements CreatesNewUsers
                     $user->save();
                 }
                 if (array_key_exists('company_name', $input)) {
-                    $this->createTeam($user, $input['company_name'], $input['company_postcode'], $input['company_house_number'], $input['company_street'], $input['company_city'], $input['company_website'], $input['company_description']);
+                    $this->createTeam(
+                        $user,
+                        $input['company_name'],
+                        $input['company_postcode'],
+                        $input['company_house_number'],
+                        $input['company_street'],
+                        $input['company_city'],
+                        $input['company_website'],
+                        $input['company_description']
+                    );
                 }
             });
         });
@@ -66,11 +75,16 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a personal team for the user.
      */
-    protected function createTeam(User   $user, string $company_name, string $company_postcode,
-                                  string $company_house_number, string $company_street,
-                                  string $company_city, string $company_website,
-                                  string $company_description): void
-    {
+    protected function createTeam(
+        User   $user,
+        string $company_name,
+        string $company_postcode,
+        string $company_house_number,
+        string $company_street,
+        string $company_city,
+        string $company_website,
+        string $company_description
+    ): void {
         $company = Company::create([
             'name' => $company_name,
             'postcode' => $company_postcode,

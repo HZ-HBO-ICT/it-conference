@@ -77,5 +77,4 @@ class CreateNewUserTest extends TestCase
 
         $action->create([]);
     }
-
 }

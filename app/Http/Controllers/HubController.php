@@ -20,4 +20,5 @@ class HubController extends Controller
     public function getProfileInfo()
     {
         return view('myhub.profile');
-    }}
+    }
+}
