@@ -18,7 +18,7 @@ use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\TimeslotController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware([
+/*Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
@@ -26,7 +26,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------
@@ -51,13 +51,14 @@ Route::view('/contact', 'contact')->name('contact');
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 //
 //
-//Route::middleware([
-//    'auth:sanctum',
-//    config('jetstream.auth_session'),
-//    'verified'
-//])->group(function () {
-//    //route for announcements
-//    Route::get('/my', [HubController::class, 'getConferenceHome'])->name('announcements');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    //route for announcements
+    Route::get('/my', [HubController::class, 'landing'])->name('dashboard');
+});
 //
 //    //route for my profile in personal hub
 //    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');

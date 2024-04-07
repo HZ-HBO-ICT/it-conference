@@ -1,3 +1,4 @@
+{{--
 <div>
     @if(Auth::user()->currentTeam->owner->id == Auth::user()->id
                         && Auth::user()->currentTeam->isGoldenSponsor
@@ -109,3 +110,4 @@
         </div>
     </dl>
 </div>
+--}}

@@ -10,7 +10,7 @@
         <div class="py-8 px-2 mx-auto max-w-7xl">
             <div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
-                @if(Auth::user()->currentTeam)
+                @if(Auth::user()->company)
                     <x-company-dashboard-section></x-company-dashboard-section>
                 @endif
                 @if(Auth::user()->hasRole('content moderator'))
@@ -25,7 +25,7 @@
                     <!-- TODO: To be reworked to something prettier -->
                     <div class="px-2 py-2 max-w-7xl mx-auto">
                         <div class="max-w-4xl mx-auto">
-                            @livewire('notifications-list')
+                          <!--  livewire('notifications-list') -->
                         </div>
                     </div>
 

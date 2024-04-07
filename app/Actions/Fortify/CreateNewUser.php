@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -70,7 +71,7 @@ class CreateNewUser implements CreatesNewUsers
                                   string $company_city, string $company_website,
                                   string $company_description): void
     {
-        $user->company()->create([
+        $company = Company::create([
             'name' => $company_name,
             'postcode' => $company_postcode,
             'house_number' => $company_house_number,
@@ -80,5 +81,8 @@ class CreateNewUser implements CreatesNewUsers
             'description' => $company_description,
             'personal_team' => false,
         ]);
+
+        $user->company()->associate($company);
+        $user->save();
     }
 }

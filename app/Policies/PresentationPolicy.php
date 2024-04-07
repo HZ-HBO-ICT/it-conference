@@ -88,7 +88,7 @@ class PresentationPolicy
      */
     public function view(User $user, Presentation $presentation): bool
     {
-        return $user->speaker && $user->speaker->presentation_id == $presentation->id;
+        return $user->presenter_of && $user->presenter_of->presentation_id == $presentation->id;
     }
 
     /**

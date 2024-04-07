@@ -173,4 +173,19 @@ class User extends Authenticatable
             })->get(),
         );
     }
+
+    public function roleColour() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->company) {
+                    return 'partner';
+                } elseif ($this->hasRole('content moderator')) {
+                    return 'crew';
+                } else {
+                    return 'participant';
+                }
+            }
+        );
+    }
 }
