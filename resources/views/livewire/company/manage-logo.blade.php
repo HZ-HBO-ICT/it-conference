@@ -13,9 +13,9 @@
                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     <div class="sm:col-span-6">
                         <x-label for="photo" value="{{ __('Photo') }}"/>
-                        @if ($team->logo_path && !$photo)
+                        @if ($company->logo_path && !$photo)
                             <x-label for="preview" value="{{ __('Current logo') }}" class="pt-3 pb-1"/>
-                            <img src="{{ url('storage/'. $team->logo_path) }}" class="object-fill w-full h-72"/>
+                            <img src="{{ url('storage/'. $company->logo_path) }}" class="object-fill w-full h-72"/>
                             @if (session()->has('message'))
                                 <div class="text-sm text-green-600">
                                     {{ session('message') }}
@@ -36,7 +36,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
-                                Upload {{$photo ||  $team->logo_path ? 'new' : ''}} logo
+                                Upload {{$photo ||  $company->logo_path ? 'new' : ''}} logo
                             </label>
                         </div>
                         @error('photo') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
