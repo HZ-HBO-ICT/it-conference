@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Dashboards;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class CompanyDashboard extends Component
+class Company extends Component
 {
     /**
      * Create a new component instance.

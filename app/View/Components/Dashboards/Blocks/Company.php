@@ -4,10 +4,14 @@ namespace App\View\Components\Dashboards\Blocks;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
-class Block extends Component
+class Company extends Component
 {
+    public string $status;
+    public string $accentColor;
+
     /**
      * Create a new component instance.
      */
@@ -15,7 +19,20 @@ class Block extends Component
         public string $label,
         public string $icon,
     ) {
-        //
+        $company = Auth::user()->company;
+        $this->status = '';
+
+        if ($label === 'Company status') {
+            $this->status = $company->status;
+        } elseif ($label === 'Booth status') {
+            $this->status = $company->boothStatus;
+        } elseif ($label === 'Sponsorship status') {
+            $this->status = $company->sponsorshipStatus;
+        }
+
+        $this->accentColor = $this->status === 'Approved' ?
+            'purple' :
+            ($this->status === 'Awaiting approval' ? 'yellow' : 'gray');
     }
 
     /**

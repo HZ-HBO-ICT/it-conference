@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -62,5 +63,48 @@ class Company extends Model
     public function presentations(): HasMany
     {
         return $this->hasMany(Presentation::class);
+    }
+
+    /**
+     * Returns the status of the company based on the approval status
+     * @return Attribute
+     */
+    public function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->is_approved ? 'Approved' : 'Awaiting approval'
+        );
+    }
+
+    /**
+     * Returns the status of the company's sponsorship
+     * @return Attribute
+     */
+    public function sponsorshipStatus(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!$this->sponsorship) {
+                    return 'Not requested';
+                }
+                return $this->sponsorship->is_approved ? 'Approved' : 'Awaiting approval';
+            }
+        );
+    }
+
+    /**
+     * Returns the status of the company's booth
+     * @return Attribute
+     */
+    public function boothStatus(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!$this->booth) {
+                    return 'Not requested';
+                }
+                return $this->booth->is_approved ? 'Approved' : 'Awaiting approval';
+            }
+        );
     }
 }
