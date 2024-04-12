@@ -13,12 +13,4 @@ class HubController extends Controller
     {
         return view('myhub.home');
     }
-
-    /**
-     * get view for profile information
-     */
-    public function getProfileInfo()
-    {
-        return view('myhub.profile');
-    }
 }
