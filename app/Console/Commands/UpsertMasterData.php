@@ -7,6 +7,7 @@ use App\Models\Sponsorship;
 use App\Models\SponsorTier;
 use Exception;
 use Illuminate\Console\Command;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UpsertMasterData extends Command
@@ -32,15 +33,15 @@ class UpsertMasterData extends Command
      */
     private array $master_data = [
         Role::class => [
-            [ 'id'=> 1, 'name'=> 'participant',            'guard_name'=> 'web' ],
-            [ 'id'=> 2, 'name'=> 'company representative', 'guard_name'=> 'web' ],
-            [ 'id'=> 3, 'name'=> 'content moderator',      'guard_name'=> 'web' ],
-            [ 'id'=> 4, 'name'=> 'speaker',                'guard_name'=> 'web' ]
+            ['id' => 1, 'name' => 'participant', 'guard_name' => 'web'],
+            ['id' => 2, 'name' => 'company representative', 'guard_name' => 'web'],
+            ['id' => 3, 'name' => 'content moderator', 'guard_name' => 'web'],
+            ['id' => 4, 'name' => 'speaker', 'guard_name' => 'web']
         ],
         Sponsorship::class => [
-            [ 'id' => 1, 'name' => 'gold', 'max_sponsors' => '1' ],
-            [ 'id' => 2, 'name' => 'silver', 'max_sponsors' => '2' ],
-            [ 'id' => 3, 'name' => 'bronze', 'max_sponsors' => '5' ]
+            ['id' => 1, 'name' => 'gold', 'max_sponsors' => '1'],
+            ['id' => 2, 'name' => 'silver', 'max_sponsors' => '2'],
+            ['id' => 3, 'name' => 'bronze', 'max_sponsors' => '5']
         ],
         Difficulty::class => [
             [
@@ -79,7 +80,7 @@ class UpsertMasterData extends Command
     public function handle(): void
     {
         foreach ($this->master_data as $model => $data) {
-            $this->info('Upserting '.$model);
+            $this->info('Upserting ' . $model);
             // check that class exists
             if (!class_exists($model)) {
                 throw new Exception('Configuration seed failed. Model does not exist.');
@@ -95,13 +96,20 @@ class UpsertMasterData extends Command
                 }
             }
         }
+
+        $companyRepPermissions = ['view company details', 'edit company details', 'view company requests',
+            'edit company requests', 'view company members', 'edit company members'];
+        $role = Role::findByName('company representative');
+        foreach ($companyRepPermissions as $permission) {
+            $role->givePermissionTo(Permission::create(['name' => $permission]));
+        }
     }
 
     /**
      * _fetchRecord - fetches a record if it exists, otherwise instantiates a new model
      *
      * @param string $model - the model
-     * @param integer $id    - the model ID
+     * @param integer $id - the model ID
      *
      * @return object - model instantiation
      */
@@ -119,7 +127,7 @@ class UpsertMasterData extends Command
      * _upsertRecord - upsert a database record
      *
      * @param object $record - the record
-     * @param array $row    - the row of update data
+     * @param array $row - the row of update data
      *
      * @return void
      */

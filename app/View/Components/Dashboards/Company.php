@@ -6,15 +6,13 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class CompanyRepBlock extends Component
+class CompanyDashboard extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public string $label,
-        public string $icon,
-    ) {
+    public function __construct()
+    {
         //
     }
 
@@ -23,6 +21,6 @@ class CompanyRepBlock extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.company-rep-block');
+        return view('components.dashboards.company');
     }
 }
