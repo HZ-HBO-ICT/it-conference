@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Fortify\Features;
 use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
@@ -10,6 +11,12 @@ use Tests\TestCase;
 class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        Artisan::call('admin:upsert-master-data');
+    }
 
     public function test_registration_screen_can_be_rendered(): void
     {
@@ -40,13 +47,16 @@ class RegistrationTest extends TestCase
         }
 
         $response = $this->post('/register', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => 'Pa$$worDD@123!!',
+            'password_confirmation' => 'Pa$$worDD@123!!',
+            'institution' => "HZ University of Applied Sciences",
+            'terms' => 'on',
         ]);
 
+
+        $response->assertValid();
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
     }

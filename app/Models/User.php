@@ -173,4 +173,23 @@ class User extends Authenticatable
             })->get(),
         );
     }
+
+    /**
+     * Determines the color scheme of the hub area based on the user's role
+     * @return Attribute
+     */
+    public function roleColour() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->company) {
+                    return 'partner';
+                } elseif ($this->hasRole('content moderator')) {
+                    return 'crew';
+                } else {
+                    return 'participant';
+                }
+            }
+        );
+    }
 }
