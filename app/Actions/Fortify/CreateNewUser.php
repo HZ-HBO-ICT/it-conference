@@ -34,6 +34,7 @@ class CreateNewUser implements CreatesNewUsers
                 'company_name' => 'required',
                 'company_description' => 'required',
                 'company_website' => 'required',
+                'company_phone_number' => ['required', 'phone:INTERNATIONAL,NL'],
                 'company_postcode' => ['required',
                     'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
                 'company_house_number' => ['required',
@@ -65,6 +66,7 @@ class CreateNewUser implements CreatesNewUsers
                         $input['company_street'],
                         $input['company_city'],
                         $input['company_website'],
+                        $input['company_phone_number'],
                         $input['company_description']
                     );
                 }
@@ -83,6 +85,7 @@ class CreateNewUser implements CreatesNewUsers
         string $company_street,
         string $company_city,
         string $company_website,
+        string $company_phone_number,
         string $company_description
     ): void {
         $company = Company::create([
@@ -93,6 +96,7 @@ class CreateNewUser implements CreatesNewUsers
             'city' => $company_city,
             'website' => $company_website,
             'description' => $company_description,
+            'phone_number' => $company_phone_number,
             'personal_team' => false,
         ]);
 

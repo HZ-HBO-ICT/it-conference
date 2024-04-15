@@ -23,6 +23,7 @@ class CompanyFactory extends Factory
             'name' => $this->faker->unique()->company(),
             'website' => $this->faker->url,
             'description' => $this->faker->paragraph(),
+            'phone_number' => $this->faker->phoneNumber,
             'postcode' => '1234 AB',
             'is_approved' => false,
             'street' => $this->faker->streetAddress,

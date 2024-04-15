@@ -60,6 +60,7 @@ class CreateNewUserTest extends TestCase
             'company_website' => 'https://example.com',
             'company_postcode' => '1234AB',
             'company_house_number' => '1A',
+            'company_phone_number' => '0888888888',
             'company_street' => 'Example Street',
             'company_city' => 'Example City',
         ]);

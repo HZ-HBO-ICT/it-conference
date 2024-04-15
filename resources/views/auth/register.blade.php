@@ -122,6 +122,14 @@
                         </div>
 
                         <div class="mt-4">
+                            <x-label for="company_phone_number" value="{{ __('Phone number') }}"
+                                     class="after:content-['*'] after:text-red-500"/>
+                            <x-input id="company_phone_number" class="block mt-1 w-full" type="tel" name="company_phone_number"
+                                     required
+                                     autocomplete="company_phone_number" :value="old('company_phone_number')"/>
+                        </div>
+
+                        <div class="mt-4">
                             <x-label for="company_website" value="{{ __('Website') }}"
                                      class="after:content-['*'] after:text-red-500"/>
                             <x-input id="company_website" class="block mt-1 w-full" type="text" name="company_website"
@@ -288,6 +296,7 @@
                 companyDiv.appendChild(lineBreak);
                 companyDiv.appendChild(createField('company_name', 'Company Name', 'input'));
                 companyDiv.appendChild(createField('company_description', 'Company Description', 'text'));
+                companyDiv.appendChild(createField('company_phone_number', 'Phone number', 'input'));
                 companyDiv.appendChild(createField('company_website', 'Website', 'input'));
                 companyDiv.appendChild(createField('company_postcode', 'Postcode', 'input'));
                 companyDiv.appendChild(createField('company_street', 'Street', 'input'));
@@ -353,7 +362,11 @@
             if (fieldType == 'input') {
                 field = document.createElement('input');
                 field.setAttribute('id', fieldName);
-                field.setAttribute('type', 'text');
+                if(fieldName == 'company_phone_number'){
+                    field.setAttribute('type', 'tel');
+                } else {
+                    field.setAttribute('type', 'text');
+                }
                 field.className = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full';
                 field.setAttribute('name', fieldName);
                 field.setAttribute('required', '');
