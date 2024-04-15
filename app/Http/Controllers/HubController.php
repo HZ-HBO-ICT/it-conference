@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class HubController extends Controller
 {
@@ -12,5 +14,15 @@ class HubController extends Controller
     public function dashboard()
     {
         return view('myhub.home');
+    }
+
+    /**
+     * Returns the inner details of the company
+     * @return View
+     */
+    public function companyDetails() {
+
+        $company = Auth::user()->company;
+        return view('myhub.company.details', compact('company'));
     }
 }

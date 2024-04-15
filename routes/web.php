@@ -58,6 +58,7 @@ Route::middleware([
 ])->group(function () {
     Route::prefix('/my')->group(function () {
         Route::get('/', [HubController::class, 'dashboard'])->name('dashboard');
+        Route::get('/company/details', [HubController::class, 'companyDetails'])->name('company.details');
     });
 });
 //

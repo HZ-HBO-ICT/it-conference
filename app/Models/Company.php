@@ -107,4 +107,13 @@ class Company extends Model
             }
         );
     }
+
+    public function representative(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return User::role('company representative')->get();
+            }
+        );
+    }
 }
