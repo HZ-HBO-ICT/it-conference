@@ -20,7 +20,8 @@ class HubController extends Controller
      * Returns the inner details of the company
      * @return View
      */
-    public function companyDetails() {
+    public function companyDetails()
+    {
 
         $company = Auth::user()->company;
         return view('myhub.company.details', compact('company'));

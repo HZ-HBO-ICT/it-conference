@@ -56,7 +56,11 @@ class ManageLogo extends Component
         session()->flash('message', 'Logo successfully updated.');
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.company.manage-logo');
     }

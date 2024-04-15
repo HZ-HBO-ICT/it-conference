@@ -108,11 +108,18 @@ class Company extends Model
         );
     }
 
+    /**
+     * Returns the representative of the company
+     * @return Attribute
+     */
     public function representative(): Attribute
     {
         return Attribute::make(
             get: function () {
-                return User::role('company representative')->get();
+                return $this->users()
+                    ->with('roles')
+                    ->role('company representative')
+                    ->first();
             }
         );
     }

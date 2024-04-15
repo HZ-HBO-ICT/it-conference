@@ -12,15 +12,14 @@
         <div class="col-span-6">
             <x-label value="{{ __('Company representative') }}"/>
 
-            {{--<div class="flex items-center mt-2">
-                <img class="w-12 h-12 rounded-full object-cover" src="{{ $team->owner->profile_photo_url }}"
-                     alt="{{ $team->owner->name }}">
-
+            <div class="flex items-center mt-2">
+                <img class="w-12 h-12 rounded-full object-cover" src="{{ $company->representative->profile_photo_url }}"
+                     alt="{{ $company->representative->name }}">
                 <div class="ml-4 leading-tight">
-                    <div class="text-gray-900 dark:text-white">{{ $team->owner->name }}</div>
-                    <div class="text-gray-700 dark:text-gray-300 text-sm">{{ $team->owner->email }}</div>
+                    <div class="text-gray-900 dark:text-white">{{ $company->representative->name }}</div>
+                    <div class="text-gray-700 dark:text-gray-300 text-sm">{{ $company->representative->email }}</div>
                 </div>
-            </div>--}}
+            </div>
         </div>
 
         <div class="col-span-6 py-2 sm:col-span-4">
