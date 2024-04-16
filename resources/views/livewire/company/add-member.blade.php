@@ -107,7 +107,7 @@
 
                             <div class="flex items-center">
                                 <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
-                                        wire:click="cancelTeamInvitation({{ $invitation->id }})" wire:key="$invitation->id">
+                                        wire:click="cancelInvitation({{ $invitation->id }})" wire:key="$invitation->id">
                                     {{ __('Cancel') }}
                                 </button>
                             </div>

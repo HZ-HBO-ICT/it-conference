@@ -40,10 +40,11 @@ class EditCompanyModal extends ModalComponent
 
         $this->form->update();
 
-        if (Auth::user()->id == $this->company->representative->id) {
-            return redirect(route('company.details'))
-                ->with('status', 'Company successfully updated.');
-        }/* else {
+        return redirect(route('company.details'))
+            ->with('status', 'Company successfully updated.');
+        /* if (Auth::user()->id == $this->company->representative->id) {
+
+        } else {
             return redirect(route('moderator.companies.show', $this->team))
                 ->with('status', 'Company successfully updated.');
         }*/

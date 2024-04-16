@@ -7,6 +7,7 @@ return [
     ],
     [
         'name' => 'booth owner',
-        'description' => 'As a booth owner you would be responsible for sitting at the booth of the company during the event.'
+        'description' => 'As a booth owner you would be responsible for sitting at
+        the booth of the company during the event.'
     ]
 ];

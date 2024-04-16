@@ -3,6 +3,7 @@
 namespace App\Livewire\Company;
 
 use App\Models\User;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class UpdateMemberRole extends Component
@@ -30,6 +31,11 @@ class UpdateMemberRole extends Component
      */
     public $currentRole;
 
+    /**
+     * Called when initializing the component
+     * @param User $user
+     * @return void
+     */
     public function mount(User $user)
     {
         $this->managingRoleFor = $user;
@@ -39,11 +45,19 @@ class UpdateMemberRole extends Component
         $this->currentlyManagingRole = true;
     }
 
-    public function getRolesProperty()
+    /**
+     * Returns all roles and descriptions available
+     * @return array
+     */
+    public function getRolesProperty() : array
     {
         return config('roles');
     }
 
+    /**
+     * Saves the new role of the member
+     * @return void
+     */
     public function save()
     {
         $this->managingRoleFor->syncRoles(['participant', $this->currentRole]);
@@ -53,13 +67,21 @@ class UpdateMemberRole extends Component
         $this->isOpen = false;
     }
 
+    /**
+     * Closes the modal
+     * @return void
+     */
     public function close()
     {
         $this->isOpen = false;
         $this->currentRole = '';
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.company.update-member-role');
     }

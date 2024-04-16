@@ -19,6 +19,9 @@ class InvitationController extends Controller
 
     protected $guard;
 
+    /**
+     * @param StatefulGuard $guard
+     */
     public function __construct(StatefulGuard $guard)
     {
         $this->guard = $guard;
@@ -75,5 +78,4 @@ class InvitationController extends Controller
             __('Great! You have accepted the invitation to join :team.', ['team' => $invitation->company->name]),
         );
     }
-
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Company;
 
 use App\Models\User;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class RemoveMember extends Component
@@ -10,11 +11,22 @@ class RemoveMember extends Component
     public User $user;
     public bool $isOpen = false;
 
-    public function mount($user) {
+    /**
+     * Called when initializing the component
+     * @param $user
+     * @return void
+     */
+    public function mount($user)
+    {
         $this->user = $user;
     }
 
-    public function confirm(){
+    /**
+     * Confirms the removal of the team member
+     * @return void
+     */
+    public function confirm()
+    {
         $this->user->syncRoles(['participant']);
         $this->user->company_id = null;
         $this->user->save();
@@ -23,12 +35,20 @@ class RemoveMember extends Component
         $this->isOpen = false;
     }
 
+    /**
+     * Closes the modal
+     * @return void
+     */
     public function close()
     {
         $this->isOpen = false;
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.company.remove-member');
     }

@@ -34,6 +34,11 @@ class CompanyForm extends Form
     #[Validate('required')]
     public string $city;
 
+    /**
+     * Sets the company details per each field
+     * @param Company $company
+     * @return void
+     */
     public function setCompany(Company $company)
     {
         $this->company = $company;
@@ -48,6 +53,10 @@ class CompanyForm extends Form
         $this->city = $company->city;
     }
 
+    /**
+     * Updates the company details with the new data
+     * @return void
+     */
     public function update()
     {
         $this->company->update(

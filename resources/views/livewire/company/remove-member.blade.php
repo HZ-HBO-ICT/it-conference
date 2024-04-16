@@ -31,7 +31,7 @@
 
                     <x-slot name="actions">
                         <x-secondary-button wire:click="confirm" wire:loading.attr="disabled">
-                            {{ __('Cancel') }}
+                            {{ __('Save') }}
                         </x-secondary-button>
 
                         <button wire:click="close"
