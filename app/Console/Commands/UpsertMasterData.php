@@ -36,7 +36,8 @@ class UpsertMasterData extends Command
             ['id' => 1, 'name' => 'participant', 'guard_name' => 'web'],
             ['id' => 2, 'name' => 'company representative', 'guard_name' => 'web'],
             ['id' => 3, 'name' => 'content moderator', 'guard_name' => 'web'],
-            ['id' => 4, 'name' => 'speaker', 'guard_name' => 'web']
+            ['id' => 4, 'name' => 'speaker', 'guard_name' => 'web'],
+            ['id' => 5, 'name' => 'booth owner', 'guard_name' => 'web']
         ],
         Sponsorship::class => [
             ['id' => 1, 'name' => 'gold', 'max_sponsors' => '1'],

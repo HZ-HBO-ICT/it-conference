@@ -15,6 +15,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class EditCompanyModal extends ModalComponent
 {
+    public bool $isOpen = false;
     public Company $company;
     public CompanyForm $form;
 

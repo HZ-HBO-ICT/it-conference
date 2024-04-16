@@ -20,10 +20,14 @@
                     <x-section-border/>
                     @livewire('company.details-form', ['company' => $company ])
 
-                   {{-- @if($team->is_approved)
-                    @livewire('teams.team-member-manager', ['team' => $team])
+{{--
+                    @if($team->is_approved)
+--}}
+                    @livewire('company.member-manager', ['company' => $company])
+{{--
                     @endif
-
+--}}
+{{--
                     @if (Gate::check('delete', $team) && ! $team->personal_team)
                         <x-section-border/>
 
