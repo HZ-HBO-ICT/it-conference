@@ -45,7 +45,10 @@ Route::get('/companies', [CompanyController::class, 'index'])->name('companies.i
 Route::view('/faq', 'faq')->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
-
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
 //Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
 //
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
@@ -93,10 +96,6 @@ Route::middleware([
 //        ->name('presentations.destroy');
 //});
 //
-//Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-//    ->middleware(['signed'])->name('registration.page.via.invitation');
-//Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-//    ->name('register.via.invitation');
 //
 //Route::get('/company-representative-invitation/{invitation}', [InvitationController::class, 'companyRepShow'])
 //    ->middleware(['signed'])->name('company-rep.invitation');
