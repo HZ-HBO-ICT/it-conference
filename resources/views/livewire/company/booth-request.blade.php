@@ -5,17 +5,17 @@
         </x-slot>
 
         <x-slot name="description">
-            Signing up for our company market will, after confirmation, grant a standard 8m2 booth. 
-            Choosing the gold sponsor package gives you a 12m2 booth. 
-            The standard and gold package booth both include a standing table and electricity. 
-            It is possible to bring your own banner to place at your booth. 
-            Floorplans for the location of your booth will be provided no later than two weeks before the conference. 
+            Signing up for our company market will, after confirmation, grant a standard 8m2 booth.
+            Choosing the gold sponsor package gives you a 12m2 booth.
+            The standard and gold package booth both include a standing table and electricity.
+            It is possible to bring your own banner to place at your booth.
+            Floorplans for the location of your booth will be provided no later than two weeks before the conference.
         </x-slot>
 
         <x-slot name="form">
             <div class="col-span-6">
                 <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                    If there are any additional materials or specific preferences you require for your booth, 
+                    If there are any additional materials or specific preferences you require for your booth,
                     please inform us. We'll do our best to understand your needs and accommodate them.
                 </div>
             </div>
@@ -28,7 +28,7 @@
                               class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
                     <x-input-error for="email" class="mt-2"/>
                 @else
-                    @if($this->team->booth->is_approved)
+                    @if($this->company->booth->is_approved)
                         <div class="row">
                             <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded">
                                 The booth for your company is approved! If you have any questions or concerns do not hesitate to contact us!

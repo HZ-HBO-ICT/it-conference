@@ -22,8 +22,17 @@ class HubController extends Controller
      */
     public function companyDetails()
     {
-
         $company = Auth::user()->company;
         return view('myhub.company.details', compact('company'));
+    }
+
+    /**
+     * Returns the requests that the company has made - booth and sponsorship
+     * @return View
+     */
+    public function companyRequests() : View
+    {
+        $company = Auth::user()->company;
+        return view('myhub.company.requests', compact('company'));
     }
 }
