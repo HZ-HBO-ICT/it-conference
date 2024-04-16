@@ -84,4 +84,37 @@
             </x-button>
         </x-slot>
     </x-form-section>
+    <x-section-border/>
+
+    <!-- Team Member Invitations -->
+    <div class="mt-10 sm:mt-0">
+        <x-action-section>
+            <x-slot name="title">
+                Pending Invitations
+            </x-slot>
+
+            <x-slot name="description">
+                These people have been invited to join your team to represent {{$company->name}} during the IT
+                Conference and have been sent an
+                invitation email. They may join the team by accepting the email invitation.
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="space-y-6">
+                    @foreach ($company->invitations as $invitation)
+                        <div class="flex items-center justify-between">
+                            <div class="text-gray-600 dark:text-gray-400">{{ $invitation->email }}</div>
+
+                            <div class="flex items-center">
+                                <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
+                                        wire:click="cancelTeamInvitation({{ $invitation->id }})" wire:key="$invitation->id">
+                                    {{ __('Cancel') }}
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </x-slot>
+        </x-action-section>
+    </div>
 </div>

@@ -1,4 +1,3 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
 <x-hub-layout>
     <div class="py-8 px-2 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl px-6 text-gray-800 dark:text-gray-200 leading-tight">
@@ -19,22 +18,9 @@
                     @livewire('company.manage-logo', ['company' => $company])
                     <x-section-border/>
                     @livewire('company.details-form', ['company' => $company ])
-
-{{--
-                    @if($team->is_approved)
---}}
                     @livewire('company.member-manager', ['company' => $company])
-{{--
-                    @endif
---}}
-{{--
-                    @if (Gate::check('delete', $team) && ! $team->personal_team)
-                        <x-section-border/>
-
-                        <div class="mt-10 sm:mt-0">
-                            @livewire('teams.delete-team-form', ['team' => $team])
-                        </div>
-                    @endif--}}
+                    <x-section-border/>
+                    @livewire('company.delete-company', ['company' => $company])
                 </div>
             </div>
 

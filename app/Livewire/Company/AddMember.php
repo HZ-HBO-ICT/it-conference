@@ -4,6 +4,7 @@ namespace App\Livewire\Company;
 
 use App\Mail\CustomTeamInvitation;
 use App\Models\Company;
+use App\Models\Invitation;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -17,7 +18,8 @@ class AddMember extends Component
     #[Validate('required')]
     public string $currentRole;
 
-    public function mount($company){
+    public function mount($company)
+    {
         $this->company = $company;
     }
 
@@ -37,6 +39,8 @@ class AddMember extends Component
 
         $this->currentRole = '';
         $this->email = '';
+
+        $this->company = $this->company->refresh();
     }
 
     public function getRolesProperty()
@@ -44,6 +48,13 @@ class AddMember extends Component
         return config('roles');
     }
 
+    public function cancelTeamInvitation($invitation_id)
+    {
+        $invitation = Invitation::find($invitation_id);
+        $invitation->delete();
+
+        $this->company = $this->company->refresh();
+    }
 
     public function render()
     {
