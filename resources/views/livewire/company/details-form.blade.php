@@ -33,14 +33,23 @@
         </div>
 
         <div class="col-span-6 py-2 sm:col-span-4">
+            <x-label for="description" value="{{ __('Phone number') }}"/>
+            <div class="text-gray-900 dark:text-white">{{$company->phone_number}}</div>
+        </div>
+
+        <div class="col-span-6 py-2 sm:col-span-4">
+            <x-label for="description" value="{{ __('Website') }}"/>
+            <div class="text-gray-900 dark:text-white">{{$company->website}}</div>
+        </div>
+
+        <div class="col-span-6 py-2 sm:col-span-4">
             <x-label for="address" value="{{ __('Address') }}"/>
             <div class="text-gray-900 dark:text-white">{{$company->street}} {{$company->house_number}},<br>{{$company->postcode}}
                                                                                                 , {{$company->city}}</div>
         </div>
     </x-slot>
     <x-slot name="actions">
-{{--
-            @livewire('edit-team-modal', ['team' => $team])
---}}
+        @livewire('company.edit-company-modal', ['company' => $company])
     </x-slot>
+
 </x-action-section>

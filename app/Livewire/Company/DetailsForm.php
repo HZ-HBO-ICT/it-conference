@@ -8,7 +8,6 @@ use Livewire\Component;
 class DetailsForm extends Component
 {
     public $company;
-    public $representative;
 
     /**
      * Called when the component is initialized
@@ -18,7 +17,6 @@ class DetailsForm extends Component
     public function mount($company)
     {
         $this->company = $company;
-        $this->representative;
     }
 
     /**
