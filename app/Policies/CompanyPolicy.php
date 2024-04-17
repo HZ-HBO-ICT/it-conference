@@ -9,71 +9,116 @@ use Illuminate\Auth\Access\Response;
 
 class CompanyPolicy
 {
-    /**
-     * Determine if the given team can be viewed by the user.
-     *
-     * @param User $user
-     * @param Company $company
-     * @return bool
-     */
+    public function viewDetails(User $user, Company $company)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('view company details')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function editDetails(User $user, Company $company)
+    {
+
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('edit company details')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function viewMembers(User $user, Company $company)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('view company members')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function editMember(User $user, Company $company, User $toBeEditted)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->id != $toBeEditted->id
+                && $user->can('edit company members')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function deleteMember(User $user, Company $company, User $toBeDeleted)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->id != $toBeDeleted->id
+                && $user->can('delete company members')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function viewMemberInvitations(User $user, Company $company)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('view member invitations')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function createMemberInvitation(User $user, Company $company)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('create member invitation')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function deleteMemberInvitation(User $user, Company $company)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('delete member invitation')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
+    public function requestDelete(User $user, Company $company)
+    {
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can('request company delete')
+                && $company->is_approved;
+        }
+
+        return false;
+    }
+
     public function viewRequests(User $user, Company $company)
     {
-        return $user->company->id === $company->id && $user->hasRole('company representative');
-    }
+        if ($user->company) {
+            return $user->company->id == $company->id
+                && $user->can(['create booth request', 'create sponsorship request'])
+                && $company->is_approved;
+        }
 
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Company $company): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Company $company): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Company $company): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Company $company): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Company $company): bool
-    {
-        //
+        return false;
     }
 }

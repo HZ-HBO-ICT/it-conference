@@ -31,18 +31,23 @@
                                             <div class="text-gray-900 dark:text-white">{{ $user->name }}</div>
                                         </div>
                                     </div>
-
-                                    @php
-                                        $updateMemberKey = $user->id . 'um';
-                                    @endphp
-                                    <livewire:company.update-member-role :user="$user" :key="$updateMemberKey"/>
+                                    @can('editMember', [$company, $user])
+                                        @php
+                                            $updateMemberKey = $user->id . 'um';
+                                        @endphp
+                                        <livewire:company.update-member-role :user="$user" :key="$updateMemberKey"/>
+                                    @elsecan('viewMembers', $company)
+                                        {{ $user->getRoleNames()->implode(', ') }}
+                                    @endcan
                                 </div>
 
                                 <div class="flex items-center">
-                                    @php
-                                        $removeMemberKey = $user->id . 'rm';
-                                    @endphp
-                                    <livewire:company.remove-member :user="$user" :key="$removeMemberKey"/>
+                                    @can('deleteMember', [$company, $user])
+                                        @php
+                                            $removeMemberKey = $user->id . 'rm';
+                                        @endphp
+                                        <livewire:company.remove-member :user="$user" :key="$removeMemberKey"/>
+                                    @endcan
                                 </div>
                             </div>
                         @endforeach
@@ -51,6 +56,8 @@
             </x-slot>
         </x-action-section>
     </div>
-    <x-section-border/>
-    <livewire:company.add-member :company="$company"/>
+    @can('viewMemberInvitations', $company)
+        <x-section-border/>
+        <livewire:company.add-member :company="$company"/>
+    @endcan
 </div>

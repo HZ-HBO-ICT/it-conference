@@ -23,6 +23,10 @@ class HubController extends Controller
     public function companyDetails()
     {
         $company = Auth::user()->company;
+        if (!$company) {
+            abort(403);
+        }
+
         return view('myhub.company.details', compact('company'));
     }
 
@@ -30,9 +34,13 @@ class HubController extends Controller
      * Returns the requests that the company has made - booth and sponsorship
      * @return View
      */
-    public function companyRequests() : View
+    public function companyRequests(): View
     {
         $company = Auth::user()->company;
+        if (!$company || Auth::user()->cannot('viewRequests', $company)) {
+            abort(403);
+        }
+
         return view('myhub.company.requests', compact('company'));
     }
 }

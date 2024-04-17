@@ -98,11 +98,40 @@ class UpsertMasterData extends Command
             }
         }
 
-        $companyRepPermissions = ['view company details', 'edit company details', 'view company requests',
-            'edit company requests', 'view company members', 'edit company members'];
-        $role = Role::findByName('company representative');
+        // TODO: Move those in separate files
+        $companyMemPermissions =
+            ['view company overview', 'view company details', 'view company members'];
+
+        $companyRepPermissions = [
+            'view company overview',
+            'view company details',
+            'edit company details',
+            'view company members',
+            'edit company members',
+            'view member invitations',
+            'create member invitation',
+            'delete member invitation',
+            'delete company members',
+            'create booth request',
+            'create sponsorship request',
+            'create presentation request',
+            'request company delete'
+        ];
+
+        $companyRepPermissions = array_diff($companyRepPermissions, $companyMemPermissions);
+
+        $speaker = Role::findByName('speaker');
+        $booth_owner = Role::findByName('booth owner');
+        $representative = Role::findByName('company representative');
+
+        foreach ($companyMemPermissions as $permissionName) {
+            $permission = Permission::create(['name' => $permissionName]);
+            $representative->givePermissionTo($permission);
+            $speaker->givePermissionTo($permission);
+            $booth_owner->givePermissionTo($permission);
+        }
         foreach ($companyRepPermissions as $permission) {
-            $role->givePermissionTo(Permission::create(['name' => $permission]));
+            $representative->givePermissionTo(Permission::create(['name' => $permission]));
         }
     }
 

@@ -26,6 +26,7 @@
                             <x-label for="preview" value="{{ __('Photo preview') }}" class="pt-3 pb-1"/>
                             <img src="{{ $photo->temporaryUrl() }}" class="object-fill w-full h-72">
                         @endif
+                        @can('editDetails', $company)
                         <div class="mt-1 flex items-center">
                             <input type="file" id="photo" wire:model="photo"
                                    class="hidden">
@@ -39,6 +40,7 @@
                                 Upload {{$photo ||  $company->logo_path ? 'new' : ''}} logo
                             </label>
                         </div>
+                        @endcan
                         @error('photo') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
                 </div>

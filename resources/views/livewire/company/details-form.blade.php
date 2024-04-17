@@ -44,12 +44,16 @@
 
         <div class="col-span-6 py-2 sm:col-span-4">
             <x-label for="address" value="{{ __('Address') }}"/>
-            <div class="text-gray-900 dark:text-white">{{$company->street}} {{$company->house_number}},<br>{{$company->postcode}}
-                                                                                                , {{$company->city}}</div>
+            <div class="text-gray-900 dark:text-white">{{$company->street}} {{$company->house_number}}
+                ,<br>{{$company->postcode}}
+                , {{$company->city}}</div>
         </div>
     </x-slot>
-    <x-slot name="actions">
-        @livewire('company.edit-company-modal', ['company' => $company])
-    </x-slot>
+    @can('editDetails', $company)
+        <x-slot name="actions">
+            @livewire('company.edit-company-modal', ['company' => $company])
+        </x-slot>
+    @endcan
+
 
 </x-action-section>
