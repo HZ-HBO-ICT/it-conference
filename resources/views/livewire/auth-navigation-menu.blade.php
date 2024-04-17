@@ -15,17 +15,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
+                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')" wire:navigate.hover>
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
+                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')" wire:navigate.hover>
                         {{ __('Speakers') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
+                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')" wire:navigate.hover>
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
@@ -37,12 +37,12 @@
                     </div>
                 @endif--}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
+                    <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>
                         {{ __('FAQ') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')" wire:navigate.hover>
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
@@ -52,7 +52,7 @@
                 @if(Auth::user()->currentTeam && Auth::user()->currentTeam->owner->id == Auth::user()->id)
                     <span
                         class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                        <a href="{{route('announcements')}}"
+                        <a href="{{route('announcements')}}" wire:navigate.hover
                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                             {{ Auth::user()->currentTeam->name }}
                         </a>
@@ -68,7 +68,7 @@
                 @else
                     <span
                         class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                        <a href="{{ route('dashboard') }}"
+                        <a href="{{ route('dashboard') }}" wire:navigate.hover
                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                             {{ Auth::user()->name }}
                         </a>
@@ -124,13 +124,13 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('companies.index') }}"
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
                                    :active="request()->routeIs('companies.index')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
@@ -139,15 +139,31 @@
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
             @endif--}}
-            <x-responsive-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __(Auth::user()->name) }}
+            </x-responsive-nav-link>
+            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+            <x-responsive-nav-link x-data="{
+                                        darkMode: $persist(false).as('dark_mode'),
+                                        toggleDarkMode(){
+                                            this.darkMode = !this.darkMode;
+                                            if(this.darkMode){
+                                                document.documentElement.classList.add('dark');
+                                            } else {
+                                                document.documentElement.classList.remove('dark');
+                                            }
+                                        }
+                                    }"
+                                   @click="toggleDarkMode()"
+                                   x-init="darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')">
+                Change theme
             </x-responsive-nav-link>
         </div>
     </div>
