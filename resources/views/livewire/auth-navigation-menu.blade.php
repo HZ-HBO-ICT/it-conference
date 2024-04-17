@@ -79,13 +79,30 @@
                         </div>
                     </span>
                 @endif
-                <div class="pl-4">
-                    <svg onclick="changeTheme()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                         fill="rgb(107 114 128)"
-                         class="bi bi-circle-half" viewBox="0 0 16 16" style="cursor: pointer;">
-                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-                    </svg>
-                </div>
+                    <div class="pl-4">
+                        <div>
+                            <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">
+                                <button x-data="{
+                                        darkMode: $persist(false).as('dark_mode'),
+                                        toggleDarkMode(){
+                                            this.darkMode = !this.darkMode;
+                                            if(this.darkMode){
+                                                document.documentElement.classList.add('dark');
+                                            } else {
+                                                document.documentElement.classList.remove('dark');
+                                            }
+                                        }
+                                    }"
+                                        @click="toggleDarkMode()"
+                                        x-init="darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')"
+                                        class="w-full h-full flex items-center justify-center hover:bg-gray-100 text-gray-500 hover:text-gray-600 dark:hover:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                                    <svg class="w-4 h-4 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
             </div>
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -113,7 +130,8 @@
             <x-responsive-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
+            <x-responsive-nav-link href="{{ route('companies.index') }}"
+                                   :active="request()->routeIs('companies.index')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
             {{--@if(\App\Models\EventInstance::current()->is_final_programme_released)
