@@ -5,9 +5,9 @@
         </x-slot>
 
         <x-slot name="description">
-            If you choose to sponsor the conference, there are various tiers available, 
-            each offering distinct benefits. 
-            Check out 
+            If you choose to sponsor the conference, there are various tiers available,
+            each offering distinct benefits.
+            Check out
             <a class="text-purple-600 dark:text-purple-500 underline" href="/files/sponsor-packages.pdf">
             this link
             </a>
@@ -32,22 +32,22 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
                                 @foreach ($tiers as $tier)
                                     @if($tier->areMoreSponsorsAllowed())
-                                        <option value="{{$tier->name}}">{{ucfirst($tier->name)}}</option>
+                                        <option wire:key="$tier->id" value="{{$tier->name}}">{{ucfirst($tier->name)}}</option>
                                     @endif
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    @if($chosenTierName)
+                    {{--@if($chosenTierName)
                         <div class="pt-2 text-purple-600 dark:text-purple-500 text-sm">
                             Available spots: {{$tiers->firstWhere('name', $chosenTierName)->leftSpots()}}
                         </div>
-                    @endif
+                    @endif--}}
                 @else
-                    @if($this->team->is_sponsor_approved)
+                    @if($this->company->is_sponsorship_approved)
                         <div class="row">
                             <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded">
-                                You are approved and confirmed as a {{ucfirst($this->team->sponsorTier->name)}} sponsor!
+                                You are approved and confirmed as a {{ucfirst($this->company->sponsorship->name)}} sponsor!
                             </div>
                         </div>
                     @elseif(is_null($chosenTierName))
@@ -55,7 +55,7 @@
                     @else
                         <div class="row">
                             <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded">
-                                The request for your {{ucfirst($this->team->sponsorTier->name)}} sponsorship is still in review and not yet approved. We will be in contact with you soon.
+                                The request for your {{ucfirst($this->company->sponsorship->name)}} sponsorship is still in review and not yet approved. We will be in contact with you soon.
                             </div>
                         </div>
                     @endif

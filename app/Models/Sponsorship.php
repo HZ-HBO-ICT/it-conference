@@ -19,4 +19,36 @@ class Sponsorship extends Model
     {
         return $this->hasMany(Company::class);
     }
+
+    /**
+     * Checks if there are any spots left for the specific sponsorship tier
+     * @return bool
+     */
+    public function areMoreSponsorsAllowed()
+    {
+        return $this->companies()->where('is_sponsorship_approved', '=', 1)
+                ->count() < $this->max_sponsors;
+    }
+
+    /**
+     * Calculates the number of left spots for the specific sponsorship tier
+     * @return mixed
+     */
+    public function leftSpots()
+    {
+        return $this->max_sponsors - $this->companies()->where('is_sponsorship_approved', '=', 1)
+                ->count();
+    }
+
+    /**
+     * Scope a query to only include companies that require approval
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAwaitingApproval($query): mixed
+    {
+        return $query->join('companies', 'companies.sponsorship_id', '=', 'sponsorships.id')
+            ->where('companies.is_sponsorship_approved', '=', 0);
+    }
 }

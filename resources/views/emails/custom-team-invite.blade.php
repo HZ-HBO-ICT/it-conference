@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have been invited to join {{$invitation->team->name}} for the IT Conference!
+# You have been invited to join {{$invitation->company->name}} for the IT Conference!
 Create an account and accept the invitation following the link bellow
 
 @component('mail::button', ['url' => $acceptUrl])

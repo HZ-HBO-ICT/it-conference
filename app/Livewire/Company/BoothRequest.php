@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire\Company;
 
 use App\Models\Booth;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
@@ -10,20 +10,20 @@ use Livewire\Component;
 
 class BoothRequest extends Component
 {
-    public $team;
+    public $company;
     public $additionalInformation;
     public $requestSent;
 
     /**
      * Initializing the component
-     * @param $team
+     * @param $company
      * @return void
      */
-    public function mount($team)
+    public function mount($company)
     {
-        $this->team = $team;
+        $this->company = $company;
 
-        $this->requestSent = $this->team->booth ? true : false;
+        $this->requestSent = $this->company->booth ? true : false;
     }
 
     /**
@@ -32,7 +32,7 @@ class BoothRequest extends Component
      */
     public function render()
     {
-        return view('livewire.booth-request');
+        return view('livewire.company.booth-request');
     }
 
     /**
@@ -41,20 +41,20 @@ class BoothRequest extends Component
      */
     public function requestBooth()
     {
-        if (!$this->team->booth) {
+        if (!$this->company->booth) {
             Booth::create(
                 [
-                    'width' => 3,
-                    'length' => 3,
+                    'width' => 1,
+                    'length' => 2,
                     'additional_information' => is_null($this->additionalInformation)
                         ? 'No additional demands' : $this->additionalInformation,
-                    'team_id' => $this->team->id
+                    'company_id' => $this->company->id
                 ]
             );
 
             $this->additionalInformation = '';
             $this->requestSent = true;
-            $this->team->refresh();
+            $this->company->refresh();
             session()->flash('success', 'The request has been sent successfully.');
         }
     }

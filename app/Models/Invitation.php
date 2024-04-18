@@ -11,6 +11,8 @@ class Invitation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['email', 'company_id', 'role'];
+
     /**
      * Establishes relationship between the invitations and the company
      * @return BelongsTo

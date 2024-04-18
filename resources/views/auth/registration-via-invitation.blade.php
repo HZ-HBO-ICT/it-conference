@@ -11,7 +11,7 @@
         <form method="POST" action="{{ route('register.via.invitation', $invitation) }}">
             @csrf
             <div class="text-center text-gray-900 dark:text-white">
-                <h2 class="text-xl">Register as part of {{$invitation->team->name}}</h2>
+                <h2 class="text-xl">Register as part of {{$invitation->company->name}}</h2>
             </div>
 
             <div class="mt-5">

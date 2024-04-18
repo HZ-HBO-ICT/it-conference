@@ -1,46 +1,47 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire\Company;
 
+use App\Models\Sponsorship;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class SponsorshipRequest extends Component
 {
-    public $team;
+    public $company;
     public $tiers;
     public $chosenTierName;
     public $requestSent;
 
     /**
      * Triggered when initializing a component
-     * @param $team
-     * @param $tiers
+     * @param $company
      * @return void
      */
-    public function mount($team, $tiers)
+    public function mount($company)
     {
-        $this->team = $team;
-        $this->tiers = $tiers;
-        foreach ($tiers as $tier) {
+        $this->company = $company;
+        $this->tiers = Sponsorship::all();
+        foreach ($this->tiers as $tier) {
             if ($tier->leftSpots() > 0) {
                 $this->chosenTierName = $tier->name;
                 break;
             }
         }
 
-        $this->requestSent = (bool)$this->team->sponsorTier;
+        $this->requestSent = (bool)$this->company->sponsorship;
     }
 
     /**
      * Render the component
-     * @return Factory|Application|\Illuminate\Contracts\View\View|ApplicationContract
+     * @return View
      */
-    public function render()
+    public function render(): View
     {
-        return view('livewire.sponsorship-request');
+        return view('livewire.company.sponsorship-request');
     }
 
     /**
@@ -49,12 +50,12 @@ class SponsorshipRequest extends Component
      */
     public function requestSponsorship()
     {
-        if (!$this->team->sponsorTier) {
+        if (!$this->company->sponsorship) {
             $chosenTier = $this->tiers->firstWhere('name', $this->chosenTierName);
-            $this->team->sponsor_tier_id = $chosenTier->id;
-            $this->team->is_sponsor_approved = 0;
-            $this->team->save();
-            $this->team->refresh();
+            $this->company->sponsorship_id = $chosenTier->id;
+            $this->company->is_sponsorship_approved = 0;
+            $this->company->save();
+            $this->company->refresh();
             $this->requestSent = true;
             session()->flash('success', 'The request has been sent successfully.');
         }

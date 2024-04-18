@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -15,17 +16,17 @@ class CustomTeamInvitation extends Mailable
     /**
      * The team invitation instance.
      *
-     * @var \Laravel\Jetstream\TeamInvitation
+     * @var Invitation TeamInvitation
      */
     public $invitation;
 
     /**
      * Create a new message instance.
      *
-     * @param \Laravel\Jetstream\TeamInvitation $invitation
+     * @param $invitation
      * @return void
      */
-    public function __construct(TeamInvitationModel $invitation)
+    public function __construct($invitation)
     {
         $this->invitation = $invitation;
     }
