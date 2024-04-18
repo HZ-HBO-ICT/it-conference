@@ -1,44 +1,26 @@
 <div class="slideshow-container h-full rounded-md" style="overflow: clip">
     <div class="slide relative h-full">
         <img class="h-full object-cover" src="/img/slideshows/market.jpg" alt="market">
-        <div class="gradient absolute inset-0" style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
-        <div class="absolute inset-0 flex flex-col items-left pl-12 mt-32" style="z-index: 3">
-            <div>
-                <h1 class="text-4xl font-bold pb-12 text-white drop-shadow-md">We are in IT together</h1>
-            </div>
-            <div>
-                <h2 class="title text-sm md:text-lg lg:text-xl text-white font-medium pt-48 py-2">
-                    A lot of companies join the IT conference each year.<br>You can find out more <a class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all" href="{{route('companies.index')}}">here</a>.
-                </h2>
-            </div>
+        <div class="gradient absolute inset-0"
+             style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
+        <div class="absolute inset-0 flex justify-center items-center" style="z-index: 3">
+            <h2 class="text-5xl font-bold text-white drop-shadow-md text-center leading-tight">We are in IT together<br>Conference</h2>
         </div>
     </div>
     <div class="slide relative h-full" style="display:none">
         <img class="h-full object-cover" src="/img/slideshows/guinea-pigs-and-data-science.jpg" alt="market">
-        <div class="gradient absolute inset-0" style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
-        <div class="absolute inset-0 flex flex-col items-left pl-12 mt-32" style="z-index: 3">
-            <div>
-                <h1 class="text-4xl font-bold pb-12 text-white drop-shadow-md">We are in IT together</h1>
-            </div>
-            <div>
-                <h2 class="title text-sm md:text-lg lg:text-xl text-white font-medium pt-48 py-2">
-                    If you are passionate for something IT related and<br> want to share it with everyone, you can<br> request to become a speaker!
-                </h2>
-            </div>
+        <div class="gradient absolute inset-0"
+             style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
+        <div class="absolute inset-0 flex justify-center items-center" style="z-index: 3">
+            <h2 class="text-5xl font-bold text-white drop-shadow-md text-center leading-tight">We are in IT together<br>Conference</h2>
         </div>
     </div>
     <div class="slide relative h-full" style="display:none">
         <img class="h-full object-cover" src="/img/slideshows/aws.jpg" alt="market">
-        <div class="gradient absolute inset-0" style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
-        <div class="absolute inset-0 flex flex-col items-left pl-12 mt-32" style="z-index: 3">
-            <div>
-                <h1 class="text-4xl font-bold pb-12 text-white drop-shadow-md">We are in IT together</h1>
-            </div>
-            <div>
-                <h2 class="title text-sm md:text-lg lg:text-xl text-white font-medium pt-48 py-2">
-                    During the conference there are many lectures and workshops. Enroll fast for the ones that sound the most interesting to you!
-                </h2>
-            </div>
+        <div class="gradient absolute inset-0"
+             style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
+        <div class="absolute inset-0 flex justify-center items-center" style="z-index: 3">
+            <h2 class="text-5xl font-bold text-white drop-shadow-md text-center leading-tight">We are in IT together<br>Conference</h2>
         </div>
     </div>
 </div>
