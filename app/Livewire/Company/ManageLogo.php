@@ -1,29 +1,28 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire\Company;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
-class ManageCompanyLogo extends Component
+class ManageLogo extends Component
 {
     use WithFileUploads;
 
     public $photo;
-    public $team;
+    public $company;
 
     /**
      * Triggered when initializing the component
-     * @param $team
+     * @param $company
      * @return void
      */
-    public function mount($team)
+    public function mount($company)
     {
-        $this->team = $team;
+        $this->company = $company;
     }
 
     /**
@@ -48,9 +47,10 @@ class ManageCompanyLogo extends Component
         ]);
 
         $path = $this->photo->store('logos', 'public');
-        $this->team->update(['logo_path' => $path]);
 
-        ImageOptimizer::optimize('storage/' . $path);
+        $this->company->update(['logo_path' => $path]);
+
+        //ImageOptimizer::optimize('storage/' . $path);
 
         $this->reset(['photo']);
         session()->flash('message', 'Logo successfully updated.');
@@ -58,10 +58,10 @@ class ManageCompanyLogo extends Component
 
     /**
      * Renders the component
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     * @return View
      */
-    public function render()
+    public function render() : View
     {
-        return view('livewire.manage-company-logo');
+        return view('livewire.company.manage-logo');
     }
 }

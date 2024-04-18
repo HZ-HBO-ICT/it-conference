@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('website');
             $table->text('description');
+            $table->string('phone_number');
             $table->boolean('is_approved')->default(false);
             $table->unsignedBigInteger('sponsorship_id')->nullable();
             $table->boolean('is_sponsorship_approved')->nullable();
-            $table->string('company_photo_path')->nullable();
+            $table->string('logo_path')->nullable();
             $table->string('postcode');
             $table->string('street');
             $table->string('house_number');

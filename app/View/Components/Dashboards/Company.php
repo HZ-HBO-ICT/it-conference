@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Dashboards;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class CompanyDashboardSection extends Component
+class Company extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class CompanyDashboardSection extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.company-dashboard-section');
+        return view('components.dashboards.company');
     }
 }

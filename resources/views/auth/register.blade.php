@@ -50,14 +50,3 @@
 </x-app-layout>
 
 <script src="/js/registration-toggle.js"></script>
-
-<style>
-    .scale-transition {
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .scaled-down {
-        transform: scaleX(0.5); /* Adjust the scale factor based on actual layout */
-        transform-origin: left; /* Keeps the element anchored to the left */
-    }
-</style>

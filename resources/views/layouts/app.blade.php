@@ -52,5 +52,6 @@
     @stack('modals')
     @stack('scripts')
     @livewireScripts
+    @livewire('wire-elements-modal')
 </body>
 </html>

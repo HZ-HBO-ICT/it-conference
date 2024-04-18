@@ -11,7 +11,7 @@
             <div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
                 @if(Auth::user()->company)
-                    <x-company-dashboard-section></x-company-dashboard-section>
+                    <x-dashboards.company></x-dashboards.company>
                 @endif
                 @if(Auth::user()->hasRole('content moderator'))
                     <x-content-moderator-dashboard></x-content-moderator-dashboard>

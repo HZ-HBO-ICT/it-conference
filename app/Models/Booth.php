@@ -10,6 +10,8 @@ class Booth extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['width', 'length', 'company_id', 'additional_information', 'is_approved'];
+
     /**
      * Establishes the relationship between the booth and
      * the company that owns it
