@@ -4,7 +4,7 @@
 <x-app-layout>
     <div class="md:py-20 h-screen md:h-auto flex items-center justify-center bg-gray-100 dark:bg-gray-900 md:px-40">
         <div class="grid grid-cols-7 w-full bg-white dark:bg-gray-800 rounded-md">
-            <div id="pretty-slide" class="h-full col-span-4 hidden md:block rounded-md">
+            <div id="pretty-slide" class="h-full {{is_null(old('company_name')) ? 'col-span-4' : 'col-span-2'}} hidden md:block rounded-md">
                 <div class="h-full rounded-md">
                     <div class="relative w-full h-full">
                         <div class="gradient w-full absolute inset-0 rounded-md"
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div id="form-slide" class="col-span-6 w-full md:col-span-3 px-12 py-28">
+            <div id="form-slide" class="{{is_null(old('company_name')) ? 'md:col-span-3' : 'md:col-span-5'}} w-full col-span-6 px-12 py-28">
                 <div>
                     <div class="text-center md:text-left text-black dark:text-gray-100">
                         <h2 class="text-3xl pt-5 font-semibold">Register</h2>
