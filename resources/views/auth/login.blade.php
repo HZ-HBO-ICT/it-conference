@@ -2,7 +2,16 @@
     <div class="md:py-20 h-screen md:h-auto flex items-center justify-center bg-gray-100 dark:bg-gray-900 md:px-40">
         <div class="grid grid-cols-7 bg-white dark:bg-gray-800 rounded-md">
             <div class="col-span-4 h-full hidden md:block">
-                <x-slideshows.login></x-slideshows.login>
+                <div class="h-full rounded-md" style="overflow: clip">
+                    <div class="relative h-full">
+                        <img class="h-full object-cover" src="/img/slideshows/market.jpg" alt="market">
+                        <div class="gradient absolute inset-0"
+                             style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
+                        <div class="absolute inset-0 flex justify-center items-center" style="z-index: 3">
+                            <h2 class="text-5xl font-bold text-white drop-shadow-md text-center leading-tight">We are in IT together<br>Conference</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-span-7 md:col-span-3 px-12 py-28 ">
                 <div>
