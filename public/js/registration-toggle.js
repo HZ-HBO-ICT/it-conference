@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const registrationDiv = document.getElementById('registration-card');
     const participantDiv = document.getElementById('participant');
     const companyDiv = document.getElementById('company');
+    const title = document.getElementById('title');
     const formDiv = document.getElementById('form-slide');
     const prettyDiv = document.getElementById('pretty-slide');
 
@@ -64,11 +65,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function switchRegistrationFlow(event) {
         buttons.forEach(button => {
-            button.className = 'flow bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center';
+            button.className = 'flow bg-partner-500 hover:bg-partner-600 text-white font-bold py-2 px-4 rounded text-center';
             button.style.cursor = 'pointer';
         });
 
-        event.target.className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
+        event.target.className = 'flow bg-partner-700 text-white font-bold py-2 px-4 rounded text-center';
         event.target.style.cursor = 'default';
     }
 
@@ -83,6 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
         formDiv.classList.remove('md:col-span-3');
         prettyDiv.classList.remove('col-span-4');
         prettyDiv.classList.add('col-span-2');
+        title.classList.remove('text-5xl');
+        title.classList.add('text-2xl');
     }
 
     function clearCompanyDetails() {
@@ -92,6 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
         formDiv.classList.add('md:col-span-3');
         prettyDiv.classList.add('col-span-4');
         prettyDiv.classList.remove('col-span-2');
+        title.classList.add('text-5xl');
+        title.classList.remove('text-2xl');
     }
 
     function postcodeValidation() {
@@ -120,9 +125,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function switchActiveFlow(activeFlowElement, inactiveFlowElement) {
-        activeFlowElement.className = 'flow bg-indigo-800 text-white font-bold py-2 px-4 rounded text-center';
+        activeFlowElement.className = 'flow bg-partner-700 text-white font-bold py-2 px-4 rounded text-center';
         activeFlowElement.style.cursor = 'default';
-        inactiveFlowElement.className = 'flow bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center';
+        inactiveFlowElement.className = 'flow bg-partner-500 hover:bg-partner-600 text-white font-bold py-2 px-4 rounded text-center';
         inactiveFlowElement.style.cursor = 'pointer';
     }
 

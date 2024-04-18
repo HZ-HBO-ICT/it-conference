@@ -2,7 +2,7 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
         <div>
-            <div class="mt-5">
+            <div class="mt-3">
                 <x-label for="name" value="{{ __('Full Name') }}"
                          class="after:content-['*'] after:text-red-500"/>
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name"
