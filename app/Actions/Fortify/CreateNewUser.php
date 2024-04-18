@@ -53,6 +53,11 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
                 $user->assignRole('participant');
+
+                if(env('APP_ENV') == 'local') {
+                    $user->markEmailAsVerified();
+                }
+
                 if (array_key_exists('institution', $input)) {
                     $user->institution = $input['institution'];
                     $user->save();
