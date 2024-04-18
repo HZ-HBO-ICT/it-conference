@@ -1,8 +1,8 @@
 <div id="company" class="{{is_null(old('company_name')) ? 'hidden' : ''}}">
     <form method="POST" action="{{ route('register') }}">
         @csrf
-        <h3 class="text-lg font-semibold pt-4">Company representative details</h3>
-        <div class="grid gap-x-6 grid-cols-2">
+        <h3 class="text-lg text-black dark:text-gray-100 font-semibold pt-4">Company representative details</h3>
+        <div class="grid gap-x-6 grid-cols-1 sm:grid-cols-2">
             <div class="mt-2">
                 <x-label for="name" value="{{ __('Full Name') }}"
                          class="after:content-['*'] after:text-red-500"/>
@@ -55,8 +55,8 @@
                          name="password_confirmation" required autocomplete="new-password"/>
             </div>
         </div>
-        <h3 class="text-lg font-semibold pt-5">Company details</h3>
-        <div id="company" class="grid grid-cols-2 gap-x-6">
+        <h3 class="text-lg text-black dark:text-gray-100 font-semibold pt-5">Company details</h3>
+        <div id="company" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div class="mt-2">
                 <x-label for="company_name" value="{{ __('Company Name') }}"
                          class="after:content-['*'] after:text-red-500"/>
@@ -76,7 +76,7 @@
             </div>
 
 
-            <div class="mt-3 col-span-2">
+            <div class="mt-3 col-span-1 sm:col-span-2">
                 <x-label for="company_description" value="{{ __('Company Description') }}"
                          class="after:content-['*'] after:text-red-500"/>
                 <textarea id="email"
@@ -85,7 +85,7 @@
                 >{{old('company_description')}}</textarea>
             </div>
 
-            <div class="mt-2 col-span-2">
+            <div class="mt-2 col-span-1 sm:col-span-2">
                 <x-label for="company_website" value="{{ __('Website') }}"
                          class="after:content-['*'] after:text-red-500"/>
                 <x-input id="company_website" class="block mt-1 w-full" type="url"
