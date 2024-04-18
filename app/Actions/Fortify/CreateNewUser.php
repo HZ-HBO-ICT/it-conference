@@ -44,7 +44,11 @@ class CreateNewUser implements CreatesNewUsers
             ])
             : $defaultRules;
 
-        Validator::make($input, $validationRules)->validate();
+        $customMessages = [
+            'company_phone_number.required' => 'The company phone number is required.',
+            'company_phone_number.phone' => 'The company phone number is invalid.',
+        ];
+        Validator::make($input, $validationRules, $customMessages)->validate();
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
