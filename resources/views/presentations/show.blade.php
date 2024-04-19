@@ -44,13 +44,15 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation status</dt>
-                        <dd class="mt-1 text-sm leading-6 {{$presentation->mainSpeaker()->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
-                            {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
+                        <dd class="mt-1 text-sm leading-6 {{$presentation->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
+                            {{$presentation->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
                     @can('update', $presentation)
                         <div class="mt-5">
+{{--
                             @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
+--}}
                         </div>
                     @endcan
                 </x-slot>
@@ -59,7 +61,9 @@
 
             <x-section-border/>
 
+{{--
             @livewire('upload-presentation', ['presentation' => $presentation])
+--}}
 
             <x-section-border/>
 
@@ -89,9 +93,9 @@
             <x-section-border/>
 
         @can('delete', $presentation)
-                <div class="mt-10 sm:mt-0">
+                {{--<div class="mt-10 sm:mt-0">
                     @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
-                </div>
+                </div>--}}
             @else
                 <x-action-section>
                     <x-slot name="title">
