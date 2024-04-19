@@ -4,7 +4,9 @@ namespace App\Livewire\Presentation;
 
 use App\Livewire\Forms\PresentationForm;
 use App\Models\Presentation;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class EditPresentationModal extends Component
@@ -13,13 +15,22 @@ class EditPresentationModal extends Component
     public Presentation $presentation;
     public PresentationForm $form;
 
+    /**
+     * Initializes the component
+     * @param Presentation $presentation
+     * @return void
+     */
     public function mount(Presentation $presentation)
     {
         $this->presentation = $presentation;
         $this->form->setCompany($presentation);
     }
 
-    public function save()
+    /**
+     * Saves the updates made on the form
+     * @return RedirectResponse
+     */
+    public function save() : RedirectResponse
     {
         $this->validate();
 
@@ -34,7 +45,11 @@ class EditPresentationModal extends Component
         }
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.presentation.edit-presentation-modal');
     }

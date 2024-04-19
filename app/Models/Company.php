@@ -133,7 +133,8 @@ class Company extends Model
         return Attribute::make(
             get: function () {
                 return $this->name == 'HZ University of Applied Sciences';
-            });
+            }
+        );
     }
 
     /**
