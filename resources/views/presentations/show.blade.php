@@ -61,9 +61,7 @@
 
             <x-section-border/>
 
-{{--
-            @livewire('upload-presentation', ['presentation' => $presentation])
---}}
+            @livewire('presentation.upload-presentation', ['presentation' => $presentation])
 
             <x-section-border/>
 

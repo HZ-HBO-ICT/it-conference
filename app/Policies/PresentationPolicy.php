@@ -14,7 +14,7 @@ class PresentationPolicy
      * Calculates the deadline for signing up for speakers
      * @return Carbon
      */
-    private function deadline(): Carbon
+    public function deadline(): Carbon
     {
         $deadline = Carbon::createFromDate(2024, 10, 27);
         $deadline->setTime(12, 0, 0);
