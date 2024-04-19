@@ -50,9 +50,7 @@
                     </div>
                     @can('update', $presentation)
                         <div class="mt-5">
-{{--
-                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
---}}
+                            @livewire('presentation.edit-presentation-modal', ['presentation' => $presentation])
                         </div>
                     @endcan
                 </x-slot>
@@ -91,9 +89,11 @@
             <x-section-border/>
 
         @can('delete', $presentation)
-                {{--<div class="mt-10 sm:mt-0">
-                    @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
-                </div>--}}
+                <div class="mt-10 sm:mt-0">
+{{--
+                    @livewire('presentation.delete-presentation-modal', ['presentation' => $presentation])
+--}}
+                </div>
             @else
                 <x-action-section>
                     <x-slot name="title">

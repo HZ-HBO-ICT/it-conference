@@ -61,6 +61,8 @@ Route::post('/speakers/request', [PresentationController::class, 'store'])
 
 Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
     ->name('presentations.show');
+Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+    ->name('presentations.destroy');
 
 Route::middleware([
     'auth:sanctum',
@@ -97,8 +99,7 @@ Route::middleware([
 //    Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
 //        ->name('presentations.update');
 //
-//    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
-//        ->name('presentations.destroy');
+
 //});
 //
 //
