@@ -4,7 +4,6 @@ namespace App\Livewire\Presentation;
 
 use App\Models\Presentation;
 use Illuminate\View\View;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class DeletePresentationModal extends ModalComponent

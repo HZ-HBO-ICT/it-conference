@@ -110,7 +110,8 @@
                     </x-slot>
 
                     <x-slot name="actions">
-                        <x-danger-button onclick="Livewire.dispatch('openModal', { component: 'presentation.delete-presentation-modal' })">
+                        <x-danger-button
+                            onclick="Livewire.dispatch('openModal', { component: 'presentation.delete-presentation-modal', arguments: {presentation: {{$presentation}}} })">
                             {{ __('Delete Presentation') }}
                         </x-danger-button>
                     </x-slot>
