@@ -88,14 +88,37 @@
 
             <x-section-border/>
 
-        @can('delete', $presentation)
-                <div class="mt-10 sm:mt-0">
-{{--
-                    @livewire('presentation.delete-presentation-modal', ['presentation' => $presentation])
---}}
-                </div>
+            @can('delete', $presentation)
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Delete This Presentation') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Permanently remove the presentation from the system') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="dark:text-gray-200">
+                            @if(Auth::user()->hasRole('content moderator'))
+                                {{ __('If you delete this presentation, the speaker/s will no longer have this presentation, it will be gone
+                                from the schedule and all participants that have registered for it will be dis-enrolled from it') }}
+                            @else
+                                {{ __('Your presentation is still not approved and you can still remove your presentation') }}
+                            @endif
+                        </div>
+                    </x-slot>
+
+                    <x-slot name="actions">
+                        <x-danger-button onclick="Livewire.dispatch('openModal', { component: 'presentation.delete-presentation-modal' })">
+                            {{ __('Delete Presentation') }}
+                        </x-danger-button>
+                    </x-slot>
+
+                </x-action-section>
             @else
                 <x-action-section>
+
                     <x-slot name="title">
                         {{ __('Delete Presentation') }}
                     </x-slot>
@@ -115,14 +138,3 @@
         </div>
     </div>
 </x-hub-layout>
-
-
-{{--<x-hub-layout>--}}
-{{--    <x-presentation-details--}}
-{{--        :presentation="$presentation"--}}
-{{--        :presentationName="$presentation->name"--}}
-{{--        :presentationDescription="$presentation->description"--}}
-{{--        :filename="basename($presentation->file_path)"--}}
-{{--        :presentationType="$presentation->type"--}}
-{{--        :presentationMaxParticipants="$presentation->max_participants"--}}
-{{--    />--}}
