@@ -52,4 +52,17 @@ class PresentationController extends Controller
 
         abort(403);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Presentation $presentation)
+    {
+        Auth::user()->can('delete', $presentation);
+
+        $presentation->delete();
+
+        return redirect(route('dashboard'))
+            ->banner('You deleted your presentation request successfully');
+    }
 }
