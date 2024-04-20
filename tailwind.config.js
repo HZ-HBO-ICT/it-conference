@@ -20,9 +20,9 @@ export default {
             },
             colors: {
                 'gradient-yellow': '#F9CD32',
-                'gradient-pink': '#7533A9',
+                'gradient-pink': '#A37BB1',
                 'gradient-purple': '#7533A9',
-                'gradient-blue': '#151BB9',
+                'gradient-blue': '#3666FF',
                 'gold': '#FFD700',
                 'silver': '#C0C0C0',
                 'bronze': '#CD7F32',
