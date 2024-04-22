@@ -49,7 +49,7 @@ class PresentationPolicy
                 return true;
             }
 
-            return $user->currentTeam->has_presentations_left;
+            return $user->company->has_presentations_left;
         }
 
         return true;
