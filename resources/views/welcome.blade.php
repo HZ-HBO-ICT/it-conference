@@ -83,26 +83,26 @@
         <div class="bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
             <div class="grid md:grid-cols-4 mt-5 mb-5 lg:mr-40 lg:ml-40">
                 <div class="text-center mb-5">
-                    <p class="text-5xl font-bold text-center">10+</p>
+                    <p class="text-5xl font-bold text-center text-crew-500">10+</p>
                     <p class="uppercase font-bold text-sm">Speakers</p>
                 </div>
                 <div class="text-center mb-5">
-                    <p class="text-5xl font-bold text-center">200+</p>
+                    <p class="text-5xl font-bold text-center text-partner-600">200+</p>
                     <p class="uppercase font-bold text-sm">Students</p>
                 </div>
                 <div class="text-center mb-5">
-                    <p class="text-5xl font-bold text-center">20+</p>
+                    <p class="text-5xl font-bold text-center text-participant-500">20+</p>
                     <p class="uppercase font-bold text-sm">Companies</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-bold text-center">5+</p>
+                    <p class="text-5xl font-bold text-center text-pink-500">5+</p>
                     <p class="uppercase font-bold text-sm">Sponsors</p>
                 </div>
             </div>
         </div>
 
         <!-- Second banner -->
-        <div class="relative mb-12">
+        <div class="relative">
             <!-- Blob -->
             <!-- the auth/guest is necessary because the register now button changes the layout -->
             @auth()
@@ -116,14 +116,19 @@
                      style="transform: rotate(-90deg)">
             @endguest
 
-            <h2 class="flex justify-center mt-8 mb-5 uppercase font-bold text-sm">What to expect on this year's
+            <!-- Blob -->
+            <img src="/img/blue-blob.png"
+                 class="absolute -top-48 -right-36 h-[20rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
+                 style="transform: rotate(61deg)">
+
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">What to expect on this year's
                 conference?</h2>
 
             <!-- Background Gradient -->
             <div
                 class="absolute inset-0 bg-gradient-to-br from-gradient-pink to-gradient-blue mix-blend-hard-light"></div>
 
-            <div class="flex flex-wrap justify-center ml-12 mr-12">
+            <div class="flex flex-wrap justify-center ml-12 mr-12 mb-16">
                 <!-- Card 1 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
                     <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
@@ -175,10 +180,6 @@
         <div class="relative bg-cover">
             <div
                 class="bg-center before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-purple before:via-red-500 before:to-orange-500 before:opacity-70 before:w-full before:h-full"></div>
-            <!-- Blob -->
-            <img src="/img/blue-blob.png"
-                 class="absolute -top-48 right-0 h-[25rem] transform translate-x-1/2 translate-y-1/2 z-0 opacity-75"
-                 style="transform: rotate(61deg)">
 
             <div class="isolate py-16 mx-4 md:mx-32 lg:mx-32 xl:mx-52 h-max">
                 <h2 class="z-30 text-white text-4xl sm:text-5xl font-bold text-center hover:animate-pulse"
