@@ -133,14 +133,21 @@
                 <!-- Card 1 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
                     <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                        <!-- Top dark gradient -->
+                        <div class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
                         <div
-                            class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-color opacity-60"></div>
+                            class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/companies.jpg')}});"></div>
-                        <div class="text-white text-center p-6 relative">
-                            <h2 class="text-2xl font-bold">SPEAKERS</h2>
-                            <p class="mt-4">During the conference you will have the chance to meet and speak to our
-                                speakers.</p>
+                             style="background-image: url({{asset('/img/people-talking.jpg')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">SPEAKERS</h2>
+                                <p class="mt-4">During the conference you will have the chance to meet and speak to our
+                                    speakers.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,14 +155,20 @@
                 <!-- Card 2 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
                     <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-color opacity-60"></div>
+                        <!-- Top dark gradient -->
+                        <div class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-color opacity-50"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/companies.jpg')}});"></div>
-                        <div class="text-white text-center p-6 relative">
-                            <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
-                            <p class="mt-4">During the conference you can visit a lot of different workshops and
-                                lectures.</p>
+                             style="background-image: url({{asset('/img/lectures-min.jpg')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
+                                <p class="mt-4">During the conference you can visit a lot of different workshops and
+                                    lectures.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,14 +176,19 @@
                 <!-- Card 3 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
                     <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-color opacity-60"></div>
+                        <!-- Top dark gradient -->
+                        <div class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
                              style="background-image: url({{asset('/img/companies.jpg')}});"></div>
-                        <div class="text-white text-center p-6 relative">
-                            <h2 class="text-2xl font-bold">COMPANIES</h2>
-                            <p class="mt-4">During the conference you will have the chance to meet different
-                                companies.</p>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">COMPANIES</h2>
+                                <p class="mt-4">During the conference you will have the chance to meet different companies.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,7 +196,8 @@
 
             <!-- Third banner-->
             <div class="relative">
-                <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">Thanks to our sponsors</h2>
+                <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">Thanks to our
+                    sponsors</h2>
                 <div class="flex flex-wrap justify-center mb-16 text-center">
                     <div class="text-xl font-montserrat">
                         <h2>Golden sponsor</h2>
