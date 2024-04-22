@@ -27,10 +27,10 @@
         }
     </script>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased ">
 <x-banner/>
 
-<div class="min-h-screen">
+<div>
     @guest()
         @livewire('guest-navigation-menu')
     @endguest
@@ -39,7 +39,7 @@
     @endauth
 
     <!-- Page Content -->
-    <main>
+    <main class="bg-white text-black dark:bg-gray-500 dark:text-white">
         {{ $slot }}
     </main>
 </div>
