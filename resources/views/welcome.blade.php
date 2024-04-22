@@ -1,82 +1,87 @@
 <x-app-layout>
-    <div class="overflow-hidden" style="overflow-x: hidden;">
-        <!-- The main banner -->
-        <div class="relative min-h-screen isolate bg-white py-80 sm:py-72">
-            <div class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-gradient-pink mix-blend-hard-light"></div>
-            <div class="absolute inset-0 flex flex-col items-center px-4 py-16">
-                <!--Titles-->
-                <div class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-10">
-                    <div class="w-full md:w-3/5 text-black font-extrabold text-7xl md:text-left uppercase">
-                        <h1 class="leading-snug" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-                            We are in IT together Conference
-                        </h1>
-                    </div>
-                    <div class="w-full md:w-1/2 pt-1 text-xl text-black font-montserrat">
-                        <h2 class="uppercase font-bold">
-                            Annual IT Conference
-                        </h2>
-                        <h2 class="uppercase font-medium mb-8">
-                            November 15, 2024
-                        </h2>
-                        <h2 class="italic">
-                            "It does not only build a bridge, it involves us all"
-                        </h2>
-                        <h2 class="italic font-semibold">
-                            HZ University of Applied Sciences, Middelburg
-                        </h2>
-                        <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm">
-                            <a href="#">
-                                View companies
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </a>
-                            <a href="#">
-                                View speakers
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </a>
-                        </h2>
-                        <br>
-                        <x-button class="mt-4">
-                            <a href="{{route('register')}}">Register</a>
-                        </x-button>
-                    </div>
+    <!-- The main banner -->
+    <div class="relative bg-white py-80 sm:py-72">
+        <div class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-gradient-pink mix-blend-hard-light"></div>
+        <div class="absolute inset-0 flex flex-col items-center px-4 py-16">
+            <!--Titles-->
+            <div
+                class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-10">
+                <div class="w-full md:w-3/5 text-black font-extrabold text-7xl md:text-left uppercase">
+                    <h1 class="leading-snug" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
+                        We are in IT together Conference
+                    </h1>
                 </div>
-                <!-- Countdown Timer -->
-                <div class="w-full flex justify-center mt-24">
-                    <x-countdown/>
+                <div class="w-full md:w-1/2 pt-1 text-xl text-black font-montserrat">
+                    <h2 class="uppercase font-bold">
+                        Annual IT Conference
+                    </h2>
+                    <h2 class="uppercase font-medium mb-8">
+                        November 15, 2024
+                    </h2>
+                    <h2 class="italic">
+                        "It does not only build a bridge, it involves us all"
+                    </h2>
+                    <h2 class="italic font-semibold">
+                        HZ University of Applied Sciences, Middelburg
+                    </h2>
+                    <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm">
+                        <a href="#">
+                            View companies
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            View speakers
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </a>
+                    </h2>
+                    <br>
+                    <x-button class="mt-4">
+                        <a href="{{route('register')}}">Register</a>
+                    </x-button>
                 </div>
-                {{--                    <div class="flex flex-row">--}}
-                {{--                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">--}}
-                {{--                            <div class="flex flex-col items-start pt-10">--}}
-                {{--                                <p class="text-black uppercase pb-2">15 November 2024</p>--}}
-                {{--                                <x-countdown/>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                <!-- The div for the logo of the sponsor -->
-                <!-- TODO: Fix when database gets rebuilt -->
-                {{--@if($goldSponsor && $goldSponsor->is_sponsor_approved)
-                    <div class="basis-1/3 pt-16">
-                        <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
-                    </div>
-                    <div class="basis-1/3 pt-16">
-                        <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
-                    </div>
-                @endif--}}
-                {{--                    </div>--}}
-                <!-- TODO: Fix when authentication gets implemented -->
-                {{--@guest()
-                    <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
-                        <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
-                    </div>
-                @endguest--}}
             </div>
+            <!-- Countdown Timer -->
+            <div class="w-full flex justify-center mt-24">
+                <x-countdown/>
+            </div>
+            {{--                    <div class="flex flex-row">--}}
+            {{--                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">--}}
+            {{--                            <div class="flex flex-col items-start pt-10">--}}
+            {{--                                <p class="text-black uppercase pb-2">15 November 2024</p>--}}
+            {{--                                <x-countdown/>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            <!-- The div for the logo of the sponsor -->
+            <!-- TODO: Fix when database gets rebuilt -->
+            {{--@if($goldSponsor && $goldSponsor->is_sponsor_approved)
+                <div class="basis-1/3 pt-16">
+                    <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
+                </div>
+                <div class="basis-1/3 pt-16">
+                    <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
+                </div>
+            @endif--}}
+            {{--                    </div>--}}
+            <!-- TODO: Fix when authentication gets implemented -->
+            {{--@guest()
+                <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
+                    <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
+                </div>
+            @endguest--}}
         </div>
     </div>
+
+    <!--Statistics-->
+    <div class="bg-white h-32 mt-5"></div>
+
     <!-- Second banner -->
-    <div class="relative isolate h-[29rem] border-red-700">
+    <div class="relative mb-12">
         <!-- Blob -->
         <!-- the auth/guest is necessary because the register now button changes the layout -->
         @auth()
@@ -89,8 +94,61 @@
                  class="absolute -top-88 -left-96 md:-top-56 md:-left-80 lg:-top-88 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(-90deg)">
         @endguest
-        <x-slideshow/>
+        <h2 class="flex justify-center mt-8 mb-5 uppercase font-bold text-sm dark:text-white">What to expect on this
+            year's conference?</h2>
+        <!-- Background Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-gradient-pink mix-blend-hard-light"></div>
+
+        <div class="flex flex-wrap justify-center ml-12 mr-12">
+            <!-- Card 1 -->
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
+                <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800"></div>
+                    <div class="bg-cover bg-center h-full"
+                         style="background-image: url({{asset('/img/companies.jpg')}});">
+                    </div>
+                    <div class="text-white text-center p-6 relative z-10">
+                        <h2 class="text-2xl font-bold">SPEAKERS</h2>
+                        <p class="mt-4">During the conference you will have the chance to meet and speak to our
+                            speakers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
+                <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500"></div>
+                    <div class="bg-cover bg-center h-full"
+                         style="background-image: url({{asset('/img/companies.jpg')}});">
+                    </div>
+                    <div class="text-white text-center p-6 relative z-10">
+                        <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
+                        <p class="mt-4">During the conference you can visit a lot of different workshops and
+                            lectures.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
+                <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink"></div>
+                    <div class="bg-cover bg-center h-full"
+                         style="background-image: url({{asset('/img/companies.jpg')}});">
+                    </div>
+                    <div class="text-white text-center p-6 relative z-10">
+                        <h2 class="text-2xl font-bold">COMPANIES</h2>
+                        <p class="mt-4">During the conference you will have the chance to meet different companies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <!-- Third banner + gradient (since empty bg) -->
     <div class="relative bg-cover">
         <div

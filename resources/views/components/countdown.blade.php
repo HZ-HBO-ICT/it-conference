@@ -16,7 +16,7 @@
                     div.className = 'flex flex-col items-center justify-center mr-5';
 
                     let value = document.createElement('h2');
-                    value.className = 'text-4xl font-bold text-center';
+                    value.className = 'text-5xl font-bold text-center';
                     valueElements.push(value);
 
                     let label = document.createElement('p');
