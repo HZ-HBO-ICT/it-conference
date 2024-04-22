@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <!-- Second banner -->
+        <!-- Second banner + third banner inside it (to use the gradient) -->
         <div class="relative">
             <!-- Blob -->
             <!-- the auth/guest is necessary because the register now button changes the layout -->
@@ -121,12 +121,13 @@
                  class="absolute -top-48 -right-36 h-[20rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(61deg)">
 
-            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">What to expect on this year's
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">What to expect on this
+                year's
                 conference?</h2>
 
             <!-- Background Gradient -->
             <div
-                class="absolute inset-0 bg-gradient-to-br from-gradient-pink to-gradient-blue mix-blend-hard-light"></div>
+                class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-gradient-pink mix-blend-hard-light"></div>
 
             <div class="flex flex-wrap justify-center ml-12 mr-12 mb-16">
                 <!-- Card 1 -->
@@ -174,19 +175,18 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Third banner + gradient (since empty bg) -->
-        <div class="relative bg-cover">
-            <div
-                class="bg-center before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-purple before:via-red-500 before:to-orange-500 before:opacity-70 before:w-full before:h-full"></div>
+            <!-- Third banner-->
+            <div class="relative">
+                <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">Thanks to our sponsors</h2>
+                <div class="flex flex-wrap justify-center mb-16 text-center">
+                    <div class="text-xl font-montserrat">
+                        <h2>Golden sponsor</h2>
 
-            <div class="isolate py-16 mx-4 md:mx-32 lg:mx-32 xl:mx-52 h-max">
-                <h2 class="z-30 text-white text-4xl sm:text-5xl font-bold text-center hover:animate-pulse"
-                    style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-                    Sponsors
-                </h2>
-
+                        <h2>Silver sponsors</h2>
+                        <h2>Bronze sponsors</h2>
+                    </div>
+                </div>
                 <!-- TODO: Fix when database gets rebuilt -->
                 {{--@if(!$allSponsors->isEmpty())
                     <div class="isolate flex flex-wrap justify-center w-full gap-3 xl:gap-8 lg:gap-8 md:gap-8 mt-16">
