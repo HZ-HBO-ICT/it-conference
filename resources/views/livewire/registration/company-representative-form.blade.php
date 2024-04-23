@@ -14,7 +14,7 @@
                              :value="old('name')"
                              required
                              autofocus autocomplete="name"/>
-                    <div>@error('name') {{ $message }} @enderror</div>
+                    <div class="text-red-500 mt-1">@error('name') {{ $message }} @enderror</div>
                 </div>
 
                 <div class="mt-4">
@@ -24,7 +24,7 @@
                              :value="old('email')"
                              required
                              autocomplete="username"/>
-                    <div>@error('email') {{ $message }} @enderror</div>
+                    <div class="text-red-500 mt-1">@error('email') {{ $message }} @enderror</div>
                 </div>
 
                 <div class="mt-4">
@@ -33,7 +33,7 @@
                     <x-input id="participant-password" class="block mt-1 w-full" type="password" name="password" wire:model="password"
                              required
                              autocomplete="new-password"/>
-                    <div>@error('password') {{ $message }} @enderror</div>
+                    <div class="text-red-500 mt-1">@error('password') {{ $message }} @enderror</div>
 
                     <div x-data="{ password: @entangle('password') }">
                         <div x-show="password.length > 0"
@@ -49,7 +49,7 @@
                     <x-input id="password_confirmation" class="block mt-1 w-full" type="password" wire:model="password_confirmation"
                              name="password_confirmation" required autocomplete="new-password"/>
                 </div>
-                <div>@error('confirmPassword') {{ $message }} @enderror</div>
+                <div class="text-red-500 mt-1">@error('confirmPassword') {{ $message }} @enderror</div>
 
                 <div class="flex items-center justify-between mt-4">
                     <!-- Go back button on the left -->

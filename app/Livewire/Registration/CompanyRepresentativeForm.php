@@ -10,10 +10,10 @@ class CompanyRepresentativeForm extends Component
 {
     use PasswordValidationRules;
 
-    #[Validate('required')]
+    #[Validate(['required', 'string', 'max:255'])]
     public string $name;
 
-    #[Validate(['required', 'unique:users'])]
+    #[Validate(['required', 'string', 'email', 'max:255', 'unique:users'])]
     public string $email;
 
     #[Validate(['required', 'min:12', 'string'])]

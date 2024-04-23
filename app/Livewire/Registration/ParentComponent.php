@@ -23,14 +23,21 @@ class ParentComponent extends Component
         if ($formName == 'ParticipantForm') {
             //registration
         } elseif ($formName == 'CompanyRepresentativeForm') {
-            $this->showChooseRole = true;
-            $this->showCompanyRepresentativeForm = false;
-        } elseif ($formName == 'CompanyBasicInfoForm') {
             $this->showCompanyRepresentativeForm = false;
             $this->showCompanyBasicInfoForm = true;
-        } elseif ($formName == 'CompanyLocationInfoForm') {
-            $this->showCompanyLocationInfoForm = true;
+        } elseif ($formName == 'CompanyBasicInfoForm') {
             $this->showCompanyBasicInfoForm = false;
+            $this->showCompanyLocationInfoForm = true;
+        } elseif ($formName == 'CompanyLocationInfoForm') {
+            //registration
+        } elseif ($formName == 'ChooseRoleForm') {
+            if($input == 'Company') {
+                $this->showCompanyRepresentativeForm = true;
+                $this->showChooseRole = false;
+            } else {
+                $this->showParticipantForm = true;
+                $this->showChooseRole = false;
+            }
         }
     }
 
@@ -44,8 +51,8 @@ class ParentComponent extends Component
             $this->showChooseRole = true;
             $this->showCompanyRepresentativeForm = false;
         } elseif ($formName == 'CompanyBasicInfoForm') {
-            $this->showCompanyRepresentativeForm = false;
-            $this->showCompanyBasicInfoForm = true;
+            $this->showCompanyRepresentativeForm = true;
+            $this->showCompanyBasicInfoForm = false;
         } elseif ($formName == 'CompanyLocationInfoForm') {
             $this->showCompanyLocationInfoForm = true;
             $this->showCompanyBasicInfoForm = false;

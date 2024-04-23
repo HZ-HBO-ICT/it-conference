@@ -40,7 +40,7 @@
                         class="flow bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded text-center">
                         Participant
                     </div>
-                    <div wire:click="showCompanyRepresentative"
+                    <div wire:click="handleGoingNext('ChooseRoleForm', 'Company')"
                         class="flow bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded text-center">
                         Company representative
                     </div>
@@ -52,6 +52,9 @@
         </div>
         <div class="{{$showCompanyRepresentativeForm ? '' : 'hidden'}} w-full">
             <livewire:registration.company-representative-form/>
+        </div>
+        <div class="{{$showCompanyBasicInfoForm ? '' : 'hidden'}} w-full">
+            <livewire:registration.company-basic-info-form/>
         </div>
     </div>
 </div>
