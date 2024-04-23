@@ -8,8 +8,8 @@
                 <!--Titles-->
                 <div
                     class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-10">
-                    <div class="w-full lg:ml-16 md:w-3/5 font-extrabold lg:text-7xl md:text-6xl sm:text-3xl uppercase">
-                        <h1 class="leading-snug" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
+                    <div class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold lg:text-7xl md:text-6xl sm:text-3xl uppercase">
+                        <h1 class="leading-snug" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
                     </div>
