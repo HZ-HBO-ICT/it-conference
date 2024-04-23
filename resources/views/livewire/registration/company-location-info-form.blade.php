@@ -1,67 +1,51 @@
 <div>
     <div class="text-center md:text-left text-black dark:text-gray-100 w-full pb-5">
         <h2 class="text-3xl pt-5 font-semibold">Register</h2>
-        <div class="flex w-full">
-            <h3 class="text-2xl">Personal Details</h3>
-        </div>
+        <h3 class="text-2xl">Company Address details</h3>
     </div>
-    <div id="participant" class="{{is_null(old('company_name')) ? '' : 'hidden'}}">
+    <div id="participant">
         <form wire:submit="goNext">
             @csrf
             <div>
                 <div class="mt-3">
-                    <x-label for="name" value="{{ __('Full Name') }}"
+                    <x-label for="company_postcode" value="{{ __('Postcode') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="name"
-                             :value="old('name')"
+                    <x-input id="company_postcode" class="block mt-1 w-full" type="text" name="name" wire:model="companyPostcode"
+                             :value="old('company_postcode')"
                              required
-                             autofocus autocomplete="name"/>
-                    <div class="text-red-500 mt-1">@error('name') {{ $message }} @enderror</div>
+                             autofocus autocomplete="postcode"/>
+                    <div class="text-red-500 mt-1">@error('companyPostcode') {{ $message }} @enderror</div>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="email" value="{{ __('Email') }}"
+                    <x-label for="company_postcode" value="{{ __('House Number') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" wire:model="email"
-                             :value="old('email')"
+                    <x-input id="company_house_number" class="block mt-1 w-full" type="text" name="name" wire:model="companyHouseNumber"
+                             :value="old('company_house_number')"
                              required
-                             autocomplete="username"/>
-                    <div class="text-red-500 mt-1">@error('email') {{ $message }} @enderror</div>
+                             autofocus/>
+                    <div class="text-red-500 mt-1">@error('companyHouseNumber') {{ $message }} @enderror</div>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="institution" value="{{ __('Institution') }}"
+                    <x-label for="company_street" value="{{ __('Street') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="institution" class="block mt-1 w-full" type="text" name="institution" wire:model="institution"
-                             :value="old('institution')"
+                    <x-input id="company_street" class="block mt-1 w-full" type="text" name="name" wire:model="companyStreet"
+                             :value="old('company_street')"
                              required
-                             />
-                    <div class="text-red-500 mt-1">@error('institution') {{ $message }} @enderror</div>
+                             autofocus autocomplete="street"/>
+                    <div class="text-red-500 mt-1">@error('companyStreet') {{ $message }} @enderror</div>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}"
+                    <x-label for="company_city" value="{{ __('City') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="participant-password" class="block mt-1 w-full" type="password" name="password" wire:model="password"
+                    <x-input id="company_city" class="block mt-1 w-full" type="text" name="company_city" wire:model="companyCity"
+                             :value="old('company_city')"
                              required
-                             autocomplete="new-password"/>
-                    <div class="text-red-500 mt-1">@error('password') {{ $message }} @enderror</div>
-
-                    <div x-data="{ password: @entangle('password') }">
-                        <div x-show="password.length > 0"
-                             x-text="'The password must be at least 12 characters long.'"
-                             :class="{'text-red-500': password.length < 12, 'text-green-500': password.length >= 12}">
-                        </div>
-                    </div>
+                             autofocus autocomplete="city"/>
+                    <div class="text-red-500 mt-1">@error('companyCity') {{ $message }} @enderror</div>
                 </div>
-
-                <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}"
-                             class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" wire:model="password_confirmation"
-                             name="password_confirmation" required autocomplete="new-password"/>
-                </div>
-                <div class="text-red-500 mt-1">@error('confirmPassword') {{ $message }} @enderror</div>
 
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                     <div class="mt-4">

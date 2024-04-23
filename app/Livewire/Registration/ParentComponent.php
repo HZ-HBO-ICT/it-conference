@@ -2,6 +2,10 @@
 
 namespace App\Livewire\Registration;
 
+use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,26 +16,29 @@ class ParentComponent extends Component
     public bool $showCompanyRepresentativeForm = false;
     public bool $showCompanyBasicInfoForm = false;
     public bool $showCompanyLocationInfoForm = false;
-    private array $participantInput = [];
-    private array $companyRepresentativeInput = [];
-    private array $companyBasicInfoInput = [];
-    private array $companyLocationInfoInput = [];
+    public array $companyRepresentativeInput = [];
+    public array $companyBasicInfoInput = [];
 
     #[On('go-next')]
     public function handleGoingNext($formName, $input)
     {
         if ($formName == 'ParticipantForm') {
-            //registration
+            $this->register($input);
         } elseif ($formName == 'CompanyRepresentativeForm') {
             $this->showCompanyRepresentativeForm = false;
             $this->showCompanyBasicInfoForm = true;
+            $this->companyRepresentativeInput = $input;
         } elseif ($formName == 'CompanyBasicInfoForm') {
             $this->showCompanyBasicInfoForm = false;
             $this->showCompanyLocationInfoForm = true;
+            $this->companyBasicInfoInput = $input;
         } elseif ($formName == 'CompanyLocationInfoForm') {
-            //registration
+            $userInput = array_merge($this->companyRepresentativeInput,
+                $this->companyBasicInfoInput,
+                $input);
+            $this->register($userInput);
         } elseif ($formName == 'ChooseRoleForm') {
-            if($input == 'Company') {
+            if ($input == 'Company') {
                 $this->showCompanyRepresentativeForm = true;
                 $this->showChooseRole = false;
             } else {
@@ -57,6 +64,14 @@ class ParentComponent extends Component
             $this->showCompanyLocationInfoForm = true;
             $this->showCompanyBasicInfoForm = false;
         }
+    }
+
+    public function register( $input) {
+        event(new Registered($user = app(CreateNewUser::class)->create($input)));
+
+        Auth::guard()->login($user);
+
+        $this->redirect(route('dashboard'));
     }
 
     public function render()

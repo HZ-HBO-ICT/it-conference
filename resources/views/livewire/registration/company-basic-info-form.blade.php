@@ -1,7 +1,7 @@
 <div>
     <div class="text-center md:text-left text-black dark:text-gray-100 w-full pb-5">
         <h2 class="text-3xl pt-5 font-semibold">Register</h2>
-        <h3 class="text-2xl">Company representative details</h3>
+        <h3 class="text-2xl">Company details</h3>
     </div>
     <div id="participant">
         <form wire:submit="goNext">

@@ -36,7 +36,7 @@
             <div class="w-full">
                 <div
                     class="mt-1 pl-0 p-1 grid gap-1 grid-cols-1 lg:grid-cols-2 content-center rounded">
-                    <div wire:click="showParticipant"
+                    <div wire:click="handleGoingNext('ChooseRoleForm', 'Participant')"
                         class="flow bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded text-center">
                         Participant
                     </div>
@@ -55,6 +55,9 @@
         </div>
         <div class="{{$showCompanyBasicInfoForm ? '' : 'hidden'}} w-full">
             <livewire:registration.company-basic-info-form/>
+        </div>
+        <div class="{{$showCompanyLocationInfoForm ? '' : 'hidden'}} w-full">
+            <livewire:registration.company-location-info-form/>
         </div>
     </div>
 </div>
