@@ -24,7 +24,7 @@ class CreateNewUser implements CreatesNewUsers
         $defaultRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'institution' => [array_key_exists('company_name', $input) ? '' : 'required'],
+            'institution' => [$input['registration_type'] == 'participant' ? '' : 'required'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ];
