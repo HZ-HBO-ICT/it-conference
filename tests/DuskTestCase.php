@@ -36,21 +36,19 @@ abstract class DuskTestCase extends BaseTestCase
             case 'firefox':
                 $options = new FirefoxOptions();
                 $capabilities = DesiredCapabilities::firefox()
-                    ->setCapability(
-                    FirefoxOptions::CAPABILITY,
-                    $options
+                        ->setCapability(
+                            FirefoxOptions::CAPABILITY, $options
                 );
-                break;
+                    break;
 
             case 'chrome':
             default:
                 $options = new ChromeOptions();
                 $capabilities = DesiredCapabilities::chrome()
-                    ->setCapability(
-                    ChromeOptions::CAPABILITY,
-                    $options
+                            ->setCapability(
+                                ChromeOptions::CAPABILITY, $options
                 );
-                break;
+                    break;
         }
         return RemoteWebDriver::create('http://selenium:4444/wd/hub', $capabilities);
     }
