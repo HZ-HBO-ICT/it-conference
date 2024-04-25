@@ -43,8 +43,8 @@ use Illuminate\Support\Facades\Route;
 // ===== Routes for registration =====
 Route::get('/register/participant', [RegistrationController::class, 'showParticipantRegistration'])
     ->name('register.participant');
-Route::get('/register/representative', [RegistrationController::class, 'showCompanyRepresentativeRegistration'])
-    ->name('register.representative');
+Route::get('/register/company', [RegistrationController::class, 'showCompanyRegistration'])
+    ->name('register.company');
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
     ->middleware(['signed'])->name('registration.page.via.invitation');
 Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])

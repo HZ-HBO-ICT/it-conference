@@ -25,8 +25,8 @@ class RegistrationController extends Controller
      * Returns the registration page for company representatives
      * @return View
      */
-    public function showCompanyRepresentativeRegistration() : View
+    public function showCompanyRegistration() : View
     {
-        return view('auth.registration.company-representative');
+        return view('auth.registration.company');
     }
 }

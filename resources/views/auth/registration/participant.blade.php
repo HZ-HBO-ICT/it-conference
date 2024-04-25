@@ -26,8 +26,13 @@
                         <h2 class="text-3xl pt-5 font-semibold">Participant Registration</h2>
                         <div class="w-full">
                             <form method="POST" action="{{route('register')}}">
-                                @csrf
-                                <input class="hidden" name="registration_type" value="'participant'">
+                                @if ($errors->any())
+                                    @dd($errors)
+                                    <div class="text-red-500">
+                                        Oops! There are some issues with the details.
+                                    </div>
+                                @endif
+                                <input class="hidden" name="registration_type" value="participant">
                                 <div class="mt-5">
                                     <x-label for="name" value="{{ __('Full Name') }}"
                                              class="after:content-['*'] after:text-red-500"/>
@@ -35,6 +40,7 @@
                                              :value="old('name')"
                                              required
                                              autofocus autocomplete="name"/>
+                                    <div class="text-red-500 mt-1">@error('name') {{ $message }} @enderror</div>
                                 </div>
 
                                 <div class="mt-4">
@@ -44,15 +50,17 @@
                                              :value="old('email')"
                                              required
                                              autocomplete="username"/>
+                                    <div class="text-red-500 mt-1">@error('email') {{ $message }} @enderror</div>
                                 </div>
 
                                 <div class="mt-4">
                                     <x-label for="institution" value="{{ __('Institution') }}"
                                              class="after:content-['*'] after:text-red-500"/>
                                     <x-input id="institution" class="block mt-1 w-full" type="text" name="institution"
-                                             :value="old('name')"
+                                             :value="old('institution')"
                                              required
                                              autofocus/>
+                                    <div class="text-red-500 mt-1">@error('institution') {{ $message }} @enderror</div>
                                 </div>
 
                                 <div class="mt-4">
@@ -61,6 +69,8 @@
                                     <x-input id="password" class="block mt-1 w-full" type="password" name="password"
                                              required
                                              autocomplete="new-password"/>
+
+                                    <div class="text-red-500 mt-1">@error('password') {{ $message }} @enderror</div>
 
                                     <div id="password-rules"
                                          class="hidden text-sm text-gray-700 dark:text-gray-300 mt-2 pl-2">
