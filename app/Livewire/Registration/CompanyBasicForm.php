@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Registration;
 
+use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -20,11 +21,19 @@ class CompanyBasicForm extends Component
     #[Validate('required')]
     public string $companyPhoneNumber;
 
+    /**
+     * Dispatches an event to the parent component to go back
+     * @return void
+     */
     public function goBack()
     {
         $this->dispatch('go-back', formName: 'CompanyBasicInfoForm');
     }
 
+    /**
+     * Dispatches an event to the parent to go next
+     * @return void
+     */
     public function goNext()
     {
         $this->validate();
@@ -37,7 +46,11 @@ class CompanyBasicForm extends Component
         ]);
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.registration.company-basic-form');
     }

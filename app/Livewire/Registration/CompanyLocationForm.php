@@ -2,13 +2,16 @@
 
 namespace App\Livewire\Registration;
 
+use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CompanyLocationForm extends Component
 {
-    #[Validate('required',
-        'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i')]
+    #[Validate(
+        'required',
+        'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'
+    )]
     public string $companyPostcode;
 
     #[Validate(['required',
@@ -24,11 +27,19 @@ class CompanyLocationForm extends Component
     #[Validate(['accepted', 'required'])]
     public $terms;
 
+    /**
+     * Dispatches an event to the parent component to go back
+     * @return void
+     */
     public function goBack()
     {
         $this->dispatch('go-back', formName: 'CompanyLocationInfoForm');
     }
 
+    /**
+     * Dispatches an event to the parent to go next
+     * @return void
+     */
     public function goNext()
     {
         $this->validate();
@@ -42,7 +53,11 @@ class CompanyLocationForm extends Component
         ]);
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.registration.company-location-form');
     }

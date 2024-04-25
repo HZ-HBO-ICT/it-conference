@@ -89,8 +89,7 @@ class CreateNewUser implements CreatesNewUsers
         string $company_website,
         string $company_phone_number,
         string $company_description
-    ): void
-    {
+    ): void {
         $company = Company::create([
             'name' => $company_name,
             'postcode' => $company_postcode,

@@ -3,6 +3,7 @@
 namespace App\Livewire\Registration;
 
 use App\Actions\Fortify\PasswordValidationRules;
+use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -22,11 +23,20 @@ class CompanyRepresentativeForm extends Component
     #[Validate('required', 'min:12', 'string')]
     public string $password_confirmation;
 
+    /**
+     * Dispatches an event to the parent component to go back
+     * @return void
+     */
     public function goBack()
     {
         $this->dispatch('go-back', formName: 'CompanyRepresentativeForm');
     }
 
+
+    /**
+     * Dispatches an event to the parent to go next
+     * @return void
+     */
     public function goNext()
     {
         $this->validate();
@@ -45,7 +55,11 @@ class CompanyRepresentativeForm extends Component
         ]);
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.registration.company-representative-form');
     }
