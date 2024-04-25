@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * \App\Models\EventInstance
+ * \App\Models\Edition
  *
  * @property int $id
  * @property string $name
@@ -18,21 +18,20 @@ use Illuminate\Support\Carbon;
  * @property boolean $is_final_programme_released
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static Builder|EventInstance newModelQuery()
- * @method static Builder|EventInstance newQuery()
- * @method static Builder|EventInstance query()
- * @method static Builder|EventInstance whereCreatedAt($value)
- * @method static Builder|EventInstance whereId($value)
- * @method static Builder|EventInstance whereName($value)
- * @method static Builder|EventInstance whereState($value)
- * @method static Builder|EventInstance whereUpdatedAt($value)
+ * @method static Builder|Edition newModelQuery()
+ * @method static Builder|Edition newQuery()
+ * @method static Builder|Edition query()
+ * @method static Builder|Edition whereCreatedAt($value)
+ * @method static Builder|Edition whereId($value)
+ * @method static Builder|Edition whereName($value)
+ * @method static Builder|Edition whereState($value)
+ * @method static Builder|Edition whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class EventInstance extends Model
+class Edition extends Model
 {
     use HasFactory;
 
-    const STATE_NEW = 0;
     const STATE_DESIGN = 10;
     const STATE_ENROLLMENT = 20;
     const STATE_EXECUTION = 30;
@@ -46,8 +45,8 @@ class EventInstance extends Model
     protected function isFinalProgrammeReleased(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->state == EventInstance::STATE_ENROLLMENT
-                || $this->state == EventInstance::STATE_EXECUTION
+            get: fn() => $this->state == Edition::STATE_ENROLLMENT
+                || $this->state == Edition::STATE_EXECUTION
         );
     }
 

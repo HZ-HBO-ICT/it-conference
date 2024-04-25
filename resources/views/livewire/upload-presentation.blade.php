@@ -1,6 +1,6 @@
 @php
     use Illuminate\Support\Facades\Auth;
-    use App\Models\EventInstance;
+    use App\Models\Edition;
 @endphp
 
 <div class="pt-5">
@@ -70,10 +70,10 @@
                                 </button>
                             </div>
 
-                            @if(!Auth::user()->hasRole('content moderator') && !EventInstance::current()->is_final_programme_released)
+                            @if(!Auth::user()->hasRole('content moderator') && !Edition::current()->is_final_programme_released)
                                 @if(Auth::user()->speaker->presentation_id == $presentation->id && $file && !$errors->has('file') && !session()->has('message'))
                                     <div
-                                        class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                                            class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                                         <button type="submit"
                                                 class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                             Save

@@ -36,7 +36,7 @@
                             <span class="mt-0.5 block leading-relaxedg">available for the conference</span>
                         </a>
                     </div>
-                    @if(\App\Models\Timeslot::all()->count() > 0 && !\App\Models\EventInstance::current()->is_final_programme_released)
+                    @if(\App\Models\Timeslot::all()->count() > 0 && !\App\Models\Edition::current()->is_final_programme_released)
                         <div>
                             @livewire('schedule.reset-timeslots')
                         </div>
@@ -46,13 +46,13 @@
                             <form class="h-full" action="{{route('moderator.schedule.draft')}}" method="POST">
                                 @csrf
                                 <button
-                                    class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
+                                        class="h-full bg-crew-500 text-xs text-white py-2 px-4 rounded block text-center transition-all duration-300 transform hover:scale-105">
                                     <span class="flex items-center h-full justify-center">Automatically schedule presentations</span>
                                 </button>
                             </form>
                         </div>
                     @elseif($numberOfUnscheduledPresentations == 0)
-                        @if(!\App\Models\EventInstance::current()->is_final_programme_released)
+                        @if(!\App\Models\Edition::current()->is_final_programme_released)
                             <div>
                                 @livewire('release-final-programme')
                             </div>
@@ -108,17 +108,17 @@
                                         </td>
                                         <td class="pl-4 w-11/12">
                                             <div
-                                                class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105">
+                                                    class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105">
                                                 <div class="px-3 py-1">
                                                     <div
-                                                        class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
+                                                            class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
                                                     <p class="text-gray-100 text-sm">
                                                         {{DefaultPresentation::opening()->description}}
                                                     </p>
                                                 </div>
                                                 <div class="px-2 pb-2">
                                         <span
-                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                                class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
                                             {{DefaultPresentation::opening()->room->name}}
                                         </span>
                                                 </div>
@@ -142,7 +142,8 @@
                                                     @foreach($timeslot->presentations as $lecture)
                                                         @if($lecture->timeslot_id == $timeslot->id)
                                                             <a href="{{route('moderator.schedule.presentation', $lecture)}}">
-                                                                <x-schedule-block :presentation="$lecture" :colorName="'crew'"/>
+                                                                <x-schedule-block :presentation="$lecture"
+                                                                                  :colorName="'crew'"/>
                                                             </a>
                                                             @php
                                                                 $anyScheduledLectures = true
@@ -170,7 +171,8 @@
                                                     @foreach($timeslot->presentations as $workshop)
                                                         @if($workshop->timeslot_id == $timeslot->id)
                                                             <a href="{{route('moderator.schedule.presentation', $workshop)}}">
-                                                                <x-schedule-block :presentation="$workshop" :colorName="'crew'"/>
+                                                                <x-schedule-block :presentation="$workshop"
+                                                                                  :colorName="'crew'"/>
                                                             </a>
                                                             @php
                                                                 $anyScheduledWorkshops = true
@@ -194,17 +196,17 @@
                                         </td>
                                         <td class="pl-4 w-11/12">
                                             <div
-                                                class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105">
+                                                    class="w-full rounded overflow-hidden shadow-lg bg-crew-600 transition-all duration-300 transform hover:scale-105">
                                                 <div class="px-3 py-1">
                                                     <div
-                                                        class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
+                                                            class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
                                                     <p class="text-gray-100 text-sm">
                                                         {{DefaultPresentation::closing()->description}}
                                                     </p>
                                                 </div>
                                                 <div class="px-2 pb-2">
                                         <span
-                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
+                                                class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
                                             {{DefaultPresentation::closing()->room->name}}
                                         </span>
                                                 </div>
@@ -217,7 +219,7 @@
                         </div>
                         @if(!$anyScheduledLectures && !$anyScheduledWorkshops)
                             <div
-                                class="text-center py-3 font-italic text-lg text-gray-800 dark:text-gray-200 leading-tight">
+                                    class="text-center py-3 font-italic text-lg text-gray-800 dark:text-gray-200 leading-tight">
                                 There are no presentation scheduled yet. Assign them manually or use the autofill
                             </div>
                         @endif

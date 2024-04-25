@@ -1,6 +1,6 @@
 @php
     use Carbon\Carbon;
-    use App\Models\EventInstance;
+    use App\Models\Edition;
     use App\Models\User;
 @endphp
 @php
@@ -28,7 +28,7 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation
-                                                                                                description
+                            description
                         </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation-> description}}</dd>
                     </div>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Suggested max
-                                                                                                participants
+                            participants
                         </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->max_participants}}</dd>
                     </div>
@@ -88,7 +88,7 @@
 
             <x-section-border/>
 
-        @can('delete', $presentation)
+            @can('delete', $presentation)
                 <div class="mt-10 sm:mt-0">
                     @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
                 </div>
@@ -105,7 +105,7 @@
                     <x-slot name="content">
                         <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
                             If you wish to not be present during the conference contact us at <a
-                                href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
+                                    href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
                         </div>
                     </x-slot>
                 </x-action-section>

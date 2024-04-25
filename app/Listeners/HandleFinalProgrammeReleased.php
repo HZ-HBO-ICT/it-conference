@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\FinalProgrammeReleased;
-use App\Models\EventInstance;
+use App\Models\Edition;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -22,8 +22,8 @@ class HandleFinalProgrammeReleased
      */
     public function handle(FinalProgrammeReleased $event): void
     {
-        $current = EventInstance::current();
-        $current->state = EventInstance::STATE_ENROLLMENT;
+        $current = Edition::current();
+        $current->state = Edition::STATE_ENROLLMENT;
         $current->save();
     }
 }

@@ -120,7 +120,7 @@ class PresentationPolicy
      */
     public function enroll(User $user, Presentation $presentation): bool
     {
-        if (\App\Models\EventInstance::current()->is_final_programme_released) {
+        if (\App\Models\Edition::current()->is_final_programme_released) {
             return $presentation->canEnroll($user);
         }
 
