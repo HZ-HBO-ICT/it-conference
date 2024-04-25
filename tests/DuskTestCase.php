@@ -35,16 +35,20 @@ abstract class DuskTestCase extends BaseTestCase
         switch ($browser) {
             case 'firefox':
                 $options = new FirefoxOptions();
-                $capabilities = DesiredCapabilities::firefox()->setCapability(
-                    FirefoxOptions::CAPABILITY, $options
+                $capabilities = DesiredCapabilities::firefox()
+                    ->setCapability(
+                    FirefoxOptions::CAPABILITY,
+                    $options
                 );
                 break;
 
             case 'chrome':
             default:
                 $options = new ChromeOptions();
-                $capabilities = DesiredCapabilities::chrome()->setCapability(
-                    ChromeOptions::CAPABILITY, $options
+                $capabilities = DesiredCapabilities::chrome()
+                    ->setCapability(
+                    ChromeOptions::CAPABILITY,
+                    $options
                 );
                 break;
         }
