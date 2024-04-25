@@ -64,7 +64,7 @@
 
                 <div class="flex items-center justify-between mt-4">
                     <!-- Go back button on the left -->
-                    <x-button type="button" wire:click="goBack" class="mr-4 bg-gray-400">
+                    <x-button type="button" wire:click="goBack" class="mb-0.5 mr-4 bg-gray-400">
                         {{ __('Go back') }}
                     </x-button>
 
@@ -75,12 +75,11 @@
                             {{ __('Already registered?') }}
                         </a>
 
-                        <x-button type="submit" class="ml-4">
+                        <x-button type="submit" class="ml-4 bg-participant-400 dark:bg-participant-400 hover:bg-participant-500 dark:hover:bg-participant-500">
                             {{ __('Next') }}
                         </x-button>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>

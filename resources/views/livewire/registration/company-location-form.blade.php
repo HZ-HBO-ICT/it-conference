@@ -77,8 +77,8 @@
                             {{ __('Already registered?') }}
                         </a>
 
-                        <x-button type="submit" class="ml-4">
-                            {{ __('Next') }}
+                        <x-button type="submit" class="ml-4 bg-participant-400 dark:bg-participant-400 hover:bg-participant-500 dark:hover:bg-participant-500">
+                            {{ __('Register') }}
                         </x-button>
                     </div>
                 </div>
