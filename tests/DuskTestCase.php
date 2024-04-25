@@ -25,6 +25,8 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Create the RemoteWebDriver instance.
+     * @TimKardol: I currently (25-4-2024) have not figured out how to have two browsers open at the same time or
+     * switching to Firefox. The switch is there purely for future reference.
      */
     protected function driver(): RemoteWebDriver
     {
