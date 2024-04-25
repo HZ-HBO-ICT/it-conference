@@ -1,8 +1,8 @@
 <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
 <!-- Potential dynamic classes: bg-partner-500 bg-partner-600 bg-partner-700 -->
 <x-app-layout>
-    <div class="md:py-20 h-max md:h-auto flex items-center justify-center bg-gray-100 dark:bg-gray-900 md:px-40 ">
-        <div class="grid grid-cols-1 md:grid-cols-7 w-full h-[80vh] bg-white dark:bg-gray-800 rounded-md">
+    <div class="py-0 md:py-10 lg:py-20 h-fit md:h-auto flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-0 sm:px-20 lg:px-40">
+        <div class="grid grid-cols-1 md:grid-cols-7 w-full h-full md:h-[80vh] bg-white dark:bg-gray-800 rounded-md">
             <div id="pretty-slide"
                  class="h-full col-span-3 hidden md:block rounded-md">
                 <div class="h-full rounded-md" style="overflow: clip">
@@ -19,12 +19,12 @@
                     </div>
                 </div>
             </div>
-            <div id="form-slide h-full w-full"
-                 class="col-span-4 w-full px-12 py-2 flex justify-center items-center">
-                <div class="w-full">
+            <div id="form-slide"
+                 class="col-span-4 h-full w-full px-12 py-2 flex justify-center items-center">
+                <div class="w-full h-full flex items-center justify center">
                     <div class="text-center md:text-left text-black dark:text-gray-100 w-full pb-5">
                         <h2 class="text-3xl pt-5 font-semibold">Participant Registration</h2>
-                        <div class="w-full">
+                        <div class="w-full text-left">
                             <form method="POST" action="{{route('register')}}">
                                 @csrf
                                 <x-validation-errors class="mb-4"/>
@@ -117,7 +117,7 @@
                                         {{ __('Already registered?') }}
                                     </a>
 
-                                    <x-button class="ml-4">
+                                    <x-button type="submit" class="ml-4 bg-participant-400 dark:bg-participant-400 hover:bg-participant-500 dark:hover:bg-participant-500">
                                         {{ __('Register') }}
                                     </x-button>
                                 </div>

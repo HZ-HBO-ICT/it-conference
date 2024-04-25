@@ -1,6 +1,6 @@
 <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
 <!-- Potential dynamic classes: bg-partner-500 bg-partner-600 bg-partner-700 -->
-<div class="grid grid-cols-1 md:grid-cols-7 w-full h-[80vh] bg-white dark:bg-gray-800 rounded-md">
+<div class="grid grid-cols-1 md:grid-cols-7 w-full h-screen lg:h-[80vh] bg-white dark:bg-gray-800 rounded-md">
     <div id="pretty-slide"
          class="h-full col-span-3 hidden md:block rounded-md">
         <div class="h-full rounded-md" style="overflow: clip">
