@@ -26,12 +26,8 @@
                         <h2 class="text-3xl pt-5 font-semibold">Participant Registration</h2>
                         <div class="w-full">
                             <form method="POST" action="{{route('register')}}">
-                                @if ($errors->any())
-                                    @dd($errors)
-                                    <div class="text-red-500">
-                                        Oops! There are some issues with the details.
-                                    </div>
-                                @endif
+                                @csrf
+                                <x-validation-errors class="mb-4"/>
                                 <input class="hidden" name="registration_type" value="participant">
                                 <div class="mt-5">
                                     <x-label for="name" value="{{ __('Full Name') }}"

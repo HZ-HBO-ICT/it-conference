@@ -50,6 +50,7 @@ Route::get('/register/team-invitations/{invitation}', [InvitationController::cla
 Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
     ->name('register.via.invitation');
 
+
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
