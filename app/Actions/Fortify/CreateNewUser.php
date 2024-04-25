@@ -22,6 +22,7 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         $defaultRules = [
+            'registration_type' => ['in:participant,company_representative'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'institution' => [$input['registration_type'] == 'participant' ? '' : 'required'],
