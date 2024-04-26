@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex flex-col">
+    <div class="flex flex-col overflow-hidden">
         <!-- The main banner -->
         <div class="relative">
             <div
@@ -81,7 +81,7 @@
 
         <!--Statistics-->
         <div class="bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
-            <div class="grid md:grid-cols-4 mt-5 mb-5 lg:mr-40 lg:ml-40">
+            <div class="grid md:grid-cols-4 mt-5 lg:mr-40 lg:ml-40">
                 <div class="text-center mb-5">
                     <p class="text-5xl font-bold text-center text-crew-500">10+</p>
                     <p class="uppercase font-bold text-sm">Speakers</p>
