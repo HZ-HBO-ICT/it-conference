@@ -50,7 +50,9 @@
                     </div>
                     @can('update', $presentation)
                         <div class="mt-5">
-                            @livewire('presentation.edit-presentation-modal', ['presentation' => $presentation])
+                            <x-button onclick="Livewire.dispatch('openModal', { component: 'presentation.edit-presentation-modal', arguments: {presentation: {{$presentation}}} })">
+                                {{ __('Edit') }}
+                            </x-button>
                         </div>
                     @endcan
                 </x-slot>

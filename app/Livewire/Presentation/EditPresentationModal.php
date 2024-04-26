@@ -8,10 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class EditPresentationModal extends Component
+class EditPresentationModal extends ModalComponent
 {
-    public bool $isOpen = false;
     public Presentation $presentation;
     public PresentationForm $form;
 
@@ -42,6 +42,15 @@ class EditPresentationModal extends Component
             return redirect(route('moderator.presentations.show', $this->presentation))
                 ->with('status', 'Presentation successfully updated.');
         }
+    }
+
+    /**
+     * Sets the maximum width of the modal according to docs
+     * @return string
+     */
+    public static function modalMaxWidth(): string
+    {
+        return '3xl';
     }
 
     /**
