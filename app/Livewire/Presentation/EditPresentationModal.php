@@ -28,9 +28,8 @@ class EditPresentationModal extends Component
 
     /**
      * Saves the updates made on the form
-     * @return RedirectResponse
      */
-    public function save() : RedirectResponse
+    public function save()
     {
         $this->validate();
 
