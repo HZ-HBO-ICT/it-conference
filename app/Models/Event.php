@@ -10,7 +10,9 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name'
+    ];
 
     /**
      * Establishes the relationship between Event and EditionEvent models

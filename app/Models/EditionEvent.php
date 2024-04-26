@@ -10,7 +10,10 @@ class EditionEvent extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['start_at', 'end_at'];
+    protected $fillable = [
+        'start_at',
+        'end_at'
+    ];
 
     /**
      * Establishes a relationship between EditionEvent and Edition models
