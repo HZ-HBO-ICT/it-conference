@@ -37,12 +37,18 @@ class Edition extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'state', 'start_at', 'end_at'];
+    protected $fillable = [
+        'name',
+        'state',
+        'start_at',
+        'end_at'
+    ];
 
     const STATE_DESIGN = 10;
-    const STATE_ENROLLMENT = 20;
-    const STATE_EXECUTION = 30;
-    const STATE_ARCHIVE = 40;
+    const STATE_ANNOUNCE = 20;
+    const STATE_ENROLLMENT = 30;
+    const STATE_EXECUTION = 40;
+    const STATE_ARCHIVE = 50;
 
     /**
      * Establishes a relationship between Edition and EditionEvent models (events that are executed during given edition)
@@ -67,18 +73,68 @@ class Edition extends Model
 //    }
 
     /**
-     * Gets or creates an instance that represents the current event, meaning the
-     * event that is currently in planning or executed
+     * Gets an instance that represents the current event, meaning the
+     * event that is currently opened for registration, in state of enrollment or executed
      *
      * @return Builder|Model|object|null
      */
     public static function current()
     {
-        //        if (!$item) {
-        //            $item = self::create();
-        //        }
         return self::query()
-            ->whereNot('state', '=', self::STATE_ARCHIVE)
+            ->whereNot('state', '=', self::STATE_DESIGN)
+            ->orWhereNot('state', '=', self::STATE_ARCHIVE)
             ->first();
+    }
+
+    /**
+     * Changes state of the edition to 'announce', which means that it is officially opened for registration
+     * of companies
+     * @return void
+     */
+    public function activate()
+    {
+        // archive current active edition, if exists
+        $currentEdition = self::current();
+
+        if ($currentEdition) {
+            $currentEdition->state = self::STATE_ARCHIVE;
+            $currentEdition->save();
+        }
+
+        // activate the edition
+        $this->state = self::STATE_ANNOUNCE;
+        $this->save();
+    }
+
+    /**
+     * Adds an event to the edition
+     * @param Event $event event to attach to edition
+     * @return void
+     */
+    public function addEvent(Event $event)
+    {
+        if (!$this->editionEvents->contains($event)) {
+            EditionEvent::create([
+                'edition_id' => $this->id,
+                'event_id' => $event->id,
+            ]);
+        }
+    }
+
+    /**
+     * Removes an event from the edition
+     * @param Event $event event to remove from edition
+     * @return void
+     */
+    public function removeEvent(Event $event)
+    {
+        $editionEvent = $this->editionEvents
+            ->where('edition_id', '=', $this->id)
+            ->where('event_id', '=', $event->id)
+            ->first();
+
+        if ($editionEvent) {
+            $editionEvent->delete();
+        }
     }
 }
