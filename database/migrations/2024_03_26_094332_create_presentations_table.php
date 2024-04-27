@@ -15,6 +15,7 @@ return new class extends Migration {
 
             $table->string('name');
             $table->text('description');
+            $table->boolean('is_approved')->default(false);
             $table->unsignedInteger('max_participants')
                 ->comment('The max number of participants that the presenter allows;
                 If left empty it would be based on the room capacity')
