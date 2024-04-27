@@ -12,6 +12,23 @@ class Presentation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
+
+    /**
+     * Returns the basic validation rules for the model
+     * @return string[]
+     */
+    public static function rules()
+    {
+        return [
+            'name' => 'required',
+            'max_participants' => 'required|numeric|min:1',
+            'description' => 'required',
+            'type' => 'required|in:workshop,lecture',
+            'difficulty_id' => 'required',
+        ];
+    }
+
     /**
      * Establishes a relationship between the presentation
      * and its difficulty
