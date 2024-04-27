@@ -15,7 +15,9 @@ class EditionController extends Controller
      */
     public function index() : View
     {
-        return view('moderator.editions.index');
+        $editions = Edition::all();
+
+        return view('moderator.editions.index', compact('editions'));
     }
 
     /**
