@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Dashboards\Blocks;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ContentModeratorBlock extends Component
+class Crew extends Component
 {
     /**
      * Create a new component instance.
@@ -26,6 +26,6 @@ class ContentModeratorBlock extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.content-moderator-block');
+        return view('components.dashboards.blocks.crew');
     }
 }
