@@ -27,19 +27,20 @@
                             <img src="{{ $photo->temporaryUrl() }}" class="object-fill w-full h-72">
                         @endif
                         @can('editDetails', $company)
-                        <div class="mt-1 flex items-center">
-                            <input type="file" id="photo" wire:model="photo"
-                                   class="hidden">
-                            <label for="photo"
-                                   class="flex items-center justify-center w-1/3 h-10 px-4 mt-2 text-sm font-medium text-white bg-purple-600 rounded-md cursor-pointer hover:bg-purple-600 focus-within:bg-purple-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     stroke="currentColor" class="w-6 h-6 mr-2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                </svg>
-                                Upload {{$photo ||  $company->logo_path ? 'new' : ''}} logo
-                            </label>
-                        </div>
+                            <div class="mt-1 flex items-center">
+                                <input type="file" id="photo" wire:model="photo"
+                                       class="hidden"
+                                       accept="image/jpeg, image/png, image/gif, image/webp, image/svg+xml, image/bmp, image/tiff">
+                                <label for="photo"
+                                       class="flex items-center justify-center w-1/3 h-10 px-4 mt-2 text-sm font-medium text-white bg-purple-600 rounded-md cursor-pointer hover:bg-purple-600 focus-within:bg-purple-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke="currentColor" class="w-6 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Upload {{$photo ||  $company->logo_path ? 'new' : ''}} logo
+                                </label>
+                            </div>
                         @endcan
                         @error('photo') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
