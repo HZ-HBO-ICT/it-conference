@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire\Presentation;
 
-use App\Models\Presentation;
-use Illuminate\Contracts\Foundation\Application as ApplicationContract;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -103,11 +100,11 @@ class UploadPresentation extends Component
     }
 
     /**
-     * Render the component
-     * @return Factory|Application|\Illuminate\Contracts\View\View|ApplicationContract
+     * Renders the component
+     * @return View
      */
-    public function render()
+    public function render() : View
     {
-        return view('livewire.upload-presentation');
+        return view('livewire.presentation.upload-presentation');
     }
 }

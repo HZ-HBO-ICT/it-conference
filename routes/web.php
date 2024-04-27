@@ -54,6 +54,16 @@ Route::post('/register/team-invitations/{invitation}', [InvitationController::cl
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 //
 //
+Route::get('/speakers/request', [PresentationController::class, 'create'])
+    ->name('speakers.request.presentation');
+Route::post('/speakers/request', [PresentationController::class, 'store'])
+    ->name('speakers.request.process');
+
+Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
+    ->name('presentations.show');
+Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+    ->name('presentations.destroy');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -82,10 +92,6 @@ Route::middleware([
 //    Route::post('/my/disenroll/{presentation}', [EnrollmentController::class, 'disenroll'])
 //        ->name('my.programme.disenroll');
 //
-//    Route::get('/speakers/request', [PresentationController::class, 'create'])
-//        ->name('speakers.request.presentation');
-//    Route::post('/speakers/request', [PresentationController::class, 'store'])
-//        ->name('speakers.request.process');
 //
 //    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
 //        ->name('presentations.show');
@@ -93,8 +99,7 @@ Route::middleware([
 //    Route::put('/presentations/{presentation}/edit', [PresentationController::class, 'update'])
 //        ->name('presentations.update');
 //
-//    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
-//        ->name('presentations.destroy');
+
 //});
 //
 //

@@ -1,6 +1,6 @@
 @php
     use Carbon\Carbon;
-    use App\Models\Edition;
+    use App\Models\EventInstance;
     use App\Models\User;
 @endphp
 @php
@@ -28,29 +28,35 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation
-                            description
+                                                                                                description
                         </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation-> description}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation type</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->type}}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{ucfirst($presentation->type)}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Difficulty level</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{ucfirst($presentation->difficulty->level)}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Suggested max
-                            participants
+                                                                                                participants
                         </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->max_participants}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation status</dt>
-                        <dd class="mt-1 text-sm leading-6 {{$presentation->mainSpeaker()->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
-                            {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
+                        <dd class="mt-1 text-sm leading-6 {{$presentation->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
+                            {{$presentation->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
                     @can('update', $presentation)
                         <div class="mt-5">
-                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
+                            <x-button onclick="Livewire.dispatch('openModal', { component: 'presentation.edit-presentation-modal', arguments: {presentation: {{$presentation}}} })">
+                                {{ __('Edit') }}
+                            </x-button>
                         </div>
                     @endcan
                 </x-slot>
@@ -59,7 +65,7 @@
 
             <x-section-border/>
 
-            @livewire('upload-presentation', ['presentation' => $presentation])
+            @livewire('presentation.upload-presentation', ['presentation' => $presentation])
 
             <x-section-border/>
 
@@ -89,11 +95,37 @@
             <x-section-border/>
 
             @can('delete', $presentation)
-                <div class="mt-10 sm:mt-0">
-                    @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
-                </div>
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Delete This Presentation') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Permanently remove the presentation from the system') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="dark:text-gray-200">
+                            @if(Auth::user()->hasRole('content moderator'))
+                                {{ __('If you delete this presentation, the speaker/s will no longer have this presentation, it will be gone
+                                from the schedule and all participants that have registered for it will be dis-enrolled from it') }}
+                            @else
+                                {{ __('Your presentation is still not approved and you can still remove your presentation') }}
+                            @endif
+                        </div>
+                    </x-slot>
+
+                    <x-slot name="actions">
+                        <x-danger-button
+                            onclick="Livewire.dispatch('openModal', { component: 'presentation.delete-presentation-modal', arguments: {presentation: {{$presentation}}} })">
+                            {{ __('Delete Presentation') }}
+                        </x-danger-button>
+                    </x-slot>
+
+                </x-action-section>
             @else
                 <x-action-section>
+
                     <x-slot name="title">
                         {{ __('Delete Presentation') }}
                     </x-slot>
@@ -105,7 +137,7 @@
                     <x-slot name="content">
                         <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
                             If you wish to not be present during the conference contact us at <a
-                                    href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
+                                href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
                         </div>
                     </x-slot>
                 </x-action-section>
@@ -113,14 +145,3 @@
         </div>
     </div>
 </x-hub-layout>
-
-
-{{--<x-hub-layout>--}}
-{{--    <x-presentation-details--}}
-{{--        :presentation="$presentation"--}}
-{{--        :presentationName="$presentation->name"--}}
-{{--        :presentationDescription="$presentation->description"--}}
-{{--        :filename="basename($presentation->file_path)"--}}
-{{--        :presentationType="$presentation->type"--}}
-{{--        :presentationMaxParticipants="$presentation->max_participants"--}}
-{{--    />--}}

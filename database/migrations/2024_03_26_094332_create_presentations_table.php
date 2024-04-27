@@ -15,6 +15,7 @@ return new class extends Migration {
 
             $table->string('name');
             $table->text('description');
+            $table->boolean('is_approved')->default(false);
             $table->unsignedInteger('max_participants')
                 ->comment('The max number of participants that the presenter allows;
                 If left empty it would be based on the room capacity')
@@ -23,6 +24,7 @@ return new class extends Migration {
                 ->comment('Can be only lecture or workshop');
             $table->string('file_path', 2048)->nullable()
                 ->comment('Path to the uploaded presentation by the speaker');
+            $table->string('file_original_name')->nullable();
 
             $table->unsignedBigInteger('timeslot_id')->nullable();
             $table->unsignedBigInteger('room_id')->nullable();
