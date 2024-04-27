@@ -186,7 +186,7 @@ class User extends Authenticatable implements MustVerifyEmail
             get: function () {
                 if ($this->company) {
                     return 'partner';
-                } elseif ($this->hasRole('content moderator')) {
+                } elseif ($this->hasRole('event organizer')) {
                     return 'crew';
                 } else {
                     return 'participant';

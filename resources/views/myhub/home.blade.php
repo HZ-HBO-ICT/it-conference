@@ -13,7 +13,7 @@
                 @if(Auth::user()->company)
                     <x-dashboards.company></x-dashboards.company>
                 @endif
-                @if(Auth::user()->hasRole('content moderator'))
+                @if(Auth::user()->hasRole('event organizer'))
                     <x-content-moderator-dashboard></x-content-moderator-dashboard>
                 @endif
             </div>

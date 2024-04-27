@@ -1,5 +1,5 @@
 <li>
-    <div class="leading-6 font-semibold text-xs text-gray-400">Content moderator</div>
+    <div class="leading-6 font-semibold text-xs text-gray-400">Event organizer</div>
     <ul class="-mx-2" role="list">
         <x-sidebar-link-content-mod
             :label="'Companies'"

@@ -67,7 +67,7 @@ class PresentationPolicy
         $currentDate = Carbon::now();
 
         // If the user is the content moderator they can always update
-        if ($user->hasRole('content moderator')) {
+        if ($user->hasRole('event organizer')) {
             return true;
         }
 
@@ -100,7 +100,7 @@ class PresentationPolicy
      */
     public function delete(User $user, Presentation $presentation): bool
     {
-        if ($user->hasRole('content moderator')) {
+        if ($user->hasRole('event organizer')) {
             return $presentation->canBeDeleted();
         }
 
