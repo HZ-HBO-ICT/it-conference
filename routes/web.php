@@ -6,6 +6,7 @@ use App\Http\Controllers\ContentModerator\DefaultPresentationController;
 use App\Http\Controllers\ContentModerator\RoomController;
 use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Http\Controllers\ContentModerator\UserController;
+use App\Http\Controllers\EditionController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
@@ -120,12 +121,12 @@ Route::middleware([
 //Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
 //    ->name('programme.presentation.show');
 //
-//Route::middleware([
-//    'auth:sanctum',
-//    config('jetstream.auth_session'),
-//    'verified',
-//    'moderator'
-//])->name('moderator.')->group(function () {
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'moderator'
+])->name('moderator.')->group(function () {
 //    Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
 //        ->name('requests');
 //
@@ -174,6 +175,8 @@ Route::middleware([
 //        ->name('schedule.store.closing');
 //    Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
 //        ->name('schedule.default.presentation.edit');
+
+    Route::resource('/moderator/editions', EditionController::class);
 //
 //    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
 //        ->name('list');
@@ -205,4 +208,4 @@ Route::middleware([
 //    Route::resource('/moderator/rooms', RoomController::class);
 //
 //    Route::resource('/moderator/users', UserController::class);
-//});
+});

@@ -15,7 +15,7 @@ class EditionController extends Controller
      */
     public function index() : View
     {
-        return view('editions.index');
+        return view('moderator.editions.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class EditionController extends Controller
      */
     public function show(int $id) : View
     {
-        return view('editions.show', ['edition' => Edition::findOrFail($id)]);
+        return view('moderator.editions.show', ['edition' => Edition::findOrFail($id)]);
     }
 
     /**
@@ -34,7 +34,7 @@ class EditionController extends Controller
      */
     public function create() : View
     {
-        return view('editions.create');
+        return view('moderator.editions.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class EditionController extends Controller
     {
         $edition = Edition::create($this->validateEdition($request));
 
-        return redirect(route('editions.show', compact('edition')));
+        return redirect(route('moderator.editions.show', compact('edition')));
     }
 
     /**
@@ -56,7 +56,7 @@ class EditionController extends Controller
      */
     public function edit(int $id) : View
     {
-        return view('editions.edit', ['edition' => Edition::findOrFail($id)]);
+        return view('moderator.editions.edit', ['edition' => Edition::findOrFail($id)]);
     }
 
     /**
@@ -65,11 +65,13 @@ class EditionController extends Controller
      * @param int $id of the edition to update
      * @return void
      */
-    public function update(Request $request, int $id): void
+    public function update(Request $request, int $id): RedirectResponse
     {
         $edition = Edition::findOrFail($id);
 
         $edition->update($this->validateEdition($request));
+
+        return redirect(route('moderator.editions.show', compact('edition')));
     }
 
     /**
@@ -81,7 +83,7 @@ class EditionController extends Controller
     {
         Edition::findOrFail($id)->activate();
 
-        return redirect(route('editions.index'));
+        return redirect(route('moderator.editions.index'));
     }
 
     /**
@@ -93,7 +95,7 @@ class EditionController extends Controller
     {
         Edition::findOrFail($id)->delete();
 
-        return redirect(route('editions.index'));
+        return redirect(route('moderator.editions.index'));
     }
 
     /**
