@@ -1,6 +1,6 @@
 @php
     use App\Models\Booth;
-    use App\Models\Team;
+    use App\Models\Company;
     use App\Models\User;
 @endphp
 
@@ -12,7 +12,7 @@
                 <dl class="gap-5 grid-cols-3 grid mt-5">
                     <x-content-moderator-block
                         :label="'Companies'"
-                        :count="Team::where('is_approved', 0)->count()"
+                        :count="Company::where('is_approved', 0)->count()"
                         :route="'moderator.companies.index'"
                         :icon="'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z'"
                         :roleColour="'crew'"/>
@@ -24,7 +24,7 @@
                         :roleColour="'crew'"/>
                     <x-content-moderator-block
                         :label="'Sponsorships'"
-                        :count="Team::where('is_sponsor_approved', 0)->count()"
+                        :count="Company::where('is_sponsorship_approved', 0)->count()"
                         :route="'moderator.sponsors.index'"
                         :icon="'M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z'"
                         :roleColour="'crew'"/>
@@ -85,7 +85,7 @@
                         :roleColour="'crew'"/>
                     <x-content-moderator-block
                         :label="'Companies'"
-                        :count="Team::where('is_approved', 1)->count()"
+                        :count="Company::where('is_approved', 1)->count()"
                         :icon="'M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21'"
                         :route="'moderator.companies.index'"
                         :roleColour="'crew'"/>

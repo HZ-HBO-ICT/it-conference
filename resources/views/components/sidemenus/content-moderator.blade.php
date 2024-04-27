@@ -7,7 +7,7 @@
             :icon="'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z'"
             :param="''"
             :roleColour="'crew'"
-            :badgeText="\App\Models\Team::awaitingApproval()->count()"></x-sidebar-link-content-mod>
+            :badgeText="\App\Models\Company::awaitingApproval()->count()"></x-sidebar-link-content-mod>
         <x-sidebar-link-content-mod
             :label="'Presentations'"
             :route="'moderator.presentations.index'"
@@ -44,6 +44,11 @@
         <x-sidebar-link-content-mod
             :label="'Schedule management'"
             :route="'moderator.schedule.overview'"
+            :icon="'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'"
+            :roleColour="'crew'"></x-sidebar-link-content-mod>
+        <x-sidebar-link-content-mod
+            :label="'Editions'"
+            :route="'dashboard'"
             :icon="'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'"
             :roleColour="'crew'"></x-sidebar-link-content-mod>
     </ul>

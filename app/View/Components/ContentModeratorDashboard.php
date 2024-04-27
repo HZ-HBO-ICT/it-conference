@@ -18,9 +18,10 @@ class ContentModeratorDashboard extends Component
      */
     public function __construct()
     {
-        $this->numberOfPresentationRequests = Presentation::whereHas('speakers', function ($query) {
-            $query->where('is_approved', false);
-        })->count();
+        $this->numberOfPresentationRequests = Presentation::where('is_approved', false)
+            ->whereHas('userPresentations', function ($query) {
+                $query->where('role', 'speaker');
+            })->count();
 
         $this->numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isScheduled && $presentation->isApproved;
