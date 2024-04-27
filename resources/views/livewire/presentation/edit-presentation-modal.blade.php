@@ -1,13 +1,13 @@
 <x-livewire-modal form-action="save">
-    <x-slot name="title">
+    <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         Edit presentation
     </x-slot>
 
-    <x-slot name="description">
+    <x-slot name="description" class="dark:bg-gray-800">
         {{ __('Here you can edit your presentation details until 12th of October.') }}
     </x-slot>
 
-    <x-slot name="content" class="w-full">
+    <x-slot name="content" class="w-full dark:bg-gray-800">
         <div class="px-4 py-6 sm:px-0">
             <dl class="sm:grid sm:grid-cols-3 sm:gap-6">
                 <!-- Presentation Title -->
@@ -63,7 +63,7 @@
         </div>
     </x-slot>
 
-    <x-slot name="buttons">
+    <x-slot name="buttons" class="dark:bg-gray-900">
         <x-secondary-button type="button" wire:click="$dispatch('closeModal')" class="mr-3">
             {{ __('Cancel') }}
         </x-secondary-button>
