@@ -11,10 +11,10 @@
             <div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
                 @if(Auth::user()->company)
-                    <x-dashboards.company></x-dashboards.company>
+                    <x-dashboards.company/>
                 @endif
                 @if(Auth::user()->hasRole('event organizer'))
-                    <x-content-moderator-dashboard></x-content-moderator-dashboard>
+                    <x-dashboards.crew/>
                 @endif
             </div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Notifications</h3>
