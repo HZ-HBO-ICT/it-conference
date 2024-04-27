@@ -44,6 +44,11 @@ class Edition extends Model
         'end_at'
     ];
 
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
+
     const STATE_DESIGN = 10;
     const STATE_ANNOUNCE = 20;
     const STATE_ENROLLMENT = 30;
