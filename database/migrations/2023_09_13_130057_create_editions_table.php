@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('editions', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('state')->default(Edition::STATE_DESIGN);
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
