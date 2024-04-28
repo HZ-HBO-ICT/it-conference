@@ -11,9 +11,9 @@
                         {{ __('Invite a company') }}
                     </x-button-link>
 
-                    <x-button-link href="{{route('teams.create')}}" class="ml-2">
+                    {{--<x-button-link href="{{route('teams.create')}}" class="ml-2">
                         {{__('Create a company')}}
-                    </x-button-link>
+                    </x-button-link>--}}
                 </x-slot>
 
                 <x-slot name="content">
