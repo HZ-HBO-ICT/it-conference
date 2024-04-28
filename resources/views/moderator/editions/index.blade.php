@@ -10,7 +10,10 @@
         <div class="pt-5">
             <x-list-section>
                 <x-slot name="actions">
-                    <x-button-link href="{{route('moderator.editions.create')}}">
+                    <x-button-link id="editButton">
+                        {{ __('Manage editions') }}
+                    </x-button-link>
+                    <x-button-link href="{{route('moderator.editions.create')}}" class="ml-3">
                         {{ __('Create a new edition') }}
                     </x-button-link>
                 </x-slot>
@@ -20,7 +23,7 @@
                             <x-list-section-item
                                 class="">
                                 <a href="{{route('moderator.editions.show', $edition)}}" class="block">
-                                    <div class="justify-between flex mt-2">
+                                    <div class="flex justify-between mt-2">
                                         <div class="flex">
                                             <div class="text-gray-700 dark:text-white text-m items-center flex">
                                                 <svg
@@ -51,17 +54,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-sm items-center flex ml-2 dark:text-white">
-                                            <svg
-                                                class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400"
-                                                xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
-                                                aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            {{ $edition->start_at->format('d/m/Y H:i') }}
-                                            —
-                                            {{ $edition->end_at->format('d/m/Y H:i') }}
+                                        <div class="text-sm items-center flex gap-8 ml-2 dark:text-white">
+                                            <div class="flex items-center">
+                                                <svg
+                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400"
+                                                    xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
+                                                    aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                <p>
+                                                    {{ $edition->start_at->format('d/m/Y H:i') }}
+                                                    —
+                                                    {{ $edition->end_at->format('d/m/Y H:i') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="hidden flex gap-2" id="managementButtons">
+                                                <x-button-link href="{{ route('moderator.editions.edit', $edition->id) }}">Edit</x-button-link>
+                                                <x-button-link href="{{ route('moderator.editions.destroy', $edition->id) }}">Delete</x-button-link>
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
@@ -80,3 +92,16 @@
         </div>
     </div>
 </x-hub-layout>
+
+<script>
+    const editButton = document.getElementById('editButton');
+    const managementButtons = document.getElementById('managementButtons');
+
+    editButton.addEventListener('click', function () {
+        if (managementButtons.classList.contains('hidden')) {
+            managementButtons.classList.remove('hidden');
+        } else {
+            managementButtons.classList.add('hidden');
+        }
+    });
+</script>
