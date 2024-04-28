@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\Crew\ContentModeratorController;
+use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
@@ -127,26 +127,26 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->name('moderator.')->group(function () {
-    Route::get('/requests/{type}', [ContentModeratorController::class, 'requests'])
+    Route::get('/requests/{type}', [CrewController::class, 'requests'])
         ->name('requests');
 
-    Route::get('/requests/{type}/{id}', [ContentModeratorController::class, 'details'])
+    Route::get('/requests/{type}/{id}', [CrewController::class, 'details'])
         ->name('request.details');
 
     Route::post('/requests/teams/{team}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfTeam'])
+        [CrewController::class, 'changeApprovalStatusOfTeam'])
         ->name('request.teams.approve');
 
     Route::post('/requests/booths/{booth}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfBooth'])
+        [CrewController::class, 'changeApprovalStatusOfBooth'])
         ->name('request.booths.approve');
 
     Route::post('/requests/sponsorships/{team}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfSponsorship'])
+        [CrewController::class, 'changeApprovalStatusOfSponsorship'])
         ->name('request.sponsorships.approve');
 
     Route::post('/requests/presentations/{presentation}/approve/{isApproved}',
-        [ContentModeratorController::class, 'changeApprovalStatusOfPresentation'])
+        [CrewController::class, 'changeApprovalStatusOfPresentation'])
         ->name('request.presentations.approve');
 
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
@@ -176,7 +176,7 @@ Route::middleware([
     Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
         ->name('schedule.default.presentation.edit');
 
-    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
+    Route::get('/moderator/list/{type}', [CrewController::class, 'showList'])
         ->name('list');
 
     Route::resource('/moderator/booths',
