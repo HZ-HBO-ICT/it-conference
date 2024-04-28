@@ -1,3 +1,7 @@
+@php
+    use \App\Models\Edition
+@endphp
+
 <x-hub-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -30,7 +34,20 @@
                                                     <strong>{{ $edition->name }}</strong>
                                                     <br/>
                                                     <span
-                                                        class="text-sm text-gray-500">{{ $edition->state }}</span>
+                                                        class="text-sm text-gray-500">
+                                                        @if($edition->state == Edition::STATE_DESIGN)
+                                                            Design
+                                                        @elseif($edition->state == Edition::STATE_ANNOUNCE)
+                                                            Registration opened
+                                                        @elseif($edition->state == Edition::STATE_ENROLLMENT)
+                                                            Final programme released
+                                                        @elseif($edition->state == Edition::STATE_EXECUTION)
+                                                            In progress
+                                                        @else
+                                                            Archived
+                                                        @endif
+
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -42,7 +59,9 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                       d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
-                                            {{ $edition->start_at->format('d/m/Y') }}
+                                            {{ $edition->start_at->format('d/m/Y H:i') }}
+                                            —
+                                            {{ $edition->end_at->format('d/m/Y H:i') }}
                                         </div>
                                     </div>
                                 </a>
