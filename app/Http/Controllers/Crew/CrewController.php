@@ -20,16 +20,16 @@ class CrewController extends Controller
     {
         if ($type == 'company') {
             $companies = Company::where('is_approved', false)->paginate(5);
-            return view('moderator.requests.teams', compact('type', 'companies'));
+            return view('crew.requests.teams', compact('type', 'companies'));
         } else if ($type == 'booths') {
             $booths = Booth::where('is_approved', false)->paginate(5);
-            return view('moderator.requests.booths', compact('type', 'booths'));
+            return view('crew.requests.booths', compact('type', 'booths'));
         } else if ($type == 'sponsorships') {
             $companies = Company::where('is_sponsorship_approved', false)->whereNotNull('sponsor_tier_id')->paginate(5);
-            return view('moderator.requests.sponsorships', compact('type', 'companies'));
+            return view('crew.requests.sponsorships', compact('type', 'companies'));
         } else if ($type == 'presentations') {
             $presentations = Presentation::where('is_approved', 1)->paginate(5);
-            return view('moderator.requests.presentations', compact('type', 'presentations'));
+            return view('crew.requests.presentations', compact('type', 'presentations'));
         }
 
         abort(404);
@@ -45,16 +45,16 @@ class CrewController extends Controller
     {
         if ($type == 'teams') {
             $company = Company::find($id);
-            return view('moderator.details.team', compact('company'));
+            return view('crew.details.team', compact('company'));
         } else if ($type == 'booths') {
             $booth = Booth::find($id);
-            return view('moderator.details.booth', compact('booth'));
+            return view('crew.details.booth', compact('booth'));
         } else if ($type == 'sponsorships') {
             $company = Company::find($id);
-            return view('moderator.details.sponsorship', compact('company'));
+            return view('crew.details.sponsorship', compact('company'));
         } else if ($type == 'presentations') {
             $presentation = Presentation::find($id);
-            return view('moderator.details.presentation', compact('presentation'));
+            return view('crew.details.presentation', compact('presentation'));
         }
 
         abort(404);
