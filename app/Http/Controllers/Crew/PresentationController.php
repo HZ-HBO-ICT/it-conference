@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ContentModerator;
+namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

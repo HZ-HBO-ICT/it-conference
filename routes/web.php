@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\ContentModerator\ContentModeratorController;
-use App\Http\Controllers\ContentModerator\DefaultPresentationController;
-use App\Http\Controllers\ContentModerator\RoomController;
-use App\Http\Controllers\ContentModerator\ScheduleController;
-use App\Http\Controllers\ContentModerator\UserController;
+use App\Http\Controllers\Crew\ContentModeratorController;
+use App\Http\Controllers\Crew\DefaultPresentationController;
+use App\Http\Controllers\Crew\RoomController;
+use App\Http\Controllers\Crew\ScheduleController;
+use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
@@ -180,27 +180,27 @@ Route::middleware([
         ->name('list');
 
     Route::resource('/moderator/booths',
-        App\Http\Controllers\ContentModerator\BoothController::class);
+        App\Http\Controllers\Crew\BoothController::class);
     Route::post('/moderator/booths/{booth}/approve', [
-        App\Http\Controllers\ContentModerator\BoothController::class, 'approve'
+        App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
     Route::resource('/moderator/companies',
-        App\Http\Controllers\ContentModerator\CompanyController::class);
+        App\Http\Controllers\Crew\CompanyController::class);
     Route::post('/moderator/companies/{team}/approve', [
-        App\Http\Controllers\ContentModerator\CompanyController::class, 'approve'
+        App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
     Route::resource('/moderator/presentations',
-        App\Http\Controllers\ContentModerator\PresentationController::class);
+        App\Http\Controllers\Crew\PresentationController::class);
     Route::post('/moderator/presentations/{presentation}/approve', [
-        App\Http\Controllers\ContentModerator\PresentationController::class, 'approve'
+        App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
     Route::resource('/moderator/sponsors',
-        App\Http\Controllers\ContentModerator\SponsorshipController::class);
+        App\Http\Controllers\Crew\SponsorshipController::class);
     Route::post('/moderator/sponsors/{sponsor}/approve', [
-        App\Http\Controllers\ContentModerator\SponsorshipController::class, 'approve'
+        App\Http\Controllers\Crew\SponsorshipController::class, 'approve'
     ])->name('sponsors.approve');
 
     Route::resource('/moderator/rooms', RoomController::class);
