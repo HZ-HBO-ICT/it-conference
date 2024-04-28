@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Difficulty;
+use App\Models\Event;
 use App\Models\Sponsorship;
 use App\Models\SponsorTier;
 use Exception;
@@ -60,7 +61,21 @@ class UpsertMasterData extends Command
                 'level' => 'expert',
                 'description' => 'Challenge yourself with these advanced presentations'
             ]
-        ]
+        ],
+        Event::class => [
+            [
+                'id' => 1,
+                'name' => 'Company registration'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Participant registration'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Presentation request'
+            ]
+        ],
     ];
 
     /**
