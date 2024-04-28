@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\RoomController;
@@ -179,8 +180,7 @@ Route::middleware([
     Route::get('/moderator/list/{type}', [CrewController::class, 'showList'])
         ->name('list');
 
-    Route::resource('/moderator/booths',
-        App\Http\Controllers\Crew\BoothController::class);
+    Route::resource('/moderator/booths', BoothController::class);
     Route::post('/moderator/booths/{booth}/approve', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
