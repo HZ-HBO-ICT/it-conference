@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Permission\Models\Role;
 
 class Company extends Model
 {
@@ -128,7 +129,7 @@ class Company extends Model
      * Checks if the company is HZ University of Applied Sciences
      * @return Attribute
      */
-    public function isHz() : Attribute
+    public function isHz(): Attribute
     {
         return Attribute::make(
             get: function () {
@@ -161,4 +162,24 @@ class Company extends Model
             }
         );
     }
+
+    /**
+     * Handle a (dis)approval of this Teams request to join the conference.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleTeamApproval(bool $isApproved): void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->save();
+        } else {
+            foreach ($this->users as $user) {
+                $user->syncRoles(Role::findByName('participant'));
+            }
+            $this->delete();
+        }
+    }
+
 }

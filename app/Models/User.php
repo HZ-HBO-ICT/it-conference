@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -193,5 +194,18 @@ class User extends Authenticatable implements MustVerifyEmail
                 }
             }
         );
+    }
+
+
+    /**
+     * Scope a query to only include users who can be company representatives.
+     */
+    public function scopeForCompanyRep(Builder $query): void
+    {
+        // Only user who:
+        // Do not have an @hz.nl
+        $query->role(['participant', 'speaker'])
+        ->where('email', 'not like', '%@hz.nl') // Exclude emails ending with '@hz.nl'
+        ->orderBy('name');
     }
 }
