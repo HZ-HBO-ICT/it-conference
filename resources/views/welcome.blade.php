@@ -5,9 +5,9 @@
             <div class="relative flex flex-col items-center px-4 py-16">
                 <!--Titles-->
                 <div
-                    class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-10">
+                    class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-6">
                     <div
-                        class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold lg:text-7xl md:text-6xl sm:text-3xl uppercase">
+                        class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
                         <h1 class="leading-snug" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
@@ -120,7 +120,7 @@
 
             <!-- Blob -->
             <img src="/img/blue-blob.png"
-                 class="absolute -top-48 -right-36 h-[20rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
+                 class="absolute -top-48 -right-36 md:-top-32 md:-right-20 lg:-top-32 lg:-right-32 xl:-top-48 xl:-right-40 h-80 transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(61deg)">
 
             <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">What to expect on this
@@ -131,10 +131,10 @@
             <div
                 class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink"></div>
 
-            <div class="flex flex-wrap justify-center ml-12 mr-12 mb-16">
+            <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
                 <!-- Card 1 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                    <div class="h-[32rem] rounded-lg shadow-md overflow-hidden relative">
                         <!-- Top dark gradient -->
                         <div
                             class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
@@ -145,7 +145,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/people-talking.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">SPEAKERS</h2>
@@ -158,7 +158,7 @@
 
                 <!-- Card 2 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                    <div class="h-[32rem] rounded-lg shadow-md overflow-hidden relative">
                         <!-- Top dark gradient -->
                         <div
                             class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
@@ -167,9 +167,9 @@
                             class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
                         <!-- Color gradient -->
                         <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-color opacity-50"></div>
+                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/lectures-min.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
@@ -182,7 +182,7 @@
 
                 <!-- Card 3 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div class="h-96 rounded-lg shadow-md overflow-hidden relative">
+                    <div class="h-[32rem] rounded-lg shadow-md overflow-hidden relative">
                         <!-- Top dark gradient -->
                         <div
                             class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
@@ -193,7 +193,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/companies.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">COMPANIES</h2>
