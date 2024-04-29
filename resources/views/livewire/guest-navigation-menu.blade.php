@@ -1,8 +1,8 @@
 <nav x-data="{ open: false }"
-     class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 relative z-10">
+     class="relative z-10">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-16 items-center">
             <div class="flex">
                 <!-- Logo -->
                 <!-- Leaving it just in case we get logo -->
@@ -14,24 +14,21 @@
                 </div>--}}
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link wire:navigate.hover href="{{ route('welcome') }}"
-                                :active="request()->routeIs('welcome')">
-                        {{ __('Home') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
-                                :active="request()->routeIs('speakers.index')">
-                        {{ __('Speakers') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
-                                :active="request()->routeIs('companies.index')">
-                        {{ __('Companies') }}
-                    </x-nav-link>
-                </div>
+                @foreach([
+                    'Home' => 'welcome',
+                    'Speakers' => 'speakers.index',
+                    'Companies' => 'companies.index',
+                    'FAQ' => 'faq',
+                    'Contact' => 'contact',
+                ] as $label => $route)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link wire:navigate.hover href="{{ route($route) }}"
+                                    :active="request()->routeIs($route)"
+                                    class="transition-colors duration-300">
+                            {{ __($label) }}
+                        </x-nav-link>
+                    </div>
+                @endforeach
                 {{--
                 @if(\App\Models\EventInstance::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
@@ -41,17 +38,6 @@
                     </div>
                 @endif
                 --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link wire:navigate.hover href="{{ route('faq') }}" :active="request()->routeIs('faq')">
-                        {{ __('FAQ') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link wire:navigate.hover href="{{ route('contact') }}"
-                                :active="request()->routeIs('contact')">
-                        {{ __('Contact') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -80,7 +66,7 @@
                                     }"
                                     @click="toggleDarkMode()"
                                     x-init="darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')"
-                                    class="w-full h-full flex items-center justify-center hover:bg-gray-100 text-gray-500 hover:text-gray-600 dark:hover:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                                    class="w-full h-full flex items-center justify-center hover:bg-gray-900 text-gray-700 hover:text-gray-600 dark:hover:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
                                 <svg class="w-4 h-4 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                      viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round"

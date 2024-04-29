@@ -13,7 +13,9 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&ital@0;1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&ital@0;1&display=swap"
+        rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -27,25 +29,26 @@
         }
     </script>
 </head>
-<body class="font-sans antialiased ">
-<x-banner/>
+<body class="font-sans antialiased bg-white dark:bg-gray-900">
+<div class="bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink">
+    <x-banner/>
+    <div class="text-black dark:text-white">
+        @guest()
+            @livewire('guest-navigation-menu')
+        @endguest
+        @auth()
+            @livewire('auth-navigation-menu')
+        @endauth
 
-<div>
-    @guest()
-        @livewire('guest-navigation-menu')
-    @endguest
-    @auth()
-        @livewire('auth-navigation-menu')
-    @endauth
-
-    <!-- Page Content -->
-    <main class="bg-white text-black dark:bg-gray-500 dark:text-white">
-        {{ $slot }}
-    </main>
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
+    </div>
 </div>
 <footer class="bg-white dark:bg-gray-900">
     <div class="mx-auto w-full max-w-screen-xl">
-        <div class="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
+        <div class="grid grid-cols-2 mt-8 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
             <div>
                 <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Portal</h2>
                 <ul class="text-gray-400 font-medium">
@@ -82,7 +85,7 @@
             </div>
         </div>
         <div class="px-4 py-6 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 dark:text-gray-300 sm:text-center"> © 2024 IT Conference | Made by IT Conference Website Team. All Rights Reserved.
+        <span class="text-sm text-gray-500 dark:text-gray-300 sm:text-center"> © 2024 IT Together Conference | Made by IT-Conference Website Team. All Rights Reserved.
         </span>
             <div class="flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse">
                 <a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
