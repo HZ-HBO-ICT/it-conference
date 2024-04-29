@@ -128,10 +128,10 @@
                                    :active="request()->routeIs('login')">
                 {{ __('Login') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('register') }}"
-                                   :active="request()->routeIs('register')">
-                {{ __('Register') }}
-            </x-responsive-nav-link>
+{{--            <x-responsive-nav-link wire:navigate.hover href="{{ route('register') }}"--}}
+{{--                                   :active="request()->routeIs('register')">--}}
+{{--                {{ __('Register') }}--}}
+{{--            </x-responsive-nav-link>--}}
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
             <x-responsive-nav-link x-data="{
                                         darkMode: $persist(false).as('dark_mode'),

@@ -123,14 +123,12 @@
                  class="absolute -top-48 -right-36 md:-top-32 md:-right-20 lg:-top-32 lg:-right-32 xl:-top-48 xl:-right-40 h-80 transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(61deg)">
 
-            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">What to expect on this
-                year's
-                conference?</h2>
+            <!-- Gradient background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
-            <!-- Background Gradient -->
-            <div
-                class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink"></div>
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to expect on this year's conference?</h2>
 
+            {{-- Cards for speakers, presentations, companies --}}
             <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
                 <!-- Card 1 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
@@ -212,7 +210,6 @@
                 <div class="flex flex-wrap justify-center mb-16 text-center">
                     <div class="text-xl font-montserrat">
                         <h2>Golden sponsor</h2>
-
                         <h2>Silver sponsors</h2>
                         <h2>Bronze sponsors</h2>
                     </div>
