@@ -62,73 +62,83 @@
 
 
                 <x-slot name="actions">
-                    <x-button
-                        onclick="Livewire.dispatch('openModal', { component: 'booth.edit-booth-modal', arguments: {booth: {{$booth}}} })">
-                        {{ __('Edit details') }}
-                    </x-button>
+                    @can('update', $booth)
+                        <x-button
+                            onclick="Livewire.dispatch('openModal', { component: 'booth.edit-booth-modal', arguments: {booth: {{$booth}}} })">
+                            {{ __('Edit details') }}
+                        </x-button>
+                    @endcan
                 </x-slot>
             </x-action-section>
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Booth Approval Status') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('When the status is approved, the booth will be secured for the company.') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div
-                        class="mt-1 text-sm leading-6 text-{{ $booth->is_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
-                        {{ $booth->is_approved ? 'Approved' : 'Awaiting approval' }}
-                    </div>
-                </x-slot>
-
-                @if(!$booth->is_approved)
-                    <x-slot name="actions">
-                        <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}" class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="1"/>
-                            <x-button
-                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                {{ __('Approve') }}
-                            </x-button>
-                        </form>
-                        <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}" class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="0"/>
-                            <x-button
-                                class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                                {{ __('Reject') }}
-                            </x-button>
-                        </form>
-                    </x-slot>
-                @endif
-            </x-action-section>
-
-            <x-section-border/>
-
-            @if($booth->is_approved)
+            @can('viewApprovalStatus', $booth)
                 <x-action-section>
                     <x-slot name="title">
-                        {{ __('Delete Booth') }}
+                        {{ __('Booth Approval Status') }}
                     </x-slot>
 
                     <x-slot name="description">
-                        You can remove the company booth
+                        {{ __('When the status is approved, the booth will be secured for the company.') }}
                     </x-slot>
 
-                    <x-slot name="actions">
-                        <x-danger-button
-                            onclick="Livewire.dispatch('openModal', { component: 'booth.delete-booth-modal', arguments: {booth: {{$booth}}} })">
-                            {{ __('Delete Booth') }}
-                        </x-danger-button>
+                    <x-slot name="content">
+                        <div
+                            class="mt-1 text-sm leading-6 text-{{ $booth->is_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
+                            {{ $booth->is_approved ? 'Approved' : 'Awaiting approval' }}
+                        </div>
                     </x-slot>
+
+                    @if(!$booth->is_approved)
+                        @can('approve', $booth)
+                            <x-slot name="actions">
+                                <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}"
+                                      class="mr-2">
+                                    @csrf
+                                    <input type="hidden" name="approved" value="1"/>
+                                    <x-button
+                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                                        {{ __('Approve') }}
+                                    </x-button>
+                                </form>
+                                <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}"
+                                      class="mr-2">
+                                    @csrf
+                                    <input type="hidden" name="approved" value="0"/>
+                                    <x-button
+                                        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+                                        {{ __('Reject') }}
+                                    </x-button>
+                                </form>
+                            </x-slot>
+                        @endcan
+                    @endif
                 </x-action-section>
-            @endif
+            @endcan
+
+            <x-section-border/>
+
+            @can('delete', $booth)
+                @if($booth->is_approved)
+                    <x-action-section>
+                        <x-slot name="title">
+                            {{ __('Delete Booth') }}
+                        </x-slot>
+
+                        <x-slot name="description">
+                            You can remove the company booth
+                        </x-slot>
+
+                        <x-slot name="actions">
+                            <x-danger-button
+                                onclick="Livewire.dispatch('openModal', { component: 'booth.delete-booth-modal', arguments: {booth: {{$booth}}} })">
+                                {{ __('Delete Booth') }}
+                            </x-danger-button>
+                        </x-slot>
+                    </x-action-section>
+                @endif
+            @endcan
         </div>
     </div>
 </x-hub-layout>
