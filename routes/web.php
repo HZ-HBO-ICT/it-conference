@@ -176,7 +176,20 @@ Route::middleware([
 //    Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
 //        ->name('schedule.default.presentation.edit');
 
-    Route::resource('/moderator/editions', EditionController::class);
+    Route::get('/moderator/editions', [EditionController::class, 'index'])
+        ->name('editions.index');
+
+    Route::get('/moderator/edition/{edition}', [EditionController::class, 'show'])
+        ->name('editions.show');
+
+    Route::get('/moderator/editions/create', [EditionController::class, 'create'])
+        ->name('editions.create');
+
+    Route::post('/moderator/editions', [EditionController::class, 'store'])
+        ->name('editions.store');
+
+    Route::delete('/moderator/edition/{edition}', [EditionController::class, 'destroy'])
+        ->name('editions.destroy');
 //
 //    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
 //        ->name('list');

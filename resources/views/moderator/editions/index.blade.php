@@ -71,7 +71,9 @@
                                             </div>
 
                                             <div class="hidden flex gap-2" id="managementButtons">
-                                                <x-button-link href="{{ route('moderator.editions.edit', $edition->id) }}">Edit</x-button-link>
+                                                <x-button-link onclick="Livewire.dispatch('openModal', { component: 'edition.edit-edition-modal', arguments: { edition: {{ $edition }} } })">
+                                                    Edit
+                                                </x-button-link>
                                                 <x-button-link href="{{ route('moderator.editions.destroy', $edition->id) }}">Delete</x-button-link>
                                             </div>
                                         </div>

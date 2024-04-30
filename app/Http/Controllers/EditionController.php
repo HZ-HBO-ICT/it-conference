@@ -27,7 +27,13 @@ class EditionController extends Controller
      */
     public function show(int $id) : View
     {
-        return view('moderator.editions.show', ['edition' => Edition::findOrFail($id)]);
+        $edition = Edition::findOrFail($id);
+        $events = $edition->editionEvents;
+
+        return view('moderator.editions.show', [
+            'edition' => $edition,
+            'events' => $events,
+        ]);
     }
 
     /**
@@ -47,31 +53,6 @@ class EditionController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $edition = Edition::create($this->validateEdition($request));
-
-        return redirect(route('moderator.editions.show', compact('edition')));
-    }
-
-    /**
-     * Returns edit form for a particular edition
-     * @param int $id of the edition
-     * @return View
-     */
-    public function edit(int $id) : View
-    {
-        return view('moderator.editions.edit', ['edition' => Edition::findOrFail($id)]);
-    }
-
-    /**
-     * Updates information about particular edition in the database
-     * @param Request $request updated data about the edition
-     * @param int $id of the edition to update
-     * @return void
-     */
-    public function update(Request $request, int $id): RedirectResponse
-    {
-        $edition = Edition::findOrFail($id);
-
-        $edition->update($this->validateEdition($request));
 
         return redirect(route('moderator.editions.show', compact('edition')));
     }
@@ -98,19 +79,5 @@ class EditionController extends Controller
         Edition::findOrFail($id)->delete();
 
         return redirect(route('moderator.editions.index'));
-    }
-
-    /**
-     * Validates data about an edition
-     * @param Request $request to validate
-     * @return array validated array with data
-     */
-    public function validateEdition(Request $request): array
-    {
-        return $request->validate([
-            'name' => 'required|max:255',
-            'start_at' => 'required|date_format:Y-m-d H:i:s',
-            'end_at' => 'required|date_format:Y-m-d H:i:s',
-        ]);
     }
 }
