@@ -43,9 +43,36 @@
                 </x-slot>
 
                 <x-slot name="actions">
-                    {{--@can('update', $company)
-                        @livewire('edit-team-modal', ['team' => $company])
-                    @endcan--}}
+                    <x-button
+                        onclick="Livewire.dispatch('openModal', { component: 'company.edit-company-modal', arguments: {company: {{$company}}} })">
+                        {{ __('Edit details') }}
+                    </x-button>
+                </x-slot>
+            </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Company Members') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('The participants who are related to this company.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="text-gray-800 dark:text-gray-200">
+                        @forelse($company->users as $user)
+                            {{ $user->name }} | {{ $user->email }}
+                            @if($company->representative->id == $user->id)
+                                              (Company representative)
+                            @endif
+                            <br>
+                        @empty
+                            {{ __('There are currently no users in this company') }}
+                        @endforelse
+                    </div>
                 </x-slot>
             </x-action-section>
 
@@ -106,6 +133,7 @@
                         {{ $company->booth && $company->booth->is_approved ? 'Approved' : ($company->booth ? 'Awaiting approval' : 'Not requested') }}
                     </div>
                 </x-slot>
+
 
                 @if($company->booth && !$company->booth->is_approved)
                     <x-slot name="actions">
@@ -183,34 +211,7 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Company Members') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('The participants who are related to this company.') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div class="text-gray-800 dark:text-gray-200">
-                        @forelse($company->allUsers() as $user)
-                            {{ $user->name }} | {{ $user->email }}
-                            @if($user->ownsTeam($company))
-                                              (Owner)
-                            @endif
-                            <br>
-                        @empty
-                            {{ __('There are currently no users in this company') }}
-                        @endforelse
-                    </div>
-                </x-slot>
-            </x-action-section>
-
-            <x-section-border/>
-
             <div class="mt-10 sm:mt-0">
-                @livewire('companies.delete-company-form', ['company' => $company])
             </div>
         </div>
     </div>

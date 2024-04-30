@@ -15,7 +15,6 @@ use LivewireUI\Modal\ModalComponent;
 
 class EditCompanyModal extends ModalComponent
 {
-    public bool $isOpen = false;
     public Company $company;
     public CompanyForm $form;
 
@@ -40,14 +39,13 @@ class EditCompanyModal extends ModalComponent
 
         $this->form->update();
 
-        return redirect(route('company.details'))
-            ->with('status', 'Company successfully updated.');
-        /* if (Auth::user()->id == $this->company->representative->id) {
-
-        } else {
-            return redirect(route('moderator.companies.show', $this->team))
+        if (Auth::user()->id == $this->company->representative->id) {
+            return redirect(route('company.details'))
                 ->with('status', 'Company successfully updated.');
-        }*/
+        } else {
+            return redirect(route('moderator.companies.show', $this->company))
+                ->with('status', 'Company successfully updated.');
+        }
     }
 
     /**
