@@ -120,43 +120,24 @@
 
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Company Booth Status') }}
+                    {{ __('Company Booth') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('When the status is approved, the company will have a booth at the conference.') }}
+                    {{ __('Determines the stand for the company') }}
                 </x-slot>
 
                 <x-slot name="content">
-                    <div
-                        class="mt-1 text-sm text-gray-800 dark:text-gray-200 leading-6 {{ $company->booth && $company->booth->is_approved ? 'text-green-500' : ($company->booth ? 'text-yellow-500' : 'text-grey-500') }} sm:col-span-2 sm:mt-0">
-                        {{ $company->booth && $company->booth->is_approved ? 'Approved' : ($company->booth ? 'Awaiting approval' : 'Not requested') }}
+                    <div>
+                        @if(!$company->booth)
+                            <p class="text-gray-500 dark:text-yellow-300">Not requested</p>
+                        @elseif(!$company->booth->is_approved)
+                            <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a class="underline" href="{{route('moderator.booths.show', $company->booth)}}">See more here</a></p>
+                        @else
+                            <p class="text-green-500 dark:text-green-400">Approved. <a class="underline" href="{{route('moderator.booths.show', $company->booth)}}">See more here</a></p>
+                        @endif
                     </div>
                 </x-slot>
-
-
-                @if($company->booth && !$company->booth->is_approved)
-                    <x-slot name="actions">
-                        <form method="POST" action="{{ route('moderator.booths.approve', $company->booth) }}"
-                              class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="1"/>
-                            <x-button
-                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                {{ __('Approve') }}
-                            </x-button>
-                        </form>
-                        <form method="POST" action="{{ route('moderator.booths.approve', $company->booth) }}"
-                              class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="0"/>
-                            <x-button
-                                class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                                {{ __('Reject') }}
-                            </x-button>
-                        </form>
-                    </x-slot>
-                @endif
             </x-action-section>
 
             <x-section-border/>
@@ -171,48 +152,15 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="mt-1 text-sm text-gray-800 dark:text-gray-200 leading-6 {{ is_null($company->is_sponsor_approved) ? 'text-grey-500' : ($company->is_sponsor_approved ? 'text-green-500' : 'text-yellow-500') }}
-                        sm:col-span-2 sm:mt-0">
-                        {{ is_null($company->is_sponsor_approved) ? 'Not requested' : ($company->is_sponsor_approved ? 'Approved' : 'Awaiting approval') }}
-                        @if($company->sponsor_tier_id)
-                            with tier
-                            @if($company->sponsor_tier_id == 1)
-                            Gold
-                            @elseif($company->sponsor_tier_id == 2)
-                            Silver
-                            @else
-                            Bronze
-                            @endif
-                        @endif
-                    </div>
+                    @if(!$company->sponsorship)
+                        <p class="text-gray-500 dark:text-yellow-300">Not requested</p>
+                    @elseif(!$company->is_sponsorship_approved)
+                        <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a class="underline" href="{{route('moderator.sponsors.show', $company)}}">See more here</a></p>
+                    @else
+                        <p class="text-green-500 dark:text-green-400">Approved. <a class="underline" href="{{route('moderator.sponsors.show', $company)}}">See more here</a></p>
+                    @endif
                 </x-slot>
-
-                @if(!$company->is_sponsor_approved && !is_null($company->sponsor_tier_id))
-                    <x-slot name="actions">
-                        <form method="POST" action="{{ route('moderator.sponsors.approve', $company) }}" class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="1"/>
-                            <x-button
-                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                {{ __('Approve') }}
-                            </x-button>
-                        </form>
-                        <form method="POST" action="{{ route('moderator.sponsors.approve', $company) }}" class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="0"/>
-                            <x-button
-                                class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                                {{ __('Reject') }}
-                            </x-button>
-                        </form>
-                    </x-slot>
-                @endif
             </x-action-section>
-
-            <x-section-border/>
-
-            <div class="mt-10 sm:mt-0">
-            </div>
         </div>
     </div>
 </x-hub-layout>
