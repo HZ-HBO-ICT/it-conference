@@ -36,14 +36,26 @@
                 <!-- Edition Start Date -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition Start Date</dt>
                 <dd class="sm:col-span-2">
-
+                    <input
+                        type="datetime-local"
+{{--                        min="2018-06-07T00:00"--}}
+{{--                        max="2030-06-14T00:00"--}}
+                        wire:model="form.start_at"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
+                    />
                     @error('form.start_at') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
 
                 <!-- Edition End Date -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition End Date</dt>
                 <dd class="sm:col-span-2">
-
+                    <input
+                        type="datetime-local"
+{{--                        min="2018-06-07T00:00"--}}
+{{--                        max="2030-06-14T00:00"--}}
+                        wire:model="form.end_at"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
+                    />
                     @error('form.end_at') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
             </dl>

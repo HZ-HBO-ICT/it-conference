@@ -33,8 +33,8 @@ class EditionForm extends Form
 
         $this->name = $edition->name;
         $this->state = $edition->state;
-        $this->start_at = $edition->start_at;
-        $this->end_at = $edition->end_at;
+        $this->start_at = $edition->start_at->format('Y-m-d\TH:i:s');
+        $this->end_at = $edition->end_at->format('Y-m-d\TH:i:s');
     }
 
     /**
