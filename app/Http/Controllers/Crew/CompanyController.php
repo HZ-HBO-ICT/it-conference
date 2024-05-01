@@ -52,7 +52,7 @@ class CompanyController extends Controller
         $input = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'website' => 'required',
+            'website' => 'required|url',
             'postcode' => ['required',
                 'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
             'house_number' => ['required',
@@ -121,7 +121,13 @@ class CompanyController extends Controller
 
         $template = $isApproved ? 'You approved :company to join the IT Conference!!'
             : 'You refused the request of :company to join the IT conference';
-        return redirect(route('moderator.companies.show', $company))
+
+        if($isApproved) {
+            return redirect(route('moderator.companies.show', $company))
+                ->banner(__($template, ['company' => $company->name]));
+        }
+
+        return redirect(route('moderator.companies.index'))
             ->banner(__($template, ['company' => $company->name]));
     }
 

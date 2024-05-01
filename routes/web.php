@@ -187,7 +187,7 @@ Route::middleware([
 
     Route::resource('/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class);
-    Route::post('/moderator/companies/{team}/approve', [
+    Route::post('/moderator/companies/{company}/approve', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 

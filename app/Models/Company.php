@@ -175,8 +175,9 @@ class Company extends Model
             $this->is_approved = true;
             $this->save();
         } else {
+            $participantRole = Role::findByName('participant', 'web');
             foreach ($this->users as $user) {
-                $user->syncRoles(Role::findByName('participant'));
+                $user->syncRoles($participantRole);
             }
             $this->delete();
         }
