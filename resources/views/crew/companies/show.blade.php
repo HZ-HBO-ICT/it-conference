@@ -42,12 +42,14 @@
                     </div>
                 </x-slot>
 
-                <x-slot name="actions">
-                    <x-button
-                        onclick="Livewire.dispatch('openModal', { component: 'company.edit-company-modal', arguments: {company: {{$company}}} })">
-                        {{ __('Edit details') }}
-                    </x-button>
-                </x-slot>
+                @can('editDetails', $company)
+                    <x-slot name="actions">
+                        <x-button
+                            onclick="Livewire.dispatch('openModal', { component: 'company.edit-company-modal', arguments: {company: {{$company}}} })">
+                            {{ __('Edit details') }}
+                        </x-button>
+                    </x-slot>
+                @endcan
             </x-action-section>
 
             <x-section-border/>
@@ -78,69 +80,84 @@
 
             <x-section-border/>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Company Approval Status') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('When the status is approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div
-                        class="mt-1 text-sm leading-6 text-{{ $company->is_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
-                        {{ $company->is_approved ? 'Approved' : 'Awaiting approval' }}
-                    </div>
-                </x-slot>
-
-                @if(!$company->is_approved)
-                    <x-slot name="actions">
-                        <form method="POST" action="{{ route('moderator.companies.approve', $company) }}" class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="1"/>
-                            <x-button
-                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                {{ __('Approve') }}
-                            </x-button>
-                        </form>
-                        <form method="POST" action="{{ route('moderator.companies.approve', $company) }}" class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="0"/>
-                            <x-button
-                                class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                                {{ __('Reject') }}
-                            </x-button>
-                        </form>
+            @can('viewApprovalStatus', $company)
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Company Approval Status') }}
                     </x-slot>
-                @endif
-            </x-action-section>
 
-            <x-section-border/>
+                    <x-slot name="description">
+                        {{ __('When the status is approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
+                    </x-slot>
 
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Company Booth') }}
-                </x-slot>
+                    <x-slot name="content">
+                        <div
+                            class="mt-1 text-sm leading-6 text-{{ $company->is_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
+                            {{ $company->is_approved ? 'Approved' : 'Awaiting approval' }}
+                        </div>
+                    </x-slot>
 
-                <x-slot name="description">
-                    {{ __('Determines the stand for the company') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div>
-                        @if(!$company->booth)
-                            <p class="text-gray-500 dark:text-yellow-300">Not requested</p>
-                        @elseif(!$company->booth->is_approved)
-                            <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a class="underline" href="{{route('moderator.booths.show', $company->booth)}}">See more here</a></p>
-                        @else
-                            <p class="text-green-500 dark:text-green-400">Approved. <a class="underline" href="{{route('moderator.booths.show', $company->booth)}}">See more here</a></p>
+                    @can('approve', $company)
+                        @if(!$company->is_approved)
+                            <x-slot name="actions">
+                                <form method="POST" action="{{ route('moderator.companies.approve', $company) }}"
+                                      class="mr-2">
+                                    @csrf
+                                    <input type="hidden" name="approved" value="1"/>
+                                    <x-button
+                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                                        {{ __('Approve') }}
+                                    </x-button>
+                                </form>
+                                <form method="POST" action="{{ route('moderator.companies.approve', $company) }}"
+                                      class="mr-2">
+                                    @csrf
+                                    <input type="hidden" name="approved" value="0"/>
+                                    <x-button
+                                        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+                                        {{ __('Reject') }}
+                                    </x-button>
+                                </form>
+                            </x-slot>
                         @endif
-                    </div>
-                </x-slot>
-            </x-action-section>
+                    @endcan
+                </x-action-section>
 
-            <x-section-border/>
+                <x-section-border/>
+            @endcan
+            @can('view', $company->booth)
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Company Booth') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Determines the stand for the company') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div>
+                            @if(!$company->booth)
+                                <p class="text-gray-500 dark:text-yellow-300">Not requested</p>
+                            @elseif(!$company->booth->is_approved)
+                                <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a
+                                        class="underline" href="{{route('moderator.booths.show', $company->booth)}}">See
+                                                                                                                     more
+                                                                                                                     here</a>
+                                </p>
+                            @else
+                                <p class="text-green-500 dark:text-green-400">Approved. <a class="underline"
+                                                                                           href="{{route('moderator.booths.show', $company->booth)}}">See
+                                                                                                                                                      more
+                                                                                                                                                      here</a>
+                                </p>
+                            @endif
+                        </div>
+                    </x-slot>
+                </x-action-section>
+
+                <x-section-border/>
+            @endcan
 
             <x-action-section>
                 <x-slot name="title">
@@ -155,9 +172,15 @@
                     @if(!$company->sponsorship)
                         <p class="text-gray-500 dark:text-yellow-300">Not requested</p>
                     @elseif(!$company->is_sponsorship_approved)
-                        <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a class="underline" href="{{route('moderator.sponsors.show', $company)}}">See more here</a></p>
+                        <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a
+                                class="underline" href="{{route('moderator.sponsors.show', $company)}}">See more
+                                                                                                        here</a></p>
                     @else
-                        <p class="text-green-500 dark:text-green-400">Approved. <a class="underline" href="{{route('moderator.sponsors.show', $company)}}">See more here</a></p>
+                        <p class="text-green-500 dark:text-green-400">Approved. <a class="underline"
+                                                                                   href="{{route('moderator.sponsors.show', $company)}}">See
+                                                                                                                                         more
+                                                                                                                                         here</a>
+                        </p>
                     @endif
                 </x-slot>
             </x-action-section>

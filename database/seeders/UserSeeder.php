@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@hz.nl',
+            'email' => 'mod@hz.nl',
             'password' => bcrypt('123')]);
         $user->markEmailAsVerified();
         $user->assignRole('event organizer');

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booth;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
@@ -16,6 +18,10 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
+        if (Auth::user()->cannot('viewAny', Company::class)) {
+            abort(403);
+        }
+
         $companies = Company::orderBy('is_approved')->paginate(15);
 
         return view('crew.companies.index', compact('companies'));
@@ -26,6 +32,10 @@ class CompanyController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->cannot('create', Company::class)) {
+            abort(403);
+        }
+
         return view('crew.companies.create');
     }
 
@@ -34,6 +44,10 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->cannot('create', Company::class)) {
+            abort(403);
+        }
+
         // Validate and fetch the user
         $input = $request->validate([
             'name' => 'required',
@@ -82,6 +96,10 @@ class CompanyController extends Controller
      */
     public function show(Company $company): View
     {
+        if (Auth::user()->cannot('viewDetails', $company)) {
+            abort(403);
+        }
+
         return view('crew.companies.show', compact('company'));
     }
 
@@ -90,6 +108,10 @@ class CompanyController extends Controller
      */
     public function approve(Request $request, Company $company)
     {
+        if (Auth::user()->cannot('viewDetails', $company)) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'approved' => 'required|boolean'
         ]);
@@ -108,6 +130,10 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        if (Auth::user()->cannot('delete', $company)) {
+            abort(403);
+        }
+
         foreach ($company->users as $user) {
             $user->syncRoles(Role::findByName('participant'));
         }
