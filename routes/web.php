@@ -179,7 +179,7 @@ Route::middleware([
     Route::get('/moderator/editions', [EditionController::class, 'index'])
         ->name('editions.index');
 
-    Route::get('/moderator/edition/{edition}', [EditionController::class, 'show'])
+    Route::get('/moderator/editions/{edition}', [EditionController::class, 'show'])
         ->name('editions.show');
 
     Route::get('/moderator/editions/create', [EditionController::class, 'create'])
@@ -188,7 +188,7 @@ Route::middleware([
     Route::post('/moderator/editions', [EditionController::class, 'store'])
         ->name('editions.store');
 
-    Route::delete('/moderator/edition/{edition}', [EditionController::class, 'destroy'])
+    Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
         ->name('editions.destroy');
 //
 //    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])

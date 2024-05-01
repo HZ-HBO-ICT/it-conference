@@ -22,18 +22,14 @@ class EditionController extends Controller
 
     /**
      * Returns the show page for the particular edition
-     * @param int $id of the edition to retrieve
+     * @param Edition $edition to show
      * @return View
      */
-    public function show(int $id) : View
+    public function show(Edition $edition) : View
     {
-        $edition = Edition::findOrFail($id);
         $events = $edition->editionEvents;
 
-        return view('moderator.editions.show', [
-            'edition' => $edition,
-            'events' => $events,
-        ]);
+        return view('moderator.editions.show', compact('edition', 'events'));
     }
 
     /**
@@ -59,24 +55,24 @@ class EditionController extends Controller
 
     /**
      * Triggers a function for a specific edition that activates it
-     * @param int $id of the edition
+     * @param Edition $edition to activate
      * @return RedirectResponse redirects to the index page
      */
-    public function activateEdition(int $id) : RedirectResponse
+    public function activateEdition(Edition $edition) : RedirectResponse
     {
-        Edition::findOrFail($id)->activate();
+        $edition->activate();
 
         return redirect(route('moderator.editions.index'));
     }
 
     /**
      * Deletes a record of a particular edition in the database
-     * @param int $id of the edition
+     * @param Edition $edition
      * @return RedirectResponse redirects to index page
      */
-    public function destroy(int $id) : RedirectResponse
+    public function destroy(Edition $edition) : RedirectResponse
     {
-        Edition::findOrFail($id)->delete();
+        $edition->delete();
 
         return redirect(route('moderator.editions.index'));
     }

@@ -74,7 +74,7 @@
                                                 <x-button-link onclick="Livewire.dispatch('openModal', { component: 'edition.edit-edition-modal', arguments: { edition: {{ $edition }} } })">
                                                     Edit
                                                 </x-button-link>
-                                                <x-button-link href="{{ route('moderator.editions.destroy', $edition->id) }}">Delete</x-button-link>
+                                                <x-button-link href="{{ route('moderator.editions.destroy', $edition) }}">Delete</x-button-link>
                                             </div>
                                         </div>
                                     </div>
