@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Edition
+    use App\Models\Edition
 @endphp
 
 <x-hub-layout>
@@ -13,7 +13,7 @@
                     <x-button-link id="editButton">
                         {{ __('Manage editions') }}
                     </x-button-link>
-                    <x-button-link href="{{route('moderator.editions.create')}}" class="ml-3">
+                    <x-button-link href="{{ route('moderator.editions.create') }}" class="ml-3">
                         {{ __('Create a new edition') }}
                     </x-button-link>
                 </x-slot>
@@ -63,18 +63,24 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                 </svg>
-                                                <p>
+                                                @if (!$edition->start_at || !$edition->end_at)
+                                                    TBD
+                                                @else
                                                     {{ $edition->start_at->format('d/m/Y H:i') }}
                                                     —
                                                     {{ $edition->end_at->format('d/m/Y H:i') }}
-                                                </p>
+                                                @endif
                                             </div>
 
-                                            <div class="hidden flex gap-2" id="managementButtons">
+                                            <div class="managementButtons hidden flex gap-2">
                                                 <x-button-link onclick="Livewire.dispatch('openModal', { component: 'edition.edit-edition-modal', arguments: { edition: {{ $edition }} } })">
                                                     Edit
                                                 </x-button-link>
-                                                <x-button-link href="{{ route('moderator.editions.destroy', $edition) }}">Delete</x-button-link>
+                                                <form method="POST" action="{{ route('moderator.editions.destroy', $edition) }}">
+                                                    @csrf
+                                                    @method("DELETE")
+                                                    <x-button>Delete</x-button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -98,13 +104,15 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const editButton = document.getElementById('editButton');
-        const managementButtons = document.getElementById('managementButtons');
+        const managementButtons = document.getElementsByClassName('managementButtons');
 
         editButton.addEventListener('click', function () {
-            if (managementButtons.classList.contains('hidden')) {
-                managementButtons.classList.remove('hidden');
-            } else {
-                managementButtons.classList.add('hidden');
+            for (const button of managementButtons) {
+                if (button.classList.contains('hidden')) {
+                    button.classList.remove('hidden');
+                } else {
+                    button.classList.add('hidden');
+                }
             }
         });
     });
