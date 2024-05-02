@@ -59,7 +59,7 @@ class Edition extends Model
      * Returns basic validation rules for Edition
      * @return string[]
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
             'name' => 'required|max:255',
