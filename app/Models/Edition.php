@@ -56,6 +56,17 @@ class Edition extends Model
     const STATE_ARCHIVE = 50;
 
     /**
+     * Returns basic validation rules for Edition
+     * @return string[]
+     */
+    public function rules(): array
+    {
+        return [
+            'name' => 'required|max:255',
+        ];
+    }
+
+    /**
      * Establishes a relationship between Edition and EditionEvent models (events that are executed during given edition)
      * @return HasMany
      */

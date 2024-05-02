@@ -48,7 +48,7 @@ class EditionController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
-        $edition = Edition::create($this->validateEdition($request));
+        $edition = Edition::create($request->validate(Edition::rules()));
 
         return redirect(route('moderator.editions.show', compact('edition')));
     }
