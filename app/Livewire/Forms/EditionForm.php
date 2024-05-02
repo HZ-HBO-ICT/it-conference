@@ -16,10 +16,10 @@ class EditionForm extends Form
     #[Validate('required')]
     public $state;
 
-    #[Validate(['required', 'date_format:d-m-Y H:i:s'])]
+    #[Validate(['required', 'date'])]
     public $start_at;
 
-    #[Validate(['required', 'date_format:d-m-Y H:i:s'])]
+    #[Validate(['required', 'date'])]
     public $end_at;
 
     /**

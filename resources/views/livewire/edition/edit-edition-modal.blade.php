@@ -38,8 +38,8 @@
                 <dd class="sm:col-span-2">
                     <input
                         type="datetime-local"
-{{--                        min="2018-06-07T00:00"--}}
-{{--                        max="2030-06-14T00:00"--}}
+                        id="start_at"
+                        max="{{ $edition->end_at }}"
                         wire:model="form.start_at"
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                     />
@@ -51,8 +51,8 @@
                 <dd class="sm:col-span-2">
                     <input
                         type="datetime-local"
-{{--                        min="2018-06-07T00:00"--}}
-{{--                        max="2030-06-14T00:00"--}}
+                        id="end_at"
+                        min="{{ $edition->start_at }}"
                         wire:model="form.end_at"
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                     />
@@ -72,3 +72,21 @@
         </button>
     </x-slot>
 </x-livewire-modal>
+
+@script
+    <script>
+        const startAt = document.getElementById('start_at');
+        const endAt = document.getElementById('end_at');
+        console.log(endAt.min);
+
+        startAt.addEventListener('change', (event) => {
+            console.log('dfgdfg');
+            endAt.min = event.target.value;
+        });
+
+        endAt.addEventListener('change', (event) => {
+            console.log(event.target.value);
+            startAt.max = event.target.value;
+        });
+    </script>
+@endscript

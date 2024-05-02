@@ -96,14 +96,16 @@
 </x-hub-layout>
 
 <script>
-    const editButton = document.getElementById('editButton');
-    const managementButtons = document.getElementById('managementButtons');
+    document.addEventListener("DOMContentLoaded", function() {
+        const editButton = document.getElementById('editButton');
+        const managementButtons = document.getElementById('managementButtons');
 
-    editButton.addEventListener('click', function () {
-        if (managementButtons.classList.contains('hidden')) {
-            managementButtons.classList.remove('hidden');
-        } else {
-            managementButtons.classList.add('hidden');
-        }
+        editButton.addEventListener('click', function () {
+            if (managementButtons.classList.contains('hidden')) {
+                managementButtons.classList.remove('hidden');
+            } else {
+                managementButtons.classList.add('hidden');
+            }
+        });
     });
 </script>
