@@ -23,7 +23,7 @@
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition State</dt>
                 <dd class="sm:col-span-2">
                     <select wire:model="form.state"
-                            class="mt-1 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
+                            class="mt-1 w-full border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
                         <option value="10">Design</option>
                         <option value="20">Registration opened</option>
                         <option value="30">Final programme released</option>
