@@ -85,7 +85,6 @@
         });
 
         endAt.addEventListener('change', (event) => {
-            console.log(event.target.value);
             startAt.max = event.target.value;
         });
     </script>
