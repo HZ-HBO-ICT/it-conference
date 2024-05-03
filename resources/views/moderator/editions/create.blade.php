@@ -44,6 +44,8 @@
                                     type="datetime-local"
                                     id="start_at"
                                     name="start_at"
+                                    max="{{ old('end_at') }}"
+                                    value="{{ old('start_at') }}"
                                     class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                                 />
                                 <x-input-error for="start_at" class="mt-2"/>
@@ -54,6 +56,8 @@
                                     type="datetime-local"
                                     id="end_at"
                                     name="end_at"
+                                    min="{{ old('start_at') }}"
+                                    value="{{ old('end_at') }}"
                                     class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                                 />
                                 <x-input-error for="end_at" class="mt-2"/>
@@ -69,3 +73,16 @@
         </div>
     </div>
 </x-hub-layout>
+
+<script>
+    const startAt = document.getElementById('start_at');
+    const endAt = document.getElementById('end_at');
+
+    startAt.addEventListener('change', (event) => {
+        endAt.min = event.target.value;
+    });
+
+    endAt.addEventListener('change', (event) => {
+        startAt.max = event.target.value;
+    });
+</script>
