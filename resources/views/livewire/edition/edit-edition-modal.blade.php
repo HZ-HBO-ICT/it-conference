@@ -77,10 +77,10 @@
     <script>
         const startAt = document.getElementById('start_at');
         const endAt = document.getElementById('end_at');
-        console.log(endAt.min);
+        startAt.max = endAt.value;
+        endAt.min = startAt.value;
 
         startAt.addEventListener('change', (event) => {
-            console.log('dfgdfg');
             endAt.min = event.target.value;
         });
 
