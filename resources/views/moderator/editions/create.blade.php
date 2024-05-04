@@ -23,8 +23,13 @@
                             @csrf
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label for="name" value="Name" class="after:content-['*'] after:text-red-500"/>
-                                <x-input id="name" name="name" value="{{old('name')}}" type="text"
-                                         class="mt-1 block w-full"/>
+                                <x-input
+                                    id="name"
+                                    name="name"
+                                    value="We are in IT together Conference {{ date('Y') + 1 }}"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                />
                                 <x-input-error for="name" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 py-4">
