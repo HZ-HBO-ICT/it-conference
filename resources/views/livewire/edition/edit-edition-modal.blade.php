@@ -25,9 +25,11 @@
                     <select wire:model="form.state"
                             class="mt-1 w-full border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
                         <option value="10">Design</option>
-                        <option value="20">Registration opened</option>
-                        <option value="30">Final programme released</option>
-                        <option value="40">Currently being executed</option>
+                        @if(\App\Models\Edition::current() == $edition || !\App\Models\Edition::current())
+                            <option value="20">Registration opened</option>
+                            <option value="30">Final programme released</option>
+                            <option value="40">Currently being executed</option>
+                        @endif
                         <option value="50">Archived</option>
                     </select>
                     @error('form.state') <span class="error text-red-500">{{ $message }}</span> @enderror
