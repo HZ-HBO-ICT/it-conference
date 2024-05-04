@@ -10,9 +10,9 @@
         <div class="pt-5">
             <x-list-section>
                 <x-slot name="actions">
-                    <x-button-link id="editButton">
+                    <x-button id="editButton">
                         {{ __('Manage editions') }}
-                    </x-button-link>
+                    </x-button>
                     <x-button-link href="{{ route('moderator.editions.create') }}" class="ml-3">
                         {{ __('Create a new edition') }}
                     </x-button-link>
