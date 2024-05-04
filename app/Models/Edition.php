@@ -98,7 +98,7 @@ class Edition extends Model
     {
         return self::query()
             ->whereNot('state', '=', self::STATE_DESIGN)
-            ->orWhereNot('state', '=', self::STATE_ARCHIVE)
+            ->whereNot('state', '=', self::STATE_ARCHIVE)
             ->first();
     }
 
