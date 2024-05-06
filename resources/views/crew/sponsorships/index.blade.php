@@ -5,7 +5,7 @@
         </h2>
         <div class="pt-5">
             <x-list-section>
-                @if(\App\Models\SponsorTier::canAddSponsor())
+                @if(\App\Models\Sponsorship::canAddSponsor())
                     <x-slot name="actions">
                         <x-button-link href="{{route('moderator.sponsorships.create')}}">
                             {{ __('Add a new sponsor') }}
@@ -14,16 +14,16 @@
                 @endif
 
                 <x-slot name="content">
-                    @forelse($teams as $index => $team)
+                    @forelse($companies as $index => $company)
                         <x-list-section-item
-                            class="{{ !$team->is_sponsor_approved ? 'bg-red-300 dark:bg-red-800' : '' }}"
-                            :url="route('moderator.sponsors.show', $team)">
+                            class="{{ !$company->is_sponsor_approved ? 'bg-red-300 dark:bg-red-800' : '' }}"
+                            :url="route('moderator.sponsorships.show', $company)">
                             <div class="justify-between flex mt-2">
                                 <div class="flex">
                                     <div class="text-gray-700 dark:text-white text-m items-center flex">
-                                        @if($team->logo_path)
+                                        @if($company->logo_path)
                                             <img class="w-6 h-6 mx-auto my-auto max-w-full block dark:text-white"
-                                                 src="{{ url('storage/'. $team->logo_path) }}"
+                                                 src="{{ url('storage/'. $company->logo_path) }}"
                                                  alt="Logo of {{$team->name}}">
                                         @else
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -35,19 +35,19 @@
 
                                         @endif
                                         <div class="ml-2 flex-grow">
-                                            <strong>{{$team->name}}</strong>
+                                            <strong>{{$company->name}}</strong>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-sm items-center flex ml-2 dark:text-white">
                                     <svg
-                                        class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$team->is_approved ? 'stroke-crew-900 dark:stroke-crew-900 hover:stroke-crew-500' : '' }}"
+                                        class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$company->is_approved ? 'stroke-crew-900 dark:stroke-crew-900 hover:stroke-crew-500' : '' }}"
                                         xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                         aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                               d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    {{$team->created_at->format('d/m/Y')}}
+                                    {{$company->created_at->format('d/m/Y')}}
                                 </div>
                             </div>
                         </x-list-section-item>
@@ -57,7 +57,7 @@
                     @endforelse
 
                     <div class="pt-2">
-                        {{ $teams->links() }}
+                        {{ $companies->links() }}
                     </div>
                 </x-slot>
             </x-list-section>

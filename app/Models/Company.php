@@ -14,8 +14,8 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'website', 'postcode',
-        'house_number', 'street', 'city', 'logo_path', 'phone_number'];
+    protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved',
+        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id','is_sponsorship_approved'];
 
     /**
      * Establishes a relationship between the company and
@@ -183,4 +183,25 @@ class Company extends Model
         }
     }
 
+    /**
+     * Handle a (dis)approval of this Teams request for a sponsorship.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleSponsorshipApproval(bool $isApproved): void
+    {
+        if ($isApproved) {
+            $this->is_sponsorship_approved = true;
+            $this->save();
+
+            if ($this->sponsorship->leftSpots() == 0)
+                $this->sponsorship->rejectAllExceptApproved();
+
+        } else {
+            $this->is_sponsorship_approved = null;
+            $this->sponsorship_id = null;
+            $this->save();
+        }
+    }
 }

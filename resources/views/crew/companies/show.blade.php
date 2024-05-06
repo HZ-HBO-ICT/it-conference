@@ -173,11 +173,11 @@
                         <p class="text-gray-500 dark:text-yellow-300">Not requested</p>
                     @elseif(!$company->is_sponsorship_approved)
                         <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a
-                                class="underline" href="{{route('moderator.sponsors.show', $company)}}">See more
+                                class="underline" href="{{route('moderator.sponsorships.show', $company)}}">See more
                                                                                                         here</a></p>
                     @else
                         <p class="text-green-500 dark:text-green-400">Approved. <a class="underline"
-                                                                                   href="{{route('moderator.sponsors.show', $company)}}">See
+                                                                                   href="{{route('moderator.sponsorships.show', $company)}}">See
                                                                                                                                          more
                                                                                                                                          here</a>
                         </p>

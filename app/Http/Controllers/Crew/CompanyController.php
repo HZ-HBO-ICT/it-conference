@@ -74,7 +74,7 @@ class CompanyController extends Controller
             'website' => $input['website'],
             'description' => $input['description'],
             'phone_number' => $input['phone_number'],
-            'is_approved' => true,
+            'is_approved' => 1,
         ]);
         $user->company_id = $company->id;
 

@@ -6,17 +6,13 @@ use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
+use App\Http\Controllers\Crew\SponsorshipController;
 use App\Http\Controllers\Crew\UserController;
-use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
-use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SpeakerController;
-use App\Http\Controllers\TeamRequestsController;
-use App\Http\Controllers\TeamsController;
-use App\Http\Controllers\TimeslotController;
 use Illuminate\Support\Facades\Route;
 
 /*Route::middleware([
@@ -156,10 +152,10 @@ Route::middleware([
     Route::post('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('schedule.draft');
 
-    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
-        ->name('schedule.timeslots.create');
-    Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
-        ->name('schedule.timeslots.store');
+    /*    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
+            ->name('schedule.timeslots.create');
+        Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
+            ->name('schedule.timeslots.store');*/
 
     Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
         ->name('presentations-for-scheduling');
@@ -197,11 +193,19 @@ Route::middleware([
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
-    Route::resource('/moderator/sponsors',
-        App\Http\Controllers\Crew\SponsorshipController::class);
-    Route::post('/moderator/sponsors/{sponsor}/approve', [
-        App\Http\Controllers\Crew\SponsorshipController::class, 'approve'
-    ])->name('sponsors.approve');
+    // ====== Sponsorship routes ======
+    Route::get('/moderator/sponsorships', [SponsorshipController::class, 'index'])
+        ->name('sponsorships.index');
+    Route::get('/moderator/sponsorships/{company}', [SponsorshipController::class, 'show'])
+        ->name('sponsorships.show');
+    Route::get('/moderator/sponsorships/create', [SponsorshipController::class, 'create'])
+        ->name('sponsorships.create');
+    Route::post('/moderator/sponsorships', [SponsorshipController::class, 'store'])
+        ->name('sponsorships.store');
+    Route::delete('/moderator/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
+        ->name('sponsorships.delete');
+    Route::post('/moderator/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
+        ->name('sponsorships.approve');
 
     Route::resource('/moderator/rooms', RoomController::class);
 
