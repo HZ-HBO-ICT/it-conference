@@ -117,7 +117,7 @@ class CompanyController extends Controller
         ]);
 
         $isApproved = $validated['approved'];
-        $company->handleTeamApproval($isApproved);
+        $company->handleCompanyApproval($isApproved);
 
         $template = $isApproved ? 'You approved :company to join the IT Conference!!'
             : 'You refused the request of :company to join the IT conference';

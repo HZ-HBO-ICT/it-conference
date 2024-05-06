@@ -1,3 +1,4 @@
+@php use App\Models\Sponsorship; @endphp
 <x-hub-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -61,77 +62,75 @@
                 </x-slot>
             </x-action-section>
 
-            <x-section-border/>
-
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Sponsorship Approval Status') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    {{ __('When the status is Approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <div
-                        class="mt-1 text-sm leading-6 text-{{ $company->is_sponsorship_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
-                        {{ $company->is_sponsorship_approved ? 'Approved' : 'Awaiting approval' }}
-                    </div>
-                </x-slot>
-
-                @if(!$company->is_sponsorship_approved)
-                    <x-slot name="actions">
-                        <form method="POST" action="{{ route('moderator.sponsorships.approve', $company) }}"
-                              class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="1"/>
-                            <x-button
-                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                {{ __('Approve') }}
-                            </x-button>
-                        </form>
-                        <form method="POST" action="{{ route('moderator.sponsorships.approve', $company) }}"
-                              class="mr-2">
-                            @csrf
-                            <input type="hidden" name="approved" value="0"/>
-                            <x-button
-                                class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
-                                {{ __('Reject') }}
-                            </x-button>
-                        </form>
-                    </x-slot>
-                @endif
-            </x-action-section>
-
-{{--
-            @can('delete', $sponsorship)
---}}
+            @can('viewApprovalStatus', Sponsorship::class)
                 <x-section-border/>
+
                 <x-action-section>
                     <x-slot name="title">
-                        {{ __('Delete This Sponsorship') }}
+                        {{ __('Sponsorship Approval Status') }}
                     </x-slot>
 
                     <x-slot name="description">
-                        {{ __('Permanently remove the sponsorship status from this company') }}
+                        {{ __('When the status is Approved, the company will show up at the lineup. The company is also able to request for presentations, sponsorships and booths.') }}
                     </x-slot>
 
                     <x-slot name="content">
-                        {{ __('When deleted the company will no longer appear as a sponsor. However, the company representative is allowed to apply for another sponsorship') }}
-
+                        <div
+                            class="mt-1 text-sm leading-6 text-{{ $company->is_sponsorship_approved ? 'green-500' : 'yellow-500' }} sm:col-span-2 sm:mt-0">
+                            {{ $company->is_sponsorship_approved ? 'Approved' : 'Awaiting approval' }}
+                        </div>
                     </x-slot>
 
-                    <x-slot name="actions">
-                        <x-danger-button
-                            onclick="Livewire.dispatch('openModal', { component: 'sponsorship.delete-sponsorship-modal', arguments: {company: {{$company}}} })">
-                            {{ __('Delete Sponsorship') }}
-                        </x-danger-button>
-                    </x-slot>
-
+                    @if(!$company->is_sponsorship_approved)
+                        <x-slot name="actions">
+                            <form method="POST" action="{{ route('moderator.sponsorships.approve', $company) }}"
+                                  class="mr-2">
+                                @csrf
+                                <input type="hidden" name="approved" value="1"/>
+                                <x-button
+                                    class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                                    {{ __('Approve') }}
+                                </x-button>
+                            </form>
+                            <form method="POST" action="{{ route('moderator.sponsorships.approve', $company) }}"
+                                  class="mr-2">
+                                @csrf
+                                <input type="hidden" name="approved" value="0"/>
+                                <x-button
+                                    class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+                                    {{ __('Reject') }}
+                                </x-button>
+                            </form>
+                        </x-slot>
+                    @endif
                 </x-action-section>
-{{--
             @endcan
---}}
+
+            @can('delete', Sponsorship::class)
+            <x-section-border/>
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Delete This Sponsorship') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Permanently remove the sponsorship status from this company') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    {{ __('When deleted the company will no longer appear as a sponsor. However, the company representative is allowed to apply for another sponsorship') }}
+
+                </x-slot>
+
+                <x-slot name="actions">
+                    <x-danger-button
+                        onclick="Livewire.dispatch('openModal', { component: 'sponsorship.delete-sponsorship-modal', arguments: {company: {{$company}}} })">
+                        {{ __('Delete Sponsorship') }}
+                    </x-danger-button>
+                </x-slot>
+
+            </x-action-section>
+            @endcan
         </div>
     </div>
 </x-hub-layout>

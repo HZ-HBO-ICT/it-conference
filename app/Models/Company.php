@@ -169,7 +169,7 @@ class Company extends Model
      * @param bool $isApproved
      * @return void
      */
-    public function handleTeamApproval(bool $isApproved): void
+    public function handleCompanyApproval(bool $isApproved): void
     {
         if ($isApproved) {
             $this->is_approved = true;

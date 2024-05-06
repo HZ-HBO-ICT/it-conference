@@ -194,17 +194,17 @@ Route::middleware([
     ])->name('presentations.approve');
 
     // ====== Sponsorship routes ======
-    Route::get('/moderator/sponsorships', [SponsorshipController::class, 'index'])
+    Route::get('/crew/sponsorships', [SponsorshipController::class, 'index'])
         ->name('sponsorships.index');
-    Route::get('/moderator/sponsorships/{company}', [SponsorshipController::class, 'show'])
-        ->name('sponsorships.show');
-    Route::get('/moderator/sponsorships/create', [SponsorshipController::class, 'create'])
+    Route::get('/crew/sponsorships/create', [SponsorshipController::class, 'create'])
         ->name('sponsorships.create');
-    Route::post('/moderator/sponsorships', [SponsorshipController::class, 'store'])
+    Route::get('/crew/sponsorships/{company}', [SponsorshipController::class, 'show'])
+        ->name('sponsorships.show');
+    Route::post('/crew/sponsorships', [SponsorshipController::class, 'store'])
         ->name('sponsorships.store');
-    Route::delete('/moderator/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
+    Route::delete('/crew/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
         ->name('sponsorships.delete');
-    Route::post('/moderator/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
+    Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
 
     Route::resource('/moderator/rooms', RoomController::class);

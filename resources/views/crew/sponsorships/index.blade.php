@@ -1,3 +1,6 @@
+@php
+    use App\Models\Sponsorship;
+@endphp
 <x-hub-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -5,14 +8,15 @@
         </h2>
         <div class="pt-5">
             <x-list-section>
-                @if(\App\Models\Sponsorship::canAddSponsor())
-                    <x-slot name="actions">
-                        <x-button-link href="{{route('moderator.sponsorships.create')}}">
-                            {{ __('Add a new sponsor') }}
-                        </x-button-link>
-                    </x-slot>
+                @if(Sponsorship::canAddSponsor())
+                    @can('create', Sponsorship::class)
+                        <x-slot name="actions">
+                            <x-button-link href="{{route('moderator.sponsorships.create')}}">
+                                {{ __('Add a new sponsor') }}
+                            </x-button-link>
+                        </x-slot>
+                    @endcan
                 @endif
-
                 <x-slot name="content">
                     @forelse($companies as $index => $company)
                         <x-list-section-item

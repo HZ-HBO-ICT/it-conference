@@ -128,7 +128,7 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        if (Auth::user()->cannot('approve', $presentation)) {
+        if (Auth::user()->cannot('delete', $presentation)) {
             abort(403);
         }
 

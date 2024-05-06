@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class SponsorshipController extends Controller
@@ -17,6 +18,10 @@ class SponsorshipController extends Controller
      */
     public function index(): View
     {
+        if (Auth::user()->cannot('viewAny', Sponsorship::class)) {
+            abort(403);
+        }
+
         $companies = Company::whereNotNull('sponsorship_id')
             ->orderBy('is_sponsorship_approved')->paginate(15);
 
@@ -26,8 +31,12 @@ class SponsorshipController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
+        if (Auth::user()->cannot('create', Sponsorship::class)) {
+            abort(403);
+        }
+
         $companies = Company::whereNull('sponsorship_id')->where('is_approved', 1)->get();
         $tiers = Sponsorship::all()->filter(function ($tier) {
             return $tier->areMoreSponsorsAllowed();
@@ -41,6 +50,10 @@ class SponsorshipController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->cannot('create', Sponsorship::class)) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'company_id' => 'required|exists:companies,id',
             'sponsorship_id' => 'required|exists:sponsorships,id'
@@ -65,6 +78,10 @@ class SponsorshipController extends Controller
      */
     public function show(Company $company): View
     {
+        if (Auth::user()->cannot('view', Sponsorship::class)) {
+            abort(403);
+        }
+
         if (!$company->sponsorship_id) {
             abort(404);
         }
@@ -76,9 +93,14 @@ class SponsorshipController extends Controller
      * Show the form for editing the specified resource.
      * @param Request $request
      * @param Company $company
+     * @return mixed
      */
     public function approve(Request $request, Company $company)
     {
+        if (Auth::user()->cannot('approve', Sponsorship::class)) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'approved' => 'required|boolean'
         ]);
@@ -103,6 +125,10 @@ class SponsorshipController extends Controller
      */
     public function destroy(Company $company)
     {
+        if (Auth::user()->cannot('delete', Sponsorship::class)) {
+            abort(403);
+        }
+
         $company->update([
             'is_sponsorship_approved' => null,
             'sponsorship_id' => null
