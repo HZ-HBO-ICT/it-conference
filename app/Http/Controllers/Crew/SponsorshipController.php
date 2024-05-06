@@ -116,7 +116,7 @@ class SponsorshipController extends Controller
                 ->banner(__($template, ['company' => $company->name]));
         }
 
-        return redirect(route('moderator.sponsorships.index', $company))
+        return redirect(route('moderator.sponsorships.index'))
             ->banner(__($template, ['company' => $company->name]));
     }
 

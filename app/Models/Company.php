@@ -15,7 +15,7 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved',
-        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id','is_sponsorship_approved'];
+        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved'];
 
     /**
      * Establishes a relationship between the company and
@@ -194,9 +194,9 @@ class Company extends Model
         if ($isApproved) {
             $this->is_sponsorship_approved = true;
             $this->save();
-
+/*
             if ($this->sponsorship->leftSpots() == 0)
-                $this->sponsorship->rejectAllExceptApproved();
+                $this->sponsorship->rejectAllExceptApproved();*/
 
         } else {
             $this->is_sponsorship_approved = null;

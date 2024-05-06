@@ -125,12 +125,14 @@ class PresentationPolicy
      */
     public function delete(User $user, Presentation $presentation): bool
     {
-        if ($user->hasRole('event organizer')) {
+        if ($user->can('delete presentation')) {
             return $presentation->canBeDeleted();
         }
 
-        if ($user->presenter_of->id == $presentation->id) {
-            return !$presentation->isApproved;
+        if ($user->presenter_of) {
+            if ($user->presenter_of->id == $presentation->id) {
+                return !$presentation->isApproved;
+            }
         }
 
         return false;
