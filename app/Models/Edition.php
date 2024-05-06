@@ -63,6 +63,8 @@ class Edition extends Model
     {
         return [
             'name' => 'required|max:255',
+            'start_at' => 'nullable|date',
+            'end_at' => 'nullable|date',
         ];
     }
 

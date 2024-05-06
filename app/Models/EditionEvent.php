@@ -15,6 +15,14 @@ class EditionEvent extends Model
         'end_at'
     ];
 
+    public static function rules(): array
+    {
+        return [
+            'start_at' => 'nullable|date',
+            'end_at' => 'nullable|date',
+        ];
+    }
+
     /**
      * Establishes a relationship between EditionEvent and Edition models
      * @return BelongsTo
