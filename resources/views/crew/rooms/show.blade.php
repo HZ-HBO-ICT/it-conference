@@ -23,33 +23,36 @@
                     </x-details-list-item>
                 </x-slot>
 
-                <x-slot name="actions">
-                    <x-button
-                        onclick="Livewire.dispatch('openModal', { component: 'room.edit-room-modal', arguments: {room: {{$room}}} })">
-                        {{ __('Edit details') }}
-                    </x-button>
-                </x-slot>
-
+                @can('update', \App\Models\Room::class)
+                    <x-slot name="actions">
+                        <x-button
+                            onclick="Livewire.dispatch('openModal', { component: 'room.edit-room-modal', arguments: {room: {{$room}}} })">
+                            {{ __('Edit details') }}
+                        </x-button>
+                    </x-slot>
+                @endcan
             </x-action-section>
         </div>
 
         <x-section-border/>
 
-        <x-action-section>
-            <x-slot name="title">
-                {{ __('Delete Room') }}
-            </x-slot>
-
-            <x-slot name="description">
-                You can remove the room
-            </x-slot>
-
-            <x-slot name="actions">
-                <x-danger-button
-                    onclick="Livewire.dispatch('openModal', { component: 'room.delete-room-modal', arguments: {room: {{$room}}} })">
+        @can('delete', \App\Models\Room::class)
+            <x-action-section>
+                <x-slot name="title">
                     {{ __('Delete Room') }}
-                </x-danger-button>
-            </x-slot>
-        </x-action-section>
+                </x-slot>
+
+                <x-slot name="description">
+                    You can remove the room
+                </x-slot>
+
+                <x-slot name="actions">
+                    <x-danger-button
+                        onclick="Livewire.dispatch('openModal', { component: 'room.delete-room-modal', arguments: {room: {{$room}}} })">
+                        {{ __('Delete Room') }}
+                    </x-danger-button>
+                </x-slot>
+            </x-action-section>
+        @endcan
     </div>
 </x-hub-layout>

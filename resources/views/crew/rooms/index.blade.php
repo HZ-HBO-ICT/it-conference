@@ -5,12 +5,13 @@
         </h2>
         <div class="pt-5">
             <x-list-section>
-                <x-slot name="actions">
-                    <x-button-link href="{{route('moderator.rooms.create')}}">
-                        {{ __('Add a room to be used in this conference') }}
-                    </x-button-link>
-                </x-slot>
-
+                @can('create', \App\Models\Room::class)
+                    <x-slot name="actions">
+                        <x-button-link href="{{route('moderator.rooms.create')}}">
+                            {{ __('Add a room to be used in this conference') }}
+                        </x-button-link>
+                    </x-slot>
+                @endcan
                 <x-slot name="content">
                     @forelse($rooms as $room)
                         <x-list-section-item :url="route('moderator.rooms.show', $room)">

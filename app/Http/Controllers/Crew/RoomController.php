@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use App\Models\Sponsorship;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class RoomController extends Controller
@@ -17,6 +19,10 @@ class RoomController extends Controller
      */
     public function index(): View
     {
+        if (Auth::user()->cannot('viewAny', Room::class)) {
+            abort(403);
+        }
+
         $rooms = Room::get();
         return view('crew.rooms.index', compact('rooms'));
     }
@@ -28,6 +34,10 @@ class RoomController extends Controller
      */
     public function create(): View
     {
+        if (Auth::user()->cannot('create', Room::class)) {
+            abort(403);
+        }
+
         return view('crew.rooms.create');
     }
 
@@ -39,6 +49,10 @@ class RoomController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if (Auth::user()->cannot('create', Room::class)) {
+            abort(403);
+        }
+
         Room::create($request->validate([
             'name' => 'required|unique:rooms',
             'max_participants' => 'required|numeric|min:1'
@@ -52,6 +66,10 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
+        if (Auth::user()->cannot('view', Sponsorship::class)) {
+            abort(403);
+        }
+
         return view('crew.rooms.show', compact('room'));
     }
 
@@ -63,6 +81,10 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
+        if (Auth::user()->cannot('delete', Sponsorship::class)) {
+            abort(403);
+        }
+
         foreach ($room->presentations as $presentation) {
             $presentation->room_id = null;
             $presentation->timeslot_id = null;

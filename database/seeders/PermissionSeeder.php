@@ -45,8 +45,8 @@ class PermissionSeeder extends Seeder
         'edit crew',
         'view room list',
         'create room',
-        'edit room details',
-        'view room details',
+        'edit room',
+        'view room',
         'delete room',
         'edit schedule',
         'view schedule'
