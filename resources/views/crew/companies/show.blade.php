@@ -184,6 +184,25 @@
                     @endif
                 </x-slot>
             </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Delete company') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Delete your company if you wish to no longer be participating in the IT Conference.') }}
+                </x-slot>
+
+                <x-slot name="actions">
+                    <x-danger-button
+                        onclick="Livewire.dispatch('openModal', { component: 'company.delete-company-modal', arguments: {company: {{$company}}} })">
+                        {{ __('Delete Company') }}
+                    </x-danger-button>
+                </x-slot>
+            </x-action-section>
         </div>
     </div>
 </x-hub-layout>

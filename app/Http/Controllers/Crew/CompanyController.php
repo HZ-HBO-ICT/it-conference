@@ -141,7 +141,7 @@ class CompanyController extends Controller
         }
 
         foreach ($company->users as $user) {
-            $user->syncRoles(Role::findByName('participant'));
+            $user->syncRoles(Role::findByName('participant', 'web'));
         }
         $company->delete();
 
