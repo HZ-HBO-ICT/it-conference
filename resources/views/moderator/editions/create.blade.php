@@ -19,7 +19,7 @@
 
                 <x-slot name="content">
                     <div class="pr-5">
-                        <form method="POST" action="{{route('moderator.editions.store')}}">
+                        <form method="POST" action="{{ route('moderator.editions.store') }}">
                             @csrf
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label for="name" value="Name" class="after:content-['*'] after:text-red-500"/>
