@@ -21,7 +21,7 @@
         <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
             {{ $slot }}
         </div>
-
+        @livewire('wire-elements-modal')
         @livewireScripts
     </body>
 </html>

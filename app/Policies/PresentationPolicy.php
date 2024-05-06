@@ -14,9 +14,9 @@ class PresentationPolicy
      * Calculates the deadline for signing up for speakers
      * @return Carbon
      */
-    private function deadline(): Carbon
+    public function deadline(): Carbon
     {
-        $deadline = Carbon::createFromDate(2023, 10, 27);
+        $deadline = Carbon::createFromDate(2024, 10, 27);
         $deadline->setTime(12, 0, 0);
         $deadline->setTimezone('Europe/Amsterdam');
 
@@ -33,23 +33,23 @@ class PresentationPolicy
     {
         $currentDate = Carbon::now();
 
-        // If the deadline for the 27th of October has passed
+        // If the deadline for requesting has passed
         if ($currentDate->gt($this->deadline())) {
             return false;
         }
 
         // If the user already is a speaker
-        if ($user->speaker) {
+        if ($user->presenterOf) {
             return false;
         }
 
-        if ($user->currentTeam) {
+        if ($user->company) {
             // Allow HZ to have unlimited presentations
-            if ($user->currentTeam->isHz) {
+            if ($user->company->isHz) {
                 return true;
             }
 
-            return $user->currentTeam->has_presentations_left;
+            return $user->company->has_presentations_left;
         }
 
         return true;
@@ -71,8 +71,8 @@ class PresentationPolicy
             return true;
         }
 
-        // If the deadline for the 27th of October has not passed and user is main speaker
-        if ($currentDate->lt($this->deadline()) && $user->id == $presentation->mainSpeaker()->user->id) {
+        // If the deadline has not passed
+        if ($currentDate->lt($this->deadline()) && $user->id) {
             return true;
         }
 
@@ -88,7 +88,7 @@ class PresentationPolicy
      */
     public function view(User $user, Presentation $presentation): bool
     {
-        return $user->presenter_of && $user->presenter_of->presentation_id == $presentation->id;
+        return $user->presenter_of && $user->presenter_of->id == $presentation->id;
     }
 
     /**
@@ -104,7 +104,7 @@ class PresentationPolicy
             return $presentation->canBeDeleted();
         }
 
-        if ($user->id == $presentation->mainSpeaker()->user->id) {
+        if ($user->presenter_of->id == $presentation->id) {
             return !$presentation->isApproved;
         }
 
