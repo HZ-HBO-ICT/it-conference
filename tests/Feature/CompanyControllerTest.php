@@ -231,6 +231,4 @@ class CompanyControllerTest extends TestCase
         $response->assertStatus(403);
         $this->assertDatabaseHas('companies', ['name' => $company->name]);
     }
-
-
 }

@@ -78,7 +78,8 @@ class PresentationControllerTest extends TestCase
             'user_id' => $speaker->id
         ];
 
-        $response = $this->actingAs($user)->post(route('moderator.presentations.store'), $presentationData);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.presentations.store'), $presentationData);
 
         $response->assertRedirect(route('moderator.presentations.index'));
         $this->assertDatabaseHas('presentations', ['name' => 'New Tech Trends']);
@@ -98,7 +99,8 @@ class PresentationControllerTest extends TestCase
             'user_id' => $speaker->id
         ];
 
-        $response = $this->actingAs($user)->post(route('moderator.presentations.store'), $presentationData);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.presentations.store'), $presentationData);
 
         $response->assertStatus(403);
         $this->assertDatabaseMissing('presentations', ['name' => $presentationData['name']]);
@@ -119,7 +121,8 @@ class PresentationControllerTest extends TestCase
             'user_id' => 'abc'
         ];
 
-        $response = $this->actingAs($user)->post(route('moderator.presentations.store'), $invalidPresentationData);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.presentations.store'), $invalidPresentationData);
 
         $response->assertSessionHasErrors([
             'name', 'description', 'type', 'difficulty_id', 'max_participants'
@@ -158,7 +161,9 @@ class PresentationControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('event organizer');
         $presentation = Presentation::factory()->create(['is_approved' => false]);
 
-        $response = $this->actingAs($user)->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);
+
         $response->assertRedirect(route('moderator.presentations.show', $presentation));
         $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => true]);
     }
@@ -169,7 +174,8 @@ class PresentationControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('event organizer');
         $presentation = Presentation::factory()->create(['is_approved' => true]);
 
-        $response = $this->actingAs($user)->post(route('moderator.presentations.approve', $presentation), ['approved' => false]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.presentations.approve', $presentation), ['approved' => false]);
 
         $response->assertRedirect(route('moderator.presentations.index'));
         $this->assertDatabaseMissing('presentations', ['id' => $presentation->id, 'is_approved' => false]);
@@ -181,11 +187,11 @@ class PresentationControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('participant');
         $presentation = Presentation::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);
 
         $response->assertStatus(403);
         $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => false]);
-
     }
 
     /** @test */
@@ -194,7 +200,8 @@ class PresentationControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('event organizer');
         $presentation = Presentation::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('moderator.presentations.destroy', $presentation));
+        $response = $this->actingAs($user)
+            ->delete(route('moderator.presentations.destroy', $presentation));
 
         $response->assertRedirect(route('moderator.presentations.index'));
         $this->assertDatabaseMissing('presentations', ['id' => $presentation->id]);
@@ -206,10 +213,10 @@ class PresentationControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('participant');
         $presentation = Presentation::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('moderator.presentations.destroy', $presentation));
+        $response = $this->actingAs($user)
+            ->delete(route('moderator.presentations.destroy', $presentation));
 
         $response->assertStatus(403);
         $this->assertDatabaseHas('presentations', ['id' => $presentation->id]);
     }
-
 }

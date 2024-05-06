@@ -117,7 +117,8 @@ class SponsorshipControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('event organizer');
         $company = Company::factory()->create(['is_approved' => 1,'sponsorship_id' => 1]);
 
-        $response = $this->actingAs($user)->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
 
         $response->assertRedirect(route('moderator.sponsorships.show', $company));
         $this->assertEquals(1, $company->refresh()->is_sponsorship_approved);
@@ -129,7 +130,8 @@ class SponsorshipControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('event organizer');
         $company = Company::factory()->create(['sponsorship_id' => 1]);
 
-        $response = $this->actingAs($user)->post(route('moderator.sponsorships.approve', $company), ['approved' => false]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.sponsorships.approve', $company), ['approved' => false]);
 
         $response->assertRedirect(route('moderator.sponsorships.index'));
         $this->assertNull($company->refresh()->is_sponsorship_approved);
@@ -141,7 +143,8 @@ class SponsorshipControllerTest extends TestCase
         $user = User::factory()->create()->assignRole('participant');
         $company = Company::factory()->create(['sponsorship_id' => 1]);
 
-        $response = $this->actingAs($user)->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
 
         $response->assertStatus(403);
         $this->assertDatabaseHas('companies', ['id' => $company->id]);
@@ -170,5 +173,4 @@ class SponsorshipControllerTest extends TestCase
         $response->assertStatus(403);
         $this->assertNotNull($company->refresh()->sponsorship_id);
     }
-
 }

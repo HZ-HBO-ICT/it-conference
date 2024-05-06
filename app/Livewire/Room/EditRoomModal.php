@@ -6,6 +6,7 @@ use App\Livewire\Forms\BoothForm;
 use App\Livewire\Forms\RoomForm;
 use App\Models\Booth;
 use App\Models\Room;
+use Illuminate\View\View;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
@@ -47,7 +48,11 @@ class EditRoomModal extends ModalComponent
         return '3xl';
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.room.edit-room-modal');
     }

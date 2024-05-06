@@ -130,20 +130,28 @@ Route::middleware([
     Route::get('/requests/{type}/{id}', [CrewController::class, 'details'])
         ->name('request.details');
 
-    Route::post('/requests/teams/{team}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfTeam'])
+    Route::post(
+        '/requests/teams/{team}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfTeam']
+    )
         ->name('request.teams.approve');
 
-    Route::post('/requests/booths/{booth}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfBooth'])
+    Route::post(
+        '/requests/booths/{booth}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfBooth']
+    )
         ->name('request.booths.approve');
 
-    Route::post('/requests/sponsorships/{team}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfSponsorship'])
+    Route::post(
+        '/requests/sponsorships/{team}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfSponsorship']
+    )
         ->name('request.sponsorships.approve');
 
-    Route::post('/requests/presentations/{presentation}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfPresentation'])
+    Route::post(
+        '/requests/presentations/{presentation}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfPresentation']
+    )
         ->name('request.presentations.approve');
 
     Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
@@ -181,14 +189,18 @@ Route::middleware([
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
-    Route::resource('/moderator/companies',
-        App\Http\Controllers\Crew\CompanyController::class);
+    Route::resource(
+        '/moderator/companies',
+        App\Http\Controllers\Crew\CompanyController::class
+    );
     Route::post('/moderator/companies/{company}/approve', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
-    Route::resource('/moderator/presentations',
-        App\Http\Controllers\Crew\PresentationController::class);
+    Route::resource(
+        '/moderator/presentations',
+        App\Http\Controllers\Crew\PresentationController::class
+    );
     Route::post('/moderator/presentations/{presentation}/approve', [
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');

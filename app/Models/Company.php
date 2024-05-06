@@ -197,7 +197,6 @@ class Company extends Model
 /*
             if ($this->sponsorship->leftSpots() == 0)
                 $this->sponsorship->rejectAllExceptApproved();*/
-
         } else {
             $this->is_sponsorship_approved = null;
             $this->sponsorship_id = null;
