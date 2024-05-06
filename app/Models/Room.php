@@ -11,6 +11,8 @@ class Room extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['max_participants', 'name'];
+
     /**
      * Establishes a relationship between the room and
      * the presentations that will take place in it
