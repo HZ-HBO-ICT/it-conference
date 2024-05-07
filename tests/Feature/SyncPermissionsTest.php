@@ -13,7 +13,49 @@ class SyncPermissionsTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_creates_one_role()
+    public function test_it_creates_one_role_without_guard()
+    {
+        // Arrange some YAML: one role, no permissions
+        $config = <<<'config'
+        roles: [admin]
+        permissions: []
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')->assertExitCode(0);
+
+        $this->assertDatabaseCount(Role::class, 1);
+        $this->assertDatabaseHas(Role::class, [
+            'name' => 'admin',
+            'guard_name' => 'web'
+        ]);
+    }
+
+    public function test_it_creates_one_role_no_array()
+    {
+        // Arrange some YAML: one role, no permissions
+        $config = <<<'config'
+        roles: admin
+        permissions: []
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')->assertExitCode(0);
+
+        $this->assertDatabaseCount(Role::class, 1);
+        $this->assertDatabaseHas(Role::class, [
+            'name' => 'admin',
+            'guard_name' => 'web'
+        ]);
+    }
+
+    public function test_it_creates_one_role_with_guard()
     {
         // Arrange some YAML: one role, no permissions
         $config = <<<'config'
@@ -36,18 +78,51 @@ class SyncPermissionsTest extends TestCase
         ]);
     }
 
+    public function test_it_creates_multiple_roles_in_different_configurations()
+    {
+        // Arrange some YAML: 3 roles in different configurations
+        $config = <<<'config'
+        roles:
+          - admin
+          - user
+          - name: api_user
+            guard_name: api
+        permissions: []
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')->assertExitCode(0);
+
+        $this->assertDatabaseCount(Role::class, 3);
+        $this->assertDatabaseHas(Role::class, [
+            'name' => 'admin',
+            'guard_name' => 'web'
+        ]);
+        $this->assertDatabaseHas(Role::class, [
+            'name' => 'user',
+            'guard_name' => 'web'
+        ]);
+        $this->assertDatabaseHas(Role::class, [
+            'name' => 'api_user',
+            'guard_name' => 'api'
+        ]);
+    }
+
     public function test_it_updates_one_role()
     {
         // Arrange one role in DB
         Role::create([
             'name' => 'admin',
-            'guard_name' => 'web'
+            'guard_name' => 'erroneous_guard_name'
         ]);
         // Arrange some YAML: updates the guard_name of existing role
         $config = <<<'config'
         roles:
             - name: admin
-              guard_name: api
+              guard_name: web
         permissions: []
         config;
 
@@ -61,20 +136,40 @@ class SyncPermissionsTest extends TestCase
         $this->assertDatabaseCount(Role::class, 1);
         $this->assertDatabaseHas('roles', [
             'name' => 'admin',
-            'guard_name' => 'api'
-        ]);
-        $this->assertDatabaseMissing('roles', [
-            'name' => 'admin',
             'guard_name' => 'web'
         ]);
     }
 
-    public function test_it_adds_and_updates_roles()
+    public function test_it_deletes_one_role()
     {
-        // Arrange two roles in DB
+        // Arrange one role in DB
+        $to_be_removed = Role::create([
+            'name' => 'te_be_removed',
+        ]);
+        // Arrange some YAML: no roles and permissions
+        $config = <<<'config'
+        roles: []
+        permissions: []
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')->assertExitCode(0);
+
+        $this->assertDatabaseCount(Role::class, 0);
+        $this->assertDatabaseMissing('roles', $to_be_removed->toArray());
+    }
+
+    public function test_it_creates_updates_and_deletes_roles()
+    {
+        // Arrange roles in DB
         Role::create([
             'name' => 'admin',
-            'guard_name' => 'web'
+        ]);
+        Role::create([
+            'name' => 'remove_me',
         ]);
         Role::create([
             'name' => 'user',
@@ -84,9 +179,7 @@ class SyncPermissionsTest extends TestCase
         $config = <<<'config'
         roles:
           - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
           - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
           - name: user    # The user role has the lowest level of access.
             guard_name: web # web is considered the default guard name
         permissions: []
@@ -111,38 +204,16 @@ class SyncPermissionsTest extends TestCase
             'name' => 'user',
             'guard_name' => 'web'
         ]);
-    }
-
-    public function test_it_deletes_one_role()
-    {
-        // Arrange one role in DB
-        $to_be_removed = Role::create([
-            'name' => 'te_be_removed',
-            'guard_name' => 'web'
+        $this->assertDatabaseMissing(Role::class, [
+            'name' => 'remove_me',
         ]);
-        // Arrange some YAML: no roles and permissions
-        $config = <<<'config'
-        roles: []
-        permissions: []
-        config;
-        // Mock the Storage facade so it returns the given YAML
-        Storage::shouldReceive('get')
-            ->with('config/permissions.yml')
-            ->andReturn($config);
-
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
-
-        $this->assertDatabaseCount(Role::class, 0);
-        $this->assertDatabaseMissing('roles', $to_be_removed->toArray());
     }
 
     public function test_it_creates_one_atomic_permission_with_one_role()
     {
         // Arrange some YAML: one role and one permission
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: admin
         permissions:
           format-disk: admin
         config;
@@ -164,11 +235,7 @@ class SyncPermissionsTest extends TestCase
     {
         // Arrange some YAML: one role and one permission
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: [admin, editor]
         permissions:
           format-disk: [admin, editor]
         config;
@@ -191,11 +258,7 @@ class SyncPermissionsTest extends TestCase
     {
         // Arrange some YAML: one role and one permission
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: [admin, editor]
         permissions:
           format-disk:
             - admin
@@ -216,13 +279,68 @@ class SyncPermissionsTest extends TestCase
         $this->assertContains('editor', $permission->getRoleNames());
     }
 
-    public function test_it_creates_one_nested_permission_with_one_role()
+    public function test_it_creates_one_atomic_permission_with_guard_name_and_roles()
     {
         // Arrange some YAML: one role and one permission
         $config = <<<'config'
         roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
+          - name: admin
+            guard_name: api
+          - editor
+        permissions:
+          format-disk:
+            guard_name: api
+            roles: admin
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')->assertExitCode(0);
+
+        // Assert if the permission exists
+        $permission = Permission::findByName('format-disk', 'api');
+        $this->assertNotNull($permission);
+        $this->assertEquals('api', $permission->guard_name);
+        // Assert if the permission is associated with the given role
+        $this->assertContains('admin', $permission->getRoleNames());
+    }
+
+    public function test_it_creates_one_nested_permission_with_guard_name_and_roles()
+    {
+        // Arrange some YAML: one role and one permission
+        $config = <<<'config'
+        roles:
+          - name: admin
+            guard_name: api
+          - editor
+        permissions:
+          photon_torpedoes:
+            launch:
+              guard_name: api
+              roles: admin
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')->assertExitCode(0);
+
+        // Assert if the permission exists
+        $permission = Permission::findByName('launch-photon_torpedoes', 'api');
+        $this->assertNotNull($permission);
+        $this->assertEquals('api', $permission->guard_name);
+        // Assert if the permission is associated with the given role
+        $this->assertContains('admin', $permission->getRoleNames());
+    }
+
+    public function test_it_creates_one_nested_permission_with_one_role()
+    {
+        // Arrange some YAML: one role and one permission
+        $config = <<<'config'
+        roles: admin
         permissions:
           article:
             create: admin
@@ -245,11 +363,7 @@ class SyncPermissionsTest extends TestCase
     {
         // Arrange some YAML: one role and one permission
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: [admin, editor]
         permissions:
           article:
             create: [admin, editor]
@@ -273,11 +387,7 @@ class SyncPermissionsTest extends TestCase
     {
         // Arrange some YAML: one role and one permission
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: [admin, editor]
         permissions:
           article:
             create:
@@ -299,17 +409,11 @@ class SyncPermissionsTest extends TestCase
         $this->assertContains('editor', $permission->getRoleNames());
     }
 
-    public function test_it_adds_permissions()
+    public function test_it_creates_multiple_permissions()
     {
         // Arrange some YAML with different configuration options
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: user    # The user role has the lowest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: [admin, editor, user]
         permissions:
           permission1: [admin]
           resource1:
@@ -345,33 +449,31 @@ class SyncPermissionsTest extends TestCase
         $this->assertContains('user', $permission->getRoleNames());
     }
 
-    public function test_it_updates_permissions()
+    public function test_it_updates_multiple_permissions()
     {
-        // Create some roles and permissions
+        // Arrange some roles
         Role::findOrCreate('admin');
         Role::findOrCreate('editor');
-
-        $permission1 = Permission::findOrCreate('permission1');
-        $permission1->syncRoles(['admin', 'editor']); // one role will be removed
-        $permission2 = Permission::findOrCreate('permission2');
-        $permission2->syncRoles(['admin']); // one role will be added
-        $permission3 = Permission::findOrCreate('permission3'); // entire permission will be removed
-        $permission3->syncRoles(['admin']);
-
+        // Arrange some permissions
+        // one role will be removed from this one
+        Permission::findOrCreate('permission1')
+            ->syncRoles(['admin', 'editor']);
+        // one role will be added to this one
+        Permission::findOrCreate('permission2')
+            ->syncRoles(['admin']);
+        // this one will be removed
+        Permission::findOrCreate('permission3')
+            ->syncRoles(['admin']);
         // Arrange some YAML with different configuration options
         $config = <<<'config'
-        roles:
-          - name: admin   # The admin role has the highest level of access.
-            guard_name: web # web is considered the default guard name
-          - name: editor  # The editor role has the second highest level of access.
-            guard_name: web # web is considered the default guard name
+        roles: [admin, editor]
         permissions:
-          permission1: [admin]
+          permission1: admin
           permission2: [admin, editor]
         config;
+
         // Mock the Storage facade so it returns the given YAML
         Storage::shouldReceive('get')
-            ->once()
             ->with('config/permissions.yml')
             ->andReturn($config);
 
@@ -392,6 +494,62 @@ class SyncPermissionsTest extends TestCase
         $this->assertDatabaseMissing(Permission::class, [
             'name' => 'permission3'
         ]);
+    }
+
+    public function test_it_skips_permission_updates_when_role_does_not_exist()
+    {
+        // Arrange some roles
+        Role::findOrCreate('admin');
+        Role::findOrCreate('editor');
+        // Arrange some permissions
+        // one role will be removed from this one
+        Permission::findOrCreate('permission1')->syncRoles(['admin', 'editor']);
+        // one role will be assigned a non-existing role
+        Permission::findOrCreate('permission2')->syncRoles(['admin', 'editor']);
+        // one role will be added to this one
+        Permission::findOrCreate('permission3')->syncRoles(['admin']);
+        // Arrange some YAML with different configuration options
+        $config = <<<'config'
+        roles: [admin, editor]
+        permissions:
+          permission1: admin
+          permission2: [admin, non_existing_role]
+          permission3: [admin, editor]
+        config;
+        // Mock the Storage facade so it returns the given YAML
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn($config);
+
+        $this->artisan('app:sync-permissions')
+            ->expectsOutputToContain('There is no role named `non_existing_role`')
+            ->assertExitCode(0);
+
+        // Check if the permission exists
+        $this->assertDatabaseCount(Permission::class, 3);
+        $permission1 = Permission::findByName('permission1');
+        $this->assertNotNull($permission1);
+        $this->assertContains('admin', $permission1->getRoleNames());
+        $this->assertNotContains('editor', $permission1->getRoleNames());
+        $permission2 = Permission::findByName('permission2');
+        $this->assertNotNull($permission2);
+        $this->assertContains('admin', $permission2->getRoleNames());
+        $this->assertContains('editor', $permission2->getRoleNames());
+        $permission3 = Permission::findByName('permission3');
+        $this->assertNotNull($permission3);
+        $this->assertContains('admin', $permission3->getRoleNames());
+        $this->assertContains('editor', $permission3->getRoleNames());
+    }
+
+    public function test_it_aborts_when_permissions_file_not_found()
+    {
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn(null);
+
+        $this->artisan('app:sync-permissions')
+            ->expectsOutputToContain('not found')
+            ->assertFailed();
     }
 
     public function test_it_notifies_the_user_when_no_roles_are_present()
@@ -415,17 +573,6 @@ class SyncPermissionsTest extends TestCase
 
         $this->artisan('app:sync-permissions')
             ->expectsOutputToContain('Error')
-            ->assertFailed();
-    }
-
-    public function test_it_aborts_when_permissions_file_not_found()
-    {
-        Storage::shouldReceive('get')
-            ->with('config/permissions.yml')
-            ->andReturn(null);
-
-        $this->artisan('app:sync-permissions')
-            ->expectsOutputToContain('not found')
             ->assertFailed();
     }
 }

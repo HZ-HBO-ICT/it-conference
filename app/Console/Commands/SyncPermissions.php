@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Exceptions\RoleDoesNotExist;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\Yaml\Yaml;
@@ -69,20 +70,36 @@ class SyncPermissions extends Command
     /**
      * Synchronizes all the role data
      *
-     * @param array $roles
+     * @param array|string $input
      * @return void
      */
-    private function syncRoles(array $roles)
+    private function syncRoles(array|string $input)
     {
-        foreach ($roles as $role) {
+        if(is_array($input)) {
+            $role_data = $this->prepareRoles($input);
+        } else {
+            // When string is given, assume it is just one role name
+            $role_data = [
+                ['name' => $input]
+            ];
+        }
+        foreach ($role_data as $role) {
             Role::updateOrCreate(
                 ['name' => $role['name']],
                 $role
             );
         }
         // Delete the roles that are not in the config
-        $names_array = array_map(fn($item) => $item['name'], $roles);
+        $names_array = array_map(fn($item) => $item['name'], $role_data);
         Role::whereNotIn('name', $names_array)->delete();
+    }
+
+    private function prepareRoles(array $roles)
+    {
+        return array_map(
+            fn($role) => is_array($role) ? $role : ['name' => $role],
+            $roles
+        );
     }
 
     /**
@@ -93,8 +110,15 @@ class SyncPermissions extends Command
     {
         $permissions = $this->convertPermissionList($permissions);
         foreach ($permissions as $item) {
-            $permission = Permission::findOrCreate($item['name']);
-            $permission->syncRoles($item['roles']);
+            $permission = Permission::updateOrCreate(
+                ['name' => $item['name']],
+                $item
+            );
+            try {
+                $permission->syncRoles($item['roles']);
+            } catch (RoleDoesNotExist $exception) {
+                $this->error($exception->getMessage());
+            }
         }
         // Delete the permissions that are not in the config
         $names_array = array_map(fn($item) => $item['name'], $permissions);
@@ -118,12 +142,22 @@ class SyncPermissions extends Command
         $result = [];
         foreach ($permissions as $key => $content) {
             if ($this->isNested($content)) {
+                if ($this->hasPermissionAttributes($content)) {
+                    $content['name'] = $key;
+                    $result[] = $content;
+                }
                 foreach ($content as $nested_key => $nested_content) {
-                    $result[] = [
+                    if ($this->hasPermissionAttributes($nested_content)) {
                         // The naming convention for nested permissions is set here
-                        'name' => "$nested_key-$key",
-                        'roles' => $nested_content
-                    ];
+                        $nested_content['name'] = "$nested_key-$key";
+                        $result[] = $nested_content;
+                    } else {
+                        $result[] = [
+                            // The naming convention for nested permissions is ALSO set here
+                            'name' => "$nested_key-$key",
+                            'roles' => $nested_content
+                        ];
+                    }
                 }
             } else {
                 $result[] = [
@@ -133,6 +167,16 @@ class SyncPermissions extends Command
             }
         }
         return $result;
+    }
+
+    private function hasPermissionAttributes($input)
+    {
+        if (!is_array($input)) {
+            return false;
+        }
+        // If the nested content holds the keys 'guard_name' or 'roles'
+        // it is assumed to be an atomic permission with a guard_name or roles specified as attributes
+        return array_key_exists('guard_name', $input) || array_key_exists('roles', $input);
     }
 
     /**
