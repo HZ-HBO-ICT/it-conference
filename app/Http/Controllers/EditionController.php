@@ -21,18 +21,6 @@ class EditionController extends Controller
     }
 
     /**
-     * Returns the show page for the particular edition
-     * @param Edition $edition to show
-     * @return View
-     */
-    public function show(Edition $edition) : View
-    {
-        $events = $edition->editionEvents;
-
-        return view('moderator.editions.show', compact('edition', 'events'));
-    }
-
-    /**
      * Returns create form for the editions
      * @return View
      */
@@ -50,7 +38,7 @@ class EditionController extends Controller
     {
         $edition = Edition::create($request->validate(Edition::rules()));
 
-        return redirect(route('moderator.editions.show', compact('edition')));
+        return redirect(route('moderator.events.index', compact('edition')));
     }
 
     /**

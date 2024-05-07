@@ -22,7 +22,7 @@
                         @forelse($editions as $edition)
                             <x-list-section-item
                                 class="">
-                                <a href="{{route('moderator.editions.show', $edition)}}" class="block">
+                                <a href="{{ route('moderator.events.index', $edition) }}" class="block">
                                     <div class="flex justify-between mt-2">
                                         <div class="flex">
                                             <div class="text-gray-700 dark:text-white text-m items-center flex">
