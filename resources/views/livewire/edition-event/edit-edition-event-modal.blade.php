@@ -9,7 +9,7 @@
 
     <x-slot name="content" class="w-full dark:bg-gray-800">
         <div class="px-4 py-6 sm:px-0">
-            <dl class="sm:grid sm:grid-cols-3 sm:gap-6">
+            <dl class="sm:grid sm:grid-cols-3 sm:gap-6 items-center">
                 <!-- Event Name -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Event Name</dt>
                 <dd class="sm:col-span-2">
