@@ -123,4 +123,42 @@ class Company extends Model
             }
         );
     }
+
+    /**
+     * Checks if the company is HZ University of Applied Sciences
+     * @return Attribute
+     */
+    public function isHz() : Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->name == 'HZ University of Applied Sciences';
+            }
+        );
+    }
+
+    /**
+     * Checks if the team is the gold sponsor
+     * @return Attribute
+     */
+    public function isGoldSponsor(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->sponsorship ? $this->sponsorship->name === 'gold' && $this->is_sponsorhip_approved : 0
+        );
+    }
+
+    /**
+     * Calculates how many presentations does the company have left
+     * @return Attribute
+     */
+    public function hasPresentationsLeft(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $max_presentations = $this->is_gold_sponsor ? 2 : 1;
+                return $this->is_approved && $this->presentations->count() < $max_presentations;
+            }
+        );
+    }
 }

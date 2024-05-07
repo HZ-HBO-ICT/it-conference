@@ -6,11 +6,17 @@ import typography from '@tailwindcss/typography';
 export default {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './vendor/wire-elements/modal/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
+    safelist: [
+        {
+            pattern: /max-w-(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl']
+        }
+    ],
     theme: {
         extend: {
             fontFamily: {
@@ -20,9 +26,13 @@ export default {
             },
             colors: {
                 'gradient-yellow': '#F9CD32',
-                'gradient-pink': '#7533A9',
+                'gradient-pink': '#A37BB1',
                 'gradient-purple': '#7533A9',
-                'gradient-blue': '#151BB9',
+                'gradient-blue': '#3666FF',
+                'gradient-light-blue': '#61B7FF',
+                'gradient-dark-blue': '#3666E6',
+                'gradient-light-pink': '#EDDEF0',
+                'gradient-dark-pink': '#A37BB1',
                 'gold': '#FFD700',
                 'silver': '#C0C0C0',
                 'bronze': '#CD7F32',
