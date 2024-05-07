@@ -40,11 +40,9 @@ class EditionController extends Controller
     {
         $edition = Edition::create($request->validate(Edition::rules()));
 
+        // attach all the default events to a new edition
         foreach (Event::all() as $event) {
-            EditionEvent::create([
-                'event_id' => $event->id,
-                'edition_id' => $edition->id,
-            ]);
+            $edition->addEvent($event);
         }
 
         return redirect(route('moderator.events.index', compact('edition')));
