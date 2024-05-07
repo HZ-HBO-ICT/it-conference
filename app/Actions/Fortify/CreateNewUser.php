@@ -22,15 +22,17 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         $defaultRules = [
+            'registration_type' => ['in:participant,company_representative'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'institution' => [array_key_exists('company_name', $input) ? '' : 'required'],
+            'institution' => [$input['registration_type'] == 'participant' ? 'required' : ''],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ];
 
-        $validationRules = array_key_exists('company_name', $input)
-            ? array_merge($defaultRules, [
+        $validationRules = $input['registration_type'] == 'participant'
+            ? $defaultRules
+            : array_merge($defaultRules, [
                 'company_name' => 'required',
                 'company_description' => 'required',
                 'company_website' => 'required',
@@ -41,8 +43,7 @@ class CreateNewUser implements CreatesNewUsers
                     'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i'],
                 'company_street' => 'required',
                 'company_city' => 'required',
-            ])
-            : $defaultRules;
+            ]);
 
         Validator::make($input, $validationRules)->validate();
 
@@ -58,10 +59,6 @@ class CreateNewUser implements CreatesNewUsers
                     $user->markEmailAsVerified();
                 }
 
-                if (array_key_exists('institution', $input)) {
-                    $user->institution = $input['institution'];
-                    $user->save();
-                }
                 if (array_key_exists('company_name', $input)) {
                     $this->createTeam(
                         $user,
