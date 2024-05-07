@@ -34,8 +34,15 @@
                                                         d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
                                                 </svg>
                                                 <div class="ml-2 flex-grow">
-                                                    <strong>{{ $edition->name }}</strong>
-                                                    <br/>
+                                                    <div class="flex gap-4 items-center">
+                                                        <strong>{{ $edition->name }}</strong>
+                                                        @if (Edition::current() == $edition)
+                                                            <div
+                                                                class="px-3 py-1 border rounded-full border-emerald-400 border-dashed text-xs font-montserrat text-emerald-400 tracking-wider">
+                                                                ACTIVE
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                     <span
                                                         class="text-sm text-gray-500">
                                                         @if($edition->state == Edition::STATE_DESIGN)
@@ -49,7 +56,6 @@
                                                         @else
                                                             Archived
                                                         @endif
-
                                                     </span>
                                                 </div>
                                             </div>
@@ -76,11 +82,19 @@
                                                 <x-button-link onclick="Livewire.dispatch('openModal', { component: 'edition.edit-edition-modal', arguments: { edition: {{ $edition }} } })">
                                                     Edit
                                                 </x-button-link>
+
                                                 <form method="POST" action="{{ route('moderator.editions.destroy', $edition) }}">
                                                     @csrf
                                                     @method("DELETE")
                                                     <x-button>Delete</x-button>
                                                 </form>
+
+                                                @if(!(Edition::current() == $edition))
+                                                    <form method="POST" action="{{ route('moderator.editions.activate', $edition) }}">
+                                                        @csrf
+                                                        <x-button>Activate</x-button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

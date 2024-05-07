@@ -189,6 +189,9 @@ Route::middleware([
     Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
         ->name('editions.destroy');
 
+    Route::post('/moderator/editions/{edition}/activate', [EditionController::class, 'activateEdition'])
+        ->name('editions.activate');
+
     Route::get('/moderator/editions/{edition}/events', [EditionEventController::class, 'index'])
         ->name('events.index');
 //
