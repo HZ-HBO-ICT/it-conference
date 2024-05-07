@@ -7,6 +7,7 @@ use App\Http\Controllers\ContentModerator\RoomController;
 use App\Http\Controllers\ContentModerator\ScheduleController;
 use App\Http\Controllers\ContentModerator\UserController;
 use App\Http\Controllers\EditionController;
+use App\Http\Controllers\EditionEventController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
@@ -179,17 +180,17 @@ Route::middleware([
     Route::get('/moderator/editions', [EditionController::class, 'index'])
         ->name('editions.index');
 
-    Route::get('/moderator/editions/{edition}', [EditionController::class, 'show'])
-        ->name('editions.show');
-
-    Route::get('/moderator/edition/create', [EditionController::class, 'create'])
+    Route::get('/moderator/editions/create', [EditionController::class, 'create'])
         ->name('editions.create');
 
-    Route::post('/moderator/edition/create', [EditionController::class, 'store'])
+    Route::post('/moderator/editions/create', [EditionController::class, 'store'])
         ->name('editions.store');
 
-    Route::delete('/moderator/edition/{edition}', [EditionController::class, 'destroy'])
+    Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
         ->name('editions.destroy');
+
+    Route::get('/moderator/editions/{edition}/events', [EditionEventController::class, 'index'])
+        ->name('events.index');
 //
 //    Route::get('/moderator/list/{type}', [ContentModeratorController::class, 'showList'])
 //        ->name('list');
