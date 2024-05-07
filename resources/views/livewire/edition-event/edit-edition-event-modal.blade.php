@@ -28,7 +28,7 @@
                         id="start_at"
                         max="{{ $editionEvent->end_at }}"
                         wire:model="form.start_at"
-                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:[color-scheme:dark] focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                     />
                     @error('form.start_at') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
@@ -41,7 +41,7 @@
                         id="end_at"
                         min="{{ $editionEvent->start_at }}"
                         wire:model="form.end_at"
-                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:[color-scheme:dark] focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                     />
                     @error('form.end_at') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
