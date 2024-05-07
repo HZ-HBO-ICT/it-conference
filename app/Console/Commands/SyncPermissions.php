@@ -31,7 +31,7 @@ class SyncPermissions extends Command
     public function handle()
     {
         $config = $this->readPermissionConfig('config/permissions.yml');
-        if(!$config) {
+        if (!$config) {
             $this->error("Aborting...");
             return 1;
         }
@@ -75,7 +75,7 @@ class SyncPermissions extends Command
      */
     private function syncRoles(array|string $input)
     {
-        if(is_array($input)) {
+        if (is_array($input)) {
             $role_data = $this->prepareRoles($input);
         } else {
             // When string is given, assume it is just one role name
@@ -94,6 +94,18 @@ class SyncPermissions extends Command
         Role::whereNotIn('name', $names_array)->delete();
     }
 
+    /**
+     * Prepares the roles. It allows for declaring a role as a single item or
+     * with attributes. It converts it into a structure:
+     * ```
+     * [
+     *     'name' => $name
+     * ]
+     * ```
+     *
+     * @param array $roles
+     * @return array|array[]
+     */
     private function prepareRoles(array $roles)
     {
         return array_map(
@@ -103,6 +115,8 @@ class SyncPermissions extends Command
     }
 
     /**
+     * Synchronizes the permissions.
+     *
      * @param array $permissions
      * @return void
      */
@@ -169,6 +183,13 @@ class SyncPermissions extends Command
         return $result;
     }
 
+    /**
+     * Checks if the given input appears to have permission attribibutes like
+     * `guard_name` and `roles`.
+     *
+     * @param $input
+     * @return bool
+     */
     private function hasPermissionAttributes($input)
     {
         if (!is_array($input)) {
