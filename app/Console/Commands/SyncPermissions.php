@@ -30,14 +30,8 @@ class SyncPermissions extends Command
     public function handle()
     {
         $config = $this->readPermissionConfig('config/permissions.yml');
-
-        // Validate if roles and permissions sections are present
-        if (!isset($config['roles'])) {
-            $this->error('Error: there are no roles specified!');
-            return 1;
-        }
-        if (!isset($config['permissions'])) {
-            $this->error('Error: there are no permissions specified!');
+        if(!$config) {
+            $this->error("Aborting...");
             return 1;
         }
 
@@ -49,15 +43,27 @@ class SyncPermissions extends Command
      * Reads the config file and parses it into an associative array
      *
      * @param string $path
-     * @return array
+     * @return array|null
      */
-    private function readPermissionConfig(string $path): array
+    private function readPermissionConfig(string $path): array|null
     {
         $content = Storage::get($path);
         if (!$content) {
-            return [];
+            $this->error("Error: file storage/app/$path is not found!");
+            return null;
         }
-        return Yaml::parse($content);
+
+        $config = Yaml::parse($content);
+        // Validate if roles and permissions sections are present
+        if (!isset($config['roles'])) {
+            $this->error('Error: there are no roles specified!');
+            return null;
+        }
+        if (!isset($config['permissions'])) {
+            $this->error('Error: there are no permissions specified!');
+            return null;
+        }
+        return $config;
     }
 
     /**

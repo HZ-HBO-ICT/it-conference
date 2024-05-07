@@ -417,4 +417,15 @@ class SyncPermissionsTest extends TestCase
             ->expectsOutputToContain('Error')
             ->assertFailed();
     }
+
+    public function test_it_aborts_when_permissions_file_not_found()
+    {
+        Storage::shouldReceive('get')
+            ->with('config/permissions.yml')
+            ->andReturn(null);
+
+        $this->artisan('app:sync-permissions')
+            ->expectsOutputToContain('not found')
+            ->assertFailed();
+    }
 }
