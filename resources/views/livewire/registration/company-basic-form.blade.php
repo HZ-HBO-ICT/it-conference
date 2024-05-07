@@ -36,9 +36,13 @@
                 <div class="mt-4">
                     <x-label for="companyWebsite" value="{{ __('Company Website') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="company_website" class="block mt-1 w-full" type="url" name="company_website" wire:model="companyWebsite"
-                             required
-                    />
+                    <div class="flex">
+                        <span class="flex items-center text-gray-500 border-gray-300 border px-3 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+                        rounded-md shadow-sm block mt-1 border-r-0 rounded-r-none">https://</span>
+                        <x-input id="company_website" class="block mt-1 w-full rounded-l-none" placeholder="www.example.com" type="text" name="company_website" wire:model="companyWebsite"
+                                 required
+                        />
+                    </div>
                     <div class="text-red-500 mt-1">@error('companyWebsite') {{ $message }} @enderror</div>
                 </div>
 
