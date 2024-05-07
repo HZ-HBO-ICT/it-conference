@@ -7,7 +7,7 @@
             <x-list-section>
                 <x-slot name="actions">
                     <x-button id="editButton">
-                        {{ __('Manage editions') }}
+                        {{ __('Manage events') }}
                     </x-button>
                 </x-slot>
                 <x-slot name="content">
