@@ -57,7 +57,9 @@
                         <form wire:submit.prevent="save" class="space-y-8 w-full max-w-screen-md">
                             <div class="flex flex-wrap">
                                 <div class="mt-2 mr-2">
-                                    <input type="file" id="file" wire:model="file" class="hidden">
+                                    <input type="file" id="file" wire:model="file" class="hidden"
+                                           accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation"/>
+                                    >
                                     <label for="file"
                                            class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
                                         Select A New Presentation
