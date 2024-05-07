@@ -17,7 +17,7 @@ class EditEditionModal extends ModalComponent
      * @param Edition $edition
      * @return void
      */
-    public function mount(Edition $edition)
+    public function mount(Edition $edition): void
     {
         $this->edition = $edition;
         $this->form->setEdition($edition);
