@@ -3,7 +3,7 @@
 ])
 
 @php
-    $isCurrentRoute = empty($param) ? request()->routeIs($route) : (request()->routeIs($route) && request()->route()->parameters['type'] == $param);
+    $isCurrentRoute = empty($param) ? request()->routeIs($route) : request()->routeIs($route) && (request()->route()->parameter('type') == $param || request()->route()->parameter('edition')->id == $param->id);
     $bgColorClass = $isCurrentRoute ? 'bg-gray-100 text-' . $roleColour . '-400 dark:bg-gray-700 dark:text-' . $roleColour . '-400' : '';
 @endphp
 <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
