@@ -89,7 +89,8 @@
                                                     <x-button>Delete</x-button>
                                                 </form>
 
-                                                @if(!(Edition::current() == $edition))
+{{--                                                @dd($edition)--}}
+                                                @if(!(Edition::current() == $edition) && $edition->configured())
                                                     <form method="POST" action="{{ route('moderator.editions.activate', $edition) }}">
                                                         @csrf
                                                         <x-button>Activate</x-button>

@@ -105,23 +105,44 @@ class Edition extends Model
     }
 
     /**
+     * Checks if all the dates of a particular edition were added
+     * @return bool
+     */
+    public function configured(): bool
+    {
+        if (!$this->start_at || !$this->end_at) {
+            return false;
+        }
+
+        foreach ($this->editionEvents as $event) {
+            if (!$event->start_at || !$event->end_at) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Changes state of the edition to 'announce', which means that it is officially opened for registration
      * of companies
      * @return void
      */
     public function activate()
     {
-        // archive current active edition, if exists
-        $currentEdition = self::current();
+        // check if the dates are configured
+        if ($this->configured()) {
+            // archive current active edition, if exists
+            $currentEdition = self::current();
+            if ($currentEdition) {
+                $currentEdition->state = self::STATE_ARCHIVE;
+                $currentEdition->save();
+            }
 
-        if ($currentEdition) {
-            $currentEdition->state = self::STATE_ARCHIVE;
-            $currentEdition->save();
+            // activate the edition
+            $this->state = self::STATE_ANNOUNCE;
+            $this->save();
         }
-
-        // activate the edition
-        $this->state = self::STATE_ANNOUNCE;
-        $this->save();
     }
 
     /**

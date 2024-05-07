@@ -57,7 +57,10 @@ class EditionController extends Controller
      */
     public function activateEdition(Edition $edition) : RedirectResponse
     {
-        $edition->activate();
+        // if all the dates for edition are present, it can be activated
+        if ($edition->configured()) {
+            $edition->activate();
+        }
 
         return redirect(route('moderator.editions.index'));
     }
