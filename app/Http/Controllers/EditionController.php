@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Edition;
+use App\Models\EditionEvent;
+use App\Models\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -37,6 +39,13 @@ class EditionController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $edition = Edition::create($request->validate(Edition::rules()));
+
+        foreach(Event::all() as $event) {
+            EditionEvent::create([
+                'event_id' => $event->id,
+                'edition_id' => $edition->id,
+            ]);
+        }
 
         return redirect(route('moderator.events.index', compact('edition')));
     }

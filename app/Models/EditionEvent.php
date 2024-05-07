@@ -11,6 +11,8 @@ class EditionEvent extends Model
     use HasFactory;
 
     protected $fillable = [
+        'event_id',
+        'edition_id',
         'start_at',
         'end_at'
     ];
