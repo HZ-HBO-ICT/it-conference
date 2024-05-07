@@ -62,7 +62,7 @@ class Edition extends Model
     public static function rules(): array
     {
         return [
-            'name' => 'required|max:255',
+            'name' => 'required|unique:editions|max:255',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date',
         ];
@@ -91,8 +91,8 @@ class Edition extends Model
 //    }
 
     /**
-     * Gets an instance that represents the current event, meaning the
-     * event that is currently opened for registration, in state of enrollment or executed
+     * Gets an instance that represents the current edition, meaning the
+     * edition that is currently opened for registration, in state of enrollment or executed
      *
      * @return Builder|Model|object|null
      */
