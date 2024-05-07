@@ -22,10 +22,21 @@ class EditionEventController extends Controller
         return view('moderator.events.index', compact('edition', 'events'));
     }
 
-    public function create(): View {
+    /**
+     * Returns create form for the events
+     * @return View
+     */
+    public function create(): View
+    {
         return view('moderator.events.create');
     }
 
+    /**
+     * Creates new instance of EditionEvent and stores in the database
+     * If contend mod checked the 'default event' checkmark, create a new instance of Event as well and attach it to
+     * @param Request $request data about the event
+     * @return RedirectResponse redirects to index page of events
+     */
     public function store(Request $request): RedirectResponse
     {
         $edition = EditionEvent::create($request->validate(EditionEvent::rules()));

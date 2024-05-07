@@ -17,6 +17,10 @@ class EditionEvent extends Model
         'end_at'
     ];
 
+    /**
+     * Returns basic validation rules for EditionEvent
+     * @return string[]
+     */
     public static function rules(): array
     {
         return [

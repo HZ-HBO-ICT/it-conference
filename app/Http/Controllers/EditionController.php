@@ -40,7 +40,7 @@ class EditionController extends Controller
     {
         $edition = Edition::create($request->validate(Edition::rules()));
 
-        foreach(Event::all() as $event) {
+        foreach (Event::all() as $event) {
             EditionEvent::create([
                 'event_id' => $event->id,
                 'edition_id' => $edition->id,
