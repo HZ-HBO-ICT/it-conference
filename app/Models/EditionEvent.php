@@ -17,6 +17,11 @@ class EditionEvent extends Model
         'end_at'
     ];
 
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
+
     /**
      * Returns basic validation rules for EditionEvent
      * @return string[]

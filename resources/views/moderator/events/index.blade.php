@@ -6,9 +6,9 @@
         <div class="pt-5">
             <x-list-section>
                 <x-slot name="actions">
-                    <x-button-link href="{{route('moderator.editions.create')}}">
-                        {{ __('Create a new event') }}
-                    </x-button-link>
+                    <x-button id="editButton">
+                        {{ __('Manage editions') }}
+                    </x-button>
                 </x-slot>
                 <x-slot name="content">
                     <ul role="list">
@@ -31,21 +31,29 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-sm items-center flex ml-2 dark:text-white">
-                                            <svg
-                                                class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400"
-                                                xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
-                                                aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            @if (!$event->start_at || !$event->end_at)
-                                                TBD
-                                            @else
-                                                {{ $event->start_at->format('d/m/Y H:i') }}
-                                                —
-                                                {{ $event->end_at->format('d/m/Y H:i') }}
-                                            @endif
+                                        <div class="text-sm items-center flex gap-8 ml-2 dark:text-white">
+                                            <div class="flex items-center">
+                                                <svg
+                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400"
+                                                    xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
+                                                    aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                @if (!$event->start_at || !$event->end_at)
+                                                    TBD
+                                                @else
+                                                    {{ $event->start_at->format('d/m/Y H:i') }}
+                                                    —
+                                                    {{ $event->end_at->format('d/m/Y H:i') }}
+                                                @endif
+                                            </div>
+
+                                            <div class="managementButtons hidden flex gap-2">
+                                                <x-button-link onclick="Livewire.dispatch('openModal', { component: 'edition-event.edit-edition-event-modal', arguments: { edition: {{ $edition }}, editionEvent: {{ $event }} } })">
+                                                    Edit
+                                                </x-button-link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -61,3 +69,20 @@
         </div>
     </div>
 </x-hub-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const editButton = document.getElementById('editButton');
+        const managementButtons = document.getElementsByClassName('managementButtons');
+
+        editButton.addEventListener('click', function () {
+            for (const button of managementButtons) {
+                if (button.classList.contains('hidden')) {
+                    button.classList.remove('hidden');
+                } else {
+                    button.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>
