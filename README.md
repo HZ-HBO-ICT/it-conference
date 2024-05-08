@@ -114,7 +114,7 @@ We use the following format for versioning: YYYY.R.B
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 
 ## License
-The code in this repository is licenced MIT. All creative works (photos and videos) on the website itself are copyrighted by HBO-ICT unless otherwise stated. Please contact us at kard0004@hz.nl if you would like to use our work.
+The code in this repository is licenced MIT. All creative works (photos and videos) on the website itself are copyrighted by HBO-ICT unless otherwise stated. Please contact us at tim.kardol@hz.nl if you would like to use our work.
 
 <!-- This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details -->
 
