@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Edition;
-use App\Models\EditionEvent;
 use App\Models\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
