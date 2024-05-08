@@ -1,10 +1,10 @@
-<div id="parent" class="grid grid-cols-5 text-gray-200">
+<div id="parent" class="grid grid-cols-5 text-black dark:text-white">
 </div>
 
 @push('scripts')
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const countDownDate = new Date("Nov 17, 2023 9:00:00").getTime();
+                const countDownDate = new Date("Nov 15, 2024 9:00:00").getTime();
                 const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
                 let valueElements = [];
                 let labelElements = [];
@@ -13,16 +13,15 @@
                 const parent = document.getElementById('parent');
                 timeUnits.forEach((unit) => {
                     let div = document.createElement('div');
+                    div.className = 'flex flex-col items-center justify-center mr-5';
 
                     let value = document.createElement('h2');
-                    value.className = 'text-2xl font-bold text-center md:text-left';
-                    value.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.3)";
+                    value.className = 'lg:text-5xl sm:text-3xl font-bold text-center';
                     valueElements.push(value);
 
                     let label = document.createElement('p');
                     label.innerHTML = unit.charAt(0).toUpperCase() + unit.slice(1);
-                    label.className = 'text-xs sm:text-base text-center md:text-left';
-                    label.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.3)";
+                    label.className = 'text-xs sm:text-base text-center md:text-left font-bold';
                     labelElements.push(label);
 
                     div.appendChild(value);

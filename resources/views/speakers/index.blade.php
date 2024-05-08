@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="relative bg-cover overflow-hidden min-h-screen">
-        <div
-            class="before:absolute before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>
+{{--        <div--}}
+{{--            class="before:absolute before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>--}}
 
         @if(!$speakers->isEmpty())
             <div

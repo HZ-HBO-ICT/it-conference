@@ -12,6 +12,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
+// use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,16 +38,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ===== Routes for registration =====
+Route::get('/register/participant', [RegistrationController::class, 'showParticipantRegistration'])
+    ->name('register.participant');
+Route::get('/register/company', [RegistrationController::class, 'showCompanyRegistration'])
+    ->name('register.company');
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
+
+
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
 Route::view('/faq', 'faq')->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
-Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-    ->middleware(['signed'])->name('registration.page.via.invitation');
-Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-    ->name('register.via.invitation');
 //Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
 //
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
