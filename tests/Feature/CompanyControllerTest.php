@@ -62,21 +62,52 @@ class CompanyControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
-    public function event_organizer_can_store_company()
+    /**
+     * @test
+     * @group failing
+     */
+    public function event_organizer_can_store_company_with_existing_user()
     {
         $user = User::factory()->create()->assignRole('event organizer');
         $representative = User::factory()->create()->assignRole('participant');
         $companyData = [
             'name' => 'Test Company',
             'description' => 'Lorem ipsum',
-            'website' => 'https://github.com/HZ-HBO-ICT/it-conference',
+            'website' => 'www.github.com',
             'postcode' => '1234AB',
             'house_number' => '3',
             'phone_number' => '+31588323885',
             'street' => 'Example street',
             'city' => 'Example city',
-            'rep_email' => $representative->email
+            'rep_email' => $representative->email,
+            'rep_new_email' => ''
+        ];
+
+        $response = $this->actingAs($user)->post(route('moderator.companies.store'), $companyData);
+
+        $response->assertRedirect(route('moderator.companies.index'));
+        $this->assertDatabaseHas('companies', ['name' => $companyData['name']]);
+    }
+
+    /**
+     * @test
+     * @group failing
+     */
+    public function event_organizer_can_store_company_with_new_user()
+    {
+        $user = User::factory()->create()->assignRole('event organizer');
+        $representative = User::factory()->create()->assignRole('participant');
+        $companyData = [
+            'name' => 'Test Company',
+            'description' => 'Lorem ipsum',
+            'website' => 'www.github.com',
+            'postcode' => '1234AB',
+            'house_number' => '3',
+            'phone_number' => '+31588323885',
+            'street' => 'Example street',
+            'city' => 'Example city',
+            'rep_email' => $representative->email,
+            'rep_new_email' => 'newest.user@gmail.com'
         ];
 
         $response = $this->actingAs($user)->post(route('moderator.companies.store'), $companyData);

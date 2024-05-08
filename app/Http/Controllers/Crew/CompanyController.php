@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CustomTeamInvitation;
 use App\Models\Booth;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
@@ -48,11 +50,10 @@ class CompanyController extends Controller
             abort(403);
         }
 
-        // Validate and fetch the user
         $input = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'website' => 'required|url',
+            'website' => 'required|regex:/^www\.[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}$/',
             'postcode' => ['required',
                 'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
             'house_number' => ['required',
@@ -60,33 +61,18 @@ class CompanyController extends Controller
             'phone_number' => ['required', 'phone:INTERNATIONAL,NL'],
             'street' => 'required',
             'city' => 'required',
-            'rep_email' => 'required'
+            'rep_email' => empty($input['rep_new_email']) ? 'required' : '',
+            'rep_new_email' => !empty($input['rep_new_email']) ? 'required|email' : '',
         ]);
 
-        $user = User::where('email', '=', $input['rep_email'])->firstOrFail();
+        $company = $input['rep_new_email'] ?
+            $this->createCompanyWithNewUser($input) :
+            $this->createCompanyWithExistingUser($input);
 
-        $company = Company::create([
-            'name' => $input['name'],
-            'postcode' => $input['postcode'],
-            'house_number' => $input['house_number'],
-            'street' => $input['street'],
-            'city' => $input['city'],
-            'website' => $input['website'],
-            'description' => $input['description'],
-            'phone_number' => $input['phone_number'],
-            'is_approved' => 1,
-        ]);
-        $user->company_id = $company->id;
-
-        $user->assignRole('company representative');
-        $user->save();
-
-        // TODO send the mail
-
-        $template = 'You created the :company company and added :user as its owner';
+        $template = 'You created the :company company';
         return redirect(route('moderator.companies.index'))
             ->banner(__($template, [
-                'company' => $company->name, 'user' => $user->name]));
+                'company' => $company->name]));
     }
 
     /**
@@ -147,5 +133,69 @@ class CompanyController extends Controller
 
         return redirect(route('moderator.companies.index'))
             ->banner('You successfully removed the company');
+    }
+
+    /**
+     * Creates a company with already existing user
+     *
+     * @param $input
+     * @return Company
+     */
+    private function createCompanyWithExistingUser($input)
+    {
+        $user = User::where('email', '=', $input['rep_email'])->first();
+        if(is_null($user)){
+            $company = $this->createCompanyWithNewUser($input);
+            return $company;
+        }
+
+        $company = Company::create([
+            'name' => $input['name'],
+            'postcode' => $input['postcode'],
+            'house_number' => $input['house_number'],
+            'street' => $input['street'],
+            'city' => $input['city'],
+            'website' => $input['website'],
+            'description' => $input['description'],
+            'phone_number' => $input['phone_number'],
+            'is_approved' => 1,
+        ]);
+        $user->company_id = $company->id;
+
+        $user->assignRole('company representative');
+        $user->save();
+
+        return $company;
+    }
+
+    /**
+     * Creates a company while inviting a company representative
+     * to register via an email
+     *
+     * @param $input
+     * @return Company
+     */
+    private function createCompanyWithNewUser($input)
+    {
+        $company = Company::create([
+            'name' => $input['name'],
+            'postcode' => $input['postcode'],
+            'house_number' => $input['house_number'],
+            'street' => $input['street'],
+            'city' => $input['city'],
+            'website' => $input['website'],
+            'description' => $input['description'],
+            'phone_number' => $input['phone_number'],
+            'is_approved' => 1,
+        ]);
+
+        $invitation = $company->invitations()->create([
+            'email' => $input['rep_new_email'],
+            'role' => 'company representative',
+        ]);
+
+        Mail::to($input['rep_new_email'])->send(new CustomTeamInvitation($invitation));
+
+        return $company;
     }
 }
