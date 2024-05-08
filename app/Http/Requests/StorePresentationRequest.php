@@ -31,6 +31,10 @@ class StorePresentationRequest extends FormRequest
         ];
     }
 
+    /**
+     * Add custom validation messages for the request
+     * @return string[]
+     */
     public function messages()
     {
         return [

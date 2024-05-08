@@ -144,7 +144,7 @@ class CompanyController extends Controller
     private function createCompanyWithExistingUser($input)
     {
         $user = User::where('email', '=', $input['rep_email'])->first();
-        if(is_null($user)){
+        if (is_null($user)) {
             $company = $this->createCompanyWithNewUser($input);
             return $company;
         }
