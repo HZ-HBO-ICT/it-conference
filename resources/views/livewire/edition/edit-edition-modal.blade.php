@@ -41,6 +41,7 @@
                     <input
                         type="datetime-local"
                         id="start_at"
+                        min="{{ $edition->mostRecentDateOfEvents() }}"
                         max="{{ $edition->end_at }}"
                         wire:model="form.start_at"
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:[color-scheme:dark] focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"

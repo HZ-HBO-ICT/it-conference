@@ -176,4 +176,20 @@ class Edition extends Model
             $editionEvent->delete();
         }
     }
+
+    /**
+     * Returns the most recent end date of events of the particular edition
+     * @return string
+     */
+    public function mostRecentDateOfEvents(): string
+    {
+        $mostRecent = date('d-m-Y H:i:s', strtotime('01-01-1970 00:00:00'));
+        foreach ($this->editionEvents as $event) {
+            if ($event->end_at > $mostRecent) {
+                $mostRecent = $event->end_at;
+            }
+        }
+
+        return $mostRecent;
+    }
 }
