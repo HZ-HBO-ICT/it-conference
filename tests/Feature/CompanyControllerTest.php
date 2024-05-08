@@ -64,7 +64,6 @@ class CompanyControllerTest extends TestCase
 
     /**
      * @test
-     * @group failing
      */
     public function event_organizer_can_store_company_with_existing_user()
     {
@@ -91,7 +90,6 @@ class CompanyControllerTest extends TestCase
 
     /**
      * @test
-     * @group failing
      */
     public function event_organizer_can_store_company_with_new_user()
     {

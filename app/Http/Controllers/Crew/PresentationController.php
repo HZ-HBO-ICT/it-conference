@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePresentationRequest;
 use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\User;
@@ -51,20 +52,13 @@ class PresentationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePresentationRequest $request)
     {
         if (Auth::user()->cannot('create', Presentation::class)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'type' => 'required',
-            'difficulty_id' => 'required|numeric',
-            'max_participants' => 'required|numeric',
-            'user_id' => 'required|numeric'
-        ]);
+        $validated = $request->validated();
 
         $presentation = Presentation::create($request->validate(Presentation::rules()));
 
