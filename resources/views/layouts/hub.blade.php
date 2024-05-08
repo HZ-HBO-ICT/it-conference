@@ -50,7 +50,7 @@
                         </ul>
 
                         {{-- Role dependant links --}}
-                        @if(Auth::user()->hasRole('content moderator'))
+                        @if(Auth::user()->hasRole('event organizer'))
                             <x-sidemenus.content-moderator></x-sidemenus.content-moderator>
                         @endif
                         @if(Auth::user()->company)

@@ -10,18 +10,70 @@ use Illuminate\Auth\Access\Response;
 class CompanyPolicy
 {
     /**
+     * Determine if the user can see the list of companies
+     * @param User $user
+     * @return bool
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->can('view company list');
+    }
+
+    /**
+     * Determine if the user can create a new entity
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user): bool
+    {
+        return $user->can('create company');
+    }
+
+    /**
+     * Determine if the user can view the company's approval status
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function viewApprovalStatus(User $user, Company $company): bool
+    {
+        return $user->can('view company approval status');
+    }
+
+    /**
+     * Determine if the user can approve the company
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function approve(User $user, Company $company): bool
+    {
+        return $user->can('edit company approval status');
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, Company $company): bool
+    {
+        return $user->can('delete company');
+    }
+
+    /**
      * Determine if the user can view company details.
      *
      * @param User $user The user instance.
      * @param Company $company The company instance.
      * @return bool
      */
-    public function viewDetails(User $user, Company $company) : bool
+    public function viewDetails(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
                 && $user->can('view company details')
                 && $company->is_approved;
+        } elseif ($user->can('view company details')) {
+            return true;
         }
 
         return false;
@@ -34,13 +86,15 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function editDetails(User $user, Company $company) : bool
+    public function editDetails(User $user, Company $company): bool
     {
 
         if ($user->company) {
             return $user->company->id == $company->id
                 && $user->can('edit company details')
                 && $company->is_approved;
+        } elseif ($user->can('edit company details')) {
+            return true;
         }
 
         return false;
@@ -53,7 +107,7 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function viewMembers(User $user, Company $company) : bool
+    public function viewMembers(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -72,7 +126,7 @@ class CompanyPolicy
      * @param User $toBeEdited
      * @return bool
      */
-    public function editMember(User $user, Company $company, User $toBeEdited) : bool
+    public function editMember(User $user, Company $company, User $toBeEdited): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -92,7 +146,7 @@ class CompanyPolicy
      * @param User $toBeDeleted
      * @return bool
      */
-    public function deleteMember(User $user, Company $company, User $toBeDeleted) : bool
+    public function deleteMember(User $user, Company $company, User $toBeDeleted): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -111,7 +165,7 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function viewMemberInvitations(User $user, Company $company) : bool
+    public function viewMemberInvitations(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -129,7 +183,7 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function createMemberInvitation(User $user, Company $company) : bool
+    public function createMemberInvitation(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -147,7 +201,7 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function deleteMemberInvitation(User $user, Company $company) : bool
+    public function deleteMemberInvitation(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -165,7 +219,7 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function requestDelete(User $user, Company $company) : bool
+    public function requestDelete(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id
@@ -183,7 +237,7 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function viewRequests(User $user, Company $company) : bool
+    public function viewRequests(User $user, Company $company): bool
     {
         if ($user->company) {
             return $user->company->id == $company->id

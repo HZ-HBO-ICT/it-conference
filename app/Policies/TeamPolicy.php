@@ -32,7 +32,7 @@ class TeamPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('content moderator');
+        return $user->hasRole('event organizer');
     }
 
     /**
@@ -40,7 +40,7 @@ class TeamPolicy
      */
     public function update(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team) || $user->hasRole('content moderator');
+        return $user->ownsTeam($team) || $user->hasRole('event organizer');
     }
 
     /**

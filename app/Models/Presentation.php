@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Presentation extends Model
 {
@@ -105,5 +106,29 @@ class Presentation extends Model
                     ->where('role', 'speaker');
             })->get(),
         );
+    }
+
+    /**
+     * Checks if the presentation can be deleted
+     */
+    public function canBeDeleted(): bool
+    {
+        return !EventInstance::current()->is_final_programme_released;
+    }
+
+    /**
+     * Handle a (dis)approval of this Presentation.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleApproval(bool $isApproved): void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->save();
+        } else {
+            $this->delete();
+        }
     }
 }

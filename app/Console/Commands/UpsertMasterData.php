@@ -35,7 +35,7 @@ class UpsertMasterData extends Command
         Role::class => [
             ['id' => 1, 'name' => 'participant', 'guard_name' => 'web'],
             ['id' => 2, 'name' => 'company representative', 'guard_name' => 'web'],
-            ['id' => 3, 'name' => 'content moderator', 'guard_name' => 'web'],
+            ['id' => 3, 'name' => 'event organizer', 'guard_name' => 'web'],
             ['id' => 4, 'name' => 'speaker', 'guard_name' => 'web'],
             ['id' => 5, 'name' => 'booth owner', 'guard_name' => 'web']
         ],
@@ -96,42 +96,6 @@ class UpsertMasterData extends Command
                     $this->upsertRecord($record, $row);
                 }
             }
-        }
-
-        // TODO: Move those in separate files
-        $companyMemPermissions =
-            ['view company overview', 'view company details', 'view company members'];
-
-        $companyRepPermissions = [
-            'view company overview',
-            'view company details',
-            'edit company details',
-            'view company members',
-            'edit company members',
-            'view member invitations',
-            'create member invitation',
-            'delete member invitation',
-            'delete company members',
-            'create booth request',
-            'create sponsorship request',
-            'create presentation request',
-            'request company delete'
-        ];
-
-        $companyRepPermissions = array_diff($companyRepPermissions, $companyMemPermissions);
-
-        $speaker = Role::findByName('speaker');
-        $booth_owner = Role::findByName('booth owner');
-        $representative = Role::findByName('company representative');
-
-        foreach ($companyMemPermissions as $permissionName) {
-            $permission = Permission::create(['name' => $permissionName]);
-            $representative->givePermissionTo($permission);
-            $speaker->givePermissionTo($permission);
-            $booth_owner->givePermissionTo($permission);
-        }
-        foreach ($companyRepPermissions as $permission) {
-            $representative->givePermissionTo(Permission::create(['name' => $permission]));
         }
     }
 

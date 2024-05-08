@@ -24,6 +24,121 @@ class PresentationPolicy
     }
 
     /**
+     * Determine whether the user can view the list of presentations
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function viewAny(User $user)
+    {
+        return $user->can('view presentation list');
+    }
+
+    /**
+     * Determine whether the user can create a presentation
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        return $user->can('create presentation');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function update(User $user, Presentation $presentation): bool
+    {
+        $currentDate = Carbon::now();
+
+        if ($user->can('edit presentation')) {
+            return true;
+        }
+
+        // If the deadline has not passed
+        if ($currentDate->lt($this->deadline()) && ($user->presenter_of->id == $presentation->id)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can view the presentation details/edits
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function view(User $user, Presentation $presentation): bool
+    {
+        return $user->presenter_of && $user->presenter_of->id == $presentation->id;
+    }
+
+    /**
+     * Determine whether the user can view the presentation status
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function viewApprovalStatus(User $user, Presentation $presentation): bool
+    {
+        return $user->can('view presentation approval status');
+    }
+
+    /**
+     * Determine whether the user can approve the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function approve(User $user, Presentation $presentation): bool
+    {
+        return $user->can('edit presentation approval status');
+    }
+
+    /**
+     * Determine whether the user is able to view the crew presentation details/edits
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function crewView(User $user, Presentation $presentation): bool
+    {
+        return $user->can('view presentation');
+    }
+
+    /**
+     * Determines whether the user can delete the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function delete(User $user, Presentation $presentation): bool
+    {
+        if ($user->can('delete presentation')) {
+            return $presentation->canBeDeleted();
+        }
+
+        if ($user->presenter_of) {
+            if ($user->presenter_of->id == $presentation->id) {
+                return !$presentation->isApproved;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Determine whether the user can request for a presentation.
      *
      * @param User $user
@@ -53,62 +168,6 @@ class PresentationPolicy
         }
 
         return true;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param User $user
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function update(User $user, Presentation $presentation): bool
-    {
-        $currentDate = Carbon::now();
-
-        // If the user is the content moderator they can always update
-        if ($user->hasRole('content moderator')) {
-            return true;
-        }
-
-        // If the deadline has not passed
-        if ($currentDate->lt($this->deadline()) && $user->id) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Determine whether the user can view the presentation details/edits
-     *
-     * @param User $user
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function view(User $user, Presentation $presentation): bool
-    {
-        return $user->presenter_of && $user->presenter_of->id == $presentation->id;
-    }
-
-    /**
-     * Determines whether the user can delete the presentation
-     *
-     * @param User $user
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function delete(User $user, Presentation $presentation): bool
-    {
-        if ($user->hasRole('content moderator')) {
-            return $presentation->canBeDeleted();
-        }
-
-        if ($user->presenter_of->id == $presentation->id) {
-            return !$presentation->isApproved;
-        }
-
-        return false;
     }
 
     /**

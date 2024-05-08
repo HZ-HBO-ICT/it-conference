@@ -15,10 +15,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password')]);
+            'email' => 'mod@hz.nl',
+            'password' => bcrypt('123')]);
+        $user->markEmailAsVerified();
+        $user->assignRole('event organizer');
 
         $users = User::factory(5)->create();
         foreach ($users as $user) {

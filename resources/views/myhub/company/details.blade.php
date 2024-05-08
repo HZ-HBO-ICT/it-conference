@@ -28,10 +28,6 @@
                         @can('viewMembers', $company)
                         @livewire('company.member-manager', ['company' => $company])
                         @endcan
-                        @can('requestDelete', $company)
-                            <x-section-border/>
-                        @livewire('company.delete-company', ['company' => $company])
-                        @endcan
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Laravel\Jetstream\Jetstream;
 
@@ -47,6 +48,7 @@ class InvitationController extends Controller
      * @param Request $request
      * @param Invitation $invitation
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function register(Request $request, Invitation $invitation): RedirectResponse
     {
