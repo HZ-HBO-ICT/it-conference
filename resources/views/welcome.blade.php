@@ -1,3 +1,7 @@
+@php
+    use App\Models\Edition
+    @endphp
+
 <x-app-layout>
     <div class="flex flex-col overflow-hidden">
         <!-- The main banner -->
@@ -17,7 +21,11 @@
                             Annual IT Conference
                         </h2>
                         <h2 class="uppercase font-medium mb-8">
-                            November 15, 2024
+                            @if($edition->start_at)
+                                {{ $edition->start_at->format('F j, Y') }}
+                            @else
+                                The date will be provided soon!
+                            @endif
                         </h2>
                         <h2 class="italic">
                             "It does not only build a bridge, it involves us all"
@@ -42,12 +50,17 @@
                             </a>
                         </h2>
                         <br>
-                        <x-button class="mt-4 mr-5">
-                            <a href="{{route('register')}}">Register as a participant</a>
-                        </x-button>
-                        <x-button class="mt-4">
-                            <a href="{{route('register')}}">Register a company</a>
-                        </x-button>
+                        @if($edition->is_participant_registration_opened)
+                            <x-button class="mt-4 mr-5">
+                                <a href="{{route('register')}}">Register as a participant</a>
+                            </x-button>
+                        @endif
+
+                        @if($edition->is_company_registration_opened)
+                            <x-button class="mt-4">
+                                <a href="{{route('register')}}">Register a company</a>
+                            </x-button>
+                        @endif
                     </div>
                 </div>
                 <!-- Countdown Timer -->

@@ -18,7 +18,9 @@ use Illuminate\Support\Carbon;
  * @property int $state
  * @property Carbon|null $start_at
  * @property Carbon|null $end_at
-// * @property boolean $is_final_programme_released
+ * @property boolean $is_final_programme_released
+ * @property boolean $is_participant_registration_opened
+ * @property boolean $is_company_registration_opened
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|Edition newModelQuery()
@@ -82,13 +84,32 @@ class Edition extends Model
      *
      * @return Attribute
      */
-//    protected function isFinalProgrammeReleased(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn() => $this->state == Edition::STATE_ENROLLMENT
-//                || $this->state == Edition::STATE_EXECUTION
-//        );
-//    }
+    protected function isFinalProgrammeReleased(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->state == Edition::STATE_ENROLLMENT
+                || $this->state == Edition::STATE_EXECUTION
+        );
+    }
+
+    public function isCompanyRegistrationOpened(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->state == Edition::STATE_ANNOUNCE
+                || $this->state == Edition::STATE_ENROLLMENT
+                || $this->state == Edition::STATE_EXECUTION
+        );
+    }
+
+    public function isParticipantRegistrationOpened(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => ($this->state == Edition::STATE_ANNOUNCE
+                || $this->state == Edition::STATE_ENROLLMENT
+                || $this->state == Edition::STATE_EXECUTION)
+                && now() >= $this->getEvent('Participant registration')->start_at
+        );
+    }
 
     /**
      * Gets an instance that represents the current edition, meaning the
@@ -191,5 +212,12 @@ class Edition extends Model
         }
 
         return $mostRecent;
+    }
+
+    public function getEvent(string $name): EditionEvent
+    {
+        return $this->editionEvents
+            ->where('event_id', Event::where('name', $name)->first()->id)
+            ->first();
     }
 }
