@@ -24,7 +24,7 @@
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Event Start Date</dt>
                 <dd class="sm:col-span-2">
                     <input
-                        type="datetime-local"
+                        type="date"
                         id="start_at"
                         max="{{ $editionEvent->end_at }}"
                         wire:model="form.start_at"
@@ -37,10 +37,10 @@
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Event End Date</dt>
                 <dd class="sm:col-span-2">
                     <input
-                        type="datetime-local"
+                        type="date"
                         id="end_at"
                         min="{{ $editionEvent->start_at }}"
-                        max="{{ $edition->start_at }}"
+                        max="{{ $edition->start_at->format('Y-m-d') }}"
                         wire:model="form.end_at"
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:[color-scheme:dark] focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
                     />

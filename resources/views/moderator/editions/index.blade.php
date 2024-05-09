@@ -72,9 +72,9 @@
                                                 @if (!$edition->start_at || !$edition->end_at)
                                                     TBD
                                                 @else
-                                                    {{ $edition->start_at->format('d/m/Y H:i') }}
+                                                    {{ $edition->start_at->format('d-m-Y H:i') }}
                                                     —
-                                                    {{ $edition->end_at->format('d/m/Y H:i') }}
+                                                    {{ $edition->end_at->format('d-m-Y H:i') }}
                                                 @endif
                                             </div>
 
@@ -89,7 +89,6 @@
                                                     <x-button>Delete</x-button>
                                                 </form>
 
-{{--                                                @dd($edition)--}}
                                                 @if(!(Edition::current() == $edition) && $edition->configured())
                                                     <form method="POST" action="{{ route('moderator.editions.activate', $edition) }}">
                                                         @csrf

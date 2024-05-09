@@ -43,9 +43,9 @@
                                                 @if (!$event->start_at || !$event->end_at)
                                                     TBD
                                                 @else
-                                                    {{ $event->start_at->format('d/m/Y H:i') }}
+                                                    {{ $event->start_at->format('d-m-Y') }}
                                                     —
-                                                    {{ $event->end_at->format('d/m/Y H:i') }}
+                                                    {{ $event->end_at->format('d-m-Y') }}
                                                 @endif
                                             </div>
 

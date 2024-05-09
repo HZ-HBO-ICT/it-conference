@@ -25,8 +25,8 @@ class EditionEventForm extends Form
     {
         $this->editionEvent = $editionEvent;
 
-        $this->start_at = $editionEvent->start_at ? $editionEvent->start_at->format('Y-m-d\TH:i:s') : '';
-        $this->end_at = $editionEvent->end_at ? $editionEvent->end_at->format('Y-m-d\TH:i:s') : '';
+        $this->start_at = $editionEvent->start_at ? $editionEvent->start_at->format('Y-m-d') : '';
+        $this->end_at = $editionEvent->end_at ? $editionEvent->end_at->format('Y-m-d') : '';
     }
 
     /**
