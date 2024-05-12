@@ -43,7 +43,9 @@ class Edition extends Model
         'name',
         'state',
         'start_at',
-        'end_at'
+        'end_at',
+        'lecture_duration',
+        'workshop_duration'
     ];
 
     protected $casts = [
@@ -67,6 +69,8 @@ class Edition extends Model
             'name' => 'required|unique:editions|max:255',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date',
+            'lecture_duration' => 'required|numeric|min:1',
+            'workshop_duration' => 'required|numeric|min:1'
         ];
     }
 

@@ -22,6 +22,12 @@ class EditionForm extends Form
     #[Validate(['required', 'date'])]
     public $end_at;
 
+    #[Validate(['required', 'numeric', 'min:1'])]
+    public $lecture_duration;
+
+    #[Validate('required', 'numeric', 'min:1')]
+    public $workshop_duration;
+
     /**
      * Sets the edition details per each field
      * @param Edition $edition
@@ -35,6 +41,8 @@ class EditionForm extends Form
         $this->state = $edition->state;
         $this->start_at = $edition->start_at ? $edition->start_at->format('Y-m-d\TH:i:s') : '';
         $this->end_at = $edition->end_at ? $edition->end_at->format('Y-m-d\TH:i:s') : '';
+        $this->lecture_duration = $edition->lecture_duration;
+        $this->workshop_duration = $edition->workshop_duration;
     }
 
     /**

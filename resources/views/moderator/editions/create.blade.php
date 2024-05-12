@@ -67,6 +67,28 @@
                                 />
                                 <x-input-error for="end_at" class="mt-2"/>
                             </div>
+                            <div class="col-span-6 sm:col-span-4 py-4">
+                                <x-label for="lecture_duration" value="Lecture Duration"/>
+                                <x-input type="number"
+                                         id="lecture_duration"
+                                         name="lecture_duration"
+                                         value="30"
+                                         min="1"
+                                         class="mt-1 block w-full"
+                                />
+                                <x-input-error for="lecture_duration" class="mt-2"/>
+                            </div>
+                            <div class="col-span-6 sm:col-span-4 py-4">
+                                <x-label for="workshop_duration" value="Workshop Duration"/>
+                                <x-input type="number"
+                                         id="workshop_duration"
+                                         name="workshop_duration"
+                                         value="90"
+                                         min="1"
+                                         class="mt-1 block w-full"
+                                />
+                                <x-input-error for="workshop_duration" class="mt-2"/>
+                            </div>
                             <x-button
                                 class="mt-5 dark:bg-purple-500 bg-purple-500 hover:bg-purple-600 hover:dark:bg-purple-600 active:bg-purple-600 active:dark:bg-purple-600">
                                 Submit
