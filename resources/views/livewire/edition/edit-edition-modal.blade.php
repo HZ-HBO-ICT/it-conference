@@ -29,7 +29,7 @@
                     <select wire:model="form.state"
                             class="mt-1 w-full border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
                         <option value="10">Design</option>
-                        @if(Edition::current() == $edition || !Edition::current())
+                        @if(Edition::current() == $edition || (!Edition::current() && $edition->configured()))
                             <option value="20">Registration opened</option>
                             @if ($edition->getEvent('Presentation request')->start_at < date('Y-m-d'))
                                 <option value="30">Final programme released</option>

@@ -17,7 +17,12 @@ class PresentationPolicy
      */
     public function deadline(): Carbon
     {
-        return Edition::current()->getEvent('Presentation request')->end_at;
+        if (Edition::current()) {
+            return Edition::current()->getEvent('Presentation request')->end_at;
+        } else {
+            return Carbon::yesterday();
+        }
+
     }
 
     /**
