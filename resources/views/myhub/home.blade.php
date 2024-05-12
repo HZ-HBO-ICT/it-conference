@@ -14,7 +14,7 @@
                     <x-dashboards.company/>
                 @endif
                 @if(Auth::user()->hasRole('event organizer'))
-                    <x-dashboards.crew/>
+                    <x-dashboards.crew :speakersStats="$speakersStats" :boothsStats="$boothsStats" :presentationsStats="$presentationsStats" :companiesStats="$companiesStats"/>
                 @endif
             </div>
                 <h3 class="leading-6 font-semibold text-xl dark:text-white">Notifications</h3>

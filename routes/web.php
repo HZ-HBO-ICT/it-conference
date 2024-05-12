@@ -15,6 +15,7 @@ use App\Http\Controllers\PresentationController;
 // use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Route;
 
 /*Route::middleware([
@@ -231,4 +232,5 @@ Route::middleware([
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::resource('/moderator/users', UserController::class);
+
 });

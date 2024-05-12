@@ -42,12 +42,14 @@
                             </a>
                         </h2>
                         <br>
-                        <x-button class="mt-4 mr-5">
-                            <a href="{{route('register')}}">Register as a participant</a>
-                        </x-button>
-                        <x-button class="mt-4">
-                            <a href="{{route('register')}}">Register a company</a>
-                        </x-button>
+                        @guest()
+                            <x-button class="mt-4 mr-5">
+                                <a href="{{route('register')}}">Register as a participant</a>
+                            </x-button>
+                            <x-button class="mt-4">
+                                <a href="{{route('register')}}">Register a company</a>
+                            </x-button>
+                        @endguest
                     </div>
                 </div>
                 <!-- Countdown Timer -->
@@ -124,9 +126,11 @@
                  style="transform: rotate(61deg)">
 
             <!-- Gradient background -->
-            <div class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
-            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to expect on this year's conference?</h2>
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to
+                expect on this year's conference?</h2>
 
             {{-- Cards for speakers, presentations, companies --}}
             <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
