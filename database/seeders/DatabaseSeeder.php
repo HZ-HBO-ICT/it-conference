@@ -23,8 +23,25 @@ class DatabaseSeeder extends Seeder
         Artisan::call('admin:upsert-master-data');
 
         Room::factory()->count(20)->create();
-        Timeslot::factory()->count(20)->create();
 
         $this->call([CompanySeeder::class, UserSeeder::class, PermissionSeeder::class]);
+
+        $startTime = 8; // 8 AM
+        $endTime = 18;  // 6 PM
+        $currentTime = $startTime;
+
+        while ($currentTime < $endTime) {
+            $time = sprintf('%02d:00', $currentTime); // Formats time like "08:00", "09:00", etc.
+            Timeslot::create([
+                'start' => $time,
+                'duration' => 30
+            ]);
+            $time = sprintf('%02d:30', $currentTime); // Half hour mark
+            Timeslot::create([
+                'start' => $time,
+                'duration' => 30
+            ]);
+            $currentTime++; // Move to the next hour
+        }
     }
 }

@@ -13,7 +13,8 @@ class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
+        'room_id', 'timeslot_id', 'start'];
 
     /**
      * Returns the basic validation rules for the model
@@ -29,6 +30,20 @@ class Presentation extends Model
             'difficulty_id' => 'required',
         ];
     }
+
+    /**
+     * Hard-coding the duration of the lectures
+     * TODO: Once the metatables get added rework this to retrieve data from there
+     * @var int
+     */
+    public static $LECTURE_DURATION = 30;
+
+    /**
+     * Hard-coding the duration of the workshops
+     * TODO: Once the metatables get added rework this to retrieve data from there
+     * @var int
+     */
+    public static $WORKSHOP_DURATION = 90;
 
     /**
      * Establishes a relationship between the presentation
