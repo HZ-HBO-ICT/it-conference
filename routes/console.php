@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Edition;
+use App\Schedule\UpdateEditionStateDaily;
+use App\Schedule\UpdateEditionStateHourly;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +21,15 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Schedule::call(new UpdateEditionStateDaily)
+    ->daily()
+    ->when(function () {
+        return (Edition::current());
+    });
+
+Schedule::call(new UpdateEditionStateHourly)
+    ->hourly()
+    ->when(function () {
+        return (Edition::current());
+    });
