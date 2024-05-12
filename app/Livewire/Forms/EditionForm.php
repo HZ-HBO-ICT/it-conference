@@ -39,10 +39,23 @@ class EditionForm extends Form
 
     /**
      * Updates the edition details with the new data
+     * Updates start/end date of the event that is responsible for the new state
      * @return void
      */
     public function update()
     {
+        // If the state was manually changed, perform necessary changes to crucial events responsible for
+        // a particular state of the edition
+        if ($this->state != Edition::whereName($this->name)->first()->state) {
+            if ($this->state == Edition::STATE_ANNOUNCE) {
+                $this->edition->getEvent('Company registration')->syncStartDate();
+            } else if ($this->state == Edition::STATE_ENROLLMENT) {
+                $this->edition->getEvent('Presentation request')->syncEndDate();
+            } else if ($this->state == Edition::STATE_EXECUTION) {
+                $this->edition->syncStartDate();
+            }
+        }
+
         $this->edition->update(
             $this->all()
         );

@@ -160,6 +160,9 @@ class Edition extends Model
                 $currentEdition->save();
             }
 
+            // synchronize start date of company registration event to the date of the manual activation
+            $this->getEvent('Company registration')->syncStartDate();
+
             // activate the edition
             $this->state = self::STATE_ANNOUNCE;
             $this->save();
@@ -171,7 +174,7 @@ class Edition extends Model
      * @param Event $event event to attach to edition
      * @return void
      */
-    public function addEvent(Event $event)
+    public function addEvent(Event $event): void
     {
         if (!$this->editionEvents->contains($event)) {
             EditionEvent::create([
@@ -186,7 +189,7 @@ class Edition extends Model
      * @param Event $event event to remove from edition
      * @return void
      */
-    public function removeEvent(Event $event)
+    public function removeEvent(Event $event): void
     {
         $editionEvent = $this->editionEvents
             ->where('edition_id', '=', $this->id)
@@ -214,10 +217,26 @@ class Edition extends Model
         return $mostRecent;
     }
 
+    /**
+     * Returns information about event for the particular edition
+     * @param string $name of the event to look for
+     * @return EditionEvent
+     */
     public function getEvent(string $name): EditionEvent
     {
         return $this->editionEvents
             ->where('event_id', Event::where('name', $name)->first()->id)
             ->first();
+    }
+
+    /**
+     * Synchronize start date of the edition to the current date
+     * @return void
+     */
+    public function syncStartDate(): void
+    {
+        $this->start_at = date('Y-m-d');
+
+        $this->save();
     }
 }

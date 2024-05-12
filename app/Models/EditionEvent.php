@@ -51,4 +51,28 @@ class EditionEvent extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    /**
+     * Synchronize start date of the event to the current date
+     * @return void
+     */
+    public function syncStartDate(): void
+    {
+        $this->start_at = date('Y-m-d');
+        $this->save();
+    }
+
+    /**
+     * Synchronize end date of the event to the current date
+     * @return void
+     */
+    public function syncEndDate(): void
+    {
+        $this->end_at = date('Y-m-d');
+        if ($this->end_at < $this->start_at) {
+
+        }
+
+        $this->save();
+    }
 }
