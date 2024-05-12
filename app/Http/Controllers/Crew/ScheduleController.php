@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    //
+    public function overview(){
+        return view('moderator.schedule.index');
+    }
 }
