@@ -1,8 +1,12 @@
 <nav x-data="{ open: false }"
      class="relative z-10">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mr-5 mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
+            <div class="items-center flex-shrink-0 h-16 flex ml-0">
+                <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}" alt="IT Conference logo">
+                <h3 class="ml-4 font-semibold dark:text-white">My hub</h3>
+            </div>
             <div class="flex">
                 <!-- Logo -->
                 <!-- Leaving it just in case we get logo -->
@@ -15,17 +19,20 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')" wire:navigate.hover>
+                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')"
+                                wire:navigate.hover>
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')" wire:navigate.hover>
+                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
+                                wire:navigate.hover>
                         {{ __('Speakers') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')" wire:navigate.hover>
+                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
+                                wire:navigate.hover>
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
@@ -42,7 +49,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')" wire:navigate.hover>
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')"
+                                wire:navigate.hover>
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
@@ -66,23 +74,40 @@
                         </div>
                     </span>
                 @else
-                    <span
-                        class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                        <a href="{{ route('dashboard') }}" wire:navigate.hover
-                           class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <div
-                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                            <img class="h-8 w-8 rounded-full object-cover"
-                                 src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
-                        </div>
-                    </span>
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <span
+                                class="inline-flex py-1 pr-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                <a href="{{ route('dashboard') }}" wire:navigate.hover
+                                   class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <div
+                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="h-8 w-8 rounded-full object-cover"
+                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
+                                </div>
+                                <div class="items-center flex-shrink-0 flex ml-3">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                              clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                            </span>
+                        </x-slot>
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('dashboard')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
                 @endif
-                    <div class="pl-4">
-                        <div>
-                            <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">
-                                <button x-data="{
+                <div class="pl-4">
+                    <div>
+                        <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">
+                            <button x-data="{
                                         darkMode: $persist(false).as('dark_mode'),
                                         toggleDarkMode(){
                                             this.darkMode = !this.darkMode;
@@ -93,16 +118,18 @@
                                             }
                                         }
                                     }"
-                                        @click="toggleDarkMode()"
-                                        x-init="darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')"
-                                        class="w-full h-full flex items-center justify-center hover:bg-gray-100 text-gray-500 hover:text-gray-600 dark:hover:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
-                                    <svg class="w-4 h-4 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
-                                    </svg>
-                                </button>
-                            </div>
+                                    @click="toggleDarkMode()"
+                                    x-init="darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')"
+                                    class="w-full h-full flex items-center justify-center hover:bg-gray-100 text-gray-500 hover:text-gray-600 dark:hover:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                                <svg class="w-4 h-4 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
+                </div>
             </div>
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -124,10 +151,12 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('welcome') }}"
+                                   :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
+                                   :active="request()->routeIs('speakers.index')">
                 {{ __('Speakers') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
@@ -142,11 +171,13 @@
             <x-responsive-nav-link wire:navigate.hover href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('contact') }}"
+                                   :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link wire:navigate.hover href="{{ route('dashboard') }}"
+                                   :active="request()->routeIs('dashboard')">
                 {{ __(Auth::user()->name) }}
             </x-responsive-nav-link>
             <div class="border-t border-gray-200 dark:border-gray-600"></div>

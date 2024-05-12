@@ -6,13 +6,7 @@
 <x-app-layout>
     <div class="flex">
         <div class="flex-col w-72 flex inset-y-0 relative bg-white dark:bg-gray-900 h-screen">
-            <div
-                class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto gap-y-5 flex-col flex-grow flex">
-                <div class="items-center flex-shrink-0 h-16 flex mt-4">
-                    <!-- TODO: Style heading -->
-                    <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}" alt="IT Conference logo">
-                    <h3 class="ml-4 font-semibold dark:text-white">My hub</h3>
-                </div>
+            <div class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto gap-y-5 flex-col flex-grow flex">
                 <nav class="flex-col flex-1 flex">
                     <ul class="gap-y-7 flex-col flex-1 flex" role="list">
                         <ul class="mt-2 -mx-2" role="list">
@@ -22,11 +16,11 @@
                                 :route="'dashboard'"
                                 :icon="'M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25'"
                                 :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
-                            {{--<x-sidebar-link-content-mod
+                            {{--<x-content-moderator-sidebar-link-content-mod
                                 :label="'My programme'"
                                 :route="'my.programme'"
                                 :icon="'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z'"
-                                :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>--}}
+                                :roleColour="Auth::user()->role_colour"></x-content-moderator-sidebar-link-content-mod>--}}
                             {{-- Presentation links --}}
                             @if(!Auth::user()->currentTeam)
                                 @can('request', \App\Models\Presentation::class)
