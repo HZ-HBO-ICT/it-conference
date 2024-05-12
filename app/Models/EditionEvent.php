@@ -69,7 +69,6 @@ class EditionEvent extends Model
     public function syncEndDate(): void
     {
         $this->end_at = date('Y-m-d');
-
         $this->save();
     }
 }
