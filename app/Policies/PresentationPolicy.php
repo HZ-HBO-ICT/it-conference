@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -16,11 +17,7 @@ class PresentationPolicy
      */
     public function deadline(): Carbon
     {
-        $deadline = Carbon::createFromDate(2024, 10, 27);
-        $deadline->setTime(12, 0, 0);
-        $deadline->setTimezone('Europe/Amsterdam');
-
-        return $deadline;
+        return Edition::current()->getEvent('Presentation request')->end_at;
     }
 
     /**
@@ -120,7 +117,7 @@ class PresentationPolicy
      */
     public function enroll(User $user, Presentation $presentation): bool
     {
-        if (\App\Models\Edition::current()->is_final_programme_released) {
+        if (Edition::current()->is_final_programme_released) {
             return $presentation->canEnroll($user);
         }
 
