@@ -38,6 +38,7 @@ class SyncPermissions extends Command
 
         $this->syncRoles($config['roles']);
         $this->syncPermissions($config['permissions']);
+        return 0;
     }
 
     /**
@@ -124,12 +125,14 @@ class SyncPermissions extends Command
     {
         $permissions = $this->convertPermissionList($permissions);
         foreach ($permissions as $item) {
+            $roles = $item['roles'];
+            unset($item['roles']);
             $permission = Permission::updateOrCreate(
                 ['name' => $item['name']],
                 $item
             );
             try {
-                $permission->syncRoles($item['roles']);
+                $permission->syncRoles($roles);
             } catch (RoleDoesNotExist $exception) {
                 $this->error($exception->getMessage());
             }
@@ -163,12 +166,12 @@ class SyncPermissions extends Command
                 foreach ($content as $nested_key => $nested_content) {
                     if ($this->hasPermissionAttributes($nested_content)) {
                         // The naming convention for nested permissions is set here
-                        $nested_content['name'] = "$nested_key-$key";
+                        $nested_content['name'] = "$nested_key $key";
                         $result[] = $nested_content;
                     } else {
                         $result[] = [
                             // The naming convention for nested permissions is ALSO set here
-                            'name' => "$nested_key-$key",
+                            'name' => "$nested_key $key",
                             'roles' => $nested_content
                         ];
                     }

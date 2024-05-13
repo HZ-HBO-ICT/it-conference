@@ -1,0 +1,83 @@
+# The YML file format allows for comments to be added to the file.
+# This makes it possible to add explanations to the file.
+# The roles are defined in the roles section of the file.
+roles:
+  - participant # Users that can participate to presentations and workshops
+  - companyrep  # Company representatives
+  - companymem  # Company members
+  - crew        # Members of the event organisation crew
+  - speaker
+  - booth owner
+
+#TODO update to match roles below to roles above
+permissions:
+  booth:
+    viewAny: crew
+    view: crew
+    create: crew
+    edit: crew
+    delete: crew
+  booth request:
+    create: companyrep
+    view: [ companyrep, crew ]
+    approve: crew
+  company:
+    viewAny: crew
+    view: [ crew, companyrep, companymem ]
+    create: crew
+    edit: [ crew, companyrep ]
+    delete: crew
+  company request:
+    view: [ companyrep, crew ]
+    edit: crew
+  company delete request:
+    create: companyrep
+    view: [ crew, companyrep ]
+  company member:
+    viewAny: [ crew, companyrep, companymem ]
+    update: companyrep
+    delete: companyrep
+  company member invitation:
+    viewAny: companyrep
+    create: companyrep
+    delete: companyrep
+  crew:
+    invite: crew
+    edit: crew
+
+  presentation list:
+    view: crew
+  presentation:
+    create: crew
+    delete: crew
+    edit: crew
+    view: crew
+  presentation request:
+    create: companyrep
+  presentation approval status: #TODO rename to 'presentation request'
+    edit: crew
+    view: [ companyrep, crew ]
+  presentation participants:
+    view: crew
+  room:
+    create: crew
+    delete: crew
+    edit: crew
+    view: crew
+  room list:
+    view: crew
+    schedule:
+      edit: crew
+      view: crew
+    sponsorship:
+      create: crew
+      delete: crew
+      view: crew
+    sponsorship request:
+      create: companyrep
+    sponsorship approval status:
+      #TODO rename to 'sponsorship request'
+      edit: crew
+      view: [companyrep, crew]
+    sponsorship list:
+      view: crew

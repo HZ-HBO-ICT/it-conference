@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Difficulty;
 use App\Models\Sponsorship;
-use App\Models\SponsorTier;
 use Exception;
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Permission;
@@ -32,13 +31,6 @@ class UpsertMasterData extends Command
      * @var array
      */
     private array $master_data = [
-        Role::class => [
-            ['id' => 1, 'name' => 'participant', 'guard_name' => 'web'],
-            ['id' => 2, 'name' => 'company representative', 'guard_name' => 'web'],
-            ['id' => 3, 'name' => 'event organizer', 'guard_name' => 'web'],
-            ['id' => 4, 'name' => 'speaker', 'guard_name' => 'web'],
-            ['id' => 5, 'name' => 'booth owner', 'guard_name' => 'web']
-        ],
         Sponsorship::class => [
             ['id' => 1, 'name' => 'gold', 'max_sponsors' => '1'],
             ['id' => 2, 'name' => 'silver', 'max_sponsors' => '2'],
