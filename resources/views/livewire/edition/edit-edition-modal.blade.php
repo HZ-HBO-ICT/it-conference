@@ -1,5 +1,6 @@
 @php
-    use App\Models\Edition
+    use App\Models\Edition;
+    use Illuminate\Support\Carbon;
 @endphp
 
 <x-livewire-modal form-action="save">
@@ -31,7 +32,7 @@
                         <option value="10">Design</option>
                         @if(Edition::current() == $edition || (!Edition::current() && $edition->configured()))
                             <option value="20">Registration opened</option>
-                            @if ($edition->getEvent('Presentation request')->start_at < date('Y-m-d'))
+                            @if ($edition->getEvent('Presentation request')->start_at < Carbon::today())
                                 <option value="30">Final programme released</option>
                             @endif
                             <option value="40">Currently being executed</option>

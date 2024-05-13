@@ -33,7 +33,7 @@ class EditEditionModal extends ModalComponent
         $this->form->update();
 
         return redirect(route('moderator.editions.index', $this->edition))
-        ->with('status', 'Edition successfully updated.');
+            ->with('status', 'Edition successfully updated.');
     }
 
     /**

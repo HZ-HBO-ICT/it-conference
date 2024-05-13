@@ -3,7 +3,7 @@
 namespace App\Schedule;
 
 use App\Models\Edition;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class UpdateEditionStateHourly extends UpdateEditionState
 {

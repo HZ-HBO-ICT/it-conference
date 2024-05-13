@@ -44,7 +44,8 @@ class EditionController extends Controller
             $edition->addEvent($event);
         }
 
-        return redirect(route('moderator.events.index', compact('edition')));
+        return redirect(route('moderator.events.index', compact('edition')))
+            ->banner("Edition {$edition->name} was successfully created");
     }
 
     /**
@@ -59,7 +60,8 @@ class EditionController extends Controller
             $edition->activate();
         }
 
-        return redirect(route('moderator.editions.index'));
+        return redirect(route('moderator.editions.index'))
+            ->banner("Edition {$edition->name} was successfully activated");
     }
 
     /**
@@ -71,6 +73,7 @@ class EditionController extends Controller
     {
         $edition->delete();
 
-        return redirect(route('moderator.editions.index'));
+        return redirect(route('moderator.editions.index'))
+            ->banner("Edition {$edition->name} was successfully deleted");
     }
 }

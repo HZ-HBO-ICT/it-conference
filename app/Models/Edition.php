@@ -112,7 +112,7 @@ class Edition extends Model
             get: fn() => ($this->state == Edition::STATE_ANNOUNCE
                 || $this->state == Edition::STATE_ENROLLMENT
                 || $this->state == Edition::STATE_EXECUTION)
-                && now() >= $this->getEvent('Participant registration')->start_at
+                && Carbon::now() >= $this->getEvent('Participant registration')->start_at
         );
     }
 
@@ -233,7 +233,7 @@ class Edition extends Model
      */
     public function syncStartDate(): void
     {
-        $this->start_at = date('Y-m-d');
+        $this->start_at = Carbon::today();
         $this->save();
     }
 }

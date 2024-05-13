@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,7 +59,7 @@ class EditionEvent extends Model
      */
     public function syncStartDate(): void
     {
-        $this->start_at = date('Y-m-d');
+        $this->start_at = Carbon::today();
         $this->save();
     }
 
@@ -68,7 +69,7 @@ class EditionEvent extends Model
      */
     public function syncEndDate(): void
     {
-        $this->end_at = date('Y-m-d');
+        $this->end_at = Carbon::today();
         $this->save();
     }
 }
