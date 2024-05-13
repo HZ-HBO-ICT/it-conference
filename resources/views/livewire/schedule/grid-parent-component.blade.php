@@ -36,7 +36,9 @@
                     <td class="p-4 h-14 text-left border-r border-gray-300">{{!$isHalfHour ? $time->format('H:i') : ''}}</td>
                     @foreach ($rooms as $room)
                         <td class="text-left border-r h-14 border-gray-300">
-                            <livewire:schedule.cell wire:key="cell-r-{{ $room->id }}-t-{{$timeslot->id}}"  :timeslot="$timeslot" :room="$room"/>
+                            <livewire:schedule.cell wire:key="cell-r-{{ $room->id }}-t-{{$timeslot->id}}"
+                                                    :timeslot="$timeslot" :room="$room"
+                                                    />
                         </td>
                     @endforeach
                 </tr>

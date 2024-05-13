@@ -36,7 +36,12 @@ class GridParentComponent extends Component
         ]);
         $presentation->save();
         $presentation->refresh();
-        dd($presentation);
+
+        $this->unscheduledPresentations = Presentation::where(function ($presentation) {
+            return $presentation->whereNull(['timeslot_id', 'room_id']);
+        })->get();
+        $this->dispatch("update-cell-r-{$presentation->room->id}-t-{$presentation->timeslot->id}");
+
     }
 
     public function createsConflict($presentation, $timeslot, $room)
