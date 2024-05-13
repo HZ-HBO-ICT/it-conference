@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'mod@hz.nl',
             'password' => bcrypt('123')]);
         $user->markEmailAsVerified();
-        $user->assignRole('crew');
+        $user->assignRole('event organizer');
 
         $users = User::factory(5)
             ->create()

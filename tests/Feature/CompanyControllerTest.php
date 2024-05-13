@@ -18,7 +18,7 @@ class CompanyControllerTest extends TestCase
     {
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
-        $this->seed(PermissionSeeder::class);
+        Artisan::call('app:sync-permissions');
     }
 
     /** @test */

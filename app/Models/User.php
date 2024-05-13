@@ -210,7 +210,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isBackendUser(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->hasRole('crew')
+            get: fn() => $this->hasRole(['event organizer', 'assistant organizer',
+                'company market supervisor', 'speakers supervisor', 'pr lead',
+                'entertainment organizer'])
         );
     }
 
@@ -241,7 +243,7 @@ class User extends Authenticatable implements MustVerifyEmail
             get: function () {
                 if ($this->company) {
                     return 'partner';
-                } elseif ($this->hasRole('event organizer')) {
+                } elseif ($this->hasRole('crew')) {
                     return 'crew';
                 } else {
                     return 'participant';

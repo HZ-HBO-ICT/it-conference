@@ -2,77 +2,80 @@
 # This makes it possible to add explanations to the file.
 # The roles are defined in the roles section of the file.
 roles:
-  - participant # Users that can participate to presentations and workshops
-  - companyrep  # Company representatives
-  - companymem  # Company members
-  - crew        # Members of the event organisation crew
+  - participant               # Users that can participate to presentations and workshops
+  - company representative    # Company representatives
+  - company member            # Company members
+  - event organizer           # Crew member - Manages the Schedule, Users, Companies, Sponsorships, Presentations and Booths
+  - assistant organizer       # Crew member - Like the event organizer, but without the Schedule
+  - company market supervisor # Crew member - Manages Booths
+  - speakers supervisor       # Crew member - Manages Presentations
+  - pr lead                   # Crew member - Posting announcements to feed.
+  - entertainment organizer   # Crew member - TBD
   - speaker
   - booth owner
 
 permissions:
   booth:
-    viewAny: crew
-    view: crew
-    create: crew
-    edit: crew
-    delete: crew
+    viewAny: [event organizer, assistant organizer, company market supervisor]
+    view: [event organizer, assistant organizer, company market supervisor]
+    create: [event organizer, assistant organizer, company market supervisor]
+    update: [event organizer, assistant organizer, company market supervisor]
+    delete: [event organizer, assistant organizer, company market supervisor]
   booth request:
-    create: companyrep
-    view: [ companyrep, crew ]
-    approve: crew
+    create: company representative
+    view: [ company representative, event organizer, assistant organizer, company market supervisor ]
+    approve: [event organizer, assistant organizer, company market supervisor]
   company:
-    viewAny: crew
-    view: [ crew, companyrep, companymem ]
-    create: crew
-    edit: [ crew, companyrep ]
-    delete: crew
+    viewAny: [event organizer, assistant organizer]
+    view: [ event organizer, assistant organizer, company representative, company member ]
+    create: [event organizer, assistant organizer]
+    update: [ event organizer, assistant organizer, company representative ]
+    delete: [event organizer, assistant organizer]
   company request:
-    view: [ companyrep, crew ]
-    edit: crew
+    view: [ company representative, event organizer, assistant organizer ]
+    update: [event organizer, assistant organizer]
   company delete request:
-    create: companyrep
-    view: [ crew, companyrep ]
+    create: company representative
+    view: [ event organizer, assistant organizer, company representative ]
   company member:
-    viewAny: [ crew, companyrep, companymem ]
-    update: companyrep
-    delete: companyrep
+    viewAny: [ event organizer, assistant organizer, company representative, company member ]
+    update: company representative
+    delete: company representative
   company member invitation:
-    viewAny: companyrep
-    create: companyrep
-    delete: companyrep
+    viewAny: company representative
+    create: company representative
+    delete: company representative
   crew:
-    invite: crew
-    edit: crew
-  presentation list:
-    view: crew
+    invite: [event organizer, assistant organizer]
+    update: [event organizer, assistant organizer]
   presentation:
-    viewAny: crew
-    view: [ crew, speaker ]
-    create: crew
-    update: [ crew, speaker ]
-    delete: [ crew, speaker ]
+    viewAny: [event organizer, assistant organizer, speakers supervisor]
+    view: [ event organizer, assistant organizer, speakers supervisor, speaker ]
+    create: [event organizer, assistant organizer, speakers supervisor]
+    update: [ event organizer, assistant organizer, speakers supervisor, speaker ]
+    delete: [ event organizer, assistant organizer, speakers supervisor, speaker ]
     enroll: participant
   presentation request:
-    create: [ participant, companyrep ]
-    view: [ speaker, companyrep, crew ]
-    update: crew
+    create: [ participant, company representative ]
+    view: [ speaker, company representative, event organizer, assistant organizer, speakers supervisor ]
+    update: [event organizer, assistant organizer, speakers supervisor]
   presentation participants:
-    view: crew
+    view: [event organizer, assistant organizer, speakers supervisor]
   room:
-    viewAny: crew
-    view: crew
-    create: crew
-    update: crew
-    delete: crew
+    viewAny: [event organizer, assistant organizer]
+    view: [event organizer, assistant organizer]
+    create: [event organizer, assistant organizer]
+    update: [event organizer, assistant organizer]
+    delete: [event organizer, assistant organizer]
   schedule:
-    view: crew
-    update: crew
+    view: [event organizer, assistant organizer]
+    update: event organizer
   sponsorship:
-    viewAny: crew
-    view: crew
-    create: crew
-    delete: crew
+    viewAny: [event organizer, assistant organizer]
+    view: [event organizer, assistant organizer]
+    create: [event organizer, assistant organizer]
+    delete: [event organizer, assistant organizer]
   sponsorship request:
-    view: [ companyrep, crew ]
-    create: companyrep
-    update: crew
+    view: [ company representative, event organizer, assistant organizer ]
+    create: company representative
+    update: [event organizer, assistant organizer]

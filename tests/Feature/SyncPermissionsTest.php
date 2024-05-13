@@ -329,7 +329,7 @@ class SyncPermissionsTest extends TestCase
         $this->artisan('app:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
-        $permission = Permission::findByName('launch-photon_torpedoes', 'api');
+        $permission = Permission::findByName('launch photon_torpedoes', 'api');
         $this->assertNotNull($permission);
         $this->assertEquals('api', $permission->guard_name);
         // Assert if the permission is associated with the given role
@@ -353,7 +353,7 @@ class SyncPermissionsTest extends TestCase
         $this->artisan('app:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
-        $permission = Permission::findByName('create-article');
+        $permission = Permission::findByName('create article');
         $this->assertNotNull($permission);
         // Assert if the permission is associated with the given role
         $this->assertContains('admin', $permission->getRoleNames());
@@ -376,7 +376,7 @@ class SyncPermissionsTest extends TestCase
         $this->artisan('app:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
-        $permission = Permission::findByName('create-article');
+        $permission = Permission::findByName('create article');
         $this->assertNotNull($permission);
         // Assert if the permission is associated with the given role
         $this->assertContains('admin', $permission->getRoleNames());
@@ -402,7 +402,7 @@ class SyncPermissionsTest extends TestCase
         $this->artisan('app:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
-        $permission = Permission::findByName('create-article');
+        $permission = Permission::findByName('create article');
         $this->assertNotNull($permission);
         // Assert if the permission is associated with the given role
         $this->assertContains('admin', $permission->getRoleNames());
@@ -436,13 +436,13 @@ class SyncPermissionsTest extends TestCase
         $this->assertNotContains('editor', $permission->getRoleNames());
         $this->assertNotContains('user', $permission->getRoleNames());
 
-        $permission = Permission::findByName('action1-resource1');
+        $permission = Permission::findByName('action1 resource1');
         $this->assertNotNull($permission);
         $this->assertNotContains('admin', $permission->getRoleNames());
         $this->assertContains('editor', $permission->getRoleNames());
         $this->assertContains('user', $permission->getRoleNames());
 
-        $permission = Permission::findByName('action2-resource1');
+        $permission = Permission::findByName('action2 resource1');
         $this->assertNotNull($permission);
         $this->assertContains('admin', $permission->getRoleNames());
         $this->assertContains('editor', $permission->getRoleNames());

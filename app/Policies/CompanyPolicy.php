@@ -16,7 +16,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view company list');
+        return $user->can('viewAny company');
     }
 
     /**
@@ -25,7 +25,7 @@ class CompanyPolicy
     public function view(User $user, Company $company): bool
     {
         return ($user->is_backend_user || $user->isMemberOf($company))
-            && $user->can('view company details');
+            && $user->can('view company');
     }
 
     /**
@@ -50,7 +50,7 @@ class CompanyPolicy
     {
         return ($user->is_backend_user
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('edit company details');
+            && $user->can('update company');
     }
 
     /**
