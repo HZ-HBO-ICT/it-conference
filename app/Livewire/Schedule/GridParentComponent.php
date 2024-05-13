@@ -29,43 +29,28 @@ class GridParentComponent extends Component
     public function proccessMovingPresentation($data)
     {
         $presentation = Presentation::find($data['presentation_id']);
+        $oldRoom = $presentation->room;
+        $oldTimeslot = $presentation->timeslot;
+
         $presentation->update([
-            'room_id'=>$data['new_room_id'],
-            'timeslot_id'=>$data['new_timeslot_id'],
-            'start'=>$data['new_time']
+            'room_id' => $data['new_room_id'],
+            'timeslot_id' => $data['new_timeslot_id'],
+            'start' => $data['new_time']
         ]);
         $presentation->save();
         $presentation->refresh();
 
-        $this->unscheduledPresentations = Presentation::where(function ($presentation) {
-            return $presentation->whereNull(['timeslot_id', 'room_id']);
-        })->get();
+        if ($oldRoom && $oldTimeslot) {
+            $this->dispatch("update-cell-r-{$oldRoom->id}-t-{$oldTimeslot->id}");
+        } else {
+            $this->unscheduledPresentations = Presentation::where(function ($presentation) {
+                return $presentation->whereNull(['timeslot_id', 'room_id']);
+            })->get();
+        }
+
         $this->dispatch("update-cell-r-{$presentation->room->id}-t-{$presentation->timeslot->id}");
 
     }
-
-    public function createsConflict($presentation, $timeslot, $room)
-    {
-        $duration = $presentation->type === 'lecture'
-            ? Presentation::$LECTURE_DURATION
-            : Presentation::$WORKSHOP_DURATION;
-
-        $end = Carbon::parse($presentation->start)->addMinutes($duration);
-    }
-
-    public function reorderPresentations($list)
-    {
-        foreach ($list as $order => $item) {
-            Presentation::find($item['value'])->update(['order' => $order, 'room_id' => $item['group']]);
-        }
-    }
-
-    public function moveToRoom($presentationId, $newRoomId)
-    {
-        Presentation::find($presentationId)->update(['room_id' => $newRoomId]);
-        $this->emitSelf('refreshComponent'); // Optionally refresh the component to reflect changes
-    }
-
 
     public function render()
     {

@@ -26,13 +26,13 @@
                 @endforeach
             </tr>
             </thead>
-            <tbody class="text-gray-700">
+            <tbody>
             @foreach($timeslots as $timeslot)
                 @php
                     $time = \Carbon\Carbon::parse($timeslot->start);
                     $isHalfHour = $time->format('i') == '30';
                 @endphp
-                <tr class="{{$isHalfHour ? "border-b border-gray-200 bg-gray-100" : ""}} h-14 hover:bg-gray-50">
+                <tr class="{{$isHalfHour ? "border-b border-gray-200 bg-gray-100" : ""}} text-gray-700 h-14 hover:bg-gray-50">
                     <td class="p-4 h-14 text-left border-r border-gray-300">{{!$isHalfHour ? $time->format('H:i') : ''}}</td>
                     @foreach ($rooms as $room)
                         <td class="text-left border-r h-14 border-gray-300">

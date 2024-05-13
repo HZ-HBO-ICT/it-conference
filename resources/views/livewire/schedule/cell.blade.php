@@ -4,7 +4,7 @@
      data-room="{{ $room->id }}"
      data-timeslot="{{$timeslot->id}}">
     <div class="flex flex-col">
-        <ul  class="space-y-1">
+        <ul class="space-y-1">
             @foreach ($presentations as $presentation)
                 <li wire:key="task-{{ $presentation->id }}"
                     x-data="draggable()"
@@ -12,7 +12,9 @@
                     @dragstart="dragStart"
                     data-id="{{ $presentation->id }}"
                     data-room="{{ $room->id }}">
-                    <span class="cursor-pointer">{{ $presentation->name }}</span>
+                    <span class="cursor-pointer">
+                        {{$presentation->type == 'workshop' ? 'W' : 'L' }}:
+                        {{ $presentation->name }}</span>
                 </li>
 
             @endforeach

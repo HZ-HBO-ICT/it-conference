@@ -34,44 +34,69 @@ class Cell extends Component
         $room = Room::find($newRoom);
         $timeslot = Timeslot::find($newTimeslot);
 
-        if ($this->isCausingConflicts($presentation, $room, $timeslot)) {
+        if ($this->isClearOfConflicts($presentation, $room, $timeslot)) {
             $this->dispatchMovingEventToGrid($presentation->id, $room->id, $timeslot->id, $timeslot->start);
         }
     }
 
-    public function isCausingConflicts($presentation, $room, $timeslot)
+    public function isClearOfConflicts($presentation, $room, $timeslot)
     {
-        $previousPresentation = $this->findClosestPresentationBefore($room, $timeslot->start);
-        $nextPresentation = $this->findClosestPresentationAfter($room, $timeslot->start, $presentation);
+        $previousPresentation = $this->findConflictPresentationBefore($room, $timeslot->start, $presentation);
+        $nextPresentation = $this->findConflictPresentationAfter($room, $timeslot->start, $presentation);
 
-        // Case 1: No presentations in the room before this one or after it
+        // Case 1: No presentations in the room before this one or after it that causes conflict
         if (is_null($previousPresentation)
             && is_null($nextPresentation)) {
             return true;
         }
+
+        // Case 2: Next presentation that causes conflict is actually the same presentation trying to be moved later
+        if (!is_null($nextPresentation) && $presentation->id == $nextPresentation->id && is_null($previousPresentation)) {
+            return true;
+        }
+
+        // Case 3: Previous presentation that causes conflict is
+        // actually the same presentation trying to be moved earlier
+        if (!is_null($previousPresentation) && $presentation->id == $previousPresentation->id && is_null($nextPresentation)) {
+            return true;
+        }
+
+        return false;
     }
 
-    public function findClosestPresentationBefore($room, $suggestedStart)
+    public function findConflictPresentationBefore($room, $suggestedStart, $presentation)
     {
         $presentationStartTime = Carbon::parse($suggestedStart);
 
-        return $room->presentations()
+        $potentialConflict = $room->presentations()
             ->where('start', '<', $presentationStartTime)
             ->orderBy('start', 'desc')
             ->first();
+
+        if (is_null($potentialConflict)) {
+            return $potentialConflict;
+        }
+
+        $duration = $potentialConflict->type == 'workshop' ?
+            Presentation::$WORKSHOP_DURATION :
+            Presentation::$LECTURE_DURATION;
+
+        return Carbon::parse($potentialConflict->start)->addMinutes($duration) <= $presentationStartTime
+            ? null
+            : $potentialConflict;
     }
 
-    public function findClosestPresentationAfter($room, $suggestedStart, $presentation)
+    public function findConflictPresentationAfter($room, $suggestedStart, $presentation)
     {
         $duration = $presentation->type == 'workshop' ?
             Presentation::$WORKSHOP_DURATION :
             Presentation::$LECTURE_DURATION;
         $presentationStartTime = Carbon::parse($suggestedStart);
-        $presentationEndTime = Carbon::parse($suggestedStart)->addMinutes($duration);
+        $presentationEndTime = $presentationStartTime->addMinutes($duration);
 
         return $room->presentations()
-            ->where('start', '>', $presentationStartTime)
-            ->where('start', '<', $presentationEndTime)
+            ->where('start', '>=', $presentationStartTime)
+            ->where('start', '<=', $presentationEndTime)
             ->orderBy('start', 'asc')
             ->first();
     }
