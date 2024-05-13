@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property boolean $is_final_programme_released
  * @property boolean $is_participant_registration_opened
  * @property boolean $is_company_registration_opened
+ * @property boolean $is_requesting_presentation_opened
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|Edition newModelQuery()
@@ -112,6 +113,15 @@ class Edition extends Model
                 || $this->state == Edition::STATE_ENROLLMENT
                 || $this->state == Edition::STATE_EXECUTION)
                 && now() >= $this->getEvent('Participant registration')->start_at
+        );
+    }
+
+    public function isRequestingPresentationOpened(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => ($this->state == Edition::STATE_ENROLLMENT
+                || $this->state == Edition::STATE_EXECUTION)
+                && Carbon::now() >= $this->getEvent('Presentation request')->start_at
         );
     }
 
