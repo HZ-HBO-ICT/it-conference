@@ -98,9 +98,16 @@
                             </span>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('dashboard')">
+                            <x-dropdown-link :href="route('profile.show')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+                                <x-dropdown-link :href="route('logout')"
+                                                 @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
                         </x-slot>
                     </x-dropdown>
                 @endif

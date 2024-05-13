@@ -31,6 +31,6 @@ class ContentModPresentationRequestDetails extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.content-mod-presentation-request-details');
+        return view('components.content-moderator.content-mod-presentation-request-details');
     }
 }

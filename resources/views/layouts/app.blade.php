@@ -31,7 +31,11 @@
     </script>
 </head>
 <body class="font-sans antialiased bg-white dark:bg-gray-900">
-@if (!in_array(Route::currentRouteName(), ['dashboard']))
+@php
+    $routesWithSpecifics = ['welcome', 'speakers.index', 'companies.index', 'faq', 'contact'];
+@endphp
+
+@if (in_array(Route::currentRouteName(), $routesWithSpecifics))
     <div class="bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink">
 @endif
         <x-banner/>
@@ -50,11 +54,7 @@
         </div>
     </div>
 
-    @php
-        $routesWithFooter = ['welcome', 'speakers.index', 'companies.index', 'faq', 'contact'];
-    @endphp
-
-    @if (in_array(Route::currentRouteName(), $routesWithFooter))
+    @if (in_array(Route::currentRouteName(), $routesWithSpecifics))
         <footer class="bg-white dark:bg-gray-900">
             <div class="mx-auto w-full max-w-screen-xl">
                 <div class="grid grid-cols-2 mt-8 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
