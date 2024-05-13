@@ -88,7 +88,7 @@
         <x-section-border/>
     @endcan
 
-    @can('viewMemberInvitations', $company)
+    @can('viewAnyMemberInvitation', $company)
         <!-- Team Member Invitations -->
         <div class="mt-10 sm:mt-0">
             <x-action-section>

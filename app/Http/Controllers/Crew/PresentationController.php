@@ -87,7 +87,7 @@ class PresentationController extends Controller
      */
     public function show(Presentation $presentation): View
     {
-        if (Auth::user()->cannot('crewView', $presentation)) {
+        if (Auth::user()->cannot('view', $presentation)) {
             abort(403);
         }
 

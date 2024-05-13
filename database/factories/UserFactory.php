@@ -21,6 +21,7 @@ class UserFactory extends Factory
 
     /**
      * Define the model's default state.
+     * TODO assign each user the participant role
      *
      * @return array<string, mixed>
      */

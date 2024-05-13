@@ -106,7 +106,7 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         $user->company()->associate($company);
-        $user->assignRole('company representative');
+        $user->assignRole('companyrep');
         $user->save();
     }
 }

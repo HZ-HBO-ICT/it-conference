@@ -62,7 +62,7 @@
                 </x-slot>
             </x-action-section>
 
-            @can('viewApprovalStatus', Sponsorship::class)
+            @can('viewRequest', Sponsorship::class)
                 <x-section-border/>
 
                 <x-action-section>

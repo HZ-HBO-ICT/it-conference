@@ -178,6 +178,60 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Determines whether the user is a member of the specified company.
+     *
+     * @param Company $company
+     * @return bool
+     */
+    public function isMemberOf(Company $company): bool
+    {
+        return $company && $this->company && $this->company->id = $company->id;
+    }
+
+    /**
+     * Determines whether the user is a presenter of the specified presentation.
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function isPresenterOf(Presentation $presentation)
+    {
+        return $this->presenter_of
+            && $this->presenter_of->id == $presentation->id;
+    }
+
+    /**
+     * Definition of the `is_backend_user` read-only attribute that is `true`
+     * if the user is a 'Backend user'; a user that uses the backend section
+     * if the app, like admins and other crew.
+     *
+     * @return Attribute
+     */
+    public function isBackendUser(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->hasRole('crew')
+        );
+    }
+
+    /**
+     * Checks if the user can be enrolled to this presentation, based on the
+     * event status and the max_participants
+     * TODO: add user schedule clashing
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function canEnroll(Presentation $presentation) : bool
+    {
+        if (!EventInstance::current()->is_final_programme_released) {
+            return false;
+        }
+
+        return $presentation->remaining_capacity > 0;
+    }
+
+    /**
      * Determines the color scheme of the hub area based on the user's role
      * @return Attribute
      */

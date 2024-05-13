@@ -44,40 +44,36 @@ permissions:
   crew:
     invite: crew
     edit: crew
-
   presentation list:
     view: crew
   presentation:
+    viewAny: crew
+    view: [ crew, speaker ]
     create: crew
-    delete: crew
-    edit: crew
-    view: crew
+    update: [ crew, speaker ]
+    delete: [ crew, speaker ]
+    enroll: participant
   presentation request:
-    create: companyrep
-  presentation approval status: #TODO rename to 'presentation request'
-    edit: crew
-    view: [ companyrep, crew ]
+    create: [ participant, companyrep ]
+    view: [ speaker, companyrep, crew ]
+    update: crew
   presentation participants:
     view: crew
   room:
+    viewAny: crew
+    view: crew
+    create: crew
+    update: crew
+    delete: crew
+  schedule:
+    view: crew
+    update: crew
+  sponsorship:
+    viewAny: crew
+    view: crew
     create: crew
     delete: crew
-    edit: crew
-    view: crew
-  room list:
-    view: crew
-    schedule:
-      edit: crew
-      view: crew
-    sponsorship:
-      create: crew
-      delete: crew
-      view: crew
-    sponsorship request:
-      create: companyrep
-    sponsorship approval status:
-      #TODO rename to 'sponsorship request'
-      edit: crew
-      view: [companyrep, crew]
-    sponsorship list:
-      view: crew
+  sponsorship request:
+    view: [ companyrep, crew ]
+    create: companyrep
+    update: crew

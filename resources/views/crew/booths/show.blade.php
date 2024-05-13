@@ -73,7 +73,7 @@
 
             <x-section-border/>
 
-            @can('viewApprovalStatus', $booth)
+            @can('viewRequest', $booth)
                 <x-action-section>
                     <x-slot name="title">
                         {{ __('Booth Approval Status') }}
@@ -91,7 +91,7 @@
                     </x-slot>
 
                     @if(!$booth->is_approved)
-                        @can('approve', $booth)
+                        @can('approveRequest', $booth)
                             <x-slot name="actions">
                                 <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}"
                                       class="mr-2">

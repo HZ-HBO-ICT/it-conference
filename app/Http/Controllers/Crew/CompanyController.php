@@ -96,7 +96,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company): View
     {
-        if (Auth::user()->cannot('viewDetails', $company)) {
+        if (Auth::user()->cannot('view', $company)) {
             abort(403);
         }
 
@@ -108,7 +108,7 @@ class CompanyController extends Controller
      */
     public function approve(Request $request, Company $company)
     {
-        if (Auth::user()->cannot('viewDetails', $company)) {
+        if (Auth::user()->cannot('approveRequest', $company)) {
             abort(403);
         }
 
