@@ -12,17 +12,16 @@ use Illuminate\Support\Carbon;
 class PresentationPolicy
 {
     /**
-     * Calculates the deadline for signing up for speakers
-     * @return Carbon
+     * Determines whether speaker can request presentation
+     * @return bool
      */
-    public function deadline(): Carbon
+    public function presentationRequestOpened(): bool
     {
         if (Edition::current()) {
-            return Edition::current()->getEvent('Presentation request')->end_at;
-        } else {
-            return Carbon::yesterday();
+            return (Edition::current()->is_requesting_presentation_opened);
         }
 
+        return false;
     }
 
     /**
@@ -33,10 +32,8 @@ class PresentationPolicy
      */
     public function request(User $user): bool
     {
-        $currentDate = Carbon::now();
-
-        // If the deadline for requesting has passed
-        if ($currentDate->gt($this->deadline())) {
+        // If the deadline for requesting has passed or not arrived yet
+        if (!$this->presentationRequestOpened()) {
             return false;
         }
 
@@ -66,15 +63,13 @@ class PresentationPolicy
      */
     public function update(User $user, Presentation $presentation): bool
     {
-        $currentDate = Carbon::now();
-
         // If the user is the content moderator they can always update
         if ($user->hasRole('content moderator')) {
             return true;
         }
 
-        // If the deadline has not passed
-        if ($currentDate->lt($this->deadline()) && $user->id) {
+        // If requesting is opened
+        if ($this->presentationRequestOpened() && $user->id) {
             return true;
         }
 
@@ -122,7 +117,7 @@ class PresentationPolicy
      */
     public function enroll(User $user, Presentation $presentation): bool
     {
-        if (Edition::current()->is_final_programme_released) {
+        if (Edition::current() && Edition::current()->is_final_programme_released) {
             return $presentation->canEnroll($user);
         }
 

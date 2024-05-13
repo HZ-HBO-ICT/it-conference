@@ -100,9 +100,10 @@ class Edition extends Model
     public function isCompanyRegistrationOpened(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->state == Edition::STATE_ANNOUNCE
-                || $this->state == Edition::STATE_ENROLLMENT
-                || $this->state == Edition::STATE_EXECUTION
+            get: fn() => ($this->state == Edition::STATE_ANNOUNCE
+                    || $this->state == Edition::STATE_ENROLLMENT
+                    || $this->state == Edition::STATE_EXECUTION)
+                && $this->getEvent('Company registration')->end_at >= Carbon::now()
         );
     }
 
@@ -110,9 +111,10 @@ class Edition extends Model
     {
         return Attribute::make(
             get: fn() => ($this->state == Edition::STATE_ANNOUNCE
-                || $this->state == Edition::STATE_ENROLLMENT
-                || $this->state == Edition::STATE_EXECUTION)
-                && Carbon::now() >= $this->getEvent('Participant registration')->start_at
+                    || $this->state == Edition::STATE_ENROLLMENT
+                    || $this->state == Edition::STATE_EXECUTION)
+                && (Carbon::now() >= $this->getEvent('Participant registration')->start_at
+                    && $this->getEvent('Participant registration')->end_at >= Carbon::now())
         );
     }
 
@@ -120,8 +122,9 @@ class Edition extends Model
     {
         return Attribute::make(
             get: fn() => ($this->state == Edition::STATE_ENROLLMENT
-                || $this->state == Edition::STATE_EXECUTION)
-                && Carbon::now() >= $this->getEvent('Presentation request')->start_at
+                    || $this->state == Edition::STATE_EXECUTION)
+                && (Carbon::now() >= $this->getEvent('Presentation request')->start_at
+                    && $this->getEvent('Presentation request')->end_at >= Carbon::now())
         );
     }
 
