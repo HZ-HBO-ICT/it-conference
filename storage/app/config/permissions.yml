@@ -9,7 +9,6 @@ roles:
   - speaker
   - booth owner
 
-#TODO update to match roles below to roles above
 permissions:
   booth:
     viewAny: crew
