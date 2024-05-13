@@ -23,13 +23,13 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::call(new UpdateEditionStateDaily(Edition::current()))
-    ->everyTenSeconds()
+    ->daily()
     ->when(function () {
         return (Edition::current());
     });
 
 Schedule::call(new UpdateEditionStateHourly(Edition::current()))
-    ->everyFiveSeconds()
+    ->hourly()
     ->when(function () {
         return (Edition::current());
     });
