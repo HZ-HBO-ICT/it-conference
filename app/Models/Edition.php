@@ -121,8 +121,7 @@ class Edition extends Model
     public function isRequestingPresentationOpened(): Attribute
     {
         return Attribute::make(
-            get: fn() => ($this->state == Edition::STATE_ENROLLMENT
-                    || $this->state == Edition::STATE_EXECUTION)
+            get: fn() => $this->state == Edition::STATE_ANNOUNCE
                 && (Carbon::now() >= $this->getEvent('Presentation request')->start_at
                     && $this->getEvent('Presentation request')->end_at >= Carbon::now())
         );
