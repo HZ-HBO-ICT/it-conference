@@ -101,8 +101,7 @@ class Edition extends Model
     {
         return Attribute::make(
             get: fn() => ($this->state == Edition::STATE_ANNOUNCE
-                    || $this->state == Edition::STATE_ENROLLMENT
-                    || $this->state == Edition::STATE_EXECUTION)
+                    || $this->state == Edition::STATE_ENROLLMENT)
                 && $this->getEvent('Company registration')->end_at >= Carbon::now()
         );
     }
@@ -111,8 +110,7 @@ class Edition extends Model
     {
         return Attribute::make(
             get: fn() => ($this->state == Edition::STATE_ANNOUNCE
-                    || $this->state == Edition::STATE_ENROLLMENT
-                    || $this->state == Edition::STATE_EXECUTION)
+                    || $this->state == Edition::STATE_ENROLLMENT)
                 && (Carbon::now() >= $this->getEvent('Participant registration')->start_at
                     && $this->getEvent('Participant registration')->end_at >= Carbon::now())
         );
