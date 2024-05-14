@@ -97,7 +97,7 @@ class PresentationPolicy
      */
     public function request(User $user): bool
     {
-        if($user->cannot('create presentation request')) {
+        if ($user->cannot('create presentation request')) {
             return false;
         }
         // Deny if the deadline for requesting has passed
@@ -126,7 +126,7 @@ class PresentationPolicy
      */
     public function viewRequest(User $user, Presentation $presentation): bool
     {
-        if($user->cannot('view presentation request')) {
+        if ($user->cannot('view presentation request')) {
             return false;
         }
 
