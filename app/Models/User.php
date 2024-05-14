@@ -259,7 +259,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         // Only user who:
         // Do not have an @hz.nl
-        $query->role(['participant', 'speaker'])
+        $query->role(['participant'])
         ->where('email', 'not like', '%@hz.nl') // Exclude emails ending with '@hz.nl'
         ->orderBy('name');
     }
