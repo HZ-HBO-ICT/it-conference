@@ -20,7 +20,7 @@
                 <x-slot name="content">
                     @forelse($companies as $index => $company)
                         <x-list-section-item
-                            class="{{ !$company->is_sponsor_approved ? 'bg-red-300 dark:bg-red-800' : '' }}"
+                            class="{{ !$company->is_sponsorship_approved ? 'bg-red-300 dark:bg-red-800' : '' }}"
                             :url="route('moderator.sponsorships.show', $company)">
                             <div class="justify-between flex mt-2">
                                 <div class="flex">
