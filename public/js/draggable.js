@@ -7,10 +7,9 @@ function draggable() {
         drop(event) {
             event.preventDefault();
             const id = event.dataTransfer.getData('id');
-            const fromRoom = event.dataTransfer.getData('room');
             const newRoom = event.target.getAttribute('data-room');
             const newTimeslot = event.target.getAttribute('data-timeslot');
-            this.$wire.movePresentation(id, fromRoom, newRoom, newTimeslot);
+            this.$wire.movePresentation(id, newRoom, newTimeslot);
         },
         allowDrop(event) {
             event.preventDefault();

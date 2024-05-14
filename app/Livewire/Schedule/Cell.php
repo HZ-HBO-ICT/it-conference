@@ -28,7 +28,7 @@ class Cell extends Component
             ->get();
     }
 
-    public function movePresentation($id, $fromRoom, $newRoom, $newTimeslot)
+    public function movePresentation($id, $newRoom, $newTimeslot)
     {
         $presentation = Presentation::find($id);
         if ($presentation) {
