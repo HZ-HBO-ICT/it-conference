@@ -24,7 +24,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
-        return ($user->is_backend_user || $user->isMemberOf($company))
+        return ($user->is_crew || $user->isMemberOf($company))
             && $user->can('view company');
     }
 
@@ -48,7 +48,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
             && $user->can('update company');
     }
@@ -58,7 +58,7 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
             && $user->can('delete company');
     }
@@ -71,7 +71,7 @@ class CompanyPolicy
      */
     public function viewRequest(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
                 || $user->isMemberOf($company))
             && $user->can('view company request');
     }
@@ -84,7 +84,7 @@ class CompanyPolicy
      */
     public function approveRequest(User $user, Company $company): bool
     {
-        return $user->is_backend_user && $user->can('edit company request');
+        return $user->is_crew && $user->can('edit company request');
     }
 
     /**
@@ -96,7 +96,7 @@ class CompanyPolicy
      */
     public function viewAnyMember(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can('viewAny company member');
     }
@@ -110,7 +110,7 @@ class CompanyPolicy
      */
     public function updateMember(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can('update company member');
     }
@@ -124,7 +124,7 @@ class CompanyPolicy
      */
     public function deleteMember(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can('delete company member');
     }
@@ -138,7 +138,7 @@ class CompanyPolicy
      */
     public function createMemberInvitation(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
             && $user->can('create company member invitation');
     }
@@ -152,7 +152,7 @@ class CompanyPolicy
      */
     public function viewAnyMemberInvitation(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can('viewAny company member invitation');
     }
@@ -166,7 +166,7 @@ class CompanyPolicy
      */
     public function deleteMemberInvitation(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can('delete company member invitation');
     }
@@ -180,7 +180,7 @@ class CompanyPolicy
      */
     public function requestDelete(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can('create company delete request');
     }
@@ -194,7 +194,7 @@ class CompanyPolicy
      */
     public function viewRequests(User $user, Company $company): bool
     {
-        return ($user->is_backend_user
+        return ($user->is_crew
             || $user->isMemberOf($company) && $company->is_approved)
                 && $user->can(['view booth request', 'view sponsorship request', 'view company delete request']);
     }

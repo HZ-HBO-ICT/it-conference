@@ -201,13 +201,13 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Definition of the `is_backend_user` read-only attribute that is `true`
-     * if the user is a 'Backend user'; a user that uses the backend section
-     * if the app, like admins and other crew.
+     * Definition of the `is_crew` read-only attribute that is `true`
+     * if the user has one or more roles that resembles a Crew member,
+     * like organizers and supervisors.
      *
      * @return Attribute
      */
-    public function isBackendUser(): Attribute
+    public function isCrew(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->hasRole(['event organizer', 'assistant organizer',

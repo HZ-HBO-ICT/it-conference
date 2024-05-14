@@ -35,9 +35,9 @@ class PresentationPolicy
             return false;
         }
 
-        return $user->is_backend_user
+        return $user->is_crew
                 || $user->isPresenterOf($presentation)
-                || !EventInstance::current()->is_final_programme_released;
+                || EventInstance::current()->is_final_programme_released;
     }
 
     /**
@@ -48,7 +48,7 @@ class PresentationPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create presentation') && $user->is_backend_user;
+        return $user->can('create presentation') && $user->is_crew;
     }
 
     /**
@@ -64,7 +64,7 @@ class PresentationPolicy
             return false;
         }
 
-        return $user->is_backend_user ||
+        return $user->is_crew ||
             (
                 $user->is_presenter_of($presentation)
                 && !EventInstance::current()->is_final_programme_released
@@ -85,7 +85,7 @@ class PresentationPolicy
         }
 
         // Otherwise, the presenter can delete only if the presentation is not approved yet
-        return $user->is_backend_user
+        return $user->is_crew
             || $user->is_presenter_of($presentation) && !$presentation->isApproved;
     }
 
@@ -130,7 +130,7 @@ class PresentationPolicy
             return false;
         }
 
-        return $user->is_backend_user || $user->is_presenter_of($presentation);
+        return $user->is_crew || $user->is_presenter_of($presentation);
     }
 
     /**
