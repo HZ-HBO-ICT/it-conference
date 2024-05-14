@@ -11,7 +11,6 @@
                     data-room="0">
                     <span class="cursor-pointer">{{ $presentation->name }}</span>
                 </li>
-
             @endforeach
         </ul>
     </div>
