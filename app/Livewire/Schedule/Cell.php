@@ -31,11 +31,13 @@ class Cell extends Component
     public function movePresentation($id, $fromRoom, $newRoom, $newTimeslot)
     {
         $presentation = Presentation::find($id);
-        $room = Room::find($newRoom);
-        $timeslot = Timeslot::find($newTimeslot);
+        if ($presentation) {
+            $room = Room::find($newRoom);
+            $timeslot = Timeslot::find($newTimeslot);
 
-        if ($this->isClearOfConflicts($presentation, $room, $timeslot)) {
-            $this->dispatchMovingEventToGrid($presentation->id, $room->id, $timeslot->id, $timeslot->start);
+            if ($this->isClearOfConflicts($presentation, $room, $timeslot)) {
+                $this->dispatchMovingEventToGrid($presentation->id, $room->id, $timeslot->id, $timeslot->start);
+            }
         }
     }
 
