@@ -21,14 +21,14 @@ class CompanySeeder extends Seeder
         $companies = Company::factory(5)
             ->has(Booth::factory(1))
             ->has(User::factory(1)->afterCreating(function ($user) {
-                $role = Role::findByName('companyrep');
+                $role = Role::findByName('company representative');
                 $user->assignRole($role);
             }))->create();
         $this->setPresentation($companies);
 
         $company = Company::factory()->hasSponsorship('gold')
             ->has(User::factory(1)->afterCreating(function ($user) {
-                $role = Role::findByName('companyrep');
+                $role = Role::findByName('company representative');
                 $user->assignRole($role);
             }))
             ->has(User::factory(1)->afterCreating(function ($user) {
@@ -46,14 +46,14 @@ class CompanySeeder extends Seeder
 
         $companies = Company::factory(3)->hasSponsorship('silver')
             ->has(User::factory(1)->afterCreating(function ($user) {
-                $role = Role::findByName('companyrep');
+                $role = Role::findByName('company representative');
                 $user->assignRole($role);
             }))->create();
         $this->setPresentation($companies);
 
         $companies = Company::factory(5)->hasSponsorship('bronze')
             ->has(User::factory(1)->afterCreating(function ($user) {
-                $role = Role::findByName('companyrep');
+                $role = Role::findByName('company representative');
                 $user->assignRole($role);
             }))->create();
         $this->setPresentation($companies);

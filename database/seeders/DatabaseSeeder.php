@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Artisan::call('admin:upsert-master-data');
-        Artisan::call('app:sync-permissions');
+        Artisan::call('admin:sync-permissions');
 
         Room::factory()->count(20)->create();
         Timeslot::factory()->count(20)->create();

@@ -16,7 +16,7 @@ class RegistrationTest extends TestCase
     {
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
-        Artisan::call('app:sync-permissions');
+        Artisan::call('admin:sync-permissions');
     }
 
     public function test_registration_screen_can_be_rendered(): void

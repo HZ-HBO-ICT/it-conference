@@ -42,7 +42,7 @@
                     </div>
                 </x-slot>
 
-                @can('editDetails', $company)
+                @can('update', $company)
                     <x-slot name="actions">
                         <x-button
                             onclick="Livewire.dispatch('openModal', { component: 'company.edit-company-modal', arguments: {company: {{$company}}} })">

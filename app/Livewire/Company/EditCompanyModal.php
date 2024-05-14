@@ -35,7 +35,7 @@ class EditCompanyModal extends ModalComponent
      */
     public function save()
     {
-        $this->authorize('editDetails', $this->company);
+        $this->authorize('update', $this->company);
 
         $this->validate();
 

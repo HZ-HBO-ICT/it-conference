@@ -16,7 +16,7 @@ class SyncPermissions extends Command
      *
      * @var string
      */
-    protected $signature = 'app:sync-permissions';
+    protected $signature = 'admin:sync-permissions';
 
     /**
      * The console command description.

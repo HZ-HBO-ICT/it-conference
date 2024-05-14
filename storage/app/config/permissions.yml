@@ -11,8 +11,6 @@ roles:
   - speakers supervisor       # Crew member - Manages Presentations
   - pr lead                   # Crew member - Posting announcements to feed.
   - entertainment organizer   # Crew member - TBD
-  - speaker
-  - booth owner
 
 permissions:
   booth:
@@ -50,10 +48,10 @@ permissions:
     update: [event organizer, assistant organizer]
   presentation:
     viewAny: [event organizer, assistant organizer, speakers supervisor]
-    view: [ event organizer, assistant organizer, speakers supervisor, speaker ]
+    view: [ event organizer, assistant organizer, speakers supervisor, participant ]
     create: [event organizer, assistant organizer, speakers supervisor]
-    update: [ event organizer, assistant organizer, speakers supervisor, speaker ]
-    delete: [ event organizer, assistant organizer, speakers supervisor, speaker ]
+    update: [ event organizer, assistant organizer, speakers supervisor, participant ]
+    delete: [ event organizer, assistant organizer, speakers supervisor, participant ]
     enroll: participant
   presentation request:
     create: [ participant, company representative ]

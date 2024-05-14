@@ -66,7 +66,7 @@ class PresentationPolicy
 
         return $user->is_crew ||
             (
-                $user->is_presenter_of($presentation)
+                $user->isPresenterOf($presentation)
                 && !EventInstance::current()->is_final_programme_released
             );
     }
@@ -86,7 +86,7 @@ class PresentationPolicy
 
         // Otherwise, the presenter can delete only if the presentation is not approved yet
         return $user->is_crew
-            || $user->is_presenter_of($presentation) && !$presentation->isApproved;
+            || $user->isPresenterOf($presentation) && !$presentation->isApproved;
     }
 
     /**

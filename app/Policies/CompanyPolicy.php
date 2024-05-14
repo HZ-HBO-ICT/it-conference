@@ -84,7 +84,7 @@ class CompanyPolicy
      */
     public function approveRequest(User $user, Company $company): bool
     {
-        return $user->is_crew && $user->can('edit company request');
+        return $user->is_crew && $user->can('update company request');
     }
 
     /**

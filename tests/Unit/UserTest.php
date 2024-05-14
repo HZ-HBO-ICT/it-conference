@@ -17,7 +17,7 @@ class UserTest extends TestCase
     {
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
-        Artisan::call('app:sync-permissions');
+        Artisan::call('admin:sync-permissions');
     }
 
     /**

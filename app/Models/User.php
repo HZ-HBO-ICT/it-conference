@@ -252,7 +252,6 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-
     /**
      * Scope a query to only include users who can be company representatives.
      */

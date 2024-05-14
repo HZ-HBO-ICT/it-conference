@@ -25,7 +25,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Role::class, 1);
         $this->assertDatabaseHas(Role::class, [
@@ -46,7 +46,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Role::class, 1);
         $this->assertDatabaseHas(Role::class, [
@@ -69,7 +69,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Role::class, 1);
         $this->assertDatabaseHas(Role::class, [
@@ -94,7 +94,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Role::class, 3);
         $this->assertDatabaseHas(Role::class, [
@@ -130,7 +130,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert there is nothing added
         $this->assertDatabaseCount(Role::class, 1);
@@ -156,7 +156,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Role::class, 0);
         $this->assertDatabaseMissing('roles', $to_be_removed->toArray());
@@ -189,7 +189,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Role::class, 3);
         $this->assertDatabaseHas(Role::class, [
@@ -222,7 +222,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('format-disk');
@@ -244,7 +244,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('format-disk');
@@ -269,7 +269,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('format-disk');
@@ -297,7 +297,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('format-disk', 'api');
@@ -326,7 +326,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('launch photon_torpedoes', 'api');
@@ -350,7 +350,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('create article');
@@ -373,7 +373,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('create article');
@@ -399,7 +399,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         // Assert if the permission exists
         $permission = Permission::findByName('create article');
@@ -426,7 +426,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Permission::class, 3);
 
@@ -477,7 +477,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')->assertExitCode(0);
+        $this->artisan('admin:sync-permissions')->assertExitCode(0);
 
         $this->assertDatabaseCount(Permission::class, 2);
 
@@ -521,7 +521,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')
+        $this->artisan('admin:sync-permissions')
             ->expectsOutputToContain('There is no role named `non_existing_role`')
             ->assertExitCode(0);
 
@@ -547,7 +547,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn(null);
 
-        $this->artisan('app:sync-permissions')
+        $this->artisan('admin:sync-permissions')
             ->expectsOutputToContain('not found')
             ->assertFailed();
     }
@@ -559,7 +559,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')
+        $this->artisan('admin:sync-permissions')
             ->expectsOutputToContain('Error')
             ->assertFailed();
     }
@@ -571,7 +571,7 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
-        $this->artisan('app:sync-permissions')
+        $this->artisan('admin:sync-permissions')
             ->expectsOutputToContain('Error')
             ->assertFailed();
     }
