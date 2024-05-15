@@ -23,7 +23,7 @@ class Cell extends Component
         $this->id = "r-{$this->room->id}-t-{$this->timeslot->id}";
         $this->presentations = $this->room->presentations()
             ->where('start', '>=', Carbon::parse($this->timeslot->start))
-            ->where('start', '<', Carbon::parse($this->timeslot->start)->addMinutes(30))
+            ->where('start', '<', Carbon::parse($this->timeslot->start)->copy()->addMinutes(30))
             ->orderBy('start', 'asc')
             ->get();
     }
@@ -83,7 +83,7 @@ class Cell extends Component
             Presentation::$WORKSHOP_DURATION :
             Presentation::$LECTURE_DURATION;
 
-        return Carbon::parse($potentialConflict->start)->addMinutes($duration) <= $presentationStartTime
+        return Carbon::parse($potentialConflict->start)->copy()->addMinutes($duration) <= $presentationStartTime
             ? null
             : $potentialConflict;
     }
@@ -94,13 +94,24 @@ class Cell extends Component
             Presentation::$WORKSHOP_DURATION :
             Presentation::$LECTURE_DURATION;
         $presentationStartTime = Carbon::parse($suggestedStart);
-        $presentationEndTime = $presentationStartTime->addMinutes($duration);
+        $presentationEndTime = $presentationStartTime->copy()->addMinutes($duration);
 
-        return $room->presentations()
+        $potentialConflict = $room->presentations()
             ->where('start', '>=', $presentationStartTime)
-            ->where('start', '<=', $presentationEndTime)
             ->orderBy('start', 'asc')
             ->first();
+
+        if (is_null($potentialConflict)) {
+            return $potentialConflict;
+        }
+
+        $duration = $potentialConflict->type == 'workshop' ?
+            Presentation::$WORKSHOP_DURATION :
+            Presentation::$LECTURE_DURATION;
+
+        return $presentationEndTime <= Carbon::parse($potentialConflict->start)
+            ? null
+            : $potentialConflict;
     }
 
     public function dispatchMovingEventToGrid($id, $newRoom, $newTimeslot, $newTime)
