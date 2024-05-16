@@ -76,7 +76,7 @@ class Cell extends Component
             ->first();
 
         if (is_null($potentialConflict)) {
-            return $potentialConflict;
+            return null;
         }
 
         $duration = $potentialConflict->type == 'workshop' ?
@@ -102,7 +102,7 @@ class Cell extends Component
             ->first();
 
         if (is_null($potentialConflict)) {
-            return $potentialConflict;
+            return null;
         }
 
         $duration = $potentialConflict->type == 'workshop' ?
