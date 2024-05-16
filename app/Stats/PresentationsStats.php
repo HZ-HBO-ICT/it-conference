@@ -9,7 +9,8 @@ class PresentationsStats extends BaseStats
     /**
      * @return string presentations
      */
-    public function getName() : string{
+    public function getName() : string
+    {
         return 'presentations';
     }
 }

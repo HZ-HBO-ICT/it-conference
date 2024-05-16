@@ -9,7 +9,8 @@ class SpeakersStats extends BaseStats
     /**
      * @return string speakers
      */
-    public function getName() : string{
+    public function getName() : string
+    {
         return 'speakers';
     }
 }

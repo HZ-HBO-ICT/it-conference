@@ -232,6 +232,4 @@ Route::middleware([
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::resource('/moderator/users', UserController::class);
-
-}
-);
+});
