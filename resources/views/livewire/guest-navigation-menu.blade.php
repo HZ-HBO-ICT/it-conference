@@ -22,11 +22,20 @@
                     'Contact' => 'contact',
                 ] as $label => $route)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link wire:navigate.hover href="{{ route($route) }}"
-                                    :active="request()->routeIs($route)"
-                                    class="transition-colors duration-300">
-                            {{ __($label) }}
-                        </x-nav-link>
+                        @if($route=='welcome')
+                            <x-nav-link href="{{ route($route) }}"
+                                        :active="request()->routeIs($route)"
+                                        class="transition-colors duration-300">
+                                {{ __($label) }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link href="{{ route($route) }}"
+                                        wire:navigate.hover
+                                        :active="request()->routeIs($route)"
+                                        class="transition-colors duration-300">
+                                {{ __($label) }}
+                            </x-nav-link>
+                        @endif
                     </div>
                 @endforeach
                 {{--

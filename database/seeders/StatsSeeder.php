@@ -11,9 +11,12 @@ use Carbon\Carbon;
 
 class StatsSeeder extends Seeder
 {
+    /**
+     * Simulate stats for the past 30 days
+     * * @return void
+     */
     public function run()
     {
-        // Simulate stats for the past 30 days
         for ($i = 30; $i >= 0; $i--) {
             $dateString = Carbon::today()->subDays($i)->toDateString();
             $date = Carbon::createFromFormat('Y-m-d', $dateString);

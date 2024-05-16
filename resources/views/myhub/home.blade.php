@@ -25,8 +25,7 @@
                     <!-- TODO: To be reworked to something prettier -->
                     <div class="px-2 py-2 max-w-7xl mx-auto">
                         <div class="max-w-4xl mx-auto">
-
-                          <!--  livewire('notifications-list') -->
+                            @livewire('notifications-list')
                         </div>
                     </div>
 

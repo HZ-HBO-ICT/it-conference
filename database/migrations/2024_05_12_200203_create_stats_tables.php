@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateStatsTables extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::create('stats_events', function (Blueprint $table) {
@@ -19,6 +22,9 @@ class CreateStatsTables extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::dropIfExists('stats_events');

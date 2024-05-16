@@ -233,4 +233,5 @@ Route::middleware([
 
     Route::resource('/moderator/users', UserController::class);
 
-});
+}
+);
