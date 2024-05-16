@@ -49,7 +49,7 @@
                 , {{$company->city}}</div>
         </div>
     </x-slot>
-    @can('editDetails', $company)
+    @can('update', $company)
         <x-slot name="actions">
             <x-button
                 wire:click="$dispatch('openModal', { component: 'company.edit-company-modal', arguments: {company: {{$company}}} })">

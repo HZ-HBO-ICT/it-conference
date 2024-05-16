@@ -66,7 +66,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        if (Auth::user()->cannot('view', Sponsorship::class)) {
+        if (Auth::user()->cannot('view', Room::class)) {
             abort(403);
         }
 
@@ -81,7 +81,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
-        if (Auth::user()->cannot('delete', Sponsorship::class)) {
+        if (Auth::user()->cannot('delete', Room::class)) {
             abort(403);
         }
 

@@ -32,7 +32,7 @@ class CompanySeeder extends Seeder
                 $user->assignRole($role);
             }))
             ->has(User::factory(1)->afterCreating(function ($user) {
-                $role = Role::findByName('speaker');
+                $role = Role::findByName('company member');
                 $user->assignRole($role);
             }))
             ->create();

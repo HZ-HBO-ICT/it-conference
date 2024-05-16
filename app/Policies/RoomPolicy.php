@@ -14,18 +14,7 @@ class RoomPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view room list');
-    }
-
-    /**
-     * Determine whether the user can create a room
-     *
-     * @param User $user
-     * @return bool
-     */
-    public function create(User $user)
-    {
-        return $user->can('create room');
+        return $user->can('viewAny room');
     }
 
     /**
@@ -40,6 +29,17 @@ class RoomPolicy
     }
 
     /**
+     * Determine whether the user can create a room
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        return $user->can('create room');
+    }
+
+    /**
      * Determine whether the user edit room details
      *
      * @param User $user
@@ -47,7 +47,7 @@ class RoomPolicy
      */
     public function update(User $user): bool
     {
-        return $user->can('edit room');
+        return $user->can('update room');
     }
 
     /**

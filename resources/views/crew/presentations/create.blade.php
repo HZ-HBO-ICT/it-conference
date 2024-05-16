@@ -73,7 +73,7 @@
                                 <x-label for="user_id" class="after:content-['*'] after:text-red-500" value="{{ __('Main Speaker') }}"></x-label>
                                 <x-select name="user_id" class="mt-1 block w-full">
                                     @foreach($users as $user)
-                                        @if(!$user->hasRole('event organizer'))
+                                        @if(!$user->hasRole('crew'))
                                             <option value="{{ $user->id }}">
                                                 {{ $user->name }} | {{ $user->email }}
                                             </option>

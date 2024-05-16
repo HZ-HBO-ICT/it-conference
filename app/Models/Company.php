@@ -151,6 +151,7 @@ class Company extends Model
 
     /**
      * Calculates how many presentations does the company have left
+     *
      * @return Attribute
      */
     public function hasPresentationsLeft(): Attribute
@@ -158,7 +159,8 @@ class Company extends Model
         return Attribute::make(
             get: function () {
                 $max_presentations = $this->is_gold_sponsor ? 2 : 1;
-                return $this->is_approved && $this->presentations->count() < $max_presentations;
+                return $this->is_approved && $this->presentations->count() < $max_presentations
+                    || $this->isHz;
             }
         );
     }
