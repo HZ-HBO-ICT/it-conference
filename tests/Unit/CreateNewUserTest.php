@@ -35,6 +35,7 @@ class CreateNewUserTest extends TestCase
             'password' => 'PassworDD@123!!',
             'password_confirmation' => 'PassworDD@123!!',
             'institution' => "HZ University of Applied Sciences",
+            'registration_type' => 'participant',
             'terms' => 'on',
         ];
         $action = new CreateNewUser();
@@ -56,6 +57,7 @@ class CreateNewUserTest extends TestCase
             'password' => 'PassworDD@123!!',
             'password_confirmation' => 'PassworDD@123!!',
             'terms' => 'on',
+            'registration_type' => 'company_representative',
             'company_name' => 'Example Company',
             'company_description' => 'An example company.',
             'company_website' => 'https://example.com',
@@ -77,6 +79,6 @@ class CreateNewUserTest extends TestCase
 
         $action = new CreateNewUser();
 
-        $action->create([]);
+        $action->create(['registration_type' => 'participant']);
     }
 }

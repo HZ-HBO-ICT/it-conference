@@ -22,7 +22,7 @@
                                 </div>
                             @endif
                         @endif
-                        @if ($photo)
+                        @if ($photo && in_array($photo->getMimeType(), config('livewire.temporary_file_upload.preview_mimes')))
                             <x-label for="preview" value="{{ __('Photo preview') }}" class="pt-3 pb-1"/>
                             <img src="{{ $photo->temporaryUrl() }}" class="object-fill w-full h-72">
                         @endif
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            @if($photo)
+            @if($photo && in_array($photo->getMimeType(), config('livewire.temporary_file_upload.preview_mimes')))
                 @if($photo->temporaryUrl())
                     <div class="pt-5">
                         <div class="flex justify-end">

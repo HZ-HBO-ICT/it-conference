@@ -53,6 +53,7 @@ class RegistrationTest extends TestCase
             'password' => 'Pa$$worDD@123!!',
             'password_confirmation' => 'Pa$$worDD@123!!',
             'institution' => "HZ University of Applied Sciences",
+            'registration_type' => 'participant',
             'terms' => 'on',
         ]);
 
