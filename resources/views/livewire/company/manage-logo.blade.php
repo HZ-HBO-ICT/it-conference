@@ -26,7 +26,7 @@
                             <x-label for="preview" value="{{ __('Photo preview') }}" class="pt-3 pb-1"/>
                             <img src="{{ $photo->temporaryUrl() }}" class="object-fill w-full h-72">
                         @endif
-                        @can('editDetails', $company)
+                        @can('update', $company)
                         <div class="mt-1 flex items-center">
                             <input type="file" id="photo" wire:model="photo"
                                    class="hidden">
