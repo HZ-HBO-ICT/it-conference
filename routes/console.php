@@ -22,14 +22,14 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::call(new UpdateEditionStateDaily(Edition::current()))
-    ->daily()
-    ->when(function () {
-        return (Edition::current());
-    });
-
-Schedule::call(new UpdateEditionStateHourly(Edition::current()))
-    ->hourly()
-    ->when(function () {
-        return (Edition::current());
-    });
+//Schedule::call(new UpdateEditionStateDaily(Edition::current()))
+//    ->daily()
+//    ->when(function () {
+//        return (Edition::current());
+//    });
+//
+//Schedule::call(new UpdateEditionStateHourly(Edition::current()))
+//    ->hourly()
+//    ->when(function () {
+//        return (Edition::current());
+//    });
