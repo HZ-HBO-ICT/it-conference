@@ -1,4 +1,4 @@
-<div class="bg-indigo-300 flex-none h-full w-full" x-data="draggable()"
+<div class="flex-none h-full w-full" x-data="draggable()"
      @drop.prevent="drop"
      @dragover.prevent="allowDrop"
      @draggable

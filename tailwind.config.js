@@ -19,6 +19,11 @@ export default {
         {
             pattern: /bg-(sky|orange)-(100|200|300|400|500|600|700|800|900)/,
         },
+        'bg-gold',
+        'bg-silver',
+        'bg-bronze',
+        'bg-crew-300',
+        'bg-crew-500'
     ],
     theme: {
         extend: {
