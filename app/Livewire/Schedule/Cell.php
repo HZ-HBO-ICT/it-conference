@@ -65,6 +65,9 @@ class Cell extends Component
             ->orderBy('start', 'asc')
             ->get();
 
+        foreach ($this->presentations as $presentation) {
+            $this->dispatch('update-presentation-' . $presentation->id);
+        }
     }
 
     public function render()
