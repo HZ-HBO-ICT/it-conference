@@ -6,7 +6,8 @@
     @dragover.prevent.stop
     data-id="{{ $presentation->id }}"
     data-room="{{ $presentation->id }}"
-    class="z-50 cursor-move w-5/6 rounded bg-opacity-50 absolute {{$colors}}"
+    wire:click="$dispatch('openModal', { component: 'schedule.presentation-modal', arguments: { presentationId: {{ $presentation->id }} }})"
+    class="cursor-move w-5/6 rounded bg-opacity-50 absolute {{$colors}}"
     style="height: {{ $height }}rem;">
     <div class="flex flex-col p-1">
         <div class="flex items-center">
