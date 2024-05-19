@@ -19,6 +19,13 @@ class PresentationAllocationHelper
         $conflictChecker = new PresentationConflictChecker();
 
         $previousPresentation = $conflictChecker->findConflictPresentationBefore($room, $timeslot->start);
+
+        // This means something is going wrong, if the conflict is not because of starting time,
+        // it's because of ending one
+        if (is_null($previousPresentation)) {
+            return null;
+        }
+
         $startingTime = Carbon::parse($previousPresentation->start)
             ->copy()->addMinutes($previousPresentation->duration);
 

@@ -44,11 +44,14 @@ class Cell extends Component
             } else {
                 $allocationHelper = new PresentationAllocationHelper();
                 $possibleStartingTime = $allocationHelper
-                    ->tryToSchedulePresentationInTimeslot($presentation, $timeslot, $room)
-                    ->format('H:i');
+                    ->tryToSchedulePresentationInTimeslot($presentation, $timeslot, $room);
 
                 if(!is_null($possibleStartingTime)){
-                    $this->dispatchMoveEventToGrid($presentation->id, $room->id, $timeslot->id, $possibleStartingTime);
+                    $this->dispatchMoveEventToGrid(
+                        $presentation->id,
+                        $room->id,
+                        $timeslot->id,
+                        $possibleStartingTime->format('H:i'));
                 }
             }
 
