@@ -146,4 +146,17 @@ class Presentation extends Model
             $this->delete();
         }
     }
+
+    /**
+     * Returns the duration of the presentation based on the type
+     * @return Attribute
+     */
+    public function duration(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->type == 'workshop'
+                ? Presentation::$WORKSHOP_DURATION
+                : Presentation::$LECTURE_DURATION
+        );
+    }
 }

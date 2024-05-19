@@ -26,14 +26,19 @@ class PresentationConflictChecker
             return true;
         }
 
-        // Case 2: Next presentation that causes conflict is actually the same presentation trying to be moved later
-        if (!is_null($nextPresentation) && $presentation->id == $nextPresentation->id && is_null($previousPresentation)) {
+        // Case 2: Next presentation that causes conflict is
+        // actually the same presentation trying to be moved later
+        if (!is_null($nextPresentation)
+            && $presentation->id == $nextPresentation->id
+            && is_null($previousPresentation)) {
             return true;
         }
 
         // Case 3: Previous presentation that causes conflict is
         // actually the same presentation trying to be moved earlier
-        if (!is_null($previousPresentation) && $presentation->id == $previousPresentation->id && is_null($nextPresentation)) {
+        if (!is_null($previousPresentation)
+            && $presentation->id == $previousPresentation->id
+            && is_null($nextPresentation)) {
             return true;
         }
 
@@ -47,7 +52,7 @@ class PresentationConflictChecker
      * @param $suggestedStart
      * @return mixed|null null if there is no conflict, otherwise the presentation that causes the conflict
      */
-    protected function findConflictPresentationBefore($room, $suggestedStart): mixed
+    public function findConflictPresentationBefore($room, $suggestedStart): mixed
     {
         $presentationStartTime = Carbon::parse($suggestedStart);
 
@@ -77,7 +82,7 @@ class PresentationConflictChecker
      * @param $presentation
      * @return mixed|null null if there is no conflict, otherwise the presentation that causes the conflict
      */
-    protected function findConflictPresentationAfter($room, $suggestedStart, $presentation): mixed
+    public function findConflictPresentationAfter($room, $suggestedStart, $presentation): mixed
     {
         $duration = $presentation->type == 'workshop' ?
             Presentation::$WORKSHOP_DURATION :

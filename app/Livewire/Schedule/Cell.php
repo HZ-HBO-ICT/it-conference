@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Schedule;
 
+use App\Actions\Schedule\PresentationAllocationHelper;
 use App\Actions\Schedule\PresentationConflictChecker;
 use App\Models\Presentation;
 use App\Models\Room;
@@ -40,7 +41,17 @@ class Cell extends Component
             $presentationChecker = new PresentationConflictChecker();
             if ($presentationChecker->isClearOfConflicts($presentation, $room, $timeslot->start)) {
                 $this->dispatchMoveEventToGrid($presentation->id, $room->id, $timeslot->id, $timeslot->start);
+            } else {
+                $allocationHelper = new PresentationAllocationHelper();
+                $possibleStartingTime = $allocationHelper
+                    ->tryToSchedulePresentationInTimeslot($presentation, $timeslot, $room)
+                    ->format('H:i');
+
+                if(!is_null($possibleStartingTime)){
+                    $this->dispatchMoveEventToGrid($presentation->id, $room->id, $timeslot->id, $possibleStartingTime);
+                }
             }
+
         }
     }
 
