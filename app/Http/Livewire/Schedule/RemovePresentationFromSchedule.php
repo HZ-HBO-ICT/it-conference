@@ -33,6 +33,6 @@ class RemovePresentationFromSchedule extends Component
 
         $this->presentation->participants()->detach();
 
-        return redirect()->to(route('moderator.schedule.overview'));
+        return redirect()->to(route('moderator.schedule.index'));
     }
 }

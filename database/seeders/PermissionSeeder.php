@@ -53,7 +53,7 @@ class PermissionSeeder extends Seeder
     ];
 
     protected $companyRepPermissions = [
-        'view company overview',
+        'view company index',
         'view company details',
         'edit company details',
         'view company members',
@@ -69,7 +69,7 @@ class PermissionSeeder extends Seeder
     ];
 
     protected $companyMemPermissions =
-        ['view company overview', 'view company details', 'view company members'];
+        ['view company index', 'view company details', 'view company members'];
 
     /**
      * Run the database seeds.

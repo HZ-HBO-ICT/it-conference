@@ -8,6 +8,7 @@ use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
@@ -19,6 +20,12 @@ class Cell extends Component
     public $room;
     public $presentations;
 
+    /**
+     * Initializes the component
+     * @param $timeslot
+     * @param $room
+     * @return void
+     */
     public function mount($timeslot, $room)
     {
         $this->timeslot = $timeslot;
@@ -32,6 +39,14 @@ class Cell extends Component
             ->get();
     }
 
+    /**
+     * Handles the moving of a presentation by doing checks to see if the move is allowed
+     * and then sends an event to the parent component
+     * @param $id
+     * @param $newRoom
+     * @param $newTimeslot
+     * @return void
+     */
     public function movePresentation($id, $newRoom, $newTimeslot)
     {
         $presentation = Presentation::find($id);
@@ -59,6 +74,14 @@ class Cell extends Component
         }
     }
 
+    /**
+     * If the presentation is not directly cleared from the checks, an allocator can help
+     * to schedule the presentation
+     * @param $presentation
+     * @param $timeslot
+     * @param $room
+     * @return bool
+     */
     public function tryUsingPresentationAllocator($presentation, $timeslot, $room)
     {
         $allocationHelper = new PresentationAllocationHelper();
@@ -72,7 +95,8 @@ class Cell extends Component
                 $presentation->id,
                 $room->id,
                 $timeslot->id,
-                $possibleStartingTime->format('H:i'));
+                $possibleStartingTime->format('H:i')
+            );
         } elseif ($canAllocatorHelp == 2) {
             $possibleStartingTime = $allocationHelper
                 ->tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room);
@@ -83,12 +107,21 @@ class Cell extends Component
                 $presentation->id,
                 $room->id,
                 $newTimeslot->id,
-                $possibleStartingTime->format('H:i'));
+                $possibleStartingTime->format('H:i')
+            );
         }
 
         return $canAllocatorHelp != 0;
     }
 
+    /**
+     * Dispatches a moving event to the parent
+     * @param $id
+     * @param $newRoom
+     * @param $newTimeslot
+     * @param $newTime
+     * @return void
+     */
     public function dispatchMoveEventToGrid($id, $newRoom, $newTimeslot, $newTime)
     {
         $this->dispatch('move-presentation', data: [
@@ -99,6 +132,11 @@ class Cell extends Component
         ]);
     }
 
+    /**
+     * Listens for the parent to dispatch an event to update the cell
+     * and sends update event to the child components in this cell
+     * @return void
+     */
     #[On("update-cell-{id}")]
     public function refresh()
     {
@@ -114,7 +152,11 @@ class Cell extends Component
         }
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.schedule.cell');
     }

@@ -149,6 +149,10 @@ class Company extends Model
         );
     }
 
+    /**
+     * Returns if the company is approved sponsor in general
+     * @return Attribute
+     */
     public function isSponsor(): Attribute
     {
         return Attribute::make(

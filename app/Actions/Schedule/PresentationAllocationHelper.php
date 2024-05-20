@@ -19,7 +19,7 @@ class PresentationAllocationHelper
     {
         if ($this->tryToSchedulePresentationInTimeslot($presentation, $timeslot, $room)) {
             return 1;
-        } else if ($this->tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room)) {
+        } elseif ($this->tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room)) {
             return 2;
         }
 
@@ -56,7 +56,8 @@ class PresentationAllocationHelper
             return null;
         }
 
-        $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $proposedStartingTime, $presentation);
+        $nextPresentation = $conflictChecker
+            ->findConflictPresentationAfter($room, $proposedStartingTime, $presentation);
 
         $conflictChecker = new PresentationConflictChecker();
         if (!$conflictChecker->isWithinBoundariesOfTheDay($presentation, $proposedStartingTime)) {
@@ -68,7 +69,15 @@ class PresentationAllocationHelper
             : null;
     }
 
-    public function tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room)
+    /**
+     * If the timeslot in which the user is trying to allocate, the presentation is too busy
+     * try to allocate in previous timeslot in a way to still cover the free part of the desired timeslot
+     * @param $presentation
+     * @param $timeslot
+     * @param $room
+     * @return Carbon|null
+     */
+    public function tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room): ?Carbon
     {
         $prevTimeslot = Timeslot::find($timeslot->id - 1);
 

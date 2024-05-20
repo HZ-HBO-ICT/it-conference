@@ -7,6 +7,7 @@ use App\Actions\Schedule\PresentationConflictChecker;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +40,11 @@ class PresentationModal extends ModalComponent
         $this->start = Carbon::parse($this->presentation->start)->format('H:i');
     }
 
+    /**
+     * Processes the new data submitted by the user and sends move event to the parent
+     * to handle the moving of presentation
+     * @return void
+     */
     public function save()
     {
         $this->validate();
@@ -65,6 +71,12 @@ class PresentationModal extends ModalComponent
         }
     }
 
+    /**
+     * Ensures that the time given is between the starting time of the conference day and before the end
+     * @param $start
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function additionalStartTimeValidation($start)
     {
         $validator = Validator::make(
@@ -82,7 +94,11 @@ class PresentationModal extends ModalComponent
         $validator->validate();
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.schedule.presentation-modal');
     }

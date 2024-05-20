@@ -6,6 +6,7 @@ use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -15,6 +16,10 @@ class GridParentComponent extends Component
     public $timeslots;
     public $unscheduledPresentations;
 
+    /**
+     * Initializes the component
+     * @return void
+     */
     public function mount()
     {
         $this->rooms = Room::all();
@@ -25,6 +30,12 @@ class GridParentComponent extends Component
         })->get();
     }
 
+    /**
+     * Listens for a moving event sent by the children (cells) to relocate presentations
+     * and dispatches an event to the children to update
+     * @param $data
+     * @return void
+     */
     #[On('move-presentation')]
     public function proccessMovingPresentation($data)
     {
@@ -49,10 +60,13 @@ class GridParentComponent extends Component
         }
 
         $this->dispatch("update-cell-r-{$presentation->room->id}-t-{$presentation->timeslot->id}");
-
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.schedule.grid-parent-component');
     }

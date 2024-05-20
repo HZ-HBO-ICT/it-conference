@@ -71,9 +71,7 @@ class PresentationConflictChecker
             return null;
         }
 
-        $duration = $potentialConflict->type == 'workshop' ?
-            Presentation::$WORKSHOP_DURATION :
-            Presentation::$LECTURE_DURATION;
+        $duration = $potentialConflict->duration;
 
         return Carbon::parse($potentialConflict->start)->copy()->addMinutes($duration) <= $presentationStartTime
             ? null
@@ -90,9 +88,7 @@ class PresentationConflictChecker
      */
     public function findConflictPresentationAfter($room, $suggestedStart, $presentation): mixed
     {
-        $duration = $presentation->type == 'workshop' ?
-            Presentation::$WORKSHOP_DURATION :
-            Presentation::$LECTURE_DURATION;
+        $duration = $presentation->duration;
         $presentationStartTime = Carbon::parse($suggestedStart);
         $presentationEndTime = $presentationStartTime->copy()->addMinutes($duration);
 
@@ -105,15 +101,20 @@ class PresentationConflictChecker
             return null;
         }
 
-        $duration = $potentialConflict->type == 'workshop' ?
-            Presentation::$WORKSHOP_DURATION :
-            Presentation::$LECTURE_DURATION;
+        $duration = $potentialConflict->duration;
 
         return $presentationEndTime <= Carbon::parse($potentialConflict->start)
             ? null
             : $potentialConflict;
     }
 
+    /**
+     * Checks if the suggested starting time of a presentation is not before the starting of the
+     * conference day and before the ending
+     * @param $presentation
+     * @param $startTime
+     * @return bool
+     */
     public function isWithinBoundariesOfTheDay($presentation, $startTime)
     {
         $endTime = Carbon::parse($startTime)->copy()->addMinutes($presentation->duration);
