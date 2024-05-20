@@ -1,18 +1,51 @@
 <div
     class="flex overflow-x-auto overflow-y-hidden py-2.5">
-    <div class="bg-crew-300 flex-none w-58 mr-4 pt-2" wire:key="group-null">
-        <ul class="space-y-1">
-            @foreach ($unscheduledPresentations as $presentation)
-                <li wire:key="task-{{ $presentation->id }}"
-                    x-data="draggable()"
-                    draggable="true"
-                    @dragstart="dragStart"
-                    data-id="{{ $presentation->id }}"
-                    data-room="0">
-                    <span class="cursor-pointer">{{ $presentation->name }}</span>
-                </li>
-            @endforeach
-        </ul>
+    <div class="flex-none w-58 mr-4 pt-2">
+        <div class="mb-4 p-2 border rounded shadow dark:border-gray-800 bg-white dark:bg-gray-900">
+            <h2 class="font-bold text-lg mb-2 text-center bg-crew-500 text-white p-2 rounded dark:bg-crew-700">Unscheduled</h2>
+
+            <div class="mb-4">
+                <h3 class="font-bold text-md mb-2 text-center bg-crew-400 text-white p-1 rounded dark:bg-crew-600">Lectures</h3>
+                <ul class="space-y-1">
+                    @foreach ($unscheduledPresentations as $presentation)
+                        @if ($presentation->type === 'lecture')
+                            <li wire:key="task-{{ $presentation->id }}"
+                                x-data="draggable()"
+                                draggable="true"
+                                @dragstart="dragStart"
+                                data-id="{{ $presentation->id }}"
+                                data-room="0"
+                                class="p-2 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
+                            <span>
+                                {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                            </span>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-md mb-2 text-center bg-crew-400 text-white p-1 rounded dark:bg-crew-600">Workshops</h3>
+                <ul class="space-y-1">
+                    @foreach ($unscheduledPresentations as $presentation)
+                        @if ($presentation->type === 'workshop')
+                            <li wire:key="task-{{ $presentation->id }}"
+                                x-data="draggable()"
+                                draggable="true"
+                                @dragstart="dragStart"
+                                data-id="{{ $presentation->id }}"
+                                data-room="0"
+                                class="p-2 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
+                            <span>
+                                {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                            </span>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div class="flex overflow-x-auto w-full py-2.5 shadow-lg overflow-x-auto overflow-y-hidden">
