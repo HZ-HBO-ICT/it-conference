@@ -46,20 +46,25 @@ class PresentationAllocationHelper
             return null;
         }
 
-        $startingTime = Carbon::parse($previousPresentation->start)
+        $proposedStartingTime = Carbon::parse($previousPresentation->start)
             ->copy()->addMinutes($previousPresentation->duration);
         $timeslotEndingTime = Carbon::parse($timeslot->start)
             ->copy()->addMinutes(30);
 
         // Means that it cannot be scheduled at all within the wanted timeslot
-        if ($startingTime->gte($timeslotEndingTime)) {
+        if ($proposedStartingTime->gte($timeslotEndingTime)) {
             return null;
         }
 
-        $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $startingTime, $presentation);
+        $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $proposedStartingTime, $presentation);
+
+        $conflictChecker = new PresentationConflictChecker();
+        if (!$conflictChecker->isWithinBoundariesOfTheDay($presentation, $proposedStartingTime)) {
+            return null;
+        }
 
         return is_null($nextPresentation) || $nextPresentation->id == $presentation->id
-            ? $startingTime
+            ? $proposedStartingTime
             : null;
     }
 
@@ -80,6 +85,11 @@ class PresentationAllocationHelper
         $previousPresentation = $conflictChecker
             ->findConflictPresentationBefore($room, $proposedStartingTime->format('H:i'));
 
+        $conflictChecker = new PresentationConflictChecker();
+        if (!$conflictChecker->isWithinBoundariesOfTheDay($presentation, $proposedStartingTime)) {
+            return null;
+        }
+
         return is_null($previousPresentation) || $previousPresentation->id == $presentation->id
             ? $proposedStartingTime
             : null;
@@ -95,7 +105,7 @@ class PresentationAllocationHelper
         $timeslots = Timeslot::all();
         foreach ($timeslots as $timeslot) {
             $timeslotEndTime = Carbon::parse($timeslot->start)->copy()->addMinutes($timeslot->duration);
-            if ($startingTime->between(Carbon::parse($timeslot->start), $timeslotEndTime)) {
+            if ($startingTime->gte(Carbon::parse($timeslot->start)) && $startingTime->lt($timeslotEndTime)) {
                 return $timeslot;
             }
         }

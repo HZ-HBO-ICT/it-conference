@@ -3,13 +3,14 @@
 namespace App\Actions\Schedule;
 
 use App\Models\Presentation;
+use App\Models\Timeslot;
 use Carbon\Carbon;
 
 class PresentationConflictChecker
 {
     /**
      * Based on the passed presentation, room and new start estimates if there
-     * are any conflict in the scheduling system
+     * are any conflicts in the scheduling system
      * @param $presentation
      * @param $room
      * @param $start
@@ -19,6 +20,11 @@ class PresentationConflictChecker
     {
         $previousPresentation = $this->findConflictPresentationBefore($room, $start);
         $nextPresentation = $this->findConflictPresentationAfter($room, $start, $presentation);
+
+        // Case 0 - Conditional: The presentation needs to be within the boundaries of the day
+        if (!$this->isWithinBoundariesOfTheDay($presentation, $start)) {
+            return false;
+        }
 
         // Case 1: No presentations in the room before this one or after it that cause conflict
         if (is_null($previousPresentation)
@@ -106,5 +112,20 @@ class PresentationConflictChecker
         return $presentationEndTime <= Carbon::parse($potentialConflict->start)
             ? null
             : $potentialConflict;
+    }
+
+    public function isWithinBoundariesOfTheDay($presentation, $startTime)
+    {
+        $endTime = Carbon::parse($startTime)->copy()->addMinutes($presentation->duration);
+
+        $lastTimeslot = Timeslot::all()
+            ->sortByDesc('start')
+            ->first();
+
+        $firstTimeslot = Timeslot::all()
+            ->first();
+
+        return $endTime->lte(Carbon::parse($lastTimeslot->start)->addMinutes(30))
+            && Carbon::parse($startTime)->gte(Carbon::parse($firstTimeslot->start));
     }
 }

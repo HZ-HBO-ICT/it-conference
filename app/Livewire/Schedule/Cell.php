@@ -39,7 +39,8 @@ class Cell extends Component
         $timeslot = Timeslot::find($newTimeslot);
 
         if (is_null($presentation) || is_null($room) || is_null($timeslot)) {
-            Toaster::error('An issue has occured. Try again');
+            Toaster::error('An issue has occurred. Try again');
+            return;
         }
 
         $passedChecks = false;
