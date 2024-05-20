@@ -4,7 +4,10 @@
     </x-slot>
 
     <x-slot name="content" class="w-full dark:bg-gray-800">
-        <div class="px-4 py-6 sm:px-0">
+        <div class="text-red-500">
+            {{$errorMessage}}
+        </div>
+        <div class="px-4 py-4 sm:px-0">
             <dl class="sm:grid sm:grid-cols-3 sm:gap-6">
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation room</dt>
                 <dd class="sm:col-span-2">
@@ -13,7 +16,7 @@
                             class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-crew-500 focus:border-crew-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-crew-500 dark:focus:border-crew-500">
                         @foreach($rooms as $room)
                             <option
-                                    value="{{$room->id}}"> {{$room->name}}
+                                value="{{$room->id}}"> {{$room->name}}
                             </option>
                         @endforeach
                     </select>

@@ -103,6 +103,7 @@ class PresentationAllocationHelper
     public function findTimeslotByStartingTime($startingTime)
     {
         $timeslots = Timeslot::all();
+        $startingTime = Carbon::parse($startingTime);
         foreach ($timeslots as $timeslot) {
             $timeslotEndTime = Carbon::parse($timeslot->start)->copy()->addMinutes($timeslot->duration);
             if ($startingTime->gte(Carbon::parse($timeslot->start)) && $startingTime->lt($timeslotEndTime)) {

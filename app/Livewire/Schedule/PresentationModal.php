@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Schedule;
 
+use App\Actions\Schedule\PresentationAllocationHelper;
 use App\Actions\Schedule\PresentationConflictChecker;
 use App\Models\Room;
 use App\Models\Timeslot;
@@ -21,6 +22,8 @@ class PresentationModal extends ModalComponent
 
     #[Validate(['required', 'date_format:H:i'])]
     public $start;
+
+    public $errorMessage;
 
     /**
      * Initializes the component
@@ -42,7 +45,9 @@ class PresentationModal extends ModalComponent
         $this->additionalStartTimeValidation($this->start);
 
         $presentationChecker = new PresentationConflictChecker();
-        $timeslot = $this->allocateToTimeslot($this->start);
+        $allocationHelper = new PresentationAllocationHelper();
+
+        $timeslot = $allocationHelper->findTimeslotByStartingTime($this->start);
         $room = Room::find($this->room_id);
 
         if ($presentationChecker->isClearOfConflicts($this->presentation, $room, $this->start)) {
@@ -52,21 +57,12 @@ class PresentationModal extends ModalComponent
                 'new_timeslot_id' => $timeslot->id,
                 'new_time' => $this->start
             ]);
+
+            $this->closeModal();
+        } else {
+            $this->errorMessage = 'Error: Scheduling conflict has occurred and the presentation cannot
+                be moved to the desired spot. Try to set different starting time';
         }
-
-        $this->closeModal();
-    }
-
-    public function allocateToTimeslot($start)
-    {
-        $timeslot = Timeslot::all()
-            ->filter(function ($timeslot) use ($start) {
-                return Carbon::parse($timeslot->start)->lte($start);
-            })
-            ->sortByDesc('start')
-            ->first();
-
-        return $timeslot;
     }
 
     public function additionalStartTimeValidation($start)
