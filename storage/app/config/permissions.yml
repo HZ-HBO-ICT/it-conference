@@ -1,0 +1,79 @@
+# The YML file format allows for comments to be added to the file.
+# This makes it possible to add explanations to the file.
+# The roles are defined in the roles section of the file.
+roles:
+  - participant               # Users that can participate to presentations and workshops
+  - company representative    # Company representatives
+  - company member            # Company members
+  - event organizer           # Crew member - Manages the Schedule, Users, Companies, Sponsorships, Presentations and Booths
+  - assistant organizer       # Crew member - Like the event organizer, but without the Schedule
+  - company market supervisor # Crew member - Manages Booths
+  - speakers supervisor       # Crew member - Manages Presentations
+  - pr lead                   # Crew member - Posting announcements to feed.
+  - entertainment organizer   # Crew member - TBD
+
+permissions:
+  booth:
+    viewAny: [event organizer, assistant organizer, company market supervisor]
+    view: [event organizer, assistant organizer, company market supervisor]
+    create: [event organizer, assistant organizer, company market supervisor]
+    update: [event organizer, assistant organizer, company market supervisor]
+    delete: [event organizer, assistant organizer, company market supervisor]
+  booth request:
+    create: company representative
+    view: [ company representative, event organizer, assistant organizer, company market supervisor ]
+    approve: [event organizer, assistant organizer, company market supervisor]
+  company:
+    viewAny: [event organizer, assistant organizer]
+    view: [ event organizer, assistant organizer, company representative, company member ]
+    create: [event organizer, assistant organizer]
+    update: [ event organizer, assistant organizer, company representative ]
+    delete: [event organizer, assistant organizer]
+  company request:
+    view: [ company representative, event organizer, assistant organizer ]
+    update: [event organizer, assistant organizer]
+  company delete request:
+    create: company representative
+    view: [ event organizer, assistant organizer, company representative ]
+  company member:
+    viewAny: [ event organizer, assistant organizer, company representative, company member ]
+    update: company representative
+    delete: company representative
+  company member invitation:
+    viewAny: company representative
+    create: company representative
+    delete: company representative
+  crew:
+    invite: [event organizer, assistant organizer]
+    update: [event organizer, assistant organizer]
+  presentation:
+    viewAny: [event organizer, assistant organizer, speakers supervisor]
+    view: [ event organizer, assistant organizer, speakers supervisor, participant ]
+    create: [event organizer, assistant organizer, speakers supervisor]
+    update: [ event organizer, assistant organizer, speakers supervisor, participant ]
+    delete: [ event organizer, assistant organizer, speakers supervisor, participant ]
+    enroll: participant
+  presentation request:
+    create: [ participant, company representative ]
+    view: [ speaker, company representative, event organizer, assistant organizer, speakers supervisor ]
+    update: [event organizer, assistant organizer, speakers supervisor]
+  presentation participants:
+    view: [event organizer, assistant organizer, speakers supervisor]
+  room:
+    viewAny: [event organizer, assistant organizer]
+    view: [event organizer, assistant organizer]
+    create: [event organizer, assistant organizer]
+    update: [event organizer, assistant organizer]
+    delete: [event organizer, assistant organizer]
+  schedule:
+    view: [event organizer, assistant organizer]
+    update: event organizer
+  sponsorship:
+    viewAny: [event organizer, assistant organizer]
+    view: [event organizer, assistant organizer]
+    create: [event organizer, assistant organizer]
+    delete: [event organizer, assistant organizer]
+  sponsorship request:
+    view: [ company representative, event organizer, assistant organizer ]
+    create: company representative
+    update: [event organizer, assistant organizer]

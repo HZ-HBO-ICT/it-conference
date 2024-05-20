@@ -178,6 +178,62 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Determines whether the user is a member of the specified company.
+     *
+     * @param Company $company
+     * @return bool
+     */
+    public function isMemberOf(Company $company): bool
+    {
+        return $company && $this->company && $this->company->id = $company->id;
+    }
+
+    /**
+     * Determines whether the user is a presenter of the specified presentation.
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function isPresenterOf(Presentation $presentation)
+    {
+        return $this->presenter_of
+            && $this->presenter_of->id == $presentation->id;
+    }
+
+    /**
+     * Definition of the `is_crew` read-only attribute that is `true`
+     * if the user has one or more roles that resembles a Crew member,
+     * like organizers and supervisors.
+     *
+     * @return Attribute
+     */
+    public function isCrew(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->hasRole(['event organizer', 'assistant organizer',
+                'company market supervisor', 'speakers supervisor', 'pr lead',
+                'entertainment organizer'])
+        );
+    }
+
+    /**
+     * Checks if the user can be enrolled to this presentation, based on the
+     * event status and the max_participants
+     * TODO: add user schedule clashing
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function canEnroll(Presentation $presentation) : bool
+    {
+        if (!EventInstance::current()->is_final_programme_released) {
+            return false;
+        }
+
+        return $presentation->remaining_capacity > 0;
+    }
+
+    /**
      * Determines the color scheme of the hub area based on the user's role
      * @return Attribute
      */
@@ -187,7 +243,7 @@ class User extends Authenticatable implements MustVerifyEmail
             get: function () {
                 if ($this->company) {
                     return 'partner';
-                } elseif ($this->hasRole('event organizer')) {
+                } elseif ($this->hasRole('crew')) {
                     return 'crew';
                 } else {
                     return 'participant';
@@ -196,7 +252,6 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-
     /**
      * Scope a query to only include users who can be company representatives.
      */
@@ -204,7 +259,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         // Only user who:
         // Do not have an @hz.nl
-        $query->role(['participant', 'speaker'])
+        $query->role(['participant'])
         ->where('email', 'not like', '%@hz.nl') // Exclude emails ending with '@hz.nl'
         ->orderBy('name');
     }

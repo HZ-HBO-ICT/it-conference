@@ -24,12 +24,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Artisan::call('admin:upsert-master-data');
+        Artisan::call('admin:sync-permissions');
 
         Room::factory()->count(20)->create();
 
-        $this->call([CompanySeeder::class,
-            UserSeeder::class,
-            PermissionSeeder::class,
-            TimeslotSeeder::class]);
+        $this->call([CompanySeeder::class, UserSeeder::class, TimeslotSeeder::class]);
     }
 }

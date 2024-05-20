@@ -52,7 +52,7 @@
                 @endcan
             </x-action-section>
 
-            @can('viewApprovalStatus', $presentation)
+            @can('viewRequest', $presentation)
                 <x-section-border/>
 
                 <x-action-section>

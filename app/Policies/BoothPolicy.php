@@ -13,7 +13,7 @@ class BoothPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view booth list');
+        return $user->can('viewAny booth');
     }
 
     /**
@@ -37,7 +37,7 @@ class BoothPolicy
      */
     public function update(User $user, Booth $booth): bool
     {
-        return $user->can('edit booth');
+        return $user->can('update booth');
     }
 
     /**
@@ -49,34 +49,19 @@ class BoothPolicy
     }
 
     /**
-     * Determine whether the user can view the approval status of the model.
+     * Determine whether the user can view the request for approval status of the
+     * model.
      */
-    public function viewApprovalStatus(User $user, Booth $booth): bool
+    public function viewRequest(User $user, Booth $booth): bool
     {
-        return $user->can('view booth approval status');
+        return $user->can('view booth request');
     }
 
     /**
-     * Determine whether the user can approve the model.
+     * Determine whether the user can approve request for the model.
      */
-    public function approve(User $user, Booth $booth): bool
+    public function approveRequest(User $user, Booth $booth): bool
     {
-        return $user->can('edit booth approval status');
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Booth $booth): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Booth $booth): bool
-    {
-        //
+        return $user->can('approve booth request');
     }
 }

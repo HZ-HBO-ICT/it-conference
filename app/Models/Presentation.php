@@ -124,11 +124,16 @@ class Presentation extends Model
     }
 
     /**
-     * Checks if the presentation can be deleted
+     * Definition of the `remaining_capacity` attribute that shows the amount
+     * of participants that currently can enroll the presentation
+     *
+     * @return Attribute
      */
-    public function canBeDeleted(): bool
+    public function remainingCapacity()
     {
-        return !EventInstance::current()->is_final_programme_released;
+        return Attribute::make(
+            get: fn() => $this->max_participants - $this->participants->count(),
+        );
     }
 
     /**

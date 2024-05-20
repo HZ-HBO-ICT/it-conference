@@ -76,7 +76,7 @@ class BoothController extends Controller
      */
     public function approve(Request $request, Booth $booth)
     {
-        if (Auth::user()->cannot('approve', $booth)) {
+        if (Auth::user()->cannot('approveRequest', $booth)) {
             abort(403);
         }
 
