@@ -10,6 +10,7 @@ use App\Models\Timeslot;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 
 class Cell extends Component
 {
@@ -34,30 +35,58 @@ class Cell extends Component
     public function movePresentation($id, $newRoom, $newTimeslot)
     {
         $presentation = Presentation::find($id);
-        if ($presentation) {
-            $room = Room::find($newRoom);
-            $timeslot = Timeslot::find($newTimeslot);
+        $room = Room::find($newRoom);
+        $timeslot = Timeslot::find($newTimeslot);
 
-            $presentationChecker = new PresentationConflictChecker();
-            if ($presentationChecker->isClearOfConflicts($presentation, $room, $timeslot->start)) {
-                $this->dispatchMoveEventToGrid($presentation->id, $room->id, $timeslot->id, $timeslot->start);
-            } else {
-                $allocationHelper = new PresentationAllocationHelper();
-                $possibleStartingTime = $allocationHelper
-                    ->tryToSchedulePresentationInTimeslot($presentation, $timeslot, $room);
+        if (is_null($presentation) || is_null($room) || is_null($timeslot)) {
+            Toaster::error('An issue has occured. Try again');
+        }
 
-                if(!is_null($possibleStartingTime)){
-                    $this->dispatchMoveEventToGrid(
-                        $presentation->id,
-                        $room->id,
-                        $timeslot->id,
-                        $possibleStartingTime->format('H:i'));
-                }
-            }
+        $passedChecks = false;
 
+        $presentationChecker = new PresentationConflictChecker();
+        if ($presentationChecker->isClearOfConflicts($presentation, $room, $timeslot->start)) {
+            $this->dispatchMoveEventToGrid($presentation->id, $room->id, $timeslot->id, $timeslot->start);
+            $passedChecks = true;
+        } else {
+            $passedChecks = $this->tryUsingPresentationAllocator($presentation, $timeslot, $room);
+        }
+
+        if (!$passedChecks) {
+            Toaster::error('A scheduling conflict has occurred, the presentation cannot be moved to the
+                desired position');
         }
     }
 
+    public function tryUsingPresentationAllocator($presentation, $timeslot, $room)
+    {
+        $allocationHelper = new PresentationAllocationHelper();
+        $canAllocatorHelp = $allocationHelper->canHelp($presentation, $timeslot, $room);
+
+        if ($canAllocatorHelp == 1) {
+            $possibleStartingTime = $allocationHelper
+                ->tryToSchedulePresentationInTimeslot($presentation, $timeslot, $room);
+
+            $this->dispatchMoveEventToGrid(
+                $presentation->id,
+                $room->id,
+                $timeslot->id,
+                $possibleStartingTime->format('H:i'));
+        } elseif ($canAllocatorHelp == 2) {
+            $possibleStartingTime = $allocationHelper
+                ->tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room);
+
+            $newTimeslot = $allocationHelper->findTimeslotByStartingTime($possibleStartingTime);
+
+            $this->dispatchMoveEventToGrid(
+                $presentation->id,
+                $room->id,
+                $newTimeslot->id,
+                $possibleStartingTime->format('H:i'));
+        }
+
+        return $canAllocatorHelp != 0;
+    }
 
     public function dispatchMoveEventToGrid($id, $newRoom, $newTimeslot, $newTime)
     {
