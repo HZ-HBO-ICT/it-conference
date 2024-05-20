@@ -10,6 +10,7 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './vendor/masmerise/livewire-toaster/resources/views/*.blade.php',
     ],
     safelist: [
         {
