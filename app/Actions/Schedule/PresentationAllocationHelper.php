@@ -28,6 +28,13 @@ class PresentationAllocationHelper
 
         $startingTime = Carbon::parse($previousPresentation->start)
             ->copy()->addMinutes($previousPresentation->duration);
+        $timeslotEndingTime = Carbon::parse($timeslot->start)
+            ->copy()->addMinutes(30);
+
+        // Means that it cannot be scheduled at all within the wanted timeslot
+        if ($startingTime->gte($timeslotEndingTime)) {
+            return null;
+        }
 
         $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $startingTime, $presentation);
 
