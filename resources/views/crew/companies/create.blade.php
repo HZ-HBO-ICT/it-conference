@@ -5,19 +5,20 @@
             {{ __('Create a company') }}
         </h2>
         <div class="pt-5">
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Company details') }}
-                </x-slot>
+            <form method="POST" action="{{route('moderator.companies.store')}}">
+                @csrf
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Company details') }}
+                    </x-slot>
 
-                <x-slot name="description">
-                    {{ __('Add manually a new company that will join the conference that will be owned by the user with the specified email adress') }}
-                </x-slot>
+                    <x-slot name="description">
+                        {{ __('Add manually a new company that will join the conference that will be owned by the user with the specified email adress') }}
+                    </x-slot>
 
-                <x-slot name="content">
-                    <div class="pr-5">
-                        <form method="POST" action="{{route('moderator.companies.store')}}">
-                            @csrf
+                    <x-slot name="content">
+                        <div class="pr-5">
+
                             <div class="col-span-6 sm:col-span-4 pb-4">
                                 <x-label for="name" value="{{ __('Company Name') }}"></x-label>
                                 <x-input name="name" type="text" class="mt-1 block w-full"
@@ -82,20 +83,22 @@
                                         </option>
                                     @endforeach
                                 </x-select>
-                                <span class="text-sm text-gray-600 py-1">or if they do not have an account yet</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-300 py-1">or if they do not have an account yet</span>
                                 <x-input name="rep_new_email" type="email" class="mt-1 block w-full"
                                          value="{{ old('rep_new_email') }}"></x-input>
                                 <x-input-error for="rep_new_email" class="mt-2"></x-input-error>
                             </div>
-                            <x-button
-                                class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                Save
-                            </x-button>
-
-                        </form>
-                    </div>
-                </x-slot>
-            </x-action-section>
+                        </div>
+                    </x-slot>
+                    <x-slot name="actions">
+                        <x-button
+                            type="submit"
+                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            Save
+                        </x-button>
+                    </x-slot>
+                </x-action-section>
+            </form>
         </div>
     </div>
 </x-hub-layout>

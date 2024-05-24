@@ -5,21 +5,19 @@
             {{ __('Create a new presentation') }}
         </h2>
         <div class="pt-5">
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Presentation details') }}
-                </x-slot>
-
-                <x-slot name="description">
-                    <div class="text-sm text-gray-600 dark:text-gray-200">
-                        <p>{{ __('Add manually add a new presentation that will be hosted during the conference.') }}</p>
-                    </div>
-                </x-slot>
-
-                <x-slot name="content">
-                    <div class="pr-5">
-                        <form method="POST" action="{{route('moderator.presentations.store')}}">
-                            @csrf
+            <form method="POST" action="{{route('moderator.presentations.store')}}">
+                @csrf
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Presentation details') }}
+                    </x-slot>
+                    <x-slot name="description">
+                        <div class="text-sm text-gray-600 dark:text-gray-200">
+                            <p>{{ __('Add manually add a new presentation that will be hosted during the conference.') }}</p>
+                        </div>
+                    </x-slot>
+                    <x-slot name="content">
+                        <div class="pr-5">
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label for="name" value="Title" class="after:content-['*'] after:text-red-500"/>
                                 <x-input id="name" name="name" value="{{old('name')}}" type="text"
@@ -70,7 +68,8 @@
                             </div>
                             <x-section-border/>
                             <div class="col-span-6 sm:col-span-4">
-                                <x-label for="user_id" class="after:content-['*'] after:text-red-500" value="{{ __('Main Speaker') }}"></x-label>
+                                <x-label for="user_id" class="after:content-['*'] after:text-red-500"
+                                         value="{{ __('Main Speaker') }}"></x-label>
                                 <x-select name="user_id" class="mt-1 block w-full">
                                     @foreach($users as $user)
                                         @if(!$user->hasRole('crew'))
@@ -82,14 +81,18 @@
                                 </x-select>
                                 <x-input-error for="user_id" class="mt-2"></x-input-error>
                             </div>
-                            <x-button
-                                class="mt-5 dark:bg-purple-500 bg-purple-500 hover:bg-purple-600 hover:dark:bg-purple-600 active:bg-purple-600 active:dark:bg-purple-600">
-                                Submit
-                            </x-button>
-                        </form>
-                    </div>
-                </x-slot>
-            </x-action-section>
+                        </div>
+                    </x-slot>
+                    <x-slot name="actions">
+                        <x-button
+                            type="submit"
+                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            Save
+                        </x-button>
+                    </x-slot>
+                </x-action-section>
+            </form>
+
         </div>
     </div>
 </x-hub-layout>
