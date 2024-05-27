@@ -84,7 +84,8 @@ class PresentationAllocationHelper
         $proposedTimeslot = $this->findTimeslotByStartingTime($proposedStartingTime);
 
         $conflictChecker = new PresentationConflictChecker();
-        $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $proposedStartingTime, $presentation);
+        $nextPresentation = $conflictChecker
+            ->findConflictPresentationAfter($room, $proposedStartingTime, $presentation);
 
         // If there is a presentation after the suggested time calculation that causes a conflict,
         // nothing can be done as of now
@@ -103,8 +104,6 @@ class PresentationAllocationHelper
         return is_null($previousPresentation) || $previousPresentation->id == $presentation->id
             ? $proposedStartingTime
             : null;
-
-
     }
 
     /**
