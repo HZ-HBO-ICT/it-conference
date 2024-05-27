@@ -79,22 +79,23 @@ class PresentationAllocationHelper
      */
     public function tryToScheduleInPreviousTimeslot($presentation, $timeslot, $room): ?Carbon
     {
-        $prevTimeslot = Timeslot::find($timeslot->id - 1);
+        $proposedStartingTime = Carbon::parse($timeslot->start)
+                                    ->copy()->subMinutes($presentation->duration);
+        $proposedTimeslot = $this->findTimeslotByStartingTime($proposedStartingTime);
 
         $conflictChecker = new PresentationConflictChecker();
+        $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $proposedStartingTime, $presentation);
 
-        $nextPresentation = $conflictChecker->findConflictPresentationAfter($room, $timeslot->start, $presentation);
-
-        // If the following presentation is not creating the conflict, then something wrong is going on
-        if (is_null($nextPresentation)) {
+        // If there is a presentation after the suggested time calculation that causes a conflict,
+        // nothing can be done as of now
+        if (!is_null($nextPresentation)) {
             return null;
         }
 
-        $proposedStartingTime = Carbon::parse($nextPresentation->start)->copy()->subMinutes($presentation->duration);
-        $previousPresentation = $conflictChecker
-            ->findConflictPresentationBefore($room, $proposedStartingTime->format('H:i'));
-
         $conflictChecker = new PresentationConflictChecker();
+        $previousPresentation = $conflictChecker
+            ->findConflictPresentationBefore($room, $proposedStartingTime->copy()->format('H:i'));
+
         if (!$conflictChecker->isWithinBoundariesOfTheDay($presentation, $proposedStartingTime)) {
             return null;
         }
@@ -102,6 +103,8 @@ class PresentationAllocationHelper
         return is_null($previousPresentation) || $previousPresentation->id == $presentation->id
             ? $proposedStartingTime
             : null;
+
+
     }
 
     /**
