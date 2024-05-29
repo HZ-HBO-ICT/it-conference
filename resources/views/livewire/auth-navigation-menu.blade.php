@@ -1,61 +1,59 @@
 <nav x-data="{ open: false }"
      class="relative z-10">
     <!-- Primary Navigation Menu -->
-    <div class="mr-5 mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="items-center flex-shrink-0 h-16 flex ml-0">
-                <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}" alt="IT Conference logo">
-                <h3 class="ml-4 font-semibold dark:text-white">My hub</h3>
-            </div>
-            <div class="flex">
-                <!-- Logo -->
-                <!-- Leaving it just in case we get logo -->
-                {{--<div class="shrink-0 flex items-center">
-                    <x-home-link href="{{ route('welcome') }}" class="text-center"
-                                 :active="request()->routeIs('welcome')">
-                        {{ __('We are in IT together') }}<br>{{ __('conference') }}
-                    </x-home-link>
-                </div>--}}
+    <div class="flex justify-between items-center h-16">
+        <div class="flex-grow"></div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')"
-                                wire:navigate.hover>
-                        {{ __('Home') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
-                                wire:navigate.hover>
-                        {{ __('Speakers') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
-                                wire:navigate.hover>
-                        {{ __('Companies') }}
-                    </x-nav-link>
-                </div>
-                {{--@if(\App\Models\EventInstance::current()->is_final_programme_released)
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
-                            {{ __('Programme') }}
-                        </x-nav-link>
-                    </div>
-                @endif--}}
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>
-                        {{ __('FAQ') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')"
-                                wire:navigate.hover>
-                        {{ __('Contact') }}
-                    </x-nav-link>
-                </div>
-            </div>
+        <div class="flex justify-center">
+            <!-- Logo -->
+            <!-- Leaving it just in case we get logo -->
+            {{--<div class="shrink-0 flex items-center">
+                <x-home-link href="{{ route('welcome') }}" class="text-center"
+                             :active="request()->routeIs('welcome')">
+                    {{ __('We are in IT together') }}<br>{{ __('conference') }}
+                </x-home-link>
+            </div>--}}
 
+            <!-- Navigation Links -->
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')"
+                            wire:navigate.hover>
+                    {{ __('Home') }}
+                </x-nav-link>
+            </div>
+            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
+                            wire:navigate.hover>
+                    {{ __('Speakers') }}
+                </x-nav-link>
+            </div>
+            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
+                            wire:navigate.hover>
+                    {{ __('Companies') }}
+                </x-nav-link>
+            </div>
+            {{--@if(\App\Models\EventInstance::current()->is_final_programme_released)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                        {{ __('Programme') }}
+                    </x-nav-link>
+                </div>
+            @endif--}}
+            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>
+                    {{ __('FAQ') }}
+                </x-nav-link>
+            </div>
+            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')"
+                            wire:navigate.hover>
+                    {{ __('Contact') }}
+                </x-nav-link>
+            </div>
+        </div>
+
+        <div class="flex-grow flex justify-end">
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @if(Auth::user()->currentTeam && Auth::user()->currentTeam->owner->id == Auth::user()->id)
                     <span
@@ -86,42 +84,6 @@
                                          src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                                 </div>
                     </span>
-{{--                    <x-dropdown align="right" width="48">--}}
-{{--                        <x-slot name="trigger">--}}
-{{--                            <span--}}
-{{--                                class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">--}}
-{{--                                <a href="{{ route('dashboard') }}" wire:navigate.hover--}}
-{{--                                   class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">--}}
-{{--                                    {{ Auth::user()->name }}--}}
-{{--                                </a>--}}
-{{--                                <div--}}
-{{--                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">--}}
-{{--                                    <img class="h-8 w-8 rounded-full object-cover"--}}
-{{--                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>--}}
-{{--                                </div>--}}
-{{--                                <div class="items-center flex-shrink-0 flex ml-3">--}}
-{{--                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                         viewBox="0 0 20 20">--}}
-{{--                                        <path fill-rule="evenodd"--}}
-{{--                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"--}}
-{{--                                              clip-rule="evenodd"/>--}}
-{{--                                    </svg>--}}
-{{--                                </div>--}}
-{{--                            </span>--}}
-{{--                        </x-slot>--}}
-{{--                        <x-slot name="content">--}}
-{{--                            <x-dropdown-link :href="route('profile.show')">--}}
-{{--                                {{ __('Profile') }}--}}
-{{--                            </x-dropdown-link>--}}
-{{--                            <form method="POST" action="{{ route('logout') }}" x-data>--}}
-{{--                                @csrf--}}
-{{--                                <x-dropdown-link :href="route('logout')"--}}
-{{--                                                 @click.prevent="$root.submit();">--}}
-{{--                                    {{ __('Log Out') }}--}}
-{{--                                </x-dropdown-link>--}}
-{{--                            </form>--}}
-{{--                        </x-slot>--}}
-{{--                    </x-dropdown>--}}
                 @endif
                 <div class="pl-4">
                     <div>
@@ -151,7 +113,7 @@
                 </div>
             </div>
             <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
+            <div class="mr-0 flex items-center sm:hidden">
                 <button @click="open = ! open"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">

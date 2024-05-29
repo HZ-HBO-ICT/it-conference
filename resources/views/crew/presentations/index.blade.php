@@ -13,14 +13,13 @@
                 <x-slot name="content">
                     <ul role="list">
                         @forelse($presentations as $index => $presentation)
-                            <x-list-section-item
-                                class="{{ !$presentation->is_approved ? 'bg-red-300 dark:bg-red-800' : '' }}">
+                            <x-list-section-item class="{{ !$presentation->is_approved ? 'bg-crew-300 bg-opacity-30 dark:bg-opacity-20' : '' }} border-l-4 {{ !$presentation->is_approved ? 'border-crew-300 dark:border-crew-600' : 'border-transparent' }}">
                                 <a href="{{route('moderator.presentations.show', $presentation)}}" class="block">
                                     <div class="justify-between flex mt-2">
                                         <div class="flex">
                                             <div class="text-gray-700 dark:text-white text-m items-center flex">
                                                 <svg
-                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$presentation->is_approved ? 'stroke-crew-900 dark:stroke-crew-900 hover:stroke-crew-500' : '' }}"
+                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$presentation->is_approved ? 'stroke-gray-900 dark:stroke-white' : 'stroke-crew-300' }}"
                                                     xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                                     aria-hidden="true">
                                                     <path
@@ -36,7 +35,7 @@
                                         </div>
                                         <div class="text-sm items-center flex ml-2 dark:text-white">
                                             <svg
-                                                class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$presentation->is_approved ? 'stroke-crew-900 dark:stroke-crew-900 hover:stroke-crew-500' : '' }}"
+                                                class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$presentation->is_approved ? 'stroke-gray-900 dark:stroke-white' : '' }}"
                                                 xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                                 aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
