@@ -24,6 +24,10 @@ export default {
                 sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
                 'montserrat': ['Montserrat', 'sans-serif'],
             },
+            lineHeight: {
+                'extra-tight': '1.15',
+                '12': '3rem',
+            },
             colors: {
                 'gradient-yellow': '#F9CD32',
                 'gradient-pink': '#A37BB1',

@@ -6,11 +6,13 @@
                 <!--Titles-->
                 <div
                     class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-6">
-                    <div
-                        class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
-                        <h1 class="leading-snug" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
+                    <div class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
+                        <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
+                        <h2 class="mt-5 uppercase font-bold text-sm">
+                            Powered by
+                        </h2>
                     </div>
                     <div class="w-full md:w-1/2 pt-1 text-xl font-montserrat">
                         <h2 class="uppercase font-bold">
@@ -20,20 +22,20 @@
                             November 15, 2024
                         </h2>
                         <h2 class="italic">
-                            "It does not only build a bridge, it involves us all"
+                            "IT does not only build a bridge, IT involves us all"
                         </h2>
                         <h2 class="italic font-semibold">
                             HZ University of Applied Sciences, Middelburg
                         </h2>
                         <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
-                            <a href="#">
+                            <a href="{{ route('companies.index') }}">
                                 View companies
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
                             </a>
-                            <a href="#">
+                            <a href="{{ route('speakers.index') }}">
                                 View speakers
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

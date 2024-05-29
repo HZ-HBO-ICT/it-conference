@@ -54,11 +54,11 @@
                 <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                     {{ __('Login') }}
                 </x-nav-link>
-                <div class="pl-2">
-                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                        {{ __('Register') }}
-                    </x-nav-link>
-                </div>
+{{--                <div class="pl-2">--}}
+{{--                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">--}}
+{{--                        {{ __('Register') }}--}}
+{{--                    </x-nav-link>--}}
+{{--                </div>--}}
                 <div class="pl-4">
                     <div>
                         <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">

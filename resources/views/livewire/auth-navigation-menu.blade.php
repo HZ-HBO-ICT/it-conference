@@ -59,7 +59,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @if(Auth::user()->currentTeam && Auth::user()->currentTeam->owner->id == Auth::user()->id)
                     <span
-                        class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                        class="inline-flex py-1 pr-2 rounded-md text-white dark:text-gray-400 bg-black-100 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
                         <a href="{{route('announcements')}}" wire:navigate.hover
                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                             {{ Auth::user()->currentTeam->name }}
@@ -74,10 +74,8 @@
                         </div>
                     </span>
                 @else
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            <span
-                                class="inline-flex py-1 pr-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                    <span
+                        class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
                                 <a href="{{ route('dashboard') }}" wire:navigate.hover
                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                                     {{ Auth::user()->name }}
@@ -87,29 +85,43 @@
                                     <img class="h-8 w-8 rounded-full object-cover"
                                          src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                                 </div>
-                                <div class="items-center flex-shrink-0 flex ml-3">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                              clip-rule="evenodd"/>
-                                    </svg>
-                                </div>
-                            </span>
-                        </x-slot>
-                        <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.show')">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
-                            <form method="POST" action="{{ route('logout') }}" x-data>
-                                @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                                 @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-dropdown>
+                    </span>
+{{--                    <x-dropdown align="right" width="48">--}}
+{{--                        <x-slot name="trigger">--}}
+{{--                            <span--}}
+{{--                                class="inline-flex py-1 pr-2 rounded-md text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">--}}
+{{--                                <a href="{{ route('dashboard') }}" wire:navigate.hover--}}
+{{--                                   class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">--}}
+{{--                                    {{ Auth::user()->name }}--}}
+{{--                                </a>--}}
+{{--                                <div--}}
+{{--                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">--}}
+{{--                                    <img class="h-8 w-8 rounded-full object-cover"--}}
+{{--                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>--}}
+{{--                                </div>--}}
+{{--                                <div class="items-center flex-shrink-0 flex ml-3">--}}
+{{--                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"--}}
+{{--                                         viewBox="0 0 20 20">--}}
+{{--                                        <path fill-rule="evenodd"--}}
+{{--                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"--}}
+{{--                                              clip-rule="evenodd"/>--}}
+{{--                                    </svg>--}}
+{{--                                </div>--}}
+{{--                            </span>--}}
+{{--                        </x-slot>--}}
+{{--                        <x-slot name="content">--}}
+{{--                            <x-dropdown-link :href="route('profile.show')">--}}
+{{--                                {{ __('Profile') }}--}}
+{{--                            </x-dropdown-link>--}}
+{{--                            <form method="POST" action="{{ route('logout') }}" x-data>--}}
+{{--                                @csrf--}}
+{{--                                <x-dropdown-link :href="route('logout')"--}}
+{{--                                                 @click.prevent="$root.submit();">--}}
+{{--                                    {{ __('Log Out') }}--}}
+{{--                                </x-dropdown-link>--}}
+{{--                            </form>--}}
+{{--                        </x-slot>--}}
+{{--                    </x-dropdown>--}}
                 @endif
                 <div class="pl-4">
                     <div>

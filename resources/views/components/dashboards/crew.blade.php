@@ -11,10 +11,10 @@
 @endpush
 
 <div>
-    <div class="py-8 px-2 mx-auto max-w-7xl">
+    <div class="py-8 mx-auto max-w-7xl">
         <div>
             <h3 class="leading-6 font-semibold text-xl dark:text-white">Pending requests</h3>
-            <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
+            <div class="pt-6 pb-12 rounded-lg overflow-hidden relative">
                 <dl class="gap-5 grid-cols-5 grid mt-5">
                     <x-dashboards.blocks.crew
                         :label="'Companies'"
@@ -53,7 +53,7 @@
     <div class="py-4 px-2 mx-auto max-w-7xl">
         <div>
             <h3 class="leading-6 font-semibold text-xl dark:text-white">Current totals</h3>
-            <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
+            <div class="pt-6 pb-12 rounded-lg overflow-hidden relative">
                 <dl class="gap-5 grid-cols-6 grid mt-5">
                     <x-dashboards.blocks.crew
                         :label="'Participants'"
@@ -105,88 +105,88 @@
             </div>
         </div>
     </div>
-    <div class="py-4 px-2 mx-auto max-w-7xl">
-        <div>
-            <h3 class="leading-6 font-semibold text-xl dark:text-white">Increase graph speakers, booths, presentations, companies</h3>
-            <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
-                <div class="chart-container" style="position: relative; height:40vh; width:73vw">
-                    <canvas id="statsChart"></canvas>
-                </div>
+{{--    <div class="py-4 px-2 mx-auto max-w-7xl">--}}
+{{--        <div>--}}
+{{--            <h3 class="leading-6 font-semibold text-xl dark:text-white">Increase graph speakers, booths, presentations, companies</h3>--}}
+{{--            <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">--}}
+{{--                <div class="chart-container" style="position: relative; height:40vh; width:73vw">--}}
+{{--                    <canvas id="statsChart"></canvas>--}}
+{{--                </div>--}}
 
-                @push('scripts')
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const canvas = document.getElementById('statsChart').getContext('2d');
-                            const statsChart = new Chart(canvas, {
-                                type: 'bar',
-                                data: {
-                                    labels: {!! json_encode($speakersStats->pluck('recorded_at')->map(function ($date) {
-                                        return $date ? $date->format('Y-m-d') : 'No Data';
-                                        })) !!},
-                                    datasets: [
-                                        {
-                                            label: 'Speakers',
-                                            data: {!! json_encode($speakersStats->pluck('value')) !!},
-                                            borderColor: '#FF9919',
-                                            backgroundColor: 'rgba(255, 153, 25)',
-                                            pointBackgroundColor: '#FF9919',
-                                            pointBorderColor: '#FF9919',
-                                            borderWidth: 0
-                                        },
-                                        {
-                                            label: 'Booths',
-                                            data: {!! json_encode($boothsStats->pluck('value')) !!},
-                                            borderColor: '#DD5302',
-                                            backgroundColor: 'rgba(221, 83, 2)',
-                                            pointBackgroundColor: '#DD5302',
-                                            pointBorderColor: '#DD5302',
-                                            borderWidth: 0
-                                        },
-                                        {
-                                            label: 'Presentations',
-                                            data: {!! json_encode($presentationsStats->pluck('value')) !!},
-                                            borderColor: '#FFCD8F',
-                                            backgroundColor: 'rgba(255, 205, 143)',
-                                            pointBackgroundColor: '#FFCD8F',
-                                            pointBorderColor: '#FFCD8F',
-                                            borderWidth: 0
-                                        },
-                                        {
-                                            label: 'Companies',
-                                            data: {!! json_encode($companiesStats->pluck('value')) !!},
-                                            borderColor: 'crew-500',
-                                            backgroundColor: 'rgba(249, 119, 7)',
-                                            pointBackgroundColor: 'crew-500',
-                                            pointBorderColor: 'crew-500',
-                                            borderWidth: 0
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            barPercentage: 0.5,
-                                            categoryPercentage: 0.5
-                                        }]
-                                    },
-                                    legend: {
-                                        display: true
-                                    },
-                                    responsive: true,
-                                    maintainAspectRatio: false
-                                }
-                            });
-                        });
-                    </script>
-                @endpush
-            </div>
-        </div>
-    </div>
+{{--                @push('scripts')--}}
+{{--                    <script>--}}
+{{--                        document.addEventListener('DOMContentLoaded', function () {--}}
+{{--                            const canvas = document.getElementById('statsChart').getContext('2d');--}}
+{{--                            const statsChart = new Chart(canvas, {--}}
+{{--                                type: 'bar',--}}
+{{--                                data: {--}}
+{{--                                    labels: {!! json_encode($speakersStats->pluck('recorded_at')->map(function ($date) {--}}
+{{--                                        return $date ? $date->format('Y-m-d') : 'No Data';--}}
+{{--                                        })) !!},--}}
+{{--                                    datasets: [--}}
+{{--                                        {--}}
+{{--                                            label: 'Speakers',--}}
+{{--                                            data: {!! json_encode($speakersStats->pluck('value')) !!},--}}
+{{--                                            borderColor: '#FF9919',--}}
+{{--                                            backgroundColor: 'rgba(255, 153, 25)',--}}
+{{--                                            pointBackgroundColor: '#FF9919',--}}
+{{--                                            pointBorderColor: '#FF9919',--}}
+{{--                                            borderWidth: 0--}}
+{{--                                        },--}}
+{{--                                        {--}}
+{{--                                            label: 'Booths',--}}
+{{--                                            data: {!! json_encode($boothsStats->pluck('value')) !!},--}}
+{{--                                            borderColor: '#DD5302',--}}
+{{--                                            backgroundColor: 'rgba(221, 83, 2)',--}}
+{{--                                            pointBackgroundColor: '#DD5302',--}}
+{{--                                            pointBorderColor: '#DD5302',--}}
+{{--                                            borderWidth: 0--}}
+{{--                                        },--}}
+{{--                                        {--}}
+{{--                                            label: 'Presentations',--}}
+{{--                                            data: {!! json_encode($presentationsStats->pluck('value')) !!},--}}
+{{--                                            borderColor: '#FFCD8F',--}}
+{{--                                            backgroundColor: 'rgba(255, 205, 143)',--}}
+{{--                                            pointBackgroundColor: '#FFCD8F',--}}
+{{--                                            pointBorderColor: '#FFCD8F',--}}
+{{--                                            borderWidth: 0--}}
+{{--                                        },--}}
+{{--                                        {--}}
+{{--                                            label: 'Companies',--}}
+{{--                                            data: {!! json_encode($companiesStats->pluck('value')) !!},--}}
+{{--                                            borderColor: 'crew-500',--}}
+{{--                                            backgroundColor: 'rgba(249, 119, 7)',--}}
+{{--                                            pointBackgroundColor: 'crew-500',--}}
+{{--                                            pointBorderColor: 'crew-500',--}}
+{{--                                            borderWidth: 0--}}
+{{--                                        }--}}
+{{--                                    ]--}}
+{{--                                },--}}
+{{--                                options: {--}}
+{{--                                    scales: {--}}
+{{--                                        yAxes: [{--}}
+{{--                                            ticks: {--}}
+{{--                                                beginAtZero: true--}}
+{{--                                            }--}}
+{{--                                        }],--}}
+{{--                                        xAxes: [{--}}
+{{--                                            barPercentage: 0.5,--}}
+{{--                                            categoryPercentage: 0.5--}}
+{{--                                        }]--}}
+{{--                                    },--}}
+{{--                                    legend: {--}}
+{{--                                        display: true--}}
+{{--                                    },--}}
+{{--                                    responsive: true,--}}
+{{--                                    maintainAspectRatio: false--}}
+{{--                                }--}}
+{{--                            });--}}
+{{--                        });--}}
+{{--                    </script>--}}
+{{--                @endpush--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </div>
 
 @stack('scripts')
