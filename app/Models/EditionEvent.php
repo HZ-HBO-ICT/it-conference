@@ -52,24 +52,4 @@ class EditionEvent extends Model
     {
         return $this->belongsTo(Event::class);
     }
-
-    /**
-     * Synchronize start date of the event to the current date
-     * @return void
-     */
-    public function syncStartDate(): void
-    {
-        $this->start_at = Carbon::today();
-        $this->save();
-    }
-
-    /**
-     * Synchronize end date of the event to the current date
-     * @return void
-     */
-    public function syncEndDate(): void
-    {
-        $this->end_at = Carbon::today();
-        $this->save();
-    }
 }

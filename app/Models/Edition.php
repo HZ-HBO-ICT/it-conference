@@ -102,7 +102,8 @@ class Edition extends Model
         return Attribute::make(
             get: fn() => ($this->state == Edition::STATE_ANNOUNCE
                     || $this->state == Edition::STATE_ENROLLMENT)
-                && $this->getEvent('Company registration')->end_at >= Carbon::now()
+                && (Carbon::now() >= $this->getEvent('Company registration')->start_at
+                    && $this->getEvent('Company registration')->end_at >= Carbon::now())
         );
     }
 
@@ -174,9 +175,6 @@ class Edition extends Model
                 $currentEdition->save();
             }
 
-            // synchronize start date of company registration event to the date of the manual activation
-            $this->getEvent('Company registration')->syncStartDate();
-
             // activate the edition
             $this->state = self::STATE_ANNOUNCE;
             $this->save();
@@ -225,15 +223,5 @@ class Edition extends Model
         return $this->editionEvents
             ->where('event_id', Event::where('name', $name)->first()->id)
             ->first();
-    }
-
-    /**
-     * Synchronize start date of the edition to the current date
-     * @return void
-     */
-    public function syncStartDate(): void
-    {
-        $this->start_at = Carbon::today();
-        $this->save();
     }
 }

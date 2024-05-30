@@ -24,24 +24,6 @@
                     @error('form.name') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
 
-                <!-- Edition State -->
-                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition State</dt>
-                <dd class="sm:col-span-2">
-                    <select wire:model="form.state"
-                            class="mt-1 w-full border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                        <option value="10">Design</option>
-                        @if(Edition::current() == $edition || (!Edition::current() && $edition->configured()))
-                            <option value="20">Registration opened</option>
-                            @if ($edition->getEvent('Presentation request')->start_at < Carbon::today())
-                                <option value="30">Final programme released</option>
-                            @endif
-                            <option value="40">Currently being executed</option>
-                        @endif
-                        <option value="50">Archived</option>
-                    </select>
-                    @error('form.state') <span class="error text-red-500">{{ $message }}</span> @enderror
-                </dd>
-
                 <!-- Edition Start Date -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition Start Date</dt>
                 <dd class="sm:col-span-2">

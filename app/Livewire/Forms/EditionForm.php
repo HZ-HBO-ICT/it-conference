@@ -13,9 +13,6 @@ class EditionForm extends Form
     #[Validate('required')]
     public $name;
 
-    #[Validate('required')]
-    public $state;
-
     #[Validate(['required', 'date'])]
     public $start_at;
 
@@ -38,7 +35,6 @@ class EditionForm extends Form
         $this->edition = $edition;
 
         $this->name = $edition->name;
-        $this->state = $edition->state;
         $this->start_at = $edition->start_at ? $edition->start_at->format('Y-m-d\TH:i:s') : '';
         $this->end_at = $edition->end_at ? $edition->end_at->format('Y-m-d\TH:i:s') : '';
         $this->lecture_duration = $edition->lecture_duration;
@@ -52,18 +48,6 @@ class EditionForm extends Form
      */
     public function update()
     {
-        // If the state was manually changed, perform necessary changes to crucial events responsible for
-        // a particular state of the edition
-        if ($this->state != Edition::whereName($this->name)->first()->state) {
-            if ($this->state == Edition::STATE_ANNOUNCE) {
-                $this->edition->getEvent('Company registration')->syncStartDate();
-            } else if ($this->state == Edition::STATE_ENROLLMENT) {
-                $this->edition->getEvent('Presentation request')->syncEndDate();
-            } else if ($this->state == Edition::STATE_EXECUTION) {
-                $this->edition->syncStartDate();
-            }
-        }
-
         $this->edition->update(
             $this->all()
         );
