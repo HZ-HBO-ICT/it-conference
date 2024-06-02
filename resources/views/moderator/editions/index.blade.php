@@ -47,9 +47,13 @@
                                                         class="text-sm text-gray-500">
                                                         @if($edition->state == Edition::STATE_DESIGN)
                                                             Design
+                                                        @elseif($edition->is_company_registration_opened)
+                                                            Company registration opened
+                                                        @elseif($edition->is_participant_registration_opened)
+                                                            Participant registration opened
                                                         @elseif($edition->state == Edition::STATE_ANNOUNCE)
-                                                            Registration opened
-                                                        @elseif($edition->state == Edition::STATE_ENROLLMENT)
+                                                            Announced
+                                                        @elseif($edition->is_final_programme_released)
                                                             Final programme released
                                                         @elseif($edition->state == Edition::STATE_EXECUTION)
                                                             In progress
@@ -83,17 +87,14 @@
                                                     Edit
                                                 </x-button-link>
 
-                                                <form method="POST" action="{{ route('moderator.editions.destroy', $edition) }}">
-                                                    @csrf
-                                                    @method("DELETE")
-                                                    <x-button>Delete</x-button>
-                                                </form>
+                                                <x-button onclick="Livewire.dispatch('openModal', { component: 'edition.delete-edition-modal', arguments: { edition: {{ $edition }}} })">
+                                                    Delete
+                                                </x-button>
 
-                                                @if(!(Edition::current() == $edition) && $edition->configured())
-                                                    <form method="POST" action="{{ route('moderator.editions.activate', $edition) }}">
-                                                        @csrf
-                                                        <x-button>Activate</x-button>
-                                                    </form>
+                                                @if(Edition::current() != $edition && $edition->configured())
+                                                    <x-button onclick="Livewire.dispatch('openModal', { component: 'edition.activate-edition-modal', arguments: { edition: {{ $edition }}} })">
+                                                        Activate
+                                                    </x-button>
                                                 @endif
                                             </div>
                                         </div>
