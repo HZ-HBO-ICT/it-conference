@@ -102,8 +102,8 @@ class Edition extends Model
         return Attribute::make(
             get: fn() => ($this->state == Edition::STATE_ANNOUNCE
                     || $this->state == Edition::STATE_ENROLLMENT)
-                && (Carbon::now() >= $this->getEvent('Company registration')->start_at
-                    && $this->getEvent('Company registration')->end_at >= Carbon::now())
+                && (Carbon::today() >= $this->getEvent('Company registration')->start_at
+                    && $this->getEvent('Company registration')->end_at >= Carbon::today())
         );
     }
 
