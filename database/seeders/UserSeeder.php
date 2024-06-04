@@ -15,19 +15,29 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password')]);
+            'email' => 'mod@hz.nl',
+            'password' => bcrypt('123')]);
+        $user->markEmailAsVerified();
+        $user->assignRole('event organizer');
 
-        $users = User::factory(5)->create();
+        $users = User::factory(5)
+            ->create()
+            ->each(function ($user) {
+                $user->assignRole('participant');
+            });
         foreach ($users as $user) {
             $presentation = Presentation::factory()->create();
             $user->joinPresentation($presentation, 'speaker');
         }
 
         foreach (Presentation::all() as $presentation) {
-            $users = User::factory(random_int(1, 10))->create();
+            $users = User::factory(random_int(1, 10))
+                ->create()
+                ->each(function ($user) {
+                    $user->assignRole('participant');
+                });
 
             foreach ($users as $user) {
                 $user->joinPresentation($presentation);

@@ -10,21 +10,33 @@ use Illuminate\Auth\Access\Response;
 class CompanyPolicy
 {
     /**
-     * Determine if the user can view company details.
-     *
-     * @param User $user The user instance.
-     * @param Company $company The company instance.
+     * Determine if the user can see the list of companies
+     * @param User $user
      * @return bool
      */
-    public function viewDetails(User $user, Company $company) : bool
+    public function viewAny(User $user): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('view company details')
-                && $company->is_approved;
-        }
+        return $user->can('viewAny company');
+    }
 
-        return false;
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view(User $user, Company $company): bool
+    {
+        return ($user->is_crew || $user->isMemberOf($company))
+            && $user->can('view company');
+    }
+
+    /**
+     * Determine if the user can create a new entity
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user): bool
+    {
+        return $user->can('create company');
     }
 
     /**
@@ -34,16 +46,45 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function editDetails(User $user, Company $company) : bool
+    public function update(User $user, Company $company): bool
     {
+        return ($user->is_crew
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('update company');
+    }
 
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('edit company details')
-                && $company->is_approved;
-        }
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, Company $company): bool
+    {
+        return ($user->is_crew
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('delete company');
+    }
 
-        return false;
+    /**
+     * Determine if the user can view the company's approval status
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function viewRequest(User $user, Company $company): bool
+    {
+        return ($user->is_crew
+                || $user->isMemberOf($company))
+            && $user->can('view company request');
+    }
+
+    /**
+     * Determine if the user can approve the company
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function approveRequest(User $user, Company $company): bool
+    {
+        return $user->is_crew && $user->can('update company request');
     }
 
     /**
@@ -53,15 +94,11 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function viewMembers(User $user, Company $company) : bool
+    public function viewAnyMember(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('view company members')
-                && $company->is_approved;
-        }
-
-        return false;
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can('viewAny company member');
     }
 
     /**
@@ -69,19 +106,13 @@ class CompanyPolicy
      *
      * @param User $user The user instance.
      * @param Company $company The company instance.
-     * @param User $toBeEdited
      * @return bool
      */
-    public function editMember(User $user, Company $company, User $toBeEdited) : bool
+    public function updateMember(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->id != $toBeEdited->id
-                && $user->can('edit company members')
-                && $company->is_approved;
-        }
-
-        return false;
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can('update company member');
     }
 
     /**
@@ -89,37 +120,13 @@ class CompanyPolicy
      *
      * @param User $user The user instance.
      * @param Company $company The company instance.
-     * @param User $toBeDeleted
      * @return bool
      */
-    public function deleteMember(User $user, Company $company, User $toBeDeleted) : bool
+    public function deleteMember(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->id != $toBeDeleted->id
-                && $user->can('delete company members')
-                && $company->is_approved;
-        }
-
-        return false;
-    }
-
-    /**
-     * Determine if the user can view company invitations.
-     *
-     * @param User $user The user instance.
-     * @param Company $company The company instance.
-     * @return bool
-     */
-    public function viewMemberInvitations(User $user, Company $company) : bool
-    {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('view member invitations')
-                && $company->is_approved;
-        }
-
-        return false;
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can('delete company member');
     }
 
     /**
@@ -129,15 +136,25 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function createMemberInvitation(User $user, Company $company) : bool
+    public function createMemberInvitation(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('create member invitation')
-                && $company->is_approved;
-        }
+        return ($user->is_crew
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('create company member invitation');
+    }
 
-        return false;
+    /**
+     * Determine if the user can view company invitations.
+     *
+     * @param User $user The user instance.
+     * @param Company $company The company instance.
+     * @return bool
+     */
+    public function viewAnyMemberInvitation(User $user, Company $company): bool
+    {
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can('viewAny company member invitation');
     }
 
     /**
@@ -147,15 +164,11 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function deleteMemberInvitation(User $user, Company $company) : bool
+    public function deleteMemberInvitation(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('delete member invitation')
-                && $company->is_approved;
-        }
-
-        return false;
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can('delete company member invitation');
     }
 
     /**
@@ -165,15 +178,11 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function requestDelete(User $user, Company $company) : bool
+    public function requestDelete(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can('request company delete')
-                && $company->is_approved;
-        }
-
-        return false;
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can('create company delete request');
     }
 
     /**
@@ -183,14 +192,10 @@ class CompanyPolicy
      * @param Company $company The company instance.
      * @return bool
      */
-    public function viewRequests(User $user, Company $company) : bool
+    public function viewRequests(User $user, Company $company): bool
     {
-        if ($user->company) {
-            return $user->company->id == $company->id
-                && $user->can(['create booth request', 'create sponsorship request'])
-                && $company->is_approved;
-        }
-
-        return false;
+        return ($user->is_crew
+            || $user->isMemberOf($company) && $company->is_approved)
+                && $user->can(['view booth request', 'view sponsorship request', 'view company delete request']);
     }
 }

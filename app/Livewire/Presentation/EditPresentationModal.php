@@ -31,11 +31,13 @@ class EditPresentationModal extends ModalComponent
      */
     public function save()
     {
+        $this->authorize('update', $this->presentation);
+
         $this->validate();
 
         $this->form->update();
 
-        if (Auth::user()->presenter_of->id == $this->presentation->id) {
+        if (Auth::user()->presenter_of) {
             return redirect(route('presentations.show', $this->presentation))
                 ->with('status', 'Presentation successfully updated.');
         } else {

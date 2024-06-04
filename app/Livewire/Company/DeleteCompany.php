@@ -2,16 +2,18 @@
 
 namespace App\Livewire\Company;
 
-use App\Models\Company;
-use Illuminate\View\View;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class DeleteCompany extends Component
 {
-    public Company $company;
+
+    public $company;
 
     /**
-     * Called when initializing the component
+     * Triggered when initializing the component
      * @param $company
      * @return void
      */

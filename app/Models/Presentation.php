@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Presentation extends Model
 {
@@ -105,5 +106,34 @@ class Presentation extends Model
                     ->where('role', 'speaker');
             })->get(),
         );
+    }
+
+    /**
+     * Definition of the `remaining_capacity` attribute that shows the amount
+     * of participants that currently can enroll the presentation
+     *
+     * @return Attribute
+     */
+    public function remainingCapacity()
+    {
+        return Attribute::make(
+            get: fn() => $this->max_participants - $this->participants->count(),
+        );
+    }
+
+    /**
+     * Handle a (dis)approval of this Presentation.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleApproval(bool $isApproved): void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->save();
+        } else {
+            $this->delete();
+        }
     }
 }

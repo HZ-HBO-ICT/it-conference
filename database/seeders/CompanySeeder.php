@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserPresentation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class CompanySeeder extends Seeder
 {
@@ -19,12 +20,21 @@ class CompanySeeder extends Seeder
     {
         $companies = Company::factory(5)
             ->has(Booth::factory(1))
-            ->has(User::factory(3))
-            ->create();
+            ->has(User::factory(1)->afterCreating(function ($user) {
+                $role = Role::findByName('company representative');
+                $user->assignRole($role);
+            }))->create();
         $this->setPresentation($companies);
 
         $company = Company::factory()->hasSponsorship('gold')
-            ->has(User::factory(2))
+            ->has(User::factory(1)->afterCreating(function ($user) {
+                $role = Role::findByName('company representative');
+                $user->assignRole($role);
+            }))
+            ->has(User::factory(1)->afterCreating(function ($user) {
+                $role = Role::findByName('company member');
+                $user->assignRole($role);
+            }))
             ->create();
 
         foreach ($company->users as $user) {
@@ -35,11 +45,17 @@ class CompanySeeder extends Seeder
         }
 
         $companies = Company::factory(3)->hasSponsorship('silver')
-            ->has(User::factory(3))->create();
+            ->has(User::factory(1)->afterCreating(function ($user) {
+                $role = Role::findByName('company representative');
+                $user->assignRole($role);
+            }))->create();
         $this->setPresentation($companies);
 
         $companies = Company::factory(5)->hasSponsorship('bronze')
-            ->has(User::factory(3))->create();
+            ->has(User::factory(1)->afterCreating(function ($user) {
+                $role = Role::findByName('company representative');
+                $user->assignRole($role);
+            }))->create();
         $this->setPresentation($companies);
     }
 

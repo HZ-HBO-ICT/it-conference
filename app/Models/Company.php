@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Permission\Models\Role;
 
 class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'website', 'postcode',
-        'house_number', 'street', 'city', 'logo_path', 'phone_number'];
+    protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved',
+        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved'];
 
     /**
      * Establishes a relationship between the company and
@@ -128,7 +129,7 @@ class Company extends Model
      * Checks if the company is HZ University of Applied Sciences
      * @return Attribute
      */
-    public function isHz() : Attribute
+    public function isHz(): Attribute
     {
         return Attribute::make(
             get: function () {
@@ -150,6 +151,7 @@ class Company extends Model
 
     /**
      * Calculates how many presentations does the company have left
+     *
      * @return Attribute
      */
     public function hasPresentationsLeft(): Attribute
@@ -157,8 +159,50 @@ class Company extends Model
         return Attribute::make(
             get: function () {
                 $max_presentations = $this->is_gold_sponsor ? 2 : 1;
-                return $this->is_approved && $this->presentations->count() < $max_presentations;
+                return $this->is_approved && $this->presentations->count() < $max_presentations
+                    || $this->isHz;
             }
         );
+    }
+
+    /**
+     * Handle a (dis)approval of this Teams request to join the conference.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleCompanyApproval(bool $isApproved): void
+    {
+        if ($isApproved) {
+            $this->is_approved = true;
+            $this->save();
+        } else {
+            $participantRole = Role::findByName('participant', 'web');
+            foreach ($this->users as $user) {
+                $user->syncRoles($participantRole);
+            }
+            $this->delete();
+        }
+    }
+
+    /**
+     * Handle a (dis)approval of this Teams request for a sponsorship.
+     *
+     * @param bool $isApproved
+     * @return void
+     */
+    public function handleSponsorshipApproval(bool $isApproved): void
+    {
+        if ($isApproved) {
+            $this->is_sponsorship_approved = true;
+            $this->save();
+/*
+            if ($this->sponsorship->leftSpots() == 0)
+                $this->sponsorship->rejectAllExceptApproved();*/
+        } else {
+            $this->is_sponsorship_approved = null;
+            $this->sponsorship_id = null;
+            $this->save();
+        }
     }
 }
