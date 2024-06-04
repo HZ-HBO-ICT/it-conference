@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Crew;
 
+use App\Http\Controllers\Controller;
 use App\Models\Edition;
 use App\Models\EditionEvent;
 use Illuminate\Http\RedirectResponse;

@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\EditionController;
-use App\Http\Controllers\EditionEventController;
 use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
+use App\Http\Controllers\Crew\EditionController;
+use App\Http\Controllers\Crew\EditionEventController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
@@ -14,10 +14,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
-// use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
+
+// use App\Http\Controllers\ProgrammeController;
 
 /*Route::middleware([
     'auth:sanctum',
