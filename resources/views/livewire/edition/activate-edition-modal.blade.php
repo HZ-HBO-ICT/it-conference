@@ -19,9 +19,9 @@
                                 : ''}}">
             @csrf
             @method('POST')
-            <x-danger-button class="ml-3" type="submit">
+            <x-button class="ml-3" type="submit">
                 {{ __('Activate Edition') }}
-            </x-danger-button>
+            </x-button>
         </form>
     </x-slot>
 </x-livewire-modal>

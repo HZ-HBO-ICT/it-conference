@@ -12,7 +12,6 @@
                 <x-slot name="description">
                     <div class="text-sm text-gray-600 dark:text-gray-200">
                         <p>{{ __('Manually add a new edition.') }}</p>
-                        <p>{{ __('Default state for the edition is Design. You can change it later after you configure all deadlines.') }}</p>
                         <p>{{ __('If you do not know the exact dates of the edition yet, you can leave the fields blank and fill them in later.') }}</p>
                     </div>
                 </x-slot>
@@ -21,7 +20,7 @@
                     <div class="pr-5">
                         <form method="POST" action="{{ route('moderator.editions.store') }}">
                             @csrf
-                            <div class="col-span-6 sm:col-span-4">
+                            <div class="col-span-6 sm:col-span-4 pb-4">
                                 <x-label for="name" value="Name" class="after:content-['*'] after:text-red-500"/>
                                 <x-input
                                     id="name"
@@ -31,17 +30,6 @@
                                     class="mt-1 block w-full"
                                 />
                                 <x-input-error for="name" class="mt-2"/>
-                            </div>
-                            <div class="col-span-6 sm:col-span-4 py-4">
-                                <x-label for="state" value="State"/>
-                                <x-input type="text"
-                                         id="state"
-                                         name="state"
-                                         value="Design"
-                                         disabled
-                                         class="mt-1 block w-full"
-                                />
-                                <x-input-error for="state" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
                                 <x-label for="start_at" value="Start Date"/>
@@ -67,7 +55,7 @@
                                 />
                                 <x-input-error for="end_at" class="mt-2"/>
                             </div>
-                            <div class="col-span-6 sm:col-span-4 py-4">
+                            <div class="col-span-6 sm:col-span-4 pb-4">
                                 <x-label for="lecture_duration" value="Lecture Duration"/>
                                 <x-input type="number"
                                          id="lecture_duration"
@@ -78,7 +66,7 @@
                                 />
                                 <x-input-error for="lecture_duration" class="mt-2"/>
                             </div>
-                            <div class="col-span-6 sm:col-span-4 py-4">
+                            <div class="col-span-6 sm:col-span-4 pb-4">
                                 <x-label for="workshop_duration" value="Workshop Duration"/>
                                 <x-input type="number"
                                          id="workshop_duration"

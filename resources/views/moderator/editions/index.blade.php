@@ -36,7 +36,7 @@
                                                 <div class="ml-2 flex-grow">
                                                     <div class="flex gap-4 items-center">
                                                         <strong>{{ $edition->name }}</strong>
-                                                        @if (Edition::current()->id == $edition->id)
+                                                        @if (Edition::current() == $edition)
                                                             <div
                                                                 class="px-3 py-1 border rounded-full border-emerald-400 border-dashed text-xs font-montserrat text-emerald-400 tracking-wider">
                                                                 ACTIVE
@@ -91,7 +91,7 @@
                                                     Delete
                                                 </x-button>
 
-                                                @if(Edition::current()->id != $edition->id && $edition->configured())
+                                                @if((!Edition::current() || Edition::current()->id != $edition->id) && $edition->configured())
                                                     <x-button onclick="Livewire.dispatch('openModal', { component: 'edition.activate-edition-modal', arguments: { edition: {{ $edition }}} })">
                                                         Activate
                                                     </x-button>
