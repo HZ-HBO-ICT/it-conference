@@ -9,13 +9,14 @@ use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\HubController;
+use App\Http\Controllers\Hub\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
-// use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
+
+// use App\Http\Controllers\ProgrammeController;
 
 /*Route::middleware([
     'auth:sanctum',
@@ -77,8 +78,10 @@ Route::middleware([
 ])->group(function () {
     Route::prefix('/my')->group(function () {
         Route::get('/', [HubController::class, 'dashboard'])->name('dashboard');
-        Route::get('/company/details', [HubController::class, 'companyDetails'])->name('company.details');
-        Route::get('/company/requests', [HubController::class, 'companyRequests'])->name('company.requests');
+        Route::get('/company/details', [\App\Http\Controllers\Hub\CompanyController::class, 'details'])
+            ->name('company.details');
+        Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
+            ->name('company.requests');
     });
 });
 //
