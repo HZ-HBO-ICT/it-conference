@@ -67,10 +67,10 @@ class InvitationController extends Controller
             'email' => $input['email'],
             'company_id' => $invitation->company->id,
             'password' => Hash::make($input['password']),
-            'email_verified_at' => now()->timestamp
         ]);
 
-        $user->assignRole($invitation->role);
+        $user->markEmailAsVerified();
+        $user->assignRole([$invitation->role, 'participant']);
 
         $this->guard->login($user);
 
