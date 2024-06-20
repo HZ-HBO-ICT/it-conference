@@ -16,8 +16,6 @@ class AddMember extends Component
 
     #[Validate('required|unique:users')]
     public string $email;
-    #[Validate('required')]
-    public string $currentRole;
 
     /**
      * Called when initializing the component
@@ -38,12 +36,11 @@ class AddMember extends Component
 
         $invitation = $this->company->invitations()->create([
             'email' => $this->email,
-            'role' => $this->currentRole,
+            'role' => 'company member'
         ]);
 
         Mail::to($this->email)->send(new CustomTeamInvitation($invitation));
 
-        $this->currentRole = '';
         $this->email = '';
 
         $this->company = $this->company->refresh();
