@@ -61,16 +61,6 @@ Route::view('/contact', 'contact')->name('contact');
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 //
 //
-Route::get('/speakers/request', [PresentationController::class, 'create'])
-    ->name('speakers.request.presentation');
-Route::post('/speakers/request', [PresentationController::class, 'store'])
-    ->name('speakers.request.process');
-
-Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
-    ->name('presentations.show');
-Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
-    ->name('presentations.destroy');
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -83,6 +73,16 @@ Route::middleware([
         Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
             ->name('company.requests');
     });
+
+    Route::get('/speakers/request', [PresentationController::class, 'create'])
+        ->name('speakers.request.presentation');
+    Route::post('/speakers/request', [PresentationController::class, 'store'])
+        ->name('speakers.request.process');
+
+    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
+        ->name('presentations.show');
+    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+        ->name('presentations.destroy');
 });
 //
 //    //route for my profile in personal hub
