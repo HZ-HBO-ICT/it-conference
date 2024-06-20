@@ -185,7 +185,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function isMemberOf(Company $company): bool
     {
-        return $company && $this->company && $this->company->id = $company->id;
+        return $company && $this->company && $this->company->id == $company->id;
     }
 
     /**
