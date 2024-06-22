@@ -75,9 +75,9 @@ Route::middleware([
     });
 
     Route::get('/speakers/request', [PresentationController::class, 'create'])
-        ->name('speakers.request.presentation');
+        ->name('presentations.create');
     Route::post('/speakers/request', [PresentationController::class, 'store'])
-        ->name('speakers.request.process');
+        ->name('presentations.store');
 
     Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
         ->name('presentations.show');

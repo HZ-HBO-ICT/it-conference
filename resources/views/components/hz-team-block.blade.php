@@ -27,7 +27,7 @@
                 <dd class="pt-4">
                     <div class="grid place-items-center">
                         @can('request', \App\Models\Presentation::class)
-                            <a href="{{route('speakers.request.presentation')}}"
+                            <a href="{{route('presentations.create')}}"
                                class="flex items-center bg-partner-500 hover:bg-partner-400 dark:bg-partner-700 dark:hover:bg-partner-600 text-white dark:text-white font-semibold justify-center py-2 px-4 w-3/4 rounded-lg transition duration-300 ease-in-out">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor"
@@ -71,7 +71,7 @@
                             </svg>
                         </div>
                         <p class="ml-16 pt-3 font-semibold text-md text-gray-500 dark:text-gray-100 overflow-hidden text-ellipsis">
-                            As a member of the HZ team you can <a class="underline" href="{{route('speakers.request.presentation')}}">request a presentation</a> or join one of the existing
+                            As a member of the HZ team you can <a class="underline" href="{{route('presentations.create')}}">request a presentation</a> or join one of the existing
                             presentations shown below.
                         </p>
                     </dt>
