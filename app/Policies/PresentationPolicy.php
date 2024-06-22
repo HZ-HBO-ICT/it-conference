@@ -35,9 +35,13 @@ class PresentationPolicy
             return false;
         }
 
+        if ($user->company && $presentation->company_id == $user->company->id) {
+            return true;
+        }
+
         return $user->is_crew
-                || $user->isPresenterOf($presentation)
-                || EventInstance::current()->is_final_programme_released;
+            || $user->isPresenterOf($presentation)
+            || EventInstance::current()->is_final_programme_released;
     }
 
     /**
@@ -159,5 +163,20 @@ class PresentationPolicy
         }
 
         return $user->canEnroll($presentation);
+    }
+
+    /**
+     * Determines whether the user can become co-speaker to presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function joinAsCospeaker(User $user, Presentation $presentation): bool
+    {
+        return $user->company
+            && $presentation->company
+            && $presentation->company->id == $user->company->id
+            && $user->isDefaultCompanyMember;
     }
 }
