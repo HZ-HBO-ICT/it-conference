@@ -13,7 +13,8 @@ class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path'];
+    protected $fillable =
+        ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path', 'company_id'];
 
     /**
      * Returns the basic validation rules for the model
