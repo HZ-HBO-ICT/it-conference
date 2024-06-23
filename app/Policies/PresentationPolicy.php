@@ -35,9 +35,13 @@ class PresentationPolicy
             return false;
         }
 
-        if ($user->company && $presentation->company_id == $user->company->id) {
-            return true;
-        }
+       if($presentation->company)
+       {
+           // View if the company member hasn't decided their role
+           if ($user->isMemberOf($presentation->company) && $user->isDefaultCompanyMember) {
+               return true;
+           }
+       }
 
         return $user->is_crew
             || $user->isPresenterOf($presentation)

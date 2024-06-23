@@ -194,9 +194,20 @@ class CompanyPolicy
      */
     public function viewRequests(User $user, Company $company): bool
     {
-        return ($user->is_crew
-                || $user->isMemberOf($company) && $company->is_approved)
-            && $user->hasAnyPermission(['view booth request', 'view sponsorship request', 'view company delete request']);
+        // View if the company member hasn't decided their role
+        if ($user->isMemberOf($company) && $user->isDefaultCompanyMember) {
+            return true;
+        }
+
+        $isCrewOrCompanyMember = $user->is_crew || ($user->isMemberOf($company) && $company->is_approved);
+
+        $hasRequiredPermissions = $user->hasAllPermissions([
+                'view booth request',
+                'view sponsorship request',
+                'view company delete request'
+            ]) || $user->hasRole('booth owner');
+
+        return $isCrewOrCompanyMember && $hasRequiredPermissions;
     }
 
     /**
@@ -209,7 +220,7 @@ class CompanyPolicy
     {
         return $user->isMemberOf($company)
             && !$company->booth
-            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web') )
+            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
             && $user->can('create booth request');
     }
 

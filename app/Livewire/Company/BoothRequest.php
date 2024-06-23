@@ -6,6 +6,7 @@ use App\Models\Booth;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class BoothRequest extends Component
@@ -52,6 +53,7 @@ class BoothRequest extends Component
                 ]
             );
 
+            Auth::user()->assignRole('booth owner');
             $this->additionalInformation = '';
             $this->requestSent = true;
             $this->company->refresh();
