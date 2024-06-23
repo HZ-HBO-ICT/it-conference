@@ -97,8 +97,8 @@ class CompanyPolicy
     public function viewAnyMember(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can('viewAny company member');
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('viewAny company member');
     }
 
     /**
@@ -111,8 +111,8 @@ class CompanyPolicy
     public function updateMember(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can('update company member');
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('update company member');
     }
 
     /**
@@ -125,8 +125,8 @@ class CompanyPolicy
     public function deleteMember(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can('delete company member');
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('delete company member');
     }
 
     /**
@@ -153,8 +153,8 @@ class CompanyPolicy
     public function viewAnyMemberInvitation(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can('viewAny company member invitation');
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('viewAny company member invitation');
     }
 
     /**
@@ -167,8 +167,8 @@ class CompanyPolicy
     public function deleteMemberInvitation(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can('delete company member invitation');
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('delete company member invitation');
     }
 
     /**
@@ -181,8 +181,8 @@ class CompanyPolicy
     public function requestDelete(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can('create company delete request');
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->can('create company delete request');
     }
 
     /**
@@ -195,7 +195,35 @@ class CompanyPolicy
     public function viewRequests(User $user, Company $company): bool
     {
         return ($user->is_crew
-            || $user->isMemberOf($company) && $company->is_approved)
-                && $user->can(['view booth request', 'view sponsorship request', 'view company delete request']);
+                || $user->isMemberOf($company) && $company->is_approved)
+            && $user->hasAnyPermission(['view booth request', 'view sponsorship request', 'view company delete request']);
+    }
+
+    /**
+     * Determines whether the user can request a booth
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function requestBooth(User $user, Company $company): bool
+    {
+        return $user->isMemberOf($company)
+            && !$company->booth
+            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web') )
+            && $user->can('create booth request');
+    }
+
+    /**
+     * Determine whether the user can request sponsorship
+     *
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function requestSponsorship(User $user, Company $company)
+    {
+        return $user->isMemberOf($company)
+            && $user->can('create sponsorship request')
+            && !$company->sponsorship;
     }
 }
