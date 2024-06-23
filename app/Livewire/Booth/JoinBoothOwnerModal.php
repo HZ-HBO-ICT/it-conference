@@ -19,7 +19,7 @@ class JoinBoothOwnerModal extends ModalComponent
         $this->authorize('becomeBoothOwner', $user->company);
         $user->assignRole('booth owner');
 
-        return redirect(route('dashboard', $this->presentation))
+        return redirect(route('dashboard'))
             ->with('status', 'You successfully became a booth owner.');
     }
 
