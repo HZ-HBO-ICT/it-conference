@@ -70,7 +70,7 @@ class EditDefaultPresentationForm extends Component
             $this->confirmationTimeslotRegeneration = true;
         } else {
             $this->saveChanges();
-            return redirect()->to(route('moderator.schedule.overview'));
+            return redirect()->to(route('moderator.schedule.index'));
         }
     }
 
@@ -88,7 +88,7 @@ class EditDefaultPresentationForm extends Component
             $this->confirmationTimeslotRegeneration = true;
         } else {
             $this->saveChanges();
-            return redirect()->to(route('moderator.schedule.overview'));
+            return redirect()->to(route('moderator.schedule.index'));
         }
     }
 
@@ -120,7 +120,7 @@ class EditDefaultPresentationForm extends Component
 
         TimeslotController::generate($startTimeOfNewTimeslots, $endingTimeOfNewTimeslots, $timeslotPadding);
 
-        return redirect()->to(route('moderator.schedule.overview'));
+        return redirect()->to(route('moderator.schedule.index'));
     }
 
     /**

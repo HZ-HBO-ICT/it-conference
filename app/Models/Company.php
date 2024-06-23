@@ -150,6 +150,17 @@ class Company extends Model
     }
 
     /**
+     * Returns if the company is approved sponsor in general
+     * @return Attribute
+     */
+    public function isSponsor(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->sponsorship_id && $this->is_sponsorship_approved ? $this->sponsorship : null
+        );
+    }
+
+    /**
      * Calculates how many presentations does the company have left
      *
      * @return Attribute
@@ -196,9 +207,9 @@ class Company extends Model
         if ($isApproved) {
             $this->is_sponsorship_approved = true;
             $this->save();
-/*
-            if ($this->sponsorship->leftSpots() == 0)
-                $this->sponsorship->rejectAllExceptApproved();*/
+            /*
+                        if ($this->sponsorship->leftSpots() == 0)
+                            $this->sponsorship->rejectAllExceptApproved();*/
         } else {
             $this->is_sponsorship_approved = null;
             $this->sponsorship_id = null;

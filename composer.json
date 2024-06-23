@@ -11,6 +11,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
+        "masmerise/livewire-toaster": "^2.2",
         "propaganistas/laravel-phone": "^5.2",
         "spatie/laravel-permission": "^6.4",
         "wire-elements/modal": "^2.0"

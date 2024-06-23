@@ -57,7 +57,7 @@ class ReplacePresentation extends Component
         $this->presentationToBeReplaced->participants()->detach();
         $this->presentationToBeReplaced->save();
 
-        return redirect()->to(route('moderator.schedule.overview'));
+        return redirect()->to(route('moderator.schedule.index'));
     }
 
     /**
