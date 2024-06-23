@@ -274,6 +274,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::make(
             get: fn() => $this->hasExactRoles(['participant', 'company member'])
             && $this->company
-            && is_null($this->presenter_of));
+            && is_null($this->presenter_of)
+        );
     }
 }

@@ -32,7 +32,6 @@ class JoinAsSpeakerModal extends ModalComponent
 
         return redirect(route('presentations.show', $this->presentation))
             ->with('status', 'Presentation successfully updated.');
-
     }
 
     /**
