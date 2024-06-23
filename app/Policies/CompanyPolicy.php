@@ -237,4 +237,18 @@ class CompanyPolicy
             && $user->can('create sponsorship request')
             && !$company->sponsorship;
     }
+
+    /**
+     * Determines whether the user can join the booth owners
+     * @param User $user
+     * @param Company $company
+     * @return bool
+     */
+    public function becomeBoothOwner(User $user, Company $company): bool
+    {
+        return $user->isMemberOf($company)
+            && $company->booth
+            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
+            && $user->can('create booth request');
+    }
 }
