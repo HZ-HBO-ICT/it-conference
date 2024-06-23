@@ -37,7 +37,8 @@ class Presentation extends Component
      */
     protected function calculateHeightInREM()
     {
-        return $this->presentation->duration * (14 / 30) * 0.25;
+        // Keep in mind previous formula was $this->presentation->duration * (20 / 30) * 0.25;
+        return $this->presentation->duration * 0.155;
     }
 
     /**
@@ -52,7 +53,7 @@ class Presentation extends Component
 
         $diff = $timeslotStart->copy()->diffInMinutes($presentationStart);
 
-        return $diff * (14 / 30) * 0.25;
+        return $diff * 0.155;
     }
 
     /**

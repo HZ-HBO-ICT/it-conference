@@ -153,6 +153,17 @@ class Presentation extends Model
     }
 
     /**
+     * Returns the speakers' names in a string
+     * @return Attribute
+     */
+    public function speakersName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => implode(', ', $this->speakers->pluck('name')->toArray())
+        );
+    }
+
+    /**
      * Returns the duration of the presentation based on the type
      * @return Attribute
      */

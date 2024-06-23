@@ -1,11 +1,10 @@
 <div
     class="flex overflow-x-auto overflow-y-hidden py-2.5">
     <div class="flex-none w-58 mr-4 pt-2">
-        <div class="mb-4 p-2 border rounded shadow dark:border-gray-800 bg-white dark:bg-gray-900">
-            <h2 class="font-bold text-lg mb-2 text-center bg-crew-500 text-white p-2 rounded dark:bg-crew-700">Unscheduled</h2>
-
-            <div class="mb-4">
-                <h3 class="font-bold text-md mb-2 text-center bg-crew-400 text-white p-1 rounded dark:bg-crew-600">Lectures</h3>
+        <div class="mb-4 p-2">
+            <h2 class="font-bold text-xl mb-2 text-center">Unscheduled</h2>
+            <div class="mb-4 bg-white p-3">
+                <h3 class="font-bold text-lg mb-2 text-center text-crew-300 p-1 rounded">Lectures</h3>
                 <ul class="space-y-1">
                     @foreach ($unscheduledPresentations as $presentation)
                         @if ($presentation->type === 'lecture')
@@ -15,19 +14,29 @@
                                 @dragstart="dragStart"
                                 data-id="{{ $presentation->id }}"
                                 data-room="0"
-                                class="p-2 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
-                            <span>
-                                {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
-                            </span>
+                                class="p-2 h-20 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
+                                <div class="grid grid-cols-1">
+                                    <span class="col-span-1">
+                                        {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                                    </span>
+                                    <span class="text-xs col-span-1">
+                                          {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}
+                                    </span>
+                                    @if($presentation->company)
+                                        <span class="text-xs col-span-1">
+                                          {{ strlen($presentation->company->name) > 29 ? substr($presentation->company->name, 0, 29) . '...' : $presentation->company->name }}
+                                        </span>
+                                    @endif
+                                </div>
                             </li>
                         @endif
                     @endforeach
                 </ul>
             </div>
 
-            <div>
-                <h3 class="font-bold text-md mb-2 text-center bg-crew-400 text-white p-1 rounded dark:bg-crew-600">Workshops</h3>
-                <ul class="space-y-1">
+            <div class="mb-4 bg-white p-3">
+                <h3 class="font-bold text-lg mb-2 text-center text-apricot-peach-400 p-1 rounded">Workshops</h3>
+                <ul class="space-y-1 ">
                     @foreach ($unscheduledPresentations as $presentation)
                         @if ($presentation->type === 'workshop')
                             <li wire:key="task-{{ $presentation->id }}"
@@ -36,10 +45,20 @@
                                 @dragstart="dragStart"
                                 data-id="{{ $presentation->id }}"
                                 data-room="0"
-                                class="p-2 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
-                            <span>
-                                {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
-                            </span>
+                                class="p-2 h-20 bg-apricot-peach-200 rounded shadow hover:bg-apricot-peach-300 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
+                                <div class="grid grid-cols-1">
+                                    <span class="col-span-1">
+                                        {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                                    </span>
+                                    <span class="text-xs col-span-1">
+                                          {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}
+                                    </span>
+                                    @if($presentation->company)
+                                        <span class="text-xs col-span-1">
+                                          {{ strlen($presentation->company->name) > 29 ? substr($presentation->company->name, 0, 29) . '...' : $presentation->company->name }}
+                                        </span>
+                                    @endif
+                                </div>
                             </li>
                         @endif
                     @endforeach
@@ -49,12 +68,14 @@
     </div>
 
     <div class="flex overflow-x-auto w-full py-2.5 shadow-lg overflow-x-auto overflow-y-hidden">
-        <table class="min-w-max bg-white">
-            <thead class="bg-crew-500">
+        <table class="min-w-max bg-white rounded">
+            <thead class="bg-crew-300">
             <tr>
-                <th class="w-32 p-4 text-left text-white border-r border-gray-300 dark:border-gray-900">Time Slot</th>
+                <th class="w-32 p-4 text-center text-white border-r rounded-tl-lg border-gray-300 dark:border-gray-900">
+                    Time Slot
+                </th>
                 @foreach ($rooms as $room)
-                    <th class="w-64 p-4 text-left text-white border-r border-gray-300 dark:border-gray-900m">{{$room->name}}</th>
+                    <th class="w-64 p-4 text-center text-white border-r border-gray-300 dark:border-gray-900m">{{$room->name}}</th>
                 @endforeach
             </tr>
             </thead>
@@ -64,13 +85,13 @@
                     $time = \Carbon\Carbon::parse($timeslot->start);
                     $isHalfHour = $time->format('i') == '30';
                 @endphp
-                <tr class="{{$isHalfHour ? "border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100" : "dark:border-gray-700 dark:bg-gray-700"}} text-gray-700 dark:text-gray-100 h-14 hover:bg-gray-50">
-                    <td class="p-4 h-14 text-left border-r border-gray-300 dark:border-gray-900">{{!$isHalfHour ? $time->format('H:i') : ''}}</td>
+                <tr class=" {{$isHalfHour ? "border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100" : "dark:border-gray-700 dark:bg-gray-700"}} text-gray-700 dark:text-gray-100 h-14 hover:bg-gray-50">
+                    <td class="{{$isHalfHour ? 'text-gray-400' : 'text-gray-600' }} h-14 text-center border-r border-gray-300 dark:border-gray-900">{{$time->format('H:i')}}</td>
                     @foreach ($rooms as $room)
                         <td class="text-left border-r h-14 border-gray-300 dark:border-gray-900 relative overflow-visible">
                             <livewire:schedule.cell wire:key="cell-r-{{ $room->id }}-t-{{$timeslot->id}}"
                                                     :timeslot="$timeslot" :room="$room"
-                                                    />
+                            />
                         </td>
                     @endforeach
                 </tr>
