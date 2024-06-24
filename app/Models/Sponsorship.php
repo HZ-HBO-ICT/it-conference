@@ -11,11 +11,24 @@ class Sponsorship extends Model
     use HasFactory;
 
     /**
+     * Returns the icons/emojis associated with the type of sponsorship
+     * @return string[]
+     */
+    public static function icons()
+    {
+        return [
+            1 => '🥇',
+            2 => '🥈',
+            3 => '🥉'
+        ];
+    }
+
+    /**
      * Establishes the relationship between a sponsorship level
      * and all the companies that have this sponsorship tier
      * @return HasMany
      */
-    public function companies() : HasMany
+    public function companies(): HasMany
     {
         return $this->hasMany(Company::class);
     }
@@ -80,7 +93,7 @@ class Sponsorship extends Model
         foreach ($this->teams as $team) {
             if (!$team->is_sponsor_approved) {
                 //TODO: Once we reach the mail
-/*                Mail::to($team->owner->email)->send(new SponsorshipDisapprovedMailable($team));*/
+                /*                Mail::to($team->owner->email)->send(new SponsorshipDisapprovedMailable($team));*/
 
                 $team->sponsor_tier_id = null;
                 $team->is_sponsor_approved = null;

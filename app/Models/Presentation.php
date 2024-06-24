@@ -175,4 +175,25 @@ class Presentation extends Model
                 : Presentation::$LECTURE_DURATION
         );
     }
+
+    /**
+     * Returns the display name for the presentation (useful in the scheduler)
+     * @param $presentation
+     * @param $maxLength
+     * @return string
+     */
+    public function displayName($maxLength)
+    {
+        $name = $this->name;
+
+        if ($this->company
+            && $this->company->sponsorship
+            && $this->company->is_sponsorship_approved) {
+            $name = Sponsorship::icons()[$this->company->sponsorship_id] . $name;
+        }
+
+        return strlen($name) > $maxLength
+            ? substr($name, 0, $maxLength)
+            . '...' : $name;
+    }
 }

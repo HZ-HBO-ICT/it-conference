@@ -17,7 +17,7 @@
                                 class="p-2 h-20 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
                                 <div class="grid grid-cols-1">
                                     <span class="col-span-1">
-                                        {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                                        {{ $presentation->displayName(20) }}
                                     </span>
                                     <span class="text-xs col-span-1">
                                           {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}
@@ -48,7 +48,7 @@
                                 class="p-2 h-20 bg-apricot-peach-200 rounded shadow hover:bg-apricot-peach-300 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
                                 <div class="grid grid-cols-1">
                                     <span class="col-span-1">
-                                        {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                                        {{ $presentation->displayName(20) }}
                                     </span>
                                     <span class="text-xs col-span-1">
                                           {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}

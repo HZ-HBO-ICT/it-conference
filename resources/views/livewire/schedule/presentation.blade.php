@@ -11,13 +11,10 @@
     style="height: {{ $height }}rem; margin-top: {{$marginTop}}rem;"
 >
     <div class="flex h-full">
-        <!-- Vertical line -->
         <div class="w-2 rounded-tl rounded-bl {{$colors}}"></div>
-        <!-- TODO: Figure out the autoresize of the presentation table; don't forget to reconf the presentation height themselves
-        <!-- Content -->
         <div class="flex flex-col pt-1 ml-2">
             <span>
-                {{ strlen($presentation->name) > 20 ? substr($presentation->name, 0, 20) . '...' : $presentation->name }}
+                {{ $presentation->displayName(20)  }}
             </span>
             <span class="text-xs">
                 {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}
