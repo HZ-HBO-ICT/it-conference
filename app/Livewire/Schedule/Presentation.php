@@ -37,8 +37,7 @@ class Presentation extends Component
      */
     protected function calculateHeightInREM()
     {
-        // Keep in mind previous formula was $this->presentation->duration * (20 / 30) * 0.25;
-        return $this->presentation->duration * 0.155;
+        return $this->presentation->duration * (14 / 30) * 0.25;
     }
 
     /**
@@ -53,7 +52,7 @@ class Presentation extends Component
 
         $diff = $timeslotStart->copy()->diffInMinutes($presentationStart);
 
-        return $diff * 0.155;
+        return $diff * (14 / 30) * 0.25;
     }
 
     /**
@@ -68,18 +67,12 @@ class Presentation extends Component
     }
 
     /**
-     * Decides in what color to color the presentation based on company's sponsorship level
+     * Decides in what color to color the presentation based on the presentation type
      * @return string
      */
     protected function getColors()
     {
-        if ($this->presentation->company) {
-            if ($this->presentation->company->isSponsor) {
-                return 'bg-' . $this->presentation->company->sponsorship->name;
-            }
-        }
-
-        return 'bg-crew-500';
+        return $this->presentation->type == 'lecture' ? 'bg-crew-300' : 'bg-apricot-peach-300';
     }
 
     /**

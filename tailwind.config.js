@@ -24,7 +24,9 @@ export default {
         'bg-silver',
         'bg-bronze',
         'bg-crew-300',
-        'bg-crew-500'
+        'bg-crew-500',
+        'bg-apricot-peach-500',
+        'bg-apricot-peach-300'
     ],
     theme: {
         extend: {

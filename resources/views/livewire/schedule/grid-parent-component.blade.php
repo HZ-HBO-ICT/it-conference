@@ -68,7 +68,7 @@
     </div>
 
     <div class="flex overflow-x-auto w-full py-2.5 shadow-lg overflow-x-auto overflow-y-hidden">
-        <table class="min-w-max bg-white rounded">
+        <table class="h-max min-w-max bg-white rounded">
             <thead class="bg-crew-300">
             <tr>
                 <th class="w-32 p-4 text-center text-white border-r rounded-tl-lg border-gray-300 dark:border-gray-900">
