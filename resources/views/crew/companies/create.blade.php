@@ -33,7 +33,7 @@
                                 >{{old('description')}}</textarea>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="phone_number" value="{{ __('Phone number') }}"></x-label>
+                                <x-label for="phone_number" value="{{ __('Phone number') }}" class="after:content-['(optional)'] after:text-gray-500 after:text-sm"></x-label>
                                 <x-input name="phone_number" type="tel" class="mt-1 block w-full"
                                          value="{{ old('phone_number') }}"></x-input>
                                 @if ($errors->has('phone_number'))
@@ -76,7 +76,7 @@
                                     rounded-md shadow-sm block mt-1 border-r-0 rounded-r-none">https://</span>
                                     <x-input id="website" class="block mt-1 w-full rounded-l-none"
                                              placeholder="www.example.com" type="text" name="website"
-                                             required
+                                             required value="{{ old('website') }}"
                                     />
                                 </div>
                                 <x-input-error for="website" class="mt-2"></x-input-error>

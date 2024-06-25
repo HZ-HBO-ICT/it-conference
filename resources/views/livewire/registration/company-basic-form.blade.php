@@ -47,7 +47,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="companyPhoneNumber" value="{{ __('Company Phone Number') }}"/>
+                    <x-label for="companyPhoneNumber" class="after:content-['(optional)'] after:text-gray-500 after:text-sm"
+                             value="{{ __('Company Phone Number') }}"/>
                     <x-input id="company_phone_number" class="block mt-1 w-full" type="tel" name="companyPhoneNumber" wire:model="companyPhoneNumber"
                     />
                     <div class="text-red-500 mt-1">@error('companyPhoneNumber') {{ $message }} @enderror</div>
