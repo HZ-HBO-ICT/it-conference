@@ -13,7 +13,7 @@
 
 <li class="m-1">
         <a href="{{ empty($param) ? route($route) : route($route, $param) }}"
-       class="relative leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-{{ $roleColour }}-300 dark:hover:text-{{ $roleColour }}-300 dark:text-white {{ $bgColorClass }}">
+       class="relative leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-300 dark:hover:bg-gray-600 dark:hover:text-{{ $roleColour }}-300 dark:text-white {{ $bgColorClass }}">
             @if($badgeText != 0)
                 <div
                     class="absolute bottom-auto left-0 right-auto top-0 z-10 inline-block -translate-y-1/2 -translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 whitespace-nowrap rounded-full bg-red-600 px-2.5 py-1 text-center align-baseline text-xs font-bold leading-none text-white">

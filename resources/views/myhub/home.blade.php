@@ -17,20 +17,6 @@
                     <x-dashboards.crew/>
                 @endif
             </div>
-{{--                <h3 class="leading-6 font-semibold text-xl dark:text-white">Notifications</h3>--}}
-{{--                <dl class="py-11 px-4 bg-crew-500 rounded-lg mt-3">--}}
-{{--                    <!-- Inspirational design for the notification -->--}}
-{{--                    <!-- https://tailwindui.com/components/application-ui/feedback/alerts reverse engineer the one with title: With link on right--}}
-{{--                    You can also use: With actions-->--}}
-{{--                    <!-- TODO: To be reworked to something prettier -->--}}
-{{--                    <div class="px-2 py-2 max-w-7xl mx-auto">--}}
-{{--                        <div class="max-w-4xl mx-auto">--}}
-{{--                            @livewire('notifications-list')--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                </dl>--}}
-            </div>
         </div>
     </div>
 </x-hub-layout>
