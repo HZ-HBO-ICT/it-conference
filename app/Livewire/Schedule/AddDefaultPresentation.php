@@ -4,6 +4,10 @@ namespace App\Livewire\Schedule;
 
 use App\Livewire\Forms\DefaultPresentationForm;
 use App\Models\Room;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
@@ -13,6 +17,11 @@ class AddDefaultPresentation extends ModalComponent
     public $rooms;
     public DefaultPresentationForm $form;
 
+    /**
+     * Initializes the component
+     * @param $type
+     * @return void
+     */
     public function mount($type)
     {
         $this->type = $type;
@@ -20,6 +29,10 @@ class AddDefaultPresentation extends ModalComponent
         $this->form->setType($this->type);
     }
 
+    /**
+     * Saves the data from the form
+     * @return \Illuminate\Contracts\Foundation\Application|Application|RedirectResponse|Redirector|void
+     */
     public function save()
     {
         $this->form->save();
@@ -30,7 +43,11 @@ class AddDefaultPresentation extends ModalComponent
         }
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.schedule.add-default-presentation');
     }
