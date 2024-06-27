@@ -16,8 +16,7 @@
                         Create opening presentation
                     </button>
                 </div>
-            @endif
-            @if(is_null(DefaultPresentation::closing()))
+            @else
                 <div class="w-full">
                     <button class="bg-crew-300 py-2 px-3 border border-crew-400 hover:bg-crew-400 rounded"
                             onclick="Livewire.dispatch('openModal', { component: 'schedule.add-default-presentation', arguments: { type: 'closing' }})">
