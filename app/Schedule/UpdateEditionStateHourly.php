@@ -5,16 +5,17 @@ namespace App\Schedule;
 use App\Models\Edition;
 use Illuminate\Support\Carbon;
 
-class UpdateEditionStateHourly extends UpdateEditionState
+class UpdateEditionStateHourly
 {
     public function __invoke(): void
     {
-        if ($this->edition->end_at <= Carbon::now()) {
-            $this->edition->state = Edition::STATE_ARCHIVE;
-        } else if ($this->edition->start_at <= Carbon::now()) {
-            $this->edition->state = Edition::STATE_EXECUTION;
+        $edition = Edition::current();
+        if ($edition->end_at <= Carbon::now()) {
+            $edition->state = Edition::STATE_ARCHIVE;
+        } else if ($edition->start_at <= Carbon::now()) {
+            $edition->state = Edition::STATE_EXECUTION;
         }
 
-        $this->edition->save();
+        $edition->save();
     }
 }
