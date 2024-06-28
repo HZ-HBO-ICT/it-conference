@@ -8,7 +8,7 @@
         <p class='py-5'>Before continuing to the schedule for all presentations, we need to add an opener and a closer.
                         We don't need all the details right away, but knowing their start and end times is essential.
                         You can add them here!</p>
-        <div class="grid grid-cols-2 w-full">
+        <div class="grid grid-cols-1 w-full">
             @if(is_null(DefaultPresentation::opening()))
                 <div class="w-full">
                     <button class="bg-crew-300 py-2 px-3 border border-crew-400 hover:bg-crew-400 rounded"

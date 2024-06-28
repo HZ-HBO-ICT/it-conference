@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
 
         Room::factory()->count(20)->create();
 
-        $this->call([CompanySeeder::class, UserSeeder::class, TimeslotSeeder::class]);
+        $this->call([CompanySeeder::class, UserSeeder::class]);
     }
 }
