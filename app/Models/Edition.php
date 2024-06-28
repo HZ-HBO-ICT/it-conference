@@ -85,7 +85,7 @@ class Edition extends Model
     }
 
     /**
-     * Get the event's is_final_programme_released value
+     * Check if the final programme is released
      *
      * @return Attribute
      */
@@ -97,6 +97,10 @@ class Edition extends Model
         );
     }
 
+    /**
+     * Check if the company registration is opened
+     * @return Attribute
+     */
     public function isCompanyRegistrationOpened(): Attribute
     {
         return Attribute::make(
@@ -107,6 +111,10 @@ class Edition extends Model
         );
     }
 
+    /**
+     * Check if the participant registration is opened
+     * @return Attribute
+     */
     public function isParticipantRegistrationOpened(): Attribute
     {
         return Attribute::make(
@@ -117,6 +125,10 @@ class Edition extends Model
         );
     }
 
+    /**
+     * Check if requesting presentations is opened
+     * @return Attribute
+     */
     public function isRequestingPresentationOpened(): Attribute
     {
         return Attribute::make(

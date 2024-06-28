@@ -35,6 +35,11 @@ class PresentationPolicy
             return false;
         }
 
+        if (!Edition::current()) {
+            return $user->is_crew
+                || $user->isPresenterOf($presentation);
+        }
+
         return $user->is_crew
             || $user->isPresenterOf($presentation)
             || Edition::current()->is_final_programme_released;
@@ -64,6 +69,11 @@ class PresentationPolicy
             return false;
         }
 
+        if (!Edition::current()) {
+            return $user->is_crew ||
+                $user->isPresenterOf($presentation);
+        }
+        
         return $user->is_crew ||
             (
                 $user->isPresenterOf($presentation)
