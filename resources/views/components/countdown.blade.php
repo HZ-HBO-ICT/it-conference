@@ -3,7 +3,7 @@
 
 @push('scripts')
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('livewire:navigated', () => {
                 const countDownDate = new Date("Nov 15, 2024 9:00:00").getTime();
                 const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
                 let valueElements = [];
@@ -59,6 +59,6 @@
                     }
 
                 }, 1000);
-            });
+            }, { once: true });
     </script>
 @endpush
