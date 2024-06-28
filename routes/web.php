@@ -165,9 +165,8 @@ Route::middleware([
 
     Route::get('/schedule', [ScheduleController::class, 'index'])
         ->name('schedule.index');
-
-    Route::post('/schedule/draft', [ScheduleController::class, 'generate'])
-        ->name('schedule.draft');
+    Route::post('/schedule/reset/{type}', [ScheduleController::class, 'reset'])
+        ->name('schedule.reset');
 
     /*    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
             ->name('schedule.timeslots.create');
