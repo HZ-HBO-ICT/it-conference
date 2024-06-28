@@ -85,10 +85,10 @@
                     $time = \Carbon\Carbon::parse($timeslot->start);
                     $isHalfHour = $time->format('i') == '30';
                 @endphp
-                <tr class=" {{$isHalfHour ? "border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100" : "dark:border-gray-700 dark:bg-gray-700"}} text-gray-700 dark:text-gray-100 h-14 hover:bg-gray-50">
-                    <td class="{{$isHalfHour ? 'text-gray-400' : 'text-gray-600' }} h-14 text-center border-r border-gray-300 dark:border-gray-900">{{$time->format('H:i')}}</td>
+                <tr class=" {{$isHalfHour ? "border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100" : "dark:border-gray-700 dark:bg-gray-700"}} text-gray-700 dark:text-gray-100 h-max hover:bg-gray-50">
+                    <td class="{{$isHalfHour ? 'text-gray-400' : 'text-gray-600' }} h-max text-center border-r border-gray-300 dark:border-gray-900">{{$time->format('H:i')}}</td>
                     @foreach ($rooms as $room)
-                        <td class="text-left border-r h-14 border-gray-300 dark:border-gray-900 relative overflow-visible">
+                        <td class="text-left border-r h-max border-gray-300 dark:border-gray-900 relative overflow-visible">
                             <livewire:schedule.cell wire:key="cell-r-{{ $room->id }}-t-{{$timeslot->id}}"
                                                     :timeslot="$timeslot" :room="$room"
                             />

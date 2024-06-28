@@ -12,7 +12,7 @@
 >
     <div class="flex h-full">
         <div class="w-2 rounded-tl rounded-bl {{$colors}}"></div>
-        <div class="flex flex-col pt-1 ml-2">
+        <div class="flex flex-col pt-1 pb-2 ml-2">
             <span>
                 {{ $presentation->displayName(20)  }}
             </span>
