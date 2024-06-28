@@ -40,6 +40,17 @@ class DefaultPresentationForm extends Form
     }
 
     /**
+     * Sets the details of the default presentation that can be editted
+     * @return void
+     */
+    public function setDetails($presentation): void
+    {
+        $this->name = $presentation->name;
+        $this->description = $presentation->description;
+        $this->room_id = $presentation->room_id;
+    }
+
+    /**
      * Stores the presentation
      * @return void
      */
@@ -62,6 +73,15 @@ class DefaultPresentationForm extends Form
                 $this->all()
             );
         }
+    }
+
+    public function update()
+    {
+        foreach (['name', 'description', 'room_id'] as $field) {
+            $this->validateOnly($field);
+        }
+        $presentation = DefaultPresentation::query()->where('type', '=', $this->type)->first();
+        $presentation->update($this->only('name', 'description', 'room_id'));
     }
 
     /**
