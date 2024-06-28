@@ -25,6 +25,12 @@ class Timeslot extends Model
         return $this->hasMany(Presentation::class);
     }
 
+    /**
+     * Generates the possible timeslots for the schedule
+     * Warning: To be called after present opening and closing
+     * @return void
+     * @throws \Exception
+     */
     public static function generateTimeslots()
     {
         $startTime = DefaultPresentation::opening()->end; // The presentations can start after the opening ends

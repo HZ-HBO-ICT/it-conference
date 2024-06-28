@@ -75,6 +75,11 @@ class DefaultPresentationForm extends Form
         }
     }
 
+    /**
+     * Processes the updates of the default presentation
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update()
     {
         foreach (['name', 'description', 'room_id'] as $field) {
@@ -101,5 +106,4 @@ class DefaultPresentationForm extends Form
 
         return false;
     }
-
 }
