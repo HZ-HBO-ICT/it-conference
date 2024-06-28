@@ -4,7 +4,7 @@
 @push('scripts')
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const countDownDate = new Date("Nov 15, 2024 9:00:00").getTime();
+                const countDownDate = new Date(@json($time->toIso8601String())).getTime();
                 const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
                 let valueElements = [];
                 let labelElements = [];
