@@ -14,7 +14,7 @@
         </x-secondary-button>
 
         <form method="POST"
-              action="{{ Auth::user()->hasRole('content moderator')
+              action="{{ Auth::user()->hasRole('event organizer')
                                 ? route('moderator.editions.activate', $edition)
                                 : ''}}">
             @csrf
