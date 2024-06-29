@@ -45,21 +45,7 @@
                                                     </div>
                                                     <span
                                                         class="text-sm text-gray-500">
-                                                        @if($edition->state == Edition::STATE_DESIGN)
-                                                            Design
-                                                        @elseif($edition->is_company_registration_opened)
-                                                            Company registration opened
-                                                        @elseif($edition->is_participant_registration_opened)
-                                                            Participant registration opened
-                                                        @elseif($edition->state == Edition::STATE_ANNOUNCE)
-                                                            Announced
-                                                        @elseif($edition->is_final_programme_released)
-                                                            Final programme released
-                                                        @elseif($edition->state == Edition::STATE_EXECUTION)
-                                                            In progress
-                                                        @else
-                                                            Archived
-                                                        @endif
+                                                        {{ $edition->displayed_state }}
                                                     </span>
                                                 </div>
                                             </div>
