@@ -73,7 +73,7 @@ class PresentationPolicy
             return $user->is_crew ||
                 $user->isPresenterOf($presentation);
         }
-        
+
         return $user->is_crew ||
             (
                 $user->isPresenterOf($presentation)
@@ -111,7 +111,7 @@ class PresentationPolicy
             return false;
         }
         // Deny if the deadline for requesting has passed or not arrived yet
-        if (Edition::current()->is_requesting_presentation_opened) {
+        if (Edition::current() && Edition::current()->is_requesting_presentation_opened) {
             return false;
         }
         // Deny if the user already is a speaker
