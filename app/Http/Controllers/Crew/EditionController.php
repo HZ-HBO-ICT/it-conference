@@ -26,17 +26,17 @@ class EditionController extends Controller
 
         // determine the state to display on the page
         foreach ($editions as $edition) {
-            if($edition->state == Edition::STATE_DESIGN) {
+            if ($edition->state == Edition::STATE_DESIGN) {
                 $edition['displayed_state'] = 'Design';
-            } elseif($edition->is_company_registration_opened) {
+            } elseif ($edition->is_company_registration_opened) {
                 $edition['displayed_state'] = 'Company registration opened';
-            } elseif($edition->is_participant_registration_opened) {
+            } elseif ($edition->is_participant_registration_opened) {
                 $edition['displayed_state'] = 'Participant registration opened';
-            } elseif($edition->state == Edition::STATE_ANNOUNCE) {
+            } elseif ($edition->state == Edition::STATE_ANNOUNCE) {
                 $edition['displayed_state'] = 'Announced';
-            } elseif($edition->is_final_programme_released) {
+            } elseif ($edition->is_final_programme_released) {
                 $edition['displayed_state'] = 'Final programme released';
-            } elseif($edition->state == Edition::STATE_EXECUTION) {
+            } elseif ($edition->state == Edition::STATE_EXECUTION) {
                 $edition['displayed_state'] = 'In progress';
             } else {
                 $edition['displayed_state'] = 'Archived';
