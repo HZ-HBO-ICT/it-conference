@@ -7,6 +7,7 @@ use App\Models\Edition;
 use App\Models\EditionEvent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class EditionEventController extends Controller
@@ -18,30 +19,12 @@ class EditionEventController extends Controller
      */
     public function index(Edition $edition) : View
     {
+        if (Auth::user()->cannot('view', Edition::class)) {
+            abort(403);
+        }
+
         $events = $edition->editionEvents;
 
         return view('moderator.events.index', compact('edition', 'events'));
-    }
-
-    /**
-     * Returns create form for the events
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('moderator.events.create');
-    }
-
-    /**
-     * Creates new instance of EditionEvent and stores in the database
-     * If contend mod checked the 'default event' checkmark, create a new instance of Event as well and attach it to
-     * @param Request $request data about the event
-     * @return RedirectResponse redirects to index page of events
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        $edition = EditionEvent::create($request->validate(EditionEvent::rules()));
-
-        return redirect(route('moderator.events.index', compact('edition')));
     }
 }

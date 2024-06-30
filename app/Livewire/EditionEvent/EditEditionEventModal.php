@@ -5,6 +5,7 @@ namespace App\Livewire\EditionEvent;
 use App\Livewire\Forms\EditionEventForm;
 use App\Models\Edition;
 use App\Models\EditionEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use LivewireUI\Modal\ModalComponent;
 
@@ -32,6 +33,10 @@ class EditEditionEventModal extends ModalComponent
      */
     public function save()
     {
+        if (Auth::user()->cannot('update', Edition::class)) {
+            abort(403);
+        }
+
         $this->validate();
 
         $this->form->update();

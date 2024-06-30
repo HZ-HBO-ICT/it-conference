@@ -7,6 +7,7 @@ use App\Models\Edition;
 use App\Models\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class EditionController extends Controller
@@ -17,6 +18,10 @@ class EditionController extends Controller
      */
     public function index() : View
     {
+        if (Auth::user()->cannot('viewAny', Edition::class)) {
+            abort(403);
+        }
+
         $editions = Edition::all();
 
         // determine the state to display on the page
@@ -47,6 +52,10 @@ class EditionController extends Controller
      */
     public function create() : View
     {
+        if (Auth::user()->cannot('create', Edition::class)) {
+            abort(403);
+        }
+
         return view('moderator.editions.create');
     }
 
@@ -57,6 +66,10 @@ class EditionController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
+        if (Auth::user()->cannot('create', Edition::class)) {
+            abort(403);
+        }
+
         $edition = Edition::create($request->validate(Edition::rules()));
 
         // attach all the default events to a new edition
@@ -75,6 +88,10 @@ class EditionController extends Controller
      */
     public function activateEdition(Edition $edition) : RedirectResponse
     {
+        if (Auth::user()->cannot('activate', Edition::class)) {
+            abort(403);
+        }
+
         // if all the dates for edition are present, it can be activated
         if ($edition->configured()) {
             $edition->activate();
@@ -91,6 +108,10 @@ class EditionController extends Controller
      */
     public function destroy(Edition $edition) : RedirectResponse
     {
+        if (Auth::user()->cannot('delete', Edition::class)) {
+            abort(403);
+        }
+
         $edition->delete();
 
         return redirect(route('moderator.editions.index'))

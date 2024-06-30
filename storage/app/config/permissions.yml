@@ -5,8 +5,8 @@ roles:
   - participant               # Users that can participate to presentations and workshops
   - company representative    # Company representatives
   - company member            # Company members
-  - event organizer           # Crew member - Manages the Schedule, Users, Companies, Sponsorships, Presentations and Booths
-  - assistant organizer       # Crew member - Like the event organizer, but without the Schedule
+  - event organizer           # Crew member - Manages the Schedule, Users, Editions, Companies, Sponsorships, Presentations and Booths
+  - assistant organizer       # Crew member - Like the event organizer, but without the Schedule and Editions
   - company market supervisor # Crew member - Manages Booths
   - speakers supervisor       # Crew member - Manages Presentations
   - pr lead                   # Crew member - Posting announcements to feed.
@@ -77,3 +77,10 @@ permissions:
     view: [ company representative, event organizer, assistant organizer ]
     create: company representative
     update: [event organizer, assistant organizer]
+  edition:
+    viewAny: event organizer
+    view: event organizer
+    create: event organizer
+    update: event organizer
+    delete: event organizer
+    activate: event organizer
