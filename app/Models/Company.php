@@ -67,6 +67,15 @@ class Company extends Model
     }
 
     /**
+     * Establishes relationship between a company and the attributes of the internships they provide
+     * @return HasMany
+     */
+    public function internshipAttributes(): HasMany
+    {
+        return $this->hasMany(InternshipAttribute::class);
+    }
+
+    /**
      * Returns the status of the company based on the approval status
      * @return Attribute
      */
