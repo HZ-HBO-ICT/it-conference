@@ -3,7 +3,7 @@
 
 @push('scripts')
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('livewire:navigated', () => {
                 const countDownDate = new Date(@json($time->toIso8601String())).getTime();
                 const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
                 let valueElements = [];
@@ -59,6 +59,6 @@
                     }
 
                 }, 1000);
-            });
+            }, { once: true });
     </script>
 @endpush
