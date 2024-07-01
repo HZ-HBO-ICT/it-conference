@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property boolean $is_participant_registration_opened
  * @property boolean $is_company_registration_opened
  * @property boolean $is_requesting_presentation_opened
+ * @property string $displayed_state
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|Edition newModelQuery()
@@ -150,6 +151,34 @@ class Edition extends Model
             ->whereNot('state', '=', self::STATE_DESIGN)
             ->whereNot('state', '=', self::STATE_ARCHIVE)
             ->first();
+    }
+
+    /**
+     * Determine the state to display on the page
+     *
+     * @return Attribute
+     */
+    public function displayedState(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                if ($this->state == Edition::STATE_DESIGN) {
+                    return 'Design';
+                } elseif ($this->is_company_registration_opened) {
+                    return 'Company registration opened';
+                } elseif ($this->is_participant_registration_opened) {
+                    return 'Participant registration opened';
+                } elseif ($this->state == Edition::STATE_ANNOUNCE) {
+                    return 'Announced';
+                } elseif ($this->is_final_programme_released) {
+                    return 'Final programme released';
+                } elseif ($this->state == Edition::STATE_EXECUTION) {
+                    return 'In progress';
+                } else {
+                    return 'Archived';
+                }
+            }
+        );
     }
 
     /**
