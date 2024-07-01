@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('website');
             $table->text('description');
             $table->string('phone_number');
+            $table->text('motivation');
             $table->boolean('is_approved')->default(false);
             $table->unsignedBigInteger('sponsorship_id')->nullable();
             $table->boolean('is_sponsorship_approved')->nullable();
