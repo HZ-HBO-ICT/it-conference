@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Registration;
 
+use Illuminate\View\View;
 use Livewire\Component;
 
 class CompanyInternshipsForm extends Component
@@ -32,7 +33,11 @@ class CompanyInternshipsForm extends Component
         ]);
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.registration.company-internships-form');
     }
