@@ -95,9 +95,8 @@ class CreateNewUser implements CreatesNewUsers
         string $company_phone_number,
         string $company_description,
         string $company_motivation,
-               $attributes
-    ): void
-    {
+        $attributes
+    ): void {
         $company = Company::create([
             'name' => $company_name,
             'postcode' => $company_postcode,
@@ -160,4 +159,3 @@ class CreateNewUser implements CreatesNewUsers
         return $preparedArray;
     }
 }
-

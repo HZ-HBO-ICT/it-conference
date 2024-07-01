@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Registration;
 
+use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -10,7 +11,11 @@ class CompanyMotivationForm extends Component
     #[Validate(['required'])]
     public $motivation;
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.registration.company-motivation-form');
     }
@@ -36,5 +41,4 @@ class CompanyMotivationForm extends Component
             'company_motivation' => $this->motivation,
         ]);
     }
-
 }
