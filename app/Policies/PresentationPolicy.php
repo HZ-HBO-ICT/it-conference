@@ -107,22 +107,25 @@ class PresentationPolicy
         if ($user->cannot('create presentation request')) {
             return false;
         }
+
         // Deny if the deadline for requesting has passed
         if (EventInstance::current()->is_final_programme_released) {
             return false;
         }
+
         // Deny if the user already is a speaker
         if ($user->presenterOf) {
             return false;
         }
 
-        // When the user is not default company member and also not company rep, they should not be denied
-        if (!$user->isDefaultCompanyMember && !$user->hasRole('company representative')) {
-            return false;
-        }
         // When the user is associated to a company, allow only if the user's
         // company has presentations left
         if ($user->company) {
+            // When the user is not default company member and also not company rep, they should be denied
+            if (!$user->isDefaultCompanyMember && !$user->hasRole('company representative')) {
+                return false;
+            }
+
             return $user->company->has_presentations_left;
         }
         // Allow if else
