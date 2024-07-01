@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\Company;
+use App\Models\InternshipAttribute;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -35,10 +36,10 @@ class CreateNewUser implements CreatesNewUsers
             : array_merge($defaultRules, [
                 'company_name' => 'required',
                 'company_description' => 'required',
+                'company_motivation' => 'required',
                 'company_website' => 'required',
                 'company_phone_number' => ['required', 'phone:INTERNATIONAL,NL'],
-                'company_postcode' => ['required',
-                    'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
+                'company_postcode' => ['required'],
                 'company_house_number' => ['required',
                     'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i'],
                 'company_street' => 'required',
@@ -60,7 +61,9 @@ class CreateNewUser implements CreatesNewUsers
                 }
 
                 if (array_key_exists('company_name', $input)) {
-                    $this->createTeam(
+                    $attributes = $this->prepareAttributes($input);
+
+                    $this->createCompany(
                         $user,
                         $input['company_name'],
                         $input['company_postcode'],
@@ -69,7 +72,9 @@ class CreateNewUser implements CreatesNewUsers
                         $input['company_city'],
                         $input['company_website'],
                         $input['company_phone_number'],
-                        $input['company_description']
+                        $input['company_description'],
+                        $input['company_motivation'],
+                        $attributes
                     );
                 }
             });
@@ -79,7 +84,7 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a personal team for the user.
      */
-    protected function createTeam(
+    protected function createCompany(
         User   $user,
         string $company_name,
         string $company_postcode,
@@ -88,8 +93,11 @@ class CreateNewUser implements CreatesNewUsers
         string $company_city,
         string $company_website,
         string $company_phone_number,
-        string $company_description
-    ): void {
+        string $company_description,
+        string $company_motivation,
+               $attributes
+    ): void
+    {
         $company = Company::create([
             'name' => $company_name,
             'postcode' => $company_postcode,
@@ -99,11 +107,57 @@ class CreateNewUser implements CreatesNewUsers
             'website' => $company_website,
             'description' => $company_description,
             'phone_number' => $company_phone_number,
+            'motivation' => $company_motivation,
             'personal_team' => false,
         ]);
 
+        $this->storeInternshipAttributes($attributes, $company);
         $user->company()->associate($company);
         $user->assignRole('company representative');
         $user->save();
     }
+
+    /**
+     * Stores the internship details as attributes
+     * @param $key
+     * @param $array
+     * @param $company
+     * @return void
+     */
+    public function storeInternshipAttributes($attributes, $company)
+    {
+        foreach (array_keys($attributes) as $key) {
+            foreach ($attributes[$key] as $attribute) {
+                InternshipAttribute::create([
+                    'key' => $key,
+                    'value' => $attribute,
+                    'company_id' => $company->id
+                ]);
+            };
+        }
+    }
+
+    /**
+     * Prepares the raw array from the request body to become more suitable for creation
+     * @param $array
+     * @return array
+     */
+    public function prepareAttributes($array)
+    {
+        $preparedArray = [];
+        $mapping = [
+            'company_internship_years' => 'year',
+            'company_internship_tracks' => 'track',
+            'company_internship_languages' => 'language',
+        ];
+
+        foreach ($mapping as $sourceKey => $destinationKey) {
+            if (array_key_exists($sourceKey, $array)) {
+                $preparedArray[$destinationKey] = array_values($array[$sourceKey]);
+            }
+        }
+
+        return $preparedArray;
+    }
 }
+
