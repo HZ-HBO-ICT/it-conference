@@ -18,7 +18,6 @@ class CompanyBasicForm extends Component
     public string $companyWebsite;
 
     #[Validate('phone:INTERNATIONAL,NL', message: 'Invalid phone number')]
-    #[Validate('required')]
     public string $companyPhoneNumber;
 
     /**
