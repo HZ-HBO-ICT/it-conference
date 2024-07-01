@@ -13,8 +13,8 @@ class Presentation extends Model
 {
     use HasFactory;
 
-    protected $fillable =
-        ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path', 'company_id'];
+    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
+        'company_id', 'room_id', 'timeslot_id', 'start'];
 
     /**
      * Returns the basic validation rules for the model
@@ -30,6 +30,20 @@ class Presentation extends Model
             'difficulty_id' => 'required',
         ];
     }
+
+    /**
+     * Hard-coding the duration of the lectures
+     * TODO: Once the metatables get added rework this to retrieve data from there
+     * @var int
+     */
+    public static $LECTURE_DURATION = 30;
+
+    /**
+     * Hard-coding the duration of the workshops
+     * TODO: Once the metatables get added rework this to retrieve data from there
+     * @var int
+     */
+    public static $WORKSHOP_DURATION = 90;
 
     /**
      * Establishes a relationship between the presentation
@@ -136,5 +150,18 @@ class Presentation extends Model
         } else {
             $this->delete();
         }
+    }
+
+    /**
+     * Returns the duration of the presentation based on the type
+     * @return Attribute
+     */
+    public function duration(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->type == 'workshop'
+                ? Presentation::$WORKSHOP_DURATION
+                : Presentation::$LECTURE_DURATION
+        );
     }
 }

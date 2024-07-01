@@ -36,7 +36,7 @@ class CreateNewUser implements CreatesNewUsers
                 'company_name' => 'required',
                 'company_description' => 'required',
                 'company_website' => 'required',
-                'company_phone_number' => ['required', 'phone:INTERNATIONAL,NL'],
+                'company_phone_number' => ['phone:INTERNATIONAL,NL'],
                 'company_postcode' => ['required',
                     'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
                 'company_house_number' => ['required',

@@ -8,8 +8,11 @@ use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\UserPresentation;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
@@ -24,8 +27,7 @@ class DatabaseSeeder extends Seeder
         Artisan::call('admin:sync-permissions');
 
         Room::factory()->count(20)->create();
-        Timeslot::factory()->count(20)->create();
 
-        $this->call([CompanySeeder::class, UserSeeder::class]);
+        $this->call([CompanySeeder::class, UserSeeder::class, TimeslotSeeder::class]);
     }
 }

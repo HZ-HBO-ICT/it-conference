@@ -1,5 +1,5 @@
 <x-hub-layout>
-    <!-- Rework: Every overview page per type can be made from one component -->
+    <!-- Rework: Every index page per type can be made from one component -->
     <h1 class="text-4xl font-extrabold text-gray-700 dark:text-white ml-4 py-5">Booth requests</h1>
     <div class="pr-12 pl-4">
         <h2 class="text-2xl text-gray-700 dark:text-white">Booths currently awaiting approval</h2>

@@ -166,8 +166,8 @@ Route::middleware([
     )
         ->name('request.presentations.approve');
 
-    Route::get('/schedule/overview', [ScheduleController::class, 'overview'])
-        ->name('schedule.overview');
+    Route::get('/schedule', [ScheduleController::class, 'index'])
+        ->name('schedule.index');
 
     Route::post('/schedule/draft', [ScheduleController::class, 'generate'])
         ->name('schedule.draft');

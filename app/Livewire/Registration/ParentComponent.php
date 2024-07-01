@@ -56,8 +56,8 @@ class ParentComponent extends Component
             $this->showCompanyRepresentativeForm = true;
             $this->showCompanyBasicInfoForm = false;
         } elseif ($formName == 'CompanyLocationInfoForm') {
-            $this->showCompanyLocationInfoForm = true;
-            $this->showCompanyBasicInfoForm = false;
+            $this->showCompanyLocationInfoForm = false;
+            $this->showCompanyBasicInfoForm = true;
         }
     }
 
