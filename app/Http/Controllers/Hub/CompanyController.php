@@ -12,6 +12,7 @@ class CompanyController extends Controller
 
     /**
      * Returns the inner details of the company
+     * 
      * @return View
      */
     public function details()
@@ -26,6 +27,7 @@ class CompanyController extends Controller
 
     /**
      * Returns the requests that the company has made - booth and sponsorship
+     *
      * @return View
      */
     public function requests(): View

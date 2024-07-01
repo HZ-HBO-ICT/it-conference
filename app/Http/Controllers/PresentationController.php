@@ -10,7 +10,8 @@ use Illuminate\View\View;
 class PresentationController extends Controller
 {
     /**
-     * Returns the page to request a presentataion
+     * Returns the page to request a presentation
+     *
      * @return View
      */
     public function create(): View
@@ -24,6 +25,7 @@ class PresentationController extends Controller
 
     /**
      * Processes the request for presentation
+     *
      * @param Request $request
      * @return mixed
      */
@@ -51,6 +53,7 @@ class PresentationController extends Controller
 
     /**
      * Return the basic show page for the presentation
+     *
      * @param Presentation $presentation
      * @return View
      */
