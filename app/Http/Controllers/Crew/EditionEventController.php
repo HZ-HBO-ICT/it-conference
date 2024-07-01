@@ -14,6 +14,7 @@ class EditionEventController extends Controller
 {
     /**
      * Returns the index page of events for the particular edition
+     *
      * @param Edition $edition to retrieve events from
      * @return View
      */

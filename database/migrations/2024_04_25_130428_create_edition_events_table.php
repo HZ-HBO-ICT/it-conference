@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('edition_events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('event_id');
-            $table->unsignedBigInteger('edition_id');
+            $table->foreignId('event_id')->constrained();
+            $table->foreignId('edition_id')->constrained();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->foreign('edition_id')->references('id')->on('editions')->onDelete('cascade');
+//            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+//            $table->foreign('edition_id')->references('id')->on('editions')->onDelete('cascade');
         });
     }
 

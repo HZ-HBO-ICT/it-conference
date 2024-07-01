@@ -14,6 +14,7 @@ class EditionController extends Controller
 {
     /**
      * Returns the landing page
+     *
      * @return View
      */
     public function index() : View
@@ -48,6 +49,7 @@ class EditionController extends Controller
 
     /**
      * Returns create form for the editions
+     *
      * @return View
      */
     public function create() : View
@@ -61,6 +63,7 @@ class EditionController extends Controller
 
     /**
      * Creates new instance of Edition and stores in the database
+     *
      * @param Request $request data about the edition
      * @return RedirectResponse redirects to show page
      */
@@ -83,6 +86,7 @@ class EditionController extends Controller
 
     /**
      * Triggers a function for a specific edition that activates it
+     *
      * @param Edition $edition to activate
      * @return RedirectResponse redirects to the index page
      */
@@ -103,6 +107,7 @@ class EditionController extends Controller
 
     /**
      * Deletes a record of a particular edition in the database
+     *
      * @param Edition $edition
      * @return RedirectResponse redirects to index page
      */

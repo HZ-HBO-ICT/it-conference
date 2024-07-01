@@ -1,3 +1,7 @@
+@php
+    use \App\Models\Edition;
+@endphp
+
 <nav x-data="{ open: false }"
      class="relative z-10">
     <!-- Primary Navigation Menu -->
@@ -29,13 +33,13 @@
                         {{ __('Companies') }}
                     </x-nav-link>
                 </div>
-                {{--@if(\App\Models\Edition::current()->is_final_programme_released)
+                @if(Edition::current() && Edition::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                             {{ __('Programme') }}
                         </x-nav-link>
                     </div>
-                @endif--}}
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>
                         {{ __('FAQ') }}
@@ -134,11 +138,11 @@
                                    :active="request()->routeIs('companies.index')">
                 {{ __('Companies') }}
             </x-responsive-nav-link>
-            {{--@if(\App\Models\Edition::current()->is_final_programme_released)
+            @if(Edition::current() && Edition::current()->is_final_programme_released)
                 <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
-            @endif--}}
+            @endif
             <x-responsive-nav-link wire:navigate.hover href="{{ route('faq') }}" :active="request()->routeIs('faq')">
                 {{ __('FAQ') }}
             </x-responsive-nav-link>

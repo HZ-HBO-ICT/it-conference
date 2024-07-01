@@ -61,10 +61,12 @@
                 </div>
                 <!-- Countdown Timer -->
                 <div class="w-full flex justify-center mt-24">
-                    @if ($edition && \Carbon\Carbon::now() >= $edition->start_at)
-{{--                        <a href="{{route('programme')}}">Programme</a>--}}
-                    @elseif ($edition)
-                        <x-countdown :time="$edition->start_at"/>
+                    @if ($edition)
+                        @if (\Carbon\Carbon::now() >= $edition->start_at)
+{{--                            <a href="{{route('programme')}}">Programme</a>--}}
+                        @else
+                            <x-countdown :time="$edition->start_at"/>
+                        @endif
                     @endif
                 </div>
                 {{--                    <div class="flex flex-row">--}}
