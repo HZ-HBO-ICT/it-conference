@@ -15,7 +15,9 @@ class PresentationController extends Controller
      */
     public function create(): View
     {
-        Auth::user()->can('request', Presentation::class);
+        if (Auth::user()->cannot('request', Presentation::class)) {
+            abort(403);
+        }
 
         return view('presentations.create');
     }
@@ -29,7 +31,9 @@ class PresentationController extends Controller
     {
         $user = Auth::user();
 
-        $user->can('request', Presentation::class);
+        if ($user->cannot('request', Presentation::class)) {
+            abort(403);
+        }
 
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
@@ -52,11 +56,11 @@ class PresentationController extends Controller
      */
     public function show(Presentation $presentation): View
     {
-        if (Auth::user()->can('view', $presentation)) {
-            return view('presentations.show', compact('presentation'));
+        if (Auth::user()->cannot('view', $presentation)) {
+            abort(403);
         }
 
-        abort(403);
+        return view('presentations.show', compact('presentation'));
     }
 
     /**
@@ -64,7 +68,9 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        Auth::user()->can('delete', $presentation);
+        if (Auth::user()->cannot('delete', $presentation)) {
+            abort(403);
+        }
 
         $presentation->delete();
 
