@@ -19,7 +19,7 @@
         <dd class="pt-4">
             <div class="grid place-items-center">
                 @if(Auth::user()->currentTeam->allPresentations->count() < 2)
-                    <a href="{{route('speakers.request.presentation')}}"
+                    <a href="{{route('presentations.create')}}"
                        class="flex items-center bg-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-900 text-gray-600 dark:text-white font-semibold justify-center py-2 px-4 w-3/4 rounded-lg transition duration-300 ease-in-out">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                              class="w-6 h-6 mr-2">

@@ -35,9 +35,16 @@ class PresentationPolicy
             return false;
         }
 
+        if ($presentation->company) {
+            // View if the company member hasn't decided their role
+            if ($user->isMemberOf($presentation->company) && $user->isDefaultCompanyMember) {
+                return true;
+            }
+        }
+
         return $user->is_crew
-                || $user->isPresenterOf($presentation)
-                || EventInstance::current()->is_final_programme_released;
+            || $user->isPresenterOf($presentation)
+            || EventInstance::current()->is_final_programme_released;
     }
 
     /**
@@ -108,6 +115,11 @@ class PresentationPolicy
         if ($user->presenterOf) {
             return false;
         }
+
+        // When the user is not default company member and also not company rep, they should not be denied
+        if (!$user->isDefaultCompanyMember && !$user->hasRole('company representative')) {
+            return false;
+        }
         // When the user is associated to a company, allow only if the user's
         // company has presentations left
         if ($user->company) {
@@ -159,5 +171,20 @@ class PresentationPolicy
         }
 
         return $user->canEnroll($presentation);
+    }
+
+    /**
+     * Determines whether the user can become co-speaker to presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function joinAsCospeaker(User $user, Presentation $presentation): bool
+    {
+        return $user->company
+            && $presentation->company
+            && $presentation->company->id == $user->company->id
+            && $user->isDefaultCompanyMember;
     }
 }

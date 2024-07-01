@@ -11,7 +11,7 @@
             </h2>
         </div>
         <div>
-            <form method="POST" action="{{route('speakers.request.process')}}">
+            <form method="POST" action="{{route('presentations.store')}}">
                 @csrf
                 <div class="max-w-7xl mx-auto py-5 mt-12 sm:px-6 lg:px-8 dark:bg-gray-800 bg-gray-200 rounded">
                     <div class="col-span-6 sm:col-span-4">
