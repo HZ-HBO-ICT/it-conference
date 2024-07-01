@@ -25,27 +25,29 @@ class EditionPolicy
      */
     public function view(User $user): bool
     {
-        return $user->can('view edition');
+        return $user->hasPermissionTo('view edition');
     }
 
     /**
      * Determine whether the user can create an edition
+     *
      * @param User $user
      * @return bool
      */
     public function create(User $user): bool
     {
-        return $user->can('create edition');
+        return $user->hasPermissionTo('create edition');
     }
 
     /**
      * Determine whether the user can update the edition
+     *
      * @param User $user
      * @return bool
      */
     public function update(User $user): bool
     {
-        return $user->can('update edition');
+        return $user->hasPermissionTo('update edition');
     }
 
     /**
@@ -56,16 +58,17 @@ class EditionPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->can('delete edition');
+        return $user->hasPermissionTo('delete edition');
     }
 
     /**
      * Determine whether the user can activate the edition
+     *
      * @param User $user
      * @return bool
      */
     public function activate(User $user): bool
     {
-        return $user->can('activate edition');
+        return $user->hasPermissionTo('activate edition');
     }
 }
