@@ -4,6 +4,7 @@ namespace App\Livewire\Schedule;
 
 use App\Models\Presentation;
 use App\Models\Room;
+use App\Models\Sponsorship;
 use App\Models\Timeslot;
 use Carbon\Carbon;
 use Illuminate\View\View;
@@ -66,7 +67,7 @@ class GridParentComponent extends Component
      * Renders the component
      * @return View
      */
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.schedule.grid-parent-component');
     }

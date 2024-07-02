@@ -153,6 +153,17 @@ class Presentation extends Model
     }
 
     /**
+     * Returns the speakers' names in a string
+     * @return Attribute
+     */
+    public function speakersName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => implode(', ', $this->speakers->pluck('name')->toArray())
+        );
+    }
+
+    /**
      * Returns the duration of the presentation based on the type
      * @return Attribute
      */
@@ -163,5 +174,26 @@ class Presentation extends Model
                 ? Presentation::$WORKSHOP_DURATION
                 : Presentation::$LECTURE_DURATION
         );
+    }
+
+    /**
+     * Returns the display name for the presentation (useful in the scheduler)
+     * @param $presentation
+     * @param $maxLength
+     * @return string
+     */
+    public function displayName($maxLength)
+    {
+        $name = $this->name;
+
+        if ($this->company
+            && $this->company->sponsorship
+            && $this->company->is_sponsorship_approved) {
+            $name = Sponsorship::icons()[$this->company->sponsorship_id] . $name;
+        }
+
+        return strlen($name) > $maxLength
+            ? substr($name, 0, $maxLength)
+            . '...' : $name;
     }
 }

@@ -67,18 +67,12 @@ class Presentation extends Component
     }
 
     /**
-     * Decides in what color to color the presentation based on company's sponsorship level
+     * Decides in what color to color the presentation based on the presentation type
      * @return string
      */
     protected function getColors()
     {
-        if ($this->presentation->company) {
-            if ($this->presentation->company->isSponsor) {
-                return 'bg-' . $this->presentation->company->sponsorship->name;
-            }
-        }
-
-        return 'bg-crew-500';
+        return $this->presentation->type == 'lecture' ? 'bg-crew-300' : 'bg-apricot-peach-300';
     }
 
     /**

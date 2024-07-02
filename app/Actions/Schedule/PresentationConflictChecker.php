@@ -126,7 +126,7 @@ class PresentationConflictChecker
         $firstTimeslot = Timeslot::all()
             ->first();
 
-        return $endTime->lte(Carbon::parse($lastTimeslot->start)->addMinutes(30))
+        return $endTime->lte(Carbon::parse($lastTimeslot->start)->addMinutes($lastTimeslot->duration))
             && Carbon::parse($startTime)->gte(Carbon::parse($firstTimeslot->start));
     }
 }
