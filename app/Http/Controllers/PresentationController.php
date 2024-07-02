@@ -13,7 +13,7 @@ class PresentationController extends Controller
      * Returns the page to request a presentataion
      * @return View
      */
-    public function create() : View
+    public function create(): View
     {
         Auth::user()->can('request', Presentation::class);
 
@@ -27,13 +27,19 @@ class PresentationController extends Controller
      */
     public function store(Request $request)
     {
-        Auth::user()->can('request', Presentation::class);
+        $user = Auth::user();
+
+        $user->can('request', Presentation::class);
 
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
 
-        Auth::user()->joinPresentation($presentation, 'speaker');
-        Auth::user()->refresh();
+        if ($user->company) {
+            $presentation->update(['company_id' => $user->company->id]);
+        }
+
+        $user->joinPresentation($presentation, 'speaker');
+        $user->refresh();
 
         return redirect(route('presentations.show', $presentation))
             ->banner("We successfully received your request to host a {$presentation->type}");
@@ -44,7 +50,7 @@ class PresentationController extends Controller
      * @param Presentation $presentation
      * @return View
      */
-    public function show(Presentation $presentation) : View
+    public function show(Presentation $presentation): View
     {
         if (Auth::user()->can('view', $presentation)) {
             return view('presentations.show', compact('presentation'));

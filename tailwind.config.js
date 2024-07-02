@@ -10,12 +10,21 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './vendor/masmerise/livewire-toaster/resources/views/*.blade.php',
     ],
     safelist: [
         {
             pattern: /max-w-(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
-            variants: ['sm', 'md', 'lg', 'xl', '2xl']
-        }
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        },
+        {
+            pattern: /bg-(sky|orange)-(100|200|300|400|500|600|700|800|900)/,
+        },
+        'bg-gold',
+        'bg-silver',
+        'bg-bronze',
+        'bg-crew-300',
+        'bg-crew-500'
     ],
     theme: {
         extend: {

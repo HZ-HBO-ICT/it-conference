@@ -18,7 +18,7 @@ class PresentationControllerTest extends TestCase
     {
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
-        $this->seed(PermissionSeeder::class);
+        Artisan::call('admin:sync-permissions');
     }
 
     /** @test */

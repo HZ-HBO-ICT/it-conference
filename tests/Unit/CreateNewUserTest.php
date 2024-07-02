@@ -16,6 +16,7 @@ class CreateNewUserTest extends TestCase
     {
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
+        Artisan::call('admin:sync-permissions');
     }
 
     /**

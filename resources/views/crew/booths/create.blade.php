@@ -5,28 +5,27 @@
             {{ __('Create a booth') }}
         </h2>
         <div class="pt-5">
-            <x-action-section>
-                <x-slot name="title">
-                    {{ __('Booth details') }}
-                </x-slot>
-                <x-slot name="description">
-                    <div class="space-y-4 text-gray-800 dark:text-gray-200 text-sm">
-                        <p>Add manually the booth for an already registered company.</p>
-                        <p class="mt-4">Total area sized mentioned in the sponsor packages:</p>
-                        <ul class="list-disc ml-6">
-                            <li>Bronze & Silver - 8 m<sup>2</sup></li>
-                            <li>Golden - 12 m<sup>2</sup></li>
-                        </ul>
-                    </div>
-                </x-slot>
-
-
-                <x-slot name="content">
-                    <div class="pr-5">
-                        <form method="POST" action="{{route('moderator.booths.store')}}">
-                            @csrf
+            <form method="POST" action="{{route('moderator.booths.store')}}">
+                @csrf
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Booth details') }}
+                    </x-slot>
+                    <x-slot name="description">
+                        <div class="space-y-4 text-gray-800 dark:text-gray-200 text-sm">
+                            <p>Add manually the booth for an already registered company.</p>
+                            <p class="mt-4">Total area sized mentioned in the sponsor packages:</p>
+                            <ul class="list-disc ml-6">
+                                <li>Bronze & Silver - 8 m<sup>2</sup></li>
+                                <li>Golden - 12 m<sup>2</sup></li>
+                            </ul>
+                        </div>
+                    </x-slot>
+                    <x-slot name="content">
+                        <div class="pr-5">
                             <div class="col-span-6 sm:col-span-4 ">
-                                <x-label for="company_id" class="after:content-['*'] after:text-red-500" value="{{ __('Company name') }}"></x-label>
+                                <x-label for="company_id" class="after:content-['*'] after:text-red-500"
+                                         value="{{ __('Company name') }}"></x-label>
                                 <x-select name="company_id" class="mt-1 block w-full">
                                     @foreach(Company::whereDoesntHave('booth')
                                                 ->where('is_approved', '=', '1')->get() as $company)
@@ -41,13 +40,15 @@
                                 <x-input-error for="company_id" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
-                                <x-label for="width" class="after:content-['*'] after:text-red-500" value="{{ __('Width') }}"></x-label>
+                                <x-label for="width" class="after:content-['*'] after:text-red-500"
+                                         value="{{ __('Width') }}"></x-label>
                                 <x-input name="width" type="number" class="mt-1 block w-full"
                                          value="{{ old('width') }}"></x-input>
                                 <x-input-error for="width" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
-                                <x-label for="length" class="after:content-['*'] after:text-red-500" value="{{ __('Length') }}"></x-label>
+                                <x-label for="length" class="after:content-['*'] after:text-red-500"
+                                         value="{{ __('Length') }}"></x-label>
                                 <x-input name="length" type="number" class="mt-1 block w-full"
                                          value="{{ old('length') }}"></x-input>
                                 <x-input-error for="length" class="mt-2"></x-input-error>
@@ -60,14 +61,18 @@
                                 >{{old('additional_information')}}</textarea>
                             </div>
                             <div id="calculatedArea" class="mt-2 text-sm text-gray-600 dark:text-gray-400"></div>
-                            <x-button
-                                class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
-                                Create
-                            </x-button>
-                        </form>
-                    </div>
-                </x-slot>
-            </x-action-section>
+                        </div>
+                    </x-slot>
+                    <x-slot name="actions">
+                        <x-button
+                            type="submit"
+                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            Save
+                        </x-button>
+                    </x-slot>
+                </x-action-section>
+            </form>
+
         </div>
     </div>
     <script>

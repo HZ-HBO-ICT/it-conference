@@ -11,9 +11,13 @@
         </div>
         <div class="max-w-7xl mx-auto py-10">
             @if($company->is_approved)
-                @livewire('company.booth-request', ['company' => $company])
-                <x-section-border/>
-                @livewire('company.sponsorship-request', ['company' => $company])
+                @can('requestBooth', $company)
+                    @livewire('company.booth-request', ['company' => $company])
+                    <x-section-border/>
+                @endif
+                @can('requestSponsorship', $company)
+                    @livewire('company.sponsorship-request', ['company' => $company])
+                @endif
             @else
                 <p class="text-md text-gray-900 dark:text-gray-200">
                     You currently cannot request a booth or sponsorship since your company is waiting for approval.

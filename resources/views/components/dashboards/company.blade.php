@@ -1,4 +1,8 @@
+
 <div>
+    @if(Auth::user()->isDefaultCompanyMember)
+        <x-dashboards.blocks.company-role-decider/>
+    @endif
     <!-- TODO: Something with the gold sponsor, will do after reaching requests -->
     {{--@if(Auth::user()->currentTeam->owner->id == Auth::user()->id
                         && Auth::user()->currentTeam->isGoldenSponsor
@@ -25,7 +29,7 @@
                     </a>
                     @if(!Auth::user()->speaker)
                     or
-                        <a href="{{route('speakers.request.presentation')}}"
+                        <a href="{{route('presentations.create')}}"
                            class="text-partner-500">
                             host one yourself
                         </a>

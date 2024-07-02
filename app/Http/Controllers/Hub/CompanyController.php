@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Hub;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -10,7 +11,7 @@ use App\Stats\BoothsStats;
 use App\Stats\PresentationsStats;
 use App\Stats\CompaniesStats;
 
-class HubController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Returns the landing page of the conference hub
@@ -38,7 +39,7 @@ class HubController extends Controller
      * Returns the inner details of the company
      * @return View
      */
-    public function companyDetails()
+    public function details()
     {
         $company = Auth::user()->company;
         if (!$company) {
@@ -52,7 +53,7 @@ class HubController extends Controller
      * Returns the requests that the company has made - booth and sponsorship
      * @return View
      */
-    public function companyRequests(): View
+    public function requests(): View
     {
         $company = Auth::user()->company;
         if (!$company || Auth::user()->cannot('viewRequests', $company)) {

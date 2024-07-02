@@ -10,6 +10,8 @@ use App\Models\Timeslot;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\UserPresentation;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
@@ -21,9 +23,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Artisan::call('admin:upsert-master-data');
+        Artisan::call('admin:sync-permissions');
 
         Room::factory()->count(20)->create();
-        Timeslot::factory()->count(20)->create();
 
         $this->call([CompanySeeder::class, UserSeeder::class, PermissionSeeder::class, StatsSeeder::class]);
     }

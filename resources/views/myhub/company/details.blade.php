@@ -3,10 +3,10 @@
         <h2 class="font-semibold text-2xl px-6 text-gray-800 dark:text-gray-200 leading-tight">
             {{$company->name}} details
         </h2>
-        @can('viewDetails', $company)
+        @can('view', $company)
             <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
                 <div>
-                    @can('editDetails', $company)
+                    @can('update', $company)
                         <h2 class="text-md text-gray-800 dark:text-gray-200 leading-tight pt-3">
                             Here you can manage the company details and the employees that will be present
                             during
@@ -25,7 +25,7 @@
                         @livewire('company.manage-logo', ['company' => $company])
                         <x-section-border/>
                         @livewire('company.details-form', ['company' => $company ])
-                        @can('viewMembers', $company)
+                        @can('viewAnyMember', $company)
                         @livewire('company.member-manager', ['company' => $company])
                         @endcan
                     </div>

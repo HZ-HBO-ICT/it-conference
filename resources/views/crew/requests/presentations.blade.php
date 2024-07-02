@@ -1,5 +1,5 @@
 <x-hub-layout>
-    <!-- Rework: Every overview page per type can be made from one component -->
+    <!-- Rework: Every index page per type can be made from one component -->
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h1 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Presentations') }}

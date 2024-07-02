@@ -31,18 +31,18 @@
                                             <div class="text-gray-900 dark:text-white">{{ $user->name }}</div>
                                         </div>
                                     </div>
-                                    @can('editMember', [$company, $user])
+                                    @can('updateMember', $company)
                                         @php
                                             $updateMemberKey = $user->id . 'um';
                                         @endphp
                                         <livewire:company.update-member-role :user="$user" :key="$updateMemberKey"/>
-                                    @elsecan('viewMembers', $company)
+                                    @elsecan('viewAnyMember', $company)
                                         {{ $user->getRoleNames()->implode(', ') }}
                                     @endcan
                                 </div>
 
                                 <div class="flex items-center">
-                                    @can('deleteMember', [$company, $user])
+                                    @can('deleteMember', $company)
                                         @php
                                             $removeMemberKey = $user->id . 'rm';
                                         @endphp
@@ -56,7 +56,7 @@
             </x-slot>
         </x-action-section>
     </div>
-    @can('viewMemberInvitations', $company)
+    @can('viewAnyMemberInvitation', $company)
         <x-section-border/>
         <livewire:company.add-member :company="$company"/>
     @endcan

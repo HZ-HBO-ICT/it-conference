@@ -47,8 +47,8 @@
 
                     <x-slot name="actions">
                         <x-button
-                            class="bg-purple-600 dark:bg-purple-500 hover:bg-purple-500 dark:hover:bg-purple-600 text-gray-200 dark:text-gray-200">
-                            {{ __('Add') }}
+                            class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            Save
                         </x-button>
                     </x-slot>
                 </x-action-section>

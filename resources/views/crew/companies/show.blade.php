@@ -42,7 +42,7 @@
                     </div>
                 </x-slot>
 
-                @can('editDetails', $company)
+                @can('update', $company)
                     <x-slot name="actions">
                         <x-button
                             onclick="Livewire.dispatch('openModal', { component: 'company.edit-company-modal', arguments: {company: {{$company}}} })">
@@ -80,7 +80,7 @@
 
             <x-section-border/>
 
-            @can('viewApprovalStatus', $company)
+            @can('viewRequest', $company)
                 <x-action-section>
                     <x-slot name="title">
                         {{ __('Company Approval Status') }}
@@ -97,7 +97,7 @@
                         </div>
                     </x-slot>
 
-                    @can('approve', $company)
+                    @can('approveRequest', $company)
                         @if(!$company->is_approved)
                             <x-slot name="actions">
                                 <form method="POST" action="{{ route('moderator.companies.approve', $company) }}"

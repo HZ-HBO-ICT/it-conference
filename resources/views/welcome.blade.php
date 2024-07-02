@@ -20,7 +20,11 @@
                             Annual IT Conference
                         </h2>
                         <h2 class="uppercase font-medium mb-8">
-                            November 15, 2024
+                            @if($edition)
+                                {{ $edition->start_at->format('F j, Y') }}
+                            @else
+                                The date will be provided soon!
+                            @endif
                         </h2>
                         <h2 class="italic">
                             "IT does not only build a bridge, IT involves us all"
@@ -57,7 +61,13 @@
                 </div>
                 <!-- Countdown Timer -->
                 <div class="w-full flex justify-center mt-24">
-                    <x-countdown/>
+                    @if ($edition)
+                        @if (\Carbon\Carbon::now() >= $edition->start_at)
+{{--                            <a href="{{route('programme')}}">Programme</a>--}}
+                        @else
+                            <x-countdown :time="$edition->start_at"/>
+                        @endif
+                    @endif
                 </div>
                 {{--                    <div class="flex flex-row">--}}
                 {{--                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">--}}

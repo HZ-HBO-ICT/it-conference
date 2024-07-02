@@ -22,14 +22,22 @@ class UserSeeder extends Seeder
         $user->markEmailAsVerified();
         $user->assignRole('event organizer');
 
-        $users = User::factory(5)->create();
+        $users = User::factory(5)
+            ->create()
+            ->each(function ($user) {
+                $user->assignRole('participant');
+            });
         foreach ($users as $user) {
             $presentation = Presentation::factory()->create();
             $user->joinPresentation($presentation, 'speaker');
         }
 
         foreach (Presentation::all() as $presentation) {
-            $users = User::factory(random_int(1, 10))->create();
+            $users = User::factory(random_int(1, 10))
+                ->create()
+                ->each(function ($user) {
+                    $user->assignRole('participant');
+                });
 
             foreach ($users as $user) {
                 $user->joinPresentation($presentation);

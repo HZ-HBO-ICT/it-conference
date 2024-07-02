@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->string('file_path', 2048)->nullable()
                 ->comment('Path to the uploaded presentation by the speaker');
             $table->string('file_original_name')->nullable();
+            $table->time('start')->nullable();
 
             $table->unsignedBigInteger('timeslot_id')->nullable();
             $table->unsignedBigInteger('room_id')->nullable();
