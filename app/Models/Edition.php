@@ -161,7 +161,7 @@ class Edition extends Model
     public function displayedState(): Attribute
     {
         return Attribute::make(
-            get: function() {
+            get: function () {
                 if ($this->state == Edition::STATE_DESIGN) {
                     return 'Design';
                 } elseif ($this->is_company_registration_opened) {
