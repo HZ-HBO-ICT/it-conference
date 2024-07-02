@@ -7,8 +7,8 @@
             </x-slot>
 
             <x-slot name="description">
-                Add a new member to your company to represent {{$company->name}} during the IT Conference and choose
-                their role
+                Add a new member to your company to represent {{$company->name}} during the IT Conference. Their role
+                will be determined by the actions they select.
             </x-slot>
 
             <x-slot name="form">
@@ -25,54 +25,6 @@
                              wire:model.defer="email"/>
                     <x-input-error for="email" class="mt-2"/>
                 </div>
-
-                <!-- Role -->
-                @if (count($this->roles) > 0)
-                    <div class="col-span-6 lg:col-span-4">
-                        <x-label for="role" value="{{ __('Role') }}"/>
-                        <x-input-error for="role" class="mt-2"/>
-
-                        <div
-                            class="relative z-0 mt-1 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer">
-                            @foreach ($this->roles as $index => $role)
-                                <button type="button"
-                                        {{is_null($company->booth) && $role['name'] == "booth owner" ? 'disabled' : ''}}
-                                        class="border border-gray-300 relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 {{ $index > 0 ? 'border-t border-gray-200 dark:border-gray-700 focus:border-none rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
-                                        wire:click="$set('currentRole', '{{ $role['name'] }}')">
-                                    <div
-                                        class="{{is_null($company->booth) && $role['name'] == "booth owner" ? 'opacity-50' : ''}} {{ $currentRole !== $role['name'] ? 'opacity-50' : '' }}">
-                                        <!-- Role Name -->
-                                        <div class="flex items-center">
-                                            <div
-                                                class="text-sm text-gray-600 dark:text-gray-400 {{ $currentRole == $role['name'] ? 'font-semibold' : '' }}">
-                                                {{ ucfirst($role['name']) }}
-                                            </div>
-
-                                            @if ($currentRole == $role['name'])
-                                                <svg class="ml-2 h-5 w-5 text-green-400"
-                                                     xmlns="http://www.w3.org/2000/svg"
-                                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                     stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                                </svg>
-                                            @endif
-                                        </div>
-
-                                        <!-- Role Description -->
-                                        <div class="mt-2 text-xs text-gray-600 dark:text-gray-400 text-left">
-                                            {{ $role['description'] }}
-                                            @if(is_null($company->booth) && $role['name'] == "booth owner")
-                                                <br><br>
-                                                * Enabled only if the company gets a booth
-                                            @endif
-                                        </div>
-                                    </div>
-                                </button>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
             </x-slot>
 
             <x-slot name="actions">

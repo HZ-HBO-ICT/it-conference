@@ -64,7 +64,33 @@
 
             <x-section-border/>
 
-            @livewire('presentation.upload-presentation', ['presentation' => $presentation])
+            @if(Auth::user()->isPresenterOf($presentation))
+                @livewire('presentation.upload-presentation', ['presentation' => $presentation])
+            @elseif(Auth::user()->isDefaultCompanyMember)
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Presentation information') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('The detail information about your presentation.') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="dark:text-gray-200">
+                            Since you still don't have a specific role within the company, if you'd like to be a
+                            co-speaker of this presentation, join here.
+                        </div>
+                    </x-slot>
+
+                    <x-slot name="actions">
+                        <x-button class="bg-partner-700 hover:bg-partner-800"
+                            onclick="Livewire.dispatch('openModal', { component: 'presentation.join-as-speaker-modal', arguments: {presentation: {{$presentation}}} })">
+                            {{ __('Join presentation as co-speaker') }}
+                        </x-button>
+                    </x-slot>
+                </x-action-section>
+            @endif
 
             <x-section-border/>
 

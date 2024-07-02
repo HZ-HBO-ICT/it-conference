@@ -11,7 +11,7 @@ use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\HubController;
+use App\Http\Controllers\Hub\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\RegistrationController;
@@ -63,16 +63,6 @@ Route::view('/contact', 'contact')->name('contact');
 //Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
 //
 //
-Route::get('/speakers/request', [PresentationController::class, 'create'])
-    ->name('speakers.request.presentation');
-Route::post('/speakers/request', [PresentationController::class, 'store'])
-    ->name('speakers.request.process');
-
-Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
-    ->name('presentations.show');
-Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
-    ->name('presentations.destroy');
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -80,9 +70,21 @@ Route::middleware([
 ])->group(function () {
     Route::prefix('/my')->group(function () {
         Route::get('/', [HubController::class, 'dashboard'])->name('dashboard');
-        Route::get('/company/details', [HubController::class, 'companyDetails'])->name('company.details');
-        Route::get('/company/requests', [HubController::class, 'companyRequests'])->name('company.requests');
+        Route::get('/company/details', [\App\Http\Controllers\Hub\CompanyController::class, 'details'])
+            ->name('company.details');
+        Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
+            ->name('company.requests');
     });
+
+    Route::get('/speakers/request', [PresentationController::class, 'create'])
+        ->name('presentations.create');
+    Route::post('/speakers/request', [PresentationController::class, 'store'])
+        ->name('presentations.store');
+
+    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
+        ->name('presentations.show');
+    Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
+        ->name('presentations.destroy');
 });
 //
 //    //route for my profile in personal hub
