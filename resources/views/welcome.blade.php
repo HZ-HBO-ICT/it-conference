@@ -11,9 +11,11 @@
                         <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
-                        <h2 class="mt-5 uppercase font-bold text-sm">
-                            Powered by
-                        </h2>
+                        @if($goldSponsorCompany)
+                            <h2 class="mt-5 uppercase font-bold text-sm">
+                                Powered by {{ $goldSponsorCompany->name }}
+                            </h2>
+                        @endif
                     </div>
                     <div class="w-full md:w-1/2 pt-1 text-xl font-montserrat">
                         <h2 class="uppercase font-bold">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Edition;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -15,7 +16,8 @@ class HomeController extends Controller
     public function index() : View
     {
         $edition = Edition::current();
+        $goldSponsorCompany = Company::where('is_approved', 1)->where('sponsorship_id', 1)->where('is_sponsorship_approved', 1)->first();
 
-        return view('welcome', compact('edition'));
+        return view('welcome', compact(['edition', 'goldSponsorCompany']));
     }
 }
