@@ -12,10 +12,7 @@
                         <div class="gradient absolute inset-0"
                              style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
                         <div class="absolute inset-0 flex justify-center items-center" style="z-index: 3">
-                            <h2 class="text-4xl font-bold text-white drop-shadow-md text-center leading-tight">We are in
-                                                                                                               IT
-                                                                                                               together<br>Conference
-                            </h2>
+                            <h2 class="text-4xl font-bold text-white drop-shadow-md text-center leading-tight">We are in IT together<br>Conference</h2>
                         </div>
                     </div>
                 </div>
@@ -64,15 +61,8 @@
                                         <p>Password should be of the following format:</p>
                                         <ul class="pl-5 pt-0.5">
                                             <li>
-                                                <p id="length-false" class="before:content-['✗_'] text-red-500">length
-                                                                                                                is at
-                                                                                                                least 12
-                                                                                                                characters</p>
-
-                                                <p id="length-true" class="hidden before:content-['✓_'] text-green-500">
-                                                    length is at
-                                                    least 12
-                                                    characters</p>
+                                                <p id="length-false" class="before:content-['✗_'] text-red-500">length is at least 12 characters</p>
+                                                <p id="length-true" class="hidden before:content-['✓_'] text-green-500">length is at least 12 characters</p>
                                             </li>
                                         </ul>
                                     </div>

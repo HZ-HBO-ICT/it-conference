@@ -98,7 +98,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('viewAny company member');
+            && $user->hasPermissionTo('viewAny company member');
     }
 
     /**
@@ -112,7 +112,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('update company member');
+            && $user->hasPermissionTo('update company member');
     }
 
     /**
@@ -126,7 +126,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('delete company member');
+            && $user->hasPermissionTo('delete company member');
     }
 
     /**
@@ -140,7 +140,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('create company member invitation');
+            && $user->hasPermissionTo('create company member invitation');
     }
 
     /**
@@ -154,7 +154,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('viewAny company member invitation');
+            && $user->hasPermissionTo('viewAny company member invitation');
     }
 
     /**
@@ -168,7 +168,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('delete company member invitation');
+            && $user->hasPermissionTo('delete company member invitation');
     }
 
     /**
@@ -182,7 +182,7 @@ class CompanyPolicy
     {
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
-            && $user->can('create company delete request');
+            && $user->hasPermissionTo('create company delete request');
     }
 
     /**
@@ -221,7 +221,7 @@ class CompanyPolicy
         return $user->isMemberOf($company)
             && !$company->booth
             && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
-            && $user->can('create booth request');
+            && $user->hasPermissionTo('create booth request');
     }
 
     /**
@@ -234,7 +234,7 @@ class CompanyPolicy
     public function requestSponsorship(User $user, Company $company)
     {
         return $user->isMemberOf($company)
-            && $user->can('create sponsorship request')
+            && $user->hasPermissionTo('create sponsorship request')
             && !$company->sponsorship;
     }
 
@@ -249,6 +249,6 @@ class CompanyPolicy
         return $user->isMemberOf($company)
             && $company->booth
             && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
-            && $user->can('create booth request');
+            && $user->hasPermissionTo('create booth request');
     }
 }

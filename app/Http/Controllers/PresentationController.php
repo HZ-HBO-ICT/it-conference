@@ -10,18 +10,22 @@ use Illuminate\View\View;
 class PresentationController extends Controller
 {
     /**
-     * Returns the page to request a presentataion
+     * Returns the page to request a presentation
+     *
      * @return View
      */
     public function create(): View
     {
-        Auth::user()->can('request', Presentation::class);
+        if (Auth::user()->cannot('request', Presentation::class)) {
+            abort(403);
+        }
 
         return view('presentations.create');
     }
 
     /**
      * Processes the request for presentation
+     *
      * @param Request $request
      * @return mixed
      */
@@ -29,7 +33,9 @@ class PresentationController extends Controller
     {
         $user = Auth::user();
 
-        $user->can('request', Presentation::class);
+        if ($user->cannot('request', Presentation::class)) {
+            abort(403);
+        }
 
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
@@ -47,16 +53,17 @@ class PresentationController extends Controller
 
     /**
      * Return the basic show page for the presentation
+     *
      * @param Presentation $presentation
      * @return View
      */
     public function show(Presentation $presentation): View
     {
-        if (Auth::user()->can('view', $presentation)) {
-            return view('presentations.show', compact('presentation'));
+        if (Auth::user()->cannot('view', $presentation)) {
+            abort(403);
         }
 
-        abort(403);
+        return view('presentations.show', compact('presentation'));
     }
 
     /**
@@ -64,7 +71,9 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        Auth::user()->can('delete', $presentation);
+        if (Auth::user()->cannot('delete', $presentation)) {
+            abort(403);
+        }
 
         $presentation->delete();
 

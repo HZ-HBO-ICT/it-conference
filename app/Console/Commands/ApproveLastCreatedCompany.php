@@ -30,6 +30,5 @@ class ApproveLastCreatedCompany extends Command
     {
         $company = Company::latest()->first();
         $company->update(['is_approved' => 1]);
-        $company->refresh();
     }
 }

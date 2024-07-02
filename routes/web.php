@@ -69,7 +69,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::prefix('/my')->group(function () {
-        Route::get('/', [HubController::class, 'dashboard'])->name('dashboard');
+        Route::view('/', 'myhub.home')->name('dashboard');
         Route::get('/company/details', [\App\Http\Controllers\Hub\CompanyController::class, 'details'])
             ->name('company.details');
         Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
