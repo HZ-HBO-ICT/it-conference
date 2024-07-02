@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Edition;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,6 +14,8 @@ class HomeController extends Controller
      */
     public function index() : View
     {
-        return view('welcome');
+        $edition = Edition::current();
+
+        return view('welcome', compact('edition'));
     }
 }
