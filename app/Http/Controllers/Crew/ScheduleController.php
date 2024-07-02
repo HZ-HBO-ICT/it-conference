@@ -13,6 +13,7 @@ class ScheduleController extends Controller
 {
     /**
      * Returns the page with general management overview of the schedule
+     *
      * @return View
      */
     public function index(): View
@@ -24,6 +25,7 @@ class ScheduleController extends Controller
      * Responsible for resetting the schedule based on the type
      * $type == 'full' - removing all scheduling from the presentation; removing the timeslots and the opening/closing
      * $type == 'scheduled' - removing all scheduling from the presentation
+     *
      * @param $type
      * @return mixed
      */

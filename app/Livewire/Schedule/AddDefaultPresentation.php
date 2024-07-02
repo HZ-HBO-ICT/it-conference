@@ -21,6 +21,7 @@ class AddDefaultPresentation extends ModalComponent
 
     /**
      * Initializes the component
+     *
      * @param $type
      * @return void
      */
@@ -33,6 +34,7 @@ class AddDefaultPresentation extends ModalComponent
 
     /**
      * Saves the data from the form
+     *
      * @return \Illuminate\Contracts\Foundation\Application|Application|RedirectResponse|Redirector|void
      */
     public function save()
@@ -51,6 +53,7 @@ class AddDefaultPresentation extends ModalComponent
 
     /**
      * Renders the component
+     *
      * @return View
      */
     public function render(): View
