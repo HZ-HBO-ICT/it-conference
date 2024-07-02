@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Models\DefaultPresentation;
+use App\Models\Presentation;
+use App\Models\Timeslot;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -10,10 +13,40 @@ class ScheduleController extends Controller
 {
     /**
      * Returns the page with general management overview of the schedule
+     *
      * @return View
      */
-    public function index() : View
+    public function index(): View
     {
         return view('crew.schedule.index');
+    }
+
+    /**
+     * Responsible for resetting the schedule based on the type
+     * $type == 'full' - removing all scheduling from the presentation; removing the timeslots and the opening/closing
+     * $type == 'scheduled' - removing all scheduling from the presentation
+     *
+     * @param $type
+     * @return mixed
+     */
+    public function reset($type)
+    {
+        Presentation::query()->update([
+            'room_id' => null,
+            'timeslot_id' => null,
+            'start' => null
+        ]);
+
+        if ($type == 'full') {
+            DefaultPresentation::truncate();
+
+            // Truncate does not work when model is FK
+            foreach (Timeslot::all() as $timeslot) {
+                $timeslot->delete();
+            }
+        }
+
+        return redirect(route('moderator.schedule.index'))
+            ->banner('You reset the schedule successfully.');
     }
 }

@@ -70,7 +70,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::prefix('/my')->group(function () {
-        Route::get('/', [HubController::class, 'dashboard'])->name('dashboard');
+        Route::view('/', 'myhub.home')->name('dashboard');
         Route::get('/company/details', [\App\Http\Controllers\Hub\CompanyController::class, 'details'])
             ->name('company.details');
         Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
@@ -171,9 +171,8 @@ Route::middleware([
 
     Route::get('/schedule', [ScheduleController::class, 'index'])
         ->name('schedule.index');
-
-    Route::post('/schedule/draft', [ScheduleController::class, 'generate'])
-        ->name('schedule.draft');
+    Route::post('/schedule/reset/{type}', [ScheduleController::class, 'reset'])
+        ->name('schedule.reset');
 
     /*    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
             ->name('schedule.timeslots.create');

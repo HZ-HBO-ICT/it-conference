@@ -87,6 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * Hides a many-to-many relationship with presentations
      * and implements relationship with linking table UserPresentation
      * Please don't use this, instead refer to the methods below
+     *
      * @return HasMany
      */
     public function userPresentations(): HasMany
@@ -99,6 +100,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * was passed - participant or speaker
      * Returns true if the user successfully was added to the presentation with their role;
      * Returns false if the user wasn't attached to the presentation
+     *
      * @param $presentation
      * @param string $role
      * @return bool
@@ -133,6 +135,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Disneroll participant from a presentation
+     *
      * @param $presentation
      * @return void
      */
@@ -150,6 +153,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Returns the presentation of which the user is a speaker
+     *
      * @return Attribute
      */
     public function presenterOf(): Attribute
@@ -165,6 +169,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Returns the presentations in which the user enrolled to
      * be a participant
+     *
      * @return Attribute
      */
     public function participatingIn(): Attribute
@@ -235,6 +240,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Determines the color scheme of the hub area based on the user's role
+     *
      * @return Attribute
      */
     public function roleColour(): Attribute
@@ -267,6 +273,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Determines whether the user is simply a company member.
      * This means they are not speaker, representative or booth owner.
+     *
      * @return Attribute
      */
     public function isDefaultCompanyMember() : Attribute

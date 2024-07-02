@@ -19,6 +19,7 @@ class Cell extends Component
     public $timeslot;
     public $room;
     public $presentations;
+    public $height;
 
     /**
      * Initializes the component
@@ -31,10 +32,13 @@ class Cell extends Component
         $this->timeslot = $timeslot;
         $this->room = $room;
         $this->id = "r-{$this->room->id}-t-{$this->timeslot->id}";
+        $this->height = $this->calculateHeightInREM();
 
         $this->presentations = $this->room->presentations()
             ->where('start', '>=', Carbon::parse($this->timeslot->start))
-            ->where('start', '<', Carbon::parse($this->timeslot->start)->copy()->addMinutes(30))
+            ->where('start', '<', Carbon::parse($this->timeslot->start)
+                ->copy()
+                ->addMinutes($this->timeslot->duration))
             ->orderBy('start', 'asc')
             ->get();
     }
@@ -143,13 +147,22 @@ class Cell extends Component
         $timeslotStart = Carbon::parse($this->timeslot->start);
         $this->presentations = $this->room->presentations()
             ->where('start', '>=', $timeslotStart)
-            ->where('start', '<', $timeslotStart->copy()->addMinutes(30))
+            ->where('start', '<', $timeslotStart->copy()->addMinutes($this->timeslot->duration))
             ->orderBy('start', 'asc')
             ->get();
 
         foreach ($this->presentations as $presentation) {
             $this->dispatch('update-presentation-' . $presentation->id);
         }
+    }
+
+    /**
+     * Calculates the height of the element in REM based on it's timeslot duration
+     * @return float
+     */
+    protected function calculateHeightInREM()
+    {
+        return $this->timeslot->duration * (14 / 30) * 0.25;
     }
 
     /**

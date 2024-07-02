@@ -29,11 +29,11 @@
 
             <x-slot name="actions">
                 <x-action-message class="mr-3" on="invite">
-                    {{ __('Added.') }}
+                    {{ __('The member was invited.') }}
                 </x-action-message>
 
                 <x-button type="submit">
-                    {{ __('Add') }}
+                    {{ __('Invite member') }}
                 </x-button>
             </x-slot>
         </x-form-section>

@@ -13,6 +13,7 @@ class JoinAsSpeakerModal extends ModalComponent
 
     /**
      * Initializes the component
+     *
      * @param Presentation $presentation
      * @return void
      */
@@ -36,6 +37,7 @@ class JoinAsSpeakerModal extends ModalComponent
 
     /**
      * Renders the component
+     *
      * @return View
      */
     public function render(): View

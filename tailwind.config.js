@@ -24,7 +24,9 @@ export default {
         'bg-silver',
         'bg-bronze',
         'bg-crew-300',
-        'bg-crew-500'
+        'bg-crew-500',
+        'bg-apricot-peach-500',
+        'bg-apricot-peach-300'
     ],
     theme: {
         extend: {
@@ -87,6 +89,19 @@ export default {
                     '800': '#6c2b7d',
                     '900': '#5c2867',
                     '950': '#390f43',
+                },
+                'apricot-peach': {
+                    '50': '#fdf5ef',
+                    '100': '#fbe6da',
+                    '200': '#f5cbb3',
+                    '300': '#eea883',
+                    '400': '#e77a50',
+                    '500': '#e1582e',
+                    '600': '#d24124',
+                    '700': '#af301f',
+                    '800': '#8b2921',
+                    '900': '#71251d',
+                    '950': '#3d100d',
                 },
             }
         },
