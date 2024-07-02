@@ -1,6 +1,5 @@
 @php
     use Carbon\Carbon;
-    use App\Models\EventInstance;
     use App\Models\User;
 @endphp
 @php

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\EventInstance;
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -42,9 +42,14 @@ class PresentationPolicy
             }
         }
 
+        if (!Edition::current()) {
+            return $user->is_crew
+                || $user->isPresenterOf($presentation);
+        }
+
         return $user->is_crew
             || $user->isPresenterOf($presentation)
-            || EventInstance::current()->is_final_programme_released;
+            || Edition::current()->is_final_programme_released;
     }
 
     /**
@@ -71,10 +76,15 @@ class PresentationPolicy
             return false;
         }
 
+        if (!Edition::current()) {
+            return $user->is_crew ||
+                $user->isPresenterOf($presentation);
+        }
+
         return $user->is_crew ||
             (
                 $user->isPresenterOf($presentation)
-                && !EventInstance::current()->is_final_programme_released
+                && !Edition::current()->is_final_programme_released
             );
     }
 
@@ -107,8 +117,8 @@ class PresentationPolicy
         if ($user->cannot('create presentation request')) {
             return false;
         }
-        // Deny if the deadline for requesting has passed
-        if (EventInstance::current()->is_final_programme_released) {
+        // Deny if the deadline for requesting has passed or not arrived yet
+        if (Edition::current() && Edition::current()->is_requesting_presentation_opened) {
             return false;
         }
         // Deny if the user already is a speaker

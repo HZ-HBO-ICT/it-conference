@@ -4,6 +4,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
+use App\Http\Controllers\Crew\EditionController;
+use App\Http\Controllers\Crew\EditionEventController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
@@ -195,6 +197,24 @@ Route::middleware([
 
     Route::get('/moderator/list/{type}', [CrewController::class, 'showList'])
         ->name('list');
+
+    Route::get('/moderator/editions', [EditionController::class, 'index'])
+        ->name('editions.index');
+
+    Route::get('/moderator/editions/create', [EditionController::class, 'create'])
+        ->name('editions.create');
+
+    Route::post('/moderator/editions/create', [EditionController::class, 'store'])
+        ->name('editions.store');
+
+    Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
+        ->name('editions.destroy');
+
+    Route::post('/moderator/editions/{edition}/activate', [EditionController::class, 'activateEdition'])
+        ->name('editions.activate');
+
+    Route::get('/moderator/editions/{edition}/events', [EditionEventController::class, 'index'])
+        ->name('events.index');
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::post('/moderator/booths/{booth}/approve', [
