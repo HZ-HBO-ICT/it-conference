@@ -12,7 +12,7 @@ class CompanyController extends Controller
 
     /**
      * Returns the inner details of the company
-     * 
+     *
      * @return View
      */
     public function details()
