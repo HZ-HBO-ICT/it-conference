@@ -51,10 +51,10 @@
                         <br>
                         @guest()
                             <x-button class="mt-4 mr-5">
-                                <a href="{{route('register')}}">Register as a participant</a>
+                                <a href="{{route('register.participant')}}">Register as a participant</a>
                             </x-button>
                             <x-button class="mt-4">
-                                <a href="{{route('register')}}">Register my company</a>
+                                <a href="{{route('register.company')}}">Register my company</a>
                             </x-button>
                         @endguest
                     </div>
