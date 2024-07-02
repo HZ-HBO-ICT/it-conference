@@ -56,7 +56,7 @@ permissions:
     enroll: participant
   presentation request:
     create: [ participant, company representative ]
-    view: [ speaker, company representative, event organizer, assistant organizer, speakers supervisor ]
+    view: [ company representative, event organizer, assistant organizer, speakers supervisor ]
     update: [ event organizer, assistant organizer, speakers supervisor ]
   presentation participants:
     view: [ event organizer, assistant organizer, speakers supervisor ]
