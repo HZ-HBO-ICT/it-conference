@@ -35,26 +35,21 @@ class PresentationPolicy
             return false;
         }
 
-<<<<<<< feature/multiple-editions-without-scheduler
-        if (!Edition::current()) {
-            return $user->is_crew
-                || $user->isPresenterOf($presentation);
-=======
         if ($presentation->company) {
             // View if the company member hasn't decided their role
             if ($user->isMemberOf($presentation->company) && $user->isDefaultCompanyMember) {
                 return true;
             }
->>>>>>> development
+        }
+
+        if (!Edition::current()) {
+            return $user->is_crew
+                || $user->isPresenterOf($presentation);
         }
 
         return $user->is_crew
             || $user->isPresenterOf($presentation)
-<<<<<<< feature/multiple-editions-without-scheduler
             || Edition::current()->is_final_programme_released;
-=======
-            || EventInstance::current()->is_final_programme_released;
->>>>>>> development
     }
 
     /**
