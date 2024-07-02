@@ -1,6 +1,6 @@
 @php
     use Illuminate\Support\Facades\Auth;
-    use App\Models\EventInstance;
+    use App\Models\Edition;
 @endphp
 
 <div class="pt-5">
@@ -59,7 +59,6 @@
                                 <div class="mt-2 mr-2">
                                     <input type="file" id="file" wire:model="file" class="hidden"
                                            accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation"/>
-                                    >
                                     <label for="file"
                                            class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
                                         Select A New Presentation
@@ -72,7 +71,7 @@
                                 </button>
                             </div>
 
-                            @if(!Auth::user()->hasRole('crew') && !EventInstance::current()->is_final_programme_released)
+                            @can('update', $presentation)
                                 @if(Auth::user()->presenter_of->id == $presentation->id && $file && !$errors->has('file') && !session()->has('message'))
                                     <div
                                         class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
@@ -82,7 +81,7 @@
                                         </button>
                                     </div>
                                 @endif
-                            @endif
+                            @endcan
                         </form>
                     </div>
                 </div>

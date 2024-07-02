@@ -8,7 +8,6 @@ use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use App\Models\User;
-
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\UserPresentation;
 use DateTime;
@@ -28,6 +27,6 @@ class DatabaseSeeder extends Seeder
 
         Room::factory()->count(20)->create();
 
-        $this->call([CompanySeeder::class, UserSeeder::class]);
+        $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class]);
     }
 }

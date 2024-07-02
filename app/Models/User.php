@@ -185,7 +185,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function isMemberOf(Company $company): bool
     {
-        return $company && $this->company && $this->company->id = $company->id;
+        return $company && $this->company && $this->company->id == $company->id;
     }
 
     /**
@@ -224,7 +224,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param Presentation $presentation
      * @return bool
      */
-    public function canEnroll(Presentation $presentation) : bool
+    public function canEnroll(Presentation $presentation): bool
     {
         if (!EventInstance::current()->is_final_programme_released) {
             return false;
@@ -237,7 +237,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * Determines the color scheme of the hub area based on the user's role
      * @return Attribute
      */
-    public function roleColour() : Attribute
+    public function roleColour(): Attribute
     {
         return Attribute::make(
             get: function () {
@@ -260,7 +260,21 @@ class User extends Authenticatable implements MustVerifyEmail
         // Only user who:
         // Do not have an @hz.nl
         $query->role(['participant'])
-        ->where('email', 'not like', '%@hz.nl') // Exclude emails ending with '@hz.nl'
-        ->orderBy('name');
+            ->where('email', 'not like', '%@hz.nl') // Exclude emails ending with '@hz.nl'
+            ->orderBy('name');
+    }
+
+    /**
+     * Determines whether the user is simply a company member.
+     * This means they are not speaker, representative or booth owner.
+     * @return Attribute
+     */
+    public function isDefaultCompanyMember() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->hasExactRoles(['participant', 'company member'])
+            && $this->company
+            && is_null($this->presenter_of)
+        );
     }
 }

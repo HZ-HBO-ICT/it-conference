@@ -14,7 +14,7 @@ class Presentation extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
-        'room_id', 'timeslot_id', 'start'];
+        'company_id', 'room_id', 'timeslot_id', 'start'];
 
     /**
      * Returns the basic validation rules for the model

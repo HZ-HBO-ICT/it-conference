@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\EventInstance;
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -35,9 +35,21 @@ class PresentationPolicy
             return false;
         }
 
+        if ($presentation->company) {
+            // View if the company member hasn't decided their role
+            if ($user->isMemberOf($presentation->company) && $user->isDefaultCompanyMember) {
+                return true;
+            }
+        }
+
+        if (!Edition::current()) {
+            return $user->is_crew
+                || $user->isPresenterOf($presentation);
+        }
+
         return $user->is_crew
-                || $user->isPresenterOf($presentation)
-                || EventInstance::current()->is_final_programme_released;
+            || $user->isPresenterOf($presentation)
+            || Edition::current()->is_final_programme_released;
     }
 
     /**
@@ -64,10 +76,15 @@ class PresentationPolicy
             return false;
         }
 
+        if (!Edition::current()) {
+            return $user->is_crew ||
+                $user->isPresenterOf($presentation);
+        }
+
         return $user->is_crew ||
             (
                 $user->isPresenterOf($presentation)
-                && !EventInstance::current()->is_final_programme_released
+                && !Edition::current()->is_final_programme_released
             );
     }
 
@@ -100,12 +117,17 @@ class PresentationPolicy
         if ($user->cannot('create presentation request')) {
             return false;
         }
-        // Deny if the deadline for requesting has passed
-        if (EventInstance::current()->is_final_programme_released) {
+        // Deny if the deadline for requesting has passed or not arrived yet
+        if (Edition::current() && Edition::current()->is_requesting_presentation_opened) {
             return false;
         }
         // Deny if the user already is a speaker
         if ($user->presenterOf) {
+            return false;
+        }
+
+        // When the user is not default company member and also not company rep, they should not be denied
+        if (!$user->isDefaultCompanyMember && !$user->hasRole('company representative')) {
             return false;
         }
         // When the user is associated to a company, allow only if the user's
@@ -159,5 +181,20 @@ class PresentationPolicy
         }
 
         return $user->canEnroll($presentation);
+    }
+
+    /**
+     * Determines whether the user can become co-speaker to presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function joinAsCospeaker(User $user, Presentation $presentation): bool
+    {
+        return $user->company
+            && $presentation->company
+            && $presentation->company->id == $user->company->id
+            && $user->isDefaultCompanyMember;
     }
 }
