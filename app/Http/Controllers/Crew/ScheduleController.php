@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Events\FinalProgrammeReleased;
 use App\Http\Controllers\Controller;
 use App\Models\DefaultPresentation;
+use App\Models\Edition;
+use App\Models\Event;
 use App\Models\Presentation;
 use App\Models\Timeslot;
 use Illuminate\Http\Request;
@@ -48,5 +51,18 @@ class ScheduleController extends Controller
 
         return redirect(route('moderator.schedule.index'))
             ->banner('You reset the schedule successfully.');
+    }
+
+    /**
+     * Changes the state of the edition to enrollment
+     *
+     * @return void
+     */
+    public function publishFinalProgramme()
+    {
+        FinalProgrammeReleased::dispatch();
+
+        return redirect(route('moderator.schedule.index'))
+            ->banner('The programme was published successfully! Participants now can enroll in the presentations');
     }
 }

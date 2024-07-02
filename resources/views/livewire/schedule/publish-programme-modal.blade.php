@@ -13,7 +13,7 @@
             {{ __('Cancel') }}
         </x-secondary-button>
 
-        <form method="POST" action="{{route('moderator.schedule.reset', 'full')}}" class="pl-2">
+        <form method="POST" action="{{route('moderator.schedule.publish')}}" class="pl-2">
             @csrf
             <x-danger-button class="ml-3" type="submit">
                 {{ __('Publish programme') }}
