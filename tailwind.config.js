@@ -26,6 +26,7 @@ export default {
         'bg-crew-300',
         'bg-crew-500',
         'bg-apricot-peach-500',
+        'bg-gray-600',
         'bg-apricot-peach-300'
     ],
     theme: {

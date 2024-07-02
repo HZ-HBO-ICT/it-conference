@@ -68,6 +68,7 @@ class GridParentComponent extends Component
         $this->lectureCount = $this->unscheduledPresentations->where('type', 'lecture')->count();
         $this->workshopCount = $this->unscheduledPresentations->where('type', 'workshop')->count();
         $this->dispatch("update-cell-r-{$presentation->room->id}-t-{$presentation->timeslot->id}");
+        $this->dispatch("check-programme-status");
     }
 
     /**
