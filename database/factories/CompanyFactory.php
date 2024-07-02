@@ -25,10 +25,10 @@ class CompanyFactory extends Factory
             'description' => $this->faker->paragraph(),
             'phone_number' => $this->faker->phoneNumber,
             'postcode' => '1234 AB',
-            'is_approved' => false,
+            'is_approved' => true,
             'street' => $this->faker->streetAddress,
             'house_number' => $this->faker->numberBetween(0, 10),
-            'city' => $this->faker->city
+            'city' => $this->faker->city,
         ];
     }
 
@@ -42,7 +42,8 @@ class CompanyFactory extends Factory
 
         return $this->state(function (array $attributes) use ($sponsorship) {
             return [
-                'sponsorship_id' => $sponsorship->id
+                'sponsorship_id' => $sponsorship->id,
+                'is_sponsorship_approved' => true
             ];
         });
     }

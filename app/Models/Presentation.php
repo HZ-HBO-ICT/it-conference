@@ -14,7 +14,7 @@ class Presentation extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
-        'company_id', 'room_id', 'timeslot_id', 'start'];
+        'company_id', 'room_id', 'timeslot_id', 'start', 'is_approved'];
 
     /**
      * Returns the basic validation rules for the model
@@ -195,5 +195,17 @@ class Presentation extends Model
         return strlen($name) > $maxLength
             ? substr($name, 0, $maxLength)
             . '...' : $name;
+    }
+
+    /**
+     * Checks if the presentation has start, room and timeslot
+     *
+     * @return Attribute
+     */
+    public function isScheduled(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => !is_null($this->start) && !is_null($this->room_id) && !is_null($this->timeslot_id)
+        );
     }
 }

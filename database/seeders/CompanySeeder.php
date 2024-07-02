@@ -18,7 +18,13 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        $companies = Company::factory(5)
+        $companies = Company::factory(2)->create();
+        foreach ($companies as $company) {
+            $company->is_approved = false;
+            $company->save();
+        }
+
+        $companies = Company::factory(2)
             ->has(Booth::factory(1))
             ->has(User::factory(1)->afterCreating(function ($user) {
                 $role = Role::findByName('company representative');
@@ -44,14 +50,14 @@ class CompanySeeder extends Seeder
             $user->joinPresentation($presentation, 'speaker');
         }
 
-        $companies = Company::factory(3)->hasSponsorship('silver')
+        $companies = Company::factory(1)->hasSponsorship('silver')
             ->has(User::factory(1)->afterCreating(function ($user) {
                 $role = Role::findByName('company representative');
                 $user->assignRole($role);
             }))->create();
         $this->setPresentation($companies);
 
-        $companies = Company::factory(5)->hasSponsorship('bronze')
+        $companies = Company::factory(2)->hasSponsorship('bronze')
             ->has(User::factory(1)->afterCreating(function ($user) {
                 $role = Role::findByName('company representative');
                 $user->assignRole($role);
