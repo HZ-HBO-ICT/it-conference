@@ -9,7 +9,7 @@
         <div
             class="before:absolute before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>
         <div
-            class="isolate px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
+            class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700 my-5">
             <div class="text-center max-w-2xl mx-auto">
                 <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Programme</h2>
             </div>
