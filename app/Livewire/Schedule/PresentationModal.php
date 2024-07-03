@@ -94,11 +94,20 @@ class PresentationModal extends ModalComponent
         $validator->validate();
     }
 
+    public function remove()
+    {
+        $this->dispatch('remove-presentation', data: [
+            'presentation_id' => $this->presentation->id
+        ]);
+
+        $this->closeModal();
+    }
+
     /**
      * Renders the component
      * @return View
      */
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.schedule.presentation-modal');
     }
