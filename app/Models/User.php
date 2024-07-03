@@ -182,6 +182,12 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    /**
+     * Determine whether the user is a participant of the specific presentation
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
     public function isParticipantOf(Presentation $presentation): bool
     {
         foreach ($this->participating_in as $userPresentation) {
