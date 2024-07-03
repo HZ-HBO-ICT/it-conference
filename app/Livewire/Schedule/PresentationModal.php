@@ -4,6 +4,7 @@ namespace App\Livewire\Schedule;
 
 use App\Actions\Schedule\PresentationAllocationHelper;
 use App\Actions\Schedule\PresentationConflictChecker;
+use App\Models\Edition;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Illuminate\Support\Carbon;
@@ -96,6 +97,13 @@ class PresentationModal extends ModalComponent
 
     public function remove()
     {
+        if (Edition::current()->is_final_programme_released) {
+            $participants = $this->presentation->participants;
+            foreach ($participants as $participant) {
+                $participant->leavePresentation($this->presentation);
+            }
+        }
+
         $this->dispatch('remove-presentation', data: [
             'presentation_id' => $this->presentation->id
         ]);

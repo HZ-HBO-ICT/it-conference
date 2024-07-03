@@ -1,6 +1,7 @@
 @php
     use Carbon\Carbon;
     use App\Models\DefaultPresentation;
+    use App\Models\Edition;
 @endphp
 <x-hub-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
@@ -8,7 +9,7 @@
             <h1 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Schedule management') }}
             </h1>
-            @if(DefaultPresentation::opening() && DefaultPresentation::closing())
+            @if(DefaultPresentation::opening() && DefaultPresentation::closing() && Edition::current() && !Edition::current()->is_final_programme_released)
                 <div class="flex gap-3">
                     <button
                         class="flex items-center justify-center p-3 text-sm font-semibold text-white bg-apricot-peach-400 rounded-md hover:bg-apricot-peach-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-crew-400"
