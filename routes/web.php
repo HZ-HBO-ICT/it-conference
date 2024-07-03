@@ -14,11 +14,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Hub\HubController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
+use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
-
-// use App\Http\Controllers\ProgrammeController;
 
 /*Route::middleware([
     'auth:sanctum',
@@ -125,12 +124,12 @@ Route::middleware([
 //    ->name('user.invitation.registration');
 //
 
-//Route::get('/programme', [ProgrammeController::class, 'index'])
-//    ->name('programme');
-//
-//Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
-//    ->name('programme.presentation.show');
-//
+Route::get('/programme', [ProgrammeController::class, 'index'])
+    ->name('programme');
+
+Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
+    ->name('programme.presentation.show');
+
 
 // ===== Routes for crew =====
 Route::middleware([

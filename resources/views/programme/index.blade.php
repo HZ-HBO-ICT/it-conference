@@ -1,6 +1,7 @@
 @php
     use Carbon\Carbon;
     use App\Models\DefaultPresentation;
+    use App\Models\Edition;
 @endphp
 
 <x-app-layout>
@@ -20,12 +21,12 @@
                             <tbody>
                             <tr>
                                 <td class="text-left text-md text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}
-                                    - {{(Carbon::parse(DefaultPresentation::opening()->timeslot->start)->addMinutes(DefaultPresentation::opening()->timeslot->duration))->format('H:i')}}
+                                    {{Carbon::parse(DefaultPresentation::opening()->start)->format('H:i')}}
+                                    - {{(Carbon::parse(DefaultPresentation::opening()->start)->addMinutes(Edition::current()->lecture_duration))->format('H:i')}}
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden shadow-lg bg-violet-600 transition-all duration-300 transform hover:scale-105">
+                                        class="w-full rounded overflow-hidden bg-violet-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 hover:transition-all hover:duration-300 hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -52,23 +53,23 @@
                         <table class="table-auto w-full text-gray-900 dark:text-gray-200">
                             <tbody>
                             @foreach($lectureTimeslots as $timeslot)
-                                @if($timeslot->presentations->count() > 0)
-                                    <tr>
-                                        <td class="text-left text-md text-gray-900 dark:text-white align-top">
-                                            {{Carbon::parse($timeslot->start)->format('H:i')}}
-                                            - {{(Carbon::parse($timeslot->start)->addMinutes(30))->format('H:i')}}
-                                        </td>
-                                        <td class="pb-3">
-                                            @foreach($timeslot->presentations as $lecture)
-                                                @if($lecture->timeslot_id == $timeslot->id)
+                                <tr>
+                                    <td class="text-left text-md text-gray-900 dark:text-white align-top">
+                                        {{Carbon::parse($timeslot['start'])->format('H:i')}}
+                                        - {{(Carbon::parse($timeslot['start'])->addMinutes(Edition::current()->lecture_duration))->format('H:i')}}
+                                    </td>
+                                    <td class="pb-5">
+                                        @foreach($lectures as $lecture)
+                                            @if($lecture->start == $timeslot['start'])
+                                                <div class="pb-3">
                                                     <a href="{{route('programme.presentation.show', $lecture)}}">
                                                         <x-schedule-block :presentation="$lecture" :colorName="'violet'"/>
                                                     </a>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                @endif
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -79,23 +80,23 @@
                         <table class="table-auto w-full text-gray-900 dark:text-gray-200">
                             <tbody>
                             @foreach($workshopTimeslots as $timeslot)
-                                @if($timeslot->presentations->count() > 0)
-                                    <tr>
-                                        <td class="text-left text-gray-900 dark:text-white align-top">
-                                            {{Carbon::parse($timeslot->start)->format('H:i')}}
-                                            - {{(Carbon::parse($timeslot->start)->addMinutes(80))->format('H:i')}}
-                                        </td>
-                                        <td class="pb-3">
-                                            @foreach($timeslot->presentations as $workshop)
-                                                @if($workshop->timeslot_id == $timeslot->id)
+                                <tr>
+                                    <td class="text-left text-gray-900 dark:text-white align-top">
+                                        {{Carbon::parse($timeslot['start'])->format('H:i')}}
+                                        - {{(Carbon::parse($timeslot['start'])->addMinutes(Edition::current()->workshop_duration))->format('H:i')}}
+                                    </td>
+                                    <td class="pb-5">
+                                        @foreach($workshops as $workshop)
+                                            @if($workshop->start == $timeslot['start'])
+                                                <div class="pb-3">
                                                     <a href="{{route('programme.presentation.show', $workshop)}}">
                                                         <x-schedule-block :presentation="$workshop" :colorName="'violet'"/>
                                                     </a>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                @endif
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -106,12 +107,12 @@
                             <tbody>
                             <tr>
                                 <td class="text-left text-md text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse(DefaultPresentation::closing()->timeslot->start)->format('H:i')}}
-                                    - {{(Carbon::parse(DefaultPresentation::closing()->timeslot->start)->addMinutes(DefaultPresentation::closing()->timeslot->duration))->format('H:i')}}
+                                    {{Carbon::parse(DefaultPresentation::closing()->start)->format('H:i')}}
+                                    - {{Carbon::parse(DefaultPresentation::closing()->end)->format('H:i')}}
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden shadow-lg bg-violet-600 transition-all duration-300 transform hover:scale-105">
+                                        class="w-full rounded overflow-hidden bg-violet-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-violet-800 hover:transition-all hover:duration-300 hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>

@@ -123,6 +123,17 @@ class Presentation extends Model
         );
     }
 
+    public function firstSpeaker(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => User::whereHas('userPresentations', function ($query) {
+                $query->where('presentation_id', $this->id)
+                    ->where('role', 'speaker');
+            })->orderBy('created_at')
+                ->first()
+        );
+    }
+
     /**
      * Definition of the `remaining_capacity` attribute that shows the amount
      * of participants that currently can enroll the presentation
