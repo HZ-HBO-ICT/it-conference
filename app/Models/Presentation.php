@@ -140,7 +140,7 @@ class Presentation extends Model
      *
      * @return Attribute
      */
-    public function remainingCapacity()
+    public function remainingCapacity(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->max_participants - $this->participants->count(),

@@ -120,7 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         // The user is already enrolled as a participant in this presentation
-        if ($this->participating_in->contains($presentation)) {
+        if ($this->isParticipantOf($presentation)) {
             return false;
         }
 
@@ -182,6 +182,17 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function isParticipantOf(Presentation $presentation): bool
+    {
+        foreach ($this->participating_in as $userPresentation) {
+            if ($presentation->id == $userPresentation->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Determines whether the user is a member of the specified company.
      *
@@ -219,23 +230,6 @@ class User extends Authenticatable implements MustVerifyEmail
                 'company market supervisor', 'speakers supervisor', 'pr lead',
                 'entertainment organizer'])
         );
-    }
-
-    /**
-     * Checks if the user can be enrolled to this presentation, based on the
-     * event status and the max_participants
-     * TODO: add user schedule clashing
-     *
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function canEnroll(Presentation $presentation): bool
-    {
-        if (!EventInstance::current()->is_final_programme_released) {
-            return false;
-        }
-
-        return $presentation->remaining_capacity > 0;
     }
 
     /**

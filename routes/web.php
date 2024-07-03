@@ -96,11 +96,11 @@ Route::middleware([
 //    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])
 //          ->name('cohost.presentation');
 //
-//    Route::post('/my/enroll/{presentation}', [EnrollmentController::class, 'enroll'])
-//        ->name('my.programme.enroll');
-//
-//    Route::post('/my/disenroll/{presentation}', [EnrollmentController::class, 'disenroll'])
-//        ->name('my.programme.disenroll');
+    Route::post('/my/enroll/{presentation}', [ProgrammeController::class, 'enroll'])
+        ->name('my.programme.enroll');
+
+    Route::post('/my/disenroll/{presentation}', [ProgrammeController::class, 'disenroll'])
+        ->name('my.programme.disenroll');
 //
 //
 //    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
