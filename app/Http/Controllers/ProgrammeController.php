@@ -9,6 +9,11 @@ use Illuminate\View\View;
 
 class ProgrammeController extends Controller
 {
+    /**
+     * Displays an index page of the general programme
+     *
+     * @return View
+     */
     public function index(): View
     {
         $lectures = Presentation::where('type', 'lecture')->orderBy('start')->get();
@@ -24,11 +29,23 @@ class ProgrammeController extends Controller
         ));
     }
 
+    /**
+     * Displays details of the specific presentation
+     *
+     * @param Presentation $presentation
+     * @return View
+     */
     public function show(Presentation $presentation): View
     {
         return view('programme.show', compact('presentation'));
     }
 
+    /**
+     * Handles enrollment for the presentation
+     *
+     * @param Presentation $presentation
+     * @return int
+     */
     public function enroll(Presentation $presentation)
     {
         if (Auth::user()->cannot('enroll', $presentation)) {
@@ -46,6 +63,12 @@ class ProgrammeController extends Controller
             ->banner("You have successfully enrolled for {$presentation->name}");
     }
 
+    /**
+     * Handles disenrollment from the presentation
+     *
+     * @param Presentation $presentation
+     * @return int
+     */
     public function disenroll(Presentation $presentation)
     {
         if (Auth::user()->cannot('disenroll', $presentation)) {

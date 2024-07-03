@@ -123,6 +123,12 @@ class Presentation extends Model
         );
     }
 
+    /**
+     * Returns a speaker of the presentation that was registered first,
+     * and therefore had most likely created the presentation
+     *
+     * @return Attribute
+     */
     public function firstSpeaker(): Attribute
     {
         return Attribute::make(
