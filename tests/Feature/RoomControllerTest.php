@@ -109,7 +109,9 @@ class RoomControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user->assignRole('event organizer');
-        $room = Room::factory()->create();
+        $room = Room::factory()->create([
+            'name' => 'Random name'
+        ]);
         $response = $this->actingAs($user)->get(route('moderator.rooms.show', $room));
 
         $response->assertStatus(200);
@@ -122,7 +124,9 @@ class RoomControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user->assignRole('participant');
-        $room = Room::factory()->create();
+        $room = Room::factory()->create([
+            'name' => 'Random name'
+        ]);
         $response = $this->actingAs($user)->get(route('moderator.rooms.show', $room));
 
         $response->assertStatus(403);
@@ -132,7 +136,9 @@ class RoomControllerTest extends TestCase
     public function destroy_deletes_and_redirects_to_crew()
     {
         $user = User::factory()->create();
-        $room = Room::factory()->create();
+        $room = Room::factory()->create([
+            'name' => 'Random name'
+        ]);
         $roomCount = Room::all()->count();
         $user->assignRole('event organizer');
 
@@ -147,7 +153,9 @@ class RoomControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user->assignRole('participant');
-        $room = Room::factory()->create();
+        $room = Room::factory()->create([
+            'name' => 'Random name'
+        ]);
         $roomCount = Room::all()->count();
 
         $response = $this->actingAs($user)->delete(route('moderator.rooms.destroy', $room));
