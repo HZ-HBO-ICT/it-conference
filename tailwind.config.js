@@ -26,7 +26,15 @@ export default {
         'bg-crew-300',
         'bg-crew-500',
         'bg-apricot-peach-500',
-        'bg-apricot-peach-300'
+        'bg-apricot-peach-300',
+        'bg-participant-500',
+        'bg-participant-700',
+        'hover:from-participant-500',
+        'hover:to-participant-700',
+        'bg-violet-500',
+        'bg-violet-700',
+        'hover:from-violet-500',
+        'hover:to-violet-700'
     ],
     theme: {
         extend: {

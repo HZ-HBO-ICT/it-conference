@@ -13,7 +13,7 @@
                 My Programme
             </h2>
             <div class="pr-5">
-                <a href="{{route('programme')}}" class="bg-{{Auth::user()->roleColour}}-600 rounded py-2 px-3 text-white">
+                <a href="{{route('programme')}}" class="bg-{{Auth::user()->roleColour}}-600 rounded py-2 px-3 rounded-lg text-white">
                     Sign up for presentations/workshops
                 </a>
             </div>
@@ -23,13 +23,13 @@
                 <!-- Start of the opening -->
                 <div class="sm:col-span-1">
                     <div class="text-left text-md text-gray-900 dark:text-white align-top">
-                        {{Carbon::parse(DefaultPresentation::opening()->timeslot->start)->format('H:i')}}
-                        - {{(Carbon::parse(DefaultPresentation::opening()->timeslot->start)->addMinutes(DefaultPresentation::opening()->timeslot->duration))->format('H:i')}}
+                        {{Carbon::parse(DefaultPresentation::opening()->start)->format('H:i')}}
+                        - {{Carbon::parse(DefaultPresentation::opening()->end)->format('H:i')}}
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-6">
                     <div
-                        class="w-full rounded overflow-hidden shadow-lg bg-{{Auth::user()->roleColour}}-600 transition-all duration-300 transform hover:scale-105">
+                        class="w-full rounded overflow-hidden bg-{{Auth::user()->roleColour}}-600">
                         <div class="px-3 py-1">
                             <div
                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -47,8 +47,8 @@
                 @foreach($presentations as $presentation)
                     <div class="sm:col-span-1">
                         <div class="text-left text-md text-gray-900 dark:text-white align-top">
-                            {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
-                            - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}
+                            {{Carbon::parse($presentation->start)->format('H:i')}}
+                            - {{Carbon::parse($presentation->end)->format('H:i')}}
                         </div>
                     </div>
                     <div class="col-span-6 sm:col-span-6">
@@ -59,13 +59,13 @@
                 @endforeach
                 <div class="sm:col-span-1">
                     <div class="text-left text-md text-gray-900 dark:text-white align-top">
-                        {{Carbon::parse(DefaultPresentation::closing()->timeslot->start)->format('H:i')}}
-                        - {{(Carbon::parse(DefaultPresentation::closing()->timeslot->start)->addMinutes(DefaultPresentation::closing()->timeslot->duration))->format('H:i')}}
+                        {{Carbon::parse(DefaultPresentation::closing()->start)->format('H:i')}}
+                        - {{Carbon::parse(DefaultPresentation::closing()->end)->format('H:i')}}
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-6">
                     <div
-                        class="w-full rounded overflow-hidden shadow-lg bg-{{Auth::user()->roleColour}}-600 transition-all duration-300 transform hover:scale-105">
+                        class="w-full rounded overflow-hidden bg-{{Auth::user()->roleColour}}-600">
                         <div class="px-3 py-1">
                             <div
                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>

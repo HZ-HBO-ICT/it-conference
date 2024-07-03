@@ -119,7 +119,7 @@ class PresentationPolicy
         }
 
         // Deny if the deadline for requesting has passed or not arrived yet
-        if (Edition::current() && Edition::current()->is_requesting_presentation_opened) {
+        if (Edition::current() && !Edition::current()->is_requesting_presentation_opened) {
             return false;
         }
 

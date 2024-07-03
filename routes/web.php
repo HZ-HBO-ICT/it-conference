@@ -11,7 +11,7 @@ use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Hub\HubController;
+use App\Http\Controllers\Hub\ParticipantController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
@@ -89,9 +89,9 @@ Route::middleware([
 //    //route for my profile in personal hub
 //    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 //
-//    //route for personal programme
-//    Route::get('/my/programme', [HubController::class, 'programme'])
-//        ->name('my.programme');
+    //route for personal programme
+    Route::get('/my/programme', [ParticipantController::class, 'programme'])
+        ->name('my.programme');
 //
 //    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])
 //          ->name('cohost.presentation');
