@@ -59,5 +59,4 @@ class PresentationFactory extends Factory
         'Agile Development: Running in Circles Productively',
         'The Joy of Legacy Code: Archaeology for Programmers'
     ];
-
 }

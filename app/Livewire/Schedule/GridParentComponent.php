@@ -76,6 +76,13 @@ class GridParentComponent extends Component
         $this->dispatch("check-programme-status");
     }
 
+    /**
+     * Responsible for handling the removing of presentation
+     * from the schedule
+     *
+     * @param $data
+     * @return void
+     */
     #[On('remove-presentation')]
     public function removeScheduledPresentation($data)
     {

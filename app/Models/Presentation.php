@@ -36,7 +36,8 @@ class Presentation extends Model
      *
      * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
      */
-    public static function lectureDuration() {
+    public static function lectureDuration()
+    {
         return Edition::current()->lecture_duration;
     }
 
@@ -45,7 +46,8 @@ class Presentation extends Model
      *
      * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
      */
-    public static function workshopDuration() {
+    public static function workshopDuration()
+    {
         return Edition::current()->workshop_duration;
     }
 

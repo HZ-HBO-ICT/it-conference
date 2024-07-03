@@ -95,6 +95,12 @@ class PresentationModal extends ModalComponent
         $validator->validate();
     }
 
+    /**
+     * Handles removing of participant of presentation if needed and sends an
+     * event to the parent to handle removing of the presentation from the schedule
+     *
+     * @return void
+     */
     public function remove()
     {
         if (Edition::current()->is_final_programme_released) {
