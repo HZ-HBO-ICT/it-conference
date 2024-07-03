@@ -32,18 +32,22 @@ class Presentation extends Model
     }
 
     /**
-     * Hard-coding the duration of the lectures
-     * TODO: Once the metatables get added rework this to retrieve data from there
-     * @var int
+     * Returns the duration of the lecture based on the Edition
+     *
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
      */
-    public static $LECTURE_DURATION = 30;
+    public static function lectureDuration() {
+        return Edition::current()->lecture_duration;
+    }
 
     /**
-     * Hard-coding the duration of the workshops
-     * TODO: Once the metatables get added rework this to retrieve data from there
-     * @var int
+     * Returns the duration of the workshops based on the Edition
+     *
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
      */
-    public static $WORKSHOP_DURATION = 90;
+    public static function workshopDuration() {
+        return Edition::current()->workshop_duration;
+    }
 
     /**
      * Establishes a relationship between the presentation
@@ -171,8 +175,8 @@ class Presentation extends Model
     {
         return Attribute::make(
             get: fn() => $this->type == 'workshop'
-                ? Presentation::$WORKSHOP_DURATION
-                : Presentation::$LECTURE_DURATION
+                ? Presentation::workshopDuration()
+                : Presentation::lectureDuration()
         );
     }
 
