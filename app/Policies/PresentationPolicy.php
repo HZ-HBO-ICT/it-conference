@@ -189,7 +189,7 @@ class PresentationPolicy
         }
 
         // decline if the user is already a participant of this presentation
-        if ($user->isParticipantOf($presentation)) {
+        if ($user->participating_in->contains($presentation)) {
             return false;
         }
 
@@ -211,7 +211,7 @@ class PresentationPolicy
         }
 
         // allow if the user is participating in the presentation
-        if ($user->isParticipantOf($presentation)) {
+        if ($user->participating_in->contains($presentation)) {
             return true;
         }
 

@@ -92,7 +92,7 @@
                                             </form>
                                         </div>
                                     @else
-                                        @if(Auth::user()->isParticipantOf($presentation))
+                                        @if(Auth::user()->participating_in->contains($presentation))
                                             <div class="pt-5">
                                                 <form action="{{route('my.programme.disenroll', $presentation)}}"
                                                       method="POST">

@@ -120,7 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         // The user is already enrolled as a participant in this presentation
-        if ($this->isParticipantOf($presentation)) {
+        if ($this->participating_in->contains($presentation)) {
             return false;
         }
 
@@ -180,23 +180,6 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->where('role', 'participant');
             })->get(),
         );
-    }
-
-    /**
-     * Determine whether the user is a participant of the specific presentation
-     *
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function isParticipantOf(Presentation $presentation): bool
-    {
-        foreach ($this->participating_in as $userPresentation) {
-            if ($presentation->id == $userPresentation->id) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
