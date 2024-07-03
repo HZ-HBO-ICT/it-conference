@@ -21,7 +21,9 @@ class ScheduleController extends Controller
      */
     public function index(): View
     {
-        return view('crew.schedule.index');
+        $noActiveEdition = is_null(Edition::current());
+
+        return view('crew.schedule.index', compact(['noActiveEdition']));
     }
 
     /**
