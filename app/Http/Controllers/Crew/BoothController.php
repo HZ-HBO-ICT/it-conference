@@ -89,7 +89,13 @@ class BoothController extends Controller
 
         $template = $isApproved ? 'You approved the booth of :company!'
             : 'You denied the request of :company to have a booth';
-        return redirect(route('moderator.requests', 'booths'))
+
+        if ($isApproved) {
+            return redirect(route('moderator.booths.show', $booth))
+                ->banner(__($template, ['company' => $booth->company->name]));
+        }
+
+        return redirect(route('moderator.booths.index'))
             ->banner(__($template, ['company' => $booth->company->name]));
     }
 
