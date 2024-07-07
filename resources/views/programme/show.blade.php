@@ -1,7 +1,5 @@
 @php
     use Carbon\Carbon;
-
-    $firstSpeaker = $presentation->first_speaker;
 @endphp
 
 <x-app-layout>

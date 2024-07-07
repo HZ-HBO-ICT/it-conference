@@ -129,7 +129,7 @@ class Presentation extends Model
      *
      * @return Attribute
      */
-    public function firstSpeaker(): Attribute
+    public function creator(): Attribute
     {
         return Attribute::make(
             get: fn() => User::whereHas('userPresentations', function ($query) {

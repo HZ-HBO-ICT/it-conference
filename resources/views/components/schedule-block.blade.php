@@ -7,8 +7,8 @@
         <div class="font-bold text-white text-md">{{$presentation->name}}</div>
         <div class="text-sm mb-2 text-gray-100">
             {{$presentation->speakers_name}}
-            @if($presentation->first_speaker->company)
-                - {{$presentation->first_speaker->company->name}}
+            @if($presentation->creator->company)
+                - {{$presentation->creator->company->name}}
             @endif
         </div>
         <p class="text-gray-100 text-sm">
