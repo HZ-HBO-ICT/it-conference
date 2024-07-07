@@ -14,7 +14,7 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved',
+    protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved', 'motivation',
         'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved'];
 
     /**
@@ -64,6 +64,15 @@ class Company extends Model
     public function presentations(): HasMany
     {
         return $this->hasMany(Presentation::class);
+    }
+
+    /**
+     * Establishes relationship between a company and the attributes of the internships they provide
+     * @return HasMany
+     */
+    public function internshipAttributes(): HasMany
+    {
+        return $this->hasMany(InternshipAttribute::class);
     }
 
     /**

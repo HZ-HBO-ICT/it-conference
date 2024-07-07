@@ -59,6 +59,7 @@ class CreateNewUserTest extends TestCase
             'terms' => 'on',
             'registration_type' => 'company_representative',
             'company_name' => 'Example Company',
+            'company_motivation' => 'An example motivation',
             'company_description' => 'An example company.',
             'company_website' => 'https://example.com',
             'company_postcode' => '1234AB',

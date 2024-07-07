@@ -40,6 +40,9 @@
                     <div class="text-gray-800 dark:text-gray-200">
                         {{ $company->description }}
                     </div>
+                    <div class="text-gray-800 dark:text-gray-200">
+                        {{ $company->motivation }}
+                    </div>
                 </x-slot>
 
                 @can('update', $company)
@@ -51,6 +54,49 @@
                     </x-slot>
                 @endcan
             </x-action-section>
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Internship Opportunities') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Here you can see the internship opportunities the company has specified') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    @if($company->internshipAttributes)
+                        <div class="space-y-4">
+                            @if($company->internshipAttributes()->years()->exists())
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <h3 class="font-semibold">Internship for years:</h3>
+                                    <p class="text-sm text-gray-700">{{ implode(', ', $company->internshipAttributes()->years()->pluck('value')->toArray()) }}</p>
+                                </div>
+                            @endif
+                            @if($company->internshipAttributes()->tracks()->exists())
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <h3 class="font-semibold">Internship for tracks:</h3>
+                                    <p class="text-sm text-gray-700">{{ implode(', ', $company->internshipAttributes()->tracks()->pluck('value')->toArray()) }}</p>
+                                </div>
+                            @endif
+                            @if($company->internshipAttributes()->languages()->exists())
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <h3 class="font-semibold">Internship in the following languages:</h3>
+                                    <p class="text-sm text-gray-700">{{ implode(', ', $company->internshipAttributes()->languages()->pluck('value')->toArray()) }}</p>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                            <p class="text-gray-700">No internship details were specified.</p>
+                        </div>
+                    @endif
+                </x-slot>
+
+            </x-action-section>
+
 
             <x-section-border/>
 
