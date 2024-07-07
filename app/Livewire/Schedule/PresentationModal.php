@@ -48,6 +48,8 @@ class PresentationModal extends ModalComponent
      */
     public function save()
     {
+        $this->authorize('edit-schedule');
+
         $this->validate();
         $this->additionalStartTimeValidation($this->start);
 

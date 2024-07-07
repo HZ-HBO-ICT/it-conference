@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\Sponsorship;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -54,6 +55,8 @@ class GridParentComponent extends Component
     #[On('move-presentation')]
     public function proccessMovingPresentation($data)
     {
+        $this->authorize('edit-schedule');
+
         $presentation = Presentation::find($data['presentation_id']);
         $oldRoom = $presentation->room;
         $oldTimeslot = $presentation->timeslot;

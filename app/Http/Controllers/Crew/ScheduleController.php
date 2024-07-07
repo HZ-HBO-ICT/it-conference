@@ -8,8 +8,12 @@ use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\Event;
 use App\Models\Presentation;
+use App\Models\Sponsorship;
 use App\Models\Timeslot;
+use App\Policies\SchedulePolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -21,6 +25,10 @@ class ScheduleController extends Controller
      */
     public function index(): View
     {
+        if (!Gate::authorize('view-schedule')) {
+            abort(403);
+        }
+
         $noActiveEdition = is_null(Edition::current());
 
         return view('crew.schedule.index', compact(['noActiveEdition']));
@@ -36,6 +44,10 @@ class ScheduleController extends Controller
      */
     public function reset($type)
     {
+        if (!Gate::authorize('edit-schedule')) {
+            abort(403);
+        }
+
         Presentation::query()->update([
             'room_id' => null,
             'timeslot_id' => null,
@@ -62,6 +74,10 @@ class ScheduleController extends Controller
      */
     public function publishFinalProgramme()
     {
+        if (!Gate::authorize('edit-schedule')) {
+            abort(403);
+        }
+
         $readyForRelease = Presentation::all()->every(function ($presentation) {
             return $presentation->isScheduled && $presentation->is_approved;
         });
