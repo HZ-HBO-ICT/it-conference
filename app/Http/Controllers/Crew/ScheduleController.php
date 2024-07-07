@@ -62,6 +62,16 @@ class ScheduleController extends Controller
      */
     public function publishFinalProgramme()
     {
+        $readyForRelease = Presentation::all()->every(function ($presentation) {
+            return $presentation->isScheduled && $presentation->is_approved;
+        });
+
+        if (!$readyForRelease) {
+            return redirect(route('moderator.schedule.index'))
+                ->banner('Seems like the programme cannot be released yet. Check the status of the presentation');
+        }
+
+
         FinalProgrammeReleased::dispatch();
 
         return redirect(route('moderator.schedule.index'))
