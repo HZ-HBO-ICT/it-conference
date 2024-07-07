@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -154,6 +155,44 @@ class Presentation extends Model
     }
 
     /**
+     * Determine if the presentation that the user wants to enroll for
+     * doesn't have any scheduling conflicts
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function noConflicts(User $user): bool
+    {
+        $presentationStart = Carbon::parse($this->start);
+        $presentationEnd = Carbon::parse($this->start)
+            ->copy()
+            ->addMinutes($this->duration);
+
+        if ($user->presenter_of) {
+            $speakingStart = Carbon::parse($user->presenter_of->start);
+            $speakingEnd = Carbon::parse($user->presenter_of->start)
+                ->copy()
+                ->addMinutes($this->duration);
+
+            if ($presentationEnd >= $speakingStart && $presentationStart <= $speakingEnd) {
+                return false;
+            }
+        }
+
+        foreach ($user->participating_in as $enrolledPresentation) {
+            $enrolledStart = Carbon::parse($enrolledPresentation->timeslot->start);
+            $enrolledEnd = Carbon::parse($enrolledPresentation->timeslot->start)
+                ->addMinutes($this->duration);
+
+            if ($presentationEnd >= $enrolledStart && $presentationStart <= $enrolledEnd) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Handle a (dis)approval of this Presentation.
      *
      * @param bool $isApproved
@@ -195,7 +234,7 @@ class Presentation extends Model
 
     /**
      * Returns the display name for the presentation (useful in the scheduler)
-     * @param $presentation
+     *
      * @param $maxLength
      * @return string
      */

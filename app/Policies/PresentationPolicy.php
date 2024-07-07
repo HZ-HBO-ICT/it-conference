@@ -193,7 +193,12 @@ class PresentationPolicy
             return false;
         }
 
-        return $presentation->remaining_capacity > 0;
+        // decline if the limit of participants was reached
+        if ($presentation->remaining_capacity < 0) {
+            return false;
+        }
+
+        return $presentation->noConflicts($user);
     }
 
     /**
