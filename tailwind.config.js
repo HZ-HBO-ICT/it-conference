@@ -47,6 +47,8 @@ export default {
         'hover:from-crew-600',
         'hover:to-crew-700',
         'hover:to-crew-800',
+        'bg-gray-600',
+        'bg-apricot-peach-300'
     ],
     theme: {
         extend: {

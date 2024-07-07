@@ -186,6 +186,8 @@ class PresentationControllerTest extends TestCase
     {
         $user = User::factory()->create()->assignRole('participant');
         $presentation = Presentation::factory()->create();
+        $presentation->is_approved = false;
+        $presentation->save();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);

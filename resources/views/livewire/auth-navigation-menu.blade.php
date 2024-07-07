@@ -139,7 +139,7 @@
                 {{ __('Companies') }}
             </x-responsive-nav-link>
             @if(Edition::current() && Edition::current()->is_final_programme_released)
-                <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                <x-responsive-nav-link {{--href="{{ route('programme') }}" :active="request()->routeIs('programme')"--}}>
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
             @endif
