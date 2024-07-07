@@ -18,8 +18,8 @@ class ProgrammeController extends Controller
     {
         $lectures = Presentation::where('type', 'lecture')->orderBy('start')->get();
         $workshops = Presentation::where('type', 'workshop')->orderBy('start')->get();
-        $lectureTimeslots = $lectures->map->only('start');
-        $workshopTimeslots = $workshops->map->only('start');
+        $lectureTimeslots = $lectures->map->only('start')->unique();
+        $workshopTimeslots = $workshops->map->only('start')->unique();
 
         return view('programme.index', compact(
             'lectures',

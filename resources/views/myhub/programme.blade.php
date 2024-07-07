@@ -1,9 +1,10 @@
 @php
     use Carbon\Carbon;
     use App\Models\DefaultPresentation;
+    use App\Models\Edition;
 @endphp
 
-<!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
+    <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
 <!-- Potential dynamic classes: bg-crew-600 dark:bg-crew-600 bg-violet-600 dark:bg-violet-600 bg-partner-600 dark:bg-partner-600 bg-participant-600 -->
 
 <x-hub-layout>
@@ -48,7 +49,11 @@
                     <div class="sm:col-span-1">
                         <div class="text-left text-md text-gray-900 dark:text-white align-top">
                             {{Carbon::parse($presentation->start)->format('H:i')}}
-                            - {{Carbon::parse($presentation->end)->format('H:i')}}
+                            @if ($presentation->type == 'lecture')
+                                - {{(Carbon::parse($presentation->start)->addMinutes(Edition::current()->lecture_duration))->format('H:i')}}
+                            @else
+                                - {{(Carbon::parse($presentation->start)->addMinutes(Edition::current()->workshop_duration))->format('H:i')}}
+                            @endif
                         </div>
                     </div>
                     <div class="col-span-6 sm:col-span-6">

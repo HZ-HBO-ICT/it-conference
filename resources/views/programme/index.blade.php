@@ -20,7 +20,7 @@
                             <tr>
                                 <td class="text-left text-md text-gray-900 dark:text-white align-top">
                                     {{Carbon::parse(DefaultPresentation::opening()->start)->format('H:i')}}
-                                    - {{(Carbon::parse(DefaultPresentation::opening()->start)->addMinutes(Edition::current()->lecture_duration))->format('H:i')}}
+                                    - {{Carbon::parse(DefaultPresentation::opening()->end)->format('H:i')}}
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
