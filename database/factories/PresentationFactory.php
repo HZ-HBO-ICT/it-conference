@@ -18,11 +18,45 @@ class PresentationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->randomElement($this->presentationTopics),
             'description' => $this->faker->paragraph,
+            'is_approved' => $this->faker->boolean,
             'max_participants' => $this->faker->numberBetween(1, 200),
             'type' => $this->faker->boolean ? 'workshop' : 'lecture',
             'difficulty_id' => $this->faker->numberBetween(1, 3)
         ];
     }
+
+    public $presentationTopics = [
+        'Debugging: The Art of Turning Coffee into Code',
+        'When Code Goes Rogue: Hilarious Debugging Stories',
+        'The Internet of (Silly) Things',
+        'Cloud Computing: No, It’s Not About the Weather',
+        'AI: Artificial Insanity?',
+        'How to Train Your Robot (Not to Steal Your Job)',
+        'The Secret Life of Bugs: A Developer\'s Worst Nightmare',
+        'WiFi Woes: Why Does My Internet Hate Me?',
+        'Hacking 101: How to Make Friends and Annoy People',
+        'The Evolution of Memes: From Dial-Up to Fiber Optic',
+        'Data Breaches: The New Horror Stories',
+        'From Floppy Disks to USB: The Quest for More Space',
+        'The Great Debate: Tabs vs Spaces',
+        'Virtual Reality: Escaping Meetings Since 2020',
+        'Blockchain: The Magic Behind Cryptocurrency Unicorns',
+        'Cybersecurity: Because Clicking That Link Was a Bad Idea',
+        'The Rise of the Machines: Are We in a Sci-Fi Movie?',
+        'Passwords: Keep Calm and Don’t Use ‘123456’',
+        'Software Updates: The Good, the Bad, and the Ugly',
+        'The Browser Wars: Chrome vs Firefox vs The World',
+        'Code Reviews: When Your Code is Judged by Humans',
+        'Server Downtime: The Apocalypse of the Digital Age',
+        'The AI Uprising: Will Siri and Alexa Take Over?',
+        'When Tech Support Becomes Tech Sport',
+        'The Dark Web: Not as Fun as It Sounds',
+        'Backup Plans: Because Murphy’s Law Applies to IT',
+        'The Cloud: Where Data Goes to Party',
+        'Internet Explorer: A Moment of Silence',
+        'Agile Development: Running in Circles Productively',
+        'The Joy of Legacy Code: Archaeology for Programmers'
+    ];
 }

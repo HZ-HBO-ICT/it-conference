@@ -145,6 +145,8 @@ class Cell extends Component
     public function refresh()
     {
         $timeslotStart = Carbon::parse($this->timeslot->start);
+        $this->room = $this->room->fresh();
+
         $this->presentations = $this->room->presentations()
             ->where('start', '>=', $timeslotStart)
             ->where('start', '<', $timeslotStart->copy()->addMinutes($this->timeslot->duration))

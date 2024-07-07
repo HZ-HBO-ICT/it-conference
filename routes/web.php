@@ -172,6 +172,8 @@ Route::middleware([
         ->name('schedule.index');
     Route::post('/schedule/reset/{type}', [ScheduleController::class, 'reset'])
         ->name('schedule.reset');
+    Route::post('/schedule/publish', [ScheduleController::class, 'publishFinalProgramme'])
+        ->name('schedule.publish');
 
     /*    Route::get('/schedule/timeslots', [TimeslotController::class, 'create'])
             ->name('schedule.timeslots.create');

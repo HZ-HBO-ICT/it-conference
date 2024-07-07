@@ -8,6 +8,7 @@ use App\Models\Room;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -25,6 +26,8 @@ class EditDefaultPresentationModal extends ModalComponent
      */
     public function mount($type)
     {
+        $this->authorize('edit-schedule');
+
         $this->type = $type;
         $this->rooms = Room::all();
         $this->form->setType($this->type);

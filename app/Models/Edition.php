@@ -77,7 +77,9 @@ class Edition extends Model
     }
 
     /**
-     * Establishes a relationship between Edition and EditionEvent models (events that are executed during given edition)
+     * Establishes a relationship between Edition and
+     * EditionEvent models (events that are executed during given edition)
+     *
      * @return HasMany
      */
     public function editionEvents(): HasMany

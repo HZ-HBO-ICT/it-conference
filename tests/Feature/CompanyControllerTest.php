@@ -226,6 +226,8 @@ class CompanyControllerTest extends TestCase
     {
         $user = User::factory()->create()->assignRole('participant');
         $company = Company::factory()->create();
+        $company->is_approved = false;
+        $company->save();
 
         $response = $this->actingAs($user)->post(route('moderator.companies.approve', $company), [
             'approved' => true

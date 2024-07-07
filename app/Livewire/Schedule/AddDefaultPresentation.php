@@ -9,6 +9,7 @@ use App\Models\Timeslot;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -39,6 +40,8 @@ class AddDefaultPresentation extends ModalComponent
      */
     public function save()
     {
+        $this->authorize('edit-schedule');
+
         $this->form->save();
 
         if ($this->form->isEntityCreated()) {
