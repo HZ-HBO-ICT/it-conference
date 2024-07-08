@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Mail\TeamApprovedMailable;
-use App\Mail\TeamDisapprovedMailable;
+use App\Mail\CompanyApprovedMailable;
+use App\Mail\CompanyDisapprovedMailable;
 use App\Models\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +42,7 @@ class NotifyTeamDisapproved extends Notification
      */
     public function toMail(object $notifiable)
     {
-        return (new TeamDisapprovedMailable($this->team))
+        return (new CompanyDisapprovedMailable($this->team))
             ->to($notifiable->email);
     }
 

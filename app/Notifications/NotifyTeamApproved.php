@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Mail\GenericNewUpdatesMailable;
-use App\Mail\TeamApprovedMailable;
+use App\Mail\CompanyApprovedMailable;
 use App\Models\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,7 +44,7 @@ class NotifyTeamApproved extends Notification
     public function toMail(object $notifiable)
     {
         if ($notifiable->id === $this->team->owner->id) {
-            return (new TeamApprovedMailable($this->team))
+            return (new CompanyApprovedMailable($this->team))
                 ->to($notifiable->email);
         } else {
             return (new GenericNewUpdatesMailable($notifiable))

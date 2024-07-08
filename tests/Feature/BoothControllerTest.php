@@ -9,6 +9,7 @@ use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class BoothControllerTest extends TestCase
@@ -139,7 +140,10 @@ class BoothControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user->assignRole('event organizer');
-        $company = Company::factory()->has(Booth::factory(1))->create();
+        $company = Company::factory()->has(Booth::factory(1))->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.booths.approve', [$company->booth, 'approved' => true]));

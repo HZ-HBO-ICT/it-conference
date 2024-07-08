@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Company;
 
-use App\Mail\CustomTeamInvitation;
+use App\Mail\CustomCompanyInvitation;
 use App\Models\Company;
 use App\Models\Invitation;
 use Illuminate\Support\Facades\Mail;
@@ -39,7 +39,7 @@ class AddMember extends Component
             'role' => 'company member'
         ]);
 
-        Mail::to($this->email)->send(new CustomTeamInvitation($invitation));
+        Mail::to($this->email)->send(new CustomCompanyInvitation($invitation));
 
         $this->email = '';
 

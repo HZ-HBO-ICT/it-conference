@@ -4,7 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\GenericNewUpdatesMailable;
 use App\Mail\PresentationApprovedMailable;
-use App\Mail\TeamApprovedMailable;
+use App\Mail\CompanyApprovedMailable;
 use App\Models\Presentation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

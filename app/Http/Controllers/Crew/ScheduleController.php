@@ -4,16 +4,14 @@ namespace App\Http\Controllers\Crew;
 
 use App\Events\FinalProgrammeReleased;
 use App\Http\Controllers\Controller;
+use App\Mail\FinalProgrammeReleasedMailable;
 use App\Models\DefaultPresentation;
 use App\Models\Edition;
-use App\Models\Event;
 use App\Models\Presentation;
-use App\Models\Sponsorship;
 use App\Models\Timeslot;
-use App\Policies\SchedulePolicy;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -86,7 +84,6 @@ class ScheduleController extends Controller
             return redirect(route('moderator.schedule.index'))
                 ->banner('Seems like the programme cannot be released yet. Check the status of the presentation');
         }
-
 
         FinalProgrammeReleased::dispatch();
 

@@ -9,6 +9,7 @@ use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class SponsorshipControllerTest extends TestCase
@@ -115,7 +116,10 @@ class SponsorshipControllerTest extends TestCase
     public function event_organizer_can_approve_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()->create(['is_approved' => 1,'sponsorship_id' => 1]);
+        $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create(['is_approved' => 1,'sponsorship_id' => 1]);
 
         $response = $this->actingAs($user)
             ->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
@@ -128,7 +132,10 @@ class SponsorshipControllerTest extends TestCase
     public function event_organizer_can_reject_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()->create(['sponsorship_id' => 1]);
+        $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create(['sponsorship_id' => 1]);
 
         $response = $this->actingAs($user)
             ->post(route('moderator.sponsorships.approve', $company), ['approved' => false]);
