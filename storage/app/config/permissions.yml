@@ -85,3 +85,5 @@ permissions:
     update: event organizer
     delete: event organizer
     activate: event organizer
+  user:
+    viewAny: event organizer

@@ -259,12 +259,51 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return Attribute
      */
-    public function isDefaultCompanyMember() : Attribute
+    public function isDefaultCompanyMember(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->hasExactRoles(['participant', 'company member'])
-            && $this->company
-            && is_null($this->presenter_of)
+                && $this->company
+                && is_null($this->presenter_of)
         );
+    }
+
+    /**
+     * Returns all of the roles of the user
+     *
+     * @return Attribute
+     */
+    public function allRoles(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $roles = $this->getRoleNames();
+
+                if ($this->presenter_of) {
+                    $roles->push('speaker');
+                }
+
+                return $roles;
+            }
+        );
+    }
+
+    /**
+     * Creates an array with the main roles of the user
+     * if they have roles other than the participant one
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function mainRoles()
+    {
+        $roles = $this->all_roles;
+
+        if ($roles->count() > 1) {
+            $roles->forget('participant');
+        }
+
+        return $roles->map(function ($role) {
+            return ucfirst($role);
+        });
     }
 }

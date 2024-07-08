@@ -16,7 +16,10 @@ class HomeController extends Controller
     public function index() : View
     {
         $edition = Edition::current();
-        $goldSponsorCompany = Company::where('is_approved', 1)->where('sponsorship_id', 1)->where('is_sponsorship_approved', 1)->first();
+        $goldSponsorCompany = Company::where('is_approved', 1)
+            ->where('sponsorship_id', 1)
+            ->where('is_sponsorship_approved', 1)
+            ->first();
 
         return view('welcome', compact(['edition', 'goldSponsorCompany']));
     }
