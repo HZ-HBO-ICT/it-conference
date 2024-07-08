@@ -31,8 +31,11 @@ export default {
     ],
     theme: {
         extend: {
+            aspectRatio: {
+              '4/3': '4 / 3',
+              '3/2': '3 / 2',
+            },
             fontFamily: {
-
                 sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
                 'montserrat': ['Montserrat', 'sans-serif'],
             },
