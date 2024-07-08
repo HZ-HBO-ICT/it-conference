@@ -30,7 +30,7 @@ class HandleFinalProgrammeReleased
         $current->save();
 
         foreach (User::all() as $user) {
-            Mail::to($user->email)->send(new FinalProgrammeReleasedMailable);
+            Mail::to($user->email)->send(new FinalProgrammeReleasedMailable($user));
         }
     }
 }
