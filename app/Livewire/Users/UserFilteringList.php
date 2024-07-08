@@ -3,6 +3,7 @@
 namespace App\Livewire\Users;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Response;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -38,7 +39,7 @@ class UserFilteringList extends Component
     }
 
     /**
-     * Retrieves the users that match the role selected by the user
+     * Retrieves the users that match the institution/company given by the user
      *
      * @return void
      */
@@ -57,6 +58,11 @@ class UserFilteringList extends Component
         }
     }
 
+    /**
+     * Retrieves the users that match the email/name that was given by the user
+     *
+     * @return void
+     */
     public function updatedEmail()
     {
         $this->updatedInstitution();
@@ -71,13 +77,67 @@ class UserFilteringList extends Component
         }
     }
 
+    /**
+     * Removes all the filters that the user has made
+     *
+     * @return void
+     */
     public function clearFilters()
     {
         $this->email = '';
         $this->institution = '';
-        $this->role='';
+        $this->role = '';
 
         $this->users = User::all()->sortBy('name');
+    }
+
+    /**
+     * Exports the current (filtered) users collection to csv
+     *
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function export()
+    {
+        $filename = 'it-conference-users.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        return response()->stream(function () {
+            $handle = fopen('php://output', 'w');
+
+            // Add CSV headers
+            fputcsv($handle, [
+                'Name',
+                'Email',
+                'Phone Number',
+                'Institution/Company',
+                'Roles',
+            ]);
+
+            // Fetch and process data in chunks
+            foreach ($this->users as $user) {
+                // Extract data from each user.
+                $data = [
+                    $user->name ?? '',
+                    $user->email ?? '',
+                    $user->company && $user->company->phone_number ? $user->company->phone_number : '',
+                    $user->company ? $user->company->name : $user->institution,
+                    isset($user->all_roles) ? implode(", ", json_decode($user->all_roles)) : '',
+                ];
+
+                // Write data to a CSV file.
+                fputcsv($handle, $data);
+            }
+
+            // Close CSV file handle
+            fclose($handle);
+        }, 200, $headers);
     }
 
     /**
@@ -85,7 +145,8 @@ class UserFilteringList extends Component
      *
      * @return View
      */
-    public function render(): View
+    public
+    function render(): View
     {
         return view('livewire.users.user-filtering-list');
     }
