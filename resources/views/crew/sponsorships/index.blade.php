@@ -19,7 +19,7 @@
                 @endif
                 <x-slot name="content">
                     @forelse($companies as $index => $company)
-                        <x-list-section-item class="{{ !$company->is_sponsorship_approved ? 'bg-crew-300 bg-opacity-30 dark:bg-opacity-20' : '' }} border-l-4 {{ !$company->is_sponsorship_approved ? 'border-crew-300 dark:border-crew-600' : 'border-transparent' }}"
+                        <x-list-section-item class="{{ $company->is_sponsorship_approved ? 'border-transparent hover:bg-gray-100 ' : 'bg-apricot-peach-400 bg-opacity-30 dark:bg-opacity-20 border-apricot-peach-300 dark:border-apricot-peach-600 hover:bg-apricot-peach-200 ' }} border-l-4"
                             :url="route('moderator.sponsorships.show', $company)">
                             <div class="justify-between flex mt-2">
                                 <div class="flex">
@@ -31,7 +31,7 @@
                                         @else
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke-width="1.5"
-                                                 stroke="gray" aria-hidden="true" class="w-6 h-6 stroke-crew-400">
+                                                 stroke="gray" aria-hidden="true" class="w-6 h-6 {{$company->is_sponsorship_approved ? 'stroke-apricot-peach-300' : 'stroke-gray-800'}}">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                       d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
                                             </svg>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="text-sm items-center flex ml-2 dark:text-white">
                                     <svg
-                                        class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$company->is_sponsorship_approved ? 'stroke-gray-900 dark:stroke-white' : ''  }}"
+                                        class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400 {{ !$company->is_sponsorship_approved ? 'stroke-gray-900 dark:stroke-white' : ''  }}"
                                         xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                         aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round"

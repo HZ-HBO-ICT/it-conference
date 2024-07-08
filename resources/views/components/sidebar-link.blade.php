@@ -14,7 +14,7 @@
     @if($type == "form")
         <form method="POST" action="{{ route($route) }}">
             @csrf
-            <button type="submit" class="w-full leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-400 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
+            <button type="submit" class="w-full leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-400 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-400">
                     <path stroke-linecap="round" stroke-linejoin="round"
                           d="{{ $icon }}">
@@ -29,7 +29,7 @@
         </form>
     @else
     <a href="{{ empty($param) ? route($route) : route($route, $param) }}"
-       class="leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-400 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
+       class="leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-{{ $roleColour }}-400 dark:hover:text-{{ $roleColour }}-500 {{ $bgColorClass }}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6 stroke-{{ $roleColour }}-400">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="{{ $icon }}">

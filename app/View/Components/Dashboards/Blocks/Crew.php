@@ -41,7 +41,7 @@ class Crew extends Component
             'default' => [
                 'bgColor' => 'bg-white',
                 'textColor' => 'text-gray-900',
-                'iconColor' => 'text-' . $roleColour . '-300',
+                'iconColor' => 'text-' . $roleColour . '-400',
                 'viewAllBgColor' => 'bg-' . $roleColour . '-300',
                 'viewAllTextColor' => 'text-white',
                 'viewAllBgDark' => 'bg-' . $roleColour . '-300',

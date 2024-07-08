@@ -26,7 +26,12 @@ export default {
         'bg-crew-300',
         'bg-crew-500',
         'bg-apricot-peach-500',
-        'bg-apricot-peach-300'
+        'bg-apricot-peach-300',
+        'text-apricot-peach-300',
+        'text-apricot-peach-400',
+        'text-apricot-peach-500',
+        'stroke-apricot-peach-300',
+        'stroke-apricot-peach-400'
     ],
     theme: {
         extend: {
