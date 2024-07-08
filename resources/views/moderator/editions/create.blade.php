@@ -78,7 +78,7 @@
                                 <x-input-error for="workshop_duration" class="mt-2"/>
                             </div>
                             <x-button
-                                class="mt-5 dark:bg-purple-500 bg-purple-500 hover:bg-purple-600 hover:dark:bg-purple-600 active:bg-purple-600 active:dark:bg-purple-600">
+                                class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-purple-600 active:dark:bg-purple-600">
                                 Submit
                             </x-button>
                         </form>

@@ -95,11 +95,14 @@ class BoothController extends Controller
 
         if ($isApproved) {
             Mail::to($booth->company->representative->email)->send(new BoothApprovedMailable($booth->company));
-        } else {
-            Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+
+            return redirect(route('moderator.booths.show', $booth))
+                ->banner(__($template, ['company' => $booth->company->name]));
         }
 
-        return redirect(route('moderator.requests', 'booths'))
+        Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+
+        return redirect(route('moderator.booths.index'))
             ->banner(__($template, ['company' => $booth->company->name]));
     }
 

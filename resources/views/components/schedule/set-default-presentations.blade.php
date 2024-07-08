@@ -11,14 +11,14 @@
         <div class="grid grid-cols-1 w-full">
             @if(is_null(DefaultPresentation::opening()))
                 <div class="w-full">
-                    <button class="bg-crew-300 py-2 px-3 border border-crew-400 hover:bg-crew-400 rounded"
+                    <button class="bg-apricot-peach-300 py-2 px-3 border border-apricot-peach-400 hover:bg-apricot-peach-400 rounded"
                             onclick="Livewire.dispatch('openModal', { component: 'schedule.add-default-presentation', arguments: { type: 'opening' }})">
                         Create opening presentation
                     </button>
                 </div>
             @else
                 <div class="w-full">
-                    <button class="bg-crew-300 py-2 px-3 border border-crew-400 hover:bg-crew-400 rounded"
+                    <button class="bg-apricot-peach-300 py-2 px-3 border border-apricot-peach-400 hover:bg-apricot-peach-400 rounded"
                             onclick="Livewire.dispatch('openModal', { component: 'schedule.add-default-presentation', arguments: { type: 'closing' }})">
                         Create closing presentation
                     </button>

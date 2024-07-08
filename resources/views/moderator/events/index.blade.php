@@ -20,7 +20,7 @@
                                         <div class="flex">
                                             <div class="text-gray-700 dark:text-white text-m items-center flex">
                                                 <svg
-                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400"
+                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400"
                                                     xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                                     aria-hidden="true">
                                                     <path
@@ -33,7 +33,7 @@
                                         <div class="text-sm items-center flex gap-8 ml-2 dark:text-white">
                                             <div class="flex items-center">
                                                 <svg
-                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400"
+                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400"
                                                     xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                                     aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round"

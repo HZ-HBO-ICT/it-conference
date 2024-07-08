@@ -9,6 +9,14 @@ use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
+    /**
+     * Returns the landing page of the conference hub
+     * And passes the information needed for the statistic graphs
+     */
+    public function dashboard()
+    {
+        return view('myhub.home');
+    }
 
     /**
      * Returns the inner details of the company
