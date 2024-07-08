@@ -77,7 +77,7 @@
                     </span>
                     @else
                         <span
-                            class="inline-flex py-1 pr-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                            class="bg-white dark:bg-gray-800 inline-flex py-1 pr-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
                                 <a href="{{ route('dashboard') }}" wire:navigate.hover
                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                                     {{ Auth::user()->name }}

@@ -6,7 +6,7 @@
 
 <x-app-layout>
     <div class="flex">
-        <div class="flex-col w-72 flex inset-y-0 relative bg-white dark:bg-gray-900 min-h-screen">
+        <div class="flex-col w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
             <div
                 class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto flex-col flex-grow flex">
                 <div class="items-center flex-shrink-0 h-16 flex mt-4">
@@ -23,7 +23,7 @@
                                 :label="'Home'"
                                 :route="'dashboard'"
                                 :icon="'M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25'"
-                                :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
+                                :roleColour="Auth::user()->role_colour"/>
                             @if(Edition::current() && Edition::current()->is_final_programme_released)
                                 <x-sidebar-link-content-mod
                                     :label="'My programme'"

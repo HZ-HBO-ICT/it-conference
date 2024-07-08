@@ -32,10 +32,8 @@
 </head>
 <body class="font-sans antialiased bg-white dark:bg-gray-900">
 
-@if (in_array(Route::currentRouteName(), ['welcome', 'speakers.index', 'companies.index', 'faq', 'contact']))
     <div
         class="bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink">
-        @endif
         <x-banner/>
         <div class="text-black dark:text-white">
             @if (!Str::contains(Request::url(), ['errors']))

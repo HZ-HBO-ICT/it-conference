@@ -16,8 +16,18 @@ class ProgrammeController extends Controller
      */
     public function index(): View
     {
-        $lectures = Presentation::where('type', 'lecture')->orderBy('start')->get();
-        $workshops = Presentation::where('type', 'workshop')->orderBy('start')->get();
+        $lectures = Presentation::where('type', 'lecture')
+            ->whereNotNull('room_id')
+            ->whereNotNull('timeslot_id')
+            ->orderBy('start')
+            ->get();
+
+        $workshops = Presentation::where('type', 'workshop')
+            ->whereNotNull('room_id')
+            ->whereNotNull('timeslot_id')
+            ->orderBy('start')
+            ->get();
+
         $lectureTimeslots = $lectures->map->only('start')->unique();
         $workshopTimeslots = $workshops->map->only('start')->unique();
 
