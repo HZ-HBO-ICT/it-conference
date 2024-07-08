@@ -63,7 +63,7 @@
                 <div class="w-full flex justify-center mt-24">
                     @if ($edition)
                         @if (\Carbon\Carbon::now() >= $edition->start_at)
-{{--                            <a href="{{route('programme')}}">Programme</a>--}}
+                            <x-button-link href="{{route('programme')}}">Visit the programme</x-button-link>
                         @else
                             <x-countdown :time="$edition->start_at"/>
                         @endif

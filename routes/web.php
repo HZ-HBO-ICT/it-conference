@@ -11,14 +11,13 @@ use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Hub\HubController;
+use App\Http\Controllers\Hub\ParticipantController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PresentationController;
+use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Support\Facades\Route;
-
-// use App\Http\Controllers\ProgrammeController;
 
 /*Route::middleware([
     'auth:sanctum',
@@ -85,23 +84,27 @@ Route::middleware([
         ->name('presentations.show');
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
+
+    //route for personal programme
+    Route::get('/my/programme', [ParticipantController::class, 'programme'])
+        ->name('my.programme');
+
+    Route::post('/my/enroll/{presentation}', [ProgrammeController::class, 'enroll'])
+        ->name('my.programme.enroll');
+
+    Route::post('/my/disenroll/{presentation}', [ProgrammeController::class, 'disenroll'])
+        ->name('my.programme.disenroll');
 });
 //
 //    //route for my profile in personal hub
 //    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
 //
-//    //route for personal programme
-//    Route::get('/my/programme', [HubController::class, 'programme'])
-//        ->name('my.programme');
+
 //
 //    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])
 //          ->name('cohost.presentation');
 //
-//    Route::post('/my/enroll/{presentation}', [EnrollmentController::class, 'enroll'])
-//        ->name('my.programme.enroll');
-//
-//    Route::post('/my/disenroll/{presentation}', [EnrollmentController::class, 'disenroll'])
-//        ->name('my.programme.disenroll');
+
 //
 //
 //    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])
@@ -125,12 +128,12 @@ Route::middleware([
 //    ->name('user.invitation.registration');
 //
 
-//Route::get('/programme', [ProgrammeController::class, 'index'])
-//    ->name('programme');
-//
-//Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
-//    ->name('programme.presentation.show');
-//
+Route::get('/programme', [ProgrammeController::class, 'index'])
+    ->name('programme');
+
+Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
+    ->name('programme.presentation.show');
+
 
 // ===== Routes for crew =====
 Route::middleware([
