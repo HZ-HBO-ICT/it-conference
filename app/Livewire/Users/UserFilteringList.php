@@ -25,27 +25,47 @@ class UserFilteringList extends Component
     }
 
     /**
-     * Retrieves the users that match the role selected by the user
+     * Triggers the filtering function if the role has been changed
      *
      * @return void
      */
-    public function roleChanged()
+    public function roleChanged() : void
+    {
+        $this->filter();
+    }
+
+    /**
+     * Triggers the filtering function if the institution/company is being changed
+     *
+     * @return void
+     */
+    public function updatedInstitution() : void
+    {
+        $this->filter();
+    }
+
+    /**
+     * Triggers the filtering function if the email/name is being changed
+     *
+     * @return void
+     */
+    public function updatedEmail()
+    {
+        $this->filter();
+    }
+
+    /**
+     * Function that filters the users based on the filters provided by the users
+     *
+     * @return void
+     */
+    public function filter()
     {
         $this->users = User::all()->sortBy('name');
 
         if ($this->role) {
             $this->users = User::role($this->role)->get()->sortBy('name');
         }
-    }
-
-    /**
-     * Retrieves the users that match the institution/company given by the user
-     *
-     * @return void
-     */
-    public function updatedInstitution()
-    {
-        $this->roleChanged();
 
         if ($this->institution) {
             $this->users = $this->users->filter(function ($user) {
@@ -55,16 +75,6 @@ class UserFilteringList extends Component
                 return stripos($user->institution, $this->institution) !== false;
             });
         }
-    }
-
-    /**
-     * Retrieves the users that match the email/name that was given by the user
-     *
-     * @return void
-     */
-    public function updatedEmail()
-    {
-        $this->updatedInstitution();
 
         if ($this->email) {
             $this->users = $this->users->filter(function ($user) {
