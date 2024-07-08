@@ -206,7 +206,7 @@ class Company extends Model
     }
 
     /**
-     * Handle a (dis)approval of this Teams request for a sponsorship.
+     * Handle a (dis)approval of the company's request for a sponsorship.
      *
      * @param bool $isApproved
      * @return void
@@ -215,14 +215,13 @@ class Company extends Model
     {
         if ($isApproved) {
             $this->is_sponsorship_approved = true;
-            $this->save();
             /*
                         if ($this->sponsorship->leftSpots() == 0)
                             $this->sponsorship->rejectAllExceptApproved();*/
         } else {
             $this->is_sponsorship_approved = null;
             $this->sponsorship_id = null;
-            $this->save();
         }
+        $this->save();
     }
 }

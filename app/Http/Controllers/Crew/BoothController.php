@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BoothApprovedMailable;
+use App\Mail\BoothDisapprovedMailable;
 use App\Models\Booth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BoothController extends Controller
 {
@@ -89,6 +92,13 @@ class BoothController extends Controller
 
         $template = $isApproved ? 'You approved the booth of :company!'
             : 'You denied the request of :company to have a booth';
+
+        if ($isApproved) {
+            Mail::to($booth->company->representative->email)->send(new BoothApprovedMailable($booth->company));
+        } else {
+            Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+        }
+
         return redirect(route('moderator.requests', 'booths'))
             ->banner(__($template, ['company' => $booth->company->name]));
     }

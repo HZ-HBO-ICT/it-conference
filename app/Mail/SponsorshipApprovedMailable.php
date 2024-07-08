@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Team;
+use App\Models\Company;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -14,14 +14,14 @@ class SponsorshipApprovedMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $team;
+    public $company;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Team $team)
+    public function __construct(Company $company)
     {
-        $this->team = $team;
+        $this->company = $company;
     }
 
     /**

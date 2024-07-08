@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\UserInvitation;
+use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
 
-class InviteUser extends Mailable
+class UserInvitation extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +20,7 @@ class InviteUser extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(UserInvitation $invitation)
+    public function __construct(Invitation $invitation)
     {
         $this->invitation = $invitation;
     }
@@ -32,7 +32,7 @@ class InviteUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user-invite', ['acceptUrl' => URL::signedRoute('user.invitation', [
+        return $this->markdown('emails.user-invite', ['acceptUrl' => URL::signedRoute('registration.page.via.invitation', [
             'invitation' => $this->invitation,
         ])])->subject(__('You have been invited to join the IT Conference'));
     }

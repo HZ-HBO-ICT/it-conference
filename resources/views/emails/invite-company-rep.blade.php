@@ -1,15 +1,11 @@
 @component('mail::message')
-# You have been invited to join the IT Conference!
+# You have been invited to join We are in IT together conference as a company representative of {{ $invitation->company->name }}!
 
-Hello {{$invitation->team->owner->name}}!
-
-You have been invited to join the IT Conference as a company representative of {{$invitation->team->name}}.
-
-As a company representative you are the main contactperson for our conference.
+As a company representative you are the main contact person for the conference.
 You will be able to add and remove employees that will be joining as speakers/workshop hosts. You can
-send enquiries about sponsorship as well as setting up a company booth in our marketspace.
+send inquiries about becoming a sponsor as well as setting up a company booth in our market space.
 
-To gain access to the system as a company representative you just need to follow the link and change your password.
+To gain access to the system as a company representative you just need to follow the link and register on the website.
 
 @component('mail::button', ['url' => $acceptUrl])
 Finish your registration

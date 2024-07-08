@@ -2,7 +2,9 @@
 
 namespace App\Mail;
 
-use App\Models\Team;
+use App\Models\Company;
+use App\Models\Edition;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -14,14 +16,17 @@ class BoothApprovedMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $team;
+    public $company;
+
+    public $date;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Team $team)
+    public function __construct(Company $company)
     {
-        $this->team = $team;
+        $this->company = $company;
+        $this->date = Carbon::parse(Edition::current()->start_at);
     }
 
     /**

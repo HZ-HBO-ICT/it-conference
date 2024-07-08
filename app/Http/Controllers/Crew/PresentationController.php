@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresentationRequest;
+use App\Mail\PresentationApprovedMailable;
+use App\Mail\PresentationDisapprovedMailable;
 use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class PresentationController extends Controller
@@ -102,12 +105,22 @@ class PresentationController extends Controller
         ]);
 
         $isApproved = $validated['approved'];
+        if (!$isApproved) {
+            foreach ($presentation->speakers as $speaker) {
+                Mail::to($speaker->email)->send(new PresentationDisapprovedMailable);
+            }
+        }
+
         $presentation->handleApproval($isApproved);
 
         $template = $isApproved ? 'You approved the presentation to take place during the IT Conference!'
             : 'You refused the request to host this presentation during the IT conference';
 
         if ($isApproved) {
+            foreach ($presentation->speakers as $speaker) {
+                Mail::to($speaker->email)->send(new PresentationApprovedMailable);
+            }
+
             return redirect(route('moderator.presentations.show', $presentation))
                 ->banner(__($template));
         }

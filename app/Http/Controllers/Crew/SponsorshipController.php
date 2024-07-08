@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SponsorshipApprovedMailable;
+use App\Mail\SponsorshipDisapprovedMailable;
 use App\Models\Company;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class SponsorshipController extends Controller
@@ -112,9 +115,13 @@ class SponsorshipController extends Controller
             : 'You denied the sponsorship of :company';
 
         if ($isApproved) {
+            Mail::to($company->representative->email)->send(new SponsorshipApprovedMailable($company));
+
             return redirect(route('moderator.sponsorships.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
         }
+
+        Mail::to($company->representative->email)->send(new SponsorshipDisapprovedMailable($company));
 
         return redirect(route('moderator.sponsorships.index'))
             ->banner(__($template, ['company' => $company->name]));

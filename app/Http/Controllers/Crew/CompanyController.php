@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
-use App\Mail\CustomTeamInvitation;
-use App\Models\Booth;
+use App\Mail\CompanyApprovedMailable;
+use App\Mail\CompanyDisapprovedMailable;
+use App\Mail\CompanyRepInvitation;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -103,12 +104,18 @@ class CompanyController extends Controller
         ]);
 
         $isApproved = $validated['approved'];
+        if (!$isApproved) {
+            Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
+        }
+
         $company->handleCompanyApproval($isApproved);
 
         $template = $isApproved ? 'You approved :company to join the IT Conference!!'
             : 'You refused the request of :company to join the IT conference';
 
         if ($isApproved) {
+            Mail::to($company->representative->email)->send(new CompanyApprovedMailable($company));
+
             return redirect(route('moderator.companies.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
         }
@@ -194,7 +201,7 @@ class CompanyController extends Controller
             'role' => 'company representative',
         ]);
 
-        Mail::to($input['rep_new_email'])->send(new CustomTeamInvitation($invitation));
+        Mail::to($input['rep_new_email'])->send(new CompanyRepInvitation($invitation));
 
         return $company;
     }

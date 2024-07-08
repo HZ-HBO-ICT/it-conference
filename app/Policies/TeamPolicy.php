@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Mail\CustomTeamInvitation;
+use App\Mail\CustomCompanyInvitation;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

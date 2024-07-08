@@ -2,30 +2,31 @@
 
 namespace App\Mail;
 
+use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
-use Laravel\Jetstream\TeamInvitation;
+use Laravel\Jetstream\TeamInvitation as TeamInvitationModel;
 
-class InviteCompany extends Mailable
+class CustomCompanyInvitation extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * The team invitation instance.
      *
-     * @var TeamInvitation
+     * @var Invitation Invitation
      */
     public $invitation;
 
     /**
      * Create a new message instance.
      *
-     * @param TeamInvitation $invitation
+     * @param $invitation
      * @return void
      */
-    public function __construct(TeamInvitation $invitation)
+    public function __construct(Invitation $invitation)
     {
         $this->invitation = $invitation;
     }
@@ -37,8 +38,11 @@ class InviteCompany extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.invite-company-rep', ['acceptUrl' => URL::signedRoute('company-rep.invitation', [
-            'invitation' => $this->invitation,
-        ])])->subject(__('Participation in the IT Conference'));
+        return $this->markdown(
+            'emails.custom-company-invite',
+            ['acceptUrl' => URL::signedRoute('registration.page.via.invitation', [
+                'invitation' => $this->invitation,
+            ])]
+        )->subject(__('Team Invitation'));
     }
 }

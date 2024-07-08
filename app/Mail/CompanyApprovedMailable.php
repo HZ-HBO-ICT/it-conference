@@ -2,7 +2,9 @@
 
 namespace App\Mail;
 
-use App\Models\Team;
+use App\Models\Company;
+use App\Models\Edition;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,18 +12,21 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TeamDisapprovedMailable extends Mailable
+class CompanyApprovedMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $team;
+    public $company;
+
+    public $date;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Team $team)
+    public function __construct(Company $company)
     {
-        $this->team = $team;
+        $this->company = $company;
+        $this->date = Carbon::parse(Edition::current()->start_at)->format('jS \\o\\f F');
     }
 
     /**
@@ -30,7 +35,7 @@ class TeamDisapprovedMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your attendance during the "We are in IT together" conference',
+            subject: 'Your company was approved to join We are in IT together conference!',
         );
     }
 
@@ -40,7 +45,7 @@ class TeamDisapprovedMailable extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.team-disapproved',
+            markdown: 'emails.company-approved',
         );
     }
 
