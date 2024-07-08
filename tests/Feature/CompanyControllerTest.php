@@ -8,6 +8,7 @@ use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class CompanyControllerTest extends TestCase
@@ -194,7 +195,10 @@ class CompanyControllerTest extends TestCase
     public function event_organizer_can_approve_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()->create();
+        $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create();
 
         $response = $this->actingAs($user)->post(route('moderator.companies.approve', $company), [
             'approved' => true
@@ -211,7 +215,10 @@ class CompanyControllerTest extends TestCase
     public function event_organizer_can_reject_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()->create();
+        $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create();
 
         $response = $this->actingAs($user)->post(route('moderator.companies.approve', $company), [
             'approved' => false

@@ -26,7 +26,7 @@ class CompanyApprovedMailable extends Mailable
     public function __construct(Company $company)
     {
         $this->company = $company;
-        $this->date = Carbon::parse(Edition::current()->start_at)->format('jS \\o\\f F');
+        $this->date = Carbon::parse(optional(Edition::current())->start_at)->format('jS \\o\\f F');
     }
 
     /**
