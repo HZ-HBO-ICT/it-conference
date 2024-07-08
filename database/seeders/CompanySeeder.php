@@ -18,11 +18,10 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        $companies = Company::factory(2)->create();
-        foreach ($companies as $company) {
-            $company->is_approved = false;
-            $company->save();
-        }
+        $companies = Company::factory(5)->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create(['is_approved' => false]);
 
         $companies = Company::factory(2)
             ->has(Booth::factory(1))
