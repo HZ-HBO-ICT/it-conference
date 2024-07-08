@@ -7,14 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Mail\FinalProgrammeReleasedMailable;
 use App\Models\DefaultPresentation;
 use App\Models\Edition;
-use App\Models\Event;
 use App\Models\Presentation;
-use App\Models\Sponsorship;
 use App\Models\Timeslot;
 use App\Models\User;
-use App\Policies\SchedulePolicy;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -91,10 +86,6 @@ class ScheduleController extends Controller
         }
 
         FinalProgrammeReleased::dispatch();
-
-        foreach (User::all() as $user) {
-            Mail::to($user->email)->send(new FinalProgrammeReleasedMailable);
-        }
 
         return redirect(route('moderator.schedule.index'))
             ->banner('The programme was published successfully! Participants now can enroll in the presentations');

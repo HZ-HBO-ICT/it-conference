@@ -3,9 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\FinalProgrammeReleased;
+use App\Mail\FinalProgrammeReleasedMailable;
 use App\Models\Edition;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
 class HandleFinalProgrammeReleased
 {
@@ -25,5 +28,9 @@ class HandleFinalProgrammeReleased
         $current = Edition::current();
         $current->state = Edition::STATE_ENROLLMENT;
         $current->save();
+
+        foreach (User::all() as $user) {
+            Mail::to($user->email)->send(new FinalProgrammeReleasedMailable);
+        }
     }
 }

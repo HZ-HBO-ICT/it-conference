@@ -37,7 +37,7 @@ class FinalProgrammeReleasedMailable extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.final-programme-released',
+            markdown: 'emails.final-programme-released',
         );
     }
 
