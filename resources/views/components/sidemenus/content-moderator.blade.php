@@ -32,7 +32,7 @@
             :icon="'M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z'"
             :param="''"
             :roleColour="'crew'"
-            :badgeText="\App\Models\Company::where('is_sponsorship_approved', 0)->count()"></x-sidebar-link-content-mod>
+            :badgeText="\App\Models\Company::whereNotNull('sponsorship_id')->whereNull('is_sponsorship_approved')->orWhere('is_sponsorship_approved', 0)->count()"></x-sidebar-link-content-mod>
         <x-sidebar-link-content-mod
             :label="'Users'"
             :route="'moderator.users.index'"

@@ -144,7 +144,7 @@ class BoothControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('moderator.booths.approve', [$company->booth, 'approved' => true]));
 
-        $response->assertRedirect(route('moderator.requests', 'booths'));
+        $response->assertRedirect(route('moderator.booths.show', ['booth' => $company->booth]));
         $company->refresh();
         $this->assertEquals(1, $company->booth->is_approved);
     }
