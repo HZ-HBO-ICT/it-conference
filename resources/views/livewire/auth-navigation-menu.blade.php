@@ -37,11 +37,12 @@
                     </x-nav-link>
                 </div>
                 @if(Edition::current() && Edition::current()->is_final_programme_released)
-                    {{--<div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')"
+                                    wire:navigate.hover>
                             {{ __('Programme') }}
                         </x-nav-link>
-                    </div>--}}
+                    </div>
                 @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>
@@ -134,7 +135,7 @@
 
         <!-- Responsive Navigation Menu -->
         <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-            <div class="pt-2 pb-3 space-y-1 overflow-y-auto max-h-screen">
+            <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link wire:navigate.hover href="{{ route('welcome') }}"
                                        :active="request()->routeIs('welcome')">
                     {{ __('Home') }}
@@ -147,11 +148,11 @@
                                        :active="request()->routeIs('companies.index')">
                     {{ __('Companies') }}
                 </x-responsive-nav-link>
-                {{--@if(\App\Models\EventInstance::current()->is_final_programme_released)
+                @if(Edition::current() && Edition::current()->is_final_programme_released)
                     <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                         {{ __('Programme') }}
                     </x-responsive-nav-link>
-                @endif--}}
+                @endif
                 <x-responsive-nav-link wire:navigate.hover href="{{ route('faq') }}"
                                        :active="request()->routeIs('faq')">
                     {{ __('FAQ') }}

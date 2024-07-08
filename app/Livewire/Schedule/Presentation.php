@@ -82,7 +82,7 @@ class Presentation extends Component
     #[On("update-presentation-{id}")]
     public function refresh()
     {
-        $this->presentation = $this->presentation->fresh();
+        $this->presentation = $this->presentation->refresh();
         $this->height = $this->calculateHeightInREM();
         $this->marginTop = $this->calculateMarginTopInREM();
     }

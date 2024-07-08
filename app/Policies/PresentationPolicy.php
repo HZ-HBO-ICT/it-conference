@@ -117,9 +117,9 @@ class PresentationPolicy
         if ($user->cannot('create presentation request')) {
             return false;
         }
-      
+
         // Deny if the deadline for requesting has passed or not arrived yet
-        if (Edition::current() && Edition::current()->is_requesting_presentation_opened) {
+        if (Edition::current() && !Edition::current()->is_requesting_presentation_opened) {
             return false;
         }
 
@@ -183,7 +183,44 @@ class PresentationPolicy
             return false;
         }
 
-        return $user->canEnroll($presentation);
+        // decline if the final programme is not released
+        if (!Edition::current()->is_final_programme_released) {
+            return false;
+        }
+
+        // decline if the user is already a participant of this presentation
+        if ($user->participating_in->contains($presentation)) {
+            return false;
+        }
+
+        // decline if the limit of participants was reached
+        if ($presentation->remaining_capacity <= 0) {
+            return false;
+        }
+
+        return $presentation->noConflicts($user);
+    }
+
+    /**
+     * Determines whether the user can disenroll from the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function disenroll(User $user, Presentation $presentation): bool
+    {
+        // decline if the final programme is not released
+        if (!Edition::current()->is_final_programme_released) {
+            return false;
+        }
+
+        // allow if the user is participating in the presentation
+        if ($user->participating_in->contains($presentation)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

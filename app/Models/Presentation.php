@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ class Presentation extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
-        'company_id', 'room_id', 'timeslot_id', 'start'];
+        'company_id', 'room_id', 'timeslot_id', 'start', 'is_approved'];
 
     /**
      * Returns the basic validation rules for the model
@@ -32,18 +33,24 @@ class Presentation extends Model
     }
 
     /**
-     * Hard-coding the duration of the lectures
-     * TODO: Once the metatables get added rework this to retrieve data from there
-     * @var int
+     * Returns the duration of the lecture based on the Edition
+     *
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
      */
-    public static $LECTURE_DURATION = 30;
+    public static function lectureDuration()
+    {
+        return Edition::current()->lecture_duration;
+    }
 
     /**
-     * Hard-coding the duration of the workshops
-     * TODO: Once the metatables get added rework this to retrieve data from there
-     * @var int
+     * Returns the duration of the workshops based on the Edition
+     *
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
      */
-    public static $WORKSHOP_DURATION = 90;
+    public static function workshopDuration()
+    {
+        return Edition::current()->workshop_duration;
+    }
 
     /**
      * Establishes a relationship between the presentation
@@ -124,16 +131,72 @@ class Presentation extends Model
     }
 
     /**
+     * Returns a speaker of the presentation that was registered first,
+     * and therefore had most likely created the presentation
+     *
+     * @return Attribute
+     */
+    public function creator(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => User::whereHas('userPresentations', function ($query) {
+                $query->where('presentation_id', $this->id)
+                    ->where('role', 'speaker');
+            })->orderBy('created_at')
+                ->first()
+        );
+    }
+
+    /**
      * Definition of the `remaining_capacity` attribute that shows the amount
      * of participants that currently can enroll the presentation
      *
      * @return Attribute
      */
-    public function remainingCapacity()
+    public function remainingCapacity(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->max_participants - $this->participants->count(),
         );
+    }
+
+    /**
+     * Determine if the presentation that the user wants to enroll for
+     * doesn't have any scheduling conflicts
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function noConflicts(User $user): bool
+    {
+        $presentationStart = Carbon::parse($this->start);
+        $presentationEnd = Carbon::parse($this->start)
+            ->copy()
+            ->addMinutes($this->duration);
+
+        if ($user->presenter_of) {
+            $speakingStart = Carbon::parse($user->presenter_of->start);
+            $speakingEnd = Carbon::parse($user->presenter_of->start)
+                ->copy()
+                ->addMinutes($this->duration);
+
+            if ($presentationEnd > $speakingStart && $presentationStart < $speakingEnd) {
+                return false;
+            }
+        }
+
+        foreach ($user->participating_in as $enrolledPresentation) {
+            $enrolledStart = Carbon::parse($enrolledPresentation->start);
+            $enrolledEnd = Carbon::parse($enrolledPresentation->start)
+                ->copy()
+                ->addMinutes($this->duration);
+
+            if ($presentationEnd > $enrolledStart && $presentationStart < $enrolledEnd) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -171,14 +234,14 @@ class Presentation extends Model
     {
         return Attribute::make(
             get: fn() => $this->type == 'workshop'
-                ? Presentation::$WORKSHOP_DURATION
-                : Presentation::$LECTURE_DURATION
+                ? Presentation::workshopDuration()
+                : Presentation::lectureDuration()
         );
     }
 
     /**
      * Returns the display name for the presentation (useful in the scheduler)
-     * @param $presentation
+     *
      * @param $maxLength
      * @return string
      */
@@ -195,5 +258,17 @@ class Presentation extends Model
         return strlen($name) > $maxLength
             ? substr($name, 0, $maxLength)
             . '...' : $name;
+    }
+
+    /**
+     * Checks if the presentation has start, room and timeslot
+     *
+     * @return Attribute
+     */
+    public function isScheduled(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => !is_null($this->start) && !is_null($this->room_id) && !is_null($this->timeslot_id)
+        );
     }
 }

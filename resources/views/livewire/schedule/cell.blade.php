@@ -1,7 +1,9 @@
 <div class="flex-none h-full w-full" x-data="draggable()"
-     @drop.prevent="drop"
-     @dragover.prevent="allowDrop"
-     @draggable
+     @if(\App\Models\Edition::current() && !\App\Models\Edition::current()->is_final_programme_released)
+         @drop.prevent="drop"
+         @dragover.prevent="allowDrop"
+         @draggable
+     @endif
      data-room="{{ $room->id }}"
      data-timeslot="{{$timeslot->id}}"
      style="height: {{ $height }}rem">

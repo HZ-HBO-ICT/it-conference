@@ -222,23 +222,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Checks if the user can be enrolled to this presentation, based on the
-     * event status and the max_participants
-     * TODO: add user schedule clashing
-     *
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function canEnroll(Presentation $presentation): bool
-    {
-        if (!EventInstance::current()->is_final_programme_released) {
-            return false;
-        }
-
-        return $presentation->remaining_capacity > 0;
-    }
-
-    /**
      * Determines the color scheme of the hub area based on the user's role
      *
      * @return Attribute

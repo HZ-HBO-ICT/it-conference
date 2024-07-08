@@ -26,6 +26,12 @@
             <div class="{{$showCompanyBasicInfoForm ? '' : 'hidden'}} w-full">
                 <livewire:registration.company-basic-form/>
             </div>
+            <div class="{{$showCompanyMotivationInfoForm ? '' : 'hidden'}} w-full">
+                <livewire:registration.company-motivation-form/>
+            </div>
+            <div class="{{$showCompanyInternshipsInfoForm ? '' : 'hidden'}} w-full">
+                <livewire:registration.company-internships-form/>
+            </div>
             <div class="{{$showCompanyLocationInfoForm ? '' : 'hidden'}} w-full">
                 <livewire:registration.company-location-form/>
             </div>

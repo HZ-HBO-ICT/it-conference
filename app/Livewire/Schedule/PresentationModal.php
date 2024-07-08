@@ -4,6 +4,7 @@ namespace App\Livewire\Schedule;
 
 use App\Actions\Schedule\PresentationAllocationHelper;
 use App\Actions\Schedule\PresentationConflictChecker;
+use App\Models\Edition;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Illuminate\Support\Carbon;
@@ -47,6 +48,8 @@ class PresentationModal extends ModalComponent
      */
     public function save()
     {
+        $this->authorize('edit-schedule');
+
         $this->validate();
         $this->additionalStartTimeValidation($this->start);
 
@@ -95,10 +98,32 @@ class PresentationModal extends ModalComponent
     }
 
     /**
+     * Handles removing of participant of presentation if needed and sends an
+     * event to the parent to handle removing of the presentation from the schedule
+     *
+     * @return void
+     */
+    public function remove()
+    {
+        if (Edition::current()->is_final_programme_released) {
+            $participants = $this->presentation->participants;
+            foreach ($participants as $participant) {
+                $participant->leavePresentation($this->presentation);
+            }
+        }
+
+        $this->dispatch('remove-presentation', data: [
+            'presentation_id' => $this->presentation->id
+        ]);
+
+        $this->closeModal();
+    }
+
+    /**
      * Renders the component
      * @return View
      */
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.schedule.presentation-modal');
     }

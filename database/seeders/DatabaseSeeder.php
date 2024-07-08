@@ -25,8 +25,23 @@ class DatabaseSeeder extends Seeder
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
 
-        Room::factory()->count(20)->create();
+        foreach ($this->roomNames as $roomName) {
+            Room::factory()->create([
+                'name' => $roomName
+            ]);
+        }
 
         $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class]);
     }
+
+    public $roomNames = [
+        'GW027',
+        'GW011',
+        'GW012',
+        'GW013',
+        'GW014',
+        'GW317',
+        'GW319',
+        'RC213'
+    ];
 }

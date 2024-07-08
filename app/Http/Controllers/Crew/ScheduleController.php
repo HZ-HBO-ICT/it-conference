@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Events\FinalProgrammeReleased;
 use App\Http\Controllers\Controller;
 use App\Models\DefaultPresentation;
+use App\Models\Edition;
+use App\Models\Event;
 use App\Models\Presentation;
+use App\Models\Sponsorship;
 use App\Models\Timeslot;
+use App\Policies\SchedulePolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -18,7 +25,13 @@ class ScheduleController extends Controller
      */
     public function index(): View
     {
-        return view('crew.schedule.index');
+        if (!Gate::authorize('view-schedule')) {
+            abort(403);
+        }
+
+        $noActiveEdition = is_null(Edition::current());
+
+        return view('crew.schedule.index', compact(['noActiveEdition']));
     }
 
     /**
@@ -31,6 +44,10 @@ class ScheduleController extends Controller
      */
     public function reset($type)
     {
+        if (!Gate::authorize('edit-schedule')) {
+            abort(403);
+        }
+
         Presentation::query()->update([
             'room_id' => null,
             'timeslot_id' => null,
@@ -48,5 +65,32 @@ class ScheduleController extends Controller
 
         return redirect(route('moderator.schedule.index'))
             ->banner('You reset the schedule successfully.');
+    }
+
+    /**
+     * Changes the state of the edition to enrollment
+     *
+     * @return void
+     */
+    public function publishFinalProgramme()
+    {
+        if (!Gate::authorize('edit-schedule')) {
+            abort(403);
+        }
+
+        $readyForRelease = Presentation::all()->every(function ($presentation) {
+            return $presentation->isScheduled && $presentation->is_approved;
+        });
+
+        if (!$readyForRelease) {
+            return redirect(route('moderator.schedule.index'))
+                ->banner('Seems like the programme cannot be released yet. Check the status of the presentation');
+        }
+
+
+        FinalProgrammeReleased::dispatch();
+
+        return redirect(route('moderator.schedule.index'))
+            ->banner('The programme was published successfully! Participants now can enroll in the presentations');
     }
 }

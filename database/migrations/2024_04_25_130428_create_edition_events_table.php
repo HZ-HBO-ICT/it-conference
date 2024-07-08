@@ -18,9 +18,6 @@ return new class extends Migration
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->timestamps();
-
-//            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-//            $table->foreign('edition_id')->references('id')->on('editions')->onDelete('cascade');
         });
     }
 

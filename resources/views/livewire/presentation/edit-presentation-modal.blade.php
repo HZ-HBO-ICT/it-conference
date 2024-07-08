@@ -33,8 +33,8 @@
                 <dd class="sm:col-span-2">
                     <select wire:model="form.type"
                             class="mt-1 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                        <option value="lecture">Lecture (30 minutes)</option>
-                        <option value="workshop">Workshop (90 minutes)</option>
+                        <option value="lecture">Lecture ({{\App\Models\Presentation::lectureDuration()}} minutes)</option>
+                        <option value="workshop">Workshop ({{\App\Models\Presentation::workshopDuration()}} minutes)</option>
                     </select>
                     @error('form.type') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>

@@ -16,10 +16,22 @@ class Room extends Model
     /**
      * Establishes a relationship between the room and
      * the presentations that will take place in it
+     *
      * @return HasMany
      */
     public function presentations() : HasMany
     {
         return $this->hasMany(Presentation::class);
+    }
+
+    /**
+     * Establishes a relationship between the room and
+     * the default presentations that will take place in it
+     *
+     * @return HasMany
+     */
+    public function defaultPresentations() : HasMany
+    {
+        return $this->hasMany(DefaultPresentation::class);
     }
 }

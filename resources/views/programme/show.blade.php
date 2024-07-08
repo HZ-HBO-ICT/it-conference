@@ -1,13 +1,9 @@
 @php
     use Carbon\Carbon;
-
-    $mainSpeaker = $presentation->mainSpeaker()->user;
 @endphp
 
 <x-app-layout>
     <div class="relative bg-cover overflow-hidden min-h-screen">
-        <div
-            class="before:absolute before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>
         <div
             class="isolate px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
             <div class="text-center max-w-2xl mx-auto mb-5">
@@ -30,17 +26,17 @@
                                     <h4 class="tracking-tight text-xl font-semibold pb-5 pl-5 text-left">Speaker</h4>
                                 @endif
                                 <div class="grid grid-cols-3">
-                                    @foreach($presentation->speakers()->orderBy('is_main_speaker', 'desc')->get() as $speaker)
+                                    @foreach($presentation->speakers as $speaker)
                                         <div class="flex justify-end">
                                             <div class="justify-self-end pr-3">
                                                 <img
                                                     class="object-scale-down w-24 h-24 p-2 rounded-full border-gray-200 dark:border-gray-500 max-w-full block dark:text-white"
-                                                    src="{{ url($speaker->user->profile_photo_url) . ($speaker->user->profile_photo_path ? '' : '&size=240') }}"
+                                                    src="{{ $speaker->profile_photo_path . ('&size=240') }}"
                                                     alt="blq">
                                             </div>
                                         </div>
                                         <div
-                                            class="col-span-2 sm:col-span-2 flex items-center tracking-tight text-lg font-semibold">{{$speaker->user->name}}</div>
+                                            class="col-span-2 sm:col-span-2 flex items-center tracking-tight text-lg font-semibold">{{$speaker->name}}</div>
                                     @endforeach
                                 </div>
                             </div>
@@ -80,7 +76,7 @@
                                     </h3>
                                     <p>Room: {{$presentation->room->name}}</p>
                                     <p>Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
-                                       - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
+                                        - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
                                 </div>
                                 @if(Auth::user())
                                     @can('enroll', $presentation)
@@ -94,7 +90,7 @@
                                             </form>
                                         </div>
                                     @else
-                                        @if(Auth::user()->presentations->contains($presentation))
+                                        @if(Auth::user()->participating_in->contains($presentation))
                                             <div class="pt-5">
                                                 <form action="{{route('my.programme.disenroll', $presentation)}}"
                                                       method="POST">
@@ -104,7 +100,7 @@
                                                     </button>
                                                 </form>
                                             </div>
-                                        @elseif(!Auth::user()->speaker || (Auth::user()->speaker && Auth::user()->speaker->presentation->id != $presentation->id))
+                                        @elseif(!Auth::user()->presenter_of || (Auth::user()->presenter_of && !Auth::user()->isPresenterOf($presentation)))
                                             <div class="pt-5" data-te-toggle="tooltip" title="You cannot sign up because you are already busy during this time.">
                                                 <button class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
                                                     Sign up
