@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPresentation;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,6 +14,7 @@ class SpeakerController extends Controller
      */
     public function index() : View
     {
-        return view('speakers.index', ['speakers' => collect()]);
+        $speakers = UserPresentation::all()->where('role', 'speaker');
+        return view('speakers.index', compact('speakers'));
     }
 }
