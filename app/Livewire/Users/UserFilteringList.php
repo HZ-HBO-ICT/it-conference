@@ -51,7 +51,6 @@ class UserFilteringList extends Component
             $this->users = $this->users->filter(function ($user) {
                 if ($user->company) {
                     return stripos(optional($user->company)->name, $this->institution) !== false;
-
                 }
                 return stripos($user->institution, $this->institution) !== false;
             });
@@ -145,8 +144,7 @@ class UserFilteringList extends Component
      *
      * @return View
      */
-    public
-    function render(): View
+    public function render(): View
     {
         return view('livewire.users.user-filtering-list');
     }

@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Crew;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index()
+    /**
+     * Returns the page with a list of users
+     *
+     * @return View
+     */
+    public function index() : View
     {
-        $users = User::all();
         return view('crew.users.index');
     }
 }
