@@ -4,10 +4,12 @@ namespace App\Livewire\Schedule;
 
 use App\Actions\Schedule\PresentationAllocationHelper;
 use App\Actions\Schedule\PresentationConflictChecker;
+use App\Mail\CancelledPresentationMailable;
 use App\Models\Edition;
 use App\Models\Room;
 use App\Models\Timeslot;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -109,6 +111,8 @@ class PresentationModal extends ModalComponent
             $participants = $this->presentation->participants;
             foreach ($participants as $participant) {
                 $participant->leavePresentation($this->presentation);
+
+                Mail::to($participant->email)->send(new CancelledPresentationMailable($participant, $this->presentation));
             }
         }
 
