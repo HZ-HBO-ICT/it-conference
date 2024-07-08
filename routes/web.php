@@ -84,23 +84,27 @@ Route::middleware([
         ->name('presentations.show');
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
-});
-//
-//    //route for my profile in personal hub
-//    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
-//
+
     //route for personal programme
     Route::get('/my/programme', [ParticipantController::class, 'programme'])
         ->name('my.programme');
-//
-//    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])
-//          ->name('cohost.presentation');
-//
+
     Route::post('/my/enroll/{presentation}', [ProgrammeController::class, 'enroll'])
         ->name('my.programme.enroll');
 
     Route::post('/my/disenroll/{presentation}', [ProgrammeController::class, 'disenroll'])
         ->name('my.programme.disenroll');
+});
+//
+//    //route for my profile in personal hub
+//    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
+//
+
+//
+//    Route::post('/cohost/{presentation}', [SpeakerController::class, 'cohostPresentation'])
+//          ->name('cohost.presentation');
+//
+
 //
 //
 //    Route::get('/presentations/{presentation}', [PresentationController::class, 'show'])

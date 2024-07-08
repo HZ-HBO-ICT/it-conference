@@ -180,17 +180,18 @@ class Presentation extends Model
                 ->copy()
                 ->addMinutes($this->duration);
 
-            if ($presentationEnd >= $speakingStart && $presentationStart <= $speakingEnd) {
+            if ($presentationEnd > $speakingStart && $presentationStart < $speakingEnd) {
                 return false;
             }
         }
 
         foreach ($user->participating_in as $enrolledPresentation) {
-            $enrolledStart = Carbon::parse($enrolledPresentation->timeslot->start);
-            $enrolledEnd = Carbon::parse($enrolledPresentation->timeslot->start)
+            $enrolledStart = Carbon::parse($enrolledPresentation->start);
+            $enrolledEnd = Carbon::parse($enrolledPresentation->start)
+                ->copy()
                 ->addMinutes($this->duration);
 
-            if ($presentationEnd >= $enrolledStart && $presentationStart <= $enrolledEnd) {
+            if ($presentationEnd > $enrolledStart && $presentationStart < $enrolledEnd) {
                 return false;
             }
         }

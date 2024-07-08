@@ -194,7 +194,7 @@ class PresentationPolicy
         }
 
         // decline if the limit of participants was reached
-        if ($presentation->remaining_capacity < 0) {
+        if ($presentation->remaining_capacity <= 0) {
             return false;
         }
 
