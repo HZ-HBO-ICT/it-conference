@@ -27,6 +27,11 @@ export default {
         'bg-crew-500',
         'bg-apricot-peach-500',
         'bg-apricot-peach-300',
+        'text-apricot-peach-300',
+        'text-apricot-peach-400',
+        'text-apricot-peach-500',
+        'stroke-apricot-peach-300',
+        'stroke-apricot-peach-400',
         'bg-participant-500',
         'bg-participant-700',
         'bg-violet-500',
@@ -56,6 +61,10 @@ export default {
 
                 sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
                 'montserrat': ['Montserrat', 'sans-serif'],
+            },
+            lineHeight: {
+                'extra-tight': '1.15',
+                '12': '3rem',
             },
             colors: {
                 'gradient-yellow': '#F9CD32',

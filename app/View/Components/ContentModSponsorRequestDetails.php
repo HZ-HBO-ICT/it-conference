@@ -27,6 +27,6 @@ class ContentModSponsorRequestDetails extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.content-mod-sponsor-request-details');
+        return view('components.content-moderator.content-mod-sponsor-request-details');
     }
 }

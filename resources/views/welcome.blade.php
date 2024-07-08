@@ -8,9 +8,14 @@
                     class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-6">
                     <div
                         class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
-                        <h1 class="leading-snug" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
+                        <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
+                        @if($goldSponsorCompany)
+                            <h2 class="mt-5 uppercase font-bold text-sm">
+                                Powered by {{ $goldSponsorCompany->name }}
+                            </h2>
+                        @endif
                     </div>
                     <div class="w-full md:w-1/2 pt-1 text-xl font-montserrat">
                         <h2 class="uppercase font-bold">
@@ -24,20 +29,20 @@
                             @endif
                         </h2>
                         <h2 class="italic">
-                            "It does not only build a bridge, it involves us all"
+                            "IT does not only build a bridge, IT involves us all"
                         </h2>
                         <h2 class="italic font-semibold">
                             HZ University of Applied Sciences, Middelburg
                         </h2>
                         <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
-                            <a href="#">
+                            <a href="{{ route('companies.index') }}">
                                 View companies
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
                             </a>
-                            <a href="#">
+                            <a href="{{ route('speakers.index') }}">
                                 View speakers
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -46,17 +51,14 @@
                             </a>
                         </h2>
                         <br>
-                        @if($edition && $edition->is_participant_registration_opened)
+                        @guest()
                             <x-button class="mt-4 mr-5">
-                                <a href="{{route('register')}}">Register as a participant</a>
+                                <a href="{{route('register.participant')}}">Register as a participant</a>
                             </x-button>
-                        @endif
-
-                        @if($edition && $edition->is_company_registration_opened)
                             <x-button class="mt-4">
-                                <a href="{{route('register')}}">Register a company</a>
+                                <a href="{{route('register.company')}}">Register my company</a>
                             </x-button>
-                        @endif
+                        @endguest
                     </div>
                 </div>
                 <!-- Countdown Timer -->
@@ -139,82 +141,94 @@
                  style="transform: rotate(61deg)">
 
             <!-- Gradient background -->
-            <div class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
-            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to expect on this year's conference?</h2>
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to
+                expect on this year's conference?</h2>
 
             {{-- Cards for speakers, presentations, companies --}}
             <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
                 <!-- Card 1 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div class="h-[32rem] rounded-lg shadow-md overflow-hidden relative">
-                        <!-- Top dark gradient -->
+                    <a href="{{ route('speakers.index') }}">
                         <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-                        <!-- Bottom dark gradient -->
-                        <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                        <!-- Color gradient -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
-                        <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
-                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                            <div class="relative">
-                                <h2 class="text-2xl font-bold">SPEAKERS</h2>
-                                <p class="mt-4">During the conference you will have the chance to meet and speak to our
-                                    speakers.</p>
+                            class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                            <!-- Top dark gradient -->
+                            <div
+                                class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                            <!-- Bottom dark gradient -->
+                            <div
+                                class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            <!-- Color gradient -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
+                            <div class="bg-cover bg-center h-full"
+                                 style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
+                            <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                                <div class="relative">
+                                    <h2 class="text-2xl font-bold">SPEAKERS</h2>
+                                    <p class="mt-4">During the conference you will have the chance to meet and speak to
+                                        our
+                                        speakers.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div class="h-[32rem] rounded-lg shadow-md overflow-hidden relative">
-                        <!-- Top dark gradient -->
+                    <a href="#">
                         <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-                        <!-- Bottom dark gradient -->
-                        <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                        <!-- Color gradient -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
-                        <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
-                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                            <div class="relative">
-                                <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
-                                <p class="mt-4">During the conference you can visit a lot of different workshops and
-                                    lectures.</p>
+                            class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                            <!-- Top dark gradient -->
+                            <div
+                                class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                            <!-- Bottom dark gradient -->
+                            <div
+                                class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            <!-- Color gradient -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
+                            <div class="bg-cover bg-center h-full"
+                                 style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
+                            <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                                <div class="relative">
+                                    <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
+                                    <p class="mt-4">During the conference you can visit a lot of different workshops and
+                                        lectures.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div class="h-[32rem] rounded-lg shadow-md overflow-hidden relative">
-                        <!-- Top dark gradient -->
+                    <a href="{{ route('companies.index') }}">
                         <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-                        <!-- Bottom dark gradient -->
-                        <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                        <!-- Color gradient -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
-                        <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
-                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                            <div class="relative">
-                                <h2 class="text-2xl font-bold">COMPANIES</h2>
-                                <p class="mt-4">During the conference you will have the chance to meet different
-                                    companies.</p>
+                            class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                            <!-- Top dark gradient -->
+                            <div
+                                class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                            <!-- Bottom dark gradient -->
+                            <div
+                                class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            <!-- Color gradient -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
+                            <div class="bg-cover bg-center h-full"
+                                 style="background-image: url({{asset('/img/card-companies.png')}});"></div>
+                            <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                                <div class="relative">
+                                    <h2 class="text-2xl font-bold">COMPANIES</h2>
+                                    <p class="mt-4">During the conference you will have the chance to meet different
+                                        companies.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 

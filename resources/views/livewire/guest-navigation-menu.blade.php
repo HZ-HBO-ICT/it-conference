@@ -26,17 +26,26 @@
                     'Contact' => 'contact',
                 ] as $label => $route)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link wire:navigate.hover href="{{ route($route) }}"
-                                    :active="request()->routeIs($route)"
-                                    class="transition-colors duration-300">
-                            {{ __($label) }}
-                        </x-nav-link>
+                        @if($route=='welcome')
+                            <x-nav-link href="{{ route($route) }}"
+                                        :active="request()->routeIs($route)"
+                                        class="transition-colors duration-300">
+                                {{ __($label) }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link href="{{ route($route) }}"
+                                        wire:navigate.hover
+                                        :active="request()->routeIs($route)"
+                                        class="transition-colors duration-300">
+                                {{ __($label) }}
+                            </x-nav-link>
+                        @endif
                     </div>
                 @endforeach
 
                 @if(Edition::current() && Edition::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link {{--href="{{ route('programme') }}" :active="request()->routeIs('programme')"--}}>
+                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                             {{ __('Programme') }}
                         </x-nav-link>
                     </div>
@@ -49,11 +58,11 @@
                 <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                     {{ __('Login') }}
                 </x-nav-link>
-                <div class="pl-2">
-                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                        {{ __('Register') }}
-                    </x-nav-link>
-                </div>
+{{--                <div class="pl-2">--}}
+{{--                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">--}}
+{{--                        {{ __('Register') }}--}}
+{{--                    </x-nav-link>--}}
+{{--                </div>--}}
                 <div class="pl-4">
                     <div>
                         <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">
@@ -115,7 +124,7 @@
             </x-responsive-nav-link>
 
             @if(Edition::current() && Edition::current()->is_final_programme_released)
-                <x-responsive-nav-link {{--href="{{ route('programme') }}" :active="request()->routeIs('programme')"--}}>
+                <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
             @endif
