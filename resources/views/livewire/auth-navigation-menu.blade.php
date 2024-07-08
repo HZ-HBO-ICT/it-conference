@@ -37,11 +37,11 @@
                     </x-nav-link>
                 </div>
                 @if(Edition::current() && Edition::current()->is_final_programme_released)
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    {{--<div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                             {{ __('Programme') }}
                         </x-nav-link>
-                    </div>
+                    </div>--}}
                 @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                     <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>

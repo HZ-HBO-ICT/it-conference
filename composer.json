@@ -14,7 +14,6 @@
         "masmerise/livewire-toaster": "^2.2",
         "propaganistas/laravel-phone": "^5.2",
         "spatie/laravel-permission": "^6.4",
-        "spatie/laravel-stats": "^2.3",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

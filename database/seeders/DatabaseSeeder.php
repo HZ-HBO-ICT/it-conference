@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
 
         Room::factory()->count(20)->create();
 
-        $this->call([CompanySeeder::class, UserSeeder::class, PermissionSeeder::class, StatsSeeder::class, EditionSeeder::class]);
+        $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class]);
     }
 }

@@ -6,10 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use App\Stats\SpeakersStats;
-use App\Stats\BoothsStats;
-use App\Stats\PresentationsStats;
-use App\Stats\CompaniesStats;
 
 class CompanyController extends Controller
 {
@@ -19,20 +15,7 @@ class CompanyController extends Controller
      */
     public function dashboard()
     {
-        $startDate = now()->subMonths(1);
-        $endDate = now();
-
-        $speakersStats = SpeakersStats::query()->start($startDate)->end($endDate)->groupByDay()->get();
-        $boothsStats = BoothsStats::query()->start($startDate)->end($endDate)->groupByDay()->get();
-        $presentationsStats = PresentationsStats::query()->start($startDate)->end($endDate)->groupByDay()->get();
-        $companiesStats = CompaniesStats::query()->start($startDate)->end($endDate)->groupByDay()->get();
-
-        return view('myhub.home', [
-            'speakersStats' => $speakersStats,
-            'boothsStats' => $boothsStats,
-            'presentationsStats' => $presentationsStats,
-            'companiesStats' => $companiesStats
-        ]);
+        return view('myhub.home');
     }
 
     /**
