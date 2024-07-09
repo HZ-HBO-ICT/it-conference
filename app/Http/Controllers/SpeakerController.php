@@ -17,6 +17,7 @@ class SpeakerController extends Controller
     public function index(): View
     {
         $speakers = collect();
+        $edition = Edition::current();
 
         if (optional(Edition::current())->is_final_programme_released) {
             $speakers = UserPresentation::where('role', 'speaker')
@@ -33,6 +34,6 @@ class SpeakerController extends Controller
                 });
         }
 
-        return view('speakers.index', compact('speakers'));
+        return view('speakers.index', compact('speakers', 'edition'));
     }
 }
