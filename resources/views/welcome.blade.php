@@ -12,7 +12,7 @@
                             We are in IT together Conference
                         </h1>
                         @if($goldSponsorCompany)
-                            <h2 class="mt-5 uppercase font-bold text-sm">
+                            <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
                                 Powered by {{ $goldSponsorCompany->name }}
                             </h2>
                         @endif
