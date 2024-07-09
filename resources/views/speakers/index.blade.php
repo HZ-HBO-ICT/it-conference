@@ -26,27 +26,28 @@
                             }
                         }
                     @endphp
-                    <div
-                        class="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
-                        <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                        <div class="p-8 flex flex-col items-center">
-                            <div class="relative w-32 h-32 mb-6">
-                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                <img class="relative w-32 h-32 rounded-full object-cover border-4 border-white"
-                                     src="{{$speaker->user->profile_photo_url}}"
-                                     alt="Profile picture of {{$speaker->user->name}}">
+                    <a href="{{route('programme.presentation.show', $speaker->presentation)}}" class="{{$linkColor}}">
+                        <div
+                            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
+                            <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
+                            <div class="p-8 flex flex-col items-center">
+                                <div class="relative w-32 h-32 mb-6">
+                                    <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
+                                    <img class="relative w-32 h-32 rounded-full object-cover border-4 border-white"
+                                         src="{{$speaker->user->profile_photo_url}}"
+                                         alt="Profile picture of {{$speaker->user->name}}">
+                                </div>
+                                <h3 class="font-bold text-2xl text-gray-900 dark:text-white text-center">{{$speaker->user->name}}</h3>
+                                @if($speaker->user->company)
+                                    <p class="text-gray-600 dark:text-gray-400 text-center">{{$speaker->user->company->name}}</p>
+                                @endif
+                                <p class="mt-4 text-gray-600 dark:text-gray-400 text-center">{{strlen($speaker->presentation->description) > 165 ? substr($speaker->presentation->description, 0, 165) . '...' : $speaker->presentation->description}}</p>
+                                <div class="mt-6">
+                                </div>
                             </div>
-                            <h3 class="font-bold text-2xl text-gray-900 dark:text-white text-center">{{$speaker->user->name}}</h3>
-                            @if($speaker->user->company)
-                                <p class="text-gray-600 dark:text-gray-400 text-center">{{$speaker->user->company->name}}</p>
-                            @endif
-                            <p class="mt-4 text-gray-600 dark:text-gray-400 text-center">{{strlen($speaker->presentation->description) > 165 ? substr($speaker->presentation->description, 0, 165) . '...' : $speaker->presentation->description}}</p>
-                            <div class="mt-6">
-                                <a href="{{route('programme.presentation.show', $speaker->presentation)}}" class="{{$linkColor}}">View Presentation</a>
-                            </div>
+                            <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
                         </div>
-                        <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         @else
