@@ -123,10 +123,10 @@ class PresentationController extends Controller
 
             return redirect(route('moderator.presentations.show', $presentation))
                 ->banner(__($template));
+        } else {
+            return redirect(route('moderator.presentations.index'))
+                ->banner(__($template));
         }
-
-        return redirect(route('moderator.presentations.index'))
-            ->banner(__($template));
     }
 
 

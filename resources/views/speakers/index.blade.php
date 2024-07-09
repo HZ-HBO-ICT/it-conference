@@ -28,7 +28,7 @@
                     @endphp
                     <a href="{{route('programme.presentation.show', $speaker->presentation)}}" class="{{$linkColor}}">
                         <div
-                            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
+                            class="relative min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
                             <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
                             <div class="p-8 flex flex-col items-center">
                                 <div class="relative w-32 h-32 mb-6">

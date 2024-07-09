@@ -37,10 +37,10 @@ class AddKeynoteModal extends ModalComponent
             abort(403);
         }
 
-        if ($this->edition->keynote_photo_path == $this->form->keynote_photo_path) {
+        if ($this->edition->keynote_photo_path && $this->edition->keynote_photo_path == $this->form->keynote_photo_path) {
             $this->validate([
-                'form.keynote_name' => ['required', 'string', 'min:3', 'max:255'],
-                'form.keynote_description' => ['required', 'string', 'min:3', 'max:255'],
+                'form.keynote_name' => ['required', 'string', 'min:3', 'max:700'],
+                'form.keynote_description' => ['required', 'string', 'min:3', 'max:700'],
             ]);
         } else {
             $this->validate();

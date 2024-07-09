@@ -98,12 +98,12 @@ class BoothController extends Controller
 
             return redirect(route('moderator.booths.show', $booth))
                 ->banner(__($template, ['company' => $booth->company->name]));
+        } else {
+            Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+
+            return redirect(route('moderator.booths.index'))
+                ->banner(__($template, ['company' => $booth->company->name]));
         }
-
-        Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
-
-        return redirect(route('moderator.booths.index'))
-            ->banner(__($template, ['company' => $booth->company->name]));
     }
 
     /**
