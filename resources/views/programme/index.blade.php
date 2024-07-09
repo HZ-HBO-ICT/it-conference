@@ -24,7 +24,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out
+                                        dark:bg-blue-500 dark:hover:bg-gradient-to-r dark:hover:from-blue-500 dark:hover:to-blue-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -110,7 +111,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out
+                                        dark:bg-blue-500 dark:hover:bg-gradient-to-r dark:hover:from-blue-500 dark:hover:to-blue-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
