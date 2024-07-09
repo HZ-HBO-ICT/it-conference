@@ -30,6 +30,8 @@ class CompanyFactory extends Factory
             'street' => $this->faker->streetAddress,
             'house_number' => $this->faker->numberBetween(0, 10),
             'city' => $this->faker->city,
+            'logo_path' => 'logos/img.png',
+
         ];
     }
 
