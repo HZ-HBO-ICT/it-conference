@@ -12,7 +12,7 @@
                             We are in IT together Conference
                         </h1>
                         @if($goldSponsorCompany)
-                            <h2 class="mt-5 uppercase font-bold text-sm">
+                            <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
                                 Powered by {{ $goldSponsorCompany->name }}
                             </h2>
                         @endif
@@ -145,7 +145,10 @@
                 class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
             <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to
-                expect on this year's conference?</h2>
+                                                                                                                expect
+                                                                                                                on this
+                                                                                                                year's
+                                                                                                                conference?</h2>
 
             {{-- Cards for speakers, presentations, companies --}}
             <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
@@ -169,8 +172,8 @@
                                 <div class="relative">
                                     <h2 class="text-2xl font-bold">SPEAKERS</h2>
                                     <p class="mt-4">During the conference you will have the chance to meet and speak to
-                                        our
-                                        speakers.</p>
+                                                    our
+                                                    speakers.</p>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +200,7 @@
                                 <div class="relative">
                                     <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
                                     <p class="mt-4">During the conference you can visit a lot of different workshops and
-                                        lectures.</p>
+                                                    lectures.</p>
                                 </div>
                             </div>
                         </div>
@@ -224,113 +227,95 @@
                                 <div class="relative">
                                     <h2 class="text-2xl font-bold">COMPANIES</h2>
                                     <p class="mt-4">During the conference you will have the chance to meet different
-                                        companies.</p>
+                                                    companies.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
+            <div class="relative bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
 
-            <!-- Third banner-->
-            <div class="relative">
-                <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold">Thanks to our
-                    sponsors</h2>
-                <div class="flex flex-wrap justify-center mb-16 text-center">
-                    <div class="text-xl font-montserrat">
-                        <h2>Golden sponsor</h2>
-                        <h2>Silver sponsors</h2>
-                        <h2>Bronze sponsors</h2>
-                    </div>
-                </div>
-                <!-- TODO: Fix when database gets rebuilt -->
-                {{--@if(!$allSponsors->isEmpty())
-                    <div class="isolate flex flex-wrap justify-center w-full gap-3 xl:gap-8 lg:gap-8 md:gap-8 mt-16">
-                        @foreach(\App\Models\SponsorTier::all() as $sponsorTier)
-                            <div class="w-full">
-                                <div class="hidden md:flex xl:flex lg:flex justify-center gap-3">
-                                    @foreach($sponsorTier->teams->where('is_sponsor_approved', 1) as $sponsor)
-                                        <div class="border shadow-lg border-2 w-full @if($allSponsors->count() > 3) px-3 md:w-1/3 lg:w-1/3 xl:w-1/4 @endif @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
-                                        @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_sponsor_approved) border-silver block
-                                        @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_sponsor_approved) border-bronze block @endif rounded-lg">
-                                            <a href="{{ $sponsor->website }}" target="_blank">
-                                                <div class="flex flex-col justify-start items-center h-24">
-                                                    @if($sponsor->logo_path)
-                                                        <img alt="{{ $sponsor->name }}"
-                                                             src="{{ url('storage/'. $sponsor->logo_path) }}"
-                                                             class="pt-1 object-scale-down w-full h-14 rounded-lg">
+                <!-- Third banner-->
+                <div>
+                    <h2 class="flex justify-center mt-8 mb-5 uppercase text-3xl font-montserrat font-bold pl-4">A big
+                                                                                                                thank
+                                                                                                                you to
+                                                                                                                our
+                                                                                                                sponsors</h2>
+                    <div class="flex flex-col mb-4 text-left pl-4">
+                        <div class="text-xl font-montserrat">
+                            <div class="py-10">
+                                <h2 class="text-3xl mb-5 font-semibold">Gold sponsor</h2>
+                                <div class="flex flex-wrap">
+                                    @if(\App\Models\Sponsorship::find(1))
+                                        @foreach(\App\Models\Sponsorship::find(1)->companies as $company)
+                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
+                                                <a href="{{'https://' . $company->website}}"
+                                                   class="bg-gray-50 border h-56 p-5 w-full rounded">
+                                                    @if($company->logo_path)
+                                                        <img
+                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                            src="{{ url('storage/'. $company->logo_path) }}"
+                                                            alt="Logo of {{$company->name}}">
                                                     @else
-                                                        @php
-                                                            $color = '';
-                                                             if ($sponsor->sponsorTier->name === 'golden' && $sponsor->is_sponsor_approved) $color='#FFD700';
-                                                             elseif ($sponsor->sponsorTier->name === 'silver' && $sponsor->is_sponsor_approved) $color='#C0C0C0';
-                                                             elseif ($sponsor->sponsorTier->name === 'bronze' && $sponsor->is_sponsor_approved) $color='#CD7F32';
-                                                             else $color='#60a5fa'
-                                                        @endphp
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                             viewBox="0 0 24 24"
-                                                             stroke-width="1.5"
-                                                             stroke="{{$color}}" aria-hidden="true" class="w-14 h-14">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                                        </svg>
+                                                        <h2 class="text-4xl">{{$company->name}}</h2>
                                                     @endif
-                                                    <p class="tracking-tight leading-7 text-base pt-2 text-center dark:text-white">
-                                                        @if (Str::length($sponsor->name) >= 13)
-                                                            {{ substr($sponsor->name, 0, 10) . '...' }}
-                                                        @else
-                                                            {{ $sponsor->name }}
-                                                        @endif
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="xl:hidden lg:hidden md:hidden grid grid-cols-1 gap-3 content-end">
-                                    @foreach($sponsorTier->teams->where('is_sponsor_approved', 1) as $sponsor)
-                                        <div class="border justify-self-center shadow-lg border-2 w-2/3 px-3 @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold
-                                        @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_sponsor_approved) border-silver
-                                        @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_sponsor_approved) border-bronze @endif rounded-lg">
-                                            <a href="{{ $sponsor->website }}" target="_blank">
-                                                <div class="flex flex-col justify-start items-center h-24">
-                                                    @if($sponsor->logo_path)
-                                                        <img alt="{{ $sponsor->name }}"
-                                                             src="{{ url('storage/'. $sponsor->logo_path) }}"
-                                                             class="pt-1 object-scale-down w-full h-14 rounded-lg">
-                                                    @else
-                                                        @php
-                                                            $color = '';
-                                                             if ($sponsor->sponsorTier->name === 'golden' && $sponsor->is_sponsor_approved) $color='#FFD700';
-                                                             elseif ($sponsor->sponsorTier->name === 'silver' && $sponsor->is_sponsor_approved) $color='#C0C0C0';
-                                                             elseif ($sponsor->sponsorTier->name === 'bronze' && $sponsor->is_sponsor_approved) $color='#CD7F32';
-                                                             else $color='#60a5fa'
-                                                        @endphp
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                             viewBox="0 0 24 24"
-                                                             stroke-width="1.5"
-                                                             stroke="{{$color}}" aria-hidden="true" class="w-14 h-14">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                                        </svg>
-                                                    @endif
-                                                    <p class="tracking-tight leading-7 text-base pt-2 text-center dark:text-white">
-                                                        @if (Str::length($sponsor->name) >= 13)
-                                                            {{ substr($sponsor->name, 0, 10) . '...' }}
-                                                        @else
-                                                            {{ $sponsor->name }}
-                                                        @endif
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    @endforeach
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
-                        @endforeach
+                            <div class="pb-10">
+                                <h2 class="text-2xl font-semibold mb-5">Silver sponsor</h2>
+                                <div class="flex flex-wrap">
+                                    @if(\App\Models\Sponsorship::find(2))
+                                        @foreach(\App\Models\Sponsorship::find(2)->companies as $company)
+                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
+                                                <a href="{{'https://' . $company->website}}"
+                                                   class="bg-gray-50 border h-44 p-5 w-full rounded">
+                                                    @if($company->logo_path)
+                                                        <img
+                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                            src="{{ url('storage/'. $company->logo_path) }}"
+                                                            alt="Logo of {{$company->name}}">
+                                                    @else
+                                                        <h2 class="text-4xl">{{$company->name}}</h2>
+                                                    @endif
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="pb-10">
+                                <h2 class="text-xl mb-5 font-semibold">Bronze sponsor</h2>
+                                <div class="flex flex-wrap">
+                                    @if(\App\Models\Sponsorship::find(3))
+                                        @foreach(\App\Models\Sponsorship::find(3)->companies as $company)
+                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
+                                                <a href="{{'https://' . $company->website}}"
+                                                   class="bg-gray-50 border h-36 px-5 py-3 w-full rounded">
+                                                    @if($company->logo_path)
+                                                        <img
+                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                            src="{{ url('storage/'. $company->logo_path) }}"
+                                                            alt="Logo of {{$company->name}}">
+                                                    @else
+                                                        <h2 class="text-4xl">{{$company->name}}</h2>
+                                                    @endif
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                @endif--}}
+                </div>
             </div>
+            <hr>
         </div>
     </div>
 </x-app-layout>
