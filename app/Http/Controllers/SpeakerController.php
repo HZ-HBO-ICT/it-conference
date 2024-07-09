@@ -20,7 +20,7 @@ class SpeakerController extends Controller
 
         if (optional(Edition::current())->is_final_programme_released) {
             $speakers = UserPresentation::where('role', 'speaker')
-                ->whereHas('presentation', function($query) {
+                ->whereHas('presentation', function ($query) {
                     $query->whereNotNull('room_id')
                         ->whereNotNull('timeslot_id');
                 })
