@@ -26,10 +26,10 @@
                             <x-label for="preview" value="{{ __('Photo preview') }}" class="pt-3 pb-1"/>
                             <img src="{{ $photo->temporaryUrl() }}" class="object-fill w-full h-72">
                         @endif
-                        @can('update', $company)
                         <div class="mt-1 flex items-center">
                             <input type="file" id="photo" wire:model="photo"
-                                   class="hidden">
+                                   class="hidden"
+                                   accept="image/jpeg, image/png, image/gif, image/webp, image/svg+xml, image/bmp, image/tiff">
                             <label for="photo"
                                    class="flex items-center justify-center w-1/3 h-10 px-4 mt-2 text-sm font-medium text-white bg-purple-600 rounded-md cursor-pointer hover:bg-purple-600 focus-within:bg-purple-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -40,7 +40,6 @@
                                 Upload {{$photo ||  $company->logo_path ? 'new' : ''}} logo
                             </label>
                         </div>
-                        @endcan
                         @error('photo') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
                 </div>
