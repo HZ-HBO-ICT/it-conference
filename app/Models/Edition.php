@@ -47,7 +47,10 @@ class Edition extends Model
         'start_at',
         'end_at',
         'lecture_duration',
-        'workshop_duration'
+        'workshop_duration',
+        'keynote_name',
+        'keynote_description',
+        'keynote_photo_path',
     ];
 
     protected $casts = [

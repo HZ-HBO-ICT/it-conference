@@ -14,7 +14,7 @@
                     <ul role="list">
                         @forelse($events as $event)
                             <x-list-section-item
-                                class="">
+                                class="border-transparent hover:bg-gray-100 border-l-4">
                                 <div class="block">
                                     <div class="justify-between flex mt-2">
                                         <div class="flex">

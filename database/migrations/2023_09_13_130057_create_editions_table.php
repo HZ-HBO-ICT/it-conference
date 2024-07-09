@@ -20,6 +20,9 @@ return new class extends Migration
             $table->timestamp('end_at')->nullable();
             $table->integer('lecture_duration')->default(30);
             $table->integer('workshop_duration')->default(90);
+            $table->string('keynote_name')->nullable();
+            $table->string('keynote_description')->nullable();
+            $table->string('keynote_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }
