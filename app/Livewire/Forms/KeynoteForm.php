@@ -53,12 +53,20 @@ class KeynoteForm extends Form
         ]);
     }
 
-    public function updateKeynotePhoto(UploadedFile $photo, $storagePath = 'profile-photos')
+    /**
+     * Updates photo of the keynote speaker
+     *
+     * @param UploadedFile $photo
+     * @param string $storagePath
+     * @return void
+     */
+    public function updateKeynotePhoto(UploadedFile $photo, string $storagePath = 'profile-photos'): void
     {
         tap($this->keynote_photo_path, function ($previous) use ($photo, $storagePath) {
             $this->edition->forceFill([
                 'keynote_photo_path' => $photo->storePublicly(
-                    $storagePath, ['disk' => $this->profilePhotoDisk()]
+                    $storagePath,
+                    ['disk' => $this->profilePhotoDisk()]
                 ),
             ])->save();
 
@@ -68,7 +76,12 @@ class KeynoteForm extends Form
         });
     }
 
-    protected function profilePhotoDisk()
+    /**
+     * Returns a disk where to store the new photo
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|mixed|string
+     */
+    protected function profilePhotoDisk(): mixed
     {
         return isset($_ENV['VAPOR_ARTIFACT_NAME']) ? 's3' : config('jetstream.profile_photo_disk', 'public');
     }
