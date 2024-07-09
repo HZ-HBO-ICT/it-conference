@@ -136,7 +136,7 @@ Route::get('/programme/presentation/{presentation}', [ProgrammeController::class
     ->name('programme.presentation.show');
 
 // TODO: It's a bit scuffed, figure out how to make it properly
-Route::get('/register', function(){
+Route::get('/register', function () {
     abort(404);
 });
 
