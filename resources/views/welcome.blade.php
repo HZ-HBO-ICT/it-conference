@@ -52,12 +52,16 @@
                         </h2>
                         <br>
                         @guest()
-                            <x-button class="mt-4 mr-5">
-                                <a href="{{route('register.participant')}}">Register as a participant</a>
-                            </x-button>
-                            <x-button class="mt-4">
-                                <a href="{{route('register.company')}}">Register my company</a>
-                            </x-button>
+                            @if($edition && $edition->isParticipantRegistrationOpened)
+                                <x-button class="mt-4 mr-5">
+                                    <a href="{{route('register.participant')}}">Register as a participant</a>
+                                </x-button>
+                            @endif
+                            @if($edition && $edition->isCompanyRegistrationOpened)
+                                <x-button class="mt-4">
+                                    <a href="{{route('register.company')}}">Register my company</a>
+                                </x-button>
+                            @endif
                         @endguest
                     </div>
                 </div>
