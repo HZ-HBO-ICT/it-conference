@@ -31,7 +31,7 @@
                         <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
                         <div class="p-8 flex flex-col items-center">
                             <div class="relative w-32 h-32 mb-6">
-                                <div class="absolute inset-0 {{$borderColor}} rounded-full opacity-75 blur-lg"></div>
+                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
                                 <img class="relative w-32 h-32 rounded-full object-cover border-4 border-white"
                                      src="{{$speaker->user->profile_photo_url}}"
                                      alt="Profile picture of {{$speaker->user->name}}">
@@ -50,9 +50,11 @@
                 @endforeach
             </div>
         @else
-            <p class="text-center text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400">
-                There are no speakers available now.
-            </p>
+            <div class="bg-white rounded py-2">
+                <p class="text-center text-2xl font-bold">
+                    There are no speakers available now.
+                </p>
+            </div>
         @endif
     </div>
 </x-app-layout>
