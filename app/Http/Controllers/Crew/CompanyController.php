@@ -118,10 +118,10 @@ class CompanyController extends Controller
 
             return redirect(route('moderator.companies.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
+        } else {
+            return redirect(route('moderator.companies.index'))
+                ->banner(__($template, ['company' => $company->name]));
         }
-
-        return redirect(route('moderator.companies.index'))
-            ->banner(__($template, ['company' => $company->name]));
     }
 
     /**

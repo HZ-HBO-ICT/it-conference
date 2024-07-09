@@ -119,12 +119,12 @@ class SponsorshipController extends Controller
 
             return redirect(route('moderator.sponsorships.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
+        } else {
+            Mail::to($company->representative->email)->send(new SponsorshipDisapprovedMailable($company));
+
+            return redirect(route('moderator.sponsorships.index'))
+                ->banner(__($template, ['company' => $company->name]));
         }
-
-        Mail::to($company->representative->email)->send(new SponsorshipDisapprovedMailable($company));
-
-        return redirect(route('moderator.sponsorships.index'))
-            ->banner(__($template, ['company' => $company->name]));
     }
 
     /**
