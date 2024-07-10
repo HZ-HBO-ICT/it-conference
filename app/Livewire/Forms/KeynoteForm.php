@@ -18,7 +18,7 @@ class KeynoteForm extends Form
     #[Validate(['required', 'string', 'min:3', 'max:700'])]
     public $keynote_description;
 
-    #[Validate(['required', 'max:2048', 'mimes:jpg,jpeg,png'])]
+    #[Validate(['required', 'max:2048', 'image', 'mimes:jpg,jpeg,png'])]
     public $keynote_photo_path;
 
     /**

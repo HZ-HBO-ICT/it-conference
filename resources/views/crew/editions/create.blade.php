@@ -13,7 +13,6 @@
                     <div class="text-sm text-gray-600 dark:text-gray-200">
                         <p>{{ __('Manually add a new edition.') }}</p>
                         <p>{{ __('If you do not know the exact dates of the edition yet, you can leave the fields blank and fill them in later.') }}</p>
-                        <p>{{ __('You can also add a keynote speaker once you finish designing the edition.') }}</p>
                     </div>
                 </x-slot>
 

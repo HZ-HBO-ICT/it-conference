@@ -17,7 +17,7 @@ class EditionController extends Controller
      *
      * @return View
      */
-    public function index() : View
+    public function index(): View
     {
         if (Auth::user()->cannot('viewAny', Edition::class)) {
             abort(403);
@@ -28,12 +28,23 @@ class EditionController extends Controller
         return view('crew.editions.index', compact('editions'));
     }
 
+    public function show(Edition $edition): View
+    {
+        if (Auth::user()->cannot('view', Edition::class)) {
+            abort(403);
+        }
+
+        $events = $edition->editionEvents;
+
+        return view('crew.editions.show', compact('edition', 'events'));
+    }
+
     /**
      * Returns create form for the editions
      *
      * @return View
      */
-    public function create() : View
+    public function create(): View
     {
         if (Auth::user()->cannot('create', Edition::class)) {
             abort(403);
@@ -48,20 +59,25 @@ class EditionController extends Controller
      * @param Request $request data about the edition
      * @return RedirectResponse redirects to show page
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         if (Auth::user()->cannot('create', Edition::class)) {
             abort(403);
         }
 
-        $edition = Edition::create($request->validate(Edition::rules()));
+        $edition = Edition::create($request->validate(Edition::rules(),[
+            'start_at.after' => 'The start date should be at least a month from now.',
+            'start_at.before' => 'The start date should be two years from now at latest.',
+            'end_at.after' => 'The end date should be later than start date.',
+            'end_at.before' => 'The end date should be two years from now at latest.',
+        ]));
 
         // attach all the default events to a new edition
         foreach (Event::all() as $event) {
             $edition->addEvent($event);
         }
 
-        return redirect(route('moderator.events.index', compact('edition')))
+        return redirect(route('moderator.editions.show', compact('edition')))
             ->banner("Edition {$edition->name} was successfully created");
     }
 
@@ -71,7 +87,7 @@ class EditionController extends Controller
      * @param Edition $edition to activate
      * @return RedirectResponse redirects to the index page
      */
-    public function activateEdition(Edition $edition) : RedirectResponse
+    public function activateEdition(Edition $edition): RedirectResponse
     {
         if (Auth::user()->cannot('activate', Edition::class)) {
             abort(403);
@@ -92,7 +108,7 @@ class EditionController extends Controller
      * @param Edition $edition
      * @return RedirectResponse redirects to index page
      */
-    public function destroy(Edition $edition) : RedirectResponse
+    public function destroy(Edition $edition): RedirectResponse
     {
         if (Auth::user()->cannot('delete', Edition::class)) {
             abort(403);

@@ -5,7 +5,6 @@ use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\EditionController;
-use App\Http\Controllers\Crew\EditionEventController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
@@ -108,11 +107,11 @@ Route::middleware([
     Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
         ->name('moderator.editions.destroy');
 
+    Route::get('/moderator/editions/{edition}', [EditionController::class, 'show'])
+        ->name('moderator.editions.show');
+
     Route::post('/moderator/editions/{edition}/activate', [EditionController::class, 'activateEdition'])
         ->name('moderator.editions.activate');
-
-    Route::get('/moderator/editions/{edition}/events', [EditionEventController::class, 'index'])
-        ->name('moderator.events.index');
 });
 //
 //    //route for my profile in personal hub

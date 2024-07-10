@@ -48,7 +48,7 @@ class AddKeynoteModal extends ModalComponent
 
         $this->form->update();
 
-        return redirect(route('moderator.editions.index', $this->edition))
+        return redirect(route('moderator.editions.show', $this->edition))
             ->with('status', 'Keynote speaker successfully updated.');
     }
 

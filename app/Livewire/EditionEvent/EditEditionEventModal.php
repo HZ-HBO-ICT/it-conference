@@ -41,7 +41,7 @@ class EditEditionEventModal extends ModalComponent
 
         $this->form->update();
 
-        return redirect(route('moderator.events.index', $this->edition))
+        return redirect(route('moderator.editions.show', $this->edition))
             ->with('status', 'Event successfully updated.');
     }
 
