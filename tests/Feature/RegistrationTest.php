@@ -25,7 +25,7 @@ class RegistrationTest extends TestCase
             $this->markTestSkipped('Registration support is not enabled.');
         }
 
-        $response = $this->get('/register');
+        $response = $this->get('/register/company');
 
         $response->assertStatus(200);
     }
