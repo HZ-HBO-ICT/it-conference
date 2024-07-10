@@ -25,7 +25,7 @@ class EditionController extends Controller
 
         $editions = Edition::all();
 
-        return view('moderator.editions.index', compact('editions'));
+        return view('crew.editions.index', compact('editions'));
     }
 
     /**
@@ -39,7 +39,7 @@ class EditionController extends Controller
             abort(403);
         }
 
-        return view('moderator.editions.create');
+        return view('crew.editions.create');
     }
 
     /**

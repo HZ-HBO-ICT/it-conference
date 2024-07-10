@@ -26,6 +26,6 @@ class EditionEventController extends Controller
 
         $events = $edition->editionEvents;
 
-        return view('moderator.events.index', compact('edition', 'events'));
+        return view('crew.events.index', compact('edition', 'events'));
     }
 }
