@@ -144,7 +144,7 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('When the edition is activated, you will be able to add a keynote speaker, access companies, presentations, sponsorships etc.
+                    {{ __('When the edition is activated, you will be able to add a keynote speaker here, access companies, presentations, sponsorships etc.
                             In order to activate the edition, you should set all dates for all events that are happening during the edition.') }}
                 </x-slot>
 
