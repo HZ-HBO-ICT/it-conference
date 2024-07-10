@@ -25,7 +25,7 @@ class EditEditionEventModal extends ModalComponent
     {
         $this->edition = $edition;
         $this->editionEvent = $editionEvent;
-        $this->form->setEditionEvent($editionEvent);
+        $this->form->setEditionEvent($editionEvent, $edition);
     }
 
     /**

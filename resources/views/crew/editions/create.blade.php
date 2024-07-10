@@ -12,7 +12,6 @@
                 <x-slot name="description">
                     <div class="text-sm text-gray-600 dark:text-gray-200">
                         <p>{{ __('Manually add a new edition.') }}</p>
-                        <p>{{ __('If you do not know the exact dates of the edition yet, you can leave the fields blank and fill them in later.') }}</p>
                     </div>
                 </x-slot>
 
@@ -32,7 +31,7 @@
                                 <x-input-error for="name" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="start_at" value="Start Date"/>
+                                <x-label for="start_at" value="Start Date" class="after:content-['*'] after:text-red-500"/>
                                 <input
                                     type="datetime-local"
                                     id="start_at"
@@ -44,7 +43,7 @@
                                 <x-input-error for="start_at" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="end_at" value="End Date"/>
+                                <x-label for="end_at" value="End Date" class="after:content-['*'] after:text-red-500"/>
                                 <input
                                     type="datetime-local"
                                     id="end_at"

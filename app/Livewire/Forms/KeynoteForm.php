@@ -12,7 +12,7 @@ class KeynoteForm extends Form
 {
     public $edition;
 
-    #[Validate(['required', 'string', 'min:3', 'max:700'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public $keynote_name;
 
     #[Validate(['required', 'string', 'min:3', 'max:700'])]
