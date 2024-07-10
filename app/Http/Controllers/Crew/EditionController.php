@@ -28,6 +28,12 @@ class EditionController extends Controller
         return view('crew.editions.index', compact('editions'));
     }
 
+    /**
+     * Returns the show page
+     *
+     * @param Edition $edition
+     * @return View
+     */
     public function show(Edition $edition): View
     {
         if (Auth::user()->cannot('view', Edition::class)) {
@@ -65,7 +71,7 @@ class EditionController extends Controller
             abort(403);
         }
 
-        $edition = Edition::create($request->validate(Edition::rules(),[
+        $edition = Edition::create($request->validate(Edition::rules(), [
             'start_at.after' => 'The start date should be at least a month from now.',
             'start_at.before' => 'The start date should be two years from now at latest.',
             'end_at.after' => 'The end date should be later than start date.',
