@@ -106,8 +106,8 @@
                             {{ __('Details about the keynote speaker of the edition.') }}
                         </x-slot>
 
-                        <x-slot name="content">
-                            @if($edition->keynote_configured)
+                        @if($edition->keynote_configured)
+                            <x-slot name="content">
                                 <x-details-list-item label="Keynote Speaker Name">
                                     {{ $edition->keynote_name }}
                                 </x-details-list-item>
@@ -118,20 +118,22 @@
                                     <img src="{{ url('storage/' . $edition->keynote_photo_path) }}" alt="{{ $edition->keynote_name }}"
                                          class="rounded-full h-20 w-20 object-cover">
                                 </x-details-list-item>
+                            </x-slot>
 
-                                <x-slot name="actions">
-                                    <x-button
-                                        onclick="Livewire.dispatch('openModal', { component: 'edition.add-keynote-modal', arguments: { edition: {{ $edition }} } })">
-                                        Edit
-                                    </x-button>
-                                </x-slot>
-                            @else
+                            <x-slot name="actions">
+                                <x-button
+                                    onclick="Livewire.dispatch('openModal', { component: 'edition.add-keynote-modal', arguments: { edition: {{ $edition }} } })">
+                                    Edit
+                                </x-button>
+                            </x-slot>
+                        @else
+                            <x-slot name="actions">
                                 <x-button
                                     onclick="Livewire.dispatch('openModal', { component: 'edition.add-keynote-modal', arguments: { edition: {{ $edition }} } })">
                                     Add keynote speaker
                                 </x-button>
-                            @endif
-                        </x-slot>
+                            </x-slot>
+                        @endif
                     </x-action-section>
                 @endif
             @endcan

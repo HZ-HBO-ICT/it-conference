@@ -98,7 +98,7 @@ class EditionController extends Controller
             $edition->activate();
         }
 
-        return redirect(route('moderator.editions.index'))
+        return redirect(route('moderator.editions.show', $edition))
             ->banner("Edition {$edition->name} was successfully activated");
     }
 
