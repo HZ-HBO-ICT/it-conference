@@ -32,6 +32,7 @@ export default {
         'text-apricot-peach-500',
         'stroke-apricot-peach-300',
         'stroke-apricot-peach-400',
+        'text-crew-300',
         'bg-participant-500',
         'bg-participant-700',
         'bg-violet-500',
