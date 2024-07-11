@@ -20,7 +20,7 @@ class EditionMiddleware
         $user = optional(Auth::user());
 
         if (!Edition::current()) {
-            if ($user->hasRole('event organizer')){
+            if ($user->hasRole('event organizer')) {
                 return redirect(route('moderator.editions.index'))
                     ->dangerBanner("There is no edition. You should activate one to access this page.");
             }

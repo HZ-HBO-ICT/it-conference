@@ -52,12 +52,12 @@
                         </h2>
                         <br>
                         @guest()
-                            @if($edition && $edition->isParticipantRegistrationOpened)
+                            @if(optional($edition)->is_participant_registration_opened)
                                 <x-button class="mt-4 mr-5">
                                     <a href="{{route('register.participant')}}">Register as a participant</a>
                                 </x-button>
                             @endif
-                            @if($edition && $edition->isCompanyRegistrationOpened)
+                            @if(optional($edition)->is_company_registration_opened)
                                 <x-button class="mt-4">
                                     <a href="{{route('register.company')}}">Register my company</a>
                                 </x-button>
