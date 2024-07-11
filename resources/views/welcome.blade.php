@@ -13,7 +13,7 @@
                         </h1>
                         @if($goldSponsorCompany)
                             <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
-                                Powered by {{ $goldSponsorCompany->name }}
+                                Co-hosted by {{ $goldSponsorCompany->name }}
                             </h2>
                         @endif
                     </div>
