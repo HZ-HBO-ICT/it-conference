@@ -16,6 +16,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*Route::middleware([
@@ -40,15 +41,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // ===== Routes for registration =====
-Route::get('/register/participant', [RegistrationController::class, 'showParticipantRegistration'])
-    ->name('register.participant');
-Route::get('/register/company', [RegistrationController::class, 'showCompanyRegistration'])
-    ->name('register.company');
-Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-    ->middleware(['signed'])->name('registration.page.via.invitation');
-Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-    ->name('register.via.invitation');
-
+Route::middleware([
+    RedirectIfAuthenticated::class,
+    'edition-activated'
+])->group(function () {
+    Route::get('/register/participant', [RegistrationController::class, 'showParticipantRegistration'])
+        ->name('register.participant');
+    Route::get('/register/company', [RegistrationController::class, 'showCompanyRegistration'])
+        ->name('register.company');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
@@ -83,6 +84,12 @@ Route::middleware([
         ->name('presentations.show');
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
+
+    // routes for registering from invitation
+    Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+        ->middleware(['signed'])->name('registration.page.via.invitation');
+    Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+        ->name('register.via.invitation');
 
     //route for personal programme
     Route::get('/my/programme', [ParticipantController::class, 'programme'])

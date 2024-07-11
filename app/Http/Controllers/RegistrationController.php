@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\View\View;
-use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Http\Responses\RegisterResponse;
+use App\Models\Edition;
 
 class RegistrationController extends Controller
 {
     /**
      * Returns the registration page for participants
-     * @return View
      */
-    public function showParticipantRegistration() : View
+    public function showParticipantRegistration()
     {
+        if (!optional(Edition::current())->is_participant_registration_opened) {
+            return redirect(route('welcome'))
+                ->dangerBanner("You can't register yet.");
+        }
+
         return view('auth.registration.participant');
     }
 
     /**
      * Returns the registration page for company representatives
-     * @return View
      */
-    public function showCompanyRegistration() : View
+    public function showCompanyRegistration()
     {
+        if (!optional(Edition::current())->is_company_registration_opened) {
+            return redirect(route('welcome'))
+                ->dangerBanner("You can't register yet.");
+        }
+
         return view('auth.registration.company');
     }
 }

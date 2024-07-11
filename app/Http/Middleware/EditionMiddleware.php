@@ -17,17 +17,18 @@ class EditionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()) {
-            return redirect(route('login'));
-        }
-
-        if (!Auth::user()->is_crew) {
-            abort(403);
-        }
+        $user = optional(Auth::user());
 
         if (!Edition::current()) {
-            return redirect(route('moderator.editions.index'))
-                ->banner("There is no active edition. You can't access this page for now.");
+            if ($user->hasRole('event organizer')){
+                return redirect(route('moderator.editions.index'))
+                    ->dangerBanner("There is no edition. You should activate one to access this page.");
+            }
+
+            if ($user->is_crew) {
+                return redirect(route('dashboard'))
+                    ->dangetButton("There is no active edition. You can't access this page for now.");
+            }
         }
 
         return $next($request);
