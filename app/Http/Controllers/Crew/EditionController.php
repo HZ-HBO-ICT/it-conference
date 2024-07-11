@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Actions\Schedule\ResetSchedule;
 use App\Http\Controllers\Controller;
 use App\Models\Edition;
 use App\Models\Event;
@@ -98,6 +99,7 @@ class EditionController extends Controller
             abort(403);
         }
 
+        ResetSchedule::reset('full');
         $edition->delete();
 
         return redirect(route('moderator.editions.index'))

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Actions\Schedule\ResetSchedule;
 use App\Events\FinalProgrammeReleased;
 use App\Http\Controllers\Controller;
 use App\Mail\FinalProgrammeReleasedMailable;
@@ -46,20 +47,7 @@ class ScheduleController extends Controller
             abort(403);
         }
 
-        Presentation::query()->update([
-            'room_id' => null,
-            'timeslot_id' => null,
-            'start' => null
-        ]);
-
-        if ($type == 'full') {
-            DefaultPresentation::truncate();
-
-            // Truncate does not work when model is FK
-            foreach (Timeslot::all() as $timeslot) {
-                $timeslot->delete();
-            }
-        }
+        ResetSchedule::reset($type);
 
         return redirect(route('moderator.schedule.index'))
             ->banner('You reset the schedule successfully.');
