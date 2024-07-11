@@ -13,7 +13,7 @@
                         </h1>
                         @if($goldSponsorCompany)
                             <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
-                                Powered by {{ $goldSponsorCompany->name }}
+                                Co-hosted by {{ $goldSponsorCompany->name }}
                             </h2>
                         @endif
                     </div>
@@ -75,30 +75,6 @@
                         @endif
                     @endif
                 </div>
-                {{--                    <div class="flex flex-row">--}}
-                {{--                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">--}}
-                {{--                            <div class="flex flex-col items-start pt-10">--}}
-                {{--                                <p class="text-black uppercase pb-2">15 November 2024</p>--}}
-                {{--                                <x-countdown/>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                <!-- The div for the logo of the sponsor -->
-                <!-- TODO: Fix when database gets rebuilt -->
-                {{--@if($goldSponsor && $goldSponsor->is_sponsor_approved)
-                    <div class="basis-1/3 pt-16">
-                        <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
-                    </div>
-                    <div class="basis-1/3 pt-16">
-                        <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
-                    </div>
-                @endif--}}
-                {{--                    </div>--}}
-                <!-- TODO: Fix when authentication gets implemented -->
-                {{--@guest()
-                    <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
-                        <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
-                    </div>
-                @endguest--}}
             </div>
         </div>
 
@@ -148,11 +124,9 @@
             <div
                 class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
-            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">What to
-                                                                                                                expect
-                                                                                                                on this
-                                                                                                                year's
-                                                                                                                conference?</h2>
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">
+                What to expect during the conference
+            </h2>
 
             {{-- Cards for speakers, presentations, companies --}}
             <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
