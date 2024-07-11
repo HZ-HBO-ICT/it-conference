@@ -35,7 +35,9 @@
                     --}}
                     <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
                         <dt class="leading-7 font-semibold text-base dark:text-white">Can I join the conference as a participant?</dt>
-                        <dd class="leading-7 mt-2 dark:text-gray-200">You can if you are a HZ-ICT student, Scalda student, an Alumni HZ-ICT student, a company with a dedicated IT department or a member of our partnering company representatives. You can register using this website as soon as registrations have opened.</dd>
+                        <dd class="leading-7 mt-2 dark:text-gray-200">You can join the conference if you are an IT student, an Alumni HZ-ICT student,
+                            a company with a dedicated IT department or a member of our partnering company representatives.
+                            You can register using this website as soon as registrations have opened.</dd>
                     </div>
                     <div class="border rounded border-gray-300 shadow p-4 dark:bg-gray-800 dark:border-gray-700">
                         <dt class="leading-7 font-semibold text-base dark:text-white">Can I be a partner with the 'We are in IT together Conference'?</dt>
