@@ -75,30 +75,6 @@
                         @endif
                     @endif
                 </div>
-                {{--                    <div class="flex flex-row">--}}
-                {{--                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">--}}
-                {{--                            <div class="flex flex-col items-start pt-10">--}}
-                {{--                                <p class="text-black uppercase pb-2">15 November 2024</p>--}}
-                {{--                                <x-countdown/>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                <!-- The div for the logo of the sponsor -->
-                <!-- TODO: Fix when database gets rebuilt -->
-                {{--@if($goldSponsor && $goldSponsor->is_sponsor_approved)
-                    <div class="basis-1/3 pt-16">
-                        <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
-                    </div>
-                    <div class="basis-1/3 pt-16">
-                        <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
-                    </div>
-                @endif--}}
-                {{--                    </div>--}}
-                <!-- TODO: Fix when authentication gets implemented -->
-                {{--@guest()
-                    <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
-                        <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
-                    </div>
-                @endguest--}}
             </div>
         </div>
 
