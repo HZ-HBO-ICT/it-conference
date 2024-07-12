@@ -24,18 +24,22 @@
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
-                                wire:navigate.hover>
-                        {{ __('Speakers') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
-                                wire:navigate.hover>
-                        {{ __('Companies') }}
-                    </x-nav-link>
-                </div>
+
+                @if(Edition::current())
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
+                                    wire:navigate.hover>
+                            {{ __('Speakers') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
+                                    wire:navigate.hover>
+                            {{ __('Companies') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
                 @if(Edition::current() && Edition::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')"

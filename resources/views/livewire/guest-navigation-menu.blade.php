@@ -18,39 +18,47 @@
                 </div>--}}
 
                 <!-- Navigation Links -->
-                @foreach([
-                    'Home' => 'welcome',
-                    'Speakers' => 'speakers.index',
-                    'Companies' => 'companies.index',
-                    'FAQ' => 'faq',
-                    'Contact' => 'contact',
-                ] as $label => $route)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')"
+                                wire:navigate.hover>
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
+                @if(Edition::current())
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        @if($route=='welcome')
-                            <x-nav-link href="{{ route($route) }}"
-                                        :active="request()->routeIs($route)"
-                                        class="transition-colors duration-300">
-                                {{ __($label) }}
-                            </x-nav-link>
-                        @else
-                            <x-nav-link href="{{ route($route) }}"
-                                        wire:navigate.hover
-                                        :active="request()->routeIs($route)"
-                                        class="transition-colors duration-300">
-                                {{ __($label) }}
-                            </x-nav-link>
-                        @endif
+                        <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
+                                    wire:navigate.hover>
+                            {{ __('Speakers') }}
+                        </x-nav-link>
                     </div>
-                @endforeach
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
+                                    wire:navigate.hover>
+                            {{ __('Companies') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
                 @if(Edition::current() && Edition::current()->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
+                        <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')"
+                                    wire:navigate.hover>
                             {{ __('Programme') }}
                         </x-nav-link>
                     </div>
                 @endif
 
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="{{ route('faq') }}" :active="request()->routeIs('faq')" wire:navigate.hover>
+                        {{ __('FAQ') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')"
+                                wire:navigate.hover>
+                        {{ __('Contact') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

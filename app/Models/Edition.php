@@ -22,6 +22,8 @@ use Illuminate\Support\Carbon;
  * @property boolean $is_participant_registration_opened
  * @property boolean $is_company_registration_opened
  * @property boolean $is_requesting_presentation_opened
+ * @property boolean $is_in_progress
+ * @property boolean $is_over
  * @property string $displayed_state
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -141,6 +143,34 @@ class Edition extends Model
             get: fn() => $this->state == Edition::STATE_ANNOUNCE
                 && (Carbon::now() >= $this->getEvent('Presentation request')->start_at
                     && $this->getEvent('Presentation request')->end_at >= Carbon::now())
+        );
+    }
+
+    /**
+     * Determine whether the edition is in progress
+     * TODO: change the '||' to '&&' once the automation of the state change is implemented
+     *
+     * @return Attribute
+     */
+    public function isInProgress(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->state == Edition::STATE_EXECUTION
+                || (Carbon::now() >= $this->start_at && Carbon::now() <= $this->end_at)
+        );
+    }
+
+    /**
+     * Determine whether the edition is over
+     * NOTE: possibly redundant method in case state change is automated
+     *
+     * @return Attribute
+     */
+    public function isOver(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->state == Edition::STATE_ARCHIVE
+                || Carbon::now() >= $this->end_at
         );
     }
 
