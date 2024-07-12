@@ -1,5 +1,7 @@
 @php
     use \App\Models\Edition;
+
+    $edition = Edition::current();
 @endphp
 
 <nav x-data="{ open: false }"
@@ -24,7 +26,7 @@
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
-                @if(Edition::current())
+                @if($edition)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
                                     wire:navigate.hover>
@@ -39,7 +41,7 @@
                     </div>
                 @endif
 
-                @if(Edition::current() && Edition::current()->is_final_programme_released)
+                @if(optional($edition)->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')"
                                     wire:navigate.hover>
@@ -66,11 +68,11 @@
                 <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                     {{ __('Login') }}
                 </x-nav-link>
-{{--                <div class="pl-2">--}}
-{{--                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">--}}
-{{--                        {{ __('Register') }}--}}
-{{--                    </x-nav-link>--}}
-{{--                </div>--}}
+                {{--                <div class="pl-2">--}}
+                {{--                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">--}}
+                {{--                        {{ __('Register') }}--}}
+                {{--                    </x-nav-link>--}}
+                {{--                </div>--}}
                 <div class="pl-4">
                     <div>
                         <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">
@@ -122,16 +124,18 @@
                                    :active="request()->routeIs('welcome')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
-                                   :active="request()->routeIs('speakers.index')">
-                {{ __('Speakers') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
-                                   :active="request()->routeIs('companies.index')">
-                {{ __('Companies') }}
-            </x-responsive-nav-link>
+            @if($edition)
+                <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
+                                       :active="request()->routeIs('speakers.index')">
+                    {{ __('Speakers') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
+                                       :active="request()->routeIs('companies.index')">
+                    {{ __('Companies') }}
+                </x-responsive-nav-link>
+            @endif
 
-            @if(Edition::current() && Edition::current()->is_final_programme_released)
+            @if(optional($edition)->is_final_programme_released)
                 <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                     {{ __('Programme') }}
                 </x-responsive-nav-link>
@@ -149,10 +153,10 @@
                                    :active="request()->routeIs('login')">
                 {{ __('Login') }}
             </x-responsive-nav-link>
-{{--            <x-responsive-nav-link wire:navigate.hover href="{{ route('register') }}"--}}
-{{--                                   :active="request()->routeIs('register')">--}}
-{{--                {{ __('Register') }}--}}
-{{--            </x-responsive-nav-link>--}}
+            {{--            <x-responsive-nav-link wire:navigate.hover href="{{ route('register') }}"--}}
+            {{--                                   :active="request()->routeIs('register')">--}}
+            {{--                {{ __('Register') }}--}}
+            {{--            </x-responsive-nav-link>--}}
             <div class="border-t border-gray-200 dark:border-gray-600"></div>
             <x-responsive-nav-link x-data="{
                                         darkMode: $persist(false).as('dark_mode'),

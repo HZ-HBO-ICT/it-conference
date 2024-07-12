@@ -1,5 +1,7 @@
 @php
     use \App\Models\Edition;
+
+    $edition = Edition::current();
 @endphp
 
 <nav x-data="{ open: false }"
@@ -25,7 +27,7 @@
                     </x-nav-link>
                 </div>
 
-                @if(Edition::current())
+                @if($edition)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
                                     wire:navigate.hover>
@@ -40,7 +42,7 @@
                     </div>
                 @endif
 
-                @if(Edition::current() && Edition::current()->is_final_programme_released)
+                @if(optional($edition)->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')"
                                     wire:navigate.hover>
@@ -144,15 +146,17 @@
                                        :active="request()->routeIs('welcome')">
                     {{ __('Home') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
-                                       :active="request()->routeIs('speakers.index')">
-                    {{ __('Speakers') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
-                                       :active="request()->routeIs('companies.index')">
-                    {{ __('Companies') }}
-                </x-responsive-nav-link>
-                @if(Edition::current() && Edition::current()->is_final_programme_released)
+                @if($edition)
+                    <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
+                                           :active="request()->routeIs('speakers.index')">
+                        {{ __('Speakers') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
+                                           :active="request()->routeIs('companies.index')">
+                        {{ __('Companies') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if(optional($edition)->is_final_programme_released)
                     <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                         {{ __('Programme') }}
                     </x-responsive-nav-link>
