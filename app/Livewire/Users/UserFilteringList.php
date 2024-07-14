@@ -29,7 +29,7 @@ class UserFilteringList extends Component
      *
      * @return void
      */
-    public function roleChanged() : void
+    public function roleChanged(): void
     {
         $this->filter();
     }
@@ -39,7 +39,7 @@ class UserFilteringList extends Component
      *
      * @return void
      */
-    public function updatedInstitution() : void
+    public function updatedInstitution(): void
     {
         $this->filter();
     }
@@ -64,7 +64,14 @@ class UserFilteringList extends Component
         $this->users = User::all()->sortBy('name');
 
         if ($this->role) {
-            $this->users = User::role($this->role)->get()->sortBy('name');
+            if ($this->role == 'speaker') {
+                $this->users = User::all()->filter(function ($user) {
+                    $roles = $user->allRoles;
+                    return $roles->contains('speaker');
+                });
+            } else {
+                $this->users = User::role($this->role)->get()->sortBy('name');
+            }
         }
 
         if ($this->institution) {
