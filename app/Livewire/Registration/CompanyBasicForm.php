@@ -9,13 +9,13 @@ use Livewire\Component;
 
 class CompanyBasicForm extends Component
 {
-    #[Validate(['required', 'string'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public string $companyName;
 
-    #[Validate(['required', 'string'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public string $companyDescription;
 
-    #[Validate(['required', 'string', 'regex:/^www\.[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}$/'])]
+    #[Validate(['required', 'string', 'regex:/^www\.[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}$/', 'min:3', 'max:255'])]
     public string $companyWebsite;
 
     #[Validate(['nullable'])]

@@ -8,17 +8,18 @@ use Livewire\Component;
 
 class CompanyLocationForm extends Component
 {
-    #[Validate('required')]
+    #[Validate('required', 'string', 'min:3', 'max:255')]
     public string $companyPostcode;
 
     #[Validate(['required',
-        'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i'])]
+        'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i',
+        'min:3', 'max:255'])]
     public string $companyHouseNumber;
 
-    #[Validate(['required', 'string'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public string $companyStreet;
 
-    #[Validate(['required', 'string'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public string $companyCity;
 
     #[Validate(['accepted', 'required'])]
