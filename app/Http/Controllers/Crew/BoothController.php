@@ -54,7 +54,7 @@ class BoothController extends Controller
             'additional_information' => ['nullable', 'max:255']
         ]);
 
-        $booth = Booth::create($input);
+        $booth = Booth::create(array_merge($input, ['is_approved' => 1]));
 
         $template = 'You created a booth for the :company';
         return redirect(route('moderator.booths.index'))
