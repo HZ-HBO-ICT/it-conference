@@ -89,11 +89,11 @@ class PresentationModal extends ModalComponent
             ['start' => $this->start],
             ['start' => ['required', 'date_format:H:i', function ($attribute, $value, $fail) {
                 $start = Carbon::parse($value);
-                $openingStartTime = Carbon::parse(DefaultPresentation::opening()->start);
+                $openingEndTime = Carbon::parse(DefaultPresentation::opening()->end);
                 $closingStartTime = Carbon::parse(DefaultPresentation::closing()->start);
 
-                if ($start->lessThan($openingStartTime) || $start->greaterThanOrEqualTo($closingStartTime)) {
-                    $fail('The starting time must be after ' . $openingStartTime->format('H:i') . ' and before ' . $closingStartTime->format('H:i') . '.');
+                if ($start->lessThan($openingEndTime) || $start->greaterThanOrEqualTo($closingStartTime)) {
+                    $fail('The starting time must be after ' . $openingEndTime->format('H:i') . ' and before ' . $closingStartTime->format('H:i') . '.');
                 }
             }]]
         );
