@@ -20,14 +20,14 @@
                         <div class="pr-5">
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label for="name" value="Title" class="after:content-['*'] after:text-red-500"/>
-                                <x-input id="name" name="name" value="{{old('name')}}" type="text"
+                                <x-input id="name" name="name" value="{{old('name')}}" type="text" maxlength="255"
                                          class="mt-1 block w-full"/>
                                 <x-input-error for="name" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 py-4">
                                 <x-label for="description" value="Description"
                                          class="after:content-['*'] after:text-red-500"/>
-                                <textarea name="description"
+                                <textarea name="description" maxlength="300"
                                           class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">{{old('description')}}
                                     </textarea>
                                 <x-input-error for="description" class="mt-2"/>

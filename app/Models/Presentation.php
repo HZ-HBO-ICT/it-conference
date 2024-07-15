@@ -24,11 +24,11 @@ class Presentation extends Model
     public static function rules()
     {
         return [
-            'name' => 'required',
-            'max_participants' => 'required|numeric|min:1',
-            'description' => 'required',
+            'name' => 'required|string|min:1|max:255',
+            'max_participants' => 'required|numeric|min:1|max:999',
+            'description' => 'required|string|min:1|max:300',
             'type' => 'required|in:workshop,lecture',
-            'difficulty_id' => 'required',
+            'difficulty_id' => 'required|numeric|exists:difficulties,id',
         ];
     }
 
