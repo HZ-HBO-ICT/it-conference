@@ -46,14 +46,14 @@
                 <dd class="sm:col-span-2">
                     <input
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-crew-500 dark:focus:border-crew-600 focus:ring-crew-500 dark:focus:ring-crew-600 rounded-md shadow-sm mt-1 block"
-                        type="time" min="8:00" max="18:00" wire:model="form.start">
+                        type="time" min="8:00" max="20:00" wire:model="form.start">
                     @error('form.start') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white after:content-['*'] after:text-red-500">{{ucfirst($this->type)}} ending time</dt>
                 <dd class="sm:col-span-2">
                     <input
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-crew-500 dark:focus:border-crew-600 focus:ring-crew-500 dark:focus:ring-crew-600 rounded-md shadow-sm mt-1 block"
-                        type="time" min="8:00" max="18:00" wire:model="form.end">
+                        type="time" min="8:00" max="20:00" wire:model="form.end">
                     @error('form.end') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
             </dl>

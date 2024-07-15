@@ -15,6 +15,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use LivewireUI\Modal\ModalComponent;
+use App\Models\DefaultPresentation;
 
 class PresentationModal extends ModalComponent
 {
@@ -88,10 +89,11 @@ class PresentationModal extends ModalComponent
             ['start' => $this->start],
             ['start' => ['required', 'date_format:H:i', function ($attribute, $value, $fail) {
                 $start = Carbon::parse($value);
-                $startHour = $start->hour;
+                $openingEndTime = Carbon::parse(DefaultPresentation::opening()->end);
+                $closingStartTime = Carbon::parse(DefaultPresentation::closing()->start);
 
-                if ($startHour < 8 || $startHour >= 18) {
-                    $fail('The starting time must be after 8 AM and before 6 PM.');
+                if ($start->lessThan($openingEndTime) || $start->greaterThanOrEqualTo($closingStartTime)) {
+                    $fail('The starting time must be after ' . $openingEndTime->format('H:i') . ' and before ' . $closingStartTime->format('H:i') . '.');
                 }
             }]]
         );

@@ -94,6 +94,16 @@
             </tr>
             </thead>
             <tbody id="grid-body">
+            <tr class="border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100 text-gray-700 dark:text-gray-100 h-max hover:bg-gray-50">
+                <td class="text-gray-600 h-full text-center border-r border-gray-300 dark:border-gray-900 flex items-start justify-center">
+                    <span class="pt-2">
+                        {{\Carbon\Carbon::parse(\App\Models\DefaultPresentation::opening()->start)->format('H:i')}}
+                    </span>
+                </td>
+                <td class="text-left border-r h-full border-gray-300 dark:border-gray-900 relative overflow-visible" colspan="{{\App\Models\Room::all()->count()}}">
+                    <livewire:schedule.default-presentation :type="'opening'"/>
+                </td>
+            </tr>
             @foreach($timeslots as $timeslot)
                 @php
                     $time = \Carbon\Carbon::parse($timeslot->start);
@@ -110,6 +120,16 @@
                     @endforeach
                 </tr>
             @endforeach
+            <tr class="border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100 text-gray-700 dark:text-gray-100 h-max hover:bg-gray-50">
+                <td class="text-gray-600 h-full text-center border-r border-gray-300 dark:border-gray-900 flex items-start justify-center">
+                    <span class="pt-2">
+                        {{\Carbon\Carbon::parse(\App\Models\DefaultPresentation::closing()->start)->format('H:i')}}
+                    </span>
+                </td>
+                <td class="text-left border-r h-full border-gray-300 dark:border-gray-900 relative overflow-visible" colspan="{{\App\Models\Room::all()->count()}}">
+                    <livewire:schedule.default-presentation :type="'closing'"/>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
