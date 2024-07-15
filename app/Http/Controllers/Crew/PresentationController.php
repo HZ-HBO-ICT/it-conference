@@ -107,7 +107,9 @@ class PresentationController extends Controller
         $isApproved = $validated['approved'];
         if (!$isApproved) {
             foreach ($presentation->speakers as $speaker) {
-                Mail::to($speaker->email)->send(new PresentationDisapprovedMailable);
+                if ($speaker->receive_emails) {
+                    Mail::to($speaker->email)->send(new PresentationDisapprovedMailable);
+                }
             }
         }
 
@@ -118,7 +120,9 @@ class PresentationController extends Controller
 
         if ($isApproved) {
             foreach ($presentation->speakers as $speaker) {
-                Mail::to($speaker->email)->send(new PresentationApprovedMailable);
+                if ($speaker->receive_emails) {
+                    Mail::to($speaker->email)->send(new PresentationApprovedMailable);
+                }
             }
 
             return redirect(route('moderator.presentations.show', $presentation))

@@ -94,12 +94,16 @@ class BoothController extends Controller
             : 'You denied the request of :company to have a booth';
 
         if ($isApproved) {
-            Mail::to($booth->company->representative->email)->send(new BoothApprovedMailable($booth->company));
+            if ($booth->company->representative->receive_emails) {
+                Mail::to($booth->company->representative->email)->send(new BoothApprovedMailable($booth->company));
+            }
 
             return redirect(route('moderator.booths.show', $booth))
                 ->banner(__($template, ['company' => $booth->company->name]));
         } else {
-            Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+            if ($booth->company->representative->receive_emails) {
+                Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+            }
 
             return redirect(route('moderator.booths.index'))
                 ->banner(__($template, ['company' => $booth->company->name]));

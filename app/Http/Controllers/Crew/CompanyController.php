@@ -105,7 +105,9 @@ class CompanyController extends Controller
 
         $isApproved = $validated['approved'];
         if (!$isApproved) {
-            Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
+            if ($company->representative->receive_emails) {
+                Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
+            }
         }
 
         $company->handleCompanyApproval($isApproved);
@@ -114,7 +116,9 @@ class CompanyController extends Controller
             : 'You refused the request of :company to join the IT conference';
 
         if ($isApproved) {
-            Mail::to($company->representative->email)->send(new CompanyApprovedMailable($company));
+            if ($company->representative->receive_emails) {
+                Mail::to($company->representative->email)->send(new CompanyApprovedMailable($company));
+            }
 
             return redirect(route('moderator.companies.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
@@ -200,7 +204,7 @@ class CompanyController extends Controller
             'email' => $input['rep_new_email'],
             'role' => 'company representative',
         ]);
-
+        
         Mail::to($input['rep_new_email'])->send(new CompanyRepInvitation($invitation));
 
         return $company;
