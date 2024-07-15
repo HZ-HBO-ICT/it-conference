@@ -48,10 +48,10 @@ class BoothController extends Controller
         }
 
         $input = $request->validate([
-            'company_id' => ['required', 'numeric'],
-            'width' => ['required', 'numeric'],
-            'length' => ['required', 'numeric'],
-            'additional_information' => ''
+            'company_id' => ['required', 'numeric', 'exists:companies,id'],
+            'width' => ['required', 'numeric', 'min:1', 'max:10'],
+            'length' => ['required', 'numeric', 'min:1', 'max:10'],
+            'additional_information' => ['nullable', 'max:255']
         ]);
 
         $booth = Booth::create($input);

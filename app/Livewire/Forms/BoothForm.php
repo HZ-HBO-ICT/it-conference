@@ -10,12 +10,13 @@ class BoothForm extends Form
 {
     public Booth $booth;
 
-    #[Validate(['required', 'numeric', 'min:0'])]
+    #[Validate(['required', 'numeric', 'min:1', 'max:10'])]
     public $width;
 
-    #[Validate(['required', 'numeric', 'min:0'])]
+    #[Validate(['required', 'numeric', 'min:1', 'max:10'])]
     public $length;
 
+    #[Validate(['nullable', 'max:255'])]
     public $additional_information;
 
 
