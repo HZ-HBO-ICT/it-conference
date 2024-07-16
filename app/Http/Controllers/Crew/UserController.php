@@ -14,14 +14,15 @@ class UserController extends Controller
     /**
      * Returns the page with a list of users
      *
+     * @param string|null $role
      * @return View
      */
-    public function index(): View
+    public function index(?string $role = null): View
     {
         if (Auth::user()->cannot('viewAny', User::class)) {
             abort(403);
         }
 
-        return view('crew.users.index');
+        return view('crew.users.index', compact('role'));
     }
 }

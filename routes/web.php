@@ -189,8 +189,6 @@ Route::middleware([
         Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
             ->name('schedule.timeslots.store');*/
 
-    Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
-        ->name('presentations-for-scheduling');
     Route::get('/schedule/{presentation}', [ScheduleController::class, 'schedulePresentation'])
         ->name('schedule.presentation');
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
@@ -204,9 +202,6 @@ Route::middleware([
         ->name('schedule.store.closing');
     Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
         ->name('schedule.default.presentation.edit');
-
-    Route::get('/moderator/list/{type}', [CrewController::class, 'showList'])
-        ->name('list');
 
     Route::get('/moderator/editions', [EditionController::class, 'index'])
         ->name('editions.index');
@@ -264,5 +259,5 @@ Route::middleware([
 
     Route::resource('/moderator/rooms', RoomController::class);
 
-    Route::resource('/moderator/users', UserController::class);
+    Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
 });
