@@ -299,7 +299,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $roles = $this->all_roles;
 
         if ($roles->count() > 1) {
-            $roles->forget('participant');
+            $roles = $roles->reject(function ($role) {
+                return $role === 'participant';
+            });
         }
 
         return $roles->map(function ($role) {
