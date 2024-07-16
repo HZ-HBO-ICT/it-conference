@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Edition;
+use App\Traits\FileValidation;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
@@ -10,6 +11,8 @@ use Livewire\Form;
 
 class KeynoteForm extends Form
 {
+    use FileValidation;
+
     public $edition;
 
     #[Validate(['required', 'string', 'min:3', 'max:700'])]
@@ -18,7 +21,6 @@ class KeynoteForm extends Form
     #[Validate(['required', 'string', 'min:3', 'max:700'])]
     public $keynote_description;
 
-    #[Validate(['required', 'max:2048', 'mimes:jpg,jpeg,png'])]
     public $keynote_photo_path;
 
     /**
@@ -43,6 +45,8 @@ class KeynoteForm extends Form
      */
     public function update()
     {
+        $this->validateFileNameLength($this->keynote_photo_path, 'form.keynote_photo_path');
+
         if ($this->edition->keynote_photo_path != $this->keynote_photo_path) {
             $this->updateKeynotePhoto($this->keynote_photo_path);
         }
@@ -62,6 +66,16 @@ class KeynoteForm extends Form
      */
     public function updateKeynotePhoto(UploadedFile $photo, string $storagePath = 'profile-photos'): void
     {
+        $this->validate([
+            'keynote_photo_path' => [
+                'required',
+                'image',
+                'max:2048',
+            ]
+        ], [
+            'keynote_photo_path.max' => 'The file must not be larger than 2MB',
+        ]);
+
         tap($this->keynote_photo_path, function ($previous) use ($photo, $storagePath) {
             $this->edition->forceFill([
                 'keynote_photo_path' => $photo->storePublicly(
