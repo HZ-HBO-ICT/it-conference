@@ -135,12 +135,6 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
-// TODO: It's a bit scuffed, figure out how to make it properly
-Route::get('/register', function () {
-    abort(404);
-});
-
-
 // ===== Routes for crew =====
 Route::middleware([
     'auth:sanctum',

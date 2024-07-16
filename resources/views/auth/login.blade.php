@@ -18,20 +18,25 @@
                     <div class="text-center md:text-left text-black dark:text-gray-100">
                         <h1 class="text-4xl font-bold block md:hidden">We are in IT together</h1>
                         <h2 class="text-3xl pt-5 font-semibold">Welcome back!</h2>
-                        <h3 class="text-base pb-8">Enter your credentials to log in.</h3>
+                        <h3 class="text-base pb-5">Enter your credentials to log in.</h3>
+                        <div class="text-red-500 pb-2">
+                            @if($errors->any())
+                                {{ implode('', $errors->all(':message')) }}
+                            @endif
+                        </div>
                     </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div>
                             <x-label for="email" value="{{ __('Email') }}"/>
-                            <x-input id="email" class="block mt-1 w-full" type="email" name="email"
+                            <x-input id="email" class="block mt-1 w-full @error('email') is-invalid @enderror" type="email" name="email"
                                      :value="old('email')"
                                      required autofocus autocomplete="username"/>
                         </div>
 
                         <div class="mt-4">
                             <x-label for="password" value="{{ __('Password') }}"/>
-                            <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                            <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required
                                      autocomplete="current-password"/>
                         </div>
 

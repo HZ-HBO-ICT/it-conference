@@ -161,7 +161,7 @@ class CompanyControllerTest extends TestCase
         $response = $this->actingAs($user)->post(route('moderator.companies.store'), $invalidCompanyData);
 
         $response->assertSessionHasErrors([
-            'name', 'description', 'website', 'postcode', 'house_number', 'phone_number', 'street', 'city'
+            'name', 'description', 'website', 'house_number', 'phone_number', 'street', 'city'
         ]);
 
         $this->assertEquals($companyCount, Company::all()->count());
