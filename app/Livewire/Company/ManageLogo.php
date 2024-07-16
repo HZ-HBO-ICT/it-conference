@@ -51,8 +51,16 @@ class ManageLogo extends Component
      */
     public function save()
     {
-        $this->validateFileNameLength($this->photo);
-        $this->validate();
+        $this->validateFileNameLength($this->photo, 'photo');
+
+        $this->validate([
+            'photo' => [
+                'image',
+                'max:10240',
+            ]
+        ], [
+            'file.max' => 'The file must not be larger than 10MB',
+        ]);
 
         $path = $this->photo->store('logos', 'public');
 

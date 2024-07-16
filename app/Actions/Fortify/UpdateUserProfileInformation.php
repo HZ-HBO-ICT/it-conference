@@ -16,11 +16,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     /**
      * Validate and update the given user's profile information.
      *
-     * @param  array<string, mixed>  $input
+     * @param array<string, mixed> $input
      */
     public function update(User $user, array $input): void
     {
-        $this->validateFileNameLength($input['photo'], 'photo');
+        if (array_key_exists('photo', $input)) {
+            $this->validateFileNameLength($input['photo'], 'photo');
+        }
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -46,7 +48,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     /**
      * Update the given verified user's profile information.
      *
-     * @param  array<string, string>  $input
+     * @param array<string, string> $input
      */
     protected function updateVerifiedUser(User $user, array $input): void
     {

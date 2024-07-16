@@ -45,8 +45,6 @@ class KeynoteForm extends Form
      */
     public function update()
     {
-        $this->validateFileNameLength($this->keynote_photo_path, 'form.keynote_photo_path');
-
         if ($this->edition->keynote_photo_path != $this->keynote_photo_path) {
             $this->updateKeynotePhoto($this->keynote_photo_path);
         }
@@ -66,6 +64,8 @@ class KeynoteForm extends Form
      */
     public function updateKeynotePhoto(UploadedFile $photo, string $storagePath = 'profile-photos'): void
     {
+        $this->validateFileNameLength($this->keynote_photo_path, 'form.keynote_photo_path');
+
         $this->validate([
             'keynote_photo_path' => [
                 'required',
