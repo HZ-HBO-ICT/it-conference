@@ -31,7 +31,7 @@
                                             <div class="justify-self-end pr-3">
                                                 <img
                                                     class="object-scale-down w-24 h-24 p-2 rounded-full border-gray-200 dark:border-gray-500 max-w-full block dark:text-white"
-                                                    src="{{ $speaker->profile_photo_path . ('&size=240') }}"
+                                                    src="{{ $speaker->profile_photo_url . ('&size=240') }}"
                                                     alt="blq">
                                             </div>
                                         </div>

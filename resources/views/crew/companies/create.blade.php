@@ -86,6 +86,7 @@
                                 <x-label class="after:content-['*'] after:text-red-500" for="rep_email"
                                          value="{{ __('Company Representative') }}"></x-label>
                                 <x-select name="rep_email" class="mt-1 block w-full">
+                                    <option selected>Select user...</option>
                                     @foreach(User::forCompanyRep()->get() as $user)
                                         <option value="{{ $user->email }}">
                                             {{ $user->name }} | {{ $user->email }}

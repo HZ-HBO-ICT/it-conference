@@ -64,6 +64,8 @@ class PresentationController extends Controller
         $validated = $request->validated();
 
         $presentation = Presentation::create($request->validate(Presentation::rules()));
+        $presentation->is_approved = 1;
+        $presentation->save();
 
         $user = User::find($validated['user_id']);
         $user->joinPresentation($presentation, 'speaker');
@@ -107,7 +109,9 @@ class PresentationController extends Controller
         $isApproved = $validated['approved'];
         if (!$isApproved) {
             foreach ($presentation->speakers as $speaker) {
-                Mail::to($speaker->email)->send(new PresentationDisapprovedMailable);
+                if ($speaker->receive_emails) {
+                    Mail::to($speaker->email)->send(new PresentationDisapprovedMailable);
+                }
             }
         }
 
@@ -118,7 +122,9 @@ class PresentationController extends Controller
 
         if ($isApproved) {
             foreach ($presentation->speakers as $speaker) {
-                Mail::to($speaker->email)->send(new PresentationApprovedMailable);
+                if ($speaker->receive_emails) {
+                    Mail::to($speaker->email)->send(new PresentationApprovedMailable);
+                }
             }
 
             return redirect(route('moderator.presentations.show', $presentation))

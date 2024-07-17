@@ -10,38 +10,15 @@
         <div class="pt-5">
             <x-list-section>
                 <x-slot name="actions">
-                    <button
-                        class="flex items-center justify-center p-3 text-sm font-semibold text-white bg-apricot-peach-400 rounded-md hover:bg-apricot-peach-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apricot-peach-400"
-                        id="editButton">
-                        <span>{{ __('Manage Editions') }}</span>
-                    </button>
-                    <a
-                        class="flex ml-3 items-center justify-center p-3 text-sm font-semibold text-white bg-apricot-peach-400 rounded-md hover:bg-apricot-peach-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apricot-peach-400"
-                        href="{{ route('moderator.editions.create') }}">
-                        <span>{{ __('Create new edition') }}</span>
-                    </a>
-                    @if(Edition::current())
-                        <button
-                            class="flex ml-3 items-center justify-center p-3 text-sm font-semibold text-white bg-apricot-peach-400 rounded-md hover:bg-apricot-peach-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-apricot-peach-400"
-                            onclick="Livewire.dispatch('openModal', { component: 'edition.add-keynote-modal', arguments: { edition: {{ Edition::current() }} } })">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                            </svg>
-                            <span>
-                                @if(Edition::current()->keynote_name)
-                                    {{ __('Edit keynote speaker') }}
-                                @else
-                                    {{ __('Add keynote speaker') }}
-                                @endif
-                            </span>
-                        </button>
-                    @endif
+                    <x-button-link href="{{ route('moderator.editions.create') }}">
+                        {{ __('Create new edition') }}
+                    </x-button-link>
                 </x-slot>
                 <x-slot name="content">
                     @forelse($editions as $edition)
                         <x-list-section-item
                             class="border-transparent hover:bg-gray-100 border-l-4">
-                            <a href="{{ route('moderator.events.index', $edition) }}" class="block w-full">
+                            <a href="{{ route('moderator.editions.show', $edition) }}" class="block w-full">
                                 <div class="flex justify-between mt-2">
                                     <div class="flex">
                                         <div class="text-gray-700 dark:text-white text-m items-center flex">
@@ -87,22 +64,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
-                                        <div class="managementButtons hidden flex gap-2">
-                                            <x-button-link onclick="Livewire.dispatch('openModal', { component: 'edition.edit-edition-modal', arguments: { edition: {{ $edition }} } })">
-                                                Edit
-                                            </x-button-link>
-
-                                            <x-button onclick="Livewire.dispatch('openModal', { component: 'edition.delete-edition-modal', arguments: { edition: {{ $edition }}} })">
-                                                Delete
-                                            </x-button>
-
-                                            @if((!Edition::current() || Edition::current()->id != $edition->id) && $edition->configured())
-                                                <x-button onclick="Livewire.dispatch('openModal', { component: 'edition.activate-edition-modal', arguments: { edition: {{ $edition }}} })">
-                                                    Activate
-                                                </x-button>
-                                            @endif
-                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -117,20 +78,3 @@
         </div>
     </div>
 </x-hub-layout>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const editButton = document.getElementById('editButton');
-        const managementButtons = document.getElementsByClassName('managementButtons');
-
-        editButton.addEventListener('click', function () {
-            for (const button of managementButtons) {
-                if (button.classList.contains('hidden')) {
-                    button.classList.remove('hidden');
-                } else {
-                    button.classList.add('hidden');
-                }
-            }
-        });
-    });
-</script>

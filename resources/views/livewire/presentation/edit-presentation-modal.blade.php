@@ -15,16 +15,16 @@
                 <dd class="sm:col-span-2">
                     <input
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
-                        type="text" wire:model="form.name">
+                        type="text" maxlength="255" wire:model="form.name">
                     @error('form.name') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
 
                 <!-- Presentation Description -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation Description</dt>
                 <dd class="sm:col-span-2">
-                <textarea
+                <textarea rows="7"
                     class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1"
-                    wire:model="form.description"></textarea>
+                    wire:model="form.description" maxlength="300"></textarea>
                     @error('form.description') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
 

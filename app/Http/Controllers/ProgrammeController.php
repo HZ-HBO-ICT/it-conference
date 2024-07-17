@@ -69,7 +69,7 @@ class ProgrammeController extends Controller
                 ->banner("Something went wrong with enrolling for {$presentation->name}");
         }
 
-        return redirect(route('programme.presentation.show', compact('presentation')))
+        return redirect(route('programme'))
             ->banner("You have successfully enrolled for {$presentation->name}");
     }
 
@@ -87,7 +87,7 @@ class ProgrammeController extends Controller
 
         Auth::user()->leavePresentation($presentation);
 
-        return redirect(route('programme.presentation.show', compact('presentation')))
+        return redirect(route('programme'))
             ->banner("You have successfully deregistered from the {$presentation->name}");
     }
 }

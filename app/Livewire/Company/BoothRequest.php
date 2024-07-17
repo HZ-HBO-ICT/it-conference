@@ -42,6 +42,11 @@ class BoothRequest extends Component
      */
     public function requestBooth()
     {
+        $this->validate([
+            'additionalInformation' => 'nullable|max:255',
+        ]);
+
+
         if (!$this->company->booth) {
             Booth::create(
                 [

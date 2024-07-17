@@ -14,7 +14,7 @@ class CompanyRepresentativeForm extends Component
     #[Validate(['required', 'string', 'max:255'])]
     public string $name;
 
-    #[Validate(['required', 'string', 'email', 'max:255', 'unique:users'])]
+    #[Validate(['required', 'string', 'email:filter', 'max:255', 'unique:users'])]
     public string $email;
 
     #[Validate(['required', 'min:12', 'string'])]
