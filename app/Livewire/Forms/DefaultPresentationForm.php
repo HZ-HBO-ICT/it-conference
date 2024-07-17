@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\Company;
 use App\Models\DefaultPresentation;
 use App\Models\Presentation;
+use App\Models\Room;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -37,6 +38,7 @@ class DefaultPresentationForm extends Form
     public function setType($type)
     {
         $this->type = $type;
+        $this->room_id = optional(Room::where('name', 'GW027')->first())->id;
     }
 
     /**

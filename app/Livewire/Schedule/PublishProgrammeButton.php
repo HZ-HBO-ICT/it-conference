@@ -11,6 +11,8 @@ use Masmerise\Toaster\Toaster;
 class PublishProgrammeButton extends Component
 {
     public $isReadyToBePublished;
+    public $allPresentationsAreApproved;
+    public $allPresentationsAreScheduled;
     public $oldValue;
 
     public $buttonClasses = "flex items-center justify-center p-3 text-sm font-semibold rounded-md focus:outline-none
@@ -27,6 +29,15 @@ class PublishProgrammeButton extends Component
      */
     public function mount()
     {
+        $this->allPresentationsAreApproved = Presentation::all()->every(function ($presentation) {
+            return $presentation->is_approved;
+        });
+        $this->allPresentationsAreScheduled = Presentation::where('is_approved', true)
+            ->get()
+            ->every(function ($presentation) {
+                return $presentation->isScheduled;
+            });
+
         $this->isReadyToBePublished = Presentation::all()->every(function ($presentation) {
             return $presentation->isScheduled && $presentation->is_approved;
         });
@@ -45,6 +56,15 @@ class PublishProgrammeButton extends Component
         $this->isReadyToBePublished = Presentation::all()->every(function ($presentation) {
             return $presentation->isScheduled && $presentation->is_approved;
         });
+        $this->allPresentationsAreApproved = Presentation::all()->every(function ($presentation) {
+            return $presentation->is_approved;
+        });
+        $this->allPresentationsAreScheduled = Presentation::where('is_approved', true)
+            ->get()
+            ->every(function ($presentation) {
+                return $presentation->isScheduled;
+            });
+
 
         if ($this->isReadyToBePublished && $this->isReadyToBePublished != $this->oldValue) {
             Toaster::success('The programme is ready to be

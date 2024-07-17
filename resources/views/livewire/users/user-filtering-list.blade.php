@@ -11,6 +11,7 @@
                         @foreach(\Spatie\Permission\Models\Role::all() as $role)
                             <option value="{{$role->name}}">{{ucfirst($role->name)}}</option>
                         @endforeach
+                        <option value="speaker">Speaker</option>
                     </select>
                 </div>
                 <div>
