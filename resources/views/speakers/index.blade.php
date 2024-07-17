@@ -43,6 +43,9 @@
                                     $linkColor = 'text-orange-400 hover:text-orange-500';
                                     break;
                             }
+                        } else {
+                            $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
+                            $linkColor = 'text-blue-400 hover:text-blue-600';
                         }
                     @endphp
                     <a href="{{route('programme.presentation.show', $speaker->presentation)}}" class="{{$linkColor}}">
