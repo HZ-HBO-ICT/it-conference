@@ -69,26 +69,29 @@
 
                     <x-slot name="content">
                         @foreach($events as $event)
-                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 border-l-4"
+                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 border border-dashed border-gray-400 rounded-lg my-4"
                                  onclick="Livewire.dispatch('openModal', { component: 'edition-event.edit-edition-event-modal', arguments: { edition: {{ $edition }}, editionEvent: {{ $event }} } })">
-                                <x-details-list-item label="{{ $event->event->name }}">
-                                    <div class="flex">
-                                        <svg
-                                            class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400"
-                                            xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
-                                            aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                        @if (!$event->start_at || !$event->end_at)
-                                            TBD
-                                        @else
-                                            {{ $event->start_at->format('d-m-Y') }}
-                                            —
-                                            {{ $event->end_at->format('d-m-Y') }}
-                                        @endif
-                                    </div>
-                                </x-details-list-item>
+                                <div class="px-4 py-6 flex justify-between">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">{{ $event->event->name }}</dt>
+                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                        <div class="flex">
+                                            <svg
+                                                class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400"
+                                                xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
+                                                aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            @if (!$event->start_at || !$event->end_at)
+                                                TBD
+                                            @else
+                                                {{ $event->start_at->format('d-m-Y') }}
+                                                —
+                                                {{ $event->end_at->format('d-m-Y') }}
+                                            @endif
+                                        </div>
+                                    </dd>
+                                </div>
                             </div>
                         @endforeach
                     </x-slot>
