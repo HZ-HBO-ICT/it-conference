@@ -23,4 +23,9 @@ class CompanyController extends Controller
 
         return view('teams.public.index', compact('companies'));
     }
+
+    public function show(Company $company) : View
+    {
+        return view('teams.public.show', compact('company'));
+    }
 }
