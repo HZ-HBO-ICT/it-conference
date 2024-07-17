@@ -30,7 +30,7 @@
                                              alt="{{ $user->name }}">
                                         <div class="ml-4 leading-tight">
                                             <div class="text-gray-900 dark:text-white font-semibold">{{ $user->name }}</div>
-                                            <div class="text-sm text-gray-600 dark:text-gray-400">{{ $user->getRoleNames()->implode(', ') }}</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">{{ $user->mainRoles()->implode(', ') }}</div>
                                         </div>
                                     </div>
                                 </div>
