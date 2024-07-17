@@ -42,14 +42,9 @@ class PresentationPolicy
             }
         }
 
-        if (!Edition::current()) {
-            return $user->is_crew
-                || $user->isPresenterOf($presentation);
-        }
-
         return $user->is_crew
             || $user->isPresenterOf($presentation)
-            || Edition::current()->is_final_programme_released;
+            || optional(Edition::current())->is_final_programme_released;
     }
 
     /**
@@ -76,15 +71,10 @@ class PresentationPolicy
             return false;
         }
 
-        if (!Edition::current()) {
-            return $user->is_crew ||
-                $user->isPresenterOf($presentation);
-        }
-
         return $user->is_crew ||
             (
                 $user->isPresenterOf($presentation)
-                && !Edition::current()->is_final_programme_released
+                && !optional(Edition::current())->is_final_programme_released
             );
     }
 
@@ -119,7 +109,7 @@ class PresentationPolicy
         }
 
         // Deny if the deadline for requesting has passed or not arrived yet
-        if (Edition::current() && !Edition::current()->is_requesting_presentation_opened) {
+        if (!optional(Edition::current())->is_requesting_presentation_opened) {
             return false;
         }
 

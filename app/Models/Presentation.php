@@ -178,7 +178,7 @@ class Presentation extends Model
             $speakingStart = Carbon::parse($user->presenter_of->start);
             $speakingEnd = Carbon::parse($user->presenter_of->start)
                 ->copy()
-                ->addMinutes($this->duration);
+                ->addMinutes($user->presenter_of->duration);
 
             if ($presentationEnd > $speakingStart && $presentationStart < $speakingEnd) {
                 return false;
@@ -189,7 +189,7 @@ class Presentation extends Model
             $enrolledStart = Carbon::parse($enrolledPresentation->start);
             $enrolledEnd = Carbon::parse($enrolledPresentation->start)
                 ->copy()
-                ->addMinutes($this->duration);
+                ->addMinutes($enrolledPresentation->duration);
 
             if ($presentationEnd > $enrolledStart && $presentationStart < $enrolledEnd) {
                 return false;
