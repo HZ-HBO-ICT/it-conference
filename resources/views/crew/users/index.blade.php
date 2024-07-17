@@ -4,11 +4,7 @@
             {{ __('Users') }}
         </h2>
         <div class="pt-5 ">
-            @if($role)
-                <livewire:users.user-filtering-list :role="$role"/>
-            @else
-                <livewire:users.user-filtering-list/>
-            @endif
+            <livewire:users.user-filtering-list :role="$role"/>
         </div>
     </div>
 </x-hub-layout>
