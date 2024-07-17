@@ -69,11 +69,11 @@
             @elseif(Auth::user()->can('joinAsCospeaker', $presentation))
                 <x-action-section>
                     <x-slot name="title">
-                        {{ __('Presentation information') }}
+                        {{ __('Join the speakers') }}
                     </x-slot>
 
                     <x-slot name="description">
-                        {{ __('The detail information about your presentation.') }}
+                        {{ __('You can join as co-speaker of the presentation here.') }}
                     </x-slot>
 
                     <x-slot name="content">
@@ -91,6 +91,39 @@
                     </x-slot>
                 </x-action-section>
             @endif
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Presentation speakers') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Here you can see the people who requested the presentation or joined as co-speakers.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="space-y-6">
+                        @foreach ($presentation->speakers->sortBy('name') as $user)
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center pr-4">
+                                        <img class="w-8 h-8 rounded-full object-cover"
+                                             src="{{ $user->profile_photo_url }}"
+                                             alt="{{ $user->name }}">
+                                        <div class="ml-4 leading-tight">
+                                            <div class="text-gray-900 dark:text-white">{{ $user->name }}</div>
+                                            <div
+                                                class="text-sm text-gray-600 dark:text-gray-400">{{ $user->email }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </x-slot>
+            </x-action-section>
 
             <x-section-border/>
 
