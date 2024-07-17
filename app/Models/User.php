@@ -315,6 +315,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function scopeSendEmailPreference(Builder $query) : void
     {
-        $query->where('receive_emails', 1);
+        $query->where('receive_emails', '=', 1);
     }
 }

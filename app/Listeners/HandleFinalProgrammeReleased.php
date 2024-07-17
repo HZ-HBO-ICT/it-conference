@@ -29,7 +29,7 @@ class HandleFinalProgrammeReleased
         $current->state = Edition::STATE_ENROLLMENT;
         $current->save();
 
-        foreach (User::sendEmailPreference() as $user) {
+        foreach (User::sendEmailPreference()->get() as $user) {
             Mail::to($user->email)->send(new FinalProgrammeReleasedMailable($user));
         }
     }
