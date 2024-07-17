@@ -12,13 +12,13 @@ class KeynoteForm extends Form
 {
     public $edition;
 
-    #[Validate(['required', 'string', 'min:3', 'max:700'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public $keynote_name;
 
     #[Validate(['required', 'string', 'min:3', 'max:700'])]
     public $keynote_description;
 
-    #[Validate(['required', 'max:2048', 'mimes:jpg,jpeg,png'])]
+    #[Validate(['required', 'max:2048', 'image', 'mimes:jpg,jpeg,png'])]
     public $keynote_photo_path;
 
     /**

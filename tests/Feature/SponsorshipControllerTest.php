@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Company;
-use App\Models\Sponsorship;
+use App\Models\Edition;
 use App\Models\User;
-use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
@@ -21,6 +20,12 @@ class SponsorshipControllerTest extends TestCase
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
+        Edition::create([
+            'name' => 'test',
+            'state' => Edition::STATE_ANNOUNCE,
+            'start_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 09:00:00')),
+            'end_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 17:00:00')),
+        ]);
     }
 
     /** @test */
