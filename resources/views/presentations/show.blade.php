@@ -66,7 +66,7 @@
 
             @if(Auth::user()->isPresenterOf($presentation))
                 @livewire('presentation.upload-presentation', ['presentation' => $presentation])
-            @elseif(Auth::user()->isDefaultCompanyMember)
+            @elseif(Auth::user()->can('joinAsCospeaker', $presentation))
                 <x-action-section>
                     <x-slot name="title">
                         {{ __('Presentation information') }}

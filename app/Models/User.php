@@ -130,6 +130,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'role' => $role
         ]);
 
+        if ($this->hasRole('pending speaker')) {
+            $this->removeRole('pending speaker');
+        }
+
         return true;
     }
 

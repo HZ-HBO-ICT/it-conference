@@ -36,8 +36,8 @@ class PresentationPolicy
         }
 
         if ($presentation->company) {
-            // View if the company member hasn't decided their role
-            if ($user->isMemberOf($presentation->company) && $user->isDefaultCompanyMember) {
+            if ($user->isMemberOf($presentation->company)
+                && ($user->isDefaultCompanyMember || $user->hasRole(['pending speaker', 'company representative']))) {
                 return true;
             }
         }
@@ -132,7 +132,7 @@ class PresentationPolicy
         // company has presentations left
         if ($user->company) {
             // When the user is not default company member and also not company rep, they should be denied
-            if (!$user->isDefaultCompanyMember && !$user->hasRole('company representative')) {
+            if (!$user->isDefaultCompanyMember && !$user->hasRole(['company representative', 'pending speaker'])) {
                 return false;
             }
 
@@ -235,6 +235,7 @@ class PresentationPolicy
         return $user->company
             && $presentation->company
             && $presentation->company->id == $user->company->id
-            && $user->isDefaultCompanyMember;
+            && !$user->presenter_of
+            && ($user->isDefaultCompanyMember || $user->hasAnyRole(['pending speaker', 'company representative']));
     }
 }
