@@ -74,10 +74,10 @@ class Edition extends Model
     {
         return [
             'name' => 'required|unique:editions|max:255',
-            'start_at' => 'nullable|date',
-            'end_at' => 'nullable|date',
-            'lecture_duration' => 'required|numeric|min:1',
-            'workshop_duration' => 'required|numeric|min:1'
+            'start_at' => 'required|date|after:' . Carbon::now()->addMonth() . '|before:' . Carbon::now()->addYears(2),
+            'end_at' => 'required|date|after:start_at|before:' . Carbon::now()->addYears(2),
+            'lecture_duration' => 'required|numeric|min:1|max:120',
+            'workshop_duration' => 'required|numeric|min:1|max:180'
         ];
     }
 
@@ -217,27 +217,45 @@ class Edition extends Model
     }
 
     /**
-     * Checks if all the dates of a particular edition were added
-     * @return bool
+     * Determine whether all the dates of the edition were added
+     *
+     * @return Attribute
      */
-    public function configured(): bool
+    public function configured(): Attribute
     {
-        if (!$this->start_at || !$this->end_at) {
-            return false;
-        }
+        return Attribute::make(
+            get: function () {
+                if (!$this->start_at || !$this->end_at) {
+                    return false;
+                }
 
-        foreach ($this->editionEvents as $event) {
-            if (!$event->start_at || !$event->end_at) {
-                return false;
+                foreach ($this->editionEvents as $event) {
+                    if (!$event->start_at || !$event->end_at) {
+                        return false;
+                    }
+                }
+
+                return true;
             }
-        }
+        );
+    }
 
-        return true;
+    /**
+     * Determine whether the keynote speaker details were added
+     *
+     * @return Attribute
+     */
+    public function keynoteConfigured(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => ($this->keynote_photo_path && $this->keynote_name && $this->keynote_description)
+        );
     }
 
     /**
      * Changes state of the edition to 'announce', which means that it is officially opened for registration
      * of companies
+     *
      * @return void
      */
     public function activate()
@@ -259,6 +277,7 @@ class Edition extends Model
 
     /**
      * Adds an event to the edition
+     *
      * @param Event $event event to attach to edition
      * @return void
      */
@@ -274,6 +293,7 @@ class Edition extends Model
 
     /**
      * Removes an event from the edition
+     *
      * @param Event $event event to remove from edition
      * @return void
      */
@@ -291,6 +311,7 @@ class Edition extends Model
 
     /**
      * Returns information about event for the particular edition
+     *
      * @param string $name of the event to look for
      * @return EditionEvent
      */

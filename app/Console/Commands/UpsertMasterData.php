@@ -57,15 +57,20 @@ class UpsertMasterData extends Command
         Event::class => [
             [
                 'id' => 1,
-                'name' => 'Company registration'
+                'name' => 'Company registration',
+                'description' => 'When the start date of this event arrives, companies will be able to register for the conference.
+                  Once the end date arrives, the registration is closed.'
             ],
             [
                 'id' => 2,
-                'name' => 'Participant registration'
+                'name' => 'Participant registration',
+                'description' => 'This event is similar to company registration, but for participants.'
             ],
             [
                 'id' => 3,
-                'name' => 'Presentation request'
+                'name' => 'Presentation request',
+                'description' => 'When the start date of this event arrives, participants and companies will be able to request presentations.
+                    Once the end date arrives, this functionality is closed.'
             ]
         ],
     ];

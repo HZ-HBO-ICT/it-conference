@@ -25,7 +25,7 @@ class EditEditionEventModal extends ModalComponent
     {
         $this->edition = $edition;
         $this->editionEvent = $editionEvent;
-        $this->form->setEditionEvent($editionEvent);
+        $this->form->setEditionEvent($editionEvent, $edition);
     }
 
     /**
@@ -41,7 +41,7 @@ class EditEditionEventModal extends ModalComponent
 
         $this->form->update();
 
-        return redirect(route('moderator.events.index', $this->edition))
+        return redirect(route('moderator.editions.show', $this->edition))
             ->with('status', 'Event successfully updated.');
     }
 

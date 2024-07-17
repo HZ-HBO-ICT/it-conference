@@ -1,6 +1,6 @@
 <x-livewire-modal form-action="save">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
-        Edit event
+        {{ $editionEvent->event->name }}
     </x-slot>
 
     <x-slot name="description" class="dark:bg-gray-800">
@@ -10,16 +10,6 @@
     <x-slot name="content" class="w-full dark:bg-gray-800">
         <div class="px-4 py-6 sm:px-0">
             <dl class="sm:grid sm:grid-cols-3 sm:gap-6 items-center">
-                <!-- Event Name -->
-                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Event Name</dt>
-                <dd class="sm:col-span-2">
-                    <input
-                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
-                        type="text"
-                        value="{{ $editionEvent->event->name }}"
-                        disabled />
-                </dd>
-
                 <!-- Event Start Date -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Event Start Date</dt>
                 <dd class="sm:col-span-2">
