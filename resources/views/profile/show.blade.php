@@ -1,7 +1,7 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-<x-app-layout>
+<x-hub-layout>
     <div class="py-8 px-8 mx-auto max-w-7xl">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
             Profile
@@ -32,13 +32,11 @@
                 <x-section-border/>
             @endif
 
-            <div class="mt-10 sm:mt-0">
+            {{--<div class="mt-10 sm:mt-0">
                 @livewire('profile.logout-other-browser-sessions-form')
-            </div>
+            </div>--}}
 
             @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-
-                <x-section-border/>
 
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.delete-user-form')
@@ -46,4 +44,4 @@
             @endif
         </div>
     </div>
-</x-app-layout>
+</x-hub-layout>
