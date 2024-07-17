@@ -1,7 +1,7 @@
 @php
     $isCurrentRoute = empty($param) ? request()->routeIs($route) : (
         request()->routeIs($route) &&
-        (request()->route()->parameter('type') == $param || request()->route()->parameter('team') == $param || request()->route()->parameter('presentation') == $param)
+        (request()->route()->parameter('type') == $param || request()->route()->parameter('team') == $param || request()->route()->parameter('presentation')->id == $param->id)
     );
 
     $bgColorClass = $isCurrentRoute ? 'bg-' . $roleColour . '-300 text-white hover:bg-' . $roleColour . '-500' : 'hover:bg-gray-100 dark:hover:bg-gray-700';
