@@ -24,7 +24,7 @@
             <div class="col-span-6 sm:col-span-4">
                 @if(!$this->requestSent)
                     <x-label for="additional_information" value="{{ __('Additional information') }}"/>
-                    <textarea wire:model="additionalInformation"
+                    <textarea wire:model="additionalInformation" maxlength="255"
                               class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
                     <x-input-error for="email" class="mt-2"/>
                 @else

@@ -87,8 +87,8 @@ class BoothControllerTest extends TestCase
         $company = Company::factory()->create();
         $data = [
             'company_id' => $company->id,
-            'width' => 10,
-            'length' => 20,
+            'width' => 1,
+            'length' => 2,
             'additional_information' => 'Sample info'
         ];
 

@@ -64,6 +64,8 @@ class PresentationController extends Controller
         $validated = $request->validated();
 
         $presentation = Presentation::create($request->validate(Presentation::rules()));
+        $presentation->is_approved = 1;
+        $presentation->save();
 
         $user = User::find($validated['user_id']);
         $user->joinPresentation($presentation, 'speaker');

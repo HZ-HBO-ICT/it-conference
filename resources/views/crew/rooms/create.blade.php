@@ -19,7 +19,7 @@
                         <div class="pr-5">
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label for="name" value="Room name"></x-label>
-                                <x-input id="name" name="name" type="text" value="{{ old('name') }}"
+                                <x-input id="name" name="name" type="text" maxlength="255" value="{{ old('name') }}"
                                          class="mt-1 block w-full"
                                 ></x-input>
                                 <x-input-error for="name" class="mt-2"></x-input-error>
@@ -27,7 +27,7 @@
                             <div class="col-span-6 sm:col-span-4 py-4">
                                 <x-label for="max_participants" value="Maximum capacity of the room"></x-label>
                                 <x-input id="name" name="max_participants" type="number"
-                                         value="{{ old('max_participants') }}"
+                                         value="{{ old('max_participants') }}" min="1" max="999"
                                          class="mt-1 block w-full"></x-input>
                                 <x-input-error for="max_participants" class="mt-2"></x-input-error>
                             </div>
