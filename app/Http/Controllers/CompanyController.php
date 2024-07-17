@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,6 +14,13 @@ class CompanyController extends Controller
      */
     public function index() : View
     {
-        return view('teams.public.index', ['teams' => collect()]);
+        $companies = Company::all()->sortBy(function ($company) {
+            if ($company->is_approved && $company->is_sponsorship_approved) {
+                return $company->sponsorship_id;
+            }
+            return 999; // Assign a high value to non-sponsored speakers
+        });
+
+        return view('teams.public.index', compact('companies'));
     }
 }
