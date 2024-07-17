@@ -20,25 +20,19 @@
                             </div>
                         </div>
                     @else
+                        <hr>
                         @foreach ($company->users->sortBy('name') as $user)
-                            <div wire:key="{{ $user->id }}" class="flex items-center justify-between">
+                            <div wire:key="{{ $user->id }}" class="flex items-center justify-between px-4 bg-white dark:bg-gray-800 rounded-lg">
                                 <div class="flex items-center">
                                     <div class="flex items-center mt-2 pr-4">
-                                        <img class="w-8 h-8 rounded-full object-cover"
+                                        <img class="w-10 h-10 rounded-full object-cover"
                                              src="{{ $user->profile_photo_url }}"
                                              alt="{{ $user->name }}">
                                         <div class="ml-4 leading-tight">
-                                            <div class="text-gray-900 dark:text-white">{{ $user->name }}</div>
+                                            <div class="text-gray-900 dark:text-white font-semibold">{{ $user->name }}</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">{{ $user->getRoleNames()->implode(', ') }}</div>
                                         </div>
                                     </div>
-                                    @can('updateMember', $company)
-                                        @php
-                                            $updateMemberKey = $user->id . 'um';
-                                        @endphp
-                                        <livewire:company.update-member-role :user="$user" :key="$updateMemberKey"/>
-                                    @elsecan('viewAnyMember', $company)
-                                        {{ $user->getRoleNames()->implode(', ') }}
-                                    @endcan
                                 </div>
 
                                 <div class="flex items-center">
@@ -46,10 +40,13 @@
                                         @php
                                             $removeMemberKey = $user->id . 'rm';
                                         @endphp
-                                        <livewire:company.remove-member :user="$user" :key="$removeMemberKey"/>
+                                        @if(!$user->hasRole('company representative'))
+                                            <livewire:company.remove-member :user="$user" :key="$removeMemberKey"/>
+                                        @endif
                                     @endcan
                                 </div>
                             </div>
+                            <hr>
                         @endforeach
                     @endif
                 </div>
