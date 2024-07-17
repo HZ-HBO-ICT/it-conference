@@ -54,6 +54,11 @@ class BoothRequest extends Component
             );
 
             Auth::user()->assignRole('booth owner');
+
+            if (Auth::user()->hasRole('pending booth owner')) {
+                Auth::user()->removeRole('pending booth owner');
+            }
+
             $this->additionalInformation = '';
             $this->requestSent = true;
             $this->company->refresh();
