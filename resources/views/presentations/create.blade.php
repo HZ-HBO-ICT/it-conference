@@ -29,8 +29,8 @@
                         <x-label for="type" value="Type of presentation" class="after:content-['*'] after:text-red-500"/>
                         <select name="type"
                                 class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                            <option {{old('type') == 'lecture' ? 'selected' : ''}} value="lecture">Lecture (30 minutes)</option>
-                            <option {{old('type') == 'workshop' ? 'selected' : ''}} value="workshop">Workshop (90 minutes)</option>
+                            <option {{old('type') == 'lecture' ? 'selected' : ''}} value="lecture">Lecture ({{\App\Models\Presentation::lectureDuration()}} minutes)</option>
+                            <option {{old('type') == 'workshop' ? 'selected' : ''}} value="workshop">Workshop ({{\App\Models\Presentation::workshopDuration()}} minutes)</option>
                         </select>
                         <x-input-error for="workshop" class="mt-2"/>
                     </div>
