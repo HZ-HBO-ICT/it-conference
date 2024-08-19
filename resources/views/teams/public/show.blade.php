@@ -6,33 +6,33 @@
             class="isolate px-6 py-6 max-w-7xl mx-auto mt-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
             <div class="text-center max-w-2xl mx-auto mb-5">
                 <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Conference Line-up /
-                    <span class="text-violet-600">{{$team->name}}</span>
+                    <span class="text-violet-600">{{$company->name}}</span>
                 </h2>
             </div>
             <div class="mx-auto max-w-7xl">
                 <div class="py-3 px-6 rounded-lg overflow-hidden relative">
                     <div class=" rounded-2xl py-3 px-3 border-2 shadow dark:bg-gray-800
-                            @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold
-                            @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver
-                            @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze
+                            @if ($company->sponsor_tier_id === 1 && $company->is_sponsor_approved === 1) border-gold dark:border-gold
+                            @elseif ($company->sponsor_tier_id === 2 && $company->is_sponsor_approved === 1) border-silver dark:border-silver
+                            @elseif ($company->sponsor_tier_id === 3 && $company->is_sponsor_approved === 1) border-bronze dark:border-bronze
                             @else border-gray-200 dark:border-gray-500 @endif">
                         <div class="grid grid-cols-3">
                             <div class=" flex items-center justify-center">
                                 <div>
                                     <div class="px-3 py-6 lg:px-10 lg:py-8">
-                                        @if ($team->logo_path)
-                                            <img class="object-scale-down p-2 @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold
-                                @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver
-                                @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze
+                                        @if ($company->logo_path)
+                                            <img class="object-scale-down p-2 @if ($company->sponsor_tier_id === 1 && $company->is_sponsor_approved === 1) border-gold dark:border-gold
+                                @elseif ($company->sponsor_tier_id === 2 && $company->is_sponsor_approved === 1) border-silver dark:border-silver
+                                @elseif ($company->sponsor_tier_id === 3 && $company->is_sponsor_approved === 1) border-bronze dark:border-bronze
                                 @else border-gray-200 dark:border-gray-500 @endif w-56 h-56 mx-auto my-auto max-w-full block dark:text-white"
-                                                 src="{{ url('storage/'. $team->logo_path) }}"
-                                                 alt="Logo of {{$team->name}}">
+                                                 src="{{ url('storage/'. $company->logo_path) }}"
+                                                 alt="Logo of {{$company->name}}">
                                         @else
                                             @php
                                                 $color = '';
-                                                if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) $color='#FFD700';
-                                                elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) $color='#C0C0C0';
-                                                elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) $color='#CD7F32';
+                                                if ($company->sponsor_tier_id === 1 && $company->is_sponsor_approved === 1) $color='#FFD700';
+                                                elseif ($company->sponsor_tier_id === 2 && $company->is_sponsor_approved === 1) $color='#C0C0C0';
+                                                elseif ($company->sponsor_tier_id === 3 && $company->is_sponsor_approved === 1) $color='#CD7F32';
                                                 else $color='#60a5fa'
                                             @endphp
                                             <div
