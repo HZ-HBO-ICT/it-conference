@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Traits\FileValidation;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,8 +13,8 @@ use Livewire\WithFileUploads;
 class ManageLogo extends Component
 {
     use WithFileUploads;
+    use FileValidation;
 
-    #[Validate('image|max:5120')]
     public $photo;
     public $company;
 
@@ -29,11 +30,19 @@ class ManageLogo extends Component
 
     /**
      * Renders the component
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function updatedPhoto()
     {
-        $this->validate();
+        $this->validateFileNameLength($this->photo, 'photo');
+
+        $this->validate([
+            'photo' => [
+                'image',
+                'max:10240',
+            ]
+        ], [
+            'file.max' => 'The file must not be larger than 10MB',
+        ]);
     }
 
     /**
@@ -42,7 +51,16 @@ class ManageLogo extends Component
      */
     public function save()
     {
-        $this->validate();
+        $this->validateFileNameLength($this->photo, 'photo');
+
+        $this->validate([
+            'photo' => [
+                'image',
+                'max:10240',
+            ]
+        ], [
+            'file.max' => 'The file must not be larger than 10MB',
+        ]);
 
         $path = $this->photo->store('logos', 'public');
 
@@ -58,7 +76,7 @@ class ManageLogo extends Component
      * Renders the component
      * @return View
      */
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.company.manage-logo');
     }

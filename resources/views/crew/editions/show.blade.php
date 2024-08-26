@@ -69,7 +69,7 @@
 
                     <x-slot name="content">
                         @foreach($events as $event)
-                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 border border-dashed border-gray-500 shadow rounded-lg my-4"
+                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow rounded-lg my-4"
                                  onclick="Livewire.dispatch('openModal', { component: 'edition-event.edit-edition-event-modal', arguments: { edition: {{ $edition }}, editionEvent: {{ $event }} } })">
                                 <div class="px-4 py-6 flex justify-between">
                                     <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">{{ $event->event->name }}</dt>
