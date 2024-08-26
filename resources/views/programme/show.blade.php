@@ -29,10 +29,9 @@
                                     @foreach($presentation->speakers as $speaker)
                                         <div class="flex justify-end">
                                             <div class="justify-self-end pr-3">
-                                                <img
-                                                    class="object-scale-down w-24 h-24 p-2 rounded-full border-gray-200 dark:border-gray-500 max-w-full block dark:text-white"
-                                                    src="{{ $speaker->profile_photo_path . ('&size=240') }}"
-                                                    alt="blq">
+                                                <img class="relative w-24 h-24 rounded-full object-cover border-4 border-white"
+                                                     src="{{ $speaker->profile_photo_url }}"
+                                                     alt="Profile picture of {{$speaker->name}}">
                                             </div>
                                         </div>
                                         <div
