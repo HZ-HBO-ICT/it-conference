@@ -1,6 +1,7 @@
 @php
-    $borderColor = 'bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400';
-    $linkColor = 'text-pink-400 hover:text-pink-600';
+    $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
+    $linkColor = 'text-blue-400 hover:text-blue-600';
+    $iconColor = 'stroke-blue-400 dark:stroke-blue-400';
 @endphp
 
 <x-app-layout>
@@ -8,57 +9,69 @@
         <h2 class="text-center text-gray-900 dark:text-gray-50 text-5xl font-extrabold bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
             Our Companies
         </h2>
-    @if(!$companies->isEmpty())
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-            @foreach($companies as $company)
-                @php
-                    if($company->is_sponsorship_approved) {
-                        switch ($company->sponsorship_id) {
-                            case 1:
-                                $borderColor = 'bg-gradient-to-r from-yellow-300 to-yellow-600'; // Gold
-                                $linkColor = 'text-yellow-400 hover:text-yellow-500';
-                                break;
-                            case 2:
-                                $borderColor = 'bg-gradient-to-r from-gray-300 to-gray-600'; // Silver
-                                $linkColor = 'text-gray-600 hover:text-gray-700';
-                                break;
-                            case 3:
-                                $borderColor = 'bg-gradient-to-r from-orange-300 to-orange-600'; // Bronze
-                                $linkColor = 'text-orange-400 hover:text-orange-500';
-                                break;
+        @if(!$companies->isEmpty())
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                @foreach($companies as $company)
+                    @php
+                        if($company->is_sponsorship_approved) {
+                            switch ($company->sponsorship_id) {
+                                case 1:
+                                    $borderColor = 'bg-gradient-to-r from-yellow-300 to-yellow-600'; // Gold
+                                    $linkColor = 'text-yellow-400 hover:text-yellow-500';
+                                    $iconColor = 'stroke-yellow-400 hover:stroke-yellow-500';
+                                    break;
+                                case 2:
+                                    $borderColor = 'bg-gradient-to-r from-gray-300 to-gray-600'; // Silver
+                                    $linkColor = 'text-gray-600 hover:text-gray-700';
+                                    $iconColor = 'stroke-gray-600 hover:stroke-gray-700';
+                                    break;
+                                case 3:
+                                    $borderColor = 'bg-gradient-to-r from-orange-300 to-orange-600'; // Bronze
+                                    $linkColor = 'text-orange-400 hover:text-orange-500';
+                                    $iconColor = 'stroke-orange-400 hover:stroke-orange-500';
+                                    break;
+                            }
+                        } else {
+                            $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
+                            $linkColor = 'text-blue-400 hover:text-blue-600';
+                            $iconColor = 'stroke-blue-400 dark:stroke-blue-400';
                         }
-                    } else {
-                        $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
-                        $linkColor = 'text-blue-400 hover:text-blue-600';
-                    }
-                @endphp
-                <a href="{{route('companies.show', $company)}}" class="{{$linkColor}}">
-                    <div
-                        class="relative min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
-                        <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                        <div class="p-8 flex flex-col items-center">
-                            <div class="relative w-32 h-32 mb-6">
-                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                <img class="relative w-32 h-32 rounded-full object-cover border-4 border-white"
-                                     src="{{$company->logo_path}}"
-                                     alt="Profile picture of {{$company->name}}">
+                    @endphp
+                    <a href="{{route('companies.show', $company)}}" class="{{$linkColor}}">
+                        <div
+                                class="relative min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
+                            <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
+                            <div class="p-8 flex flex-col items-center">
+                                <div class="relative w-56 h-56 mb-6">
+                                    @if($company->logo_path)
+                                        <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
+                                        <img class="relative w-56 h-56 rounded-full object-cover"
+                                             src="{{url('storage/'. $company->logo_path) }}"
+                                             alt="Profile picture of {{$company->name}}">
+                                    @else
+                                        <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1"
+                                             stroke="gray" aria-hidden="true" class="w-56 h-56 {{$iconColor}}">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
+                                        </svg>
+                                    @endif
+                                </div>
+                                <h3 class="font-bold text-2xl text-gray-900 dark:text-white text-center">{{$company->name}}</h3>
+                                <p class="mt-4 text-gray-600 dark:text-gray-400 text-center">{{strlen($company->description) > 165 ? substr($company->description, 0, 165) . '...' : $company->description}}</p>
                             </div>
-                            <h3 class="font-bold text-2xl text-gray-900 dark:text-white text-center">{{$company->name}}</h3>
-                            <p class="mt-4 text-gray-600 dark:text-gray-400 text-center">{{strlen($company->description) > 165 ? substr($company->description, 0, 165) . '...' : $company->description}}</p>
-                            <div class="mt-6">
-                            </div>
+                            <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
                         </div>
-                        <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
-    @else
-        <div class="bg-white rounded py-2">
-            <p class="text-center text-2xl font-bold">
-                There are no companies available right now.
-            </p>
-        </div>
+                    </a>
+                @endforeach
+            </div>
+        @else
+            <div class="bg-white rounded py-2">
+                <p class="text-center text-2xl font-bold">
+                    There are no companies available right now.
+                </p>
+            </div>
     @endif
 
 {{--    <div class="relative bg-cover overflow-hidden min-h-screen">--}}
