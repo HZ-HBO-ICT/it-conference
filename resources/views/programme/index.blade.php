@@ -6,11 +6,11 @@
 
 <x-app-layout>
     <div class="relative bg-cover overflow-hidden min-h-screen">
+        <h2 class="text-center dark:text-gray-50 text-gray-900 text-5xl font-extrabold py-12">
+            Programme
+        </h2>
         <div
             class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700 my-5">
-            <div class="text-center max-w-2xl mx-auto">
-                <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Programme</h2>
-            </div>
             <div class="m-5 mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                     <!-- Start of the opening -->
