@@ -270,4 +270,28 @@ class Edition extends Model
             ->where('event_id', Event::where('name', $name)->first()->id)
             ->first();
     }
+
+    /**
+     * Function that makes sure that the keynote has a picture even if it is
+     * just the default avatar
+     * @return Attribute
+     */
+    public function keynotePictureSource(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->keynote_photo_path) {
+                    return url('storage/' . $this->keynote_photo_path);
+                } else {
+                    $name = trim(collect(explode(' ', $this->keynote_name))->map(function ($segment) {
+                        return mb_substr($segment, 0, 1);
+                    })->join(' '));
+
+                    return 'https://ui-avatars.com/api/?name=' .
+                        urlencode($name) .
+                        '&color=7F9CF5&background=EBF4FF&size=128';
+                }
+            }
+        );
+    }
 }
