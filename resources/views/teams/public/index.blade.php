@@ -45,9 +45,14 @@
                                 <div class="relative w-56 h-56 mb-6">
                                     @if($company->logo_path)
                                         <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                        <img class="relative w-56 h-56 rounded-full object-cover"
+                                        <img class="relative w-56 h-56 rounded-full object-contain {{$company->dark_logo_path ? 'dark:hidden' : ''}}"
                                              src="{{url('storage/'. $company->logo_path) }}"
                                              alt="Profile picture of {{$company->name}}">
+                                        @if($company->dark_logo_path)
+                                            <img class="relative w-56 h-56 rounded-full object-contain hidden dark:block"
+                                                 src="{{url('storage/'. $company->dark_logo_path) }}"
+                                                 alt="Profile picture of {{$company->name}}">
+                                        @endif
                                     @else
                                         <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
