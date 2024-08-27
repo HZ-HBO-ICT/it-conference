@@ -5,7 +5,7 @@
 <x-app-layout>
     <div class="container h-screen mx-auto px-6 py-12">
         <h2 class="text-center text-gray-50 dark:text-gray-900 text-4xl font-extrabold bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
-            Our Companies / <span class="text-gray-900 dark:text-gray-50">{{$presentation->name}}</span>
+            Programme / <span class="text-gray-900 dark:text-gray-50">{{$presentation->name}}</span>
         </h2>
         <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all p-10">

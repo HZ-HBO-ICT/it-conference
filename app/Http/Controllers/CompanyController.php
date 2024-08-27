@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = Company::all()->sortBy(function ($company) {
+        $companies = Company::where('is_approved', 1)->get()->sortBy(function ($company) {
             if ($company->is_approved && $company->is_sponsorship_approved) {
                 return $company->sponsorship_id;
             }
