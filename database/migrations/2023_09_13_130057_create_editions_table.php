@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->integer('state')->default(Edition::STATE_DESIGN);
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
             $table->integer('lecture_duration')->default(30);
             $table->integer('workshop_duration')->default(90);
             $table->string('keynote_name')->nullable();

@@ -24,11 +24,11 @@ class Presentation extends Model
     public static function rules()
     {
         return [
-            'name' => 'required',
-            'max_participants' => 'required|numeric|min:1',
-            'description' => 'required',
+            'name' => 'required|string|min:1|max:255',
+            'max_participants' => 'required|numeric|min:1|max:999',
+            'description' => 'required|string|min:1|max:300',
             'type' => 'required|in:workshop,lecture',
-            'difficulty_id' => 'required',
+            'difficulty_id' => 'required|numeric|exists:difficulties,id',
         ];
     }
 
@@ -178,7 +178,7 @@ class Presentation extends Model
             $speakingStart = Carbon::parse($user->presenter_of->start);
             $speakingEnd = Carbon::parse($user->presenter_of->start)
                 ->copy()
-                ->addMinutes($this->duration);
+                ->addMinutes($user->presenter_of->duration);
 
             if ($presentationEnd > $speakingStart && $presentationStart < $speakingEnd) {
                 return false;
@@ -189,7 +189,7 @@ class Presentation extends Model
             $enrolledStart = Carbon::parse($enrolledPresentation->start);
             $enrolledEnd = Carbon::parse($enrolledPresentation->start)
                 ->copy()
-                ->addMinutes($this->duration);
+                ->addMinutes($enrolledPresentation->duration);
 
             if ($presentationEnd > $enrolledStart && $presentationStart < $enrolledEnd) {
                 return false;

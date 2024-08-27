@@ -114,7 +114,9 @@ class PresentationModal extends ModalComponent
             foreach ($participants as $participant) {
                 $participant->leavePresentation($this->presentation);
 
-                Mail::to($participant->email)->send(new CancelledPresentationMailable($participant, $this->presentation));
+                if ($participant->receive_emails) {
+                    Mail::to($participant->email)->send(new CancelledPresentationMailable($participant, $this->presentation));
+                }
             }
         }
 

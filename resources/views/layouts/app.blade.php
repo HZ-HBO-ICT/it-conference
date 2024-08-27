@@ -58,7 +58,7 @@
             <div class="mx-auto w-full max-w-screen-xl">
                 <div class="grid grid-cols-2 mt-8 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
                     <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Portal</h2>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Important links</h2>
                         <ul class="text-gray-400 font-medium">
                             <li class="mb-4">
                                 <a href="{{ route('welcome') }}" class=" hover:underline">Home</a>
@@ -96,21 +96,21 @@
         <span class="text-sm text-gray-500 dark:text-gray-300 sm:text-center"> © 2024 IT Together Conference | Made by IT-Conference Website Team. All Rights Reserved.
         </span>
                     <div class="flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse">
-                        <a href="https://www.linkedin.com/company/we-are-in-it-together-conference/" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                        <a href="https://www.linkedin.com/company/we-are-in-it-together-conference/" target="_blank" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
                             <svg class="w-4 h-4 fill-blue-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path
                                     d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z" />
                             </svg>
                             <span class="sr-only">Linkedin</span>
                         </a>
-                        <a href="https://www.youtube.com/@weareinittogether" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                        <a href="https://www.youtube.com/@weareinittogether" target="_blank" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
                             <svg class="w-4 h-4 fill-red-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                 <path
                                     d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
                             </svg>
                             <span class="sr-only">Youtube</span>
                         </a>
-                        <a href="https://github.com/HZ-HBO-ICT/it-conference" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                        <a href="https://github.com/HZ-HBO-ICT/it-conference" target="_blank" class="text-gray-400 hover:text-gray-900 dark:hover:text-white">
                             <svg class="w-4 h-4 fill-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                  fill="currentColor"
                                  viewBox="0 0 20 20">

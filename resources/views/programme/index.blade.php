@@ -2,6 +2,9 @@
     use Carbon\Carbon;
     use App\Models\DefaultPresentation;
     use App\Models\Edition;
+    use Illuminate\Support\Facades\Auth;
+
+    $roleColour = Auth::user() ? Auth::user()->roleColour : 'blue';
 @endphp
 
 <x-app-layout>
@@ -24,8 +27,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out
-                                        dark:bg-blue-500 dark:hover:bg-gradient-to-r dark:hover:from-blue-500 dark:hover:to-blue-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden hover:transition-all hover:duration-300 hover:ease-in-out bg-{{ $roleColour }}-400 hover:bg-gradient-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600
+                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -62,7 +65,7 @@
                                             @if($lecture->start == $timeslot['start'])
                                                 <div class="pb-3">
                                                     <a href="{{route('programme.presentation.show', $lecture)}}">
-                                                        <x-schedule-block :presentation="$lecture" :colorName="'blue'"/>
+                                                        <x-schedule-block :presentation="$lecture" :colorName="$roleColour"/>
                                                     </a>
                                                 </div>
                                             @endif
@@ -89,7 +92,8 @@
                                             @if($workshop->start == $timeslot['start'])
                                                 <div class="pb-3">
                                                     <a href="{{route('programme.presentation.show', $workshop)}}">
-                                                        <x-schedule-block :presentation="$workshop" :colorName="'blue'"/>
+                                                        <x-schedule-block :presentation="$workshop"
+                                                                          :colorName="$roleColour"/>
                                                     </a>
                                                 </div>
                                             @endif
@@ -111,8 +115,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out
-                                        dark:bg-blue-500 dark:hover:bg-gradient-to-r dark:hover:from-blue-500 dark:hover:to-blue-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden bg-{{ $roleColour }}-400 hover:bg-gradient-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600 hover:transition-all hover:duration-300 hover:ease-in-out
+                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>

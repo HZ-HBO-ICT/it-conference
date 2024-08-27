@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Edition;
 
 class CompanyController extends Controller
 {
     /**
      * Returns the public facing company index page
-     * @return View
      */
     public function index(): View
     {
@@ -21,16 +22,26 @@ class CompanyController extends Controller
             return 999; // Assign a high value to non-sponsored speakers
         });
 
+        $edition = Edition::current();
+        if (!$edition) {
+            $companies = collect();
+        }
+
         return view('teams.public.index', compact('companies'));
     }
 
     /**
      * Returns the public facing company show page
      * @param Company $company
-     * @return View
+     * @return View | RedirectResponse
      */
-    public function show(Company $company): View
+    public function show(Company $company): View | RedirectResponse
     {
+        $edition = Edition::current();
+        if (!$edition) {
+            return redirect(route('companies.index'));
+        }
+
         $styles = [
             1 => [
                 'borderColor' => 'bg-gradient-to-r from-yellow-300 to-yellow-600', // Gold

@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Edition;
+use App\Traits\FileValidation;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
@@ -10,15 +11,16 @@ use Livewire\Form;
 
 class KeynoteForm extends Form
 {
+    use FileValidation;
+
     public $edition;
 
-    #[Validate(['required', 'string', 'min:3', 'max:700'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public $keynote_name;
 
     #[Validate(['required', 'string', 'min:3', 'max:700'])]
     public $keynote_description;
 
-    #[Validate(['required', 'max:2048', 'mimes:jpg,jpeg,png'])]
     public $keynote_photo_path;
 
     /**
@@ -62,27 +64,22 @@ class KeynoteForm extends Form
      */
     public function updateKeynotePhoto(UploadedFile $photo, string $storagePath = 'profile-photos'): void
     {
-        tap($this->keynote_photo_path, function ($previous) use ($photo, $storagePath) {
-            $this->edition->forceFill([
-                'keynote_photo_path' => $photo->storePublicly(
-                    $storagePath,
-                    ['disk' => $this->profilePhotoDisk()]
-                ),
-            ])->save();
+        $this->validateFileNameLength($this->keynote_photo_path, 'form.keynote_photo_path');
 
-            if ($previous) {
-                Storage::disk($this->profilePhotoDisk())->delete($previous);
-            }
-        });
-    }
+        $this->validate([
+            'keynote_photo_path' => [
+                'required',
+                'image',
+                'max:2048',
+            ]
+        ], [
+            'keynote_photo_path.max' => 'The file must not be larger than 2MB',
+        ]);
 
-    /**
-     * Returns a disk where to store the new photo
-     *
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|mixed|string
-     */
-    protected function profilePhotoDisk(): mixed
-    {
-        return isset($_ENV['VAPOR_ARTIFACT_NAME']) ? 's3' : config('jetstream.profile_photo_disk', 'public');
+        $path = $this->keynote_photo_path->store('logos', 'public');
+
+        $this->edition->update(['keynote_photo_path' => $path]);
+
+        $this->reset(['keynote_photo_path']);
     }
 }

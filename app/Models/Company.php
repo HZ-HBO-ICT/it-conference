@@ -135,6 +135,23 @@ class Company extends Model
     }
 
     /**
+     * Returns the booth owners of the company
+     *
+     * @return Attribute
+     */
+    public function boothOwners(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->users()
+                    ->with('roles')
+                    ->role('booth owner')
+                    ->get();
+            }
+        );
+    }
+
+    /**
      * Checks if the company is HZ University of Applied Sciences
      * @return Attribute
      */

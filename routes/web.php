@@ -5,7 +5,6 @@ use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\EditionController;
-use App\Http\Controllers\Crew\EditionEventController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
@@ -17,7 +16,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
-use App\Http\Controllers\StatsController;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*Route::middleware([
@@ -42,15 +41,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // ===== Routes for registration =====
-Route::get('/register/participant', [RegistrationController::class, 'showParticipantRegistration'])
-    ->name('register.participant');
-Route::get('/register/company', [RegistrationController::class, 'showCompanyRegistration'])
-    ->name('register.company');
-Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-    ->middleware(['signed'])->name('registration.page.via.invitation');
-Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-    ->name('register.via.invitation');
-
+Route::middleware([
+    RedirectIfAuthenticated::class,
+    'edition-activated'
+])->group(function () {
+    Route::get('/register/participant', [RegistrationController::class, 'showParticipantRegistration'])
+        ->name('register.participant');
+    Route::get('/register/company', [RegistrationController::class, 'showCompanyRegistration'])
+        ->name('register.company');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
@@ -84,6 +83,12 @@ Route::middleware([
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
 
+    // routes for registering from invitation
+    Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+        ->middleware(['signed'])->name('registration.page.via.invitation');
+    Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+        ->name('register.via.invitation');
+
     //route for personal programme
     Route::get('/my/programme', [ParticipantController::class, 'programme'])
         ->name('my.programme');
@@ -93,6 +98,25 @@ Route::middleware([
 
     Route::post('/my/disenroll/{presentation}', [ProgrammeController::class, 'disenroll'])
         ->name('my.programme.disenroll');
+
+    // routes for edition
+    Route::get('/moderator/editions', [EditionController::class, 'index'])
+        ->name('moderator.editions.index');
+
+    Route::get('/moderator/editions/create', [EditionController::class, 'create'])
+        ->name('moderator.editions.create');
+
+    Route::post('/moderator/editions/create', [EditionController::class, 'store'])
+        ->name('moderator.editions.store');
+
+    Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
+        ->name('moderator.editions.destroy');
+
+    Route::get('/moderator/editions/{edition}', [EditionController::class, 'show'])
+        ->name('moderator.editions.show');
+
+    Route::post('/moderator/editions/{edition}/activate', [EditionController::class, 'activateEdition'])
+        ->name('moderator.editions.activate');
 });
 //
 //    //route for my profile in personal hub
@@ -138,6 +162,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+    'edition-activated'
 ])->name('moderator.')->group(function () {
     Route::get('/requests/{type}', [CrewController::class, 'requests'])
         ->name('requests');
@@ -181,8 +206,6 @@ Route::middleware([
         Route::post('/schedule/timeslots', [TimeslotController::class, 'store'])
             ->name('schedule.timeslots.store');*/
 
-    Route::get('/schedule/presentations-for-scheduling', [ScheduleController::class, 'presentationsForScheduling'])
-        ->name('presentations-for-scheduling');
     Route::get('/schedule/{presentation}', [ScheduleController::class, 'schedulePresentation'])
         ->name('schedule.presentation');
     Route::post('/schedule/{presentation}', [ScheduleController::class, 'storeSchedulePresentation'])
@@ -196,27 +219,6 @@ Route::middleware([
         ->name('schedule.store.closing');
     Route::get('/schedule/edit/{event}', [DefaultPresentationController::class, 'edit'])
         ->name('schedule.default.presentation.edit');
-
-    Route::get('/moderator/list/{type}', [CrewController::class, 'showList'])
-        ->name('list');
-
-    Route::get('/moderator/editions', [EditionController::class, 'index'])
-        ->name('editions.index');
-
-    Route::get('/moderator/editions/create', [EditionController::class, 'create'])
-        ->name('editions.create');
-
-    Route::post('/moderator/editions/create', [EditionController::class, 'store'])
-        ->name('editions.store');
-
-    Route::delete('/moderator/editions/{edition}', [EditionController::class, 'destroy'])
-        ->name('editions.destroy');
-
-    Route::post('/moderator/editions/{edition}/activate', [EditionController::class, 'activateEdition'])
-        ->name('editions.activate');
-
-    Route::get('/moderator/editions/{edition}/events', [EditionEventController::class, 'index'])
-        ->name('events.index');
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::post('/moderator/booths/{booth}/approve', [
@@ -256,5 +258,5 @@ Route::middleware([
 
     Route::resource('/moderator/rooms', RoomController::class);
 
-    Route::resource('/moderator/users', UserController::class);
+    Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
 });

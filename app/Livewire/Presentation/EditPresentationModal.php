@@ -52,7 +52,7 @@ class EditPresentationModal extends ModalComponent
      */
     public static function modalMaxWidth(): string
     {
-        return '3xl';
+        return '6xl';
     }
 
     /**

@@ -52,6 +52,53 @@
                 @endcan
             </x-action-section>
 
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Presentation speakers') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Here you can see the people who requested the presentation or joined as co-speakers.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="space-y-6">
+                        @forelse ($presentation->speakers->sortBy('name') as $user)
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center pr-4">
+                                        <img class="w-8 h-8 rounded-full object-cover"
+                                             src="{{ $user->profile_photo_url }}"
+                                             alt="{{ $user->name }}">
+                                        <div class="ml-4 leading-tight">
+                                            <div class="text-gray-900 dark:text-white">{{ $user->name }}</div>
+                                            <div
+                                                class="text-sm text-gray-600 dark:text-gray-400">{{ $user->email }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center text-gray-500 dark:text-gray-400">
+                                    <div>
+                                        @if($user->company)
+                                            <a class="underline text-apricot-peach-400 hover:text-apricot-peach-500" href="{{route('moderator.companies.show', $user->company)}}">
+                                                {{$user->company->name}}
+                                            </a>
+                                        @else
+                                            Independent speaker
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                        @empty
+                            <span class="text-orange-600">Something had gone wrong — no speakers were found. Contact the development team.</span>
+                        @endforelse
+                    </div>
+                </x-slot>
+            </x-action-section>
+
             @can('viewRequest', $presentation)
                 <x-section-border/>
 

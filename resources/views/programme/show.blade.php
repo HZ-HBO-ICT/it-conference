@@ -42,7 +42,8 @@
                     @if($presentation->company)
                         <div class="mt-5">
                             <h2 class="text-2xl font-bold">Company</h2>
-                            <a class=" {{$linkColor}}" href="{{route('companies.show', $presentation->company)}}">{{$presentation->company->name}}</a>
+                            <a class=" {{$linkColor}}"
+                               href="{{route('companies.show', $presentation->company)}}">{{$presentation->company->name}}</a>
                         </div>
                     @endif
 
@@ -116,7 +117,6 @@
             </div>
             <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
         </div>
-
     </div>
 </x-app-layout>
 

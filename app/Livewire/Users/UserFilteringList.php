@@ -22,6 +22,7 @@ class UserFilteringList extends Component
     public function mount()
     {
         $this->users = User::all()->sortBy('name');
+        $this->filter();
     }
 
     /**

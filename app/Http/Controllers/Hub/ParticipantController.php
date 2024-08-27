@@ -15,7 +15,7 @@ class ParticipantController extends Controller
      */
     public function programme(): View
     {
-        $presentations = Auth::user()->participating_in;
+        $presentations = Auth::user()->participating_in->sortBy('start');
 
         return view('myhub.programme', compact('presentations'));
     }
