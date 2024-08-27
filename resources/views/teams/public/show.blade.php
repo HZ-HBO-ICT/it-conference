@@ -73,7 +73,7 @@
 
                     <div class="mt-5">
                         <h3 class="text-2xl font-semibold">Visit Our Website</h3>
-                        <a href="{{ $company->website }}" class="{{$linkColor}} hover:underline">
+                        <a href="http://{{ $company->website }}" class="{{$linkColor}} hover:underline">
                             {{ $company->website }}
                         </a>
                     </div>
