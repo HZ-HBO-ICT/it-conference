@@ -64,7 +64,9 @@ class CompanyController extends Controller
             $iconColor = 'stroke-blue-400 dark:stroke-blue-400';
         }
 
-        return view('teams.public.show',
-            compact('company', 'borderColor', 'textColor', 'linkColor', 'iconColor'));
+        return view(
+            'teams.public.show',
+            compact('company', 'borderColor', 'textColor', 'linkColor', 'iconColor')
+        );
     }
 }

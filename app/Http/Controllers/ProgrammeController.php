@@ -81,8 +81,10 @@ class ProgrammeController extends Controller
             $iconColor = 'stroke-blue-400 dark:stroke-blue-400';
         }
 
-        return view('programme.show',
-            compact('presentation', 'borderColor', 'linkColor', 'textColor', 'iconColor'));
+        return view(
+            'programme.show',
+            compact('presentation', 'borderColor', 'linkColor', 'textColor', 'iconColor')
+        );
     }
 
     /**
