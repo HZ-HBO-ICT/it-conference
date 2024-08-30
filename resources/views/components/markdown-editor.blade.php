@@ -19,7 +19,11 @@
     <div x-data="{
 	height: '{{ $height }}',
 	tab: 'write',
-	content: {{ collect($value) }},
+	@if ($attributes->has('wire:model'))
+	 content: @entangle($attributes->wire('model')),
+	@else
+	 content: {{ collect($value) }},
+	@endif
 	showConvertedMarkdown: false,
 	convertedContent: '',
 	convertedMarkdown() {
