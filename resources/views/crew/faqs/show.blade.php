@@ -36,9 +36,7 @@
 
         <x-section-border/>
 
-{{--
-        @can('delete', \App\Models\Room::class)
---}}
+        @can('delete', $faq)
             <x-action-section>
                 <x-slot name="title">
                     {{ __('Delete FAQ') }}
@@ -55,8 +53,6 @@
                     </x-danger-button>
                 </x-slot>
             </x-action-section>
-{{--
         @endcan
---}}
     </div>
 </x-hub-layout>

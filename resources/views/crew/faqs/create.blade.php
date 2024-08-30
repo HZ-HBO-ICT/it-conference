@@ -20,13 +20,13 @@
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label for="question" value="Question"></x-label>
                                 <x-input id="question" name="question" type="text" maxlength="255"
-                                         value="{{ old('name') }}"
+                                         value="{{ old('question') }}"
                                          class="mt-1 block w-full "
                                 ></x-input>
                                 <x-input-error for="question" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 py-4">
-                                <x-markdown-editor :name="'answer'" :label="'Answer'" />
+                                <x-markdown-editor value="{{ old('answer') }}" :name="'answer'" :label="'Answer'" />
                             </div>
                         </div>
                     </x-slot>
