@@ -5,6 +5,7 @@ use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\EditionController;
+use App\Http\Controllers\Crew\FrequentQuestionController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
@@ -223,6 +224,7 @@ Route::middleware([
         ->name('schedule.default.presentation.edit');
 
     Route::resource('/moderator/booths', BoothController::class);
+    Route::resource('/moderator/faqs', FrequentQuestionController::class);
     Route::post('/moderator/booths/{booth}/approve', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
