@@ -13,7 +13,7 @@ class FrequentQuestionForm extends Form
     #[Validate('required|min:5|max:255|string')]
     public $question;
 
-    #[Validate('required|min:5|max:500|string')]
+    #[Validate('required|min:5|max:800|string')]
     public $answer;
 
     public function setFrequentQuestion(FrequentQuestion $faq){

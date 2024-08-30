@@ -1,6 +1,6 @@
 <div class="dark:text-gray-200">
     <x-markdown class="waiit-theme">
-        {!! $faq->answer  !!}
+        {!! $content !!}
     </x-markdown>
 </div>
 

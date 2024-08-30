@@ -19,7 +19,7 @@
                         {{ $faq->question }}
                     </x-details-list-item>
                     <x-details-list-item label="Answer">
-                        <x-markdown-viewer :faq="$faq"/>
+                        <x-markdown-viewer :content="$faq->answer"/>
                     </x-details-list-item>
                 </x-slot>
 

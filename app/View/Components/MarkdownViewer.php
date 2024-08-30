@@ -11,7 +11,7 @@ class MarkdownViewer extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $faq)
+    public function __construct(public $content)
     {
         //
     }
