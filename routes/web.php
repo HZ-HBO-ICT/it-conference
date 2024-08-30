@@ -55,7 +55,7 @@ Route::middleware([
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
-Route::view('/faq', 'faq')->name('faq');
+Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
 //Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');

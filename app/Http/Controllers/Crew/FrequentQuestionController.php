@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\FrequentQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class FrequentQuestionController extends Controller
 {
+    /**
+     * Display a listing of the frequent questions
+     *
+     * @return View
+     */
     public function index()
     {
         if (Auth::user()->cannot('viewAny', FrequentQuestion::class)) {
