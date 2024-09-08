@@ -26,7 +26,7 @@ class AssignRoleToUser extends ModalComponent
      */
     public function mount($role) : void
     {
-        if(!Gate::authorize('invite-crew-member')){
+        if (!Gate::authorize('invite-crew-member')) {
             abort(403);
         }
 

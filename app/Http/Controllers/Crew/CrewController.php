@@ -13,13 +13,18 @@ use Spatie\Permission\Models\Role;
 
 class CrewController extends Controller
 {
-    public function index()
+    /**
+     * Returns the main page of the crew page
+     * @return View
+     */
+    public function index() : View
     {
         if (!Gate::authorize('view-crew')) {
             abort(403);
         }
 
-        $roles = Role::whereNotIn('name',
+        $roles = Role::whereNotIn(
+            'name',
             ['participant', 'company representative', 'company member', 'booth owner']
         )->get();
 
