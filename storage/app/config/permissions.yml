@@ -17,13 +17,13 @@ permissions:
   booth:
     viewAny: [ event organizer, assistant organizer, company market supervisor ]
     view: [ event organizer, assistant organizer, company market supervisor, booth owner ]
-    create: [ event organizer, assistant organizer, company market supervisor ]
-    update: [ event organizer, assistant organizer, company market supervisor, booth owner ]
-    delete: [ event organizer, assistant organizer, company market supervisor ]
+    create: [ event organizer, assistant organizer ]
+    update: [ event organizer, assistant organizer, booth owner ]
+    delete: [ event organizer, assistant organizer ]
   booth request:
     create: [ company representative, company member ]
     view: [ company representative, event organizer, assistant organizer, company market supervisor, company member ]
-    approve: [ event organizer, assistant organizer, company market supervisor ]
+    approve: [ event organizer, assistant organizer ]
   company:
     viewAny: [ event organizer, assistant organizer ]
     view: [ event organizer, assistant organizer, company representative, company member ]
@@ -60,7 +60,7 @@ permissions:
   presentation request:
     create: [ participant, company representative ]
     view: [ company representative, event organizer, assistant organizer, speakers supervisor ]
-    update: [ event organizer, assistant organizer, speakers supervisor ]
+    update: [ event organizer, assistant organizer ]
   presentation participants:
     view: [ event organizer, assistant organizer, speakers supervisor ]
   room:
