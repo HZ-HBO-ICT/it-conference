@@ -227,6 +227,9 @@ Route::middleware([
     Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
 
+    // ====== Crew routes ========
+    Route::get('/moderator/crew', [CrewController::class, 'index'])->name('crew.index');
+
 
     Route::resource('/moderator/rooms', RoomController::class);
 
