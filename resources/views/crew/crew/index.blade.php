@@ -22,8 +22,8 @@
                                             <div class="text-xs text-gray-500 dark:text-gray-400">{{ $user->email }}</div>
                                         </div>
 
-                                        <!-- Smaller red circle with X to remove user -->
-                                        <button class="absolute top-1 right-1 h-4 w-4 rounded-full bg-red-400 text-white flex items-center justify-center hover:bg-red-600 focus:outline-none">
+                                        <button onclick="Livewire.dispatch('openModal', { component: 'crew.revoke-role-of-user', arguments: {user: {{$user->id}}, role: {{$role->id}}} })"
+                                            class="absolute top-1 right-1 h-4 w-4 rounded-full bg-red-400 text-white flex items-center justify-center hover:bg-red-600 focus:outline-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3 w-3">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
