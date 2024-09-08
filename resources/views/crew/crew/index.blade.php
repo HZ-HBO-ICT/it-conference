@@ -8,8 +8,14 @@
                 <x-slot name="content">
                     @foreach ($roles as $role)
                         <div class="py-5">
-                            <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300">
+                            <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 inline-flex items-center relative">
                                 {{ ucfirst($role->name) }}
+                                <button  onclick="Livewire.dispatch('openModal', { component: 'crew.role-permissions-info', arguments: {role: {{$role->id}}} })"
+                                    class="ml-2 text-gray-400 hover:text-gray-500 relative group">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M18 10A8 8 0 1110 2a8 8 0 018 8zM9 9a1 1 0 112 0v4a1 1 0 11-2 0V9zm1-4a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-2">
                                 @forelse ($role->users as $user)
@@ -23,13 +29,12 @@
                                         </div>
 
                                         <button onclick="Livewire.dispatch('openModal', { component: 'crew.revoke-role-of-user', arguments: {user: {{$user->id}}, role: {{$role->id}}} })"
-                                            class="absolute top-1 right-1 h-4 w-4 rounded-full bg-red-400 text-white flex items-center justify-center hover:bg-red-600 focus:outline-none">
+                                            class="absolute top-1 right-1 h-4 w-4 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-700 focus:outline-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3 w-3">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         </button>
                                     </div>
-
                                 @empty
                                 @endforelse
                                     <button onclick="Livewire.dispatch('openModal', { component: 'crew.assign-role-to-user', arguments: {role: {{$role->id}}} })"

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Actions\Permissions\ReadPermissionConfig;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
@@ -24,13 +25,15 @@ class SyncPermissions extends Command
      * @var string
      */
     protected $description = 'Synchronizes the permissions';
+    protected ReadPermissionConfig $readPermissionConfig;
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $config = $this->readPermissionConfig('config/permissions.yml');
+        $this->readPermissionConfig = new ReadPermissionConfig();
+        $config = $this->readPermissionConfig->execute('config/permissions.yml');
         if (!$config) {
             $this->error("Aborting...");
             return 1;
@@ -39,33 +42,6 @@ class SyncPermissions extends Command
         $this->syncRoles($config['roles']);
         $this->syncPermissions($config['permissions']);
         return 0;
-    }
-
-    /**
-     * Reads the config file and parses it into an associative array
-     *
-     * @param string $path
-     * @return array|null
-     */
-    private function readPermissionConfig(string $path): array|null
-    {
-        $content = Storage::get($path);
-        if (!$content) {
-            $this->error("Error: file storage/app/$path is not found!");
-            return null;
-        }
-
-        $config = Yaml::parse($content);
-        // Validate if roles and permissions sections are present
-        if (!isset($config['roles'])) {
-            $this->error('Error: there are no roles specified!');
-            return null;
-        }
-        if (!isset($config['permissions'])) {
-            $this->error('Error: there are no permissions specified!');
-            return null;
-        }
-        return $config;
     }
 
     /**
