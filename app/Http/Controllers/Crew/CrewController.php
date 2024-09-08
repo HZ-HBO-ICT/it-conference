@@ -7,6 +7,7 @@ use App\Models\Booth;
 use App\Models\Company;
 use App\Models\Presentation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
@@ -14,6 +15,10 @@ class CrewController extends Controller
 {
     public function index()
     {
+        if (!Gate::authorize('view-crew')) {
+            abort(403);
+        }
+
         $roles = Role::whereNotIn('name',
             ['participant', 'company representative', 'company member', 'booth owner']
         )->get();

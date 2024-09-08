@@ -47,6 +47,9 @@ permissions:
   crew:
     invite: [ event organizer, assistant organizer ]
     update: [ event organizer, assistant organizer ]
+    viewAny: [ event organizer, assistant organizer, company market supervisor, speakers supervisor, pr lead,
+               entertainment organizer ]
+    remove: [ event organizer ]
   presentation:
     viewAny: [ event organizer, assistant organizer, speakers supervisor ]
     view: [ event organizer, assistant organizer, speakers supervisor, participant, company representative, company member ]
@@ -77,7 +80,7 @@ permissions:
   sponsorship request:
     view: [ company representative, event organizer, assistant organizer ]
     create: company representative
-    update: [event organizer, assistant organizer]
+    update: [ event organizer, assistant organizer ]
   edition:
     viewAny: event organizer
     view: event organizer

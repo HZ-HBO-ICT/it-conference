@@ -3,6 +3,7 @@
 namespace App\Livewire\Crew;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use LivewireUI\Modal\ModalComponent;
 use Spatie\Permission\Models\Role;
 
@@ -13,6 +14,10 @@ class RevokeRoleOfUser extends ModalComponent
 
     public function mount($user, $role)
     {
+        if (!Gate::authorize('remove-crew-member')) {
+            abort(403);
+        }
+
         $this->user = User::find($user);
         $this->role = Role::find($role);
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Crew;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -25,6 +26,10 @@ class AssignRoleToUser extends ModalComponent
      */
     public function mount($role) : void
     {
+        if(!Gate::authorize('invite-crew-member')){
+            abort(403);
+        }
+
         $this->role = Role::find($role);
         $this->isDropdownVisible = false;
         $this->defaultUsers = User::withoutRole($role)
