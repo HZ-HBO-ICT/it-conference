@@ -16,16 +16,31 @@ class ManageLogo extends Component
     use FileValidation;
 
     public $photo;
+    public $currentLogo;
     public $company;
+    public $theme;
 
     /**
      * Triggered when initializing the component
      * @param $company
      * @return void
      */
-    public function mount($company)
+    public function mount($company, $theme = 'light')
     {
         $this->company = $company;
+        $this->theme = $theme;
+        $this->updateLogoInComponent();
+    }
+
+    /**
+     * Fetches the path of the saved logo from the database
+     * @return void
+     */
+    public function updateLogoInComponent()
+    {
+        $this->currentLogo =  $this->theme == 'light' ?
+            $this->company->logo_path :
+            $this->company->dark_logo_path;
     }
 
     /**
@@ -63,8 +78,10 @@ class ManageLogo extends Component
         ]);
 
         $path = $this->photo->store('logos', 'public');
+        $path_to_be_updated = $this->theme == 'light' ? 'logo_path' : 'dark_logo_path';
 
-        $this->company->update(['logo_path' => $path]);
+        $this->company->update([$path_to_be_updated => $path]);
+        $this->updateLogoInComponent();
 
         //ImageOptimizer::optimize('storage/' . $path);
 
