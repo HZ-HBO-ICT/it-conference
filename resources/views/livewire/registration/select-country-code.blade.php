@@ -1,7 +1,7 @@
 <div class="relative font-[sans-serif] flex items-center">
     <div class="relative"> <!-- Add this wrapper for the dropdown-related elements -->
         <button type="button" id="dropdownToggle" wire:click="toggleDropdown"
-                class="px-5 py-2.5 rounded text-[#333] text-sm border bg-white border-gray-300 outline-none hover:bg-indigo-50 flex items-center">
+                class="px-5 py-2.5 rounded text-[#333] text-sm border bg-white dark:bg-gray-900 dark:text-gray-50 border-gray-300 border-gray-800 outline-none hover:bg-indigo-50 flex items-center">
             <span class="flag-icon {{current($selected)}} mr-3"></span>
             {{key($selected)}}
             <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-[#333] ml-3" viewBox="0 0 24 24">
@@ -10,13 +10,13 @@
                       clip-rule="evenodd" data-original="#000000" />
             </svg>
         </button>
-        <ul id="dropdownMenu" class='absolute {{$isHidden ? 'hidden' : 'block'}} shadow-lg bg-white py-2 px-2 z-[1000] min-w-full rounded overflow-auto max-h-56'>
+        <ul id="dropdownMenu" class='absolute {{$isHidden ? 'hidden' : 'block'}} shadow-lg bg-white dark:bg-gray-900 dark:text-gray-50 py-2 px-2 z-[1000] min-w-full rounded overflow-auto max-h-56'>
             <li class="mb-2">
                 <input wire:model.live="filterCode" placeholder="Search..."
-                       class="px-4 py-2.5 w-full rounded text-[#333] text-sm border-none outline-blue-600 bg-blue-50 focus:bg-transparent" />
+                       class="px-4 py-2.5 w-full rounded text-[#333] text-sm dark:text-gray-50 dark:bg-gray-800 border-none outline-blue-600 bg-blue-50 focus:bg-transparent" />
             </li>
             @forelse($filteredFlags as $code => $flagClass)
-                <li class='py-2.5 px-4 hover:bg-blue-50 rounded text-black text-sm cursor-pointer' wire:click="chooseCountry('{{ $code }}')">
+                <li class='py-2.5 px-4 hover:bg-blue-50 dark:hover:bg-gray-700 rounded text-black dark:text-gray-50 text-sm cursor-pointer' wire:click="chooseCountry('{{ $code }}')">
                     <div class="flex items-center">
                         <span class="flag-icon {{$flagClass}} mr-3"></span>
                         {{$code}}
