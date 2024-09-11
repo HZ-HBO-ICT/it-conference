@@ -51,6 +51,12 @@
                 :route="'moderator.schedule.index'"
                 :icon="'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'"
                 :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
+            <x-sidebar-link-content-mod
+                :label="'FAQs'"
+                :route="'moderator.faqs.index'"
+                :icon="'M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z'"
+                :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
+
         @endif
         <x-sidebar-link-content-mod
             :label="'Editions'"
