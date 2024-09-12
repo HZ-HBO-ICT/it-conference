@@ -16,11 +16,6 @@ class Ticket extends Model
         'scanned_at',
     ];
 
-    /**
-     * Establish relationship with User
-     *
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

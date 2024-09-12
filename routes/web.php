@@ -9,7 +9,6 @@ use App\Http\Controllers\Crew\FrequentQuestionController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
-use App\Http\Controllers\Crew\TicketController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Hub\ParticipantController;
@@ -18,6 +17,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
@@ -60,12 +60,11 @@ Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('co
 Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
-// routes for registering from invitation
-Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-    ->middleware(['signed'])->name('registration.page.via.invitation');
-Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-    ->name('register.via.invitation');
-
+//Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
+//
+//Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
+//
+//
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -88,6 +87,12 @@ Route::middleware([
         ->name('presentations.show');
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
+
+    // routes for registering from invitation
+    Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+        ->middleware(['signed'])->name('registration.page.via.invitation');
+    Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+        ->name('register.via.invitation');
 
     //route for personal programme
     Route::get('/my/programme', [ParticipantController::class, 'programme'])
@@ -157,7 +162,11 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
-
+Route::middleware([
+    'edition-activated'
+])->group(function () {
+    Route::get('/ticket/scan/{id}/{ticketToken}', [TicketController::class, 'scan'])->name('ticket.scan');
+});
 
 // ===== Routes for crew =====
 Route::middleware([
@@ -166,6 +175,36 @@ Route::middleware([
     'verified',
     'edition-activated'
 ])->name('moderator.')->group(function () {
+    Route::get('/requests/{type}', [CrewController::class, 'requests'])
+        ->name('requests');
+
+    Route::get('/requests/{type}/{id}', [CrewController::class, 'details'])
+        ->name('request.details');
+
+    Route::post(
+        '/requests/teams/{team}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfTeam']
+    )
+        ->name('request.teams.approve');
+
+    Route::post(
+        '/requests/booths/{booth}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfBooth']
+    )
+        ->name('request.booths.approve');
+
+    Route::post(
+        '/requests/sponsorships/{team}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfSponsorship']
+    )
+        ->name('request.sponsorships.approve');
+
+    Route::post(
+        '/requests/presentations/{presentation}/approve/{isApproved}',
+        [CrewController::class, 'changeApprovalStatusOfPresentation']
+    )
+        ->name('request.presentations.approve');
+
     Route::get('/schedule', [ScheduleController::class, 'index'])
         ->name('schedule.index');
     Route::post('/schedule/reset/{type}', [ScheduleController::class, 'reset'])
@@ -194,7 +233,7 @@ Route::middleware([
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::resource('/moderator/faqs', FrequentQuestionController::class);
-    Route::post('/moderator/booths/{booth}/approve/{isApproved}', [
+    Route::post('/moderator/booths/{booth}/approve', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
@@ -202,7 +241,7 @@ Route::middleware([
         '/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class
     );
-    Route::post('/moderator/companies/{company}/approve/{isApproved}', [
+    Route::post('/moderator/companies/{company}/approve', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
@@ -210,7 +249,7 @@ Route::middleware([
         '/moderator/presentations',
         App\Http\Controllers\Crew\PresentationController::class
     );
-    Route::post('/moderator/presentations/{presentation}/approve/{isApproved}', [
+    Route::post('/moderator/presentations/{presentation}/approve', [
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
@@ -225,16 +264,11 @@ Route::middleware([
         ->name('sponsorships.store');
     Route::delete('/crew/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
         ->name('sponsorships.delete');
-    Route::post('/crew/sponsorships/{company}/approve/{isApproved}', [SponsorshipController::class, 'approve'])
+    Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
-
-    // ====== Crew routes ========
-    Route::get('/moderator/crew', [CrewController::class, 'index'])->name('crew.index');
 
 
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
-
-    Route::get('/moderator/tickets', [TicketController::class, 'index'])->name('tickets.index');
 });
