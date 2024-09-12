@@ -17,6 +17,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
@@ -160,6 +161,12 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
+
+Route::middleware([
+    'edition-activated'
+])->group(function () {
+    Route::get('/ticket/scan/{id}/{ticketToken}', [TicketController::class, 'scan'])->name('ticket.scan');
+});
 
 // ===== Routes for crew =====
 Route::middleware([
