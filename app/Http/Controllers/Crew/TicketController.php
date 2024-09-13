@@ -32,12 +32,18 @@ class TicketController extends Controller
         }
 
         if ($ticket->scanned_at) {
-            return view('ticket.index', ['message' => 'ticket was already scanned']);
+            return view('ticket.index', [
+                'message' => 'Ticket was already scanned',
+                'user' => $ticket->user,
+            ]);
         }
 
         $ticket->scanned_at = now();
         $ticket->save();
 
-        return view('ticket.index', ['message' => 'successfully scanned']);
+        return view('ticket.index', [
+            'message' => 'ticket successfully scanned',
+            'user' => $ticket->user
+        ]);
     }
 }
