@@ -28,6 +28,11 @@ class EmailVerifiedListener
     {
         $user = $event->user;
 
+        // Crew members do not need tickets
+        if ($user->is_crew) {
+            return;
+        }
+
         // Prepare data to pass in qr code
         $ticketToken = Str::uuid();
         $qrCodeData = route('moderator.ticket.scan', [
