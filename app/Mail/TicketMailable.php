@@ -19,7 +19,8 @@ class TicketMailable extends Mailable
      */
     public function __construct(
         public HtmlString $qrCode
-    ) {}
+    ) {
+    }
 
     /**
      * Get the message envelope.
