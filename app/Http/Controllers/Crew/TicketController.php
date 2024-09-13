@@ -1,14 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Crew;
 
+use App\Http\Controllers\Controller;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class TicketController extends Controller
 {
-    public function scan($id, $ticketToken)
+    /**
+     * Execute logic behind scanning the ticket
+     *
+     * @param $id
+     * @param $ticketToken
+     * @return View
+     */
+    public function scan($id, $ticketToken): View
     {
+        if (Auth::user()->cannot('scan', Ticket::class)) {
+            abort(403);
+        }
+
         $ticket = Ticket::where([
             'user_id' => $id,
             'token' => $ticketToken
