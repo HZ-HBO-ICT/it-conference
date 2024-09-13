@@ -10,16 +10,34 @@ use Illuminate\View\View;
 class TicketController extends Controller
 {
     /**
-     * Render index page
+     * Execute logic behind scanning the ticket
      *
+     * @param $id
+     * @param $ticketToken
      * @return View
      */
-    public function index(): View
+    public function scan($id, $ticketToken): View
     {
         if (Auth::user()->cannot('scan', Ticket::class)) {
             abort(403);
         }
 
-        return view('crew.tickets.index');
+        $ticket = Ticket::where([
+            'user_id' => $id,
+            'token' => $ticketToken
+        ])->first();
+
+        if (!$ticket) {
+            abort(404);
+        }
+
+        if ($ticket->scanned_at) {
+            return view('ticket.index', ['message' => 'ticket was already scanned']);
+        }
+
+        $ticket->scanned_at = now();
+        $ticket->save();
+
+        return view('ticket.index', ['message' => 'successfully scanned']);
     }
 }

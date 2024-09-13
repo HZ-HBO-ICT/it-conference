@@ -9,6 +9,7 @@ use App\Http\Controllers\Crew\FrequentQuestionController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
+use App\Http\Controllers\Crew\TicketController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Hub\ParticipantController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
-use App\Http\Controllers\TicketController;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
@@ -162,11 +162,7 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
-Route::middleware([
-    'edition-activated'
-])->group(function () {
-    Route::get('/ticket/scan/{id}/{ticketToken}', [TicketController::class, 'scan'])->name('ticket.scan');
-});
+
 
 // ===== Routes for crew =====
 Route::middleware([
@@ -271,4 +267,6 @@ Route::middleware([
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('/ticket/scan/{id}/{ticketToken}', [TicketController::class, 'scan'])->name('ticket.scan');
 });

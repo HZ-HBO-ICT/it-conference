@@ -30,7 +30,7 @@ class EmailVerifiedListener
 
         // Prepare data to pass in qr code
         $ticketToken = Str::uuid();
-        $qrCodeData = route('ticket.scan', [
+        $qrCodeData = route('moderator.ticket.scan', [
             'id' => $user->id,
             'ticketToken' => $ticketToken
         ]);
