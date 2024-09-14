@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sponsorship_id')->nullable();
             $table->boolean('is_sponsorship_approved')->nullable();
             $table->string('logo_path')->nullable();
+            $table->string('dark_logo_path')->nullable();
             $table->string('postcode');
             $table->string('street');
             $table->string('house_number');

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Difficulty;
 use App\Models\Event;
+use App\Models\FrequentQuestion;
 use App\Models\Sponsorship;
 use Exception;
 use Illuminate\Console\Command;
@@ -73,6 +74,44 @@ class UpsertMasterData extends Command
                     Once the end date arrives, this functionality is closed.'
             ]
         ],
+        FrequentQuestion::class => [
+            [
+                'id' => 1,
+                'question' => 'What is the “We are in IT together Conference”?',
+                'answer' => "The \"We are in IT together Conference\" is an inclusive platform where students,
+                teachers, and IT company representatives collaborate through workshops, presentations, and booths.
+                This event promotes knowledge exchange, enabling students to explore the dynamic IT industry and
+                providing companies opportunities to connect with potential employees, offer internships, and engage
+                with the university's educational approach. If you want to know more,
+                check out our [YouTube channel](https://www.youtube.com/@WeareInITTogether) and last year's
+                [impression video](https://www.youtube.com/watch?v=k-Psaz0hdQI) about the Conference.",
+            ],
+            [
+                'id' => 2,
+                'question' => 'When and where does the “We are in IT together Conference” take place?',
+                'answer' => 'The conference will take place on November 17th at our location in Het Groenewoud
+                Middelburg. Visit [hz.nl](https://www.hz.nl) for information about parking.'
+            ],
+            [
+                'id' => 3,
+                'question' => 'Can I follow the conference online?',
+                'answer' => 'Unfortunately, we will not be able to provide online attendance or record sessions.',
+            ],
+            [
+                'id' => 4,
+                'question' => 'Can I join the conference as a participant?',
+                'answer' => 'You can join the conference if you are an IT student, an Alumni HZ-ICT student, a company
+                with a dedicated IT department or a member of our partnering company representatives.
+                You can register using this website as soon as registrations have opened.',
+            ],
+            [
+                'id' => 5,
+                'question' => 'Can I be a partner with the \'We are in IT together Conference\'?',
+                'answer' => 'If you work in the field of ICT, we would very much appreciate you wanting to join us and
+                have our students get acquainted with your IT company. You can apply through the form to join
+                the program.'
+            ]
+        ]
     ];
 
     /**
