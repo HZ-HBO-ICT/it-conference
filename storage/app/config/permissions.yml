@@ -55,7 +55,7 @@ permissions:
     view: [ event organizer, assistant organizer, speakers supervisor, participant, company representative, company member ]
     create: [ event organizer, assistant organizer, speakers supervisor ]
     update: [ event organizer, assistant organizer, speakers supervisor, participant ]
-    delete: [ event organizer, assistant organizer, speakers supervisor, participant ]
+    delete: [ event organizer, assistant organizer, participant ]
     enroll: participant
   presentation request:
     create: [ participant, company representative ]
