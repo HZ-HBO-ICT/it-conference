@@ -6,8 +6,7 @@
         <div class="pt-5">
             <x-list-section>
                 <x-slot name="content">
-{{--                    @if(optional(\App\Models\Edition::current())->is_in_progress)--}}
-                    @if(true)
+                    @if(optional(\App\Models\Edition::current())->is_in_progress)
                         <livewire:qr-code.scanner />
                     @else
                         Ticket scanning will be available on the day of the conference.
