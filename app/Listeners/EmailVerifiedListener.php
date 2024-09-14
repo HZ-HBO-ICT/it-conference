@@ -33,14 +33,10 @@ class EmailVerifiedListener
             return;
         }
 
-        // Prepare data to pass in qr code
+        // Generate unique identifier for the ticket
         $ticketToken = Str::uuid();
-        $qrCodeData = route('moderator.ticket.scan', [
-            'id' => $user->id,
-            'ticketToken' => $ticketToken
-        ]);
 
-        // Create new ticket
+        // Create new tickets
         $ticket = new Ticket();
         $ticket->user_id = $user->id;
         $ticket->token = $ticketToken;
@@ -51,7 +47,7 @@ class EmailVerifiedListener
             ->format('png')
             ->merge('/public/img/logo-small-' . $user->role_colour . '.png')
             ->errorCorrection('M')
-            ->generate($qrCodeData);
+            ->generate('id=' . $user->id . ';' . 'token=' . $ticketToken);
 
         // Send email to the user with qr code
         Mail::to($user->email)->send(new TicketMailable($qrCode));

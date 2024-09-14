@@ -13,12 +13,6 @@ class InfoModal extends ModalComponent
     public string $message;
     public string $color;
 
-    /**
-     * Initialize the modal
-     *
-     * @param array $data
-     * @return void
-     */
     public function mount(array $data): void
     {
         if (!isset($data['id']) || !isset($data['token'])) {
@@ -46,12 +40,6 @@ class InfoModal extends ModalComponent
         }
     }
 
-    /**
-     * Determine whether the given ticket is valid
-     *
-     * @param Ticket $ticket
-     * @return bool
-     */
     public function isTicketValid(Ticket $ticket): bool
     {
         if (!$this->user->id) {
@@ -81,11 +69,6 @@ class InfoModal extends ModalComponent
         return 'md';
     }
 
-    /**
-     * Render the modal
-     *
-     * @return View
-     */
     public function render(): View
     {
         return view('livewire.qr-code.info-modal');

@@ -6,13 +6,9 @@
         <div class="pt-5">
             <x-list-section>
                 <x-slot name="content">
-                    @if(optional(\App\Models\Edition::current())->is_in_progress)
-                        <x-button onclick="Livewire.dispatch('openModal', { component: 'qr-code.scanner' })"
-                                  class="sm:hidden">{{ __('Start Scanning') }}</x-button>
-
-                        <div class="hidden sm:block" id="qr-reader"></div>
-
-                        <p id="errorMessage"></p>
+{{--                    @if(optional(\App\Models\Edition::current())->is_in_progress)--}}
+                    @if(true)
+                        <livewire:qr-code.scanner />
                     @else
                         Ticket scanning will be available on the day of the conference.
                     @endif

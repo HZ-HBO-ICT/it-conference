@@ -9,6 +9,5 @@ return [
         'presentations.show',
         'faq',
         'contact',
-        'moderator.ticket.scan',
     ],
 ];

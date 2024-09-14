@@ -24,7 +24,7 @@ const startQrScanner = async function () {
             throw new Error('No cameras found.');
         }
 
-        const html5QrCode = new Html5Qrcode((window.innerWidth > 640) ? 'qr-reader' : 'qr-reader-modal');
+        const html5QrCode = new Html5Qrcode('qr-reader');
 
         const qrCodeSuccessCallback = async (decodedText) => {
             if (isScanning) {
@@ -52,7 +52,7 @@ const startQrScanner = async function () {
             }, 3000);
         };
 
-        const config = { fps: 10, qrbox: (window.innerWidth > 640) ? 500 : 150 };
+        const config = { fps: 10, qrbox: 500 };
         let facingMode = { facingMode: 'environment' };
 
         if (videoDevices.length > 1) {
@@ -73,11 +73,7 @@ const startQrScanner = async function () {
 }
 
 document.addEventListener('livewire:navigated', () => {
-    if (document.getElementById('qr-reader') && window.innerWidth > 640) {
+    if (document.getElementById('qr-reader')) {
         startQrScanner();
     }
-});
-
-Livewire.on('enableScanner', (event) => {
-    startQrScanner();
 });

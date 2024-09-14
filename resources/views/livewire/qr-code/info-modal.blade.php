@@ -1,5 +1,5 @@
 <x-livewire-modal>
-    <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
+    <x-slot name="title" class="dark:bg-gray-900 border-gray-800 text-{{ $color }}-300">
         {{ $message }}
     </x-slot>
 

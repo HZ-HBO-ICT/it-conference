@@ -2,19 +2,20 @@
 
 namespace App\Livewire\QrCode;
 
-use Illuminate\View\View;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 
-class Scanner extends ModalComponent
+class Scanner extends Component
 {
-    /**
-     * Render the component
-     *
-     * @return View
-     */
-    public function render(): View
+    public $scannedCode;
+
+    public function handleScannedCode($code) {
+        $this->scannedCode = $code;
+
+        $this->emit('codeProcessed', $code);
+    }
+
+    public function render()
     {
-        $this->dispatch('enableScanner');
         return view('livewire.qr-code.scanner');
     }
 }
