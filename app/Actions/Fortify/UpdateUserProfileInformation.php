@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Traits\FileValidation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -10,13 +11,19 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
+    use FileValidation;
+
     /**
      * Validate and update the given user's profile information.
      *
-     * @param  array<string, mixed>  $input
+     * @param array<string, mixed> $input
      */
     public function update(User $user, array $input): void
     {
+        if (array_key_exists('photo', $input)) {
+            $this->validateFileNameLength($input['photo'], 'photo');
+        }
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -41,7 +48,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     /**
      * Update the given verified user's profile information.
      *
-     * @param  array<string, string>  $input
+     * @param array<string, string> $input
      */
     protected function updateVerifiedUser(User $user, array $input): void
     {

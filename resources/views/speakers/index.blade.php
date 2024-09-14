@@ -9,22 +9,27 @@
             Our Speakers
         </h2>
         @if(!$speakers->isEmpty())
-            <div class="relative mb-12 min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
-                <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                <div class="p-8 flex items-start">
-                    <div class="relative w-60 h-60">
-                        <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                        <img class="relative h-60 w-60 object-scale-down  rounded-full object-cover border-4 border-white"
-                             src="{{ url('storage/' . $edition->keynote_photo_path) }}"
-                             alt="Profile picture of {{$edition->keynote_name}}">
+            @if($edition->keynote_name)
+                <div
+                    class="relative mb-12 min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all">
+                    <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
+                    <div class="p-8 grid grid-cols-1 lg:grid-cols-4">
+                        <div class="col-span-1 h-full flex items-center justify-center">
+                            <div class="relative w-40 h-40 md:w-64 md:h-64">
+                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
+                                <img class="relative w-40 h-40 md:w-64 md:h-64 rounded-full object-cover border-4 border-white"
+                                     src="{{ $edition->keynote_picture_source }}"
+                                     alt="Profile picture of {{$edition->keynote_name}}">
+                            </div>
+                        </div>
+                        <div class="col-span-1 lg:col-span-3 flex flex-col justify-center ml-0 mt-2 md:mt-0 md:ml-8 text-center md:text-left">
+                            <h3 class="font-bold text-2xl text-gray-900 dark:text-white">Keynote Speaker - {{$edition->keynote_name}}</h3>
+                            <p class="mt-4 text-gray-600 dark:text-gray-400">{{strlen($edition->keynote_description) > 700 ? substr($edition->keynote_description, 0, 700) . '...' : $edition->keynote_description}}</p>
+                        </div>
                     </div>
-                    <div class="flex flex-col justify-center mt-4 ml-8">
-                        <h3 class="font-bold text-2xl text-gray-900 dark:text-white">{{$edition->keynote_name}}</h3>
-                        <p class="mt-4 text-gray-600 dark:text-gray-400">{{strlen($edition->keynote_description) > 700 ? substr($edition->keynote_description, 0, 700) . '...' : $edition->keynote_description}}</p>
-                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
                 </div>
-                <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
-            </div>
+            @endif
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                 @foreach($speakers as $speaker)
                     @php
@@ -43,6 +48,9 @@
                                     $linkColor = 'text-orange-400 hover:text-orange-500';
                                     break;
                             }
+                        } else {
+                            $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
+                            $linkColor = 'text-blue-400 hover:text-blue-600';
                         }
                     @endphp
                     <a href="{{route('programme.presentation.show', $speaker->presentation)}}" class="{{$linkColor}}">
@@ -70,7 +78,7 @@
                 @endforeach
             </div>
         @else
-            <div class="bg-white rounded py-2">
+            <div class="bg-white dark:bg-gray-800 rounded py-2">
                 <p class="text-center text-2xl font-bold">
                     There are no speakers available now.
                 </p>

@@ -10,10 +10,10 @@ class RoomForm extends Form
 {
     public Room $room;
 
-    #[Validate('required|numeric|min:1')]
+    #[Validate('required|numeric|min:1|max:999')]
     public int $max_participants;
 
-    #[Validate('required')]
+    #[Validate('required|string|max:255|min:1')]
     public string $name;
 
     /**

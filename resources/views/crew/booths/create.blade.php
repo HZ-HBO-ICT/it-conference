@@ -42,20 +42,20 @@
                             <div class="col-span-6 sm:col-span-4 pt-3">
                                 <x-label for="width" class="after:content-['*'] after:text-red-500"
                                          value="{{ __('Width') }}"></x-label>
-                                <x-input name="width" type="number" class="mt-1 block w-full"
+                                <x-input name="width" type="number" step="0.1" min="1" class="mt-1 block w-full"
                                          value="{{ old('width') }}"></x-input>
                                 <x-input-error for="width" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
                                 <x-label for="length" class="after:content-['*'] after:text-red-500"
                                          value="{{ __('Length') }}"></x-label>
-                                <x-input name="length" type="number" class="mt-1 block w-full"
+                                <x-input name="length" step="0.1" min="1" type="number" class="mt-1 block w-full"
                                          value="{{ old('length') }}"></x-input>
                                 <x-input-error for="length" class="mt-2"></x-input-error>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pt-3">
                                 <x-label for="description" value="{{ __('Additional information') }}"></x-label>
-                                <textarea name="additional_information"
+                                <textarea name="additional_information" maxlength="255"
                                           class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
                                           name="description"
                                 >{{old('additional_information')}}</textarea>

@@ -1,5 +1,7 @@
 @php
     use \App\Models\Edition;
+
+    $edition = Edition::current();
 @endphp
 
 <nav x-data="{ open: false }"
@@ -24,19 +26,23 @@
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
-                                wire:navigate.hover>
-                        {{ __('Speakers') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                    <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
-                                wire:navigate.hover>
-                        {{ __('Companies') }}
-                    </x-nav-link>
-                </div>
-                @if(Edition::current() && Edition::current()->is_final_programme_released)
+
+                @if($edition)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('speakers.index') }}" :active="request()->routeIs('speakers.index')"
+                                    wire:navigate.hover>
+                            {{ __('Speakers') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                        <x-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')"
+                                    wire:navigate.hover>
+                            {{ __('Companies') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
+                @if(optional($edition)->is_final_programme_released)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')"
                                     wire:navigate.hover>
@@ -59,36 +65,74 @@
 
             <div class="flex-grow flex justify-end">
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    @if(Auth::user()->currentTeam && Auth::user()->currentTeam->owner->id == Auth::user()->id)
-                        <span
-                            class="inline-flex py-1 pr-2 rounded-md text-white dark:text-gray-400 bg-black-100 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                        <a href="{{route('announcements')}}" wire:navigate.hover
-                           class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
-                            {{ Auth::user()->currentTeam->name }}
-                        </a>
-                        <div
-                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                            @if(Auth::user()->currentTeam->logo_path)
-                                <img class="h-8 w-8 rounded-full object-cover"
-                                     src="{{ url('storage/'. Auth::user()->currentTeam->logo_path) }}"
-                                     alt="{{ Auth::user()->currentTeam->name }}"/>
-                            @endif
-                        </div>
-                    </span>
-                    @else
-                        <span
-                            class="bg-white dark:bg-gray-800 inline-flex py-1 pr-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
-                                <a href="{{ route('dashboard') }}" wire:navigate.hover
+{{--                    @if(Auth::user()->currentTeam && Auth::user()->currentTeam->owner->id == Auth::user()->id)--}}
+{{--                        <span--}}
+{{--                            class="inline-flex py-1 pr-2 rounded-md text-white dark:text-gray-400 bg-black-100 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">--}}
+{{--                        <a href="{{route('announcements')}}" wire:navigate.hover--}}
+{{--                           class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">--}}
+{{--                            {{ Auth::user()->currentTeam->name }}--}}
+{{--                        </a>--}}
+{{--                        <div--}}
+{{--                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">--}}
+{{--                            @if(Auth::user()->currentTeam->logo_path)--}}
+{{--                                <img class="h-8 w-8 rounded-full object-cover"--}}
+{{--                                     src="{{ url('storage/'. Auth::user()->currentTeam->logo_path) }}"--}}
+{{--                                     alt="{{ Auth::user()->currentTeam->name }}"/>--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </span>--}}
+{{--                    @else--}}
+{{--                        <span--}}
+{{--                            class="bg-white dark:bg-gray-800 inline-flex py-1 pr-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">--}}
+{{--                                <a href="{{ route('dashboard') }}" wire:navigate.hover--}}
+{{--                                   class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">--}}
+{{--                                    {{ Auth::user()->name }}--}}
+{{--                                </a>--}}
+{{--                                <div--}}
+{{--                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">--}}
+{{--                                    <img class="h-8 w-8 rounded-full object-cover"--}}
+{{--                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>--}}
+{{--                                </div>--}}
+{{--                    </span>--}}
+{{--                    @endif--}}
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <span
+                                class="bg-white hover:cursor-pointer dark:bg-gray-800 inline-flex py-1 pr-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                <div
                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
                                     {{ Auth::user()->name }}
-                                </a>
+                                </div>
                                 <div
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
                                          src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                                 </div>
-                    </span>
-                    @endif
+                            </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage Account') }}
+                            </div>
+                            <x-dropdown-link href="{{ route('dashboard') }}" wire:navigate.hover>
+                                {{ __('My hub') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('profile.show') }}" wire:navigate.hover>
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+                                <x-dropdown-link href="{{ route('logout') }}"
+                                                 @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
                     <div class="pl-4 pr-4">
                         <div>
                             <div class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block">
@@ -140,15 +184,17 @@
                                        :active="request()->routeIs('welcome')">
                     {{ __('Home') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
-                                       :active="request()->routeIs('speakers.index')">
-                    {{ __('Speakers') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
-                                       :active="request()->routeIs('companies.index')">
-                    {{ __('Companies') }}
-                </x-responsive-nav-link>
-                @if(Edition::current() && Edition::current()->is_final_programme_released)
+                @if($edition)
+                    <x-responsive-nav-link wire:navigate.hover href="{{ route('speakers.index') }}"
+                                           :active="request()->routeIs('speakers.index')">
+                        {{ __('Speakers') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link wire:navigate.hover href="{{ route('companies.index') }}"
+                                           :active="request()->routeIs('companies.index')">
+                        {{ __('Companies') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if(optional($edition)->is_final_programme_released)
                     <x-responsive-nav-link href="{{ route('programme') }}" :active="request()->routeIs('programme')">
                         {{ __('Programme') }}
                     </x-responsive-nav-link>
@@ -166,6 +212,7 @@
                                        :active="request()->routeIs('dashboard')">
                     {{ __(Auth::user()->name) }}
                 </x-responsive-nav-link>
+
                 <div class="border-t border-gray-200 dark:border-gray-600"></div>
                 <x-responsive-nav-link x-data="{
                                         darkMode: $persist(false).as('dark_mode'),

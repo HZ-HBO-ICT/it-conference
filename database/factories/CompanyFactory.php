@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->company(),
-            'website' => $this->faker->url,
+            'website' => 'www.example.com',
             'description' => $this->faker->paragraph(),
             'motivation' => $this->faker->paragraph(),
             'phone_number' => $this->faker->phoneNumber,

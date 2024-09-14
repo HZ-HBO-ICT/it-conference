@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-span-6 sm:col-span-6">
                     <div
-                        class="w-full rounded overflow-hidden bg-{{Auth::user()->roleColour}}-600 hover:bg-gradient-to-r hover:from-{{Auth::user()->roleColour}}-600 hover:to-{{Auth::user()->roleColour}}-800 hover:transition-all hover:duration-300 hover:ease-in-out">
+                        class="w-full rounded overflow-hidden bg-{{Auth::user()->roleColour}}-400 hover:bg-gradient-to-r hover:from-{{Auth::user()->roleColour}}-400 hover:to-{{Auth::user()->roleColour}}-600 hover:transition-all hover:duration-300 hover:ease-in-out">
                         <div class="px-3 py-1">
                             <div
                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-span-6 sm:col-span-6">
                     <div
-                        class="w-full rounded overflow-hidden bg-{{Auth::user()->roleColour}}-600 hover:bg-gradient-to-r hover:from-{{Auth::user()->roleColour}}-600 hover:to-{{Auth::user()->roleColour}}-800 hover:transition-all hover:duration-300 hover:ease-in-out">
+                        class="w-full rounded overflow-hidden bg-{{Auth::user()->roleColour}}-400 hover:bg-gradient-to-r hover:from-{{Auth::user()->roleColour}}-400 hover:to-{{Auth::user()->roleColour}}-600 hover:transition-all hover:duration-300 hover:ease-in-out">
                         <div class="px-3 py-1">
                             <div
                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>

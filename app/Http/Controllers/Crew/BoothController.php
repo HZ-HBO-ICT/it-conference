@@ -48,13 +48,13 @@ class BoothController extends Controller
         }
 
         $input = $request->validate([
-            'company_id' => ['required', 'numeric'],
-            'width' => ['required', 'numeric'],
-            'length' => ['required', 'numeric'],
-            'additional_information' => ''
+            'company_id' => ['required', 'numeric', 'exists:companies,id'],
+            'width' => ['required', 'numeric', 'min:1', 'max:10'],
+            'length' => ['required', 'numeric', 'min:1', 'max:10'],
+            'additional_information' => ['nullable', 'max:255']
         ]);
 
-        $booth = Booth::create($input);
+        $booth = Booth::create(array_merge($input, ['is_approved' => 1]));
 
         $template = 'You created a booth for the :company';
         return redirect(route('moderator.booths.index'))
@@ -94,12 +94,16 @@ class BoothController extends Controller
             : 'You denied the request of :company to have a booth';
 
         if ($isApproved) {
-            Mail::to($booth->company->representative->email)->send(new BoothApprovedMailable($booth->company));
+            if ($booth->company->representative->receive_emails) {
+                Mail::to($booth->company->representative->email)->send(new BoothApprovedMailable($booth->company));
+            }
 
             return redirect(route('moderator.booths.show', $booth))
                 ->banner(__($template, ['company' => $booth->company->name]));
         } else {
-            Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+            if ($booth->company->representative->receive_emails) {
+                Mail::to($booth->company->representative->email)->send(new BoothDisapprovedMailable($booth->company));
+            }
 
             return redirect(route('moderator.booths.index'))
                 ->banner(__($template, ['company' => $booth->company->name]));

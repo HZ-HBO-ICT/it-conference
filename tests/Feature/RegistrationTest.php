@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Edition;
+use App\Models\EditionEvent;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Fortify\Features;
@@ -17,6 +20,19 @@ class RegistrationTest extends TestCase
         parent::setUp();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
+        $edition = Edition::create([
+            'name' => 'test',
+            'state' => Edition::STATE_ANNOUNCE,
+            'start_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 09:00:00')),
+            'end_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 17:00:00')),
+        ]);
+
+        EditionEvent::create([
+            'edition_id' => $edition->id,
+            'event_id' => 1,
+            'start_at' => Carbon::today(),
+            'end_at' => Carbon::tomorrow(),
+        ]);
     }
 
     public function test_registration_screen_can_be_rendered(): void

@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class CompanyMotivationForm extends Component
 {
-    #[Validate(['required'])]
+    #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public $motivation;
 
     /**

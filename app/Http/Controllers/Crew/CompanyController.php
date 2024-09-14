@@ -55,8 +55,7 @@ class CompanyController extends Controller
             'name' => 'required',
             'description' => 'required',
             'website' => 'required|regex:/^www\.[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}$/',
-            'postcode' => ['required',
-                'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
+            'postcode' => ['required'],
             'house_number' => ['required',
                 'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i'],
             'phone_number' => ['nullable', 'phone:INTERNATIONAL,NL'],
@@ -105,7 +104,9 @@ class CompanyController extends Controller
 
         $isApproved = $validated['approved'];
         if (!$isApproved) {
-            Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
+            if ($company->representative->receive_emails) {
+                Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
+            }
         }
 
         $company->handleCompanyApproval($isApproved);
@@ -114,7 +115,9 @@ class CompanyController extends Controller
             : 'You refused the request of :company to join the IT conference';
 
         if ($isApproved) {
-            Mail::to($company->representative->email)->send(new CompanyApprovedMailable($company));
+            if ($company->representative->receive_emails) {
+                Mail::to($company->representative->email)->send(new CompanyApprovedMailable($company));
+            }
 
             return redirect(route('moderator.companies.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
@@ -162,7 +165,7 @@ class CompanyController extends Controller
             'house_number' => $input['house_number'],
             'street' => $input['street'],
             'city' => $input['city'],
-            'website' => $input['website'],
+            'website' => 'https://' . $input['website'],
             'description' => $input['description'],
             'phone_number' => $input['phone_number'],
             'is_approved' => 1,
@@ -190,7 +193,7 @@ class CompanyController extends Controller
             'house_number' => $input['house_number'],
             'street' => $input['street'],
             'city' => $input['city'],
-            'website' => $input['website'],
+            'website' => 'https://' . $input['website'],
             'description' => $input['description'],
             'phone_number' => $input['phone_number'],
             'is_approved' => 1,
@@ -200,7 +203,7 @@ class CompanyController extends Controller
             'email' => $input['rep_new_email'],
             'role' => 'company representative',
         ]);
-
+        
         Mail::to($input['rep_new_email'])->send(new CompanyRepInvitation($invitation));
 
         return $company;

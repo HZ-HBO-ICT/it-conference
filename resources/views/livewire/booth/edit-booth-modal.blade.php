@@ -14,14 +14,14 @@
                 <dd class="sm:col-span-2">
                     <input
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
-                        type="number" wire:model="form.width">
+                        type="number" min="1" step=".1" wire:model="form.width">
                     @error('form.width') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Booth length</dt>
                 <dd class="sm:col-span-2">
                     <input
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
-                        type="number" wire:model="form.length">
+                        type="number" min="1" step=".1" wire:model="form.length">
                     @error('form.length') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
                 <!-- Presentation Description -->
@@ -29,7 +29,7 @@
                 <dd class="sm:col-span-2">
                 <textarea
                     class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1"
-                    wire:model="form.additional_information"></textarea>
+                    wire:model="form.additional_information" maxlength="255"></textarea>
                     @error('form.additional_information') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
             </dl>

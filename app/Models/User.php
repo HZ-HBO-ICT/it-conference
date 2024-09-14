@@ -312,4 +312,15 @@ class User extends Authenticatable implements MustVerifyEmail
             return ucfirst($role);
         });
     }
+
+    /**
+     * Scope for all users that have their email notifications activated
+     *
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeSendEmailPreference(Builder $query) : void
+    {
+        $query->where('receive_emails', '=', 1);
+    }
 }

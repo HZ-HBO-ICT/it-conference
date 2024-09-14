@@ -11,19 +11,19 @@ class PresentationForm extends Form
 {
     public $presentation;
 
-    #[Validate('required')]
+    #[Validate('required|string|max:255|min:1')]
     public $name;
 
-    #[Validate('required')]
+    #[Validate('required|string|max:300|min:1')]
     public $description;
 
     #[Validate(['required', 'in:workshop,lecture'])]
     public $type;
 
-    #[Validate(['required', 'numeric', 'min:1'])]
+    #[Validate(['required', 'numeric', 'min:1', 'max:999'])]
     public $max_participants;
 
-    #[Validate(['required', 'numeric'])]
+    #[Validate(['required', 'numeric', 'exists:difficulties,id'])]
     public $difficulty_id;
 
     /**
