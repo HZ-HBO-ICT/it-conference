@@ -168,36 +168,6 @@ Route::middleware([
     'verified',
     'edition-activated'
 ])->name('moderator.')->group(function () {
-    Route::get('/requests/{type}', [CrewController::class, 'requests'])
-        ->name('requests');
-
-    Route::get('/requests/{type}/{id}', [CrewController::class, 'details'])
-        ->name('request.details');
-
-    Route::post(
-        '/requests/teams/{team}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfTeam']
-    )
-        ->name('request.teams.approve');
-
-    Route::post(
-        '/requests/booths/{booth}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfBooth']
-    )
-        ->name('request.booths.approve');
-
-    Route::post(
-        '/requests/sponsorships/{team}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfSponsorship']
-    )
-        ->name('request.sponsorships.approve');
-
-    Route::post(
-        '/requests/presentations/{presentation}/approve/{isApproved}',
-        [CrewController::class, 'changeApprovalStatusOfPresentation']
-    )
-        ->name('request.presentations.approve');
-
     Route::get('/schedule', [ScheduleController::class, 'index'])
         ->name('schedule.index');
     Route::post('/schedule/reset/{type}', [ScheduleController::class, 'reset'])
@@ -259,6 +229,9 @@ Route::middleware([
         ->name('sponsorships.delete');
     Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
+
+    // ====== Crew routes ========
+    Route::get('/moderator/crew', [CrewController::class, 'index'])->name('crew.index');
 
 
     Route::resource('/moderator/rooms', RoomController::class);
