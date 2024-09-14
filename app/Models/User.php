@@ -11,14 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Nette\Schema\ValidationException;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -29,7 +25,6 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
-    use CausesActivity;
 
 
     /**
@@ -145,10 +140,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'presentation_id' => $presentation->id,
             'role' => $role
         ]);
-
-        if ($this->hasRole('pending speaker')) {
-            $this->removeRole('pending speaker');
-        }
 
         return true;
     }
@@ -355,18 +346,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Scope users who have verified their email
-     *
-     * @param Builder $query
-     * @return void
-     *
-     */
-    public function scopeVerified(Builder $query)
-    {
-        $query->whereNotNull('email_verified_at');
-    }
-
-    /**
      * Determine the status of the user's ticket
      *
      * @return Attribute
@@ -384,25 +363,17 @@ class User extends Authenticatable implements MustVerifyEmail
                 }
 
                 if ($this->ticket) {
-                    if ($this->ticket->scanned_at) {
-                        return [
+                    return $this->ticket->scanned_at ?
+                        [
                             'status' => 'Scanned',
                             'color' => 'green',
                             'icon' => 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
-                            ];
-                    } else if (optional(Edition::current())->is_final_programme_released) {
-                        return [
-                            'status' => 'Ticket sent',
+                        ] :
+                        [
+                            'status' => 'Pending',
                             'color' => 'yellow',
                             'icon' => 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
                         ];
-                    } else {
-                        return [
-                            'status' => 'Ticket created',
-                            'color' => 'yellow',
-                            'icon' => 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
-                        ];
-                    }
                 }
 
                 return [
@@ -412,37 +383,5 @@ class User extends Authenticatable implements MustVerifyEmail
                     ];
             }
         );
-    }
-
-    /**
-     * Create a new ticket for a user
-     *
-     * @return void
-     */
-    public function createTicket()
-    {
-        if ($this->ticket || $this->is_crew) {
-            return;
-        }
-
-        $ticket = new Ticket();
-        $ticket->user_id = $this->id;
-        $ticket->token = Str::uuid();
-
-        $ticket->save();
-    }
-
-    /**
-     * Generates a QR code with user's data
-     *
-     * @return HtmlString
-     */
-    public function generateExistingTicket(): HtmlString
-    {
-        return QrCode::size(200)
-            ->format('png')
-            ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
-            ->errorCorrection('M')
-            ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
     }
 }

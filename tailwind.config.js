@@ -75,24 +75,10 @@ export default {
         'bg-gray-600',
         'bg-apricot-peach-300',
         'bg-green-300',
-        'bg-yellow-300',
         'dark:bg-green-600',
         'dark:bg-sky-600',
         'dark:bg-red-600',
         'dark:bg-yellow-600',
-        'bg-red-400',
-        'hover:bg-red-400',
-        'dark:bg-red-800/50',
-        'dark:hover:bg-red-800/50',
-        'bg-crew-200',
-        'hover:bg-crew-200',
-        'dark:bg-crew-400/50',
-        'dark:hover:bg-crew-400/70',
-        'bg-apricot-peach-200',
-        'hover:bg-apricot-peach-300',
-        'dark:bg-apricot-peach-700/50',
-        'dark:hover:bg-apricot-peach-600/75'
-
     ],
     theme: {
         extend: {
