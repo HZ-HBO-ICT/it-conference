@@ -75,6 +75,7 @@ export default {
         'bg-gray-600',
         'bg-apricot-peach-300',
         'bg-green-300',
+        'bg-yellow-300',
         'dark:bg-green-600',
         'dark:bg-sky-600',
         'dark:bg-red-600',
