@@ -258,7 +258,6 @@ class CompanyPolicy
     {
         return $user->isMemberOf($company)
             && $company->booth
-            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
             && $user->hasPermissionTo('create booth request');
     }
 }

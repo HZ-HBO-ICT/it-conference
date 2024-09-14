@@ -14,10 +14,9 @@ class JoinBoothOwnerModal extends ModalComponent
      */
     public function save()
     {
-        $user = Auth::user();
-
-        $this->authorize('becomeBoothOwner', $user->company);
-        $user->assignRole('booth owner');
+        $this->authorize('becomeBoothOwner', Auth::user()->company);
+        Auth::user()->assignRole('booth owner');
+        Auth::user()->removeRole('pending booth owner');
 
         return redirect(route('dashboard'))
             ->with('status', 'You successfully became a booth owner.');
