@@ -87,3 +87,8 @@ permissions:
     activate: event organizer
   user:
     viewAny: event organizer
+  frequent question:
+    viewAny: [ event organizer, assistant organizer ]
+    view: [ event organizer, assistant organizer ]
+    create: [ event organizer, assistant organizer ]
+    delete: [ event organizer, assistant organizer ]

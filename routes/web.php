@@ -5,6 +5,7 @@ use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
 use App\Http\Controllers\Crew\EditionController;
+use App\Http\Controllers\Crew\FrequentQuestionController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
@@ -54,7 +55,8 @@ Route::middleware([
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.index');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
-Route::view('/faq', 'faq')->name('faq');
+Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('companies.show');
+Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
 //Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
@@ -223,6 +225,7 @@ Route::middleware([
         ->name('schedule.default.presentation.edit');
 
     Route::resource('/moderator/booths', BoothController::class);
+    Route::resource('/moderator/faqs', FrequentQuestionController::class);
     Route::post('/moderator/booths/{booth}/approve', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');

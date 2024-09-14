@@ -22,7 +22,7 @@
 
                 <div>
                     <div class="py-10">
-                        @livewire('company.manage-logo', ['company' => $company])
+                        <x-company.company-logos-manager :company="$company"/>
                         <x-section-border/>
                         @livewire('company.details-form', ['company' => $company ])
                         @can('viewAnyMember', $company)

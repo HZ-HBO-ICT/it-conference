@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    @if (in_array(Route::currentRouteName(), ['welcome', 'speakers.index', 'companies.index', 'faq', 'contact']) && !Str::contains(Request::url(), ['errors']))
+    @if (in_array(Route::currentRouteName(), config('routesWithFooter.routes')) && !Str::contains(Request::url(), ['errors']))
         <footer class="bg-white dark:bg-gray-900">
             <div class="mx-auto w-full max-w-screen-xl">
                 <div class="grid grid-cols-2 mt-8 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
