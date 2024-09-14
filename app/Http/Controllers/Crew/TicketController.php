@@ -9,8 +9,17 @@ use Illuminate\View\View;
 
 class TicketController extends Controller
 {
+    public function index(): View
+    {
+        if (Auth::user()->cannot('scan', Ticket::class)) {
+            abort(403);
+        }
+
+        return view('crew.tickets.index');
+    }
+
     /**
-     * Execute logic behind scanning the ticket
+     * Execute logic behind scanning the tickets
      *
      * @param $id
      * @param $ticketToken
@@ -32,7 +41,7 @@ class TicketController extends Controller
         }
 
         if ($ticket->scanned_at) {
-            return view('ticket.index', [
+            return view('tickets.index', [
                 'message' => 'Ticket was already scanned',
                 'user' => $ticket->user,
             ]);
@@ -41,8 +50,8 @@ class TicketController extends Controller
         $ticket->scanned_at = now();
         $ticket->save();
 
-        return view('ticket.index', [
-            'message' => 'ticket successfully scanned',
+        return view('tickets.index', [
+            'message' => 'tickets successfully scanned',
             'user' => $ticket->user
         ]);
     }

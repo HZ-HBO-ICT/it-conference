@@ -268,5 +268,5 @@ Route::middleware([
 
     Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
 
-    Route::get('/ticket/scan/{id}/{ticketToken}', [TicketController::class, 'scan'])->name('ticket.scan');
+    Route::get('/moderator/tickets', [TicketController::class, 'index'])->name('tickets.index');
 });
