@@ -6,13 +6,13 @@
 
 <x-app-layout>
     <div class="flex">
-        <div class="flex-col lg:w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
+        <div class="flex-col sm:w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
             <div
                 class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto flex-col flex-grow flex">
                 <div class="items-center flex-shrink-0 h-16 flex mt-4">
                     <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}"
                          alt="IT Conference logo">
-                    <h3 class="ml-4 font-semibold dark:text-white hidden lg:block">My hub</h3>
+                    <h3 class="ml-4 font-semibold dark:text-white hidden sm:block">My hub</h3>
                 </div>
                 <nav class="flex-col flex-1 flex">
                     <ul class="gap-y-7 flex-col flex-1 flex" role="list">
@@ -54,7 +54,7 @@
                         </ul>
 
                         {{-- Role dependant links --}}
-                        @if(Auth::user()->is_crew)
+                        @if(Auth::user()->hasRole('event organizer'))
                             <x-sidemenus.content-moderator></x-sidemenus.content-moderator>
                         @endif
                         @if(Auth::user()->company)
@@ -63,7 +63,7 @@
 
                         {{-- Profile links --}}
                         <li>
-                            <div class="leading-6 font-semibold text-xs text-gray-400 hidden lg:block">Profile</div>
+                            <div class="leading-6 font-semibold text-xs text-gray-400 hidden sm:block">Profile</div>
                             <ul class="mt-2 -mx-2 mb-auto" role="list">
                                 <x-sidebar-link
                                     :type="'link'"
