@@ -11,6 +11,7 @@ use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -21,6 +22,7 @@ class BoothControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
         Edition::create([
