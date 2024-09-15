@@ -14,11 +14,20 @@ class ApprovalHandler
 
         $entity->disableLogging();
 
+        $logMessage = '';
+        if($field != 'is_approved') {
+            $logMessage = $entity->name . "'s sponsorship has been {$status} by " . Auth::user()->name;
+        } else {
+            $entityType = (new \ReflectionClass($entity))->getShortName();
+            $entityName = $entity->name ?? $entity->company->name;
+            $logMessage = "{$entityType} {$entityName} has been {$status} by " . Auth::user()->name;
+        }
+
         activity()
             ->causedBy(Auth::user())
             ->performedOn($entity)
             ->event($status)
-            ->log($status);
+            ->log($logMessage);
 
         if ($isApproved) {
             $entity->$field = true;
