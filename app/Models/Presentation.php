@@ -108,12 +108,15 @@ class Presentation extends Model
         return $this->hasMany(UserPresentation::class);
     }
 
+    /**
+     * Settings for the log system for this model
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logAll()
-            ->setDescriptionForEvent
-            (fn(string $eventName) => "{$this->name} booth has been {$eventName} by " . Auth::user()->name)
+            ->setDescriptionForEvent(fn(string $eventName) => "{$this->name} booth has been {$eventName} by " . Auth::user()->name)
             ->logOnlyDirty()
             ->dontLogIfAttributesChangedOnly(['is_approved']);
     }

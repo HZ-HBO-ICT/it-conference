@@ -8,14 +8,23 @@ use Spatie\Permission\Models\Role;
 
 class ApprovalHandler
 {
-    public function execute($entity, $isApproved, $field='is_approved')
+    /**
+     * Handles the approval or rejection of the entities
+     * s
+     * @param $entity
+     * @param $isApproved
+     * @param $field
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function execute($entity, $isApproved, $field = 'is_approved')
     {
         $status = $isApproved ? 'approved' : 'rejected';
 
         $entity->disableLogging();
 
         $logMessage = '';
-        if($field != 'is_approved') {
+        if ($field != 'is_approved') {
             $logMessage = $entity->name . "'s sponsorship has been {$status} by " . Auth::user()->name;
         } else {
             $entityType = (new \ReflectionClass($entity))->getShortName();
@@ -32,7 +41,7 @@ class ApprovalHandler
         if ($isApproved) {
             $entity->$field = true;
             $entity->save();
-        } elseif($field == 'is_approved') {
+        } elseif ($field == 'is_approved') {
             $entity->delete();
 
             if ($entity instanceof Company) {
@@ -43,6 +52,12 @@ class ApprovalHandler
         $entity->enableLogging();
     }
 
+    /**
+     * Helper method taking care of the additional company rejection
+     *
+     * @param $company
+     * @return void
+     */
     private function handleAdditionalCompanyRejection($company)
     {
         $participantRole = Role::findByName('participant', 'web');

@@ -82,13 +82,16 @@ class Company extends Model
         return $this->hasMany(InternshipAttribute::class);
     }
 
+    /**
+     * Settings for the log system for this model
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logAll()
-            ->setDescriptionForEvent
-            (fn(string $eventName)
-                => "{$this->name} has been {$eventName}" . (Auth::user() ? " by " . Auth::user()->name : ''))
+            ->setDescriptionForEvent(fn(string $eventName)
+            => "{$this->name} has been {$eventName}" . (Auth::user() ? " by " . Auth::user()->name : ''))
             ->logOnlyDirty()
             ->dontLogIfAttributesChangedOnly(['is_approved', 'is_sponsorship_approved', 'sponsorship_id']);
     }

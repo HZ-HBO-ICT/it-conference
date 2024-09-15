@@ -38,12 +38,15 @@ class Booth extends Model
         (new ApprovalHandler())->execute($this, $isApproved);
     }
 
+    /**
+     * Settings for the log system for this model
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logAll()
-            ->setDescriptionForEvent
-            (fn(string $eventName) => "{$this->company->name}'s booth has been {$eventName} by " . Auth::user()->name)
+            ->setDescriptionForEvent(fn(string $eventName) => "{$this->company->name}'s booth has been {$eventName} by " . Auth::user()->name)
             ->logOnlyDirty()
             ->dontLogIfAttributesChangedOnly(['is_approved']);
     }

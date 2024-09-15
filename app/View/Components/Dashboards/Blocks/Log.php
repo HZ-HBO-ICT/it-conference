@@ -18,13 +18,19 @@ class Log extends Component
         $this->route = $this->getEntityRoute($this->activity->subject, $this->activity->event);
     }
 
+    /**
+     * Returns the route to the entity in the crew pages
+     * @param $entity
+     * @param $event
+     * @return string
+     */
     public function getEntityRoute($entity, $event)
     {
         if (!is_object($entity)) {
             return '#'; // Return a fallback URL or empty string if the entity is null or not an object
         }
 
-        if($event == 'deleted'){
+        if ($event == 'deleted') {
             return '';
         }
 

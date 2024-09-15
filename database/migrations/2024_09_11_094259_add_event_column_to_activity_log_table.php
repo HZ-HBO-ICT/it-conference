@@ -6,6 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddEventColumnToActivityLogTable extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::connection(config('activitylog.database_connection'))->table(config('activitylog.table_name'), function (Blueprint $table) {
@@ -13,6 +16,9 @@ class AddEventColumnToActivityLogTable extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::connection(config('activitylog.database_connection'))->table(config('activitylog.table_name'), function (Blueprint $table) {
