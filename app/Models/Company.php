@@ -87,7 +87,8 @@ class Company extends Model
         return LogOptions::defaults()
             ->logAll()
             ->setDescriptionForEvent
-                (fn(string $eventName) => "{$this->name} has been {$eventName} by " . Auth::user()->name)
+            (fn(string $eventName)
+                => "{$this->name} has been {$eventName}" . (Auth::user() ? " by " . Auth::user()->name : ''))
             ->logOnlyDirty()
             ->dontLogIfAttributesChangedOnly(['is_approved', 'is_sponsorship_approved', 'sponsorship_id']);
     }
