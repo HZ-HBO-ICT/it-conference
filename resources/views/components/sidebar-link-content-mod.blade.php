@@ -38,7 +38,7 @@
             @endif
         </svg>
 
-        <span class="hidden sm:block">
+        <span class="hidden lg:block">
            {{$label}}
         </span>
     </a>
