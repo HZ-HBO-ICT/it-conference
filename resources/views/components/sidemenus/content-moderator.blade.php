@@ -3,7 +3,7 @@
 @endphp
 
 <li>
-    <div class="leading-6 font-semibold text-xs text-gray-400 hidden sm:block">Event organizer</div>
+    <div class="leading-6 font-semibold text-xs text-gray-400 hidden lg:block">Event organizer</div>
     <ul class="-mx-2" role="list">
         @if(Edition::current())
             <x-sidebar-link-content-mod
