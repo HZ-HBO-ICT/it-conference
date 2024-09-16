@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Presentation;
 
+use App\Traits\FileValidation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,6 +14,7 @@ use Livewire\WithFileUploads;
 class UploadPresentation extends Component
 {
     use WithFileUploads;
+    use FileValidation;
 
     public $file;
     public $presentation;
@@ -32,6 +36,8 @@ class UploadPresentation extends Component
      */
     public function updatedFile()
     {
+        $this->validateFileNameLength($this->file, 'file');
+
         $this->validate([
             'file' => ['required',
                 'file',
@@ -103,7 +109,7 @@ class UploadPresentation extends Component
      * Renders the component
      * @return View
      */
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.presentation.upload-presentation');
     }

@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Edition;
 use App\Models\UserPresentation;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class SpeakerController extends Controller
 {
     /**
      * Returns the public facing speakers index page
-     *
-     * @return View
      */
-    public function index(): View
+    public function index()
     {
         $speakers = collect();
         $edition = Edition::current();
+
+        if (!$edition) {
+            return redirect(route('welcome'))
+                ->dangerBanner("Speakers are not available yet.");
+        }
 
         if (optional(Edition::current())->is_final_programme_released) {
             $speakers = UserPresentation::where('role', 'speaker')

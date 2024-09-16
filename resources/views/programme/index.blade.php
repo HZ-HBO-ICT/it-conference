@@ -2,15 +2,18 @@
     use Carbon\Carbon;
     use App\Models\DefaultPresentation;
     use App\Models\Edition;
+    use Illuminate\Support\Facades\Auth;
+
+    $roleColour = Auth::user() ? Auth::user()->roleColour : 'blue';
 @endphp
 
 <x-app-layout>
     <div class="relative bg-cover overflow-hidden min-h-screen">
+        <h2 class="text-center dark:text-gray-50 text-gray-900 text-5xl font-extrabold py-12">
+            Programme
+        </h2>
         <div
             class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700 my-5">
-            <div class="text-center max-w-2xl mx-auto">
-                <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Programme</h2>
-            </div>
             <div class="m-5 mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                     <!-- Start of the opening -->
@@ -24,8 +27,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out
-                                        dark:bg-blue-500 dark:hover:bg-gradient-to-r dark:hover:from-blue-500 dark:hover:to-blue-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden hover:transition-all hover:duration-300 hover:ease-in-out bg-{{ $roleColour }}-400 hover:bg-gradient-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600
+                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -62,7 +65,7 @@
                                             @if($lecture->start == $timeslot['start'])
                                                 <div class="pb-3">
                                                     <a href="{{route('programme.presentation.show', $lecture)}}">
-                                                        <x-schedule-block :presentation="$lecture" :colorName="'blue'"/>
+                                                        <x-schedule-block :presentation="$lecture" :colorName="$roleColour"/>
                                                     </a>
                                                 </div>
                                             @endif
@@ -89,7 +92,8 @@
                                             @if($workshop->start == $timeslot['start'])
                                                 <div class="pb-3">
                                                     <a href="{{route('programme.presentation.show', $workshop)}}">
-                                                        <x-schedule-block :presentation="$workshop" :colorName="'blue'"/>
+                                                        <x-schedule-block :presentation="$workshop"
+                                                                          :colorName="$roleColour"/>
                                                     </a>
                                                 </div>
                                             @endif
@@ -111,8 +115,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-blue-400 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-600 hover:transition-all hover:duration-300 hover:ease-in-out
-                                        dark:bg-blue-500 dark:hover:bg-gradient-to-r dark:hover:from-blue-500 dark:hover:to-blue-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden bg-{{ $roleColour }}-400 hover:bg-gradient-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600 hover:transition-all hover:duration-300 hover:ease-in-out
+                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>

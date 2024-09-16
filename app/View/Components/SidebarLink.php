@@ -2,8 +2,10 @@
 
 namespace App\View\Components;
 
+use App\Models\Presentation;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class SidebarLink extends Component
@@ -21,11 +23,24 @@ class SidebarLink extends Component
     public function __construct($type, $route, $label, $icon, $roleColour, $param = '')
     {
         $this->route = $route;
-        $this->label = $label;
+        $this->param = $param;
+        $this->label = empty($label) && $param instanceof Presentation ? $this->determineLabelLength() : $label;
         $this->icon = $icon;
         $this->roleColour = $roleColour;
-        $this->param = $param;
         $this->type = $type;
+    }
+
+    /**
+     * Determine how long should the label be
+     * so that it stays on one line in the side menu
+     *
+     * @return string
+     */
+    public function determineLabelLength(): string
+    {
+        return strlen('View ' . $this->param->name) > 20 ?
+            substr('View ' . $this->param->name, 0, 20) . '...'
+            : 'View ' . $this->param->name;
     }
 
     /**

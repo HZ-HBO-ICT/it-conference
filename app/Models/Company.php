@@ -15,7 +15,8 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved', 'motivation',
-        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved'];
+        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved',
+        'dark_logo_path'];
 
     /**
      * Establishes a relationship between the company and
@@ -130,6 +131,23 @@ class Company extends Model
                     ->with('roles')
                     ->role('company representative')
                     ->first();
+            }
+        );
+    }
+
+    /**
+     * Returns the booth owners of the company
+     *
+     * @return Attribute
+     */
+    public function boothOwners(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->users()
+                    ->with('roles')
+                    ->role('booth owner')
+                    ->get();
             }
         );
     }

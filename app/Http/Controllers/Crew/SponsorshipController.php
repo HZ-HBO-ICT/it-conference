@@ -115,12 +115,16 @@ class SponsorshipController extends Controller
             : 'You denied the sponsorship of :company';
 
         if ($isApproved) {
-            Mail::to($company->representative->email)->send(new SponsorshipApprovedMailable($company));
+            if ($company->representative->receive_emails) {
+                Mail::to($company->representative->email)->send(new SponsorshipApprovedMailable($company));
+            }
 
             return redirect(route('moderator.sponsorships.show', $company))
                 ->banner(__($template, ['company' => $company->name]));
         } else {
-            Mail::to($company->representative->email)->send(new SponsorshipDisapprovedMailable($company));
+            if ($company->representative->receive_emails) {
+                Mail::to($company->representative->email)->send(new SponsorshipDisapprovedMailable($company));
+            }
 
             return redirect(route('moderator.sponsorships.index'))
                 ->banner(__($template, ['company' => $company->name]));

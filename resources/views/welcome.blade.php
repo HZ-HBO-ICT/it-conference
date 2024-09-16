@@ -1,3 +1,11 @@
+@php
+    $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+@endphp
+
+@push('scripts')
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+@endpush
+
 <x-app-layout>
     <div class="flex flex-col overflow-hidden">
         <!-- The main banner -->
@@ -11,7 +19,7 @@
                         <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
-                        @if($goldSponsorCompany)
+                        @if($goldSponsorCompany && $edition)
                             <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
                                 Co-hosted by {{ $goldSponsorCompany->name }}
                             </h2>
@@ -34,30 +42,34 @@
                         <h2 class="italic font-semibold">
                             HZ University of Applied Sciences, Middelburg
                         </h2>
-                        <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
-                            <a href="{{ route('companies.index') }}">
-                                View companies
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </a>
-                            <a href="{{ route('speakers.index') }}">
-                                View speakers
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </a>
-                        </h2>
+                        @if($edition)
+                            <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
+                                <a href="{{ route('companies.index') }}">
+                                    View companies
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('speakers.index') }}">
+                                    View speakers
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        @else
+                            <h2 class="flex flex-wrap mt-8 uppercase font-medium text-2xl gap-12">Check back later for updates</h2>
+                        @endif
                         <br>
                         @guest()
-                            @if($edition && $edition->isParticipantRegistrationOpened)
+                            @if(optional($edition)->is_participant_registration_opened)
                                 <x-button class="mt-4 mr-5">
                                     <a href="{{route('register.participant')}}">Register as a participant</a>
                                 </x-button>
                             @endif
-                            @if($edition && $edition->isCompanyRegistrationOpened)
+                            @if(optional($edition)->is_company_registration_opened)
                                 <x-button class="mt-4">
                                     <a href="{{route('register.company')}}">Register my company</a>
                                 </x-button>
@@ -66,11 +78,24 @@
                     </div>
                 </div>
                 <!-- Countdown Timer -->
-                <div class="w-full flex justify-center mt-24">
+                <div class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
                     @if ($edition)
-                        @if (\Carbon\Carbon::now() >= $edition->start_at)
-                            <x-button-link href="{{route('programme')}}">Visit the programme</x-button-link>
-                        @else
+                        @if ($edition->is_in_progress)
+                            <div class="flex flex-col justify-center items-center">
+                                <p class="font-montserrat uppercase font-medium text-3xl">The conference has officially began!</p>
+                                @if(!url()->previous() || $pageRefreshed)
+                                    <lottie-player
+                                        id="animation"
+                                        class="absolute inset-0 min-h-screen h-full z-0 hidden lg:block"
+                                        src="https://lottie.host/64dd3e45-77c7-4678-8dcc-fa04aa22ca8b/p5aeXKksjz.json"
+                                        background="##FFFFFF"
+                                        speed="1"
+                                        autoplay
+                                        direction="1"
+                                        mode="normal"></lottie-player>
+                                @endif
+                            </div>
+                        @elseif(!$edition->is_over)
                             <x-countdown :time="$edition->start_at"/>
                         @endif
                     @endif
@@ -132,84 +157,78 @@
             <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
                 <!-- Card 1 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <a href="{{ route('speakers.index') }}">
+                    <div
+                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                        <!-- Top dark gradient -->
                         <div
-                            class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
-                            <!-- Top dark gradient -->
-                            <div
-                                class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-                            <!-- Bottom dark gradient -->
-                            <div
-                                class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                            <!-- Color gradient -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
-                            <div class="bg-cover bg-center h-full"
-                                 style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
-                            <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                                <div class="relative">
-                                    <h2 class="text-2xl font-bold">SPEAKERS</h2>
-                                    <p class="mt-4">During the conference you will have the chance to meet and speak to
-                                                    our
-                                                    speakers.</p>
-                                </div>
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
+                        <div class="bg-cover bg-center h-full"
+                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">SPEAKERS</h2>
+                                <p class="mt-4">During the conference you will have the chance to meet and speak to
+                                    our
+                                    speakers.</p>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <a href="#">
+                    <div
+                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                        <!-- Top dark gradient -->
                         <div
-                            class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
-                            <!-- Top dark gradient -->
-                            <div
-                                class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-                            <!-- Bottom dark gradient -->
-                            <div
-                                class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                            <!-- Color gradient -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
-                            <div class="bg-cover bg-center h-full"
-                                 style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
-                            <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                                <div class="relative">
-                                    <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
-                                    <p class="mt-4">During the conference you can visit a lot of different workshops and
-                                                    lectures.</p>
-                                </div>
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
+                        <div class="bg-cover bg-center h-full"
+                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
+                                <p class="mt-4">During the conference you can visit a lot of different workshops and
+                                    lectures.</p>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <a href="{{ route('companies.index') }}">
+                    <div
+                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                        <!-- Top dark gradient -->
                         <div
-                            class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
-                            <!-- Top dark gradient -->
-                            <div
-                                class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-                            <!-- Bottom dark gradient -->
-                            <div
-                                class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                            <!-- Color gradient -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
-                            <div class="bg-cover bg-center h-full"
-                                 style="background-image: url({{asset('/img/card-companies.png')}});"></div>
-                            <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                                <div class="relative">
-                                    <h2 class="text-2xl font-bold">COMPANIES</h2>
-                                    <p class="mt-4">During the conference you will have the chance to meet different
-                                                    companies.</p>
-                                </div>
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
+                        <div class="bg-cover bg-center h-full"
+                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">COMPANIES</h2>
+                                <p class="mt-4">During the conference you will have the chance to meet different
+                                    companies.</p>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
             <div class="relative bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
@@ -217,10 +236,10 @@
                 <!-- Third banner-->
                 <div>
                     <h2 class="flex justify-center mt-8 mb-5 uppercase text-3xl font-montserrat font-bold pl-4">A big
-                                                                                                                thank
-                                                                                                                you to
-                                                                                                                our
-                                                                                                                sponsors</h2>
+                        thank
+                        you to
+                        our
+                        sponsors</h2>
                     <div class="flex flex-col mb-4 text-left pl-4">
                         <div class="text-xl font-montserrat">
                             <div class="py-10">
@@ -297,3 +316,16 @@
         </div>
     </div>
 </x-app-layout>
+
+@if(optional($edition)->is_in_progress && (!session()->previousUrl() || $pageRefreshed))
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const animation = document.getElementById('animation');
+
+            animation.addEventListener('complete', () => {
+                console.log('sdsf');
+                animation.remove();
+            });
+        });
+    </script>
+@endif

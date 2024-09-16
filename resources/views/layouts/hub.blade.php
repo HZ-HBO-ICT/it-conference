@@ -42,7 +42,7 @@
                                         :roleColour="Auth::user()->role_colour"></x-sidebar-link>
                                 @endcan
                             @endif
-                            @if(Auth::user()->presenterOf)
+                            @if(Auth::user()->presenter_of)
                                 <x-sidebar-link
                                     :type="'link'"
                                     :label="'My presentation'"
@@ -54,7 +54,7 @@
                         </ul>
 
                         {{-- Role dependant links --}}
-                        @if(Auth::user()->hasRole('event organizer'))
+                        @if(Auth::user()->is_crew)
                             <x-sidemenus.content-moderator></x-sidemenus.content-moderator>
                         @endif
                         @if(Auth::user()->company)

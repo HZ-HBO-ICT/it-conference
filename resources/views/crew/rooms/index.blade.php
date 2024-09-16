@@ -8,7 +8,7 @@
                 @can('create', \App\Models\Room::class)
                     <x-slot name="actions">
                         <x-button-link href="{{route('moderator.rooms.create')}}">
-                            {{ __('Add a room to be used in this conference') }}
+                            {{ __('Add a new room') }}
                         </x-button-link>
                     </x-slot>
                 @endcan

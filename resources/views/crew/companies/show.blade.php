@@ -37,11 +37,15 @@
                             </p>
                         </div>
                     </div>
-                    <div class="text-gray-800 dark:text-gray-200">
-                        {{ $company->description }}
+                    <div class="text-gray-800 pt-3 dark:text-gray-200">
+                        <span class="font-semibold">Website:</span> <a class="underline text-apricot-peach-400 hover:text-apricot-peach-500"
+                            href="http://{{$company->website}}">{{ $company->website }}</a>
                     </div>
-                    <div class="text-gray-800 dark:text-gray-200">
-                        {{ $company->motivation }}
+                    <div class="text-gray-800 pt-3 dark:text-gray-200">
+                        <span class="font-semibold">Description:</span> {{ $company->description }}
+                    </div>
+                    <div class="text-gray-800 pt-3 dark:text-gray-200">
+                        <span class="font-semibold">Motivation:</span> {{ $company->motivation }}
                     </div>
                 </x-slot>
 
@@ -67,30 +71,30 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    @if($company->internshipAttributes)
+                    @if(!$company->internshipAttributes->isEmpty())
                         <div class="space-y-4">
                             @if($company->internshipAttributes()->years()->exists())
-                                <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
                                     <h3 class="font-semibold">Internship for years:</h3>
-                                    <p class="text-sm text-gray-700">{{ implode(', ', $company->internshipAttributes()->years()->pluck('value')->toArray()) }}</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-200">{{ implode(', ', $company->internshipAttributes()->years()->pluck('value')->toArray()) }}</p>
                                 </div>
                             @endif
                             @if($company->internshipAttributes()->tracks()->exists())
-                                <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
                                     <h3 class="font-semibold">Internship for tracks:</h3>
-                                    <p class="text-sm text-gray-700">{{ implode(', ', $company->internshipAttributes()->tracks()->pluck('value')->toArray()) }}</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-200">{{ implode(', ', $company->internshipAttributes()->tracks()->pluck('value')->toArray()) }}</p>
                                 </div>
                             @endif
                             @if($company->internshipAttributes()->languages()->exists())
-                                <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
                                     <h3 class="font-semibold">Internship in the following languages:</h3>
-                                    <p class="text-sm text-gray-700">{{ implode(', ', $company->internshipAttributes()->languages()->pluck('value')->toArray()) }}</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-200">{{ implode(', ', $company->internshipAttributes()->languages()->pluck('value')->toArray()) }}</p>
                                 </div>
                             @endif
                         </div>
                     @else
-                        <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                            <p class="text-gray-700">No internship details were specified.</p>
+                        <div>
+                            <p class="text-gray-700 dark:text-gray-100">No internship details were specified.</p>
                         </div>
                     @endif
                 </x-slot>
@@ -220,12 +224,12 @@
                     @elseif(!$company->is_sponsorship_approved)
                         <p class="text-yellow-500 dark:text-yellow-400">Not approved/Waiting approval. <a
                                 class="underline" href="{{route('moderator.sponsorships.show', $company)}}">See more
-                                                                                                        here</a></p>
+                                                                                                            here</a></p>
                     @else
                         <p class="text-green-500 dark:text-green-400">Approved. <a class="underline"
                                                                                    href="{{route('moderator.sponsorships.show', $company)}}">See
-                                                                                                                                         more
-                                                                                                                                         here</a>
+                                                                                                                                             more
+                                                                                                                                             here</a>
                         </p>
                     @endif
                 </x-slot>

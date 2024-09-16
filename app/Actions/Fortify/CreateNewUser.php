@@ -103,7 +103,7 @@ class CreateNewUser implements CreatesNewUsers
             'house_number' => $company_house_number,
             'street' => $company_street,
             'city' => $company_city,
-            'website' => $company_website,
+            'website' => 'https://' . $company_website,
             'description' => $company_description,
             'phone_number' => $company_phone_number,
             'motivation' => $company_motivation,

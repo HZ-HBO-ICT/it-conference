@@ -32,7 +32,7 @@
         {{ $label }}
     </dd>
     <dd class="{{ $selectedStyle['viewAllBgColor'] }} {{ $selectedStyle['viewAllTextColor'] }} {{ $selectedStyle['viewAllBgDark'] }} w-full py-4 rounded-b-lg mt-4 font-bold text-sm">
-        <a href="{{ empty($param) ? route($route) : route($route, $param) }}" class="text-center block">
+        <a href="{{ empty($param) ? route($route) : route($route, $param) }}" class="text-center block" wire:navigate.hover>
             View all
         </a>
     </dd>
