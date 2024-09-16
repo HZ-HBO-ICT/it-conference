@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\ValidationException;
+use Spatie\Activitylog\Models\Activity;
 use Tests\TestCase;
 
 class CreateNewUserTest extends TestCase
@@ -15,6 +16,7 @@ class CreateNewUserTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
     }

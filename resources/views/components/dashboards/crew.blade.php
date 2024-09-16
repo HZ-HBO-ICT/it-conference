@@ -112,6 +112,22 @@
             There is no active edition, statistics is unavailable.
         </p>
     @endif
+    @can('viewAny', Edition::class)
+        <div>
+            <div class="p-6">
+                <h3 class="leading-6 font-semibold text-xl text-gray-800 dark:text-white pb-4">Logs</h3>
+                <div class="pt-6 pb-12">
+                    @forelse(\Spatie\Activitylog\Models\Activity::latest()->take(20)->get() as $activity)
+                        <x-dashboards.blocks.log :activity="$activity"/>
+                    @empty
+                        <p class="text-gray-400 dark:text-gray-500 text-lg text-center my-24">
+                            There are no logs currently.
+                        </p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    @endcan
 </div>
 
 @stack('scripts')

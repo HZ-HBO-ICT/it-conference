@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
+use App\Actions\Log\ApprovalHandler;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Presentation extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
         'company_id', 'room_id', 'timeslot_id', 'start', 'is_approved'];
@@ -100,6 +106,19 @@ class Presentation extends Model
     public function userPresentations(): HasMany
     {
         return $this->hasMany(UserPresentation::class);
+    }
+
+    /**
+     * Settings for the log system for this model
+     * @return LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->setDescriptionForEvent(fn(string $eventName) => "{$this->name} booth has been {$eventName} by " . Auth::user()->name)
+            ->logOnlyDirty()
+            ->dontLogIfAttributesChangedOnly(['is_approved']);
     }
 
     /**
@@ -207,12 +226,7 @@ class Presentation extends Model
      */
     public function handleApproval(bool $isApproved): void
     {
-        if ($isApproved) {
-            $this->is_approved = true;
-            $this->save();
-        } else {
-            $this->delete();
-        }
+        (new ApprovalHandler())->execute($this, $isApproved);
     }
 
     /**

@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
+use App\Actions\Log\ApprovalHandler;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Models\Role;
 
 class Company extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved', 'motivation',
         'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved',
@@ -74,6 +80,20 @@ class Company extends Model
     public function internshipAttributes(): HasMany
     {
         return $this->hasMany(InternshipAttribute::class);
+    }
+
+    /**
+     * Settings for the log system for this model
+     * @return LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->setDescriptionForEvent(fn(string $eventName)
+            => "{$this->name} has been {$eventName}" . (Auth::user() ? " by " . Auth::user()->name : ''))
+            ->logOnlyDirty()
+            ->dontLogIfAttributesChangedOnly(['is_approved', 'is_sponsorship_approved', 'sponsorship_id']);
     }
 
     /**
@@ -211,16 +231,7 @@ class Company extends Model
      */
     public function handleCompanyApproval(bool $isApproved): void
     {
-        if ($isApproved) {
-            $this->is_approved = true;
-            $this->save();
-        } else {
-            $participantRole = Role::findByName('participant', 'web');
-            foreach ($this->users as $user) {
-                $user->syncRoles($participantRole);
-            }
-            $this->delete();
-        }
+        (new ApprovalHandler())->execute($this, $isApproved);
     }
 
     /**
@@ -231,15 +242,14 @@ class Company extends Model
      */
     public function handleSponsorshipApproval(bool $isApproved): void
     {
-        if ($isApproved) {
-            $this->is_sponsorship_approved = true;
-            /*
-                        if ($this->sponsorship->leftSpots() == 0)
-                            $this->sponsorship->rejectAllExceptApproved();*/
-        } else {
+        (new ApprovalHandler())->execute($this, $isApproved, 'is_sponsorship_approved');
+
+        if (!$isApproved) {
+            $this->disableLogging();
             $this->is_sponsorship_approved = null;
             $this->sponsorship_id = null;
+            $this->save();
+            $this->enableLogging();
         }
-        $this->save();
     }
 }
