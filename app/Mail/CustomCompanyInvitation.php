@@ -26,7 +26,7 @@ class CustomCompanyInvitation extends Mailable
      * @param $invitation
      * @return void
      */
-    public function __construct(Invitation $invitation)
+    public function __construct($invitation)
     {
         $this->invitation = $invitation;
     }

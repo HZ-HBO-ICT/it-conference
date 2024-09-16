@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Activitylog\Models\Activity;
 use Tests\TestCase;
 
 class RoomControllerTest extends TestCase
@@ -19,6 +20,7 @@ class RoomControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
         Edition::create([
