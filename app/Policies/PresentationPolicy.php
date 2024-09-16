@@ -131,8 +131,8 @@ class PresentationPolicy
         // When the user is associated to a company, allow only if the user's
         // company has presentations left
         if ($user->company) {
-            // When the user is not default company member and also not company rep, they should be denied
-            if (!$user->isDefaultCompanyMember && !$user->hasRole(['company representative', 'pending speaker'])) {
+            // When the user is company representative, speaker or pending speaker
+            if (!$user->hasRole(['company representative', 'pending speaker', 'speaker'])) {
                 return false;
             }
 
