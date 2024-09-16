@@ -13,6 +13,12 @@
                 <x-section-border/>
             @endif
 
+            @if(Auth::user()->ticket)
+                <livewire:qr-code.ticket />
+
+                <x-section-border />
+            @endif
+
                 @livewire('email-notification-preference')
             <x-section-border/>
 

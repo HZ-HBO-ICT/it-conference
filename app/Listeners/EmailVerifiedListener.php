@@ -43,11 +43,7 @@ class EmailVerifiedListener
         $ticket->save();
 
         // Generate qr code
-        $qrCode = QrCode::size(200)
-            ->format('png')
-            ->merge('/public/img/logo-small-' . $user->role_colour . '.png')
-            ->errorCorrection('M')
-            ->generate('id=' . $user->id . ';' . 'token=' . $ticketToken);
+        $qrCode = $user->generateTicket();
 
         // Send email to the user with qr code
         Mail::to($user->email)->send(new TicketMailable($qrCode));
