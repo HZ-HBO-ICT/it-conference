@@ -15,6 +15,6 @@ class Ticket extends Component
      */
     public function render(): View
     {
-        return view('livewire.qr-code.ticket', ['ticket' => Auth::user()->generateExistingTicket()]);
+        return view('livewire.qr-code.ticket', ['ticket' => Auth::user()->generateTicket()]);
     }
 }

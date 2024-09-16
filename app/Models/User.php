@@ -11,10 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\HtmlString;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Nette\Schema\ValidationException;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -25,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use CausesActivity;
 
 
     /**
@@ -140,6 +144,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'presentation_id' => $presentation->id,
             'role' => $role
         ]);
+
+        if ($this->hasRole('pending speaker')) {
+            $this->removeRole('pending speaker');
+        }
 
         return true;
     }
@@ -383,5 +391,19 @@ class User extends Authenticatable implements MustVerifyEmail
                     ];
             }
         );
+    }
+
+    /**
+     * Generates a QR code with user's data
+     *
+     * @return HtmlString
+     */
+    public function generateTicket(): HtmlString
+    {
+        return QrCode::size(200)
+            ->format('png')
+            ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
+            ->errorCorrection('M')
+            ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
     }
 }
