@@ -24,6 +24,11 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
+        // Edge case since the speaker doesn't have a role that I can give permission to
+        if ($user->isMemberOf($company) && $user->presenter_of) {
+            return true;
+        }
+
         return ($user->is_crew || $user->isMemberOf($company))
             && $user->can('view company');
     }
@@ -96,6 +101,11 @@ class CompanyPolicy
      */
     public function viewAnyMember(User $user, Company $company): bool
     {
+        // Edge case since the speaker doesn't have a role that I can give permission to
+        if ($user->isMemberOf($company) && $user->presenter_of && $company->is_approved) {
+            return true;
+        }
+
         return ($user->is_crew
                 || $user->isMemberOf($company) && $company->is_approved)
             && $user->hasPermissionTo('viewAny company member');
@@ -205,7 +215,7 @@ class CompanyPolicy
                 'view booth request',
                 'view sponsorship request',
                 'view company delete request'
-            ]) || $user->hasRole('booth owner');
+            ]) || $user->hasRole(['booth owner', 'pending booth owner']);
 
         return $isCrewOrCompanyMember && $hasRequiredPermissions;
     }
@@ -220,7 +230,7 @@ class CompanyPolicy
     {
         return $user->isMemberOf($company)
             && !$company->booth
-            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
+            && ($user->isDefaultCompanyMember() || $user->hasRole(['company representative', 'pending booth owner']))
             && $user->hasPermissionTo('create booth request');
     }
 
@@ -248,7 +258,6 @@ class CompanyPolicy
     {
         return $user->isMemberOf($company)
             && $company->booth
-            && ($user->isDefaultCompanyMember() || $user->hasRole('company representative', 'web'))
             && $user->hasPermissionTo('create booth request');
     }
 }

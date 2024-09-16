@@ -8,6 +8,7 @@ use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Timeslot;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\UserPresentation;
 use DateTime;
@@ -22,16 +23,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Artisan::call('admin:upsert-master-data');
-        Artisan::call('admin:sync-permissions');
+        activity()->withoutLogs(function () {
+            Artisan::call('admin:upsert-master-data');
+            Artisan::call('admin:sync-permissions');
 
-        foreach ($this->roomNames as $roomName) {
-            Room::factory()->create([
-                'name' => $roomName
-            ]);
-        }
+            foreach ($this->roomNames as $roomName) {
+                Room::factory()->create([
+                    'name' => $roomName
+                ]);
+            }
 
-        $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class]);
+            $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class]);
+        });
     }
 
     public $roomNames = [

@@ -547,8 +547,10 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn(null);
 
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Error: file storage/app/config/permissions.yml is not found!");
+
         $this->artisan('admin:sync-permissions')
-            ->expectsOutputToContain('not found')
             ->assertFailed();
     }
 
@@ -559,8 +561,10 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Error: there are no roles specified!");
+
         $this->artisan('admin:sync-permissions')
-            ->expectsOutputToContain('Error')
             ->assertFailed();
     }
 
@@ -571,8 +575,10 @@ class SyncPermissionsTest extends TestCase
             ->with('config/permissions.yml')
             ->andReturn($config);
 
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Error: there are no permissions specified!");
+
         $this->artisan('admin:sync-permissions')
-            ->expectsOutputToContain('Error')
             ->assertFailed();
     }
 }

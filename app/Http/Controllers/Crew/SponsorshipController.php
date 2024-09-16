@@ -140,10 +140,7 @@ class SponsorshipController extends Controller
             abort(403);
         }
 
-        $company->update([
-            'is_sponsorship_approved' => null,
-            'sponsorship_id' => null
-        ]);
+        $company->handleSponsorshipApproval(false);
         $company->refresh();
 
         $template = 'You removed the sponsorship from :company!';

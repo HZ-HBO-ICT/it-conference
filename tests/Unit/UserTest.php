@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserPresentation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Activitylog\Models\Activity;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -16,6 +17,7 @@ class UserTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
     }

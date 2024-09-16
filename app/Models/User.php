@@ -15,6 +15,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Nette\Schema\ValidationException;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -25,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use CausesActivity;
 
 
     /**
@@ -140,6 +142,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'presentation_id' => $presentation->id,
             'role' => $role
         ]);
+
+        if ($this->hasRole('pending speaker')) {
+            $this->removeRole('pending speaker');
+        }
 
         return true;
     }

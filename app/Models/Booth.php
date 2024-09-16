@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Actions\Log\ApprovalHandler;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Booth extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = ['width', 'length', 'company_id', 'additional_information', 'is_approved'];
 
@@ -17,7 +22,7 @@ class Booth extends Model
      * the company that owns it
      * @return BelongsTo
      */
-    public function company() : BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
@@ -28,13 +33,21 @@ class Booth extends Model
      * @param bool $isApproved
      * @return void
      */
-    public function handleApproval(bool $isApproved) : void
+    public function handleApproval(bool $isApproved): void
     {
-        if ($isApproved) {
-            $this->is_approved = true;
-            $this->save();
-        } else {
-            $this->delete();
-        }
+        (new ApprovalHandler())->execute($this, $isApproved);
+    }
+
+    /**
+     * Settings for the log system for this model
+     * @return LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->setDescriptionForEvent(fn(string $eventName) => "{$this->company->name}'s booth has been {$eventName} by " . Auth::user()->name)
+            ->logOnlyDirty()
+            ->dontLogIfAttributesChangedOnly(['is_approved']);
     }
 }
