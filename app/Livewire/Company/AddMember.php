@@ -13,6 +13,10 @@ use Livewire\Component;
 class AddMember extends Component
 {
     public Company $company;
+    public $roles;
+
+    #[Validate('required|in:speaker,booth owner,company member')]
+    public $currentRole;
 
     #[Validate('required|unique:users')]
     public string $email;
@@ -25,7 +29,27 @@ class AddMember extends Component
     public function mount($company)
     {
         $this->company = $company;
+        $this->roles = [
+            'speaker' => 'The user can request to give a presentation or become a co-speaker for another presentation
+            within the company.',
+            'booth owner' => 'The user can request a booth if one does not already exist and is expected to be present
+            at the booth during the conference.',
+            'company member' => 'The user can choose to be a speaker or a booth owner. If they do not take action to
+            become a speaker or booth owner, they will simply accompany the other members.'
+        ];
     }
+
+    /**
+     * Handles the selecting of a new role
+     *
+     * @param $role
+     * @return void
+     */
+    public function selectRole($role)
+    {
+        $this->currentRole = $role;
+    }
+
 
     /**
      * Invite a new team member to the given team.
@@ -33,27 +57,24 @@ class AddMember extends Component
     public function invite(): void
     {
         $this->validate();
+        if ($this->currentRole == 'speaker') {
+            $this->currentRole = 'pending speaker';
+        } else if ($this->currentRole == 'booth owner') {
+            $this->currentRole = 'pending booth owner';
+        }
 
         $invitation = $this->company->invitations()->create([
             'email' => $this->email,
-            'role' => 'company member'
+            'role' => $this->currentRole
         ]);
 
         Mail::to($this->email)->send(new CustomCompanyInvitation($invitation));
 
         $this->email = '';
+        $this->currentRole = '';
 
         $this->company = $this->company->refresh();
-    }
-
-
-    /**
-     * Returns all roles and descriptions available
-     * @return array
-     */
-    public function getRolesProperty() : array
-    {
-        return config('roles');
+        session()->flash('message', 'Post successfully updated.');
     }
 
     /**
@@ -73,7 +94,7 @@ class AddMember extends Component
      * Renders the component
      * @return View
      */
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.company.add-member');
     }

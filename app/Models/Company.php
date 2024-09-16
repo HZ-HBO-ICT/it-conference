@@ -172,7 +172,7 @@ class Company extends Model
     public function isGoldSponsor(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->sponsorship ? $this->sponsorship->name === 'gold' && $this->is_sponsorhip_approved : 0
+            get: fn() => $this->sponsorship ? $this->sponsorship->name === 'gold' && $this->is_sponsorship_approved : 0
         );
     }
 

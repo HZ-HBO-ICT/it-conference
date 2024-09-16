@@ -12,6 +12,8 @@ roles:
   - pr lead                   # Crew member - Posting announcements to feed.
   - entertainment organizer   # Crew member - TBD
   - booth owner               # Booth owner - responsible for the booth of the company
+  - pending speaker           # Pending speaker - temporary role for the speaker permissions
+  - pending booth owner       # Pending booth owner - temporary role for the booth owner permissions
 
 permissions:
   booth:
@@ -21,12 +23,14 @@ permissions:
     update: [ event organizer, assistant organizer, booth owner ]
     delete: [ event organizer, assistant organizer ]
   booth request:
-    create: [ company representative, company member ]
-    view: [ company representative, event organizer, assistant organizer, company market supervisor, company member ]
+    create: [ company representative, company member, pending booth owner ]
+    view: [ company representative, event organizer, assistant organizer, company market supervisor, company member,
+            booth owner, pending booth owner ]
     approve: [ event organizer, assistant organizer ]
   company:
     viewAny: [ event organizer, assistant organizer ]
-    view: [ event organizer, assistant organizer, company representative, company member ]
+    view: [ event organizer, assistant organizer, company representative, company member, booth owner, pending speaker,
+            pending booth owner ]
     create: [ event organizer, assistant organizer ]
     update: [ event organizer, assistant organizer, company representative ]
     delete: [ event organizer, assistant organizer ]
@@ -37,7 +41,7 @@ permissions:
     create: company representative
     view: [ event organizer, assistant organizer, company representative ]
   company member:
-    viewAny: [ event organizer, assistant organizer, company representative, company member ]
+    viewAny: [ event organizer, assistant organizer, company representative, company member, booth owner, pending speaker ]
     update: company representative
     delete: company representative
   company member invitation:
@@ -52,7 +56,8 @@ permissions:
     remove: [ event organizer ]
   presentation:
     viewAny: [ event organizer, assistant organizer, speakers supervisor ]
-    view: [ event organizer, assistant organizer, speakers supervisor, participant, company representative, company member ]
+    view: [ event organizer, assistant organizer, speakers supervisor, participant, company representative,
+            company member, pending speaker ]
     create: [ event organizer, assistant organizer, speakers supervisor ]
     update: [ event organizer, assistant organizer, speakers supervisor, participant ]
     delete: [ event organizer, assistant organizer, participant ]
