@@ -69,7 +69,11 @@ export default {
         'hover:to-apricot-peach-600',
         'hover:to-apricot-peach-700',
         'bg-gray-600',
-        'bg-apricot-peach-300'
+        'bg-apricot-peach-300',
+        'bg-red-400',
+        'hover:bg-red-400',
+        'dark:bg-red-800/50',
+        'dark:hover:bg-red-800/50',
     ],
     theme: {
         extend: {

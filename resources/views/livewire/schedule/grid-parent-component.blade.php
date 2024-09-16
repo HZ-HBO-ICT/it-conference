@@ -15,7 +15,8 @@
                                     @dragstart="dragStart"
                                     data-id="{{ $presentation->id }}"
                                     data-room="0"
-                                    class="p-2 h-20 bg-crew-100 rounded shadow hover:bg-crew-200 cursor-pointer dark:bg-crew-400/50 dark:hover:bg-crew-400/70">
+                                    class="p-2 h-20 rounded shadow cursor-pointer
+                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-crew-400 hover:bg-crew-200 dark:bg-crew-400/50 dark:hover:bg-crew-400/70" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
                                     <div class="grid grid-cols-1">
                                     <span class="col-span-1">
                                         {{ $presentation->displayName(20) }}
@@ -53,8 +54,9 @@
                                     @dragstart="dragStart"
                                     data-id="{{ $presentation->id }}"
                                     data-room="0"
-                                    class="p-2 h-20 bg-apricot-peach-200 rounded shadow hover:bg-apricot-peach-300 cursor-pointer dark:bg-apricot-peach-700/50 dark:hover:bg-apricot-peach-600/75">
-                                    <div class="grid grid-cols-1">
+                                    class="p-2 h-20 rounded shadow cursor-pointer
+                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-apricot-peach-200 hover:bg-apricot-peach-300 dark:bg-apricot-peach-700/50 dark:hover:bg-apricot-peach-600/75" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
+                                <div class="grid grid-cols-1">
                                     <span class="col-span-1">
                                         {{ $presentation->displayName(20) }}
                                     </span>
