@@ -16,7 +16,6 @@ const queryConvert = async function (data){
 
 const startQrScanner = async function () {
     try {
-        console.log('dfsf');
         const devices = await navigator.mediaDevices.enumerateDevices();
         const videoDevices = devices.filter(device => device.kind === 'videoinput');
 
