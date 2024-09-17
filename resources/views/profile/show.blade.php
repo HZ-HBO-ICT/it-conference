@@ -13,7 +13,7 @@
                 <x-section-border/>
             @endif
 
-            @if(Auth::user()->ticket)
+            @if(Auth::user()->ticket && optional(\App\Models\Edition::current())->is_final_programme_released)
                 <livewire:qr-code.ticket />
 
                 <x-section-border />
