@@ -2,37 +2,13 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\TimeslotController;
-use Barryvdh\LaravelIdeHelper\Eloquent;
-use Database\Factories\TimeslotFactory;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
-/**
- * App\Models\Timeslot
- *
- * @property int $id
- * @property string $start
- * @property int $duration The duration of the presentation in minutes
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection<int, Presentation> $presentations
- * @property-read int|null $presentations_count
- * @method static TimeslotFactory factory($count = null, $state = [])
- * @method static Builder|Timeslot newModelQuery()
- * @method static Builder|Timeslot newQuery()
- * @method static Builder|Timeslot query()
- * @method static Builder|Timeslot whereCreatedAt($value)
- * @method static Builder|Timeslot whereDuration($value)
- * @method static Builder|Timeslot whereId($value)
- * @method static Builder|Timeslot whereStart($value)
- * @method static Builder|Timeslot whereUpdatedAt($value)
- * @mixin Eloquent
- */
 class Timeslot extends Model
 {
     use HasFactory;
@@ -40,7 +16,8 @@ class Timeslot extends Model
     protected $fillable = ['start', 'duration'];
 
     /**
-     * All the presentations that are in the timeslot
+     * Establishes a relationship between the timeslot and
+     * the presentations in it
      * @return HasMany
      */
     public function presentations(): HasMany
@@ -49,48 +26,51 @@ class Timeslot extends Model
     }
 
     /**
-     * The timeslot that is with the closest starting time to the one that called the method
+     * Generates the possible timeslots for the schedule
+     * Warning: To be called after present opening and closing
+     * @return void
+     * @throws \Exception
      */
-    public function closestStartingTimeslot()
+    public static function generateTimeslots()
     {
-        $startDatetime = date('Y-m-d H:i:s', strtotime('today ' . $this->start));
+        $startTime = DefaultPresentation::opening()->end; // The presentations can start after the opening ends
+        $endTime = DefaultPresentation::closing()->start; // The presentations must end before closing starts
+        $timezone = new DateTimeZone('Europe/Amsterdam');
 
-        return $this->where('id', '!=', $this->id)
-            ->orderByRaw('ABS(TIMESTAMPDIFF(SECOND, start, ?))', [$startDatetime])
-            ->first();
-    }
+        $currentTime = new DateTime($startTime, $timezone);
+        $endTime = new DateTime($endTime, $timezone);
+        $endTimeFullBody = clone $endTime;
+        $endTimeFullBody->modify('-30 minutes');
 
-    /**
-     * Returns the hour in which the last presentation excluding closing (default presentation)
-     */
-    public static function getTheLatestEndingUsed()
-    {
-        $usedTimeslotsId = Presentation::pluck('timeslot_id');
+        // Handle initial partial slot
+        if ($currentTime->format('i') != '00' && $currentTime->format('i') != '30') {
+            $minutesToNextSlot = 30 - ($currentTime->format('i') % 30);
+            Timeslot::create([
+                'start' => $currentTime->format('H:i'),
+                'duration' => $minutesToNextSlot
+            ]);
 
-        return self::whereIn('id', $usedTimeslotsId)
-            ->get()
-            ->max(function (Timeslot $timeslot) {
-                $start = Carbon::parse($timeslot->start);
-                return $start->addMinutes($timeslot->duration);
-            });
-    }
+            $currentTime->modify("+{$minutesToNextSlot} minutes");
+        }
 
-    /**
-     * Returns the usual free time (padding) between timeslots
-     * @return int
-     */
-    public static function paddingBetweenSlots(): int
-    {
-        $defaultPresentationTimeslotIds = [DefaultPresentation::opening()->timeslot->id,
-            DefaultPresentation::closing()->timeslot->id];
+        while ($currentTime < $endTimeFullBody) {
+            $timeHourFormatted = $currentTime->format('H:i');
+            Timeslot::create([
+                'start' => $timeHourFormatted,
+                'duration' => 30
+            ]);
+            $currentTime->modify('+30 minutes');
+        }
 
-        $timeslots = Timeslot::whereNotIn('id', $defaultPresentationTimeslotIds)
-            ->orderBy('duration', 'desc')
-            ->orderBy('start', 'asc')
-            ->take(2)
-            ->get();
-
-        return Carbon::parse($timeslots[1]->start)
-            ->diffInMinutes(Carbon::parse($timeslots[0]->start)->addMinutes($timeslots[0]->duration));
+        // Handle final partial slot
+        if ($currentTime != $endTime) {
+            $remainingSeconds = $endTime->getTimestamp() - $currentTime->getTimestamp();
+            if ($remainingSeconds > 0) {
+                Timeslot::create([
+                    'start' => $currentTime->format('H:i'),
+                    'duration' => $remainingSeconds / 60
+                ]);
+            }
+        }
     }
 }

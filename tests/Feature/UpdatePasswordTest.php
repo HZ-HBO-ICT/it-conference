@@ -20,12 +20,12 @@ class UpdatePasswordTest extends TestCase
         Livewire::test(UpdatePasswordForm::class)
             ->set('state', [
                 'current_password' => 'password',
-                'password' => 'new-VeryStrongPassword123098',
-                'password_confirmation' => 'new-VeryStrongPassword123098',
+                'password' => 'Pa$$worDD@123!!',
+                'password_confirmation' => 'Pa$$worDD@123!!',
             ])
             ->call('updatePassword');
 
-        $this->assertTrue(Hash::check('new-VeryStrongPassword123098', $user->fresh()->password));
+        $this->assertTrue(Hash::check('Pa$$worDD@123!!', $user->fresh()->password));
     }
 
     public function test_current_password_must_be_correct(): void

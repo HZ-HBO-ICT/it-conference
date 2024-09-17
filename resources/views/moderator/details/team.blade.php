@@ -30,7 +30,7 @@
             </li>
         </ol>
     </nav>
-    <x-content-mod-company-request-details
+    <x-content-moderator.content-mod-company-request-details
         :companyName="$team->name"
         :createdAt="\Carbon\Carbon::parse($team->created_at)->format('d/m/y H:i')"
         :description="$team->description"

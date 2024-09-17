@@ -2,7 +2,11 @@
 
 namespace App\Http\Livewire\Presentations;
 
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -30,6 +34,10 @@ class EditPresentationModal extends Component
         'difficulty_id' => 'required|numeric',
     ];
 
+    /**
+     * Triggered when the initializing the component
+     * @return void
+     */
     public function mount()
     {
         $this->name = $this->presentation->name;
@@ -39,6 +47,11 @@ class EditPresentationModal extends Component
         $this->difficulty_id = $this->presentation->difficulty_id;
     }
 
+    /**
+     * Saves the changes made on the presentation
+     * @return RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function save()
     {
         $this->authorize('update', $this->presentation);
@@ -62,7 +75,10 @@ class EditPresentationModal extends Component
         }
     }
 
-
+    /**
+     * Render the component
+     * @return Factory|Application|\Illuminate\Contracts\View\View|ApplicationContract
+     */
     public function render()
     {
         return view('presentations.edit-presentation-modal');

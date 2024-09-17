@@ -7,6 +7,9 @@ use App\Models\DefaultPresentation;
 use App\Models\Presentation;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -67,7 +70,7 @@ class EditDefaultPresentationForm extends Component
             $this->confirmationTimeslotRegeneration = true;
         } else {
             $this->saveChanges();
-            return redirect()->to(route('moderator.schedule.overview'));
+            return redirect()->to(route('moderator.schedule.index'));
         }
     }
 
@@ -85,7 +88,7 @@ class EditDefaultPresentationForm extends Component
             $this->confirmationTimeslotRegeneration = true;
         } else {
             $this->saveChanges();
-            return redirect()->to(route('moderator.schedule.overview'));
+            return redirect()->to(route('moderator.schedule.index'));
         }
     }
 
@@ -110,15 +113,14 @@ class EditDefaultPresentationForm extends Component
                 ->where('id', '!=', DefaultPresentation::closing()->timeslot_id);
         })->delete();
 
-        $startTimeOfNewTimeslots = Carbon::parse(
-            DefaultPresentation::opening()->timeslot->start)
+        $startTimeOfNewTimeslots = Carbon::parse(DefaultPresentation::opening()->timeslot->start)
             ->addMinutes(DefaultPresentation::opening()->timeslot->duration)
             ->format("H:i");
         $endingTimeOfNewTimeslots = DefaultPresentation::closing()->timeslot->start;
 
         TimeslotController::generate($startTimeOfNewTimeslots, $endingTimeOfNewTimeslots, $timeslotPadding);
 
-        return redirect()->to(route('moderator.schedule.overview'));
+        return redirect()->to(route('moderator.schedule.index'));
     }
 
     /**
@@ -138,6 +140,10 @@ class EditDefaultPresentationForm extends Component
         $this->presentation->save();
     }
 
+    /**
+     * Render the component
+     * @return Factory|Application|\Illuminate\Contracts\View\View|ApplicationContract
+     */
     public function render()
     {
         return view('moderator.schedule.default-presentations.edit-default-presentation-form');

@@ -2,95 +2,31 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
-use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\PersonalAccessToken;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Nette\Schema\ValidationException;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
-/**
- * App\Models\User
- *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property Carbon|null $email_verified_at
- * @property string $password
- * @property string|null $two_factor_secret
- * @property string|null $two_factor_recovery_codes
- * @property string|null $two_factor_confirmed_at
- * @property string|null $remember_token
- * @property int|null $current_team_id
- * @property string|null $profile_photo_path
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property string|null $institution
- * @property int $receive_emails
- * @property-read Team|null $currentTeam
- * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read Collection<int, Team> $ownedTeams
- * @property-read int|null $owned_teams_count
- * @property-read Collection<int, Permission> $permissions
- * @property-read int|null $permissions_count
- * @property-read Collection<int, Presentation> $presentations
- * @property-read int|null $presentations_count
- * @property-read Collection<int, Role> $roles
- * @property-read int|null $roles_count
- * @property-read Speaker|null $speaker
- * @property-read Collection<int, Team> $teams
- * @property-read int|null $teams_count
- * @property-read Collection<int, PersonalAccessToken> $tokens
- * @property-read int|null $tokens_count
- * @method static UserFactory factory($count = null, $state = [])
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User permission($permissions)
- * @method static Builder|User query()
- * @method static Builder|User role($roles, $guard = null)
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereCurrentTeamId($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereEmailVerifiedAt($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereInstitution($value)
- * @method static Builder|User whereName($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User whereProfilePhotoPath($value)
- * @method static Builder|User whereReceiveEmails($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereTwoFactorConfirmedAt($value)
- * @method static Builder|User whereTwoFactorRecoveryCodes($value)
- * @method static Builder|User whereTwoFactorSecret($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @mixin Eloquent
- */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
-    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use CausesActivity;
+
 
     /**
      * The attributes that are mass assignable.
@@ -98,7 +34,11 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password', 'institution', 'email_verified_at'
+        'name',
+        'email',
+        'password',
+        'company_id',
+        'institution'
     ];
 
     /**
@@ -114,15 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
      * The accessors to append to the model's array form.
      *
      * @var array<int, string>
@@ -132,37 +63,183 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * All participants that signed up for the presentation
-     * @return BelongsToMany
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
      */
-    public function presentations(): BelongsToMany
+    protected function casts(): array
     {
-        return $this->belongsToMany(Presentation::class, 'participants', 'user_id', 'presentation_id');
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 
     /**
-     * Since a speaker can have only one presentation, in order to not allow the
-     * user to have more than one presentation, the relationship
-     * will be one to one between the Speaker and User
-     * @return HasOne
+     * Establishes a relationship between the user and the company they're part of
+     * (if they have a company)
+     * @return BelongsTo
      */
-    public function speaker(): HasOne
+    public function company(): BelongsTo
     {
-        return $this->hasOne(Speaker::class);
+        return $this->belongsTo(Company::class);
     }
 
     /**
-     * Set the role colour for the user
-     * @return string
+     * Hides a many-to-many relationship with presentations
+     * and implements relationship with linking table UserPresentation
+     * Please don't use this, instead refer to the methods below
+     *
+     * @return HasMany
      */
-    public function roleColour() : Attribute
+    public function userPresentations(): HasMany
+    {
+        return $this->hasMany(UserPresentation::class);
+    }
+
+    /**
+     * Assign the user to a presentation, based on the role that
+     * was passed - participant or speaker
+     * Returns true if the user successfully was added to the presentation with their role;
+     * Returns false if the user wasn't attached to the presentation
+     *
+     * @param $presentation
+     * @param string $role
+     * @return bool
+     */
+    public function joinPresentation($presentation, string $role = 'participant'): bool
+    {
+        if ($this->presenter_of) {
+            // The user is already a speaker of another presentation
+            if ($role == 'speaker') {
+                return false;
+            }
+
+            // The user is a speaker of this presentation, and cannot be a participant
+            if ($this->presenter_of->id == $presentation->id && $role == 'participant') {
+                return false;
+            }
+        }
+
+        // The user is already enrolled as a participant in this presentation
+        if ($this->participating_in->contains($presentation)) {
+            return false;
+        }
+
+        UserPresentation::create([
+            'user_id' => $this->id,
+            'presentation_id' => $presentation->id,
+            'role' => $role
+        ]);
+
+        if ($this->hasRole('pending speaker')) {
+            $this->removeRole('pending speaker');
+        }
+
+        return true;
+    }
+
+    /**
+     * Disneroll participant from a presentation
+     *
+     * @param $presentation
+     * @return void
+     */
+    public function leavePresentation($presentation)
+    {
+        $userPresentation = $this->userPresentations
+            ->where('role', 'participant')
+            ->where('presentation_id', $presentation->id)
+            ->first();
+
+        if (!is_null($userPresentation)) {
+            $userPresentation->delete();
+        }
+    }
+
+    /**
+     * Returns the presentation of which the user is a speaker
+     *
+     * @return Attribute
+     */
+    public function presenterOf(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Presentation::whereHas('userPresentations', function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('role', 'speaker');
+            })->first(),
+        );
+    }
+
+    /**
+     * Returns the presentations in which the user enrolled to
+     * be a participant
+     *
+     * @return Attribute
+     */
+    public function participatingIn(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Presentation::whereHas('userPresentations', function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('role', 'participant');
+            })->get(),
+        );
+    }
+
+    /**
+     * Determines whether the user is a member of the specified company.
+     *
+     * @param Company $company
+     * @return bool
+     */
+    public function isMemberOf(Company $company): bool
+    {
+        return $company && $this->company && $this->company->id == $company->id;
+    }
+
+    /**
+     * Determines whether the user is a presenter of the specified presentation.
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function isPresenterOf(Presentation $presentation)
+    {
+        return $this->presenter_of
+            && $this->presenter_of->id == $presentation->id;
+    }
+
+    /**
+     * Definition of the `is_crew` read-only attribute that is `true`
+     * if the user has one or more roles that resembles a Crew member,
+     * like organizers and supervisors.
+     *
+     * @return Attribute
+     */
+    public function isCrew(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->hasRole(['event organizer', 'assistant organizer',
+                'company market supervisor', 'speakers supervisor', 'pr lead',
+                'entertainment organizer'])
+        );
+    }
+
+    /**
+     * Determines the color scheme of the hub area based on the user's role
+     *
+     * @return Attribute
+     */
+    public function roleColour(): Attribute
     {
         return Attribute::make(
             get: function () {
-                if ($this->currentTeam) {
+                if ($this->company) {
                     return 'partner';
-                } elseif ($this->hasRole('content moderator')) {
-                    return 'crew';
+                } elseif ($this->is_crew) {
+                    return 'apricot-peach';
                 } else {
                     return 'participant';
                 }
@@ -175,9 +252,77 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function scopeForCompanyRep(Builder $query): void
     {
-        // Only userss who:
+        // Only user who:
         // Do not have an @hz.nl
-        $query->whereNot('email', 'like', '%@hz.nl')
-        ->orderBy('name');
+        $query->role(['participant'])
+            ->where('email', 'not like', '%@hz.nl') // Exclude emails ending with '@hz.nl'
+            ->orderBy('name');
+    }
+
+    /**
+     * Determines whether the user is simply a company member.
+     * This means they are not speaker, representative or booth owner.
+     *
+     * @return Attribute
+     */
+    public function isDefaultCompanyMember(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->hasExactRoles(['participant', 'company member'])
+                && $this->company
+                && is_null($this->presenter_of)
+        );
+    }
+
+    /**
+     * Returns all of the roles of the user
+     *
+     * @return Attribute
+     */
+    public function allRoles(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $roles = $this->getRoleNames();
+
+                if ($this->presenter_of) {
+                    $roles->push('speaker');
+                }
+
+                return $roles;
+            }
+        );
+    }
+
+    /**
+     * Creates an array with the main roles of the user
+     * if they have roles other than the participant one
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function mainRoles()
+    {
+        $roles = $this->all_roles;
+
+        if ($roles->count() > 1) {
+            $roles = $roles->reject(function ($role) {
+                return $role === 'participant';
+            });
+        }
+
+        return $roles->map(function ($role) {
+            return ucfirst($role);
+        });
+    }
+
+    /**
+     * Scope for all users that have their email notifications activated
+     *
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeSendEmailPreference(Builder $query) : void
+    {
+        $query->where('receive_emails', '=', 1);
     }
 }

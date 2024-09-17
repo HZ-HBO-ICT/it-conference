@@ -30,7 +30,7 @@
             </li>
         </ol>
     </nav>
-    <x-content-mod-sponsor-request-details 
+    <x-content-moderator.content-mod-sponsor-request-details
         :companyName="$team->name"
         :sponsorTier="$team->sponsorTier->name"
         :companyRepName="$team->owner->name"

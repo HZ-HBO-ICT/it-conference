@@ -30,7 +30,7 @@
                 </li>
             </ol>
         </nav>
-        <x-content-mod-booth-request-details
+        <x-content-moderator.content-mod-booth-request-details
             :boothName="$booth->team->name"
             :companyName="$booth->team->name"
             :isSponsor="!$booth->team->sponsorTier ? 'None' : ucfirst($booth->team->sponsorTier->name)"

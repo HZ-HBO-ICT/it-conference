@@ -3,9 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\FinalProgrammeReleased;
-use App\Models\EventInstance;
+use App\Mail\FinalProgrammeReleasedMailable;
+use App\Models\Edition;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
 class HandleFinalProgrammeReleased
 {
@@ -22,8 +25,12 @@ class HandleFinalProgrammeReleased
      */
     public function handle(FinalProgrammeReleased $event): void
     {
-        $current = EventInstance::current();
-        $current->state = EventInstance::STATE_ENROLLMENT;
+        $current = Edition::current();
+        $current->state = Edition::STATE_ENROLLMENT;
         $current->save();
+
+        foreach (User::sendEmailPreference()->get() as $user) {
+            Mail::to($user->email)->send(new FinalProgrammeReleasedMailable($user));
+        }
     }
 }

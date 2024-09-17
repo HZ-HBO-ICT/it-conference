@@ -3,10 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Http;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Speaker>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Room>
  */
 class RoomFactory extends Factory
 {
@@ -18,8 +17,7 @@ class RoomFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'max_participants' => $this->faker->numberBetween(2, 30)
+            'max_participants' => $this->faker->numberBetween(0, 200)
         ];
     }
 }

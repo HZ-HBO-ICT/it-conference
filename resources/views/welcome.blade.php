@@ -1,179 +1,331 @@
+@php
+    $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+@endphp
+
+@push('scripts')
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+@endpush
+
 <x-app-layout>
-    <div style="overflow-x: hidden;"> {{--don't allow side scrolling--}}
+    <div class="flex flex-col overflow-hidden">
         <!-- The main banner -->
-        <div class="relative isolate bg-gray-900 py-80 sm:py-72 bg-cover bg-center"
-             style="background-image: url('/img/auditorium.jpg');">
-            <div class="absolute inset-0">
-                <!-- The gradient -->
+        <div class="relative">
+            <div class="relative flex flex-col items-center px-4 py-16">
+                <!--Titles-->
                 <div
-                    class="before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70"></div>
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16">
-                    <!-- Titles -->
-                    <div>
-                        <h1 class="text-white text-5xl leading-snug font-bold text-center md:whitespace-nowrap"
-                            style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
+                    class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-6">
+                    <div
+                        class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
+                        <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
-                        <h2 class="pt-1 text-xl text-white font-montserrat text-center italic uppercase">
-                            "it does not only build a bridge, it involves us all"
-                        </h2>
-                    </div>
-                    <div class="flex flex-row">
-                        <div class="md:basis-1/2 basis-full md:pr-6 hidden md:flex lg:flex">
-                            <div class="flex flex-col items-start pt-10">
-                                <p class="text-gray-200 uppercase pb-2">17 November 2023</p>
-                                <x-countdown/>
-                            </div>
-                        </div>
-                        <!-- The div for the logo of the sponsor -->
-                        @if($goldSponsor && $goldSponsor->is_sponsor_approved)
-                            <div class="basis-1/3 pt-16">
-                                <p class="uppercase pt-2 pl-24 text-gray-200">sponsored by</p>
-                            </div>
-                            <div class="basis-1/3 pt-16">
-                                <p class="uppercase text-xl pt-1 pl-4 text-gold">{{ $goldSponsor->name }}</p>
-                            </div>
+                        @if($goldSponsorCompany && $edition)
+                            <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
+                                Co-hosted by {{ $goldSponsorCompany->name }}
+                            </h2>
                         @endif
                     </div>
-                    @guest()
-                        <div class="my-4 md:mt-16 lg:mt-16 xl:mt-16 flex flex-col items-center md:pb-12 lg:pb-0">
-                            <x-custom-button-link href="{{ route('register') }}">Register now</x-custom-button-link>
-                        </div>
-                    @endguest
+                    <div class="w-full md:w-1/2 pt-1 text-xl font-montserrat">
+                        <h2 class="uppercase font-bold">
+                            Annual IT Conference
+                        </h2>
+                        <h2 class="uppercase font-medium mb-8">
+                            @if($edition)
+                                {{ $edition->start_at->format('F j, Y') }}
+                            @else
+                                The date will be provided soon!
+                            @endif
+                        </h2>
+                        <h2 class="italic">
+                            "IT does not only build a bridge, IT involves us all"
+                        </h2>
+                        <h2 class="italic font-semibold">
+                            HZ University of Applied Sciences, Middelburg
+                        </h2>
+                        @if($edition)
+                            <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
+                                <a href="{{ route('companies.index') }}">
+                                    View companies
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('speakers.index') }}">
+                                    View speakers
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        @else
+                            <h2 class="flex flex-wrap mt-8 uppercase font-medium text-2xl gap-12">Check back later for updates</h2>
+                        @endif
+                        <br>
+                        @guest()
+                            @if(optional($edition)->is_participant_registration_opened)
+                                <x-button class="mt-4 mr-5">
+                                    <a href="{{route('register.participant')}}">Register as a participant</a>
+                                </x-button>
+                            @endif
+                            @if(optional($edition)->is_company_registration_opened)
+                                <x-button class="mt-4">
+                                    <a href="{{route('register.company')}}">Register my company</a>
+                                </x-button>
+                            @endif
+                        @endguest
+                    </div>
+                </div>
+                <!-- Countdown Timer -->
+                <div class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
+                    @if ($edition)
+                        @if ($edition->is_in_progress)
+                            <div class="flex flex-col justify-center items-center">
+                                <p class="font-montserrat uppercase font-medium text-3xl">The conference has officially began!</p>
+                                @if(!url()->previous() || $pageRefreshed)
+                                    <lottie-player
+                                        id="animation"
+                                        class="absolute inset-0 min-h-screen h-full z-0 hidden lg:block"
+                                        src="https://lottie.host/64dd3e45-77c7-4678-8dcc-fa04aa22ca8b/p5aeXKksjz.json"
+                                        background="##FFFFFF"
+                                        speed="1"
+                                        autoplay
+                                        direction="1"
+                                        mode="normal"></lottie-player>
+                                @endif
+                            </div>
+                        @elseif(!$edition->is_over)
+                            <x-countdown :time="$edition->start_at"/>
+                        @endif
+                    @endif
                 </div>
             </div>
+        </div>
+
+        <!--Statistics-->
+        <div class="bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
+            <div class="grid md:grid-cols-4 mt-5 lg:mr-40 lg:ml-40">
+                <div class="text-center mb-5">
+                    <p class="text-5xl font-bold text-center text-crew-500">10+</p>
+                    <p class="uppercase font-bold text-sm">Speakers</p>
+                </div>
+                <div class="text-center mb-5">
+                    <p class="text-5xl font-bold text-center text-partner-600">200+</p>
+                    <p class="uppercase font-bold text-sm">Students</p>
+                </div>
+                <div class="text-center mb-5">
+                    <p class="text-5xl font-bold text-center text-participant-500">20+</p>
+                    <p class="uppercase font-bold text-sm">Companies</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-bold text-center text-pink-500">5+</p>
+                    <p class="uppercase font-bold text-sm">Sponsors</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second banner + third banner inside it (to use the gradient) -->
+        <div class="relative">
             <!-- Blob -->
             <!-- the auth/guest is necessary because the register now button changes the layout -->
             @auth()
                 <img src="/img/rose-blob.png"
-                     class="absolute -top-52 -right-64 sm:-top-24 sm:-right-72 md:-top-64 md:-right-80 lg:-top-40 lg:-right-80 xl:-top-24 xl:-right-48 h-[34rem] opacity-75"
-                     style="transform: rotate(110deg) scaleX(-1);">
+                     class="absolute -top-72 -left-96 md:-top-48 md:-left-80 lg:-top-72 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
+                     style="transform: rotate(-90deg)">
             @endauth
             @guest()
                 <img src="/img/rose-blob.png"
-                     class="absolute -top-64 -right-64 sm:-top-24 sm:-right-80 md:-top-80 md:-right-80 lg:-top-24 lg:-right-80 xl:-top-24 xl:-right-48 h-[34rem] opacity-75"
-                     style="transform: rotate(110deg) scaleX(-1);">
+                     class="absolute -top-88 -left-96 md:-top-56 md:-left-80 lg:-top-88 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
+                     style="transform: rotate(-90deg)">
             @endguest
-        </div>
-        <!-- Second banner -->
-        <div class="relative isolate h-[29rem] border-red-700">
-            <!-- Blob -->
-            <!-- the auth/guest is necessary because the register now button changes the layout -->
-            @auth()
-                <img src="/img/blue-blob.png"
-                     class="absolute -top-80 -left-96 md:-top-52 md:-left-80 lg:-top-80 lg:-left-72 xl:-top-96 xl:-left-48 h-[34rem] transform translate-x-1/2 translate-y-1/2 z-10  opacity-75"
-                     style="transform: rotate(61deg)">
-            @endauth
-            @guest()
-                <img src="/img/blue-blob.png"
-                     class="absolute -top-96 -left-96 md:-top-64 md:-left-80 lg:-top-96 lg:-left-72 xl:-top-96 xl:-left-48 h-[34rem] transform translate-x-1/2 translate-y-1/2 z-10  opacity-75"
-                     style="transform: rotate(61deg)">
-            @endguest
-            <x-slideshow/>
-        </div>
-        <!-- Third banner + gradient (since empty bg) -->
-        <div class="relative bg-cover">
-            <div
-                class="bg-center before:absolute before:inset-0 before:bg-gradient-to-br before:from-gradient-purple before:via-red-500 before:to-orange-500 before:opacity-70 before:w-full before:h-full"></div>
 
             <!-- Blob -->
-            <img src="/img/red-blob.png"
-                 class="absolute -top-48 right-0 h-[25rem] transform translate-x-1/2 translate-y-1/2 z-0 opacity-75"
+            <img src="/img/blue-blob.png"
+                 class="absolute -top-48 -right-36 md:-top-32 md:-right-20 lg:-top-32 lg:-right-32 xl:-top-48 xl:-right-40 h-80 transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(61deg)">
 
-            <div class="isolate py-16 mx-4 md:mx-32 lg:mx-32 xl:mx-52">
-                <h2 class="z-30 text-white text-4xl sm:text-5xl font-bold text-center hover:animate-pulse"
-                    style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-                    Sponsors
-                </h2>
+            <!-- Gradient background -->
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
-                @if(!$allSponsors->isEmpty())
-                    <div class="isolate flex flex-wrap justify-center w-full gap-3 xl:gap-8 lg:gap-8 md:gap-8 mt-16">
-                        @foreach(\App\Models\SponsorTier::all() as $sponsorTier)
-                            <div class="w-full">
-                                <div class="hidden md:flex xl:flex lg:flex justify-center gap-3">
-                                    @foreach($sponsorTier->teams->where('is_sponsor_approved', 1) as $sponsor)
-                                        <div class="border shadow-lg border-2 w-full @if($allSponsors->count() > 3) px-3 md:w-1/3 lg:w-1/3 xl:w-1/4 @endif @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold block
-                                        @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_sponsor_approved) border-silver block
-                                        @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_sponsor_approved) border-bronze block @endif rounded-lg">
-                                            <a href="{{ $sponsor->website }}" target="_blank">
-                                                <div class="flex flex-col justify-start items-center h-24">
-                                                    @if($sponsor->logo_path)
-                                                        <img alt="{{ $sponsor->name }}"
-                                                             src="{{ url('storage/'. $sponsor->logo_path) }}"
-                                                             class="pt-1 object-scale-down w-full h-14 rounded-lg">
+            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">
+                What to expect during the conference
+            </h2>
+
+            {{-- Cards for speakers, presentations, companies --}}
+            <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
+                <!-- Card 1 -->
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
+                    <div
+                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                        <!-- Top dark gradient -->
+                        <div
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
+                        <div class="bg-cover bg-center h-full"
+                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">SPEAKERS</h2>
+                                <p class="mt-4">During the conference you will have the chance to meet and speak to
+                                    our
+                                    speakers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
+                    <div
+                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                        <!-- Top dark gradient -->
+                        <div
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
+                        <div class="bg-cover bg-center h-full"
+                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
+                                <p class="mt-4">During the conference you can visit a lot of different workshops and
+                                    lectures.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
+                    <div
+                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
+                        <!-- Top dark gradient -->
+                        <div
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                        <!-- Bottom dark gradient -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <!-- Color gradient -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
+                        <div class="bg-cover bg-center h-full"
+                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
+                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
+                            <div class="relative">
+                                <h2 class="text-2xl font-bold">COMPANIES</h2>
+                                <p class="mt-4">During the conference you will have the chance to meet different
+                                    companies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
+
+                <!-- Third banner-->
+                <div>
+                    <h2 class="flex justify-center mt-8 mb-5 uppercase text-3xl font-montserrat font-bold pl-4">A big
+                        thank
+                        you to
+                        our
+                        sponsors</h2>
+                    <div class="flex flex-col mb-4 text-left pl-4">
+                        <div class="text-xl font-montserrat">
+                            <div class="py-10">
+                                <h2 class="text-3xl mb-5 font-semibold">Gold sponsor</h2>
+                                <div class="flex flex-wrap">
+                                    @if(\App\Models\Sponsorship::find(1))
+                                        @foreach(\App\Models\Sponsorship::find(1)->companies as $company)
+                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
+                                                <a href="{{'https://' . $company->website}}"
+                                                   class="bg-gray-50 border h-56 p-5 w-full rounded">
+                                                    @if($company->logo_path)
+                                                        <img
+                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                            src="{{ url('storage/'. $company->logo_path) }}"
+                                                            alt="Logo of {{$company->name}}">
                                                     @else
-                                                        @php
-                                                            $color = '';
-                                                             if ($sponsor->sponsorTier->name === 'golden' && $sponsor->is_sponsor_approved) $color='#FFD700';
-                                                             elseif ($sponsor->sponsorTier->name === 'silver' && $sponsor->is_sponsor_approved) $color='#C0C0C0';
-                                                             elseif ($sponsor->sponsorTier->name === 'bronze' && $sponsor->is_sponsor_approved) $color='#CD7F32';
-                                                             else $color='#60a5fa'
-                                                        @endphp
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                             viewBox="0 0 24 24"
-                                                             stroke-width="1.5"
-                                                             stroke="{{$color}}" aria-hidden="true" class="w-14 h-14">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                                        </svg>
+                                                        <h2 class="text-4xl">{{$company->name}}</h2>
                                                     @endif
-                                                    <p class="tracking-tight leading-7 text-base pt-2 text-center dark:text-white">
-                                                        @if (Str::length($sponsor->name) >= 13)
-                                                            {{ substr($sponsor->name, 0, 10) . '...' }}
-                                                        @else
-                                                            {{ $sponsor->name }}
-                                                        @endif
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="xl:hidden lg:hidden md:hidden grid grid-cols-1 gap-3 content-end">
-                                    @foreach($sponsorTier->teams->where('is_sponsor_approved', 1) as $sponsor)
-                                        <div class="border justify-self-center shadow-lg border-2 w-2/3 px-3 @if ($sponsor->sponsorTier->name == 'golden' && $sponsor->is_approved) border-gold
-                                        @elseif ($sponsor->sponsorTier->name == 'silver' && $sponsor->is_sponsor_approved) border-silver
-                                        @elseif ($sponsor->sponsorTier->name == 'bronze' && $sponsor->is_sponsor_approved) border-bronze @endif rounded-lg">
-                                            <a href="{{ $sponsor->website }}" target="_blank">
-                                                <div class="flex flex-col justify-start items-center h-24">
-                                                    @if($sponsor->logo_path)
-                                                        <img alt="{{ $sponsor->name }}"
-                                                             src="{{ url('storage/'. $sponsor->logo_path) }}"
-                                                             class="pt-1 object-scale-down w-full h-14 rounded-lg">
-                                                    @else
-                                                        @php
-                                                            $color = '';
-                                                             if ($sponsor->sponsorTier->name === 'golden' && $sponsor->is_sponsor_approved) $color='#FFD700';
-                                                             elseif ($sponsor->sponsorTier->name === 'silver' && $sponsor->is_sponsor_approved) $color='#C0C0C0';
-                                                             elseif ($sponsor->sponsorTier->name === 'bronze' && $sponsor->is_sponsor_approved) $color='#CD7F32';
-                                                             else $color='#60a5fa'
-                                                        @endphp
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                             viewBox="0 0 24 24"
-                                                             stroke-width="1.5"
-                                                             stroke="{{$color}}" aria-hidden="true" class="w-14 h-14">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                                        </svg>
-                                                    @endif
-                                                    <p class="tracking-tight leading-7 text-base pt-2 text-center dark:text-white">
-                                                        @if (Str::length($sponsor->name) >= 13)
-                                                            {{ substr($sponsor->name, 0, 10) . '...' }}
-                                                        @else
-                                                            {{ $sponsor->name }}
-                                                        @endif
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    @endforeach
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
-                        @endforeach
+                            <div class="pb-10">
+                                <h2 class="text-2xl font-semibold mb-5">Silver sponsor</h2>
+                                <div class="flex flex-wrap">
+                                    @if(\App\Models\Sponsorship::find(2))
+                                        @foreach(\App\Models\Sponsorship::find(2)->companies as $company)
+                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
+                                                <a href="{{'https://' . $company->website}}"
+                                                   class="bg-gray-50 border h-44 p-5 w-full rounded">
+                                                    @if($company->logo_path)
+                                                        <img
+                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                            src="{{ url('storage/'. $company->logo_path) }}"
+                                                            alt="Logo of {{$company->name}}">
+                                                    @else
+                                                        <h2 class="text-4xl">{{$company->name}}</h2>
+                                                    @endif
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="pb-10">
+                                <h2 class="text-xl mb-5 font-semibold">Bronze sponsor</h2>
+                                <div class="flex flex-wrap">
+                                    @if(\App\Models\Sponsorship::find(3))
+                                        @foreach(\App\Models\Sponsorship::find(3)->companies as $company)
+                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
+                                                <a href="{{'https://' . $company->website}}"
+                                                   class="bg-gray-50 border h-36 px-5 py-3 w-full rounded">
+                                                    @if($company->logo_path)
+                                                        <img
+                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                            src="{{ url('storage/'. $company->logo_path) }}"
+                                                            alt="Logo of {{$company->name}}">
+                                                    @else
+                                                        <h2 class="text-4xl">{{$company->name}}</h2>
+                                                    @endif
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                @endif
+                </div>
             </div>
+            <hr>
         </div>
     </div>
 </x-app-layout>
+
+@if(optional($edition)->is_in_progress && (!session()->previousUrl() || $pageRefreshed))
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const animation = document.getElementById('animation');
+
+            animation.addEventListener('complete', () => {
+                console.log('sdsf');
+                animation.remove();
+            });
+        });
+    </script>
+@endif

@@ -4,7 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\GenericNewUpdatesMailable;
 use App\Mail\PresentationApprovedMailable;
-use App\Mail\TeamApprovedMailable;
+use App\Mail\CompanyApprovedMailable;
 use App\Models\Presentation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,10 +18,9 @@ class NotifyPresentationApproved extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(
-        public Presentation $presentation
-    )
+    public function __construct(public Presentation $presentation)
     {
+        //
     }
 
     /**
@@ -31,8 +30,9 @@ class NotifyPresentationApproved extends Notification
      */
     public function via(object $notifiable): array
     {
-        if ($notifiable->receive_emails)
+        if ($notifiable->receive_emails) {
             return ['mail', 'database'];
+        }
 
         return ['database'];
     }
@@ -64,7 +64,8 @@ class NotifyPresentationApproved extends Notification
             ];
         } else {
             return [
-                'text' => "A new presentation is added for the IT Conference! - {$this->presentation->name}! Check it out",
+                'text' => "A new presentation is added for the IT Conference!
+                 - {$this->presentation->name}! Check it out",
             ];
         }
     }

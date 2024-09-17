@@ -1,6 +1,5 @@
 @php
     use Carbon\Carbon;
-    use App\Models\EventInstance;
     use App\Models\User;
 @endphp
 @php
@@ -34,7 +33,11 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation type</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->type}}</dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{ucfirst($presentation->type)}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Difficulty level</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{ucfirst($presentation->difficulty->level)}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Suggested max
@@ -44,13 +47,15 @@
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation status</dt>
-                        <dd class="mt-1 text-sm leading-6 {{$presentation->mainSpeaker()->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
-                            {{$presentation->mainSpeaker()->is_approved ? 'Approved' : 'Awaiting approval'}}
+                        <dd class="mt-1 text-sm leading-6 {{$presentation->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
+                            {{$presentation->is_approved ? 'Approved' : 'Awaiting approval'}}
                         </dd>
                     </div>
                     @can('update', $presentation)
                         <div class="mt-5">
-                            @livewire('presentations.edit-presentation-modal', ['presentation' => $presentation])
+                            <x-button onclick="Livewire.dispatch('openModal', { component: 'presentation.edit-presentation-modal', arguments: {presentation: {{$presentation}}} })">
+                                {{ __('Edit') }}
+                            </x-button>
                         </div>
                     @endcan
                 </x-slot>
@@ -59,7 +64,66 @@
 
             <x-section-border/>
 
-            @livewire('upload-presentation', ['presentation' => $presentation])
+            @if(Auth::user()->isPresenterOf($presentation))
+                @livewire('presentation.upload-presentation', ['presentation' => $presentation])
+            @elseif(Auth::user()->can('joinAsCospeaker', $presentation))
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Join the speakers') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('You can join as co-speaker of the presentation here.') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="dark:text-gray-200">
+                            Since you still don't have a specific role within the company, if you'd like to be a
+                            co-speaker of this presentation, join here.
+                        </div>
+                    </x-slot>
+
+                    <x-slot name="actions">
+                        <x-button class="bg-partner-700 hover:bg-partner-800"
+                            onclick="Livewire.dispatch('openModal', { component: 'presentation.join-as-speaker-modal', arguments: {presentation: {{$presentation}}} })">
+                            {{ __('Join presentation as co-speaker') }}
+                        </x-button>
+                    </x-slot>
+                </x-action-section>
+            @endif
+
+            <x-section-border/>
+
+            <x-action-section>
+                <x-slot name="title">
+                    {{ __('Presentation speakers') }}
+                </x-slot>
+
+                <x-slot name="description">
+                    {{ __('Here you can see the people who requested the presentation or joined as co-speakers.') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <div class="space-y-6">
+                        @foreach ($presentation->speakers->sortBy('name') as $user)
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center pr-4">
+                                        <img class="w-8 h-8 rounded-full object-cover"
+                                             src="{{ $user->profile_photo_url }}"
+                                             alt="{{ $user->name }}">
+                                        <div class="ml-4 leading-tight">
+                                            <div class="text-gray-900 dark:text-white">{{ $user->name }}</div>
+                                            <div
+                                                class="text-sm text-gray-600 dark:text-gray-400">{{ $user->email }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </x-slot>
+            </x-action-section>
 
             <x-section-border/>
 
@@ -88,12 +152,38 @@
 
             <x-section-border/>
 
-        @can('delete', $presentation)
-                <div class="mt-10 sm:mt-0">
-                    @livewire('presentations.delete-presentation-form', ['presentation' => $presentation])
-                </div>
+            @can('delete', $presentation)
+                <x-action-section>
+                    <x-slot name="title">
+                        {{ __('Delete This Presentation') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Permanently remove the presentation from the system') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="dark:text-gray-200">
+                            @if(Auth::user()->hasRole('content moderator'))
+                                {{ __('If you delete this presentation, the speaker/s will no longer have this presentation, it will be gone
+                                from the schedule and all participants that have registered for it will be dis-enrolled from it') }}
+                            @else
+                                {{ __('Your presentation is still not approved and you can still remove your presentation') }}
+                            @endif
+                        </div>
+                    </x-slot>
+
+                    <x-slot name="actions">
+                        <x-danger-button
+                            onclick="Livewire.dispatch('openModal', { component: 'presentation.delete-presentation-modal', arguments: {presentation: {{$presentation}}} })">
+                            {{ __('Delete Presentation') }}
+                        </x-danger-button>
+                    </x-slot>
+
+                </x-action-section>
             @else
                 <x-action-section>
+
                     <x-slot name="title">
                         {{ __('Delete Presentation') }}
                     </x-slot>
@@ -113,14 +203,3 @@
         </div>
     </div>
 </x-hub-layout>
-
-
-{{--<x-hub-layout>--}}
-{{--    <x-presentation-details--}}
-{{--        :presentation="$presentation"--}}
-{{--        :presentationName="$presentation->name"--}}
-{{--        :presentationDescription="$presentation->description"--}}
-{{--        :filename="basename($presentation->file_path)"--}}
-{{--        :presentationType="$presentation->type"--}}
-{{--        :presentationMaxParticipants="$presentation->max_participants"--}}
-{{--    />--}}

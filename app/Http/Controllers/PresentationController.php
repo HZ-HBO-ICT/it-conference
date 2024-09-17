@@ -2,70 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EventInstance;
 use App\Models\Presentation;
-use App\Models\Speaker;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class PresentationController extends Controller
 {
-
-    public function create()
+    /**
+     * Returns the page to request a presentation
+     *
+     * @return View
+     */
+    public function create(): View
     {
-        $this->authorize('request', Presentation::class);
+        if (Auth::user()->cannot('request', Presentation::class)) {
+            abort(403);
+        }
 
         return view('presentations.create');
     }
 
+    /**
+     * Processes the request for presentation
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function store(Request $request)
     {
-        $this->authorize('request', Presentation::class);
+        $user = Auth::user();
+
+        if ($user->cannot('request', Presentation::class)) {
+            abort(403);
+        }
 
         $presentation =
             Presentation::create($request->validate(Presentation::rules()));
 
-        if (Auth::user()->currentTeam) {
-            if (Auth::user()->currentTeam->owner->id === Auth::user()->id) {
-                Auth::user()->currentTeam->users()->attach(
-                    Auth::user(), ['role' => 'speaker']
-                );
-            }
+        if ($user->company) {
+            $presentation->update(['company_id' => $user->company->id]);
         }
 
-        Auth::user()->setRelations([]);
+        $user->joinPresentation($presentation, 'speaker');
+        $user->refresh();
 
-        if (Auth::user()->currentTeam &&
-            !(Auth::user()->currentTeam->isHz || Auth::user()->currentTeam->isGoldenSponsor)) {
-            foreach (Auth::user()->currentTeam->allSpeakers as $speaker) {
-                Speaker::create([
-                    'user_id' => $speaker->id,
-                    'presentation_id' => $presentation->id,
-                    'is_main_speaker' => Auth::user()->id == $speaker->id ? 1 : 0,
-                    'is_approved' => 0,
-                ]);
-            }
-        } else {
-            Speaker::create([
-                'user_id' => Auth::user()->id,
-                'presentation_id' => $presentation->id,
-                'is_main_speaker' => 1,
-                'is_approved' => 0,
-            ]);
-        }
-
-        return redirect(route('presentations.show', $presentation))->banner("We successfully received your request to host a {$presentation->type}");
+        return redirect(route('presentations.show', $presentation))
+            ->banner("We successfully received your request to host a {$presentation->type}");
     }
 
-    public function show(Presentation $presentation)
+    /**
+     * Return the basic show page for the presentation
+     *
+     * @param Presentation $presentation
+     * @return View
+     */
+    public function show(Presentation $presentation): View
     {
-        if (Auth::user()->can('view', $presentation))
-            return view('presentations.show', compact('presentation'));
+        if (Auth::user()->cannot('view', $presentation)) {
+            abort(403);
+        }
 
-        abort(403);
+        return view('presentations.show', compact('presentation'));
     }
 
     /**
@@ -73,11 +71,13 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        $this->authorize('delete', $presentation);
+        if (Auth::user()->cannot('delete', $presentation)) {
+            abort(403);
+        }
 
-        $presentation->fullDelete();
+        $presentation->delete();
 
-        return redirect(route('announcements'))
+        return redirect(route('dashboard'))
             ->banner('You deleted your presentation request successfully');
     }
 }
