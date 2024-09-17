@@ -2,14 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Mail\TicketMailable;
 use App\Models\Ticket;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EmailVerifiedListener
 {
@@ -22,7 +19,7 @@ class EmailVerifiedListener
     }
 
     /**
-     * Handle the event.
+     * Create a ticket for the user once their email is verified.
      */
     public function handle(Verified $event): void
     {
@@ -36,16 +33,10 @@ class EmailVerifiedListener
         // Generate unique identifier for the ticket
         $ticketToken = Str::uuid();
 
-        // Create new tickets
+        // Create new ticket
         $ticket = new Ticket();
         $ticket->user_id = $user->id;
         $ticket->token = $ticketToken;
         $ticket->save();
-
-        // Generate qr code
-        $qrCode = $user->generateTicket();
-
-        // Send email to the user with qr code
-        Mail::to($user->email)->send(new TicketMailable($qrCode));
     }
 }

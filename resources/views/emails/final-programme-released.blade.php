@@ -22,5 +22,5 @@ Kind regards,
 
 We are in IT together conference team
 
-<img src="data:image/png;base64,{{ base64_encode($user->generateExistingTicket()) }}" alt="QR Code">
+<img src="data:image/png;base64,{{ base64_encode($user->generateTicket()) }}" alt="QR Code">
 @endcomponent
