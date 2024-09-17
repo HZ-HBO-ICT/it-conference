@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Timeslot>
  */
 class TimeslotFactory extends Factory
 {
@@ -18,7 +18,7 @@ class TimeslotFactory extends Factory
     {
         return [
             'start' => $this->faker->time('H:i'),
-            'duration' => $this->faker->numberBetween(60, 90)
+            'duration' => $this->faker->boolean ? 30 : 90
         ];
     }
 }

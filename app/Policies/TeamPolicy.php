@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Mail\CustomTeamInvitation;
+use App\Mail\CustomCompanyInvitation;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -32,7 +32,7 @@ class TeamPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('content moderator');
+        return $user->hasRole('crew');
     }
 
     /**
@@ -40,7 +40,7 @@ class TeamPolicy
      */
     public function update(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team) || $user->hasRole('content moderator');
+        return $user->ownsTeam($team) || $user->hasRole('crew');
     }
 
     /**
@@ -67,10 +67,8 @@ class TeamPolicy
         if (get_class($model) == 'App\Models\User') {
             // If they are trying to remove another user, the auth user must be company rep (owner)
             if ($user->ownsTeam($team)) {
-
                 // The user to be removed also needs to be part of the same company and the company rep
                 if ($team->hasUser($user) && $team->hasUser($model)) {
-
                     // If the user is approved speaker, the company rep cannot delete them
                     if ($model->speaker) {
                         return !$model->speaker->is_approved;

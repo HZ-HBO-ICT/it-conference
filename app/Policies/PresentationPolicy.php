@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -10,68 +11,15 @@ use Illuminate\Support\Carbon;
 
 class PresentationPolicy
 {
-    private function deadline(): Carbon
-    {
-        $deadline = Carbon::createFromDate(2023, 10, 27);
-        $deadline->setTime(12, 0, 0);
-        $deadline->setTimezone('Europe/Amsterdam');
-
-        return $deadline;
-    }
-
     /**
-     * Determine whether the user can request for a presentation.
+     * Determine whether the user can view the list of presentations
      *
      * @param User $user
      * @return bool
      */
-    public function request(User $user): bool
+    public function viewAny(User $user)
     {
-        $currentDate = Carbon::now();
-
-        // If the deadline for the 27th of October has passed
-        if ($currentDate->gt($this->deadline())) {
-            return false;
-        }
-
-        // If the user already is a speaker
-        if ($user->speaker) {
-            return false;
-        }
-
-        if ($user->currentTeam) {
-            // Allow HZ to have unlimited presentations
-            if ($user->currentTeam->isHz)
-                return true;
-
-            return $user->currentTeam->has_presentations_left;
-        }
-
-        return true;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param User $user
-     * @param Presentation $presentation
-     * @return bool
-     */
-    public function update(User $user, Presentation $presentation): bool
-    {
-        $currentDate = Carbon::now();
-
-        // If the user is the content moderator they can always update
-        if ($user->hasRole('content moderator')) {
-            return true;
-        }
-
-        // If the deadline for the 27th of October has not passed and user is main speaker
-        if ($currentDate->lt($this->deadline()) && $user->id == $presentation->mainSpeaker()->user->id) {
-            return true;
-        }
-
-        return false;
+        return $user->can('viewAny presentation');
     }
 
     /**
@@ -83,26 +31,201 @@ class PresentationPolicy
      */
     public function view(User $user, Presentation $presentation): bool
     {
-        return $user->speaker && $user->speaker->presentation_id == $presentation->id;
+        if ($user->cannot('view presentation')) {
+            return false;
+        }
+
+        if ($presentation->company) {
+            if ($user->isMemberOf($presentation->company)
+                && ($user->isDefaultCompanyMember || $user->hasRole(['pending speaker', 'company representative']))) {
+                return true;
+            }
+        }
+
+        return $user->is_crew
+            || $user->isPresenterOf($presentation)
+            || optional(Edition::current())->is_final_programme_released;
     }
 
+    /**
+     * Determine whether the user can create a presentation
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        return $user->can('create presentation') && $user->is_crew;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function update(User $user, Presentation $presentation): bool
+    {
+        if ($user->cannot('update presentation')) {
+            return false;
+        }
+
+        return $user->is_crew ||
+            (
+                $user->isPresenterOf($presentation)
+                && !optional(Edition::current())->is_final_programme_released
+            );
+    }
+
+    /**
+     * Determines whether the user can delete the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
     public function delete(User $user, Presentation $presentation): bool
     {
-        if ($user->hasRole('content moderator'))
-            return $presentation->canBeDeleted();
+        if ($user->cannot('delete presentation')) {
+            return false;
+        }
 
-        if ($user->id == $presentation->mainSpeaker()->user->id)
-            return !$presentation->isApproved;
-
-        return false;
+        // Otherwise, the presenter can delete only if the presentation is not approved yet
+        return $user->is_crew
+            || $user->isPresenterOf($presentation) && !$presentation->isApproved;
     }
 
+    /**
+     * Determine whether the user can request for a presentation.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function request(User $user): bool
+    {
+        if ($user->cannot('create presentation request')) {
+            return false;
+        }
+
+        // Deny if the deadline for requesting has passed or not arrived yet
+        if (!optional(Edition::current())->is_requesting_presentation_opened) {
+            return false;
+        }
+
+        // Deny if the user already is a speaker
+        if ($user->presenterOf) {
+            return false;
+        }
+
+        // When the user is associated to a company, allow only if the user's
+        // company has presentations left
+        if ($user->company) {
+            // When the user is company representative, speaker or pending speaker
+            if (!$user->hasRole(['company representative', 'pending speaker', 'speaker'])) {
+                return false;
+            }
+
+            return $user->company->has_presentations_left;
+        }
+        // Allow if else
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the presentation request status
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function viewRequest(User $user, Presentation $presentation): bool
+    {
+        if ($user->cannot('view presentation request')) {
+            return false;
+        }
+
+        return $user->is_crew || $user->is_presenter_of($presentation);
+    }
+
+    /**
+     * Determine whether the user can approve the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function approve(User $user, Presentation $presentation): bool
+    {
+        return $user->can('update presentation request');
+    }
+
+    /**
+     * Determines whether the user can enroll in presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
     public function enroll(User $user, Presentation $presentation): bool
     {
-        if(\App\Models\EventInstance::current()->is_final_programme_released)
-            return $presentation->canEnroll($user);
+        if ($user->cannot('enroll presentation')) {
+            return false;
+        }
+
+        // decline if the final programme is not released
+        if (!Edition::current()->is_final_programme_released) {
+            return false;
+        }
+
+        // decline if the user is already a participant of this presentation
+        if ($user->participating_in->contains($presentation)) {
+            return false;
+        }
+
+        // decline if the limit of participants was reached
+        if ($presentation->remaining_capacity <= 0) {
+            return false;
+        }
+
+        return $presentation->noConflicts($user);
+    }
+
+    /**
+     * Determines whether the user can disenroll from the presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function disenroll(User $user, Presentation $presentation): bool
+    {
+        // decline if the final programme is not released
+        if (!Edition::current()->is_final_programme_released) {
+            return false;
+        }
+
+        // allow if the user is participating in the presentation
+        if ($user->participating_in->contains($presentation)) {
+            return true;
+        }
 
         return false;
     }
 
+    /**
+     * Determines whether the user can become co-speaker to presentation
+     *
+     * @param User $user
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function joinAsCospeaker(User $user, Presentation $presentation): bool
+    {
+        return $user->company
+            && $presentation->company
+            && $presentation->company->id == $user->company->id
+            && !$user->presenter_of
+            && ($user->isDefaultCompanyMember || $user->hasAnyRole(['pending speaker', 'company representative']));
+    }
 }

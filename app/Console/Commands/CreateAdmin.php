@@ -67,7 +67,7 @@ class CreateAdmin extends Command
             'password' => Hash::make($password)
         ]);
         // Do stuff here to make the user an admin user
-        $user->assignRole('content moderator');
+        $user->assignRole('event organizer');
 
         // Finish off
         $user->save();

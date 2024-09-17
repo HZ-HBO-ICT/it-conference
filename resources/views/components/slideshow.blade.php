@@ -11,7 +11,7 @@
                 <h2 class="title text-4xl font-bold text-white">Speakers</h2>
             </div>
             <div>
-                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you will have the chance to meet and speak to our speakers. <br> You can learn more about them <a href="{{ route('speakers.index') }}" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
+                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you will have the chance to meet and speak to our speakers. <br> You can learn more about them {{--<a href="{{ route('speakers.index') }}" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! --}}</h2>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
                 <h2 class="title text-4xl font-bold text-white">Companies</h2>
             </div>
             <div>
-                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you will have the chance to meet different companies. <br> You can learn more about them <a href="{{ route('speakers.index') }}" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
+                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you will have the chance to meet different companies. <br> You can learn more about them {{--<a href="{{ route('speakers.index') }}" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>--}}! </h2>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                 <h2 class="title text-4xl font-bold text-white">Lectures & Workshops</h2>
             </div>
             <div>
-                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you can visit a lot of different workshops and lectures. <br> You can learn more about them <a href="{{ route('speakers.index') }}" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>! </h2>
+                <h2 class="title text-md md:text-lg lg:text-xl text-white text-center py-2">During the conference you can visit a lot of different workshops and lectures. <br> You can learn more about them {{--<a href="{{ route('speakers.index') }}" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all"> here</a>--}}! </h2>
             </div>
         </div>
     </div>

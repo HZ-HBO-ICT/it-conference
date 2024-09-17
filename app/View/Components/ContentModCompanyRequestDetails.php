@@ -21,8 +21,7 @@ class ContentModCompanyRequestDetails extends Component
         public $teamOwnerEmail,
         public $formActionApprove,
         public $formActionReject,
-    )
-    {
+    ) {
         //
     }
 
@@ -31,6 +30,6 @@ class ContentModCompanyRequestDetails extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.content-mod-company-request-details');
+        return view('components.content-moderator.content-mod-company-request-details');
     }
 }

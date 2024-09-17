@@ -2,13 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\Jetstream\AddTeamMember;
-use App\Actions\Jetstream\CreateTeam;
-use App\Actions\Jetstream\DeleteTeam;
 use App\Actions\Jetstream\DeleteUser;
-use App\Actions\Jetstream\InviteTeamMember;
-use App\Actions\Jetstream\RemoveTeamMember;
-use App\Actions\Jetstream\UpdateTeamName;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
@@ -29,28 +23,21 @@ class JetstreamServiceProvider extends ServiceProvider
     {
         $this->configurePermissions();
 
-        Jetstream::createTeamsUsing(CreateTeam::class);
-        Jetstream::updateTeamNamesUsing(UpdateTeamName::class);
-        Jetstream::addTeamMembersUsing(AddTeamMember::class);
-        Jetstream::inviteTeamMembersUsing(InviteTeamMember::class);
-        Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
-        Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
     }
 
     /**
-     * Configure the roles and permissions that are available within the application.
+     * Configure the permissions that are available within the application.
      */
     protected function configurePermissions(): void
     {
         Jetstream::defaultApiTokenPermissions(['read']);
 
-        Jetstream::role('speaker', 'Speaker', [
+        Jetstream::permissions([
+            'create',
             'read',
-        ])->description('The speaker will lead a lecture or a workshop and they would be able to sign up for other presentations as participants');
-
-        Jetstream::role('booth_owner', 'Booth owner', [
-            'read',
-        ])->description('The booth owner will be staying on the booth during the conference.');
+            'update',
+            'delete',
+        ]);
     }
 }

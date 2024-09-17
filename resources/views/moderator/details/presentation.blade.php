@@ -30,7 +30,7 @@
                 </li>
             </ol>
         </nav>
-        <x-content-mod-presentation-request-details
+        <x-content-moderator.content-mod-presentation-request-details
             :speakerName="$presentation->mainSpeaker()->user->name"
             :speakerEmail="$presentation->mainSpeaker()->user->email"
             :affiliation="$presentation->mainSpeaker()->user->currentTeam ? $presentation->mainSpeaker()->user->currentTeam->name : 'Independent speaker'"

@@ -1,10 +1,10 @@
 import './bootstrap';
-import './googleMaps';
+import './mapBox.js';
+import '../../vendor/masmerise/livewire-toaster/resources/js';
+import 'livewire-sortable';
 
-import Alpine from 'alpinejs';
-import focus from '@alpinejs/focus';
-window.Alpine = Alpine;
+import {marked} from 'marked';
+import DOMPurify from 'dompurify';
 
-Alpine.plugin(focus);
-
-Alpine.start();
+window.marked = marked;
+window.DOMPurify = DOMPurify;

@@ -2,7 +2,8 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\Team;
+use App\Models\Company;
+use App\Models\InternshipAttribute;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -15,34 +16,35 @@ class CreateNewUser implements CreatesNewUsers
     use PasswordValidationRules;
 
     /**
-     * Create a newly registered user.
-     * If the user is a company representative, create a team (company) as well
+     * Validate and create a newly registered user.
      *
      * @param array<string, string> $input
      */
     public function create(array $input): User
     {
         $defaultRules = [
+            'registration_type' => ['in:participant,company_representative'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'institution' => [array_key_exists('company_name', $input) ? '' : 'required'],
+            'institution' => [$input['registration_type'] == 'participant' ? 'required' : ''],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ];
 
-        $validationRules = array_key_exists('company_name', $input)
-            ? array_merge($defaultRules, [
+        $validationRules = $input['registration_type'] == 'participant'
+            ? $defaultRules
+            : array_merge($defaultRules, [
                 'company_name' => 'required',
                 'company_description' => 'required',
+                'company_motivation' => 'required',
                 'company_website' => 'required',
-                'company_postcode' => ['required',
-                    'regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'],
-                'company_housenumber' => ['required',
+                'company_phone_number' => ['phone:INTERNATIONAL,NL'],
+                'company_postcode' => ['required'],
+                'company_house_number' => ['required',
                     'regex:/(\w?[0-9]+[a-zA-Z0-9\- ]*)$/i'],
                 'company_street' => 'required',
                 'company_city' => 'required',
-            ])
-            : $defaultRules;
+            ]);
 
         Validator::make($input, $validationRules)->validate();
 
@@ -53,12 +55,27 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
                 $user->assignRole('participant');
-                if (array_key_exists('institution', $input)) {
-                    $user->institution = $input['institution'];
-                    $user->save();
+
+                if (env('APP_ENV') == 'local') {
+                    $user->markEmailAsVerified();
                 }
+
                 if (array_key_exists('company_name', $input)) {
-                    $this->createTeam($user, $input['company_name'], $input['company_postcode'], $input['company_housenumber'], $input['company_street'], $input['company_city'], $input['company_website'], $input['company_description']);
+                    $attributes = $this->prepareAttributes($input);
+
+                    $this->createCompany(
+                        $user,
+                        $input['company_name'],
+                        $input['company_postcode'],
+                        $input['company_house_number'],
+                        $input['company_street'],
+                        $input['company_city'],
+                        $input['company_website'],
+                        $input['company_phone_number'],
+                        $input['company_description'],
+                        $input['company_motivation'],
+                        $attributes
+                    );
                 }
             });
         });
@@ -67,24 +84,78 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a personal team for the user.
      */
-    protected function createTeam(User   $user, string $company_name, string $company_postcode,
-                                  string $company_housenumber, string $company_street,
-                                  string $company_city, string $company_website,
-                                  string $company_description): void
-    {
-        $team = Team::forceCreate([
-            'user_id' => $user->id,
+    protected function createCompany(
+        User   $user,
+        string $company_name,
+        string $company_postcode,
+        string $company_house_number,
+        string $company_street,
+        string $company_city,
+        string $company_website,
+        string $company_phone_number,
+        string $company_description,
+        string $company_motivation,
+        $attributes
+    ): void {
+        $company = Company::create([
             'name' => $company_name,
             'postcode' => $company_postcode,
-            'house_number' => $company_housenumber,
+            'house_number' => $company_house_number,
             'street' => $company_street,
             'city' => $company_city,
-            'website' => $company_website,
+            'website' => 'https://' . $company_website,
             'description' => $company_description,
+            'phone_number' => $company_phone_number,
+            'motivation' => $company_motivation,
             'personal_team' => false,
         ]);
 
-        $user->ownedTeams()->save($team);
-        $user->switchTeam($team);
+        $this->storeInternshipAttributes($attributes, $company);
+        $user->company()->associate($company);
+        $user->assignRole('company representative');
+        $user->save();
+    }
+
+    /**
+     * Stores the internship details as attributes
+     * @param $key
+     * @param $array
+     * @param $company
+     * @return void
+     */
+    public function storeInternshipAttributes($attributes, $company)
+    {
+        foreach (array_keys($attributes) as $key) {
+            foreach ($attributes[$key] as $attribute) {
+                InternshipAttribute::create([
+                    'key' => $key,
+                    'value' => $attribute,
+                    'company_id' => $company->id
+                ]);
+            };
+        }
+    }
+
+    /**
+     * Prepares the raw array from the request body to become more suitable for creation
+     * @param $array
+     * @return array
+     */
+    public function prepareAttributes($array)
+    {
+        $preparedArray = [];
+        $mapping = [
+            'company_internship_years' => 'year',
+            'company_internship_tracks' => 'track',
+            'company_internship_languages' => 'language',
+        ];
+
+        foreach ($mapping as $sourceKey => $destinationKey) {
+            if (array_key_exists($sourceKey, $array)) {
+                $preparedArray[$destinationKey] = array_values($array[$sourceKey]);
+            }
+        }
+
+        return $preparedArray;
     }
 }

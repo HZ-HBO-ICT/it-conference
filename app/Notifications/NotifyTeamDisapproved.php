@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Mail\TeamApprovedMailable;
-use App\Mail\TeamDisapprovedMailable;
+use App\Mail\CompanyApprovedMailable;
+use App\Mail\CompanyDisapprovedMailable;
 use App\Models\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,10 +18,9 @@ class NotifyTeamDisapproved extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(
-        public $team
-    )
+    public function __construct(public $team)
     {
+        //
     }
 
     /**
@@ -31,8 +30,9 @@ class NotifyTeamDisapproved extends Notification
      */
     public function via(object $notifiable): array
     {
-        if ($notifiable->receive_emails)
+        if ($notifiable->receive_emails) {
             return ['mail', 'database'];
+        }
 
         return ['database'];
     }
@@ -42,7 +42,7 @@ class NotifyTeamDisapproved extends Notification
      */
     public function toMail(object $notifiable)
     {
-        return (new TeamDisapprovedMailable($this->team))
+        return (new CompanyDisapprovedMailable($this->team))
             ->to($notifiable->email);
     }
 
@@ -54,7 +54,8 @@ class NotifyTeamDisapproved extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'text' => "Unfortunately, your company {$this->team->name} will not be joining us during the IT Conference.",
+            'text' => "Unfortunately, your company {$this->team->name}
+            will not be joining us during the IT Conference.",
         ];
     }
 }

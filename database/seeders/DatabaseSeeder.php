@@ -2,17 +2,19 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Booth;
+use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\Room;
-use App\Models\Speaker;
-use App\Models\Team;
+use App\Models\Timeslot;
 use App\Models\User;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserPresentation;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,48 +23,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // First seed all the master data
-        Artisan::call('admin:upsert-master-data');
+        activity()->withoutLogs(function () {
+            Artisan::call('admin:upsert-master-data');
+            Artisan::call('admin:sync-permissions');
 
-        $user = User::create([
-            'name' => 'Content moderator',
-            'email' => 'mod@hz.nl',
-            'password' => Hash::make('123'),
-            'email_verified_at' => now(),
-        ]);
-        $user->assignRole('content moderator');
+            foreach ($this->roomNames as $roomName) {
+                Room::factory()->create([
+                    'name' => $roomName
+                ]);
+            }
 
-        User::create([
-            'name' => 'Test Account',
-            'email' => 'testacc@hz.nl',
-            'email_verified_at' => now(),
-            'password' => Hash::make('12345678'), // password
-        ]);
-
-        // Create some rooms
-        Room::factory(5)->create();
-
-        Presentation::factory(15)->has(Speaker::factory())->create();
-        $presentations = Presentation::all();
-
-        // Populate the presentations with participants
-        User::all()->each(function ($user) use ($presentations) {
-            $user->presentations()->attach(
-                $presentations->random(rand(1, 5))->pluck('id')->toArray()
-            );
+            $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class]);
         });
-
-        Team::factory(1)->create([
-            'sponsor_tier_id' => 1
-        ]);
-
-        Team::factory(2)->create([
-            'sponsor_tier_id' => 2
-        ]);
-
-        Team::factory(5)->create([
-            'sponsor_tier_id' => 3
-        ]);
-
     }
+
+    public $roomNames = [
+        'GW027',
+        'GW011',
+        'GW012',
+        'GW013',
+        'GW014',
+        'GW317',
+        'GW319',
+        'RC213'
+    ];
 }

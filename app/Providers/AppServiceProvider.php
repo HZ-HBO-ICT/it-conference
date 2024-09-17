@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Pagination\Paginator;
+use App\Models\Company;
+use App\Models\User;
+use App\Policies\CompanyPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,7 +23,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::defaultView('components/pagination');
-        Paginator::defaultSimpleView('components/pagination');
+        Gate::policy(Company::class, CompanyPolicy::class);
+
+        Gate::define('view-schedule', function (User $user) {
+            return $user->hasPermissionTo('view schedule');
+        });
+        Gate::define('edit-schedule', function (User $user) {
+            return $user->hasPermissionTo('update schedule');
+        });
+
+        Gate::define('invite-crew-member', function (User $user) {
+            return $user->hasPermissionTo('invite crew');
+        });
+        Gate::define('remove-crew-member', function (User $user) {
+            return $user->hasPermissionTo('remove crew');
+        });
+        Gate::define('view-crew', function (User $user) {
+            return $user->hasPermissionTo('viewAny crew');
+        });
     }
 }
