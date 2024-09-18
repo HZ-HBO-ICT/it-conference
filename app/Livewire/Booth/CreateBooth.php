@@ -30,7 +30,12 @@ class CreateBooth extends Component
     public $users;
     public $selectedUser;
 
-    public function mount(){
+    /**
+     * Initializes the component
+     * @return void
+     */
+    public function mount()
+    {
         $this->companies = Company::whereDoesntHave('booth')->where('is_approved', '=', '1')->get();
         $this->company = $this->companies->first();
         $this->isDropdownVisible = false;
@@ -42,7 +47,8 @@ class CreateBooth extends Component
      * Creates the entity
      * @return void
      */
-    public function save() {
+    public function save()
+    {
         $this->validate();
 
         $this->validate([
@@ -62,7 +68,7 @@ class CreateBooth extends Component
 
         $this->selectedUser->assignRole('booth owner');
 
-        if($this->selectedUser->hasRole('pending booth owner')) {
+        if ($this->selectedUser->hasRole('pending booth owner')) {
             $this->selectedUser->removeRole('pending booth owner');
         }
 
@@ -87,7 +93,12 @@ class CreateBooth extends Component
         }
     }
 
-    public function updatedCompanyId() : void {
+    /**
+     * Handles the update of the company id
+     * @return void
+     */
+    public function updatedCompanyId() : void
+    {
         $this->company = Company::find($this->companyId);
         $this->users = $this->company->users;
         $this->searchValue = '';

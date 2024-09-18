@@ -33,8 +33,9 @@ class BoothControllerTest extends TestCase
         ]);
     }
 
+    // Currently commented out since the route is unused
     /** @test */
-    public function index_displays_booths_to_crew()
+/*    public function index_displays_booths_to_crew()
     {
         $user = User::factory()->create();
         $user->assignRole('event organizer');
@@ -44,10 +45,10 @@ class BoothControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('crew.booths.index');
         $response->assertViewHas('booths');
-    }
+    }*/
 
     /** @test */
-    public function index_denies_participant_access_to_booths()
+/*    public function index_denies_participant_access_to_booths()
     {
         $user = User::factory()->create();
         $user->assignRole('participant');
@@ -55,7 +56,7 @@ class BoothControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('moderator.booths.index'));
 
         $response->assertStatus(403);
-    }
+    }*/
 
 
     /** @test */

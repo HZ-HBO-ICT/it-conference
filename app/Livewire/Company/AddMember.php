@@ -59,7 +59,7 @@ class AddMember extends Component
         $this->validate();
         if ($this->currentRole == 'speaker') {
             $this->currentRole = 'pending speaker';
-        } else if ($this->currentRole == 'booth owner') {
+        } elseif ($this->currentRole == 'booth owner') {
             $this->currentRole = 'pending booth owner';
         }
 
