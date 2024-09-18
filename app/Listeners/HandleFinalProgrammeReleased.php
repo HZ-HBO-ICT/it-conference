@@ -30,7 +30,7 @@ class HandleFinalProgrammeReleased
         $current->save();
 
         foreach (User::sendEmailPreference()->get() as $user) {
-            if ($user->ticket) {
+            if ($user->ticket && !$user->is_crew) {
                 Mail::to($user->email)->send(new FinalProgrammeReleasedMailable($user));
             }
         }
