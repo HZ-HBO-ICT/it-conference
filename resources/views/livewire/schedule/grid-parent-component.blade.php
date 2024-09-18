@@ -16,7 +16,7 @@
                                     data-id="{{ $presentation->id }}"
                                     data-room="0"
                                     class="p-2 h-20 rounded shadow cursor-pointer
-                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-crew-400 hover:bg-crew-200 dark:bg-crew-400/50 dark:hover:bg-crew-400/70" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
+                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-crew-200 hover:bg-crew-200 dark:bg-crew-400/50 dark:hover:bg-crew-400/70" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
                                     <div class="grid grid-cols-1">
                                     <span class="col-span-1">
                                         {{ $presentation->displayName(20) }}
