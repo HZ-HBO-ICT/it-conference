@@ -51,6 +51,9 @@
                 <th scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-300 tracking-wider w-1/4">Role
                 </th>
+                <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-300 tracking-wider w-1/4">Ticket Status
+                </th>
             </tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200">
@@ -60,6 +63,14 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 w-1/4">{{$user->email}}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 w-1/4">{{$user->company ? $user->company->name : $user->institution}}</td>
                     <td class="px-6 py-4 text-sm text-gray-500 w-1/4 dark:text-gray-300">{{$user->mainRoles()->implode(', ')}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200 w-1/4">
+                        <div class="flex items-center justify-center gap-1 p-1 bg-{{$user->ticket_status['color']}}-300 dark:bg-{{$user->ticket_status['color']}}-600 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="{{ $user->ticket_status['icon'] }}" />
+                            </svg>
+                            <p>{{$user->ticket_status['status']}}</p>
+                        </div>
+                    </td>
                 </tr>
             @empty
                 <tr>

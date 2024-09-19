@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Nette\Schema\ValidationException;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -83,6 +87,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Establish relationship with Ticket
+     *
+     * @return HasOne
+     */
+    public function ticket(): HasOne
+    {
+        return $this->hasOne(Ticket::class);
     }
 
     /**
@@ -324,5 +338,111 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeSendEmailPreference(Builder $query) : void
     {
         $query->where('receive_emails', '=', 1);
+    }
+
+    /**
+     * Scope all users and order them by their tickets
+     *
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeUsersWithTickets(Builder $query)
+    {
+        $query->select('users.*', 'tickets.scanned_at')
+            ->leftJoin('tickets', 'users.id', '=', 'tickets.user_id')
+            ->orderBy('tickets.scanned_at', 'desc')
+            ->orderBy('users.name');
+    }
+
+    /**
+     * Scope users who have verified their email
+     *
+     * @param Builder $query
+     * @return void
+     *
+     */
+    public function scopeVerified(Builder $query)
+    {
+        $query->whereNotNull('email_verified_at');
+    }
+
+    /**
+     * Determine the status of the user's ticket
+     *
+     * @return Attribute
+     */
+    public function ticketStatus(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->is_crew) {
+                    return [
+                        'status' => 'Crew',
+                        'color' => 'sky',
+                        'icon' => 'M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+                        ];
+                }
+
+                if ($this->ticket) {
+                    if ($this->ticket->scanned_at) {
+                        return [
+                            'status' => 'Scanned',
+                            'color' => 'green',
+                            'icon' => 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+                            ];
+                    } else if (optional(Edition::current())->is_final_programme_released) {
+                        return [
+                            'status' => 'Ticket sent',
+                            'color' => 'yellow',
+                            'icon' => 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+                        ];
+                    } else {
+                        return [
+                            'status' => 'Ticket created',
+                            'color' => 'yellow',
+                            'icon' => 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+                        ];
+                    }
+                }
+
+                return [
+                    'status' => 'Not verified',
+                    'color' => 'red',
+                    'icon' => 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+                    ];
+            }
+        );
+    }
+
+    /**
+     * Create a new ticket for a user
+     *
+     * @return void
+     */
+    public function createTicket()
+    {
+        if ($this->ticket || $this->is_crew) {
+            return;
+        }
+
+        $ticket = new Ticket();
+        $ticket->user_id = $this->id;
+        $ticket->token = Str::uuid();
+
+        $ticket->save();
+    }
+
+    /**
+     * Generates a QR code with user's data
+     *
+     * @return HtmlString
+     */
+    public function generateExistingTicket(): HtmlString
+    {
+        return QrCode::size(200)
+            ->format('png')
+            ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
+            ->errorCorrection('M')
+            ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
     }
 }
