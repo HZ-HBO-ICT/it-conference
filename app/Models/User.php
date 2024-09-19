@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -354,6 +355,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Scope users who have verified their email
+     *
+     * @param Builder $query
+     * @return void
+     *
+     */
+    public function scopeVerified(Builder $query)
+    {
+        $query->whereNotNull('email_verified_at');
+    }
+
+    /**
      * Determine the status of the user's ticket
      *
      * @return Attribute
@@ -402,11 +415,29 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Create a new ticket for a user
+     *
+     * @return void
+     */
+    public function createTicket()
+    {
+        if ($this->ticket || $this->is_crew) {
+            return;
+        }
+
+        $ticket = new Ticket();
+        $ticket->user_id = $this->id;
+        $ticket->token = Str::uuid();
+
+        $ticket->save();
+    }
+
+    /**
      * Generates a QR code with user's data
      *
      * @return HtmlString
      */
-    public function generateTicket(): HtmlString
+    public function generateExistingTicket(): HtmlString
     {
         return QrCode::size(200)
             ->format('png')
