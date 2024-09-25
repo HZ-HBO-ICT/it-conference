@@ -133,24 +133,36 @@
                     @if(!$booth->is_approved)
                         @can('approveRequest', $booth)
                             <x-slot name="actions">
-                                <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}"
-                                      class="mr-2">
-                                    @csrf
-                                    <input type="hidden" name="approved" value="1"/>
+                                <div class="flex space-x-2">
                                     <x-button
+                                        onclick="
+                                    Livewire.dispatch('openModal', {
+                                    component: 'confirmation-modal',
+                                        arguments: {
+                                            title: 'Approve booth',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.booths.approve', ['booth' => $booth, 'isApproved' => 1]) }}',
+                                            isApproved: 1,
+                                        }
+                                    })"
                                         class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
                                         {{ __('Approve') }}
                                     </x-button>
-                                </form>
-                                <form method="POST" action="{{ route('moderator.booths.approve', $booth) }}"
-                                      class="mr-2">
-                                    @csrf
-                                    <input type="hidden" name="approved" value="0"/>
-                                    <x-button
-                                        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+
+                                    <x-danger-button
+                                        onclick="
+                                    Livewire.dispatch('openModal', {
+                                        component: 'confirmation-modal',
+                                        arguments: {
+                                            title: 'Reject booth',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.booths.approve', ['booth' => $booth, 'isApproved' => 0]) }}',
+                                            isApproved: 0,
+                                        }
+                                    })">
                                         {{ __('Reject') }}
-                                    </x-button>
-                                </form>
+                                    </x-danger-button>
+                                </div>
                             </x-slot>
                         @endcan
                     @endif

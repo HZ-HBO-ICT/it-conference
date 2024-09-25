@@ -121,26 +121,36 @@
                     @can('approve', $presentation)
                         @if(!$presentation->is_approved)
                             <x-slot name="actions">
-                                <form method="POST"
-                                      action="{{ route('moderator.presentations.approve', $presentation) }}"
-                                      class="mr-2">
-                                    @csrf
-                                    <input type="hidden" name="approved" value="1"/>
+                                <div class="flex space-x-2">
                                     <x-button
+                                        onclick="
+                                    Livewire.dispatch('openModal', {
+                                    component: 'confirmation-modal',
+                                        arguments: {
+                                            title: 'Approve presentation',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]) }}',
+                                            isApproved: 1,
+                                        }
+                                    })"
                                         class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
                                         {{ __('Approve') }}
                                     </x-button>
-                                </form>
-                                <form method="POST"
-                                      action="{{ route('moderator.presentations.approve', $presentation) }}"
-                                      class="mr-2">
-                                    @csrf
-                                    <input type="hidden" name="approved" value="0"/>
-                                    <x-button
-                                        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+
+                                    <x-danger-button
+                                        onclick="
+                                    Livewire.dispatch('openModal', {
+                                        component: 'confirmation-modal',
+                                        arguments: {
+                                            title: 'Reject presentation',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 0]) }}',
+                                            isApproved: 0,
+                                        }
+                                    })">
                                         {{ __('Reject') }}
-                                    </x-button>
-                                </form>
+                                    </x-danger-button>
+                                </div>
                             </x-slot>
                         @endif
                     @endcan

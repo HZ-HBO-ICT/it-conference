@@ -171,7 +171,7 @@ class PresentationControllerTest extends TestCase
         $presentation = Presentation::factory()->create(['is_approved' => false]);
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);
+            ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
 
         $response->assertRedirect(route('moderator.presentations.show', $presentation));
         $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => true]);
@@ -184,7 +184,7 @@ class PresentationControllerTest extends TestCase
         $presentation = Presentation::factory()->create(['is_approved' => true]);
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.presentations.approve', $presentation), ['approved' => false]);
+            ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 0]));
 
         $response->assertRedirect(route('moderator.presentations.index'));
         $this->assertDatabaseMissing('presentations', ['id' => $presentation->id, 'is_approved' => false]);
@@ -199,7 +199,7 @@ class PresentationControllerTest extends TestCase
         $presentation->save();
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.presentations.approve', $presentation), ['approved' => true]);
+            ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
 
         $response->assertStatus(403);
         $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => false]);

@@ -129,7 +129,7 @@ class SponsorshipControllerTest extends TestCase
         }))->create(['is_approved' => 1,'sponsorship_id' => 1]);
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
+            ->post(route('moderator.sponsorships.approve', ['company' => $company, 'isApproved' => 1]));
 
         $response->assertRedirect(route('moderator.sponsorships.show', $company));
         $this->assertEquals(1, $company->refresh()->is_sponsorship_approved);
@@ -145,7 +145,7 @@ class SponsorshipControllerTest extends TestCase
         }))->create(['sponsorship_id' => 1]);
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.sponsorships.approve', $company), ['approved' => false]);
+            ->post(route('moderator.sponsorships.approve', ['company' => $company, 'isApproved' => 0]));
 
         $response->assertRedirect(route('moderator.sponsorships.index'));
         $this->assertNull($company->refresh()->is_sponsorship_approved);
@@ -158,7 +158,7 @@ class SponsorshipControllerTest extends TestCase
         $company = Company::factory()->create(['sponsorship_id' => 1]);
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.sponsorships.approve', $company), ['approved' => true]);
+            ->post(route('moderator.sponsorships.approve', ['company' => $company, 'isApproved' => 1]));
 
         $response->assertStatus(403);
         $this->assertDatabaseHas('companies', ['id' => $company->id]);

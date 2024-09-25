@@ -208,9 +208,8 @@ class CompanyControllerTest extends TestCase
             $user->assignRole($role);
         }))->create();
 
-        $response = $this->actingAs($user)->post(route('moderator.companies.approve', $company), [
-            'approved' => true
-        ]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => 1]));
 
         $response->assertRedirect(route('moderator.companies.show', $company));
         $this->assertDatabaseHas('companies', [
@@ -228,9 +227,8 @@ class CompanyControllerTest extends TestCase
             $user->assignRole($role);
         }))->create();
 
-        $response = $this->actingAs($user)->post(route('moderator.companies.approve', $company), [
-            'approved' => false
-        ]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => 0]));
 
         $response->assertRedirect(route('moderator.companies.index'));
         $this->assertDatabaseMissing('companies', ['name' => $company->name]);
@@ -244,9 +242,8 @@ class CompanyControllerTest extends TestCase
         $company->is_approved = false;
         $company->save();
 
-        $response = $this->actingAs($user)->post(route('moderator.companies.approve', $company), [
-            'approved' => true
-        ]);
+        $response = $this->actingAs($user)
+            ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => true]));
 
         $response->assertStatus(403);
         $this->assertEquals(0, $company->is_approved);
