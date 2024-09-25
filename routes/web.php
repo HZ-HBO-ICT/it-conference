@@ -212,7 +212,7 @@ Route::middleware([
         '/moderator/presentations',
         App\Http\Controllers\Crew\PresentationController::class
     );
-    Route::post('/moderator/presentations/{presentation}/approve', [
+    Route::post('/moderator/presentations/{presentation}/approve/{isApproved}', [
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
