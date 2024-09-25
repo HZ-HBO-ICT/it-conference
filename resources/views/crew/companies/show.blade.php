@@ -39,7 +39,7 @@
                     </div>
                     <div class="text-gray-800 pt-3 dark:text-gray-200">
                         <span class="font-semibold">Website:</span> <a class="underline text-apricot-peach-400 hover:text-apricot-peach-500"
-                            href="https://{{$company->website}}">{{ $company->website }}</a>
+                            href="{{$company->website}}">{{ $company->website }}</a>
                     </div>
                     <div class="text-gray-800 pt-3 dark:text-gray-200">
                         <span class="font-semibold">Description:</span> {{ $company->description }}

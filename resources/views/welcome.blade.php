@@ -254,7 +254,7 @@
                                         <div class="flex flex-wrap">
                                             @foreach(\App\Models\Sponsorship::find(1)->companies as $company)
                                                 <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
-                                                    <a href="{{'https://' . $company->website}}"
+                                                    <a href="{{$company->website}}"
                                                        class="bg-gray-50 border h-56 p-5 w-full rounded">
                                                         @if($company->logo_path)
                                                             <img
@@ -276,7 +276,7 @@
                                         <div class="flex flex-wrap">
                                             @foreach(\App\Models\Sponsorship::find(2)->companies as $company)
                                                 <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
-                                                    <a href="{{'https://' . $company->website}}"
+                                                    <a href="{{$company->website}}"
                                                        class="bg-gray-50 border h-44 p-5 w-full rounded">
                                                         @if($company->logo_path)
                                                             <img
@@ -298,7 +298,7 @@
                                         <div class="flex flex-wrap">
                                             @foreach(\App\Models\Sponsorship::find(3)->companies as $company)
                                                 <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
-                                                    <a href="{{'https://' . $company->website}}"
+                                                    <a href="{{$company->website}}"
                                                        class="bg-gray-50 border h-36 px-5 py-3 w-full rounded">
                                                         @if($company->logo_path)
                                                             <img
