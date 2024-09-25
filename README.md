@@ -37,8 +37,8 @@ docker run --rm \
 ```
 4. Install the NPM packages - `npm install`
 5. Set up the environment variables - `cp .env.example .env`
-6. Add the app key - `./vendor/bin/sail artisan key:generate` 
-7. After the dependencies are installed run `./vendor/bin/sail up -d`
+6. After the dependencies are installed run `./vendor/bin/sail up -d`
+7. Add the app key - `./vendor/bin/sail artisan key:generate`
 8. After the creation of the containers run `./vendor/bin/sail artisan migrate`
 9. Run `npm run dev`
 
