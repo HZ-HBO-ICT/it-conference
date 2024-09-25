@@ -98,17 +98,13 @@ class SponsorshipController extends Controller
      * @param Company $company
      * @return mixed
      */
-    public function approve(Request $request, Company $company)
+    public function approve(Company $company, bool $isApproved)
     {
         if (Auth::user()->cannot('approve', Sponsorship::class)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'approved' => 'required|boolean'
-        ]);
-
-        $isApproved = $validated['approved'];
+        $isApproved = filter_var($isApproved, FILTER_VALIDATE_BOOLEAN);
         $company->handleSponsorshipApproval($isApproved);
 
         $template = $isApproved ? 'You approved the sponsorship of :company!'

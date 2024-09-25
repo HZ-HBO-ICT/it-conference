@@ -227,7 +227,7 @@ Route::middleware([
         ->name('sponsorships.store');
     Route::delete('/crew/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
         ->name('sponsorships.delete');
-    Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
+    Route::post('/crew/sponsorships/{company}/approve/{isApproved}', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
 
     // ====== Crew routes ========
