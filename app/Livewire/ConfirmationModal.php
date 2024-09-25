@@ -10,10 +10,8 @@ class ConfirmationModal extends ModalComponent
     public $title;
     public $method;
     public $route;
-    public $entity;
     public $isApproved;
-    public $entityRouteParamType;
-    public $callToAction;
+    public ?string $callToAction;
 
     public function render()
     {

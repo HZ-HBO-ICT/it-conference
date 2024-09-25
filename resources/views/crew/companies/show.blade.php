@@ -157,13 +157,10 @@
                                     Livewire.dispatch('openModal', {
                                     component: 'confirmation-modal',
                                         arguments: {
-                                        title: 'Approve company',
-                                        method: 'POST',
-                                        route: 'moderator.companies.approve',
-                                        entity: {{ $company }},
-                                        isApproved: 1,
-                                        entityRouteParamType: 'company',
-                                        callToAction: 'Approve company'
+                                            title: 'Approve company',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.companies.approve', ['company' => $company, 'isApproved' => 1]) }}',
+                                            isApproved: 1,
                                         }
                                     })"
                                         class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
@@ -177,11 +174,8 @@
                                         arguments: {
                                             title: 'Reject company',
                                             method: 'POST',
-                                            route: 'moderator.companies.approve',
-                                            entity: {{ $company }},
+                                            route: '{{ route('moderator.companies.approve', ['company' => $company, 'isApproved' => 0]) }}',
                                             isApproved: 0,
-                                            entityRouteParamType: 'company',
-                                            callToAction: 'Reject company'
                                         }
                                     })">
                                         {{ __('Reject') }}
