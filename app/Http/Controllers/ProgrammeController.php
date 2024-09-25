@@ -52,7 +52,7 @@ class ProgrammeController extends Controller
      */
     public function show(Presentation $presentation): View
     {
-        if (!optional(Edition::current())->is_programme_released) {
+        if (!$presentation->is_approved) {
             abort(404);
         }
 
