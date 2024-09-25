@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
@@ -13,7 +14,12 @@ class ConfirmationModal extends ModalComponent
     public $isApproved;
     public ?string $callToAction;
 
-    public function render()
+    /**
+     * Renders the component
+     *
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.confirmation-modal');
     }
