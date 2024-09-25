@@ -204,7 +204,7 @@ Route::middleware([
         '/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class
     );
-    Route::post('/moderator/companies/{company}/approve', [
+    Route::post('/moderator/companies/{company}/approve/{isApproved}', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
