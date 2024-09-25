@@ -196,7 +196,7 @@ Route::middleware([
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::resource('/moderator/faqs', FrequentQuestionController::class);
-    Route::post('/moderator/booths/{booth}/approve', [
+    Route::post('/moderator/booths/{booth}/approve/{isApproved}', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
