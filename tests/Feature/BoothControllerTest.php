@@ -156,7 +156,7 @@ class BoothControllerTest extends TestCase
         }))->create();
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.booths.approve', [$company->booth, 'approved' => true]));
+            ->post(route('moderator.booths.approve', [$company->booth, 'isApproved' => true]));
 
         $response->assertRedirect(route('moderator.booths.show', ['booth' => $company->booth]));
         $company->refresh();
@@ -171,7 +171,7 @@ class BoothControllerTest extends TestCase
         $company = Company::factory()->has(Booth::factory(1))->create();
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.booths.approve', [$company->booth, 'approved' => true]));
+            ->post(route('moderator.booths.approve', [$company->booth, 'isApproved' => true]));
 
         $response->assertStatus(403);
         $this->assertEquals(0, $company->booth->is_approved);
