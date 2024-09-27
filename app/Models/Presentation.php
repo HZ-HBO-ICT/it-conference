@@ -116,7 +116,7 @@ class Presentation extends Model
     {
         return LogOptions::defaults()
             ->logAll()
-            ->setDescriptionForEvent(fn(string $eventName) => "{$this->name} booth has been {$eventName} by " . Auth::user()->name)
+            ->setDescriptionForEvent(fn(string $eventName) => "Presentation {$this->name} has been {$eventName} by " . Auth::user()->name)
             ->logOnlyDirty()
             ->dontLogIfAttributesChangedOnly(['is_approved']);
     }

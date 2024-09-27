@@ -17,7 +17,7 @@ class CrewController extends Controller
      * Returns the main page of the crew page
      * @return View
      */
-    public function index() : View
+    public function index(): View
     {
         if (!Gate::authorize('view-crew')) {
             abort(403);
@@ -25,7 +25,14 @@ class CrewController extends Controller
 
         $roles = Role::whereNotIn(
             'name',
-            ['participant', 'company representative', 'company member', 'booth owner']
+            [
+                'participant',
+                'company representative',
+                'company member',
+                'booth owner',
+                'pending booth owner',
+                'pending speaker'
+            ]
         )->get();
 
         return view('crew.crew.index', compact('roles'));
