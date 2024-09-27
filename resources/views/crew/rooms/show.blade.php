@@ -36,7 +36,7 @@
 
         <x-section-border/>
 
-        @can('delete', \App\Models\Room::class)
+        @can('delete', $room)
             <x-action-section>
                 <x-slot name="title">
                     {{ __('Delete Room') }}

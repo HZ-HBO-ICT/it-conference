@@ -81,7 +81,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
-        if (Auth::user()->cannot('delete', Room::class)) {
+        if (Auth::user()->cannot('delete', $room)) {
             abort(403);
         }
 

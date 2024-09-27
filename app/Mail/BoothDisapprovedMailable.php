@@ -30,7 +30,7 @@ class BoothDisapprovedMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Booth Disapproved',
+            subject: 'Booth Refused',
         );
     }
 

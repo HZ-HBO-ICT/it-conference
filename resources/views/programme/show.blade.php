@@ -1,5 +1,6 @@
 @php
     use Carbon\Carbon;
+    use App\Models\Edition;
 @endphp
 
 <x-app-layout>
@@ -70,48 +71,50 @@
                                 - {{ucfirst($presentation->difficulty->level)}}</p>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <h2 class="text-2xl font-bold">
-                            Place and time
-                        </h2>
-                        <p>Room: {{$presentation->room->name}}</p>
-                        <p>Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
-                           - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
-                    </div>
-                    @if(Auth::user())
-                        @can('enroll', $presentation)
-                            <div class="pt-5">
-                                <form action="{{route('my.programme.enroll', $presentation)}}"
-                                      method="POST">
-                                    @csrf
-                                    <button
-                                        class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
-                                        Sign up
-                                    </button>
-                                </form>
-                            </div>
-                        @else
-                            @if(Auth::user()->participating_in->contains($presentation))
+                    @if(optional(Edition::current())->is_final_programme_released)
+                        <div class="mt-5">
+                            <h2 class="text-2xl font-bold">
+                                Place and time
+                            </h2>
+                            <p>Room: {{$presentation->room->name}}</p>
+                            <p>Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
+                               - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
+                        </div>
+                        @if(Auth::user())
+                            @can('enroll', $presentation)
                                 <div class="pt-5">
-                                    <form action="{{route('my.programme.disenroll', $presentation)}}"
+                                    <form action="{{route('my.programme.enroll', $presentation)}}"
                                           method="POST">
                                         @csrf
                                         <button
-                                            class="bg-red-500 hover:bg-red-700 transition-all text-lg px-24 py-1 rounded-lg text-white">
-                                            Deregister from presentation
+                                            class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                            Sign up
                                         </button>
                                     </form>
                                 </div>
-                            @elseif(!Auth::user()->presenter_of || (Auth::user()->presenter_of && !Auth::user()->isPresenterOf($presentation)))
-                                <div class="pt-5" data-te-toggle="tooltip"
-                                     title="You cannot sign up because you are already busy during this time.">
-                                    <button
-                                        class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
-                                        Sign up
-                                    </button>
-                                </div>
-                            @endif
-                        @endcan
+                            @else
+                                @if(Auth::user()->participating_in->contains($presentation))
+                                    <div class="pt-5">
+                                        <form action="{{route('my.programme.disenroll', $presentation)}}"
+                                              method="POST">
+                                            @csrf
+                                            <button
+                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-24 py-1 rounded-lg text-white">
+                                                Deregister from presentation
+                                            </button>
+                                        </form>
+                                    </div>
+                                @elseif(!Auth::user()->presenter_of || (Auth::user()->presenter_of && !Auth::user()->isPresenterOf($presentation)))
+                                    <div class="pt-5" data-te-toggle="tooltip"
+                                         title="You cannot sign up because you are already busy during this time.">
+                                        <button
+                                            class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                            Sign up
+                                        </button>
+                                    </div>
+                                @endif
+                            @endcan
+                        @endif
                     @endif
                 </div>
             </div>
