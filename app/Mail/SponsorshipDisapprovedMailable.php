@@ -30,7 +30,7 @@ class SponsorshipDisapprovedMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Sponsorship Disapproved',
+            subject: 'Sponsorship Refused',
         );
     }
 

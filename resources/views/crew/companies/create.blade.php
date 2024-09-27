@@ -82,21 +82,27 @@
                                 </div>
                                 <x-input-error for="website" class="mt-2"></x-input-error>
                             </div>
+                            <x-section-border/>
                             <div class="col-span-6 sm:col-span-4">
                                 <x-label class="after:content-['*'] after:text-red-500" for="rep_email"
                                          value="{{ __('Company Representative') }}"></x-label>
-                                <x-select name="rep_email" class="mt-1 block w-full">
-                                    <option selected>Select user...</option>
-                                    @foreach(User::forCompanyRep()->get() as $user)
-                                        <option value="{{ $user->email }}">
-                                            {{ $user->name }} | {{ $user->email }}
-                                        </option>
-                                    @endforeach
-                                </x-select>
-                                <span class="text-sm text-gray-600 dark:text-gray-300 py-1">or if they do not have an account yet</span>
-                                <x-input name="rep_new_email" type="email" class="mt-1 block w-full"
-                                         value="{{ old('rep_new_email') }}"></x-input>
-                                <x-input-error for="rep_new_email" class="mt-2"></x-input-error>
+                                <div class="py-2">
+                                    <span class="text-sm text-gray-600 dark:text-gray-300 pt-3 pb-1">If they <b>have registered</b> already: </span>
+                                    <x-select name="rep_email" class="mt-1 block w-full">
+                                        <option selected>Select user...</option>
+                                        @foreach(User::forCompanyRep()->get() as $user)
+                                            <option value="{{ $user->email }}">
+                                                {{ $user->name }} | {{ $user->email }}
+                                            </option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-gray-600 dark:text-gray-300 pt-3 pb-1">or if they <b>do not have an account</b> yet:</span>
+                                    <x-input name="rep_new_email" type="email" class="mt-1 block w-full"
+                                             value="{{ old('rep_new_email') }}" placeholder="john.doe@example.com" ></x-input>
+                                    <x-input-error for="rep_new_email" class="mt-2"></x-input-error>
+                                </div>
                             </div>
                         </div>
                     </x-slot>

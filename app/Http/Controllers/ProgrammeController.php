@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Edition;
 use App\Models\Presentation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,10 @@ class ProgrammeController extends Controller
      */
     public function index(): View
     {
+        if (!optional(Edition::current())->is_programme_released) {
+            abort(404);
+        }
+
         $lectures = Presentation::where('type', 'lecture')
             ->whereNotNull('room_id')
             ->whereNotNull('timeslot_id')
@@ -47,6 +52,10 @@ class ProgrammeController extends Controller
      */
     public function show(Presentation $presentation): View
     {
+        if (!$presentation->is_approved) {
+            abort(404);
+        }
+
         $styles = [
             1 => [
                 'borderColor' => 'bg-gradient-to-r from-yellow-300 to-yellow-600', // Gold

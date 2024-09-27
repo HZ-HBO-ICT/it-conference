@@ -69,7 +69,19 @@ export default {
         'hover:to-apricot-peach-600',
         'hover:to-apricot-peach-700',
         'bg-gray-600',
-        'bg-apricot-peach-300'
+        'bg-apricot-peach-300',
+        'bg-red-400',
+        'hover:bg-red-400',
+        'dark:bg-red-800/50',
+        'dark:hover:bg-red-800/50',
+        'bg-crew-200',
+        'hover:bg-crew-200',
+        'dark:bg-crew-400/50',
+        'dark:hover:bg-crew-400/70',
+        'bg-apricot-peach-200',
+        'hover:bg-apricot-peach-300',
+        'dark:bg-apricot-peach-700/50',
+        'dark:hover:bg-apricot-peach-600/75'
     ],
     theme: {
         extend: {
