@@ -30,7 +30,7 @@ class HandlePresentationRolesNotified
 
         $users = collect();
         if ($event->receiver == 'crew') {
-            $users = User::role(['event organizer', 'speakers supervisor'])->get();
+            $users = User::role(['event organizer', 'speakers supervisor', 'assistant organizer'])->get();
         } else if ($event->receiver == 'speaker') {
             $users = $event->presentation->speakers;
         }
