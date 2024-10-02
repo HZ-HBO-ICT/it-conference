@@ -155,14 +155,16 @@
                         </ul>
                     </div>
                 </x-slot>
-                <x-slot name="actions">
-                    <div class="flex justify-end">
-                        <button onclick="Livewire.dispatch('openModal', { component: 'company.add-participant', arguments: {companyId: {{$company->id}}} })"
-                            class="inline-flex items-center px-4 py-2 bg-apricot-peach-600 hover:bg-apricot-peach-700 text-white text-sm font-semibold rounded-md shadow-sm">
-                            {{ __('Add Participant') }}
-                        </button>
-                    </div>
-                </x-slot>
+                @can('addMember', $company)
+                    <x-slot name="actions">
+                        <div class="flex justify-end">
+                            <button onclick="Livewire.dispatch('openModal', { component: 'company.add-participant', arguments: {companyId: {{$company->id}}} })"
+                                    class="inline-flex items-center px-4 py-2 bg-apricot-peach-600 hover:bg-apricot-peach-700 text-white text-sm font-semibold rounded-md shadow-sm">
+                                {{ __('Add Participant') }}
+                            </button>
+                        </div>
+                    </x-slot>
+                @endcan
             </x-action-section>
 
 
