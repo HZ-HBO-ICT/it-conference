@@ -177,7 +177,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-speaker.webp')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">SPEAKERS</h2>
@@ -203,7 +203,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-presentations.webp')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
@@ -228,7 +228,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
+                             style="background-image: url({{asset('/img/card-companies.webp')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">COMPANIES</h2>
