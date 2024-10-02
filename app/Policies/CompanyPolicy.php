@@ -112,6 +112,18 @@ class CompanyPolicy
     }
 
     /**
+     * Determine if the user can add company members.
+     *
+     * @param User $user The user instance.
+     * @param Company $company The company instance.
+     * @return bool
+     */
+    public function addMember(User $user, Company $company): bool
+    {
+        return $user->hasPermissionTo('add company member');
+    }
+
+    /**
      * Determine if the user can edit company members.
      *
      * @param User $user The user instance.

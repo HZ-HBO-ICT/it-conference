@@ -125,6 +125,7 @@
             </div>
         </footer>
     @endif
+    <x-toaster-hub />
 
     @stack('modals')
     @stack('scripts')
