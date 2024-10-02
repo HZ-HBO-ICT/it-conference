@@ -38,7 +38,8 @@
                         </div>
                     </div>
                     <div class="text-gray-800 pt-3 dark:text-gray-200">
-                        <span class="font-semibold">Website:</span> <a class="underline text-apricot-peach-400 hover:text-apricot-peach-500"
+                        <span class="font-semibold">Website:</span> <a
+                            class="underline text-apricot-peach-400 hover:text-apricot-peach-500"
                             href="{{$company->website}}">{{ $company->website }}</a>
                     </div>
                     <div class="text-gray-800 pt-3 dark:text-gray-200">
@@ -115,18 +116,55 @@
 
                 <x-slot name="content">
                     <div class="text-gray-800 dark:text-gray-200">
-                        @forelse($company->users as $user)
-                            {{ $user->name }} | {{ $user->email }}
-                            @if($company->representative->id == $user->id)
-                                              (Company representative)
-                            @endif
-                            <br>
-                        @empty
-                            {{ __('There are currently no users in this company') }}
-                        @endforelse
+                        <ul class="space-y-3">
+                            @forelse($company->users as $user)
+                                <li class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-md shadow-sm">
+                                    <!-- Profile Image -->
+                                    <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}"
+                                         class="w-10 h-10 rounded-full object-cover mr-3">
+
+                                    <!-- User Information -->
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-base">
+                                            {{ $user->name }}
+                                        </div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400">
+                                            {{ $user->email }}
+                                        </div>
+                                        <!-- User Roles -->
+                                        @if($user->roles->isNotEmpty())
+                                            <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                                                {{ __('Roles: ') }}{{ optional($user->mainRoles())->join(', ') }}
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <!-- Company Representative Badge -->
+                                    @if($company->representative->id == $user->id)
+                                        <span
+                                            class="ml-3 px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-md">
+                                {{ __('Company Representative') }}
+                            </span>
+                                    @endif
+                                </li>
+                            @empty
+                                <li class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ __('There are currently no users in this company.') }}
+                                </li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </x-slot>
+                <x-slot name="actions">
+                    <div class="flex justify-end">
+                        <button onclick="Livewire.dispatch('openModal', { component: 'company.add-participant', arguments: {companyId: {{$company->id}}} })"
+                            class="inline-flex items-center px-4 py-2 bg-apricot-peach-600 hover:bg-apricot-peach-700 text-white text-sm font-semibold rounded-md shadow-sm">
+                            {{ __('Add Participant') }}
+                        </button>
                     </div>
                 </x-slot>
             </x-action-section>
+
 
             <x-section-border/>
 
