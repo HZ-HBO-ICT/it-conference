@@ -42,10 +42,11 @@ class AddParticipantToCompanyHandler
                     'company_id' => $company->id
                 ]);
             } else {
-                if (!Role::findByName($role)) {
+                if (!Role::findByName($role, 'web')) {
                     throw new Exception('The role cannot be found');
                 }
 
+                $role = Role::findByName($role, 'web');
                 $user->assignRole($role);
             }
         });
