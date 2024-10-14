@@ -31,7 +31,7 @@ class HandleCompanyRolesNotified
         $users = collect();
         if ($event->receiver == 'crew') {
             $users = User::role(['event organizer', 'assistant organizer'])->get();
-        } else if ($event->receiver == 'representative') {
+        } else if ($event->receiver == 'company representative') {
             $users->push($event->company->representative);
         }
 
