@@ -285,4 +285,20 @@ class Presentation extends Model
             get: fn() => !is_null($this->start) && !is_null($this->room_id) && !is_null($this->timeslot_id)
         );
     }
+
+    /**
+     * Determine whether the passed model instance is the same as the calling one
+     *
+     * @param Presentation $presentation
+     * @return bool
+     */
+    public function isSamePresentation(Presentation $presentation): bool
+    {
+        return $this->is($presentation) &&
+            $this->name == $presentation->name &&
+            $this->description == $presentation->description &&
+            $this->type == $presentation->type &&
+            $this->max_participants == $presentation->max_participants &&
+            $this->difficulty->id == $presentation->difficulty->id;
+    }
 }

@@ -43,12 +43,16 @@ class EditCompanyModal extends ModalComponent
         $this->form->update();
 
         if (Auth::user()->id == $this->company->representative->id) {
-            CompanyRolesNotified::dispatch('crew', $this->company);
+            if (!$this->company->isSameCompany($this->form->company)) {
+                CompanyRolesNotified::dispatch('crew', $this->company);
+            }
 
             return redirect(route('company.details'))
                 ->with('status', 'Company successfully updated.');
         } else {
-            CompanyRolesNotified::dispatch('company representative', $this->company);
+            if (!$this->company->isSameCompany($this->form->company)) {
+                CompanyRolesNotified::dispatch('company representative', $this->company);
+            }
 
             return redirect(route('moderator.companies.show', $this->company))
                 ->with('status', 'Company successfully updated.');

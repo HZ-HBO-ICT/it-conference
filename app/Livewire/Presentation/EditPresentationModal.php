@@ -39,12 +39,16 @@ class EditPresentationModal extends ModalComponent
         $this->form->update();
 
         if (Auth::user()->presenter_of) {
-            PresentationRolesNotified::dispatch('crew', $this->presentation);
+            if (!$this->presentation->isSamePresentation($this->form->presentation)) {
+                PresentationRolesNotified::dispatch('crew', $this->presentation);
+            }
 
             return redirect(route('presentations.show', $this->presentation))
                 ->with('status', 'Presentation successfully updated.');
         } else {
-            PresentationRolesNotified::dispatch('speaker', $this->presentation);
+            if (!$this->presentation->isSamePresentation($this->form->presentation)) {
+                PresentationRolesNotified::dispatch('speaker', $this->presentation);
+            }
 
             return redirect(route('moderator.presentations.show', $this->presentation))
                 ->with('status', 'Presentation successfully updated.');
