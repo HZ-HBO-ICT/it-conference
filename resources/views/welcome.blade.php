@@ -71,14 +71,14 @@
                         <br>
                         @guest()
                             @if(optional($edition)->is_participant_registration_opened)
-                                <x-button class="mt-4 mr-5">
-                                    <a href="{{route('register.participant')}}">Register as a participant</a>
-                                </x-button>
+                                <x-button-link href="{{route('register.participant')}}" class="mt-4 mr-5">
+                                    Register as a participant
+                                </x-button-link>
                             @endif
                             @if(optional($edition)->is_company_registration_opened)
-                                <x-button class="mt-4">
-                                    <a href="{{route('register.company')}}">Register my company</a>
-                                </x-button>
+                                <x-button-link href="{{route('register.company')}}" class="mt-4 mr-5">
+                                    Register my company
+                                </x-button-link>
                             @endif
                         @endguest
                     </div>
