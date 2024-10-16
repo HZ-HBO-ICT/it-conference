@@ -263,7 +263,9 @@
                                                                     src="{{ url('storage/'. $company->logo_path) }}"
                                                                     alt="Logo of {{$company->name}}">
                                                             @else
-                                                                <h2 class="text-4xl">{{$company->name}}</h2>
+                                                                <div class="h-full flex text-center items-center justify-center">
+                                                                    <h2 class="text-6xl font-semibold">{{$company->name}}</h2>
+                                                                </div>
                                                             @endif
                                                         </a>
                                                     </div>
@@ -287,7 +289,9 @@
                                                                     src="{{ url('storage/'. $company->logo_path) }}"
                                                                     alt="Logo of {{$company->name}}">
                                                             @else
-                                                                <h2 class="text-4xl">{{$company->name}}</h2>
+                                                                <div class="h-full flex text-center items-center justify-center">
+                                                                    <h2 class="text-5xl font-semibold">{{$company->name}}</h2>
+                                                                </div>
                                                             @endif
                                                         </a>
                                                     </div>
@@ -311,7 +315,9 @@
                                                                     src="{{ url('storage/'. $company->logo_path) }}"
                                                                     alt="Logo of {{$company->name}}">
                                                             @else
-                                                                <h2 class="text-4xl">{{$company->name}}</h2>
+                                                                <div class="h-full flex text-center items-center justify-center">
+                                                                    <h2 class="text-3xl font-semibold">{{$company->name}}</h2>
+                                                                </div>
                                                             @endif
                                                         </a>
                                                     </div>
