@@ -44,6 +44,7 @@ permissions:
     viewAny: [ event organizer, assistant organizer, company representative, company member, booth owner, pending speaker ]
     update: company representative
     delete: company representative
+    add: event organizer
   company member invitation:
     viewAny: company representative
     create: company representative
