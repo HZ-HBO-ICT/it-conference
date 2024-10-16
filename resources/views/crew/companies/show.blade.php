@@ -157,16 +157,18 @@
                 </x-slot>
                 @can('addMember', $company)
                     <x-slot name="actions">
-                        <div class="flex justify-end">
-                            <button onclick="Livewire.dispatch('openModal', { component: 'company.add-participant', arguments: {companyId: {{$company->id}}} })"
-                                    class="inline-flex items-center px-4 py-2 bg-apricot-peach-600 hover:bg-apricot-peach-700 text-white text-sm font-semibold rounded-md shadow-sm">
+                        @if ($company->is_approved)
+                            <x-button onclick="Livewire.dispatch('openModal', { component: 'company.add-participant', arguments: {companyId: {{$company->id}}} })">
                                 {{ __('Add Participant') }}
-                            </button>
-                        </div>
+                            </x-button>
+                        @else
+                            <div>
+                                <p class="text-sm text-gray-700 dark:text-gray-100">The company must be approved before adding participants.</p>
+                            </div>
+                        @endif
                     </x-slot>
                 @endcan
             </x-action-section>
-
 
             <x-section-border/>
 
