@@ -3,10 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const passwordRulesDiv = document.getElementById('password-rules');
     const passwordInput = document.getElementById('password');
 
-    if(document.getElementById('company_postcode')) {
-        postcodeValidation();
-    }
-
     //show password rules when user clicks on password field
     passwordInput.addEventListener('click', function () {
         passwordRulesDiv.classList.remove('hidden');
@@ -30,31 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     passwordInput.addEventListener('blur', function () {
         passwordRulesDiv.classList.add('hidden');
     });
-
-    function postcodeValidation() {
-        document.getElementById('company_postcode').addEventListener('keydown', function(event) {
-            const position = document.getElementById('company_postcode').selectionStart;
-            const userInput = document.getElementById('company_postcode').value;
-
-            if (
-                event.key === 'Backspace' ||
-                event.key === 'ArrowLeft' ||
-                event.key === 'ArrowRight' ||
-                event.key === 'ArrowUp' ||
-                event.key === 'ArrowDown' ||
-                event.key === 'Tab'
-            ) {
-                return;
-            }
-
-            if (
-                !((position < 4 && /[0-9]/.test(event.key)) ||
-                    (position >= 4 && position <= 5 && /[A-Za-z]/.test(event.key)))
-            ) {
-                event.preventDefault();
-            }
-        });
-    }
 
     const emailInput = document.getElementById('email');
 

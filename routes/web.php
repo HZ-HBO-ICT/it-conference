@@ -59,11 +59,12 @@ Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('co
 Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
-//Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
-//
-//Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
-//
-//
+// routes for registering from invitation
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -86,12 +87,6 @@ Route::middleware([
         ->name('presentations.show');
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
-
-    // routes for registering from invitation
-    Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-        ->middleware(['signed'])->name('registration.page.via.invitation');
-    Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-        ->name('register.via.invitation');
 
     //route for personal programme
     Route::get('/my/programme', [ParticipantController::class, 'programme'])

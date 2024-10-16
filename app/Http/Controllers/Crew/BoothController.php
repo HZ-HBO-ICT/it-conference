@@ -43,6 +43,9 @@ class BoothController extends Controller
      */
     public function store(Request $request)
     {
+        // CURRENTLY NOT IN USE
+        abort(404);
+
         if ($request->user()->cannot('create', Booth::class)) {
             abort(403);
         }
