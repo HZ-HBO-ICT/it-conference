@@ -19,7 +19,7 @@
                             <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                                 Room Name
                             </th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider right-0 sticky w-16 dark:text-gray-400">
                                 Created At
                             </th>
                         </tr>
@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-white">
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-white right-0 sticky ">
                                     <div class="flex items-center">
                                         <svg
                                             class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400"
