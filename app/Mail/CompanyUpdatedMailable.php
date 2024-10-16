@@ -21,7 +21,8 @@ class CompanyUpdatedMailable extends Mailable
     public function __construct(
         public User $user,
         public Company $company,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the message envelope.

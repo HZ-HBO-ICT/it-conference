@@ -22,7 +22,8 @@ class CompanyRolesNotified
     public function __construct(
         public string $receiver,
         public Company $company,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the channels the event should broadcast on.

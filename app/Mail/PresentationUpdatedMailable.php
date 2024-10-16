@@ -22,7 +22,8 @@ class PresentationUpdatedMailable extends Mailable
     public function __construct(
         public User $user,
         public Presentation $presentation,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the message envelope.
