@@ -87,6 +87,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Establishes the relationship between the user and the feedback given by them
+     * @return HasMany
+     */
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+
+    /**
      * Hides a many-to-many relationship with presentations
      * and implements relationship with linking table UserPresentation
      * Please don't use this, instead refer to the methods below
@@ -322,7 +331,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param Builder $query
      * @return void
      */
-    public function scopeSendEmailPreference(Builder $query) : void
+    public function scopeSendEmailPreference(Builder $query): void
     {
         $query->where('receive_emails', '=', 1);
     }

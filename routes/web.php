@@ -199,6 +199,11 @@ Route::middleware([
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
+    Route::get('/moderator/feedback', [\App\Http\Controllers\Crew\FeedbackController::class, 'index'])
+        ->name('feedback.index');
+    Route::get('/moderator/feedback/{feedback}', [\App\Http\Controllers\Crew\FeedbackController::class, 'show'])
+        ->name('feedback.show');
+
     Route::resource(
         '/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class

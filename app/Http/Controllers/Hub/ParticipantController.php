@@ -46,7 +46,7 @@ class ParticipantController extends Controller
         $validated = $request->validate(Feedback::$rules);
         Feedback::create(array_merge(
             $validated,
-            ['reported_by' => Auth::user()->id]
+            ['reported_by_id' => Auth::user()->id]
         ));
 
         return redirect(route('dashboard'))->banner('You successfully submitted your feedback!');

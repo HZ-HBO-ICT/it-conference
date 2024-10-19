@@ -16,10 +16,10 @@ return new class extends Migration
             $table->enum('type', ['website', 'organization']);
             $table->string('title');
             $table->text('content');
-            $table->unsignedBigInteger('reported_by')->nullable();
+            $table->unsignedBigInteger('reported_by_id')->nullable();
             $table->boolean('is_archived')->default(false);
 
-            $table->foreign('reported_by')->on('users')->references('id')
+            $table->foreign('reported_by_id')->on('users')->references('id')
                 ->cascadeOnUpdate()->nullOnDelete();
 
             $table->timestamps();

@@ -101,3 +101,6 @@ permissions:
     view: [ event organizer, assistant organizer ]
     create: [ event organizer, assistant organizer ]
     delete: [ event organizer, assistant organizer ]
+  feedback:
+    viewAny: event organizer
+    view: event organizer
