@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class FeedbackController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     * @return View
+     */
+    public function index() : View
     {
         if (Auth::user()->cannot('viewAny', Feedback::class)) {
             abort(403);
@@ -20,7 +25,12 @@ class FeedbackController extends Controller
         return view('crew.feedback.index', compact('feedbackReports'));
     }
 
-    public function show(Feedback $feedback)
+    /**
+     * Display the specified resource.
+     * @param Feedback $feedback
+     * @return View
+     */
+    public function show(Feedback $feedback) : View
     {
         if (Auth::user()->cannot('view', $feedback)) {
             abort(403);

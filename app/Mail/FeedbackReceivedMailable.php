@@ -19,8 +19,7 @@ class FeedbackReceivedMailable extends Mailable
      */
     public function __construct(
         public Feedback $feedback
-    )
-    {
+    ) {
     }
 
     /**
