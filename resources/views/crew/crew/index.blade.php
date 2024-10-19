@@ -21,7 +21,7 @@
                                     </svg>
                                 </button>
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-2">
+                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
                                 @forelse ($role->users as $user)
                                     <div
                                         class="relative bg-white dark:bg-gray-800 shadow rounded-lg p-2 flex items-center space-x-4">
@@ -34,6 +34,10 @@
                                                 class="text-md font-medium text-gray-900 dark:text-gray-100">{{ $user->name }}</div>
                                             <div
                                                 class="text-xs text-gray-500 dark:text-gray-400">{{ $user->email }}</div>
+                                            @if($user->crew_team)
+                                                <div
+                                                    class="text-xs text-gray-500 dark:text-gray-400">{{ 'Team: ' . ucfirst($user->crew_team) }}</div>
+                                            @endif
                                         </div>
                                         @can('remove-crew-member')
                                             <button
@@ -45,6 +49,16 @@
                                                           d="M6 18 18 6M6 6l12 12"/>
                                                 </svg>
                                             </button>
+                                            @if($role->name == 'event organizer')
+                                                <button
+                                                    onclick="Livewire.dispatch('openModal', { component: 'crew.add-team', arguments: {user: {{$user->id}}} })"
+                                                    class="absolute top-1 right-6 h-4 w-4 rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-700 focus:outline-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="h-3 w-3" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                                    </svg>
+                                                </button>
+                                            @endif
                                         @endcan
                                     </div>
                                 @empty
