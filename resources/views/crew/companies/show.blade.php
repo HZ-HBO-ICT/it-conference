@@ -38,7 +38,8 @@
                         </div>
                     </div>
                     <div class="text-gray-800 pt-3 dark:text-gray-200">
-                        <span class="font-semibold">Website:</span> <a class="underline text-apricot-peach-400 hover:text-apricot-peach-500"
+                        <span class="font-semibold">Website:</span> <a
+                            class="underline text-apricot-peach-400 hover:text-apricot-peach-500"
                             href="{{$company->website}}">{{ $company->website }}</a>
                     </div>
                     <div class="text-gray-800 pt-3 dark:text-gray-200">
@@ -115,17 +116,58 @@
 
                 <x-slot name="content">
                     <div class="text-gray-800 dark:text-gray-200">
-                        @forelse($company->users as $user)
-                            {{ $user->name }} | {{ $user->email }}
-                            @if($company->representative->id == $user->id)
-                                              (Company representative)
-                            @endif
-                            <br>
-                        @empty
-                            {{ __('There are currently no users in this company') }}
-                        @endforelse
+                        <ul class="space-y-3">
+                            @forelse($company->users as $user)
+                                <li class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-md shadow-sm">
+                                    <!-- Profile Image -->
+                                    <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}"
+                                         class="w-10 h-10 rounded-full object-cover mr-3">
+
+                                    <!-- User Information -->
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-base">
+                                            {{ $user->name }}
+                                        </div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400">
+                                            {{ $user->email }}
+                                        </div>
+                                        <!-- User Roles -->
+                                        @if($user->roles->isNotEmpty())
+                                            <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                                                {{ __('Roles: ') }}{{ optional($user->mainRoles())->join(', ') }}
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <!-- Company Representative Badge -->
+                                    @if($company->representative->id == $user->id)
+                                        <span
+                                            class="ml-3 px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-md">
+                                {{ __('Company Representative') }}
+                            </span>
+                                    @endif
+                                </li>
+                            @empty
+                                <li class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ __('There are currently no users in this company.') }}
+                                </li>
+                            @endforelse
+                        </ul>
                     </div>
                 </x-slot>
+                @can('addMember', $company)
+                    <x-slot name="actions">
+                        @if ($company->is_approved)
+                            <x-button onclick="Livewire.dispatch('openModal', { component: 'company.add-participant', arguments: {companyId: {{$company->id}}} })">
+                                {{ __('Add Participant') }}
+                            </x-button>
+                        @else
+                            <div>
+                                <p class="text-sm text-gray-700 dark:text-gray-100">The company must be approved before adding participants.</p>
+                            </div>
+                        @endif
+                    </x-slot>
+                @endcan
             </x-action-section>
 
             <x-section-border/>
@@ -150,24 +192,36 @@
                     @can('approveRequest', $company)
                         @if(!$company->is_approved)
                             <x-slot name="actions">
-                                <form method="POST" action="{{ route('moderator.companies.approve', $company) }}"
-                                      class="mr-2">
-                                    @csrf
-                                    <input type="hidden" name="approved" value="1"/>
+                                <div class="flex space-x-2">
                                     <x-button
+                                        onclick="
+                                    Livewire.dispatch('openModal', {
+                                    component: 'confirmation-modal',
+                                        arguments: {
+                                            title: 'Approve company',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.companies.approve', ['company' => $company, 'isApproved' => 1]) }}',
+                                            isApproved: 1,
+                                        }
+                                    })"
                                         class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
                                         {{ __('Approve') }}
                                     </x-button>
-                                </form>
-                                <form method="POST" action="{{ route('moderator.companies.approve', $company) }}"
-                                      class="mr-2">
-                                    @csrf
-                                    <input type="hidden" name="approved" value="0"/>
-                                    <x-button
-                                        class="dark:bg-red-500 bg-red-500 hover:bg-red-600 hover:dark:bg-red-600 active:bg-red-600 active:dark:bg-red-600">
+
+                                    <x-danger-button
+                                        onclick="
+                                    Livewire.dispatch('openModal', {
+                                        component: 'confirmation-modal',
+                                        arguments: {
+                                            title: 'Reject company',
+                                            method: 'POST',
+                                            route: '{{ route('moderator.companies.approve', ['company' => $company, 'isApproved' => 0]) }}',
+                                            isApproved: 0,
+                                        }
+                                    })">
                                         {{ __('Reject') }}
-                                    </x-button>
-                                </form>
+                                    </x-danger-button>
+                                </div>
                             </x-slot>
                         @endif
                     @endcan

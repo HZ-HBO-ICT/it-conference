@@ -191,7 +191,7 @@ Route::middleware([
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::resource('/moderator/faqs', FrequentQuestionController::class);
-    Route::post('/moderator/booths/{booth}/approve', [
+    Route::post('/moderator/booths/{booth}/approve/{isApproved}', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
@@ -199,7 +199,7 @@ Route::middleware([
         '/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class
     );
-    Route::post('/moderator/companies/{company}/approve', [
+    Route::post('/moderator/companies/{company}/approve/{isApproved}', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
@@ -207,7 +207,7 @@ Route::middleware([
         '/moderator/presentations',
         App\Http\Controllers\Crew\PresentationController::class
     );
-    Route::post('/moderator/presentations/{presentation}/approve', [
+    Route::post('/moderator/presentations/{presentation}/approve/{isApproved}', [
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
@@ -222,7 +222,7 @@ Route::middleware([
         ->name('sponsorships.store');
     Route::delete('/crew/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
         ->name('sponsorships.delete');
-    Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
+    Route::post('/crew/sponsorships/{company}/approve/{isApproved}', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
 
     // ====== Crew routes ========

@@ -95,17 +95,14 @@ class CompanyController extends Controller
     /**
      * Approve or reject the specified resource in storage.
      */
-    public function approve(Request $request, Company $company)
+    public function approve(Company $company, bool $isApproved)
     {
         if (Auth::user()->cannot('approveRequest', $company)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'approved' => 'required|boolean'
-        ]);
 
-        $isApproved = $validated['approved'];
+        $isApproved = filter_var($isApproved, FILTER_VALIDATE_BOOLEAN);
         if (!$isApproved) {
             if ($company->representative->receive_emails) {
                 Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
