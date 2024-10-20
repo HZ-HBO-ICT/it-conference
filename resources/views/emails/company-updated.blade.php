@@ -1,7 +1,7 @@
 @component('mail::message')
 Dear {{ $user->name }}
 
-'{{ $company->name }}' details were updated by
+Your company '{{ $company->name }}' details were updated by
 @if($user->isMemberOf($company))
 our crew.
 

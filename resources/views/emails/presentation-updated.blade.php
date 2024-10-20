@@ -1,7 +1,7 @@
 @component('mail::message')
 Dear {{ $user->name }}
 
-'{{ $presentation->name }}' details were updated by
+Your presentation '{{ $presentation->name }}' details were updated by
 @if($user->isPresenterOf($presentation))
 our crew.
 

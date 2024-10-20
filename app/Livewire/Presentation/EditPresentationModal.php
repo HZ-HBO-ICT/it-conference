@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Presentation;
 
-use App\Events\PresentationRolesNotified;
+use App\Jobs\NotifyPresentationRoles;
 use App\Livewire\Forms\PresentationForm;
+use App\Mail\PresentationUpdatedMailable;
 use App\Models\Presentation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,14 +41,14 @@ class EditPresentationModal extends ModalComponent
 
         if (Auth::user()->presenter_of) {
             if (!$this->presentation->isSamePresentation($this->form->presentation)) {
-                PresentationRolesNotified::dispatch('crew', $this->presentation);
+                NotifyPresentationRoles::dispatch('crew', $this->presentation, PresentationUpdatedMailable::class);
             }
 
             return redirect(route('presentations.show', $this->presentation))
                 ->with('status', 'Presentation successfully updated.');
         } else {
             if (!$this->presentation->isSamePresentation($this->form->presentation)) {
-                PresentationRolesNotified::dispatch('speaker', $this->presentation);
+                NotifyPresentationRoles::dispatch('speaker', $this->presentation, PresentationUpdatedMailable::class);
             }
 
             return redirect(route('moderator.presentations.show', $this->presentation))

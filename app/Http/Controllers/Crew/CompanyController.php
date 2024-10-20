@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Crew;
 
 use App\Events\CompanyRolesNotified;
 use App\Http\Controllers\Controller;
+use App\Jobs\NotifyCompanyRoles;
 use App\Mail\CompanyApprovedMailable;
 use App\Mail\CompanyDeletedMailable;
 use App\Mail\CompanyDisapprovedMailable;
@@ -138,7 +139,7 @@ class CompanyController extends Controller
             abort(403);
         }
 
-        CompanyRolesNotified::dispatch('company representative', $company, CompanyDeletedMailable::class);
+        NotifyCompanyRoles::dispatchSync('company representative', $company, CompanyDeletedMailable::class);
 
         foreach ($company->users as $user) {
             $user->syncRoles(Role::findByName('participant', 'web'));

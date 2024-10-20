@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Company;
 
-use App\Events\CompanyRolesNotified;
+use App\Jobs\NotifyCompanyRoles;
 use App\Livewire\Forms\CompanyForm;
 use App\Mail\CompanyUpdatedMailable;
 use App\Models\Company;
@@ -45,14 +45,14 @@ class EditCompanyModal extends ModalComponent
 
         if (Auth::user()->id == $this->company->representative->id) {
             if (!$this->company->isSameCompany($this->form->company)) {
-                CompanyRolesNotified::dispatch('crew', $this->company, CompanyUpdatedMailable::class);
+                NotifyCompanyRoles::dispatch('crew', $this->company, CompanyUpdatedMailable::class);
             }
 
             return redirect(route('company.details'))
                 ->with('status', 'Company successfully updated.');
         } else {
             if (!$this->company->isSameCompany($this->form->company)) {
-                CompanyRolesNotified::dispatch('company representative', $this->company, CompanyUpdatedMailable::class);
+                NotifyCompanyRoles::dispatch('company representative', $this->company, CompanyUpdatedMailable::class);
             }
 
             return redirect(route('moderator.companies.show', $this->company))
