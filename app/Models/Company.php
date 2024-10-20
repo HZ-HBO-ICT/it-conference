@@ -252,4 +252,23 @@ class Company extends Model
             $this->enableLogging();
         }
     }
+
+    /**
+     * Determine whether the passed model instance is the same as the calling one
+     *
+     * @param Company $company
+     * @return bool
+     */
+    public function isSameCompany(Company $company): bool
+    {
+        return $this->is($company) &&
+            $this->name == $company->name &&
+            $this->description == $company->description &&
+            $this->website == $company->website &&
+            $this->phone_number == $company->phone_number &&
+            $this->postcode == $company->postcode &&
+            $this->house_number == $company->house_number &&
+            $this->street == $company->street &&
+            $this->city == $company->city;
+    }
 }
