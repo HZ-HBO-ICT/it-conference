@@ -37,7 +37,7 @@ class HandlePresentationRolesNotified
 
         // Send emails to the users
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new PresentationUpdatedMailable($user, $event->presentation));
+            Mail::to($user->email)->send(new $event->emailTemplate($user, $event->presentation));
         }
     }
 }

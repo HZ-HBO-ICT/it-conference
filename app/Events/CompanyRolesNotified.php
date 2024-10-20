@@ -10,6 +10,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class CompanyRolesNotified
@@ -22,6 +23,7 @@ class CompanyRolesNotified
     public function __construct(
         public string $receiver,
         public Company $company,
+        public string $emailTemplate,
     ) {
     }
 

@@ -37,7 +37,7 @@ class HandleCompanyRolesNotified
 
         // Send emails to the users
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new CompanyUpdatedMailable($user, $event->company));
+            Mail::to($user->email)->send(new $event->emailTemplate($user, $event->company));
         }
     }
 }

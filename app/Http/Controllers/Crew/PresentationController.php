@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Events\PresentationRolesNotified;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresentationRequest;
 use App\Mail\PresentationApprovedMailable;
+use App\Mail\PresentationDeletedMailable;
 use App\Mail\PresentationDisapprovedMailable;
 use App\Models\Company;
 use App\Models\Presentation;
@@ -144,6 +146,8 @@ class PresentationController extends Controller
         if (Auth::user()->cannot('delete', $presentation)) {
             abort(403);
         }
+
+        PresentationRolesNotified::dispatch('speaker', $presentation, PresentationDeletedMailable::class);
 
         $presentation->delete();
 

@@ -21,6 +21,7 @@ class PresentationRolesNotified
     public function __construct(
         public string $receiver,
         public Presentation $presentation,
+        public string $emailTemplate,
     ) {
     }
 
