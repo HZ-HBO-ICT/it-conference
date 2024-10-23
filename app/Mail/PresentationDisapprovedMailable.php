@@ -27,7 +27,7 @@ class PresentationDisapprovedMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Presentation Disapproved',
+            subject: 'Presentation Refused',
         );
     }
 

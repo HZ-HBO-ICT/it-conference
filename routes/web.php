@@ -60,11 +60,12 @@ Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('co
 Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 Route::view('/contact', 'contact')->name('contact');
 
-//Route::get('/teams/{team}/requests', [TeamRequestsController::class, 'index'])->name('teams.requests');
-//
-//Route::get('/companies/{team}', [TeamsController::class, 'show'])->name('companies.show');
-//
-//
+// routes for registering from invitation
+Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
+    ->middleware(['signed'])->name('registration.page.via.invitation');
+Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
+    ->name('register.via.invitation');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -87,12 +88,6 @@ Route::middleware([
         ->name('presentations.show');
     Route::delete('/presentations/{presentation}', [PresentationController::class, 'destroy'])
         ->name('presentations.destroy');
-
-    // routes for registering from invitation
-    Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
-        ->middleware(['signed'])->name('registration.page.via.invitation');
-    Route::post('/register/team-invitations/{invitation}', [InvitationController::class, 'register'])
-        ->name('register.via.invitation');
 
     //route for personal programme
     Route::get('/my/programme', [ParticipantController::class, 'programme'])
@@ -199,7 +194,7 @@ Route::middleware([
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::resource('/moderator/faqs', FrequentQuestionController::class);
-    Route::post('/moderator/booths/{booth}/approve', [
+    Route::post('/moderator/booths/{booth}/approve/{isApproved}', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
 
@@ -207,7 +202,7 @@ Route::middleware([
         '/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class
     );
-    Route::post('/moderator/companies/{company}/approve', [
+    Route::post('/moderator/companies/{company}/approve/{isApproved}', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
@@ -215,7 +210,7 @@ Route::middleware([
         '/moderator/presentations',
         App\Http\Controllers\Crew\PresentationController::class
     );
-    Route::post('/moderator/presentations/{presentation}/approve', [
+    Route::post('/moderator/presentations/{presentation}/approve/{isApproved}', [
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
@@ -230,7 +225,7 @@ Route::middleware([
         ->name('sponsorships.store');
     Route::delete('/crew/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
         ->name('sponsorships.delete');
-    Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
+    Route::post('/crew/sponsorships/{company}/approve/{isApproved}', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
 
     // ====== Crew routes ========

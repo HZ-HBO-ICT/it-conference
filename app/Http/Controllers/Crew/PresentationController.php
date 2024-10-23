@@ -96,17 +96,13 @@ class PresentationController extends Controller
     /**
      * Approve or reject the specified resource in storage.
      */
-    public function approve(Request $request, Presentation $presentation)
+    public function approve(Presentation $presentation, bool $isApproved)
     {
         if (Auth::user()->cannot('approve', $presentation)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'approved' => 'required|boolean'
-        ]);
-
-        $isApproved = $validated['approved'];
+        $isApproved = filter_var($isApproved, FILTER_VALIDATE_BOOLEAN);
         if (!$isApproved) {
             foreach ($presentation->speakers as $speaker) {
                 if ($speaker->receive_emails) {

@@ -1,10 +1,10 @@
-<div class="relative font-[sans-serif] flex items-center">
+<div class="relative font-[sans-serif] flex items-center pt-1">
     <div class="relative"> <!-- Add this wrapper for the dropdown-related elements -->
         <button type="button" id="dropdownToggle" wire:click="toggleDropdown"
-                class="px-5 py-2.5 rounded text-[#333] text-sm border bg-white dark:bg-gray-900 dark:text-gray-50 border-gray-300 border-gray-800 outline-none hover:bg-indigo-50 flex items-center">
+                class="px-5 py-2.5 rounded-md text-[#333] text-sm border bg-white dark:bg-gray-900 dark:text-gray-50 border-gray-300 dark:border-gray-700 outline-none hover:bg-indigo-50 flex items-center">
             <span class="flag-icon {{current($selected)}} mr-3"></span>
             {{key($selected)}}
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-[#333] ml-3" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-[#333] dark:fill-gray-300 ml-3" viewBox="0 0 24 24">
                 <path fill-rule="evenodd"
                       d="M11.99997 18.1669a2.38 2.38 0 0 1-1.68266-.69733l-9.52-9.52a2.38 2.38 0 1 1 3.36532-3.36532l7.83734 7.83734 7.83734-7.83734a2.38 2.38 0 1 1 3.36532 3.36532l-9.52 9.52a2.38 2.38 0 0 1-1.68266.69734z"
                       clip-rule="evenodd" data-original="#000000" />

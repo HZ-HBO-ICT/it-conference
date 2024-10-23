@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Room;
 use App\Models\User;
 
 class RoomPolicy
@@ -56,8 +57,12 @@ class RoomPolicy
      * @param User $user
      * @return bool
      */
-    public function delete(User $user)
+    public function delete(User $user, Room $room)
     {
-        return $user->can('delete room');
+        if (!$user->can('delete room')) {
+            return false;
+        }
+
+        return $room->presentations->count() == 0 && $room->defaultPresentations->count() == 0;
     }
 }

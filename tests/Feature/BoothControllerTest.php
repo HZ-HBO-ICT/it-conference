@@ -81,43 +81,42 @@ class BoothControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
-    public function store_saves_and_redirects_to_crew()
-    {
-        $user = User::factory()->create();
-        $user->assignRole('event organizer');
-        $company = Company::factory()->create();
-        $data = [
-            'company_id' => $company->id,
-            'width' => 1,
-            'length' => 2,
-            'additional_information' => 'Sample info'
-        ];
+    // Currently commented out since the route is unused
+    /*    public function store_saves_and_redirects_to_crew()
+        {
+            $user = User::factory()->create();
+            $user->assignRole('event organizer');
+            $company = Company::factory()->create();
+            $data = [
+                'company_id' => $company->id,
+                'width' => 1,
+                'length' => 2,
+                'additional_information' => 'Sample info'
+            ];
 
-        $response = $this->actingAs($user)->post(route('moderator.booths.store'), $data);
+            $response = $this->actingAs($user)->post(route('moderator.booths.store'), $data);
 
-        $response->assertRedirect(route('moderator.booths.index'));
-        $this->assertDatabaseHas('booths', $data);
-    }
+            $response->assertRedirect(route('moderator.booths.index'));
+            $this->assertDatabaseHas('booths', $data);
+        }
 
-    /** @test */
-    public function store_denies_action_to_participant()
-    {
-        $user = User::factory()->create();
-        $user->assignRole('participant');
-        $company = Company::factory()->create();
-        $data = [
-            'company_id' => $company->id,
-            'width' => 10,
-            'length' => 20,
-            'additional_information' => 'Sample info'
-        ];
+        public function store_denies_action_to_participant()
+        {
+            $user = User::factory()->create();
+            $user->assignRole('participant');
+            $company = Company::factory()->create();
+            $data = [
+                'company_id' => $company->id,
+                'width' => 10,
+                'length' => 20,
+                'additional_information' => 'Sample info'
+            ];
 
-        $response = $this->actingAs($user)->post(route('moderator.booths.store'), $data);
+            $response = $this->actingAs($user)->post(route('moderator.booths.store'), $data);
 
-        $response->assertStatus(403);
-        $this->assertNull($company->booth);
-    }
+            $response->assertStatus(403);
+            $this->assertNull($company->booth);
+        }*/
 
     /** @test */
     public function show_displays_correct_booth_to_crew()
@@ -156,7 +155,7 @@ class BoothControllerTest extends TestCase
         }))->create();
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.booths.approve', [$company->booth, 'approved' => true]));
+            ->post(route('moderator.booths.approve', [$company->booth, 'isApproved' => true]));
 
         $response->assertRedirect(route('moderator.booths.show', ['booth' => $company->booth]));
         $company->refresh();
@@ -171,7 +170,7 @@ class BoothControllerTest extends TestCase
         $company = Company::factory()->has(Booth::factory(1))->create();
 
         $response = $this->actingAs($user)
-            ->post(route('moderator.booths.approve', [$company->booth, 'approved' => true]));
+            ->post(route('moderator.booths.approve', [$company->booth, 'isApproved' => true]));
 
         $response->assertStatus(403);
         $this->assertEquals(0, $company->booth->is_approved);

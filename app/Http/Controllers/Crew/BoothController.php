@@ -43,6 +43,9 @@ class BoothController extends Controller
      */
     public function store(Request $request)
     {
+        // CURRENTLY NOT IN USE
+        abort(404);
+
         if ($request->user()->cannot('create', Booth::class)) {
             abort(403);
         }
@@ -77,17 +80,13 @@ class BoothController extends Controller
     /**
      * Approve or reject the specified resource in storage.
      */
-    public function approve(Request $request, Booth $booth)
+    public function approve(Booth $booth, bool $isApproved)
     {
         if (Auth::user()->cannot('approveRequest', $booth)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'approved' => 'required|boolean'
-        ]);
-
-        $isApproved = $validated['approved'];
+        $isApproved = filter_var($isApproved, FILTER_VALIDATE_BOOLEAN);
         $booth->handleApproval($isApproved);
 
         $template = $isApproved ? 'You approved the booth of :company!'

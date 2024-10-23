@@ -72,7 +72,7 @@
                 @endforeach
             </div>
         @else
-            <div class="bg-white rounded py-2">
+            <div class="bg-white dark:bg-gray-800 rounded py-2">
                 <p class="text-center text-2xl font-bold">
                     There are no companies available right now.
                 </p>
