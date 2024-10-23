@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Console\Command;
 use Exception;
 
@@ -33,8 +32,6 @@ class ConfirmAllEmails extends Command
                 $user->update([
                     'email_verified_at' => now()->timestamp
                 ]);
-
-                $user->createTicket();
             });
 
             $this->info('All emails are marked as confirmed successfully');

@@ -3,7 +3,7 @@
 @endphp
 
 <li>
-    <div class="leading-6 font-semibold text-xs text-gray-400 hidden lg:block">Event organizer</div>
+    <div class="leading-6 font-semibold text-xs text-gray-400">Event organizer</div>
     <ul class="-mx-2" role="list">
         @if(Edition::current())
             @can('viewAny', \App\Models\Company::class)
@@ -78,13 +78,6 @@
                     :label="'FAQs'"
                     :route="'moderator.faqs.index'"
                     :icon="'M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z'"
-                    :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
-            @endcan
-            @can('scan', \App\Models\Ticket::class)
-                <x-sidebar-link-content-mod
-                    :label="'Scan tickets'"
-                    :route="'moderator.tickets.index'"
-                    :icon="'M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z'"
                     :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
             @endcan
         @endif
