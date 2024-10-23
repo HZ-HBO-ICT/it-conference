@@ -5,7 +5,7 @@
          class="h-full col-span-3 hidden md:block rounded-md">
         <div class="h-full rounded-md" style="overflow: clip">
             <div class="relative h-full">
-                <img class="h-full object-cover" src="/img/market.jpg" alt="market">
+                <img class="h-full object-cover" src="/img/market.webp" alt="market">
                 <div class="gradient absolute inset-0"
                      style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
                 <div class="absolute inset-0 flex justify-center items-center" style="z-index: 3">

@@ -138,18 +138,18 @@
             <!-- Blob -->
             <!-- the auth/guest is necessary because the register now button changes the layout -->
             @auth()
-                <img src="/img/rose-blob.png"
+                <img src="/img/rose-blob.webp"
                      class="absolute -top-72 -left-96 md:-top-48 md:-left-80 lg:-top-72 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                      style="transform: rotate(-90deg)">
             @endauth
             @guest()
-                <img src="/img/rose-blob.png"
+                <img src="/img/rose-blob.webp"
                      class="absolute -top-88 -left-96 md:-top-56 md:-left-80 lg:-top-88 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                      style="transform: rotate(-90deg)">
             @endguest
 
             <!-- Blob -->
-            <img src="/img/blue-blob.png"
+            <img src="/img/blue-blob.webp"
                  class="absolute -top-48 -right-36 md:-top-32 md:-right-20 lg:-top-32 lg:-right-32 xl:-top-48 xl:-right-40 h-80 transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(61deg)">
 

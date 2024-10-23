@@ -4,7 +4,7 @@
             <div id="pretty-slide" class="h-full col-span-3 hidden md:flex rounded-md">
                 <div class="h-full rounded-md overflow-hidden">
                     <div class="relative h-full w-full">
-                        <img class="h-full w-full object-cover" src="/img/market.jpg" alt="market">
+                        <img class="h-full w-full object-cover" src="/img/market.webp" alt="market">
                         <div class="gradient absolute inset-0" style="background: linear-gradient(to bottom right, rgba(54, 102, 255, 0.7), rgba(184, 98, 214, 0.7));"></div>
                         <div class="absolute inset-0 flex justify-center items-center z-10">
                             <h2 class="text-4xl font-bold text-white drop-shadow-md text-center leading-tight">We are in IT together<br>Conference</h2>
