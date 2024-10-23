@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Edition;
 use App\Models\EditionEvent;
-use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,22 +23,16 @@ class EditionSeeder extends Seeder
         EditionEvent::create([
             'edition_id' => 1,
             'event_id' => 1,
-            'start_at' => Carbon::now(),
-            'end_at' => Carbon::now()->addWeeks(2),
         ]);
 
         EditionEvent::create([
             'edition_id' => 1,
             'event_id' => 2,
-            'start_at' => Carbon::now(),
-            'end_at' => Carbon::now()->addWeeks(2),
         ]);
 
         EditionEvent::create([
             'edition_id' => 1,
             'event_id' => 3,
-            'start_at' => Carbon::now(),
-            'end_at' => Carbon::now()->addWeeks(2),
         ]);
     }
 }
