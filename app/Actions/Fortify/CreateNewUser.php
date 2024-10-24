@@ -56,7 +56,7 @@ class CreateNewUser implements CreatesNewUsers
             ]), function (User $user) use ($input) {
                 $user->assignRole('participant');
 
-                if (env('APP_ENV') == 'local') {
+                if (env('APP_ENV') == 'local' || env('APP_ENV') == 'acceptance') {
                     $user->markEmailAsVerified();
                 }
 
