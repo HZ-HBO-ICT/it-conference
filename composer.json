@@ -4,8 +4,16 @@
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/igornvk/simple-qrcode"
+        }
+    ],
     "require": {
         "php": "^8.2",
+        "ext-pdo_sqlite": "*",
+        "doctrine/dbal": "^4.2",
         "laravel/framework": "^11.0",
         "laravel/jetstream": "^5.0",
         "laravel/sanctum": "^4.0",
@@ -13,10 +21,12 @@
         "livewire/livewire": "^3.4",
         "masmerise/livewire-toaster": "^2.2",
         "propaganistas/laravel-phone": "^5.2",
+        "simplesoftwareio/simple-qrcode": "dev-develop",
         "spatie/laravel-activitylog": "^4.8",
         "spatie/laravel-markdown": "^2.5",
         "spatie/laravel-permission": "^6.4",
-        "wire-elements/modal": "^2.0"
+        "wire-elements/modal": "^2.0",
+        "ext-imagick": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
