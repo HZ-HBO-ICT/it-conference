@@ -73,6 +73,10 @@ Route::middleware([
 ])->group(function () {
     Route::prefix('/my')->group(function () {
         Route::view('/', 'myhub.home')->name('dashboard');
+        Route::get('/feedback', [ParticipantController::class, 'createFeedback'])
+            ->name('feedback.create');
+        Route::post('/feedback', [ParticipantController::class, 'storeFeedback'])
+            ->name('feedback.store');
         Route::get('/company/details', [\App\Http\Controllers\Hub\CompanyController::class, 'details'])
             ->name('company.details');
         Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
@@ -197,6 +201,11 @@ Route::middleware([
     Route::post('/moderator/booths/{booth}/approve/{isApproved}', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
+
+    Route::get('/moderator/feedback', [\App\Http\Controllers\Crew\FeedbackController::class, 'index'])
+        ->name('feedback.index');
+    Route::get('/moderator/feedback/{feedback}', [\App\Http\Controllers\Crew\FeedbackController::class, 'show'])
+        ->name('feedback.show');
 
     Route::resource(
         '/moderator/companies',

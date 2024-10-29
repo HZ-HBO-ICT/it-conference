@@ -42,7 +42,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'company_id',
-        'institution'
+        'institution',
+        'crew_team'
     ];
 
     /**
@@ -97,6 +98,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ticket(): HasOne
     {
         return $this->hasOne(Ticket::class);
+    }
+  
+    /**
+     * Establishes the relationship between the user and the feedback given by them
+     * @return HasMany
+     */
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class);
     }
 
     /**
@@ -335,7 +345,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param Builder $query
      * @return void
      */
-    public function scopeSendEmailPreference(Builder $query) : void
+    public function scopeSendEmailPreference(Builder $query): void
     {
         $query->where('receive_emails', '=', 1);
     }

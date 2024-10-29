@@ -103,3 +103,6 @@ permissions:
     delete: [ event organizer, assistant organizer ]
   ticket:
     scan: [ event organizer, assistant organizer, company market supervisor, speakers supervisor, pr lead, entertainment organizer ]
+  feedback:
+    viewAny: event organizer
+    view: event organizer
