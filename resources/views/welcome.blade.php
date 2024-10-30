@@ -32,7 +32,7 @@
                         </h2>
                         <h2 class="uppercase font-medium mb-8">
                             @if($edition)
-                                {{ $edition->start_at->format('F j, Y') }}
+                                {{ $edition->start_at->format('j F Y') }}
                             @else
                                 The date will be provided soon!
                             @endif
