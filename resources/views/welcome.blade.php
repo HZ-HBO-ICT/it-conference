@@ -1,5 +1,4 @@
 @php
-    $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
     use App\Models\Sponsorship;
 @endphp
 
@@ -83,25 +82,7 @@
                 <div
                     class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
                     @if ($edition)
-                        @if ($edition->is_in_progress)
-                            <div class="flex flex-col justify-center items-center">
-                                <p class="font-montserrat uppercase font-medium text-3xl">The conference has officially
-                                                                                          began!</p>
-                                @if(!url()->previous() || $pageRefreshed)
-                                    <lottie-player
-                                        id="animation"
-                                        class="absolute inset-0 min-h-screen h-full z-0 hidden lg:block"
-                                        src="https://lottie.host/64dd3e45-77c7-4678-8dcc-fa04aa22ca8b/p5aeXKksjz.json"
-                                        background="##FFFFFF"
-                                        speed="1"
-                                        autoplay
-                                        direction="1"
-                                        mode="normal"></lottie-player>
-                                @endif
-                            </div>
-                        @elseif(!$edition->is_over)
-                            <x-countdown :time="$edition->start_at"/>
-                        @endif
+                        <x-countdown :time="$edition->start_at"/>
                     @endif
                 </div>
             </div>
@@ -331,16 +312,3 @@
         </div>
     </div>
 </x-app-layout>
-
-@if(optional($edition)->is_in_progress && (!session()->previousUrl() || $pageRefreshed))
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const animation = document.getElementById('animation');
-
-            animation.addEventListener('complete', () => {
-                console.log('sdsf');
-                animation.remove();
-            });
-        });
-    </script>
-@endif

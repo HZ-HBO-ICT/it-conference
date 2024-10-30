@@ -162,7 +162,6 @@ class Edition extends Model
 
     /**
      * Determine whether the edition is over
-     * NOTE: possibly redundant method in case state change is automated
      *
      * @return Attribute
      */
