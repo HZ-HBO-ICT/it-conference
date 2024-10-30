@@ -27,7 +27,7 @@ class EditionMiddleware
 
             if ($user->is_crew) {
                 return redirect(route('dashboard'))
-                    ->dangetButton("There is no active edition. You can't access this page for now.");
+                    ->dangerButton("There is no active edition. You can't access this page for now.");
             }
         }
 

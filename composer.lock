@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b054de0e349b0ede7799740f6dcf777a",
+    "content-hash": "6df700ffa463a4f2a11aaefd421134ed",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3895,6 +3895,78 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "simplesoftwareio/simple-qrcode",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IGORnvk/simple-qrcode.git",
+                "reference": "5db63e8ec21408581aa33888dcc351d1c77a2a81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IGORnvk/simple-qrcode/zipball/5db63e8ec21408581aa33888dcc351d1c77a2a81",
+                "reference": "5db63e8ec21408581aa33888dcc351d1c77a2a81",
+                "shasum": ""
+            },
+            "require": {
+                "bacon/bacon-qr-code": "^3.0",
+                "ext-gd": "*",
+                "php": ">=7.2|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1",
+                "phpunit/phpunit": "~9"
+            },
+            "suggest": {
+                "ext-imagick": "Allows the generation of PNG QrCodes.",
+                "illuminate/support": "Allows for use within Laravel."
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider"
+                    ],
+                    "aliases": {
+                        "QrCode": "SimpleSoftwareIO\\QrCode\\Facades\\QrCode"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SimpleSoftwareIO\\QrCode\\": "src"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simple Software LLC",
+                    "email": "support@simplesoftware.io"
+                }
+            ],
+            "description": "Simple QrCode is a QR code generator made for Laravel.",
+            "homepage": "https://www.simplesoftware.io/#/docs/simple-qrcode",
+            "keywords": [
+                "generator",
+                "laravel",
+                "qrcode",
+                "simple",
+                "wrapper"
+            ],
+            "support": {
+                "source": "https://github.com/IGORnvk/simple-qrcode/tree/develop"
+            },
+            "time": "2024-09-11T20:53:22+00:00"
         },
         {
             "name": "spatie/commonmark-shiki-highlighter",
@@ -9477,8 +9549,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "simplesoftwareio/simple-qrcode": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

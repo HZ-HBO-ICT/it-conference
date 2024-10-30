@@ -9,6 +9,7 @@ use App\Http\Controllers\Crew\FrequentQuestionController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
+use App\Http\Controllers\Crew\TicketController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Hub\ParticipantController;
@@ -160,6 +161,8 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
+
+
 // ===== Routes for crew =====
 Route::middleware([
     'auth:sanctum',
@@ -241,4 +244,6 @@ Route::middleware([
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('/moderator/tickets', [TicketController::class, 'index'])->name('tickets.index');
 });

@@ -41,6 +41,10 @@ export default {
         'stroke-apricot-peach-300',
         'stroke-apricot-peach-400',
         'text-crew-300',
+        'text-participant-600',
+        'text-participant-200',
+        'text-partner-200',
+        'text-partner-600',
         'bg-participant-500',
         'bg-participant-700',
         'bg-violet-500',
@@ -70,6 +74,12 @@ export default {
         'hover:to-apricot-peach-700',
         'bg-gray-600',
         'bg-apricot-peach-300',
+        'bg-green-300',
+        'bg-yellow-300',
+        'dark:bg-green-600',
+        'dark:bg-sky-600',
+        'dark:bg-red-600',
+        'dark:bg-yellow-600',
         'bg-red-400',
         'hover:bg-red-400',
         'dark:bg-red-800/50',
@@ -82,6 +92,7 @@ export default {
         'hover:bg-apricot-peach-300',
         'dark:bg-apricot-peach-700/50',
         'dark:hover:bg-apricot-peach-600/75'
+
     ],
     theme: {
         extend: {
