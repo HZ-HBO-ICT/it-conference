@@ -3,10 +3,6 @@
     use App\Models\Sponsorship;
 @endphp
 
-@push('scripts')
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-@endpush
-
 <x-app-layout>
     <div class="flex flex-col overflow-hidden">
         <!-- The main banner -->
