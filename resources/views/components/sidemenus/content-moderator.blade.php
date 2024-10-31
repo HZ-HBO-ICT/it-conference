@@ -3,7 +3,7 @@
 @endphp
 
 <li>
-    <div class="leading-6 font-semibold text-xs text-gray-400">Event organizer</div>
+    <div class="leading-6 font-semibold text-xs text-gray-400 hidden lg:block">Event organizer</div>
     <ul class="-mx-2" role="list">
         @if(Edition::current())
             @can('viewAny', \App\Models\Company::class)
@@ -80,6 +80,13 @@
                     :icon="'M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z'"
                     :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
             @endcan
+            @can('scan', \App\Models\Ticket::class)
+                <x-sidebar-link-content-mod
+                    :label="'Scan tickets'"
+                    :route="'moderator.tickets.index'"
+                    :icon="'M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z'"
+                    :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
+            @endcan
         @endif
         @can('viewAny', Edition::class)
             <x-sidebar-link-content-mod
@@ -88,6 +95,13 @@
                 :icon="'M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z'"
                 :roleColour="Auth::user()->role_colour"
                 :badgeText="Edition::where('state', Edition::STATE_DESIGN)->count()"></x-sidebar-link-content-mod>
+        @endcan
+        @can('viewAny', \App\Models\Feedback::class)
+            <x-sidebar-link-content-mod
+                :label="'Received feedback'"
+                :route="'moderator.feedback.index'"
+                :icon="'m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'"
+                :roleColour="Auth::user()->role_colour"></x-sidebar-link-content-mod>
         @endcan
     </ul>
 </li>

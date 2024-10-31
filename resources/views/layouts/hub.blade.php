@@ -6,13 +6,13 @@
 
 <x-app-layout>
     <div class="flex">
-        <div class="flex-col w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
+        <div class="flex-col lg:w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
             <div
                 class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto flex-col flex-grow flex">
                 <div class="items-center flex-shrink-0 h-16 flex mt-4">
                     <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}"
                          alt="IT Conference logo">
-                    <h3 class="ml-4 font-semibold dark:text-white">My hub</h3>
+                    <h3 class="ml-4 font-semibold dark:text-white hidden lg:block">My hub</h3>
                 </div>
                 <nav class="flex-col flex-1 flex">
                     <ul class="gap-y-7 flex-col flex-1 flex" role="list">
@@ -63,8 +63,16 @@
 
                         {{-- Profile links --}}
                         <li>
-                            <div class="leading-6 font-semibold text-xs text-gray-400">Profile</div>
+                            <div class="leading-6 font-semibold text-xs text-gray-400 hidden lg:block">Profile</div>
                             <ul class="mt-2 -mx-2 mb-auto" role="list">
+                                @can('create', \App\Models\Feedback::class)
+                                    <x-sidebar-link
+                                        :type="'link'"
+                                        :label="'Give feedback'"
+                                        :route="'feedback.create'"
+                                        :icon="'m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'"
+                                        :roleColour="Auth::user()->role_colour"></x-sidebar-link>
+                                @endcan
                                 <x-sidebar-link
                                     :type="'link'"
                                     :label="'Edit profile'"

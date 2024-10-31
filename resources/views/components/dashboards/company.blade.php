@@ -53,7 +53,7 @@
         && !Auth::user()->speaker)
         <x-gold-sponsor-speaker-block></x-gold-sponsor-speaker-block>
     @endif--}}
-    <div class="pt-6 px-6 pb-12 rounded-lg overflow-hidden relative">
+    <div class="pt-6 pb-3 px-6 rounded-lg overflow-hidden relative">
         <dl class="gap-5 grid-cols-3 grid mt-5">
             <x-dashboards.blocks.company
             :label="'Company status'"

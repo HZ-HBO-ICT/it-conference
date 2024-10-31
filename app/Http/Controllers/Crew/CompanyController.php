@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Events\CompanyRolesNotified;
 use App\Http\Controllers\Controller;
+use App\Jobs\NotifyCompanyRoles;
 use App\Mail\CompanyApprovedMailable;
+use App\Mail\CompanyDeletedMailable;
 use App\Mail\CompanyDisapprovedMailable;
 use App\Mail\CompanyRepInvitation;
 use App\Models\Company;
@@ -92,17 +95,14 @@ class CompanyController extends Controller
     /**
      * Approve or reject the specified resource in storage.
      */
-    public function approve(Request $request, Company $company)
+    public function approve(Company $company, bool $isApproved)
     {
         if (Auth::user()->cannot('approveRequest', $company)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'approved' => 'required|boolean'
-        ]);
 
-        $isApproved = $validated['approved'];
+        $isApproved = filter_var($isApproved, FILTER_VALIDATE_BOOLEAN);
         if (!$isApproved) {
             if ($company->representative->receive_emails) {
                 Mail::to($company->representative->email)->send(new CompanyDisapprovedMailable($company));
@@ -135,6 +135,8 @@ class CompanyController extends Controller
         if (Auth::user()->cannot('delete', $company)) {
             abort(403);
         }
+
+        NotifyCompanyRoles::dispatchSync('company representative', $company, CompanyDeletedMailable::class);
 
         foreach ($company->users as $user) {
             $user->syncRoles(Role::findByName('participant', 'web'));
@@ -203,7 +205,7 @@ class CompanyController extends Controller
             'email' => $input['rep_new_email'],
             'role' => 'company representative',
         ]);
-        
+
         Mail::to($input['rep_new_email'])->send(new CompanyRepInvitation($invitation));
 
         return $company;

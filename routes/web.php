@@ -9,6 +9,7 @@ use App\Http\Controllers\Crew\FrequentQuestionController;
 use App\Http\Controllers\Crew\RoomController;
 use App\Http\Controllers\Crew\ScheduleController;
 use App\Http\Controllers\Crew\SponsorshipController;
+use App\Http\Controllers\Crew\TicketController;
 use App\Http\Controllers\Crew\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Hub\ParticipantController;
@@ -72,6 +73,10 @@ Route::middleware([
 ])->group(function () {
     Route::prefix('/my')->group(function () {
         Route::view('/', 'myhub.home')->name('dashboard');
+        Route::get('/feedback', [ParticipantController::class, 'createFeedback'])
+            ->name('feedback.create');
+        Route::post('/feedback', [ParticipantController::class, 'storeFeedback'])
+            ->name('feedback.store');
         Route::get('/company/details', [\App\Http\Controllers\Hub\CompanyController::class, 'details'])
             ->name('company.details');
         Route::get('/company/requests', [\App\Http\Controllers\Hub\CompanyController::class, 'requests'])
@@ -156,6 +161,8 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
+
+
 // ===== Routes for crew =====
 Route::middleware([
     'auth:sanctum',
@@ -191,15 +198,20 @@ Route::middleware([
 
     Route::resource('/moderator/booths', BoothController::class);
     Route::resource('/moderator/faqs', FrequentQuestionController::class);
-    Route::post('/moderator/booths/{booth}/approve', [
+    Route::post('/moderator/booths/{booth}/approve/{isApproved}', [
         App\Http\Controllers\Crew\BoothController::class, 'approve'
     ])->name('booths.approve');
+
+    Route::get('/moderator/feedback', [\App\Http\Controllers\Crew\FeedbackController::class, 'index'])
+        ->name('feedback.index');
+    Route::get('/moderator/feedback/{feedback}', [\App\Http\Controllers\Crew\FeedbackController::class, 'show'])
+        ->name('feedback.show');
 
     Route::resource(
         '/moderator/companies',
         App\Http\Controllers\Crew\CompanyController::class
     );
-    Route::post('/moderator/companies/{company}/approve', [
+    Route::post('/moderator/companies/{company}/approve/{isApproved}', [
         App\Http\Controllers\Crew\CompanyController::class, 'approve'
     ])->name('companies.approve');
 
@@ -207,7 +219,7 @@ Route::middleware([
         '/moderator/presentations',
         App\Http\Controllers\Crew\PresentationController::class
     );
-    Route::post('/moderator/presentations/{presentation}/approve', [
+    Route::post('/moderator/presentations/{presentation}/approve/{isApproved}', [
         App\Http\Controllers\Crew\PresentationController::class, 'approve'
     ])->name('presentations.approve');
 
@@ -222,7 +234,7 @@ Route::middleware([
         ->name('sponsorships.store');
     Route::delete('/crew/sponsorships/{company}', [SponsorshipController::class, 'destroy'])
         ->name('sponsorships.delete');
-    Route::post('/crew/sponsorships/{company}/approve', [SponsorshipController::class, 'approve'])
+    Route::post('/crew/sponsorships/{company}/approve/{isApproved}', [SponsorshipController::class, 'approve'])
         ->name('sponsorships.approve');
 
     // ====== Crew routes ========
@@ -232,4 +244,6 @@ Route::middleware([
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('/moderator/tickets', [TicketController::class, 'index'])->name('tickets.index');
 });
