@@ -4,13 +4,18 @@
 @push('scripts')
         <script>
             document.addEventListener('livewire:navigated', () => {
+                // Livewire seems to be messing up with the clearing of the DOM
+                const parent = document.getElementById('parent');
+                while (parent.firstChild) {
+                    parent.removeChild(parent.firstChild);
+                }
+
                 const countDownDate = new Date(@json($time->toIso8601String())).getTime();
                 const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
                 let valueElements = [];
                 let labelElements = [];
                 let value = [0, 0, 0, 0, 0];
 
-                const parent = document.getElementById('parent');
                 timeUnits.forEach((unit) => {
                     let div = document.createElement('div');
                     div.className = 'flex flex-col items-center justify-center mr-5';

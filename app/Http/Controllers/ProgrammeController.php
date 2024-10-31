@@ -17,7 +17,7 @@ class ProgrammeController extends Controller
      */
     public function index(): View
     {
-        if (!optional(Edition::current())->is_programme_released) {
+        if (!optional(Edition::current())->is_final_programme_released) {
             abort(404);
         }
 

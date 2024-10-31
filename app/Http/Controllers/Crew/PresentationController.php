@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresentationRequest;
+use App\Jobs\NotifyPresentationRoles;
 use App\Mail\PresentationApprovedMailable;
+use App\Mail\PresentationDeletedMailable;
 use App\Mail\PresentationDisapprovedMailable;
 use App\Models\Company;
 use App\Models\Presentation;
@@ -96,17 +98,13 @@ class PresentationController extends Controller
     /**
      * Approve or reject the specified resource in storage.
      */
-    public function approve(Request $request, Presentation $presentation)
+    public function approve(Presentation $presentation, bool $isApproved)
     {
         if (Auth::user()->cannot('approve', $presentation)) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'approved' => 'required|boolean'
-        ]);
-
-        $isApproved = $validated['approved'];
+        $isApproved = filter_var($isApproved, FILTER_VALIDATE_BOOLEAN);
         if (!$isApproved) {
             foreach ($presentation->speakers as $speaker) {
                 if ($speaker->receive_emails) {
@@ -144,6 +142,8 @@ class PresentationController extends Controller
         if (Auth::user()->cannot('delete', $presentation)) {
             abort(403);
         }
+
+        NotifyPresentationRoles::dispatch('speaker', $presentation, PresentationDeletedMailable::class);
 
         $presentation->delete();
 
