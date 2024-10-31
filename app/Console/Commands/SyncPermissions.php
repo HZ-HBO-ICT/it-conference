@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Actions\Permissions\ReadPermissionConfig;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Mockery\Exception;
+use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -27,6 +29,9 @@ class SyncPermissions extends Command
     protected $description = 'Synchronizes the permissions';
     protected ReadPermissionConfig $readPermissionConfig;
 
+    private $newRoles = [];
+    private $newPermissions = [];
+
     /**
      * Execute the console command.
      */
@@ -41,6 +46,14 @@ class SyncPermissions extends Command
 
         $this->syncRoles($config['roles']);
         $this->syncPermissions($config['permissions']);
+
+        if(count($this->newRoles) > 0) {
+            $this->info('The added roles: ' . implode(', ', $this->newRoles));
+        }
+        if(count($this->newPermissions) > 0) {
+            $this->info('The added permissions: ' . implode(', ', $this->newPermissions));
+        }
+
         return 0;
     }
 
@@ -61,6 +74,12 @@ class SyncPermissions extends Command
             ];
         }
         foreach ($role_data as $role) {
+            try {
+                Role::findByName($role['name']);
+            } catch (RoleDoesNotExist) {
+                $this->newRoles[] = $role['name'];
+            }
+
             Role::updateOrCreate(
                 ['name' => $role['name']],
                 $role
@@ -103,6 +122,13 @@ class SyncPermissions extends Command
         foreach ($permissions as $item) {
             $roles = $item['roles'];
             unset($item['roles']);
+
+            try {
+                Permission::findByName($item['name']);
+            } catch (PermissionDoesNotExist) {
+                $this->newPermissions[] = $item['name'];
+            }
+
             $permission = Permission::updateOrCreate(
                 ['name' => $item['name']],
                 $item
