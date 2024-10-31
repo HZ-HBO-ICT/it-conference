@@ -37,7 +37,7 @@ class NotifyCompanyRoles implements ShouldQueue
         $users = collect();
         if ($this->receiver == 'crew') {
             $users = User::role(['event organizer', 'assistant organizer'])->get();
-        } else if ($this->receiver == 'company representative') {
+        } elseif ($this->receiver == 'company representative') {
             if ($representative = $this->company->representative) {
                 $users->push($representative);
             }

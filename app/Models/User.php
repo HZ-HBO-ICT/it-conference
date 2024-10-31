@@ -400,7 +400,7 @@ class User extends Authenticatable implements MustVerifyEmail
                             'color' => 'green',
                             'icon' => 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
                             ];
-                    } else if (optional(Edition::current())->is_final_programme_released) {
+                    } elseif (optional(Edition::current())->is_final_programme_released) {
                         return [
                             'status' => 'Ticket sent',
                             'color' => 'yellow',

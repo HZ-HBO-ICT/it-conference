@@ -47,10 +47,10 @@ class SyncPermissions extends Command
         $this->syncRoles($config['roles']);
         $this->syncPermissions($config['permissions']);
 
-        if(count($this->newRoles) > 0) {
+        if (count($this->newRoles) > 0) {
             $this->info('The added roles: ' . implode(', ', $this->newRoles));
         }
-        if(count($this->newPermissions) > 0) {
+        if (count($this->newPermissions) > 0) {
             $this->info('The added permissions: ' . implode(', ', $this->newPermissions));
         }
 

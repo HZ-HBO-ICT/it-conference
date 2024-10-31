@@ -37,7 +37,7 @@ class NotifyPresentationRoles implements ShouldQueue
         $users = collect();
         if ($this->receiver == 'crew') {
             $users = User::role(['event organizer', 'speakers supervisor', 'assistant organizer'])->get();
-        } else if ($this->receiver == 'speaker') {
+        } elseif ($this->receiver == 'speaker') {
             $users = $this->presentation->speakers;
         }
 
