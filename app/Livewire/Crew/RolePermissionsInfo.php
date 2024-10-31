@@ -23,7 +23,7 @@ class RolePermissionsInfo extends ModalComponent
     {
         $this->role = Role::find($role);
         $this->readPermissionConfig = new ReadPermissionConfig();
-        $permissionsData = $this->readPermissionConfig->execute('config/permissions.yml');
+        $permissionsData = $this->readPermissionConfig->execute('config/permissions/permissions.yml');
 
         foreach ($permissionsData['permissions'] as $entity => $actions) {
             foreach ($actions as $action => $rolesWithPermission) {
