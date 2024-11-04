@@ -135,7 +135,7 @@ Route::get('/files/policies/privacy-policy', function () {
     abort(404, 'File not found');
 })->name('privacy-policy');
 
-Route::get('/files/policies/cookie-statement', function() {
+Route::get('/files/policies/cookie-statement', function () {
     $path = public_path('files/policies/cookie_statement_1-9-2024.pdf');
 
     if (file_exists($path)) {
@@ -145,7 +145,7 @@ Route::get('/files/policies/cookie-statement', function() {
     abort(404, 'File not found');
 })->name('cookie-statement');
 
-Route::get('/files/policies/terms-and-conditions', function() {
+Route::get('/files/policies/terms-and-conditions', function () {
     $path = public_path('files/policies/terms_and_conditions_1-9-2024.pdf');
 
     if (file_exists($path)) {
