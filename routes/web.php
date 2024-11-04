@@ -19,6 +19,7 @@ use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*Route::middleware([
@@ -122,6 +123,39 @@ Route::middleware([
     Route::post('/moderator/editions/{edition}/activate', [EditionController::class, 'activateEdition'])
         ->name('moderator.editions.activate');
 });
+
+// Routes for policy files
+Route::get('/files/policies/privacy-policy', function () {
+    $path = public_path('files/policies/privacy_policy_1-9-2024.pdf');
+
+    if (file_exists($path)) {
+        return Response::file($path);
+    }
+
+    abort(404, 'File not found');
+})->name('privacy-policy');
+
+Route::get('/files/policies/cookie-statement', function () {
+    $path = public_path('files/policies/cookie_statement_1-9-2024.pdf');
+
+    if (file_exists($path)) {
+        return Response::file($path);
+    }
+
+    abort(404, 'File not found');
+})->name('cookie-statement');
+
+Route::get('/files/policies/terms-and-conditions', function () {
+    $path = public_path('files/policies/terms_and_conditions_1-9-2024.pdf');
+
+    if (file_exists($path)) {
+        return Response::file($path);
+    }
+
+    abort(404, 'File not found');
+})->name('terms-and-conditions');
+
+
 //
 //    //route for my profile in personal hub
 //    Route::get('/my/profile', [HubController::class, 'getProfileInfo'])->name('my-profile');
