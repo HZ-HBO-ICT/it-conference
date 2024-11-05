@@ -16,12 +16,7 @@ class ReadPermissionConfig
      */
     public function execute(string $path): array|null
     {
-        $content = Storage::get($path);
-        if (!$content) {
-            throw new Exception("Error: file storage/app/$path is not found!");
-        }
-
-        $config = Yaml::parse($content);
+        $config = Yaml::parseFile($path);
         // Validate if roles and permissions sections are present
         if (!isset($config['roles'])) {
             throw new Exception('Error: there are no roles specified!');
