@@ -21,7 +21,7 @@
             {{$presentation->room->name}}
         </span>
         <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
-            Participants: {{$presentation->participants->count()}}/{{$presentation->room->max_participants}}
+            Participants: {{$presentation->participants->count()}}/{{ min($presentation->room->max_participants, $presentation->max_participants) }}
         </span>
         <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
             {{ucfirst($presentation->difficulty->level)}}
