@@ -78,7 +78,7 @@
                             </h2>
                             <p>Room: {{$presentation->room->name}}</p>
                             <p>Time: {{Carbon::parse($presentation->timeslot->start)->format('H:i')}}
-                               - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->timeslot->duration))->format('H:i')}}</p>
+                               - {{(Carbon::parse($presentation->timeslot->start)->addMinutes($presentation->duration))->format('H:i')}}</p>
                         </div>
                         @if(Auth::user())
                             @can('enroll', $presentation)
