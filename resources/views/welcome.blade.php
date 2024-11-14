@@ -115,18 +115,18 @@
             <!-- Blob -->
             <!-- the auth/guest is necessary because the register now button changes the layout -->
             @auth()
-                <img src="/img/rose-blob.png"
+                <img src="/img/rose-blob.webp"
                      class="absolute -top-72 -left-96 md:-top-48 md:-left-80 lg:-top-72 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                      style="transform: rotate(-90deg)">
             @endauth
             @guest()
-                <img src="/img/rose-blob.png"
+                <img src="/img/rose-blob.webp"
                      class="absolute -top-88 -left-96 md:-top-56 md:-left-80 lg:-top-88 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                      style="transform: rotate(-90deg)">
             @endguest
 
             <!-- Blob -->
-            <img src="/img/blue-blob.png"
+            <img src="/img/blue-blob.webp"
                  class="absolute -top-48 -right-36 md:-top-32 md:-right-20 lg:-top-32 lg:-right-32 xl:-top-48 xl:-right-40 h-80 transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
                  style="transform: rotate(61deg)">
 
@@ -154,7 +154,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-speaker.webp')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">SPEAKERS</h2>
@@ -180,7 +180,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
+                             style="background-image: url({{asset('/img/card-presentations.webp')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
@@ -205,7 +205,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
+                             style="background-image: url({{asset('/img/card-companies.webp')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">COMPANIES</h2>
