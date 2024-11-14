@@ -47,8 +47,8 @@ class EditionForm extends Form
         $this->edition = $edition;
 
         $this->name = $edition->name;
-        $this->start_at = $edition->start_at->format('Y-m-d\TH:i:s');
-        $this->end_at = $edition->end_at->format('Y-m-d\TH:i:s');
+        $this->start_at = Carbon::parse($edition->start_at)->format('Y-m-d H:i');
+        $this->end_at = Carbon::parse($edition->end_at)->format('Y-m-d H:i');
         $this->lecture_duration = $edition->lecture_duration;
         $this->workshop_duration = $edition->workshop_duration;
         $this->upperBoundary = Carbon::now()->addYears(2);
