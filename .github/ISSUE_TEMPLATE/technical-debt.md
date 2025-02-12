@@ -4,7 +4,7 @@ about: Use this template to track code that requires refactoring, outdated depen
   architectural improvements, or missing documentation that may impact maintainability
   and scalability.
 title: "[Technical Debt]"
-labels: ''
+type: 'Technical Debt'
 assignees: ''
 
 ---
