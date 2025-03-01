@@ -20,7 +20,7 @@ class InitialStage extends Command
      *
      * @var string
      */
-    protected $description = 'Runs the database seeder to emulate the initial stage of the conference';
+    protected $description = 'Runs the database migrations and seeders to emulate the initial stage of the conference';
 
     /**
      * Execute the console command.
@@ -29,6 +29,7 @@ class InitialStage extends Command
     public function handle(): void
     {
         try {
+            Artisan::call('migrate:fresh');
             Artisan::call('admin:upsert-master-data');
             Artisan::call('admin:sync-permissions');
             Artisan::call('db:seed --class=InitialSeeder');
