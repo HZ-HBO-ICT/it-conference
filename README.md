@@ -113,6 +113,7 @@ We use the following format for versioning: YYYY.R.B
 * **Gabriella Khayutin** - *Frontend Developer* - [GabriellaKhayutin1](https://github.com/GabriellaKhayutin1)
 * **Nikol Alexandrova** - *Frontend Developer* -[NikolAlexandrova](https://github.com/NikolAlexandrova)
 * **Erik van den Broek** - *Backend Developer* - [erjbroek](https://github.com/erjbroek)
+* **Alisiia Mishchenko** - *Fullstack Developer* - [alisiia02](https://github.com/alisiia02)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 
