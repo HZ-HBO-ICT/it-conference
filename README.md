@@ -6,7 +6,7 @@
     <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
-        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml/badge.svg" alt="PHPCS"/></a>
+        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
         <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
     <a href="https://opensource.org/licenses/MIT">
@@ -105,11 +105,14 @@ We use the following format for versioning: YYYY.R.B
 
 ## Current Team
 
-* **Tim Kardol** - *Conference Website Project lead* - [TimKardol](https://github.com/TimKardol)
-* **Valeria Stamenova** - *Conference Senior Developer* - [v-stamenova](https://github.com/v-stamenova)
+* **Tim Kardol** - *Conference Organiser* - [TimKardol](https://github.com/TimKardol)
+* **Valeria Stamenova** - *Conference Website Project Lead* - [v-stamenova](https://github.com/v-stamenova)
 * **Ihor Novikov** - *Conference Senior Developer* - [IGORnvk](https://github.com/IGORnvk)
-* **Silvia Popova** - *Conference Website Developer* - [popo0015](https://github.com/popo0015)
-* **Simeon Atanasov** - *Conference Website Developer* - [g0sh06](https://github.com/g0sh06)
+* **Silvia Popova** - *Conference Design Specialist* - [popo0015](https://github.com/popo0015)
+* **Gijs Borghouts** - *Fullstack Developer* - [CaptainPancakeWithBacon](https://github.com/CaptainPancakeWithBacon)
+* **Gabriella Khayutin** - *Frontend Developer* - [GabriellaKhayutin1](https://github.com/GabriellaKhayutin1)
+* **Nikol Alexandrova** - *Frontend Developer* -[NikolAlexandrova](https://github.com/NikolAlexandrova)
+* **Erik van den Broek** - *Backend Developer* - [erjbroek](https://github.com/erjbroek)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 
