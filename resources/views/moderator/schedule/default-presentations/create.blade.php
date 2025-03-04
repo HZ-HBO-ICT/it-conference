@@ -5,7 +5,7 @@
         </h1>
         <div class="pt-5">
             <div
-                class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
+                class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-md">
                 <div class="pt-1 p-2">
                     <div class="pr-5">
                         <form method="POST" onkeydown="return event.key != 'Enter';"
@@ -31,7 +31,7 @@
                                     <x-label for="description" value="Description"
                                              class="after:content-['*'] after:text-red-500"/>
                                     <textarea name="description"
-                                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-crew-500 dark:focus:border-crew-600 focus:ring-crew-500 dark:focus:ring-crew-600 rounded-md shadow-sm block mt-1 w-full">{{old('description')}}</textarea>
+                                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-crew-500 dark:focus:border-crew-600 focus:ring-crew-500 dark:focus:ring-crew-600 rounded-md shadow-xs block mt-1 w-full">{{old('description')}}</textarea>
                                     <x-input-error for="description" class="mt-2"/>
                                 </div>
                                 <div class="col-span-6 sm:col-span-4">
@@ -59,7 +59,7 @@
                                     </select>
                                     @if($event == 'opening')
                                         <x-button
-                                            class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 hover:dark:bg-crew-600 active:bg-green-600 active:dark:bg-green-600">
+                                            class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 dark:hover:bg-crew-600 active:bg-green-600 dark:active:bg-green-600">
                                             Continue
                                         </x-button>
                                     @else

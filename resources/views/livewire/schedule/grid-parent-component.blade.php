@@ -4,7 +4,7 @@
         <div class="mb-4 p-2">
             <h2 class="font-bold text-xl mb-2 text-center">Unscheduled</h2>
             <div class="mb-4 bg-white dark:bg-gray-800 p-3">
-                <h3 class="font-bold text-lg mb-2 text-center text-crew-300 p-1 rounded">Lectures</h3>
+                <h3 class="font-bold text-lg mb-2 text-center text-crew-300 p-1 rounded-sm">Lectures</h3>
                 <ul class="space-y-1">
                     @if($lectureCount > 0)
                         @foreach ($unscheduledPresentations as $presentation)
@@ -35,7 +35,7 @@
                         @endforeach
                     @else
                         <div
-                            class="p-2 text-center text-sm rounded dark:text-gray-100">
+                            class="p-2 text-center text-sm rounded-sm dark:text-gray-100">
                             All lectures are scheduled.
                         </div>
                     @endif
@@ -43,7 +43,7 @@
             </div>
 
             <div class="mb-4 bg-white dark:bg-gray-800 p-3">
-                <h3 class="font-bold text-lg mb-2 text-center text-apricot-peach-400 p-1 rounded">Workshops</h3>
+                <h3 class="font-bold text-lg mb-2 text-center text-apricot-peach-400 p-1 rounded-sm">Workshops</h3>
                 <ul class="space-y-1 ">
                     @if($workshopCount > 0)
                         @foreach ($unscheduledPresentations as $presentation)
@@ -74,7 +74,7 @@
                         @endforeach
                     @else
                         <div
-                            class="p-2 text-center text-sm rounded dark:text-gray-100">
+                            class="p-2 text-center text-sm rounded-sm dark:text-gray-100">
                             All workshops are scheduled.
                         </div>
                     @endif
@@ -84,7 +84,7 @@
     </div>
 
     <div class="flex overflow-x-auto w-full py-2.5 shadow-lg overflow-x-auto overflow-y-hidden">
-        <table class="h-max min-w-max bg-white rounded">
+        <table class="h-max min-w-max bg-white rounded-sm">
             <thead class="bg-crew-300">
             <tr>
                 <th class="w-32 p-4 text-center text-white border-r rounded-tl-lg border-gray-300 dark:border-gray-900">

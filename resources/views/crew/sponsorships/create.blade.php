@@ -47,7 +47,7 @@
 
                     <x-slot name="actions">
                         <x-button
-                            class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                             Save
                         </x-button>
                     </x-slot>

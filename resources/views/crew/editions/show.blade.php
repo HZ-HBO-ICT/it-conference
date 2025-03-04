@@ -69,7 +69,7 @@
 
                     <x-slot name="content">
                         @foreach($events as $event)
-                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow rounded-lg my-4"
+                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4"
                                  onclick="Livewire.dispatch('openModal', { component: 'edition-event.edit-edition-event-modal', arguments: { edition: {{ $edition }}, editionEvent: {{ $event }} } })">
                                 <div class="px-4 py-6 flex justify-between">
                                     <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">{{ $event->event->name }}</dt>
@@ -171,7 +171,7 @@
                         <x-slot name="actions">
                             <x-button
                                 onclick="Livewire.dispatch('openModal', { component: 'edition.activate-edition-modal', arguments: { edition: {{ $edition }}} })"
-                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                                 {{ __('Activate') }}
                             </x-button>
                         </x-slot>

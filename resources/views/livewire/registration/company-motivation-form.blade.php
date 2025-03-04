@@ -16,7 +16,7 @@
                     <x-label for="motivation" value="{{ __('Why would you like to attend?') }}"
                              class="after:content-['*'] after:text-red-500"/>
                     <textarea id="motivation" wire:model="motivation"
-                              class="h-36 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
+                              class="h-36 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full"
                               name="motivation" required
                     >{{old('motivation')}}</textarea>
                     <div class="text-red-500 mt-1">@error('motivation') {{ $message }} @enderror</div>

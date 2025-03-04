@@ -22,7 +22,7 @@
                             <p>We are eager to hear from you! Run into any issues, have ideas, or just want to tell us
                                what's working well? We're all ears. Hit the button below to let us know what you think!</p>
                             <a href="{{ route('feedback.create') }}"
-                               class="mt-4 inline-block px-6 py-3 bg-white text-gray-800 font-semibold rounded-full shadow hover:bg-gray-100 transition duration-150 ease-in-out">
+                               class="mt-4 inline-block px-6 py-3 bg-white text-gray-800 font-semibold rounded-full shadow-sm hover:bg-gray-100 transition duration-150 ease-in-out">
                                 Go to Feedback Form
                             </a>
                         </x-dashboards.blocks.participant-notification>

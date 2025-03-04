@@ -1,11 +1,11 @@
 @php
-    $borderColor = 'bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400';
+    $borderColor = 'bg-linear-to-r from-pink-400 via-purple-400 to-blue-400';
     $linkColor = 'text-pink-400 hover:text-pink-600';
 @endphp
 
 <x-app-layout>
     <div class="container mx-auto px-6 py-12">
-        <h2 class="text-center text-gray-900 dark:text-gray-50 text-5xl font-extrabold bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
+        <h2 class="text-center text-gray-900 dark:text-gray-50 text-5xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
             Our Speakers
         </h2>
         @if(!$speakers->isEmpty())
@@ -36,20 +36,20 @@
                         if ($speaker->user->company && $speaker->user->company->is_sponsorship_approved) {
                             switch ($speaker->user->company->sponsorship_id) {
                                 case 1:
-                                    $borderColor = 'bg-gradient-to-r from-yellow-300 to-yellow-600'; // Gold
+                                    $borderColor = 'bg-linear-to-r from-yellow-300 to-yellow-600'; // Gold
                                     $linkColor = 'text-yellow-400 hover:text-yellow-500';
                                     break;
                                 case 2:
-                                    $borderColor = 'bg-gradient-to-r from-gray-300 to-gray-600'; // Silver
+                                    $borderColor = 'bg-linear-to-r from-gray-300 to-gray-600'; // Silver
                                     $linkColor = 'text-gray-600 hover:text-gray-700';
                                     break;
                                 case 3:
-                                    $borderColor = 'bg-gradient-to-r from-orange-300 to-orange-600'; // Bronze
+                                    $borderColor = 'bg-linear-to-r from-orange-300 to-orange-600'; // Bronze
                                     $linkColor = 'text-orange-400 hover:text-orange-500';
                                     break;
                             }
                         } else {
-                            $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
+                            $borderColor = 'bg-linear-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
                             $linkColor = 'text-blue-400 hover:text-blue-600';
                         }
                     @endphp
@@ -78,7 +78,7 @@
                 @endforeach
             </div>
         @else
-            <div class="bg-white dark:bg-gray-800 rounded py-2">
+            <div class="bg-white dark:bg-gray-800 rounded-sm py-2">
                 <p class="text-center text-2xl font-bold">
                     There are no speakers available now.
                 </p>

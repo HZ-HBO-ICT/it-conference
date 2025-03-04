@@ -46,7 +46,7 @@
                 @else
                     @if($this->company->is_sponsorship_approved)
                         <div class="row">
-                            <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded">
+                            <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded-sm">
                                 You are approved and confirmed as a {{ucfirst($this->company->sponsorship->name)}} sponsor!
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                         There is no more space for sponsors
                     @else
                         <div class="row">
-                            <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded">
+                            <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded-sm">
                                 The request for your {{ucfirst($this->company->sponsorship->name)}} sponsorship is still in review and not yet approved. We will be in contact with you soon.
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                 @endif
                 @if (session()->has('success'))
                     <div class="row">
-                        <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded">
+                        <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded-sm">
                             {{ session('success') }}
                         </div>
                     </div>

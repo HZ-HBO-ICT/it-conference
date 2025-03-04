@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
-            <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
+            <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow-sm sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="grid grid-cols-6 gap-6">
                     <!-- Profile Photo -->
                     <div class="col-span-6">
@@ -54,18 +54,18 @@
                         @endif
                         @error('file') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
 
-                        <form wire:submit.prevent="save" class="space-y-8 w-full max-w-screen-md">
+                        <form wire:submit.prevent="save" class="space-y-8 w-full max-w-(--breakpoint-md)">
                             <div class="flex flex-wrap">
                                 <div class="mt-2 mr-2">
                                     <input type="file" id="file" wire:model="file" class="hidden"
                                            accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation"/>
                                     <label for="file"
-                                           class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
+                                           class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-xs hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
                                         Select A New Presentation
                                     </label>
                                 </div>
                                 <button type="button"
-                                        class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150 mt-2"
+                                        class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-xs hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150 mt-2"
                                         wire:click="delete">
                                     Remove Presentation
                                 </button>
@@ -74,9 +74,9 @@
                             @can('update', $presentation)
                                 @if(Auth::user()->presenter_of->id == $presentation->id && $file && !$errors->has('file') && !session()->has('message'))
                                     <div
-                                        class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                                        class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow-sm sm:rounded-bl-md sm:rounded-br-md">
                                         <button type="submit"
-                                                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-xs text-xs font-semibold text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 rounded-md uppercase cursor-pointer hover:bg-gray-700 dark:hover:bg-white transition focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                             Save
                                         </button>
                                     </div>

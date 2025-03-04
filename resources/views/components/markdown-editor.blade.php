@@ -198,44 +198,44 @@
                      x-on:click="open = false">
                     <div class="rounded-md ring-1 ring-black ring-opacity-5 p-4 bg-white text-sm">
                         <div
-                            class="px-2 py-1 text-xs font-medium uppercase tracking-wider bg-gray-50 border border-gray-100 mb-2 text-center rounded text-gray-600">
+                            class="px-2 py-1 text-xs font-medium uppercase tracking-wider bg-gray-50 border border-gray-100 mb-2 text-center rounded-sm text-gray-600">
                             Markdown Notes<br><span class="text-xs">(currently supported)</span></div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Heading</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Heading</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">## Heading H2</div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Bold</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Bold</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">**bold text**</div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Italic</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Italic</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">*italicized text*</div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Blockquote</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Blockquote</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">> blockquote</div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Ordered List</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Ordered List</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">
                                 1. First <br>
                                 2. Second
                             </div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Unordered List</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Unordered List</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">
                                 - First <br>
                                 - Second
                             </div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Horizontal Rule</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Horizontal Rule</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">---</div>
                         </div>
                         <div class="flex py-1">
-                            <div class="flex-shrink-0 text-gray-500 flex-1 text-right pr-5">Link</div>
+                            <div class="shrink-0 text-gray-500 flex-1 text-right pr-5">Link</div>
                             <div class="text-gray-800 flex-1 font-mono text-xs mt-1">[title](url)</div>
                         </div>
                     </div>
@@ -245,12 +245,12 @@
 
         <textarea spellcheck="true" x-show="! showConvertedMarkdown" id="{{ $id }}" x-ref="input" x-model="content"
                   name="{{ $name }}"
-                  class="overflow-y-auto form-textarea bg-white relative transition duration-150 ease-in-out block w-full font-mono text-sm text-gray-700 border border-gray-300 bg-white px-5 py-6 resize-none rounded-b-md focus:outline-none focus:border-apricot-peach-500 focus:ring-1 focus:ring-apricot-peach-500"
+                  class="overflow-y-auto form-textarea bg-white relative transition duration-150 ease-in-out block w-full font-mono text-sm text-gray-700 border border-gray-300 bg-white px-5 py-6 resize-none rounded-b-md focus:outline-hidden focus:border-apricot-peach-500 focus:ring-1 focus:ring-apricot-peach-500"
                   :style="`height: ${height}; max-width: 100%`"></textarea>
 
         <div x-show="showConvertedMarkdown">
             <div x-html="convertedContent"
-                 class="w-full text-left prose max-w-none prose-apricot-peach leading-6 rounded-b-md shadow-sm border border-gray-300 p-5 bg-white overflow-y-auto"
+                 class="w-full text-left prose max-w-none prose-apricot-peach leading-6 rounded-b-md shadow-xs border border-gray-300 p-5 bg-white overflow-y-auto"
                  :style="`height: ${height}; max-width: 100%`"></div>
         </div>
     </div>

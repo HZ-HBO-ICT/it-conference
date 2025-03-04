@@ -2,8 +2,8 @@
 <!-- Potential dynamic classes: bg-crew-500 dark:bg-crew-600 bg-violet-500 dark:bg-violet-600 bg-partner-500 dark:bg-partner-600 bg-participant-500 -->
 
 <div
-    class="w-full rounded overflow-hidden bg-{{$colorName}}-400 hover:cursor-pointer hover:bg-gradient-to-r hover:from-{{$colorName}}-400 hover:to-{{$colorName}}-600 hover:transition-all hover:duration-300 hover:ease-in-out
-    dark:bg-{{$colorName}}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{$colorName}}-500 dark:hover:to-{{$colorName}}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+    class="w-full rounded overflow-hidden bg-{{$colorName}}-400 hover:cursor-pointer hover:bg-linear-to-r hover:from-{{$colorName}}-400 hover:to-{{$colorName}}-600 hover:transition-all hover:duration-300 hover:ease-in-out
+    dark:bg-{{$colorName}}-500 dark:hover:bg-linear-to-r dark:hover:from-{{$colorName}}-500 dark:hover:to-{{$colorName}}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
     <div class="px-3 py-1">
         <div class="font-bold text-white text-md">{{$presentation->name}}</div>
         <div class="text-sm mb-2 text-gray-100">

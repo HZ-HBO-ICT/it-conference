@@ -28,7 +28,7 @@
                                 <x-label for="description" value="Description"
                                          class="after:content-['*'] after:text-red-500"/>
                                 <textarea name="description" maxlength="300"
-                                          class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">{{old('description')}}
+                                          class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full">{{old('description')}}
                                     </textarea>
                                 <x-input-error for="description" class="mt-2"/>
                             </div>
@@ -86,7 +86,7 @@
                     <x-slot name="actions">
                         <x-button
                             type="submit"
-                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                             Save
                         </x-button>
                     </x-slot>
