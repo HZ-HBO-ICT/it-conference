@@ -14,7 +14,7 @@ class CompanyRegistrationSeeder extends Seeder
      */
     public function run(): void
     {
-        activity()->withoutLogs(function (){
+        activity()->withoutLogs(function () {
             // 1. Call the initial seeder to create the edition and admin user
             $this->call(InitialSeeder::class);
 
