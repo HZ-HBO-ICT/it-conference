@@ -29,10 +29,10 @@ class InitialStage extends Command
     public function handle(): void
     {
         try {
-            Artisan::call('migrate:fresh');
+            Artisan::call('migrate:fresh --force');
             Artisan::call('admin:upsert-master-data');
             Artisan::call('admin:sync-permissions');
-            Artisan::call('db:seed --class=InitialSeeder');
+            Artisan::call('db:seed --class=InitialSeeder --force');
 
             $this->info('Seeded initial stage successfully!');
         } catch (Exception $exception) {
