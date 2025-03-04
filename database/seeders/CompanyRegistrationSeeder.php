@@ -14,10 +14,12 @@ class CompanyRegistrationSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Call the initial seeder to create the edition and admin user
-        $this->call(InitialSeeder::class);
+        activity()->withoutLogs(function (){
+            // 1. Call the initial seeder to create the edition and admin user
+            $this->call(InitialSeeder::class);
 
-        // 2. Create a few companies with sponsors and presentations
-        $this->call(CompanySeeder::class);
+            // 2. Create a few companies with sponsors and presentations
+            $this->call(CompanySeeder::class);
+        });
     }
 }

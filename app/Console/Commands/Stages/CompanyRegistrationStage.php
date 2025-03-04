@@ -24,7 +24,6 @@ class CompanyRegistrationStage extends Command
 
     /**
      * Execute the console command.
-     * @TODO Fix bug: Attempt to read property "name" on null (Booth.php line 49)
      */
     public function handle(): void
     {
