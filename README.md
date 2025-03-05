@@ -36,6 +36,7 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 We highly recommend adding an alias for the `./vendor/bin/sail` command. Check the wiki or read further down in the README on how to do that.
+ 
 4. Set up the environment variables - `cp .env.example .env`
 5. After the dependencies are installed run `./vendor/bin/sail up -d`
 6. Install the NPM packages - `./vendor/bin/sail npm install`
