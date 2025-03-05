@@ -32,15 +32,16 @@ docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$(pwd):/var/www/html" \
     -w /var/www/html \
-    laravelsail/php83-composer:latest \
+    laravelsail/php84-composer:latest \
     composer install --ignore-platform-reqs
 ```
-4. Install the NPM packages - `npm install`
-5. Set up the environment variables - `cp .env.example .env`
-6. After the dependencies are installed run `./vendor/bin/sail up -d`
+We highly recommend adding an alias for the `./vendor/bin/sail` command. Check the wiki or read further down in the README on how to do that.
+4. Set up the environment variables - `cp .env.example .env`
+5. After the dependencies are installed run `./vendor/bin/sail up -d`
+6. Install the NPM packages - `./vendor/bin/sail npm install`
 7. Add the app key - `./vendor/bin/sail artisan key:generate`
 8. After the creation of the containers run `./vendor/bin/sail artisan migrate`
-9. Run `npm run dev`
+9. Run `./vendor/bin/sail npm run dev` or `./vendor/bin/sail npm run build` to either start a dev server or to create a build.
 
 ### Possible complications 
 - __Incorrectly set permissions__
