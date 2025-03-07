@@ -30,7 +30,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          coverage: false
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -70,4 +69,9 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: php artisan test --parallel
+        run: php artisan test --parallel --coverage --coverage-clover=coverage.xml
+
+      - name: Coverage Report as Comment (Clover)
+        uses: lucassabreu/comment-coverage-clover@main
+        with:
+          file: coverage.xml
