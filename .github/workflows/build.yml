@@ -70,7 +70,7 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        run: phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Coverage Report as Comment (Clover)
         uses: lucassabreu/comment-coverage-clover@main
