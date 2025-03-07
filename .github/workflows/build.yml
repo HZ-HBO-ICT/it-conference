@@ -52,6 +52,9 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
 
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        
       - name: Generate key
         run: php artisan key:generate
 
@@ -68,4 +71,3 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: ./vendor/bin/paratest
-
