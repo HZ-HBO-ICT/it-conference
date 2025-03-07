@@ -54,7 +54,7 @@ jobs:
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-        
+
       - name: Generate key
         run: php artisan key:generate
 
@@ -70,4 +70,4 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: ./vendor/bin/paratest
+        run: php artisan test --parallel
