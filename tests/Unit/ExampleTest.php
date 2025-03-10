@@ -2,8 +2,6 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
