@@ -19,6 +19,8 @@ class InitialSeeder extends Seeder
      */
     public function run(): void
     {
+        $edition = Edition::first();
+
         // 1. Seed our admin user
         $user = User::create([
             'name' => 'Admin',
@@ -57,5 +59,8 @@ class InitialSeeder extends Seeder
             'start_at' => Carbon::today()->addWeeks(1),
             'end_at' => Carbon::today()->addWeeks(3),
         ]);
+
+        // 3. Activate the edition
+        $edition->activate();
     }
 }
