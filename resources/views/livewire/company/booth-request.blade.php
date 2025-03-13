@@ -25,18 +25,18 @@
                 @if(!$this->requestSent)
                     <x-label for="additional_information" value="{{ __('Additional information') }}"/>
                     <textarea wire:model="additionalInformation" maxlength="255"
-                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
+                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full"></textarea>
                     <x-input-error for="email" class="mt-2"/>
                 @else
                     @if($this->company->booth->is_approved)
                         <div class="row">
-                            <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded">
+                            <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded-sm">
                                 The booth for your company is approved! If you have any questions or concerns do not hesitate to contact us!
                             </div>
                         </div>
                     @else
                         <div class="row">
-                            <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded">
+                            <div class="mt-4 text-amber-500 dark:text-amber-400 py-2 text-left rounded-sm">
                                 The request for the booth of your company is still in review and not yet approved.
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                 @endif
                 @if (session()->has('success'))
                     <div class="row">
-                        <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded">
+                        <div class="mt-4 text-green-600 dark:text-green-400 py-2 text-left rounded-sm">
                             {{ session('success') }}
                         </div>
                     </div>

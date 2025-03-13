@@ -6,7 +6,7 @@
     <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
-        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml/badge.svg" alt="PHPCS"/></a>
+        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
         <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
     <a href="https://opensource.org/licenses/MIT">
@@ -32,15 +32,17 @@ docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$(pwd):/var/www/html" \
     -w /var/www/html \
-    laravelsail/php83-composer:latest \
+    laravelsail/php84-composer:latest \
     composer install --ignore-platform-reqs
 ```
-4. Install the NPM packages - `npm install`
-5. Set up the environment variables - `cp .env.example .env`
-6. After the dependencies are installed run `./vendor/bin/sail up -d`
+We highly recommend adding an alias for the `./vendor/bin/sail` command. Check the wiki or read further down in the README on how to do that.
+ 
+4. Set up the environment variables - `cp .env.example .env`
+5. After the dependencies are installed run `./vendor/bin/sail up -d`
+6. Install the NPM packages - `./vendor/bin/sail npm install`
 7. Add the app key - `./vendor/bin/sail artisan key:generate`
 8. After the creation of the containers run `./vendor/bin/sail artisan migrate`
-9. Run `npm run dev`
+9. Run `./vendor/bin/sail npm run dev` or `./vendor/bin/sail npm run build` to either start a dev server or to create a build.
 
 ### Possible complications 
 - __Incorrectly set permissions__
@@ -105,11 +107,15 @@ We use the following format for versioning: YYYY.R.B
 
 ## Current Team
 
-* **Tim Kardol** - *Conference Website Project lead* - [TimKardol](https://github.com/TimKardol)
-* **Valeria Stamenova** - *Conference Senior Developer* - [v-stamenova](https://github.com/v-stamenova)
+* **Tim Kardol** - *Conference Organiser* - [TimKardol](https://github.com/TimKardol)
+* **Valeria Stamenova** - *Conference Website Project Lead* - [v-stamenova](https://github.com/v-stamenova)
 * **Ihor Novikov** - *Conference Senior Developer* - [IGORnvk](https://github.com/IGORnvk)
-* **Silvia Popova** - *Conference Website Developer* - [popo0015](https://github.com/popo0015)
-* **Simeon Atanasov** - *Conference Website Developer* - [g0sh06](https://github.com/g0sh06)
+* **Silvia Popova** - *Conference Design Specialist* - [popo0015](https://github.com/popo0015)
+* **Gijs Borghouts** - *Fullstack Developer* - [CaptainPancakeWithBacon](https://github.com/CaptainPancakeWithBacon)
+* **Gabriella Khayutin** - *Frontend Developer* - [GabriellaKhayutin1](https://github.com/GabriellaKhayutin1)
+* **Nikol Alexandrova** - *Frontend Developer* -[NikolAlexandrova](https://github.com/NikolAlexandrova)
+* **Erik van den Broek** - *Backend Developer* - [erjbroek](https://github.com/erjbroek)
+* **Alisiia Mishchenko** - *Fullstack Developer* - [alisiia02](https://github.com/alisiia02)
 
 See also the list of [contributors](https://github.com/HZ-HBO-ICT/it-conference/contributors) who participated in this project.
 

@@ -19,7 +19,7 @@
                             <img class="w-52 h-52 rounded-full mx-auto my-auto max-w-full block dark:text-white"
                                  src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}"/>
                         </div>
-                        <div class="flex-col flex-grow pl-2">
+                        <div class="flex-col grow pl-2">
                             <h3>{{ $user->name }}</h3>
                             <p class="text-gray-500 text-sm">
                                 {{ $user->email }}

@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container min-h-screen mx-auto px-6 py-12">
-        <h2 class="text-center text-gray-50 dark:text-gray-900 text-4xl font-extrabold bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
+        <h2 class="text-center text-gray-50 dark:text-gray-900 text-4xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
             Our Companies / <span class="text-gray-900 dark:text-gray-50">{{$company->name}}</span>
         </h2>
         <div
@@ -89,9 +89,9 @@
                             <div class="space-y-4">
                                 @foreach($company->presentations as $presentation)
                                     <a href="{{route('programme.presentation.show', $presentation)}}"
-                                       class="block bg-white dark:bg-gray-700 p-4 border  rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-300">
+                                       class="block bg-white dark:bg-gray-700 p-4 border  rounded-lg shadow-xs hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-300">
                                         <div class="flex items-center">
-                                            <div class="flex-shrink-0">
+                                            <div class="shrink-0">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="1.5" stroke="#8b5cf6"
                                                      aria-hidden="true" class="w-6 h-6 {{$iconColor}}">

@@ -5,7 +5,7 @@
         </h1>
         <div class="pt-5">
             <div
-                class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
+                class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-md">
                 <div class="pt-1 p-2">
                     <div class="pr-5">
                         <p class="text-md text-gray-900 dark:text-white">

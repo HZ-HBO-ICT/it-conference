@@ -38,7 +38,7 @@
                                     name="start_at"
                                     max="{{ old('end_at') }}"
                                     value="{{ old('start_at') }}"
-                                    class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
+                                    class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
                                 />
                                 <x-input-error for="start_at" class="mt-2"/>
                             </div>
@@ -50,7 +50,7 @@
                                     name="end_at"
                                     min="{{ old('start_at') }}"
                                     value="{{ old('end_at') }}"
-                                    class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block"
+                                    class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
                                 />
                                 <x-input-error for="end_at" class="mt-2"/>
                             </div>
@@ -77,7 +77,7 @@
                                 <x-input-error for="workshop_duration" class="mt-2"/>
                             </div>
                             <x-button
-                                class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-purple-600 active:dark:bg-purple-600">
+                                class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-purple-600 dark:active:bg-purple-600">
                                 Submit
                             </x-button>
                         </form>

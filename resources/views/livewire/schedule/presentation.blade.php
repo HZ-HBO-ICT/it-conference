@@ -7,7 +7,7 @@
     data-id="{{ $presentation->id }}"
     data-room="{{ $presentation->id }}"
     wire:click="$dispatch('openModal', { component: 'schedule.presentation-modal', arguments: { presentationId: {{ $presentation->id }} }})"
-    class="cursor-move w-5/6 rounded bg-opacity-50 absolute {{$colors}}"
+    class="cursor-move w-5/6 rounded-sm bg-opacity-50 absolute {{$colors}}"
     style="height: {{ $height }}rem; margin-top: {{$marginTop}}rem;"
 >
     <div class="flex h-full">

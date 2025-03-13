@@ -6,7 +6,7 @@
                 <div>
                     <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Role</label>
                     <select id="role" name="role" wire:model="role" wire:change="roleChanged"
-                            class="mt-1 dark:bg-gray-700 block w-full py-2 px-3 border border-gray-300 dark:border-gray-800 bg-white rounded-md shadow-sm focus:outline-none focus:ring-apricot-peach-500 focus:border-apricot-peach-500 sm:text-sm">
+                            class="mt-1 dark:bg-gray-700 block w-full py-2 px-3 border border-gray-300 dark:border-gray-800 bg-white rounded-md shadow-xs focus:outline-hidden focus:ring-apricot-peach-500 focus:border-apricot-peach-500 sm:text-sm">
                         <option value="">All Roles</option>
                         @foreach(\Spatie\Permission\Models\Role::all() as $role)
                             <option value="{{$role->name}}">{{ucfirst($role->name)}}</option>
@@ -17,15 +17,15 @@
                 <div>
                     <label for="company" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Company/Institution</label>
                     <input name='company' wire:model.live="institution" type="text"
-                           class="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-apricot-peach-500 focus:border-apricot-peach-500 sm:text-sm">
+                           class="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 rounded-md shadow-xs focus:outline-hidden focus:ring-apricot-peach-500 focus:border-apricot-peach-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name/Email</label>
                     <input name='email' wire:model.live="email" type="text"
-                           class="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-apricot-peach-500 focus:border-apricot-peach-500 sm:text-sm">
+                           class="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 rounded-md shadow-xs focus:outline-hidden focus:ring-apricot-peach-500 focus:border-apricot-peach-500 sm:text-sm">
                 </div>
                 <div class="flex items-end">
-                    <button wire:click="export" class="w-full bg-green-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-green-700">Export to CSV</button>
+                    <button wire:click="export" class="w-full bg-green-500 text-white py-2 px-4 rounded-md shadow-xs hover:bg-green-700">Export to CSV</button>
                 </div>
             </div>
             <div class="flex items-center text-sm mt-4 text-gray-500 cursor-pointer dark:text-gray-200" wire:click="clearFilters">

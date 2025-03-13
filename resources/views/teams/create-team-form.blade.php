@@ -16,7 +16,7 @@
         <div class="col-span-6 sm:col-span-4">
             <x-label for="description" value="{{ __('Company Description') }}"/>
             <textarea id="description" wire:model.defer="state.description"
-                      class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
+                      class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full"
                       name="description" required
             >{{old('company_description')}}</textarea>
         </div>

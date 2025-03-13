@@ -5,7 +5,7 @@
     </div>
     @if($this->presentation->file_path)
         <div wire:click="downloadFile" style="cursor: pointer;"
-             class="px-2 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-crew-600 dark:text-crew-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150 mt-2">
+             class="px-2 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-crew-600 dark:text-crew-500 uppercase tracking-widest shadow-xs hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150 mt-2">
             <div class="flex items-center justify-center">
                 <label wire:click="downloadFile" style="cursor: pointer;"
                        class="flex w-1/2 h-7 mt-4 text-md">

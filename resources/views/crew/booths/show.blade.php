@@ -30,7 +30,7 @@
 
                             @endif
                         </div>
-                        <div class="text-gray-900 dark:text-gray-300 flex-col pt-3 flex-grow pl-4">
+                        <div class="text-gray-900 dark:text-gray-300 flex-col pt-3 grow pl-4">
                             <h3>{{ $booth->company->name }}</h3>
                             <p class="text-gray-900 dark:text-gray-300 text-sm">
                                 {{ $booth->company->street }} {{ $booth->company->house_number }} <br>
@@ -145,7 +145,7 @@
                                             isApproved: 1,
                                         }
                                     })"
-                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                                         {{ __('Approve') }}
                                     </x-button>
 

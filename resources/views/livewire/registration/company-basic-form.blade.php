@@ -26,7 +26,7 @@
                     <x-label for="companyDescription" value="{{ __('Company Description') }}"
                              class="after:content-['*'] after:text-red-500"/>
                     <textarea id="email" wire:model="companyDescription"
-                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
+                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full"
                               name="companyDescription" required
                     >{{old('companyDescription')}}</textarea>
                     <div class="text-red-500 mt-1">@error('companyDescription') {{ $message }} @enderror</div>
