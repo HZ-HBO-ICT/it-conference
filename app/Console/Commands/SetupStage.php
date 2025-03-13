@@ -32,10 +32,16 @@ class SetupStage extends Command
 
         try {
             // Run the commands that always have to be run
+            $this->line('Running migrate:fresh...');
             Artisan::call('migrate:fresh');
+
+            $this->line('Inserting the master data...');
             Artisan::call('admin:upsert-master-data');
+
+            $this->line('Syncing permissions...');
             Artisan::call('admin:sync-permissions');
 
+            $this->line('Running seeders...');
             switch ($stage) {
                 case 'initial':
                     Artisan::call('db:seed --class=InitialSeeder');
