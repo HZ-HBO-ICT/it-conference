@@ -147,13 +147,13 @@ class RoomControllerTest extends TestCase
         $room = Room::factory()->create([
             'name' => 'Random name'
         ]);
-        $roomCount = Room::all()->count();
+        $roomCount = Room::count();
         $user->assignRole('event organizer');
 
         $response = $this->actingAs($user)->delete(route('moderator.rooms.destroy', $room));
 
         $response->assertRedirect(route('moderator.rooms.index'));
-        $this->assertEquals(Room::all()->count() + 1, $roomCount);
+        $this->assertEquals(Room::count() + 1, $roomCount);
     }
 
     /** @test */
@@ -164,11 +164,11 @@ class RoomControllerTest extends TestCase
         $room = Room::factory()->create([
             'name' => 'Random name'
         ]);
-        $roomCount = Room::all()->count();
+        $roomCount = Room::count();
 
         $response = $this->actingAs($user)->delete(route('moderator.rooms.destroy', $room));
 
         $response->assertStatus(403);
-        $this->assertEquals(Room::all()->count(), $roomCount);
+        $this->assertEquals(Room::count(), $roomCount);
     }
 }

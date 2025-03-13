@@ -126,7 +126,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     public function participant_cannot_store_company()
     {
-        $companyCount = Company::all()->count();
+        $companyCount = Company::count();
         $user = User::factory()->create()->assignRole('participant');
         $representative = User::factory()->create()->assignRole('participant');
         $companyData = [
@@ -144,13 +144,13 @@ class CompanyControllerTest extends TestCase
         $response = $this->actingAs($user)->post(route('moderator.companies.store'), $companyData);
 
         $response->assertStatus(403);
-        $this->assertEquals($companyCount, Company::all()->count());
+        $this->assertEquals($companyCount, Company::count());
     }
 
     /** @test */
     public function event_organizer_receives_validation_errors_on_invalid_company_data()
     {
-        $companyCount = Company::all()->count();
+        $companyCount = Company::count();
         $user = User::factory()->create()->assignRole('event organizer');
         $rep = User::factory()->create()->assignRole('participant');
 
@@ -172,7 +172,7 @@ class CompanyControllerTest extends TestCase
             'name', 'description', 'website', 'house_number', 'phone_number', 'street', 'city'
         ]);
 
-        $this->assertEquals($companyCount, Company::all()->count());
+        $this->assertEquals($companyCount, Company::count());
     }
 
     /** @test */

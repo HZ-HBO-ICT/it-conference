@@ -24,7 +24,7 @@ class Crew extends Component
             return !$presentation->isScheduled && $presentation->isApproved;
         })->count();
 
-        $this->numberOfScheduledPresentations = Presentation::all()->count() - $this->numberOfUnscheduledPresentations;
+        $this->numberOfScheduledPresentations = Presentation::count() - $this->numberOfUnscheduledPresentations;
     }
 
 
