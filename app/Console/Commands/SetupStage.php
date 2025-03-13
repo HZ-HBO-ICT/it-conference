@@ -22,6 +22,8 @@ class SetupStage extends Command
      */
     protected $description = 'Set up the database for a specific conference stage';
 
+    private array $availableStages = ['initial', 'company-registration', 'participant-registration'];
+
     /**
      * Execute the console command.
      * Sets up the database to a stage depending on the argument given.
@@ -29,6 +31,10 @@ class SetupStage extends Command
     public function handle(): void
     {
         $stage = $this->argument('stage');
+        if(!in_array($stage, $this->availableStages)) {
+            $this->error('Invalid stage! Make sure the stage is one of the following: ' . implode(', ', $this->availableStages));
+            exit(1);
+        }
 
         try {
             // Run the commands that always have to be run
