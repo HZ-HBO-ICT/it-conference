@@ -5,7 +5,7 @@
         </div>
     @endif
     <div class="mt-5 md:mt-0">
-        <div class="px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
+        <div class="px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-md">
             <ul role="list">
                 {{ $content }}
             </ul>

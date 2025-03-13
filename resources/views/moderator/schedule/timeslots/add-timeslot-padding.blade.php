@@ -1,6 +1,6 @@
 <div>
     <x-button wire:click="openModal" type="button"
-              class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 hover:dark:bg-crew-600 active:bg-green-600 active:dark:bg-green-600">
+              class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 dark:hover:bg-crew-600 active:bg-green-600 dark:active:bg-green-600">
         Continue
     </x-button>
 

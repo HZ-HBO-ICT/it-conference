@@ -13,7 +13,7 @@
                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     <div class="sm:col-span-6">
                         <label>
-                            <input {{$receiveEmails ? 'checked' : ''}} class="rounded pl-2 checked:bg-indigo-500"
+                            <input {{$receiveEmails ? 'checked' : ''}} class="rounded-sm pl-2 checked:bg-indigo-500"
                                    wire:model="receiveEmails" type="checkbox"> Receive notifications and reminders on email
                         </label>
                     </div>

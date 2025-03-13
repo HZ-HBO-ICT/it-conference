@@ -28,7 +28,7 @@
                 </div>
             @endif
             <div
-                    class="grid mt-5 grid-cols-2 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
+                    class="grid mt-5 grid-cols-2 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-md">
                 <div class="pt-1 p-2">
                     <h3 class="text-xl font-bold pb-3">Presentation details</h3>
                     <p class="text-md"><span

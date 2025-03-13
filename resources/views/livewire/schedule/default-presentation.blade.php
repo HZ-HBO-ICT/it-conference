@@ -1,5 +1,5 @@
 <div style="height: {{ $height }}rem;">
-    <div class="flex h-full w-full rounded bg-opacity-50 absolute hover:cursor-pointer bg-[#cf7464]"
+    <div class="flex h-full w-full rounded-sm bg-opacity-50 absolute hover:cursor-pointer bg-[#cf7464]"
     @if($presentation->type == 'opening')
         wire:click="$dispatch('openModal', { component: 'schedule.edit-default-presentation-modal',  arguments: { type: 'opening' }})"
     @else

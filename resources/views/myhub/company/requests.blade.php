@@ -28,7 +28,7 @@
 
                 <div class="pt-5">
                     <a href="{{ url()->previous()}}"
-                       class="bg-purple-800 text-white py-2 px-4 rounded text-center transition-all duration-300 transform hover:scale-105">
+                       class="bg-purple-800 text-white py-2 px-4 rounded-sm text-center transition-all duration-300 transform hover:scale-105">
                         Go back
                     </a>
                 </div>

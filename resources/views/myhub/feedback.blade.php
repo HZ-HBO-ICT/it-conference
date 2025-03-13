@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <x-button
-                        class="mt-5 dark:bg-purple-500 bg-purple-500 hover:bg-purple-600 hover:dark:bg-purple-600 active:bg-purple-600 active:dark:bg-purple-600">
+                        class="mt-5 dark:bg-purple-500 bg-purple-500 hover:bg-purple-600 dark:hover:bg-purple-600 active:bg-purple-600 dark:active:bg-purple-600">
                         Submit
                     </x-button>
                 </form>

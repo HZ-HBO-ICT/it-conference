@@ -50,7 +50,7 @@
 
                         <div class="flex flex-col md:flex-row items-center md:justify-end mt-4">
                             @if (Route::has('password.request'))
-                                <a class="underline text-sm md:text-md text-gray-600 md:pr-3 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 md:order-none order-2"
+                                <a class="underline text-sm md:text-md text-gray-600 md:pr-3 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 md:order-none order-2"
                                    href="{{ route('password.request') }}">
                                     {{ __('Forgot your password?') }}
                                 </a>

@@ -16,7 +16,7 @@
             @csrf
             @method($method)
             @if($isApproved)
-                <x-button class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600 ml-3" type="submit">
+                <x-button class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600 ml-3" type="submit">
                     {{ $callToAction ?? $title }}
                 </x-button>
             @else

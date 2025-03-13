@@ -53,7 +53,7 @@
         </div>
         <div class="grid grid-cols-5">
             <div>
-                <button class="bg-crew-500 hover:bg-crew-600 text-white py-2 px-4 rounded">
+                <button class="bg-crew-500 hover:bg-crew-600 text-white py-2 px-4 rounded-sm">
                     Save
                 </button>
             </div>

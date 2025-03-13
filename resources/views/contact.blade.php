@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="relative bg-cover overflow-hidden min-h-screen">
 {{--        <div--}}
-{{--            class="before:absolute before:bg-gradient-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>--}}
+{{--            class="before:absolute before:bg-linear-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>--}}
         <div
-            class="isolate px-6 py-6 max-w-7xl mx-auto my-5 border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700">
+            class="isolate px-6 py-6 max-w-7xl mx-auto my-5 border border-gray-100 rounded-sm bg-white dark:bg-gray-800 dark:border-gray-700">
             <div class="py-40 px-8 max-w-7xl mx-auto">
                 <div class="gap-8 grid grid-cols-12">
                     <div class="col-span-12 md:col-span-5">

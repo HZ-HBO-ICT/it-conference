@@ -132,7 +132,7 @@
 
             <!-- Gradient background -->
             <div
-                class="absolute inset-0 bg-gradient-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
+                class="absolute inset-0 bg-linear-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
 
             <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">
                 What to expect during the conference
@@ -146,13 +146,13 @@
                         class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
                         <!-- Top dark gradient -->
                         <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-linear-to-b from-black to-transparent opacity-60"></div>
                         <!-- Bottom dark gradient -->
                         <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-linear-to-t from-black to-transparent opacity-60"></div>
                         <!-- Color gradient -->
                         <div
-                            class="absolute inset-0 bg-gradient-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
+                            class="absolute inset-0 bg-linear-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
                              style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
@@ -172,13 +172,13 @@
                         class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
                         <!-- Top dark gradient -->
                         <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-linear-to-b from-black to-transparent opacity-60"></div>
                         <!-- Bottom dark gradient -->
                         <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-linear-to-t from-black to-transparent opacity-60"></div>
                         <!-- Color gradient -->
                         <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
+                            class="absolute inset-0 bg-linear-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
                         <div class="bg-cover bg-center h-full"
                              style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
@@ -197,13 +197,13 @@
                         class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
                         <!-- Top dark gradient -->
                         <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+                            class="absolute top-0 left-0 right-0 h-3/4 bg-linear-to-b from-black to-transparent opacity-60"></div>
                         <!-- Bottom dark gradient -->
                         <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-linear-to-t from-black to-transparent opacity-60"></div>
                         <!-- Color gradient -->
                         <div
-                            class="absolute inset-0 bg-gradient-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
+                            class="absolute inset-0 bg-linear-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
                         <div class="bg-cover bg-center h-full"
                              style="background-image: url({{asset('/img/card-companies.png')}});"></div>
                         <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
@@ -233,7 +233,7 @@
                                                 @if($company->is_sponsorship_approved)
                                                     <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
                                                         <a href="{{$company->website}}"
-                                                           class="bg-gray-50 border h-56 p-5 w-full rounded">
+                                                           class="bg-gray-50 border h-56 p-5 w-full rounded-sm">
                                                             @if($company->logo_path)
                                                                 <img
                                                                     class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
@@ -259,7 +259,7 @@
                                                 @if($company->is_sponsorship_approved)
                                                     <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
                                                         <a href="{{$company->website}}"
-                                                           class="bg-gray-50 border h-44 p-5 w-full rounded">
+                                                           class="bg-gray-50 border h-44 p-5 w-full rounded-sm">
                                                             @if($company->logo_path)
                                                                 <img
                                                                     class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
@@ -285,7 +285,7 @@
                                                 @if($company->is_sponsorship_approved)
                                                     <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
                                                         <a href="{{$company->website}}"
-                                                           class="bg-gray-50 border h-36 px-5 py-3 w-full rounded">
+                                                           class="bg-gray-50 border h-36 px-5 py-3 w-full rounded-sm">
                                                             @if($company->logo_path)
                                                                 <img
                                                                     class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
