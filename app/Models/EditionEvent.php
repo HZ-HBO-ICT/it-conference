@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * 
+ *
+ * @property-read \App\Models\Edition|null $edition
+ * @property-read \App\Models\Event|null $event
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EditionEvent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EditionEvent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EditionEvent query()
+ * @mixin \Eloquent
+ */
 class EditionEvent extends Model
 {
     use HasFactory;

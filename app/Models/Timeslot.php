@@ -9,6 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
+ * @property-read int|null $presentations_count
+ * @method static \Database\Factories\TimeslotFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Timeslot newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Timeslot newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Timeslot query()
+ * @mixin \Eloquent
+ */
 class Timeslot extends Model
 {
     use HasFactory;
