@@ -31,7 +31,7 @@ class SetupStage extends Command
     public function handle(): void
     {
         $stage = $this->argument('stage');
-        if(!in_array($stage, $this->availableStages)) {
+        if (!in_array($stage, $this->availableStages)) {
             $this->error('Invalid stage! Make sure the stage is one of the following: ' . implode(', ', $this->availableStages));
             exit(1);
         }
