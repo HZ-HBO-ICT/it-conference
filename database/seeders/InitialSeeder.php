@@ -27,36 +27,8 @@ class InitialSeeder extends Seeder
         $user->markEmailAsVerified();
         $user->assignRole('event organizer');
 
-        // 2. Seed the new Edition
-        Edition::create([
-            'name' => 'We are in IT together Conference ' . Carbon::now()->year,
-            'start_at' => Carbon::now()->setMonth(11)->setTime(9, 0, 0),
-            'end_at' => Carbon::now()->setMonth(11)->setTime(17, 0, 0)
-        ]);
-
-        // 2a. Create 'company registration' event
-        EditionEvent::create([
-            'edition_id' => 1,
-            'event_id' => 1,
-            'start_at' => Carbon::today(),
-            'end_at' => Carbon::today()->addWeek(2),
-        ]);
-
-        // 2b. Create 'participant registration' event
-        EditionEvent::create([
-            'edition_id' => 1,
-            'event_id' => 2,
-            'start_at' => Carbon::today()->addWeeks(1),
-            'end_at' => Carbon::today()->addWeeks(2),
-        ]);
-
-        // 2c. Create 'presentation request' event
-        EditionEvent::create([
-            'edition_id' => 1,
-            'event_id' => 3,
-            'start_at' => Carbon::today()->addWeeks(1),
-            'end_at' => Carbon::today()->addWeeks(3),
-        ]);
+        // 2. Call the edition seeder
+        $this->call(EditionSeeder::class);
 
         // 3. Retrieve the created edition and activate it
         $edition = Edition::first();
