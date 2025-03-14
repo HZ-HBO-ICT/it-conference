@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property-read \App\Models\Company|null $company
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InternshipAttribute languages()

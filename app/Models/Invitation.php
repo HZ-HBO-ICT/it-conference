@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 
 /**
- * 
+ *
  *
  * @property-read \App\Models\Company|null $company
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invitation employees()

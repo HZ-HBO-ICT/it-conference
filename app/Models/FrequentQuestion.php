@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FrequentQuestion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FrequentQuestion newQuery()

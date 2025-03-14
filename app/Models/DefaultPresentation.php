@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property-read \App\Models\Room|null $room
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DefaultPresentation newModelQuery()

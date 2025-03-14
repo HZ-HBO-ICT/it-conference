@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 #[ObservedBy([FeedbackObserver::class])]
 /**
- * 
+ *
  *
  * @property-read \App\Models\User|null $reportedBy
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Feedback newModelQuery()

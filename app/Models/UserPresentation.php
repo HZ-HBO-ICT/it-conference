@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * This model is a linking table between the user and the presentation.
- * 
+ *
  * The model also has a role attribute showing the "relationship" between the user
  * and presentation (speaker/participant)
  * The model is not to be used directly. Use either Presentation or User model
