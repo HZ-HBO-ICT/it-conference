@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
-			identifier: larastan.noEnvCallsOutsideOfConfig
-			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
 			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:createCompany\(\) has parameter \$attributes with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -169,12 +163,6 @@ parameters:
 			path: app/Actions/Schedule/PresentationAllocationHelper.php
 
 		-
-			message: '#^Called ''first'' on Laravel collection, but could have been retrieved as a query\.$#'
-			identifier: larastan.noUnnecessaryCollectionCall
-			count: 1
-			path: app/Actions/Schedule/PresentationConflictChecker.php
-
-		-
 			message: '#^Cannot access property \$duration on App\\Models\\Timeslot\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -253,25 +241,13 @@ parameters:
 			path: app/Actions/Schedule/ResetSchedule.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$has_presentations_left\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Actions/Users/AddParticipantToCompanyHandler.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Actions/Users/AddParticipantToCompanyHandler.php
-
-		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: app/Actions/Users/AddParticipantToCompanyHandler.php
 
 		-
-			message: '#^Cannot access property \$name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Console/Commands/AddParticipantToCompany.php
@@ -281,60 +257,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: app/Console/Commands/AddParticipantToCompany.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$currentTeam\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Console/Commands/AddSpeakerToPresentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$speaker\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Console/Commands/AddSpeakerToPresentation.php
-
-		-
-			message: '#^Call to an undefined method App\\Models\\Presentation\:\:mainSpeaker\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: app/Console/Commands/AddSpeakerToPresentation.php
-
-		-
-			message: '#^Call to static method create\(\) on an unknown class App\\Console\\Commands\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Console/Commands/AddSpeakerToPresentation.php
-
-		-
-			message: '#^Method App\\Console\\Commands\\AddSpeakerToPresentation\:\:handle\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Console/Commands/AddSpeakerToPresentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$currentTeam\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Console/Commands/AddToHz.php
-
-		-
-			message: '#^Call to an undefined method App\\Models\\User\:\:switchTeam\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Console/Commands/AddToHz.php
-
-		-
-			message: '#^Call to static method where\(\) on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Console/Commands/AddToHz.php
-
-		-
-			message: '#^Method App\\Console\\Commands\\AddToHz\:\:handle\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Console/Commands/AddToHz.php
 
 		-
 			message: '#^Cannot call method update\(\) on App\\Models\\Company\|null\.$#'
@@ -517,13 +439,13 @@ parameters:
 			path: app/Console/Commands/UpsertMasterData.php
 
 		-
-			message: '#^Cannot access property \$name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 3
 			path: app/Http/Controllers/Crew/BoothController.php
 
 		-
-			message: '#^Cannot access property \$representative on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$representative on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 4
 			path: app/Http/Controllers/Crew/BoothController.php
@@ -571,13 +493,13 @@ parameters:
 			path: app/Http/Controllers/Crew/BoothController.php
 
 		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothApprovedMailable constructor expects App\\Models\\Company, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothApprovedMailable constructor expects App\\Models\\Company, App\\Models\\Company\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Http/Controllers/Crew/BoothController.php
 
 		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothDisapprovedMailable constructor expects App\\Models\\Company, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothDisapprovedMailable constructor expects App\\Models\\Company, App\\Models\\Company\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Http/Controllers/Crew/BoothController.php
@@ -587,18 +509,6 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$representative\.$#'
-			identifier: property.notFound
-			count: 4
-			path: app/Http/Controllers/Crew/CompanyController.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:syncRoles\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Controllers/Crew/CompanyController.php
 
 		-
 			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
@@ -646,12 +556,6 @@ parameters:
 			message: '#^Parameter \#1 \$invitation of class App\\Mail\\CompanyRepInvitation constructor expects App\\Models\\Invitation, Illuminate\\Database\\Eloquent\\Model given\.$#'
 			identifier: argument.type
 			count: 1
-			path: app/Http/Controllers/Crew/CompanyController.php
-
-		-
-			message: '#^Variable \$input in empty\(\) is never defined\.$#'
-			identifier: empty.variable
-			count: 2
 			path: app/Http/Controllers/Crew/CompanyController.php
 
 		-
@@ -709,24 +613,6 @@ parameters:
 			path: app/Http/Controllers/Crew/FrequentQuestionController.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$speakers\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Http/Controllers/Crew/PresentationController.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/Crew/PresentationController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/Crew/PresentationController.php
-
-		-
 			message: '#^Cannot access property \$company on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
 			identifier: property.nonObject
 			count: 2
@@ -775,18 +661,6 @@ parameters:
 			path: app/Http/Controllers/Crew/PresentationController.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$room_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/Crew/RoomController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$timeslot_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/Crew/RoomController.php
-
-		-
 			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
 			identifier: method.nonObject
 			count: 5
@@ -821,12 +695,6 @@ parameters:
 			identifier: booleanNot.alwaysFalse
 			count: 3
 			path: app/Http/Controllers/Crew/ScheduleController.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$representative\.$#'
-			identifier: property.notFound
-			count: 4
-			path: app/Http/Controllers/Crew/SponsorshipController.php
 
 		-
 			message: '#^Cannot access property \$name on App\\Models\\Company\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Company\>\|null\.$#'
@@ -937,13 +805,13 @@ parameters:
 			path: app/Http/Controllers/InvitationController.php
 
 		-
-			message: '#^Cannot access property \$id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/InvitationController.php
 
 		-
-			message: '#^Cannot access property \$name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/InvitationController.php
@@ -959,12 +827,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: app/Http/Controllers/InvitationController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/PresentationController.php
 
 		-
 			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
@@ -995,18 +857,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/PresentationController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_sponsorship_approved\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/ProgrammeController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sponsorship_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/ProgrammeController.php
 
 		-
 			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
@@ -1051,7 +901,7 @@ parameters:
 			path: app/Http/Controllers/RegistrationController.php
 
 		-
-			message: '#^Cannot access property \$company on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 3
 			path: app/Http/Controllers/SpeakerController.php
@@ -1079,114 +929,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: app/Http/Livewire/Booths/EditBoothModal.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Companies/DeleteCompanyForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Companies\\DeleteCompanyForm\:\:\$company has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Http/Livewire/Companies/DeleteCompanyForm.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\DefaultPresentation\:\:\$timeslot\.$#'
-			identifier: property.notFound
-			count: 7
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Call to an undefined static method App\\Models\\Timeslot\:\:getTheLatestEndingUsed\(\)\.$#'
-			identifier: staticMethod.notFound
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Call to an undefined static method App\\Models\\Timeslot\:\:paddingBetweenSlots\(\)\.$#'
-			identifier: staticMethod.notFound
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Call to static method generate\(\) on an unknown class App\\Http\\Controllers\\TimeslotController\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Cannot access property \$timeslot on object\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Cannot access property \$timeslot_id on object\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:checkSaveClosing\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:checkSaveOpening\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:confirmedTimeslotRegeneration\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:mount\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:save\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:saveChanges\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:\$confirmationTimeslotRegeneration has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:\$ending has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:\$rules has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\DefaultPresentations\\EditDefaultPresentationForm\:\:\$starting has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/DefaultPresentations/EditDefaultPresentationForm.php
 
 		-
 			message: '#^Parameter \#1 \$path of static method Illuminate\\Filesystem\\FilesystemAdapter\:\:download\(\) expects string, string\|null given\.$#'
@@ -1447,112 +1189,16 @@ parameters:
 			path: app/Http/Livewire/Schedule/ResetTimeslots.php
 
 		-
-			message: '#^Call to an undefined method App\\Http\\Livewire\\ShowNotification\:\:emitUp\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/ShowNotification.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\ShowNotification\:\:mount\(\) has parameter \$notification with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Http/Livewire/ShowNotification.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\ShowNotification\:\:\$notification has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/ShowNotification.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\ShowNotification\:\:\$text has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/ShowNotification.php
-
-		-
-			message: '#^Call to static method all\(\) on an unknown class App\\Models\\SponsorTier\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Call to static method find\(\) on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Call to static method where\(\) on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Sponsorships\\CreateSponsorshipForm\:\:\$teamId has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Sponsorships\\CreateSponsorshipForm\:\:\$teams has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Sponsorships\\CreateSponsorshipForm\:\:\$tierId has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Sponsorships\\CreateSponsorshipForm\:\:\$tiers has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Sponsorships/CreateSponsorshipForm.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Sponsorships/DeleteSponsorshipForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Sponsorships\\DeleteSponsorshipForm\:\:\$team has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Http/Livewire/Sponsorships/DeleteSponsorshipForm.php
-
-		-
 			message: '#^Call to an undefined method Illuminate\\Http\\RedirectResponse\:\:dangerButton\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Http/Middleware/EditionMiddleware.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$representative\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Jobs/NotifyCompanyRoles.php
-
-		-
 			message: '#^Parameter \#1 \$mailable of method Illuminate\\Mail\\PendingMail\:\:send\(\) expects Illuminate\\Contracts\\Mail\\Mailable, object given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Jobs/NotifyCompanyRoles.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$speakers\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Jobs/NotifyPresentationRoles.php
 
 		-
 			message: '#^Parameter \#1 \$mailable of method Illuminate\\Mail\\PendingMail\:\:send\(\) expects Illuminate\\Contracts\\Mail\\Mailable, object given\.$#'
@@ -1565,12 +1211,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/Listeners/EmailVerifiedListener.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$is_crew\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Listeners/HandleFinalProgrammeReleased.php
 
 		-
 			message: '#^Cannot access property \$state on object\|null\.$#'
@@ -1859,12 +1499,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Company/DetailsForm.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$representative\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Livewire/Company/EditCompanyModal.php
 
 		-
 			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
@@ -2683,30 +2317,6 @@ parameters:
 			path: app/Livewire/Registration/ParentComponent.php
 
 		-
-			message: '#^Array has 2 duplicate keys with value ''\+1'' \(''\+1'', ''\+1''\)\.$#'
-			identifier: array.duplicateKey
-			count: 1
-			path: app/Livewire/Registration/SelectCountryCode.php
-
-		-
-			message: '#^Array has 2 duplicate keys with value ''\+1809'' \(''\+1809'', ''\+1809''\)\.$#'
-			identifier: array.duplicateKey
-			count: 1
-			path: app/Livewire/Registration/SelectCountryCode.php
-
-		-
-			message: '#^Array has 2 duplicate keys with value ''\+269'' \(''\+269'', ''\+269''\)\.$#'
-			identifier: array.duplicateKey
-			count: 1
-			path: app/Livewire/Registration/SelectCountryCode.php
-
-		-
-			message: '#^Array has 4 duplicate keys with value ''\+7'' \(''\+7'', ''\+7'', ''\+7'', ''\+7''\)\.$#'
-			identifier: array.duplicateKey
-			count: 1
-			path: app/Livewire/Registration/SelectCountryCode.php
-
-		-
 			message: '#^Method App\\Livewire\\Registration\\SelectCountryCode\:\:chooseCountry\(\) has parameter \$code with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -2947,21 +2557,15 @@ parameters:
 			path: app/Livewire/Schedule/EditDefaultPresentationModal.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
-			message: '#^Called ''where'' on Laravel collection, but could have been retrieved as a query\.$#'
-			identifier: larastan.noUnnecessaryCollectionCall
+			message: '#^Cannot access property \$id on App\\Models\\Room\|null\.$#'
+			identifier: property.nonObject
 			count: 1
 			path: app/Livewire/Schedule/GridParentComponent.php
 
 		-
-			message: '#^Cannot access property \$id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Timeslot\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: app/Livewire/Schedule/GridParentComponent.php
 
 		-
@@ -3109,7 +2713,7 @@ parameters:
 			path: app/Livewire/Schedule/PresentationModal.php
 
 		-
-			message: '#^Cannot access property \$id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Room\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Livewire/Schedule/PresentationModal.php
@@ -3373,13 +2977,13 @@ parameters:
 			path: app/Mail/UserInvitation.php
 
 		-
-			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Models/Booth.php
 
 		-
-			message: '#^Cannot access property \$name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Models/Booth.php
@@ -3397,25 +3001,7 @@ parameters:
 			path: app/Models/Booth.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$isHz\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Company.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Company\:\:\$is_gold_sponsor\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Company.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_approved\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Models/Company.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			message: '#^Access to an undefined property App\\Models\\Sponsorship\:\:\$is_approved\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Models/Company.php
@@ -3547,18 +3133,6 @@ parameters:
 			path: app/Models/Difficulty.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$end_at\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Edition.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$start_at\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Edition.php
-
-		-
 			message: '#^Access to an undefined property object\:\:\$state\.$#'
 			identifier: property.notFound
 			count: 1
@@ -3607,7 +3181,7 @@ parameters:
 			path: app/Models/Edition.php
 
 		-
-			message: '#^Method App\\Models\\Edition\:\:getEvent\(\) should return App\\Models\\EditionEvent but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Method App\\Models\\Edition\:\:getEvent\(\) should return App\\Models\\EditionEvent but returns App\\Models\\EditionEvent\|null\.$#'
 			identifier: return.type
 			count: 1
 			path: app/Models/Edition.php
@@ -3661,14 +3235,20 @@ parameters:
 			path: app/Models/Edition.php
 
 		-
-			message: '#^PHPDoc tag @mixin contains unknown class Barryvdh\\LaravelIdeHelper\\Eloquent\.$#'
-			identifier: class.notFound
-			count: 1
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
 			path: app/Models/Edition.php
 
 		-
 			message: '#^Parameter \#2 \$string of function explode expects string, string\|null given\.$#'
 			identifier: argument.type
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Result of \|\| is always false\.$#'
+			identifier: booleanOr.alwaysFalse
 			count: 1
 			path: app/Models/Edition.php
 
@@ -3769,55 +3349,7 @@ parameters:
 			path: app/Models/Invitation.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$duration\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$participants\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$speakers\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$participating_in\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_sponsorship_approved\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sponsorship\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sponsorship_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Cannot access property \$id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Difficulty\|null\.$#'
 			identifier: property.nonObject
 			count: 2
 			path: app/Models/Presentation.php
@@ -3829,7 +3361,7 @@ parameters:
 			path: app/Models/Presentation.php
 
 		-
-			message: '#^Cannot access property \$max_participants on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$max_participants on App\\Models\\Room\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Models/Presentation.php
@@ -3949,12 +3481,6 @@ parameters:
 			path: app/Models/Room.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Sponsorship\:\:\$teams\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Sponsorship.php
-
-		-
 			message: '#^Class App\\Models\\Sponsorship uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -4009,55 +3535,13 @@ parameters:
 			path: app/Models/Timeslot.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$all_roles\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$is_crew\.$#'
-			identifier: property.notFound
-			count: 3
-			path: app/Models/User.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$participating_in\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 4
-			path: app/Models/User.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$role_colour\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$scanned_at\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/User.php
-
-		-
 			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\:\:role\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Models/User.php
 
 		-
-			message: '#^Cannot access property \$token on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$token on App\\Models\\Ticket\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Models/User.php
@@ -4227,78 +3711,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property object\:\:\$email\.$#'
 			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothApproved.php
-
-		-
-			message: '#^Method App\\Notifications\\NotifyBoothApproved\:\:toMail\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Notifications/NotifyBoothApproved.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothApprovedMailable constructor expects App\\Models\\Company, App\\Models\\Team given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifyBoothApproved.php
-
-		-
-			message: '#^Parameter \$team of method App\\Notifications\\NotifyBoothApproved\:\:__construct\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothApproved.php
-
-		-
-			message: '#^Property App\\Notifications\\NotifyBoothApproved\:\:\$team has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$email\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothDisapproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothDisapproved.php
-
-		-
-			message: '#^Method App\\Notifications\\NotifyBoothDisapproved\:\:toMail\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Notifications/NotifyBoothDisapproved.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothDisapprovedMailable constructor expects App\\Models\\Company, App\\Models\\Team given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifyBoothDisapproved.php
-
-		-
-			message: '#^Parameter \$team of method App\\Notifications\\NotifyBoothDisapproved\:\:__construct\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothDisapproved.php
-
-		-
-			message: '#^Property App\\Notifications\\NotifyBoothDisapproved\:\:\$team has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifyBoothDisapproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$email\.$#'
-			identifier: property.notFound
 			count: 2
 			path: app/Notifications/NotifyPresentationApproved.php
 
@@ -4353,168 +3765,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property object\:\:\$email\.$#'
 			identifier: property.notFound
-			count: 2
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Access to property \$name on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Access to property \$owner on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Access to property \$sponsorTier on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Method App\\Notifications\\NotifySponsorshipApproved\:\:toMail\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\SponsorshipApprovedMailable constructor expects App\\Models\\Company, App\\Models\\Team given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Parameter \#1 \$user of class App\\Mail\\GenericNewUpdatesMailable constructor expects App\\Models\\User, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Parameter \$team of method App\\Notifications\\NotifySponsorshipApproved\:\:__construct\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Property App\\Notifications\\NotifySponsorshipApproved\:\:\$team has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$email\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipDisapproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipDisapproved.php
-
-		-
-			message: '#^Method App\\Notifications\\NotifySponsorshipDisapproved\:\:toMail\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Notifications/NotifySponsorshipDisapproved.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\SponsorshipDisapprovedMailable constructor expects App\\Models\\Company, App\\Models\\Team given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifySponsorshipDisapproved.php
-
-		-
-			message: '#^Parameter \$team of method App\\Notifications\\NotifySponsorshipDisapproved\:\:__construct\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipDisapproved.php
-
-		-
-			message: '#^Property App\\Notifications\\NotifySponsorshipDisapproved\:\:\$team has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifySponsorshipDisapproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$email\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Access to property \$name on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Access to property \$owner on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Method App\\Notifications\\NotifyTeamApproved\:\:__construct\(\) has parameter \$team with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Method App\\Notifications\\NotifyTeamApproved\:\:toMail\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\CompanyApprovedMailable constructor expects App\\Models\\Company, App\\Models\\Team given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Parameter \#1 \$user of class App\\Mail\\GenericNewUpdatesMailable constructor expects App\\Models\\User, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Property App\\Notifications\\NotifyTeamApproved\:\:\$team has unknown class App\\Models\\Team as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Notifications/NotifyTeamApproved.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$email\.$#'
-			identifier: property.notFound
 			count: 1
 			path: app/Notifications/NotifyTeamDisapproved.php
 
@@ -4537,141 +3787,9 @@ parameters:
 			path: app/Notifications/NotifyTeamDisapproved.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Booth\:\:\$team\.$#'
-			identifier: property.notFound
-			count: 4
-			path: app/Observers/BoothObserver.php
-
-		-
-			message: '#^Access to property \$is_approved on an unknown class App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Access to property \$is_main_speaker on an unknown class App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Access to property \$presentation on an unknown class App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Access to property \$user on an unknown class App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Call to method getChanges\(\) on an unknown class App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Parameter \$speaker of method App\\Observers\\SpeakerObserver\:\:created\(\) has invalid type App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Parameter \$speaker of method App\\Observers\\SpeakerObserver\:\:deleted\(\) has invalid type App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Parameter \$speaker of method App\\Observers\\SpeakerObserver\:\:forceDeleted\(\) has invalid type App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Parameter \$speaker of method App\\Observers\\SpeakerObserver\:\:restored\(\) has invalid type App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Parameter \$speaker of method App\\Observers\\SpeakerObserver\:\:updated\(\) has invalid type App\\Models\\Speaker\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/SpeakerObserver.php
-
-		-
-			message: '#^Access to property \$is_approved on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Access to property \$is_sponsor_approved on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Access to property \$owner on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Call to method getChanges\(\) on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 3
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Parameter \$team of method App\\Observers\\TeamObserver\:\:created\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Parameter \$team of method App\\Observers\\TeamObserver\:\:deleted\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Parameter \$team of method App\\Observers\\TeamObserver\:\:forceDeleted\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Parameter \$team of method App\\Observers\\TeamObserver\:\:restored\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/TeamObserver.php
-
-		-
-			message: '#^Parameter \$team of method App\\Observers\\TeamObserver\:\:updated\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Observers/TeamObserver.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\User\:\:\$isDefaultCompanyMember\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/Policies/CompanyPolicy.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$is_crew\.$#'
-			identifier: property.notFound
-			count: 13
-			path: app/Policies/CompanyPolicy.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 2
 			path: app/Policies/CompanyPolicy.php
 
 		-
@@ -4681,19 +3799,7 @@ parameters:
 			path: app/Policies/CompanyPolicy.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$is_crew\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Policies/FeedbackPolicy.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isApproved\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$remaining_capacity\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Policies/PresentationPolicy.php
@@ -4705,39 +3811,9 @@ parameters:
 			path: app/Policies/PresentationPolicy.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$is_crew\.$#'
-			identifier: property.notFound
-			count: 5
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$participating_in\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Policies/PresentationPolicy.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenterOf\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$has_presentations_left\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
 			path: app/Policies/PresentationPolicy.php
 
 		-
@@ -4751,90 +3827,6 @@ parameters:
 			identifier: property.nonObject
 			count: 2
 			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Parameter \#1 \$company of method App\\Models\\User\:\:isMemberOf\(\) expects App\\Models\\Company, Illuminate\\Database\\Eloquent\\Model given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$speaker\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Call to an undefined method App\\Models\\User\:\:belongsToTeam\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Call to an undefined method App\\Models\\User\:\:ownsTeam\(\)\.$#'
-			identifier: method.notFound
-			count: 7
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Call to method hasUser\(\) on an unknown class App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Method App\\Policies\\TeamPolicy\:\:removeTeamMember\(\) has parameter \$model with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:addTeamMember\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:changeLogo\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:delete\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:removeTeamMember\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:requestBoothOrSponsorship\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:update\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:updateTeamMember\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
-
-		-
-			message: '#^Parameter \$team of method App\\Policies\\TeamPolicy\:\:view\(\) has invalid type App\\Models\\Team\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Policies/TeamPolicy.php
 
 		-
 			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$additionalInfo with no type specified\.$#'
@@ -5053,7 +4045,7 @@ parameters:
 			path: app/View/Components/ContentModSponsorRequestDetails.php
 
 		-
-			message: '#^Cannot access property \$booth on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$booth on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/BoothOwnerInfo.php
@@ -5071,7 +4063,7 @@ parameters:
 			path: app/View/Components/Dashboards/Blocks/BoothOwnerInfo.php
 
 		-
-			message: '#^Cannot access property \$boothStatus on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$boothStatus on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/Company.php
@@ -5083,19 +4075,19 @@ parameters:
 			path: app/View/Components/Dashboards/Blocks/Company.php
 
 		-
-			message: '#^Cannot access property \$sponsorshipStatus on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$sponsorshipStatus on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/Company.php
 
 		-
-			message: '#^Cannot access property \$status on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$status on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/Company.php
 
 		-
-			message: '#^Cannot access property \$booth on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$booth on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
@@ -5107,15 +4099,21 @@ parameters:
 			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
 
 		-
-			message: '#^Cannot access property \$hasPresentationsLeft on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$hasPresentationsLeft on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
 
 		-
-			message: '#^Cannot access property \$presentations on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$presentations on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 2
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
 			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
 
 		-
@@ -5263,15 +4261,21 @@ parameters:
 			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
 
 		-
-			message: '#^Cannot access property \$hasPresentationsLeft on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$hasPresentationsLeft on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
 
 		-
-			message: '#^Cannot access property \$presentations on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$presentations on App\\Models\\Company\|null\.$#'
 			identifier: property.nonObject
 			count: 2
+			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
 			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
 
 		-
@@ -5289,12 +4293,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
 			identifier: property.notFound
-			count: 1
-			path: app/View/Components/Dashboards/Crew.php
-
-		-
-			message: '#^Called ''count'' on Laravel collection, but could have been retrieved as a query\.$#'
-			identifier: larastan.noUnnecessaryCollectionCall
 			count: 1
 			path: app/View/Components/Dashboards/Crew.php
 
@@ -5581,12 +4579,6 @@ parameters:
 			path: database/migrations/2024_09_11_094300_add_batch_uuid_column_to_activity_log_table.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:joinPresentation\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: database/seeders/CompanySeeder.php
-
-		-
 			message: '#^Method Database\\Seeders\\CompanySeeder\:\:setPresentation\(\) has parameter \$companies with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -5611,13 +4603,7 @@ parameters:
 			path: tests/Feature/ApiTokenPermissionsTest.php
 
 		-
-			message: '#^Called ''count'' on Laravel collection, but could have been retrieved as a query\.$#'
-			identifier: larastan.noUnnecessaryCollectionCall
-			count: 4
-			path: tests/Feature/BoothControllerTest.php
-
-		-
-			message: '#^Cannot access property \$is_approved on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$is_approved on App\\Models\\Booth\|null\.$#'
 			identifier: property.nonObject
 			count: 2
 			path: tests/Feature/BoothControllerTest.php
@@ -5681,12 +4667,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/Feature/BoothControllerTest.php
-
-		-
-			message: '#^Called ''count'' on Laravel collection, but could have been retrieved as a query\.$#'
-			identifier: larastan.noUnnecessaryCollectionCall
-			count: 4
-			path: tests/Feature/CompanyControllerTest.php
 
 		-
 			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_access_create_company_form\(\) has no return type specified\.$#'
@@ -5905,12 +4885,6 @@ parameters:
 			path: tests/Feature/ProfileInformationTest.php
 
 		-
-			message: '#^Called ''count'' on Laravel collection, but could have been retrieved as a query\.$#'
-			identifier: larastan.noUnnecessaryCollectionCall
-			count: 4
-			path: tests/Feature/RoomControllerTest.php
-
-		-
 			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:create_denies_access_to_participant\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -6067,12 +5041,6 @@ parameters:
 			path: tests/Feature/UpdatePasswordTest.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with App\\Models\\User will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
@@ -6109,18 +5077,6 @@ parameters:
 			path: tests/Unit/ExampleTest.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$participants\.$#'
-			identifier: property.notFound
-			count: 1
-			path: tests/Unit/PresentationTest.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$speakers\.$#'
-			identifier: property.notFound
-			count: 1
-			path: tests/Unit/PresentationTest.php
-
-		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
@@ -6137,18 +5093,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/Unit/PresentationTest.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$participating_in\.$#'
-			identifier: property.notFound
-			count: 1
-			path: tests/Unit/UserTest.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenter_of\.$#'
-			identifier: property.notFound
-			count: 1
-			path: tests/Unit/UserTest.php
 
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
