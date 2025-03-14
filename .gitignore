@@ -18,6 +18,9 @@ yarn-error.log
 /.idea
 /.vscode
 
+### IDE Helper ###
+_ide_helper.php
+
 ### Laravel ###
 /vendor/
 node_modules/

@@ -64,8 +64,8 @@ class CompanyController extends Controller
             'phone_number' => ['nullable', 'phone:INTERNATIONAL,NL'],
             'street' => 'required',
             'city' => 'required',
-            'rep_email' => empty($input['rep_new_email']) ? 'required' : '',
-            'rep_new_email' => !empty($input['rep_new_email']) ? 'required|email' : '',
+            'rep_email' => empty($request->input('rep_new_email')) ? 'required' : '',
+            'rep_new_email' => !empty($request->input('rep_new_email')) ? 'required|email' : '',
         ]);
 
         $company = $input['rep_new_email'] ?

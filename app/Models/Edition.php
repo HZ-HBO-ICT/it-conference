@@ -16,28 +16,43 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $name
  * @property int $state
- * @property Carbon|null $start_at
- * @property Carbon|null $end_at
- * @property boolean $is_final_programme_released
- * @property boolean $is_participant_registration_opened
- * @property boolean $is_company_registration_opened
- * @property boolean $is_requesting_presentation_opened
- * @property boolean $is_in_progress
- * @property boolean $is_over
- * @property string $displayed_state
+ * @property Carbon $start_at
+ * @property Carbon $end_at
+ * @property int $lecture_duration
+ * @property int $workshop_duration
+ * @property string|null $keynote_name
+ * @property string|null $keynote_description
+ * @property string|null $keynote_photo_path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static Builder|Edition newModelQuery()
- * @method static Builder|Edition newQuery()
- * @method static Builder|Edition query()
- * @method static Builder|Edition whereCreatedAt($value)
- * @method static Builder|Edition whereId($value)
- * @method static Builder|Edition whereName($value)
- * @method static Builder|Edition whereState($value)
- * @method static Builder|Edition whereStartAt($value)
- * @method static Builder|Edition whereEndAt($value)
- * @method static Builder|Edition whereUpdatedAt($value)
- * @mixin Eloquent
+ * @property-read mixed $configured
+ * @property-read mixed $displayed_state
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EditionEvent> $editionEvents
+ * @property-read int|null $edition_events_count
+ * @property-read mixed $is_company_registration_opened
+ * @property-read mixed $is_final_programme_released
+ * @property-read mixed $is_in_progress
+ * @property-read mixed $is_over
+ * @property-read mixed $is_participant_registration_opened
+ * @property-read mixed $is_requesting_presentation_opened
+ * @property-read mixed $keynote_configured
+ * @property-read mixed $keynote_picture_source
+ * @method static Builder<static>|Edition newModelQuery()
+ * @method static Builder<static>|Edition newQuery()
+ * @method static Builder<static>|Edition query()
+ * @method static Builder<static>|Edition whereCreatedAt($value)
+ * @method static Builder<static>|Edition whereEndAt($value)
+ * @method static Builder<static>|Edition whereId($value)
+ * @method static Builder<static>|Edition whereKeynoteDescription($value)
+ * @method static Builder<static>|Edition whereKeynoteName($value)
+ * @method static Builder<static>|Edition whereKeynotePhotoPath($value)
+ * @method static Builder<static>|Edition whereLectureDuration($value)
+ * @method static Builder<static>|Edition whereName($value)
+ * @method static Builder<static>|Edition whereStartAt($value)
+ * @method static Builder<static>|Edition whereState($value)
+ * @method static Builder<static>|Edition whereUpdatedAt($value)
+ * @method static Builder<static>|Edition whereWorkshopDuration($value)
+ * @mixin \Eloquent
  */
 class Edition extends Model
 {

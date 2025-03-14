@@ -123,8 +123,7 @@ class PresentationConflictChecker
             ->sortByDesc('start')
             ->first();
 
-        $firstTimeslot = Timeslot::all()
-            ->first();
+        $firstTimeslot = Timeslot::first();
 
         return $endTime->lte(Carbon::parse($lastTimeslot->start)->addMinutes($lastTimeslot->duration))
             && Carbon::parse($startTime)->gte(Carbon::parse($firstTimeslot->start));

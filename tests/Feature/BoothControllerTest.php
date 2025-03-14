@@ -182,12 +182,12 @@ class BoothControllerTest extends TestCase
         $user = User::factory()->create();
         $user->assignRole('event organizer');
         $company = Company::factory()->has(Booth::factory(1))->create();
-        $boothCount = Booth::all()->count();
+        $boothCount = Booth::count();
 
         $response = $this->actingAs($user)->delete(route('moderator.booths.destroy', $company->booth));
 
         $response->assertRedirect(route('moderator.booths.index'));
-        $this->assertEquals(Booth::all()->count() + 1, $boothCount);
+        $this->assertEquals(Booth::count() + 1, $boothCount);
     }
 
     /** @test */
@@ -196,11 +196,11 @@ class BoothControllerTest extends TestCase
         $user = User::factory()->create();
         $user->assignRole('participant');
         $company = Company::factory()->has(Booth::factory(1))->create();
-        $boothCount = Booth::all()->count();
+        $boothCount = Booth::count();
 
         $response = $this->actingAs($user)->delete(route('moderator.booths.destroy', $company->booth));
 
         $response->assertStatus(403);
-        $this->assertEquals(Booth::all()->count(), $boothCount);
+        $this->assertEquals(Booth::count(), $boothCount);
     }
 }

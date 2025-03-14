@@ -15,6 +15,30 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ *
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Company|null $company
+ * @property-read mixed $creator
+ * @property-read \App\Models\Difficulty|null $difficulty
+ * @property-read mixed $duration
+ * @property-read mixed $is_scheduled
+ * @property-read mixed $participants
+ * @property-read mixed $remaining_capacity
+ * @property-read \App\Models\Room|null $room
+ * @property-read mixed $speakers
+ * @property-read mixed $speakers_name
+ * @property-read \App\Models\Timeslot|null $timeslot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserPresentation> $userPresentations
+ * @property-read int|null $user_presentations_count
+ * @method static \Database\Factories\PresentationFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation query()
+ * @mixin \Eloquent
+ */
 class Presentation extends Model
 {
     use HasFactory;

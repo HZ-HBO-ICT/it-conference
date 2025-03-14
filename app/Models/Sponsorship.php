@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ *
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
+ * @property-read int|null $companies_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship awaitingApproval()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship query()
+ * @mixin \Eloquent
+ */
 class Sponsorship extends Model
 {
     use HasFactory;
@@ -81,24 +92,5 @@ class Sponsorship extends Model
         })->count();
 
         return $availableTeam > 0 && $availableTierNumber > 0;
-    }
-
-
-    /**
-     * Reject all companies that have requested this sponsorship but are not approved
-     * @return void
-     */
-    public function rejectAllExceptApproved()
-    {
-        foreach ($this->teams as $team) {
-            if (!$team->is_sponsor_approved) {
-                //TODO: Once we reach the mail
-                /*                Mail::to($team->owner->email)->send(new SponsorshipDisapprovedMailable($team));*/
-
-                $team->sponsor_tier_id = null;
-                $team->is_sponsor_approved = null;
-                $team->save();
-            }
-        }
     }
 }
