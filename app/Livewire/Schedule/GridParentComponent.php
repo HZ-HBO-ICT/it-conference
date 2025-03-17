@@ -40,7 +40,7 @@ class GridParentComponent extends Component
     {
         $this->unscheduledPresentations = Presentation::where(function ($presentation) {
             return $presentation->whereNull(['timeslot_id', 'room_id', 'start']);
-        })->get()->where('is_approved', '=', 1);
+        })->where('is_approved', 1)->get();
 
         $this->lectureCount = $this->unscheduledPresentations->where('type', 'lecture')->count();
         $this->workshopCount = $this->unscheduledPresentations->where('type', 'workshop')->count();
