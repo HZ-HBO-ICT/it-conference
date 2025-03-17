@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 #[ObservedBy([FeedbackObserver::class])]
+/**
+ *
+ *
+ * @property-read \App\Models\User|null $reportedBy
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Feedback newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Feedback newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Feedback query()
+ * @mixin \Eloquent
+ */
 class Feedback extends Model
 {
     use HasFactory;

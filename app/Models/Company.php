@@ -15,6 +15,36 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Models\Role;
 
+/**
+ *
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Booth|null $booth
+ * @property-read mixed $booth_owners
+ * @property-read mixed $booth_status
+ * @property-read mixed $has_presentations_left
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InternshipAttribute> $internshipAttributes
+ * @property-read int|null $internship_attributes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invitation> $invitations
+ * @property-read int|null $invitations_count
+ * @property-read mixed $is_gold_sponsor
+ * @property-read mixed $is_hz
+ * @property-read mixed $is_sponsor
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
+ * @property-read int|null $presentations_count
+ * @property-read mixed $representative
+ * @property-read \App\Models\Sponsorship|null $sponsorship
+ * @property-read mixed $sponsorship_status
+ * @property-read mixed $status
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Company query()
+ * @mixin \Eloquent
+ */
 class Company extends Model
 {
     use HasFactory;
@@ -218,7 +248,7 @@ class Company extends Model
             get: function () {
                 $max_presentations = $this->is_gold_sponsor ? 2 : 1;
                 return $this->is_approved && $this->presentations->count() < $max_presentations
-                    || $this->isHz;
+                    || $this->is_hz;
             }
         );
     }

@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ *
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Company|null $company
+ * @method static \Database\Factories\BoothFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth query()
+ * @mixin \Eloquent
+ */
 class Booth extends Model
 {
     use HasFactory;
