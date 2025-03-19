@@ -5,8 +5,8 @@
 <p align="center">
     <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
-    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
-        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS"/></a>
+    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/static-analysis.yml">
+        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/static-analysis.yml/badge.svg" alt="PHPCS"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
         <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
     <a href="https://opensource.org/licenses/MIT">
