@@ -7,14 +7,20 @@ use Illuminate\Database\Seeder;
 
 class RoomSeeder extends Seeder
 {
-    public function run() {
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
         foreach ($this->roomNames as $roomName) {
             Room::factory()->create([
                 'name' => $roomName
             ]);
         }
     }
-    public $roomNames = [
+
+    /** @var string[] */
+    public array $roomNames = [
         'GW027',
         'GW011',
         'GW012',
