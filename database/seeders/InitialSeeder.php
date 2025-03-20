@@ -28,7 +28,7 @@ class InitialSeeder extends Seeder
         $user->assignRole('event organizer');
 
         // 2. Call the edition seeder
-        $this->call(EditionSeeder::class);
+        $this->call([EditionSeeder::class, RoomSeeder::class]);
 
         // 3. Retrieve the created edition and activate it
         $edition = Edition::first();
