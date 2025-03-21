@@ -62,8 +62,8 @@ Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('co
 Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 
 // routes for getting in contact
-Route::get('/contact',  [ContactController::class, 'index'])->name('contact');
-Route::post('/contact',  [ContactController::class, 'send'])->name('contact.send');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // routes for registering from invitation
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])

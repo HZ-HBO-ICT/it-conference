@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactUs;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
     /**
      * Display the contact page
      */
-    public function index()
+    public function index(): View
     {
         return view('contact');
     }
@@ -19,7 +20,7 @@ class ContactController extends Controller
     /**
      * validates and send the message to info@weareinittogether.nl
      */
-    public function send()
+    public function send():RedirectResponse
     {
         $data = request()->validate([
             'name' => 'required|string|max:255|min:3',
