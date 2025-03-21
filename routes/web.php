@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Crew\BoothController;
 use App\Http\Controllers\Crew\CrewController;
 use App\Http\Controllers\Crew\DefaultPresentationController;
@@ -59,7 +60,10 @@ Route::get('/speakers', [SpeakerController::class, 'index'])->name('speakers.ind
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
 Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('companies.show');
 Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
-Route::view('/contact', 'contact')->name('contact');
+
+// routes for getting in contact
+Route::get('/contact',  [ContactController::class, 'index'])->name('contact');
+Route::post('/contact',  [ContactController::class, 'send'])->name('contact.send');
 
 // routes for registering from invitation
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
