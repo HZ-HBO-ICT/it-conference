@@ -10,12 +10,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  *
  *
+ * @property int $id
+ * @property string $name
+ * @property int $max_sponsors
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
  * @property-read int|null $companies_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship awaitingApproval()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereMaxSponsors($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Sponsorship extends Model
@@ -51,7 +61,7 @@ class Sponsorship extends Model
      */
     public function areMoreSponsorsAllowed()
     {
-        return $this->companies()->hasStatus(ApprovalStatus::APPROVED, 'sponsorship_approval_status')
+        return $this->companies()->where('sponsorship_approval_status', ApprovalStatus::APPROVED->value)
                 ->count() < $this->max_sponsors;
     }
 
@@ -61,7 +71,7 @@ class Sponsorship extends Model
      */
     public function leftSpots()
     {
-        return $this->max_sponsors - $this->companies()->hasStatus(ApprovalStatus::APPROVED, 'sponsorship_approval_status')
+        return $this->max_sponsors - $this->companies()->where('sponsorship_approval_status', ApprovalStatus::APPROVED->value)
                 ->count();
     }
 

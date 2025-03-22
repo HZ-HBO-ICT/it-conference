@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\User;
@@ -168,26 +169,26 @@ class PresentationControllerTest extends TestCase
     public function event_organizer_can_approve_presentation()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $presentation = Presentation::factory()->create(['is_approved' => false]);
+        $presentation = Presentation::factory()->create(['approval_status' => ApprovalStatus::AWAITING_APPROVAL->value]);
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
 
         $response->assertRedirect(route('moderator.presentations.show', $presentation));
-        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => true]);
+        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'approval_status' => ApprovalStatus::APPROVED->value]);
     }
 
     /** @test */
     public function event_organizer_can_reject_presentation()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $presentation = Presentation::factory()->create(['is_approved' => true]);
+        $presentation = Presentation::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 0]));
 
         $response->assertRedirect(route('moderator.presentations.index'));
-        $this->assertDatabaseMissing('presentations', ['id' => $presentation->id, 'is_approved' => false]);
+        $this->assertDatabaseMissing('presentations', ['id' => $presentation->id, 'approval_status' => ApprovalStatus::APPROVED->value]);
     }
 
     /** @test */
@@ -195,14 +196,14 @@ class PresentationControllerTest extends TestCase
     {
         $user = User::factory()->create()->assignRole('participant');
         $presentation = Presentation::factory()->create();
-        $presentation->is_approved = false;
+        $presentation->approval_status = ApprovalStatus::AWAITING_APPROVAL->value;
         $presentation->save();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
 
         $response->assertStatus(403);
-        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => false]);
+        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'approval_status' => ApprovalStatus::AWAITING_APPROVAL->value]);
     }
 
     /** @test */

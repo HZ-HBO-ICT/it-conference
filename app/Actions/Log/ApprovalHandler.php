@@ -25,7 +25,7 @@ class ApprovalHandler
         $entity->disableLogging();
 
         $logMessage = '';
-        if ($field != 'is_approved') {
+        if ($field != 'approval_status') {
             $logMessage = $entity->name . "'s sponsorship has been {$status} by " . Auth::user()->name;
         } else {
             $entityType = (new \ReflectionClass($entity))->getShortName();

@@ -14,11 +14,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * and presentation (speaker/participant)
  * The model is not to be used directly. Use either Presentation or User model
  *
- * @property-read \App\Models\Presentation|null $presentation
- * @property-read \App\Models\User|null $user
+ * @property int $id
+ * @property int $user_id
+ * @property int $presentation_id
+ * @property string $role
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Presentation $presentation
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation wherePresentationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserPresentation whereUserId($value)
  * @mixin \Eloquent
  */
 class UserPresentation extends Model

@@ -21,12 +21,30 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  *
  *
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property string $approval_status
+ * @property int|null $max_participants The max number of participants that the presenter allows;
+ *                 If left empty it would be based on the room capacity
+ * @property string $type Can be only lecture or workshop
+ * @property string|null $file_path Path to the uploaded presentation by the speaker
+ * @property string|null $file_original_name
+ * @property string|null $start
+ * @property int|null $timeslot_id
+ * @property int|null $room_id
+ * @property int|null $difficulty_id
+ * @property int|null $company_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Company|null $company
  * @property-read mixed $creator
  * @property-read \App\Models\Difficulty|null $difficulty
  * @property-read mixed $duration
+ * @property-read mixed $is_approved
  * @property-read mixed $is_scheduled
  * @property-read mixed $participants
  * @property-read mixed $remaining_capacity
@@ -37,9 +55,27 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserPresentation> $userPresentations
  * @property-read int|null $user_presentations_count
  * @method static \Database\Factories\PresentationFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation query()
+ * @method static Builder<static>|Presentation hasStatus($status, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Presentation newModelQuery()
+ * @method static Builder<static>|Presentation newQuery()
+ * @method static Builder<static>|Presentation orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Presentation query()
+ * @method static Builder<static>|Presentation whereApprovalStatus($value)
+ * @method static Builder<static>|Presentation whereCompanyId($value)
+ * @method static Builder<static>|Presentation whereCreatedAt($value)
+ * @method static Builder<static>|Presentation whereDeletedAt($value)
+ * @method static Builder<static>|Presentation whereDescription($value)
+ * @method static Builder<static>|Presentation whereDifficultyId($value)
+ * @method static Builder<static>|Presentation whereFileOriginalName($value)
+ * @method static Builder<static>|Presentation whereFilePath($value)
+ * @method static Builder<static>|Presentation whereId($value)
+ * @method static Builder<static>|Presentation whereMaxParticipants($value)
+ * @method static Builder<static>|Presentation whereName($value)
+ * @method static Builder<static>|Presentation whereRoomId($value)
+ * @method static Builder<static>|Presentation whereStart($value)
+ * @method static Builder<static>|Presentation whereTimeslotId($value)
+ * @method static Builder<static>|Presentation whereType($value)
+ * @method static Builder<static>|Presentation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Presentation extends Model

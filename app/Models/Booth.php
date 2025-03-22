@@ -16,13 +16,34 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  *
  *
+ * @property int $id
+ * @property string $width
+ * @property string $length
+ * @property int $company_id
+ * @property string|null $additional_information
+ * @property string $approval_status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \App\Models\Company|null $company
+ * @property-read \App\Models\Company $company
+ * @property-read mixed $is_approved
  * @method static \Database\Factories\BoothFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth hasStatus($status, string $fieldName = 'approval_status')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereAdditionalInformation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereApprovalStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereLength($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereWidth($value)
  * @mixin \Eloquent
  */
 class Booth extends Model

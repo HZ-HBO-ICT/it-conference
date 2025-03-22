@@ -37,13 +37,12 @@ trait HasApprovalStatus
     /**
      * Scope a query to only include models that have a specified approval status.
      *
-     * @param Builder $query
-     * @param ApprovalStatus|string $status The status to filter by.
-     * @param string $fieldName The field that is checked.
-     * *
-     * @return Builder
+     * @param Builder<static> $query
+     * @param string|ApprovalStatus $status The status to filter by.
+     * @param string $fieldName The attribute name to filter.
+     * @return Builder<static>
      */
-    public function scopeHasStatus(Builder $query, $status, string $fieldName = 'approval_status'): Builder
+    public function scopeHasStatus(Builder $query, ApprovalStatus|string $status, string $fieldName = 'approval_status'): Builder
     {
         $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
         return $query->where($fieldName, $statusValue);
@@ -53,12 +52,12 @@ trait HasApprovalStatus
      * Scope a query to order models so that records with the given status appear first. Limited to
      * a single status. If you require more than one create a local function for it.
      *
-     * @param Builder $query
-     * @param ApprovalStatus|string $approvalStatus The status to prioritize.
-     * @param string $fieldName The name of the status field.
-     * @return Builder
+     * @param Builder<static> $query
+     * @param string|ApprovalStatus $approvalStatus
+     * @param string $fieldName The attribute name to check.
+     * @return Builder<static>
      */
-    public function scopeOrderByPriorityStatus(Builder $query, $approvalStatus, string $fieldName = 'approval_status'): Builder
+    public function scopeOrderByPriorityStatus(Builder $query, ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status'): Builder
     {
         $statusValue = $approvalStatus instanceof ApprovalStatus ? $approvalStatus->value : $approvalStatus;
         return $query->orderByRaw("{$fieldName} != ?", [$statusValue]);
@@ -67,7 +66,7 @@ trait HasApprovalStatus
     /**
      * Derived attribute that allows us to still use `is_approved` and minimize the
      * refactoring from the new field
-     * @return Attribute
+     * @return Attribute<bool, never>
      */
     public function isApproved() : Attribute
     {

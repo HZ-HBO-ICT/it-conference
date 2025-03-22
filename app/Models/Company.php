@@ -19,6 +19,24 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  *
  *
+ * @property int $id
+ * @property string $name
+ * @property string $website
+ * @property string $description
+ * @property string|null $motivation
+ * @property string|null $phone_number
+ * @property string $approval_status
+ * @property int|null $sponsorship_id
+ * @property string $sponsorship_approval_status
+ * @property string|null $logo_path
+ * @property string|null $dark_logo_path
+ * @property string $postcode
+ * @property string $street
+ * @property string $house_number
+ * @property string $city
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Booth|null $booth
@@ -29,9 +47,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read int|null $internship_attributes_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invitation> $invitations
  * @property-read int|null $invitations_count
+ * @property-read mixed $is_approved
  * @property-read mixed $is_gold_sponsor
  * @property-read mixed $is_hz
  * @property-read mixed $is_sponsor
+ * @property-read mixed $is_sponsorship_approved
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
  * @property-read int|null $presentations_count
  * @property-read mixed $representative
@@ -40,10 +60,31 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read mixed $status
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
+ * @method static Builder<static>|Company approvedSponsor()
  * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Company query()
+ * @method static Builder<static>|Company hasStatus($status, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Company newModelQuery()
+ * @method static Builder<static>|Company newQuery()
+ * @method static Builder<static>|Company orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Company query()
+ * @method static Builder<static>|Company whereApprovalStatus($value)
+ * @method static Builder<static>|Company whereCity($value)
+ * @method static Builder<static>|Company whereCreatedAt($value)
+ * @method static Builder<static>|Company whereDarkLogoPath($value)
+ * @method static Builder<static>|Company whereDeletedAt($value)
+ * @method static Builder<static>|Company whereDescription($value)
+ * @method static Builder<static>|Company whereHouseNumber($value)
+ * @method static Builder<static>|Company whereId($value)
+ * @method static Builder<static>|Company whereLogoPath($value)
+ * @method static Builder<static>|Company whereMotivation($value)
+ * @method static Builder<static>|Company whereName($value)
+ * @method static Builder<static>|Company wherePhoneNumber($value)
+ * @method static Builder<static>|Company wherePostcode($value)
+ * @method static Builder<static>|Company whereSponsorshipApprovalStatus($value)
+ * @method static Builder<static>|Company whereSponsorshipId($value)
+ * @method static Builder<static>|Company whereStreet($value)
+ * @method static Builder<static>|Company whereUpdatedAt($value)
+ * @method static Builder<static>|Company whereWebsite($value)
  * @mixin \Eloquent
  */
 class Company extends Model
@@ -72,7 +113,7 @@ class Company extends Model
     /**
      * Derived attribute that allows us to still use `is_sponsorship_approved` and minimize the
      * refactoring from the new field
-     * @return Attribute
+     * @return Attribute<bool, never>
      */
     protected function isSponsorshipApproved() : Attribute
     {
@@ -85,8 +126,8 @@ class Company extends Model
      * Scope a query to only include companies with approved statuses
      * and approved sponsorship statuses.
      *
-     * @param Builder $query
-     * @return Builder
+     * @param Builder<static> $query
+     * @return Builder<static>
      */
     public function scopeApprovedSponsor(Builder $query): Builder
     {
