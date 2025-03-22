@@ -2,18 +2,19 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use App\Enums\ApprovalStatus;
 
 /**
- * Trait ValidatesApprovalStatus.
- * This trait provides a method to validate the "approval_status" attribute based
- * on the available values in the ApprovalStatus Enum
+ * Trait HasApprovalStatus.
+ * This trait provides methods that make the usage of the `ApprovalStatus` enum easier
  *
  * @mixin Model
  */
-trait ValidatesApprovalStatus
+trait HasApprovalStatus
 {
     /**
      * Validate the approval status of the model.
@@ -31,5 +32,47 @@ trait ValidatesApprovalStatus
                 );
             }
         }
+    }
+
+    /**
+     * Scope a query to only include models that have a specified approval status.
+     *
+     * @param Builder $query
+     * @param ApprovalStatus|string $status The status to filter by.
+     * @param string $fieldName The field that is checked.
+     * *
+     * @return Builder
+     */
+    public function scopeHasStatus(Builder $query, $status, string $fieldName = 'approval_status'): Builder
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $query->where($fieldName, $statusValue);
+    }
+
+    /**
+     * Scope a query to order models so that records with the given status appear first. Limited to
+     * a single status. If you require more than one create a local function for it.
+     *
+     * @param Builder $query
+     * @param ApprovalStatus|string $approvalStatus The status to prioritize.
+     * @param string $fieldName The name of the status field.
+     * @return Builder
+     */
+    public function scopeOrderByPriorityStatus(Builder $query, $approvalStatus, string $fieldName = 'approval_status'): Builder
+    {
+        $statusValue = $approvalStatus instanceof ApprovalStatus ? $approvalStatus->value : $approvalStatus;
+        return $query->orderByRaw("{$fieldName} != ?", [$statusValue]);
+    }
+
+    /**
+     * Derived attribute that allows us to still use `is_approved` and minimize the
+     * refactoring from the new field
+     * @return Attribute
+     */
+    public function isApproved() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
+        );
     }
 }
