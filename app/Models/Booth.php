@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
-use App\Traits\ValidatesApprovalStatus;
+use App\Enums\ApprovalStatus;
+use App\Traits\HasApprovalStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,7 +29,7 @@ class Booth extends Model
 {
     use HasFactory;
     use LogsActivity;
-    use ValidatesApprovalStatus;
+    use HasApprovalStatus;
 
     protected $fillable = ['width', 'length', 'company_id', 'additional_information', 'approval_status'];
 
@@ -40,6 +42,18 @@ class Booth extends Model
         static::saving(function (Booth $booth) {
             $booth->validateApprovalStatus();
         });
+    }
+
+    /**
+     * Derived attribute that allows us to still use `is_approved` and minimize the
+     * refactoring from the new field
+     * @return Attribute
+     */
+    protected function isApproved() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
+        );
     }
 
     /**
@@ -73,6 +87,6 @@ class Booth extends Model
             ->logAll()
             ->setDescriptionForEvent(fn(string $eventName) => "{$this->company->name}'s booth has been {$eventName} by " . Auth::user()->name)
             ->logOnlyDirty()
-            ->dontLogIfAttributesChangedOnly(['is_approved']);
+            ->dontLogIfAttributesChangedOnly(['approval_status']);
     }
 }

@@ -4,8 +4,9 @@ namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
 use App\Enums\ApprovalStatus;
-use App\Traits\ValidatesApprovalStatus;
+use App\Traits\HasApprovalStatus;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,7 +46,7 @@ class Presentation extends Model
 {
     use HasFactory;
     use LogsActivity;
-    use ValidatesApprovalStatus;
+    use HasApprovalStatus;
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
         'company_id', 'room_id', 'timeslot_id', 'start', 'approval_status'];
@@ -74,6 +75,18 @@ class Presentation extends Model
         static::saving(function (Presentation $presentation) {
             $presentation->validateApprovalStatus();
         });
+    }
+
+    /**
+     * Derived attribute that allows us to still use `is_approved` and minimize the
+     * refactoring from the new field
+     * @return Attribute
+     */
+    protected function isApproved() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
+        );
     }
 
     /**

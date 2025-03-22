@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
 use App\Enums\ApprovalStatus;
-use App\Traits\ValidatesApprovalStatus;
+use App\Traits\HasApprovalStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,11 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Permission\Models\Role;
 
 /**
  *
@@ -52,7 +50,7 @@ class Company extends Model
 {
     use HasFactory;
     use LogsActivity;
-    use ValidatesApprovalStatus;
+    use HasApprovalStatus;
 
     protected $fillable = ['name', 'description', 'website', 'postcode', 'approval_status', 'motivation',
         'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'sponsorship_approval_status',
@@ -71,10 +69,27 @@ class Company extends Model
         });
     }
 
+    /**
+     * Derived attribute that allows us to still use `is_approved` and minimize the
+     * refactoring from the new field
+     * @return Attribute
+     */
     protected function isApproved() : Attribute
     {
         return Attribute::make(
             get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
+        );
+    }
+
+    /**
+     * Derived attribute that allows us to still use `is_sponsorship_approved` and minimize the
+     * refactoring from the new field
+     * @return Attribute
+     */
+    protected function isSponsorshipApproved() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->sponsorship_approval_status == ApprovalStatus::APPROVED->value,
         );
     }
 
@@ -160,21 +175,23 @@ class Company extends Model
             ->setDescriptionForEvent(fn(string $eventName)
             => "{$this->name} has been {$eventName}" . (Auth::user() ? " by " . Auth::user()->name : ''))
             ->logOnlyDirty()
-            ->dontLogIfAttributesChangedOnly(['is_approved', 'is_sponsorship_approved', 'sponsorship_id']);
+            ->dontLogIfAttributesChangedOnly(['approval_status', 'sponsorship_approval_status', 'sponsorship_id']);
     }
 
     /**
+     * TODO: Fix the statuses once we determine all flows we need
      * Returns the status of the company based on the approval status
      * @return Attribute
      */
     public function status(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->is_approved ? 'Approved' : 'Awaiting approval'
+            get: fn() => $this->approval_status == ApprovalStatus::APPROVED->value ? 'Approved' : 'Awaiting approval'
         );
     }
 
     /**
+     *  TODO: Fix the statuses once we determine all flows we need
      * Returns the status of the company's sponsorship
      * @return Attribute
      */
@@ -185,7 +202,7 @@ class Company extends Model
                 if (!$this->sponsorship) {
                     return 'Not requested';
                 }
-                return $this->sponsorship->is_approved ? 'Approved' : 'Awaiting approval';
+                return $this->sponsorship_approval_status == ApprovalStatus::APPROVED->value ? 'Approved' : 'Awaiting approval';
             }
         );
     }
