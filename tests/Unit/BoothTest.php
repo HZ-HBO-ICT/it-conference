@@ -25,7 +25,8 @@ class BoothTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_cannot_create_booth_with_invalid_approval_status() {
+    public function test_that_you_cannot_create_booth_with_invalid_approval_status(): void
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid approval status: test');
 
@@ -41,7 +42,8 @@ class BoothTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_can_create_booth_with_valid_approval_status() {
+    public function test_that_you_can_create_booth_with_valid_approval_status(): void
+    {
         $company = Company::factory()->create();
         $booth = Booth::create([
             'width' => 1,

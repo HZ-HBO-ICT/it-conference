@@ -29,7 +29,7 @@ class PresentationTest extends TestCase
     }
 
     #[Test]
-    public function test_that_speakers_returns_the_users_attached_with_role_speaker()
+    public function test_that_speakers_returns_the_users_attached_with_role_speaker(): void
     {
         $users = User::factory(3)->create();
         $presentation = Presentation::factory()->create();
@@ -44,7 +44,7 @@ class PresentationTest extends TestCase
     }
 
     #[Test]
-    public function test_that_participants_returns_the_users_attached_with_role_participant()
+    public function test_that_participants_returns_the_users_attached_with_role_participant(): void
     {
         $users = User::factory(3)->create();
         $presentation = Presentation::factory()->create();
@@ -59,7 +59,8 @@ class PresentationTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_cannot_create_presentation_with_invalid_approval_status() {
+    public function test_that_you_cannot_create_presentation_with_invalid_approval_status(): void
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid approval status: test');
 
@@ -79,7 +80,8 @@ class PresentationTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_can_create_presentation_with_valid_approval_status() {
+    public function test_that_you_can_create_presentation_with_valid_approval_status(): void
+    {
         $user = User::factory()->create();
         $presentation = Presentation::create([
             'name' => 'New Tech Trends',

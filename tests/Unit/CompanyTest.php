@@ -25,7 +25,8 @@ class CompanyTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_cannot_create_company_with_invalid_approval_status() {
+    public function test_that_you_cannot_create_company_with_invalid_approval_status(): void
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid approval status: test');
 
@@ -36,18 +37,23 @@ class CompanyTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_can_create_company_with_valid_approval_status() {
+    public function test_that_you_can_create_company_with_valid_approval_status(): void
+    {
         $company = Company::factory()->make([
             'approval_status' => ApprovalStatus::APPROVED->value
         ]);
 
         $company->save();
 
-        $this->assertDatabaseHas('companies', ['id' => $company->id, 'approval_status' => ApprovalStatus::APPROVED->value]);
+        $this->assertDatabaseHas(
+            'companies',
+            ['id' => $company->id, 'approval_status' => ApprovalStatus::APPROVED->value]
+        );
     }
 
     #[Test]
-    public function test_that_you_cannot_store_sponsorship_status_with_invalid_approval_status() {
+    public function test_that_you_cannot_store_sponsorship_status_with_invalid_approval_status(): void
+    {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid approval status: test');
 
@@ -58,13 +64,17 @@ class CompanyTest extends TestCase
     }
 
     #[Test]
-    public function test_that_you_can_store_sponsorship_status_with_valid_approval_status() {
+    public function test_that_you_can_store_sponsorship_status_with_valid_approval_status(): void
+    {
         $company = Company::factory()->make([
             'sponsorship_approval_status' => ApprovalStatus::APPROVED->value
         ]);
 
         $company->save();
 
-        $this->assertDatabaseHas('companies', ['id' => $company->id, 'sponsorship_approval_status' => ApprovalStatus::APPROVED->value]);
+        $this->assertDatabaseHas(
+            'companies',
+            ['id' => $company->id, 'sponsorship_approval_status' => ApprovalStatus::APPROVED->value]
+        );
     }
 }
