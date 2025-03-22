@@ -38,6 +38,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property int|null $company_id
+ * @property string|null $crew_team
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $actions
  * @property-read int|null $actions_count
  * @property-read mixed $all_roles
@@ -72,7 +74,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder<static>|User sendEmailPreference()
  * @method static Builder<static>|User usersWithTickets()
  * @method static Builder<static>|User verified()
+ * @method static Builder<static>|User whereCompanyId($value)
  * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereCrewTeam($value)
  * @method static Builder<static>|User whereDeletedAt($value)
  * @method static Builder<static>|User whereEmail($value)
  * @method static Builder<static>|User whereEmailVerifiedAt($value)

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Sponsorship;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Contracts\View\Factory;
@@ -53,7 +54,7 @@ class SponsorshipRequest extends Component
         if (!$this->company->sponsorship) {
             $chosenTier = $this->tiers->firstWhere('name', $this->chosenTierName);
             $this->company->sponsorship_id = $chosenTier->id;
-            $this->company->is_sponsorship_approved = 0;
+            $this->company->sponsorship_approval_status = ApprovalStatus::AWAITING_APPROVAL->value;
             $this->company->save();
             $this->company->refresh();
             $this->requestSent = true;

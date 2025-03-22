@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use App\Models\Edition;
 use App\Models\User;
@@ -214,7 +215,7 @@ class CompanyControllerTest extends TestCase
         $response->assertRedirect(route('moderator.companies.show', $company));
         $this->assertDatabaseHas('companies', [
             'id' => $company->id,
-            'is_approved' => true
+            'approval_status' => ApprovalStatus::APPROVED->value
         ]);
     }
 
@@ -239,7 +240,7 @@ class CompanyControllerTest extends TestCase
     {
         $user = User::factory()->create()->assignRole('participant');
         $company = Company::factory()->create();
-        $company->is_approved = false;
+        $company->approval_status = ApprovalStatus::AWAITING_APPROVAL->value;
         $company->save();
 
         $response = $this->actingAs($user)

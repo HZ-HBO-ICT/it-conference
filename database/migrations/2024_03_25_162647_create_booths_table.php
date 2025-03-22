@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('length');
             $table->unsignedBigInteger('company_id')->unique();
             $table->text('additional_information')->nullable(true);
-            $table->boolean('is_approved')->default(false);
+            $table->string('approval_status')->default('awaiting_approval');
 
             $table->foreign('company_id')->on('companies')->references('id')
                 ->cascadeOnUpdate()->cascadeOnDelete();

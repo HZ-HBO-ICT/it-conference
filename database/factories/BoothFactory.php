@@ -19,7 +19,6 @@ class BoothFactory extends Factory
         return [
             "width" => $this->faker->numberBetween(0, 3),
             "length" => $this->faker->numberBetween(0, 3),
-            "is_approved" => false
         ];
     }
 }

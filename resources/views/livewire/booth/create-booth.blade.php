@@ -1,5 +1,6 @@
 @php
     use App\Models\Company;
+    use App\Enums\ApprovalStatus;
 @endphp
 
 <form wire:submit="save">
@@ -25,7 +26,7 @@
                              value="{{ __('Company name') }}"></x-label>
                     <x-select wire:model="companyId" name="company_id" class="mt-1 block w-full">
                         @foreach(Company::whereDoesntHave('booth')
-                                    ->where('is_approved', '=', '1')->get() as $company)
+                                    ->hasStatus(ApprovalStatus::APPROVED)->get() as $company)
                             <option value="{{ $company->id }}">
                                 {{$company->name}}
                                 @if($company->sponsorship)

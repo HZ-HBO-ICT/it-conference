@@ -19,9 +19,9 @@ return new class extends Migration
             $table->text('description');
             $table->text('motivation')->nullable(true);
             $table->string('phone_number')->nullable();
-            $table->boolean('is_approved')->default(false);
+            $table->string('approval_status')->default('awaiting_approval');
             $table->unsignedBigInteger('sponsorship_id')->nullable();
-            $table->boolean('is_sponsorship_approved')->nullable();
+            $table->string('sponsorship_approval_status')->default('not_requested');
             $table->string('logo_path')->nullable();
             $table->string('dark_logo_path')->nullable();
             $table->string('postcode');

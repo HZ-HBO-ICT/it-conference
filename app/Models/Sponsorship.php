@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ApprovalStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,12 +10,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  *
  *
+ * @property int $id
+ * @property string $name
+ * @property int $max_sponsors
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
  * @property-read int|null $companies_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship awaitingApproval()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereMaxSponsors($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Sponsorship whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Sponsorship extends Model
@@ -50,7 +61,7 @@ class Sponsorship extends Model
      */
     public function areMoreSponsorsAllowed()
     {
-        return $this->companies()->where('is_sponsorship_approved', '=', 1)
+        return $this->companies()->where('sponsorship_approval_status', ApprovalStatus::APPROVED->value)
                 ->count() < $this->max_sponsors;
     }
 
@@ -60,7 +71,7 @@ class Sponsorship extends Model
      */
     public function leftSpots()
     {
-        return $this->max_sponsors - $this->companies()->where('is_sponsorship_approved', '=', 1)
+        return $this->max_sponsors - $this->companies()->where('sponsorship_approval_status', ApprovalStatus::APPROVED->value)
                 ->count();
     }
 
@@ -73,7 +84,7 @@ class Sponsorship extends Model
     public function scopeAwaitingApproval($query): mixed
     {
         return $query->join('companies', 'companies.sponsorship_id', '=', 'sponsorships.id')
-            ->where('companies.is_sponsorship_approved', '=', 0);
+            ->where('companies.sponsorship_approval_status', '=', ApprovalStatus::AWAITING_APPROVAL->value);
     }
 
     /**
