@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Presentation;
 use App\Models\Sponsorship;
 use App\Models\UserPresentation;
@@ -26,12 +27,10 @@ class CompanyFactory extends Factory
             'motivation' => $this->faker->paragraph(),
             'phone_number' => $this->faker->phoneNumber,
             'postcode' => '1234 AB',
-            'is_approved' => true,
             'street' => $this->faker->streetAddress,
             'house_number' => $this->faker->numberBetween(0, 10),
             'city' => $this->faker->city,
             'logo_path' => 'logos/img.png',
-
         ];
     }
 
@@ -46,7 +45,8 @@ class CompanyFactory extends Factory
         return $this->state(function (array $attributes) use ($sponsorship) {
             return [
                 'sponsorship_id' => $sponsorship->id,
-                'is_sponsorship_approved' => true
+                'sponsorship_approval_status' => ApprovalStatus::APPROVED->value,
+                'approval_status' => ApprovalStatus::APPROVED->value,
             ];
         });
     }
