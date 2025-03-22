@@ -70,18 +70,6 @@ class Company extends Model
     }
 
     /**
-     * Derived attribute that allows us to still use `is_approved` and minimize the
-     * refactoring from the new field
-     * @return Attribute
-     */
-    protected function isApproved() : Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
-        );
-    }
-
-    /**
      * Derived attribute that allows us to still use `is_sponsorship_approved` and minimize the
      * refactoring from the new field
      * @return Attribute
@@ -326,11 +314,11 @@ class Company extends Model
      */
     public function handleSponsorshipApproval(bool $isApproved): void
     {
-        (new ApprovalHandler())->execute($this, $isApproved, 'is_sponsorship_approved');
+        (new ApprovalHandler())->execute($this, $isApproved, 'sponsorship_approval_status');
 
         if (!$isApproved) {
             $this->disableLogging();
-            $this->is_sponsorship_approved = null;
+            $this->sponsorship_approval_status = ApprovalStatus::NOT_REQUESTED->value;
             $this->sponsorship_id = null;
             $this->save();
             $this->enableLogging();

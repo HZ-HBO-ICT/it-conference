@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ApprovalStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,7 +51,7 @@ class Sponsorship extends Model
      */
     public function areMoreSponsorsAllowed()
     {
-        return $this->companies()->where('is_sponsorship_approved', '=', 1)
+        return $this->companies()->hasStatus(ApprovalStatus::APPROVED, 'sponsorship_approval_status')
                 ->count() < $this->max_sponsors;
     }
 
@@ -60,7 +61,7 @@ class Sponsorship extends Model
      */
     public function leftSpots()
     {
-        return $this->max_sponsors - $this->companies()->where('is_sponsorship_approved', '=', 1)
+        return $this->max_sponsors - $this->companies()->hasStatus(ApprovalStatus::APPROVED, 'sponsorship_approval_status')
                 ->count();
     }
 
@@ -73,7 +74,7 @@ class Sponsorship extends Model
     public function scopeAwaitingApproval($query): mixed
     {
         return $query->join('companies', 'companies.sponsorship_id', '=', 'sponsorships.id')
-            ->where('companies.is_sponsorship_approved', '=', 0);
+            ->where('companies.sponsorship_approval_status', '=', ApprovalStatus::AWAITING_APPROVAL->value);
     }
 
     /**

@@ -45,18 +45,6 @@ class Booth extends Model
     }
 
     /**
-     * Derived attribute that allows us to still use `is_approved` and minimize the
-     * refactoring from the new field
-     * @return Attribute
-     */
-    protected function isApproved() : Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
-        );
-    }
-
-    /**
      * Establishes the relationship between the booth and
      * the company that owns it
      * @return BelongsTo
