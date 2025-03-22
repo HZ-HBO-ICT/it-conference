@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
+use App\Traits\ValidatesApprovalStatus;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,10 +50,24 @@ class Company extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use ValidatesApprovalStatus;
 
-    protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved', 'motivation',
-        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved',
+    protected $fillable = ['name', 'description', 'website', 'postcode', 'approval_status', 'motivation',
+        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'sponsorship_approval_status',
         'dark_logo_path'];
+
+    /**
+     * Ensures that if the company status or their sponsorship status is changed,
+     * it is changed to one of the enum statuses
+     * @return void
+     */
+    protected static function booted() : void
+    {
+        static::saving(function (Company $company) {
+            $company->validateApprovalStatus();
+            $company->validateApprovalStatus('sponsorship_approval_status');
+        });
+    }
 
     /**
      * Establishes a relationship between the company and

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
+use App\Enums\ApprovalStatus;
+use App\Traits\ValidatesApprovalStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,9 +45,10 @@ class Presentation extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use ValidatesApprovalStatus;
 
     protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
-        'company_id', 'room_id', 'timeslot_id', 'start', 'is_approved'];
+        'company_id', 'room_id', 'timeslot_id', 'start', 'approval_status'];
 
     /**
      * Returns the basic validation rules for the model
@@ -60,6 +63,17 @@ class Presentation extends Model
             'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required|numeric|exists:difficulties,id',
         ];
+    }
+
+    /**
+     * Ensures that if the presentation status is changed, it is changed to one of the enum statuses
+     * @return void
+     */
+    protected static function booted() : void
+    {
+        static::saving(function (Presentation $presentation) {
+            $presentation->validateApprovalStatus();
+        });
     }
 
     /**

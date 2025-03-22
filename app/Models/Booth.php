@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
+use App\Traits\ValidatesApprovalStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,8 +27,20 @@ class Booth extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use ValidatesApprovalStatus;
 
-    protected $fillable = ['width', 'length', 'company_id', 'additional_information', 'is_approved'];
+    protected $fillable = ['width', 'length', 'company_id', 'additional_information', 'approval_status'];
+
+    /**
+     * Ensures that if the booth status is changed, it is changed to one of the enum statuses
+     * @return void
+     */
+    protected static function booted() : void
+    {
+        static::saving(function (Booth $booth) {
+            $booth->validateApprovalStatus();
+        });
+    }
 
     /**
      * Establishes the relationship between the booth and
