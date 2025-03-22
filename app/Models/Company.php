@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
+use App\Enums\ApprovalStatus;
 use App\Traits\ValidatesApprovalStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -67,6 +69,26 @@ class Company extends Model
             $company->validateApprovalStatus();
             $company->validateApprovalStatus('sponsorship_approval_status');
         });
+    }
+
+    protected function isApproved() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->approval_status == ApprovalStatus::APPROVED->value,
+        );
+    }
+
+    /**
+     * Scope a query to only include companies with approved statuses
+     * and approved sponsorship statuses.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeApprovedSponsor(Builder $query): Builder
+    {
+        return $query->where('approval_status', ApprovalStatus::APPROVED->value)
+            ->where('sponsorship_approval_status', ApprovalStatus::APPROVED->value);
     }
 
     /**
