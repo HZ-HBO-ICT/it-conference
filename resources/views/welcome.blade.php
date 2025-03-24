@@ -1,314 +1,339 @@
 @php
     use App\Models\Sponsorship;
+    $goldSponsors = \App\Models\Sponsorship::find(1)?->companies()->where('is_sponsorship_approved', true)->get();
+    $silverSponsors = \App\Models\Sponsorship::find(2)?->companies()->where('is_sponsorship_approved', true)->get();
+    $bronzeSponsors = \App\Models\Sponsorship::find(3)?->companies()->where('is_sponsorship_approved', true)->get();
+
 @endphp
 
 <x-app-layout>
-    <div class="flex flex-col overflow-hidden">
-        <!-- The main banner -->
-        <div class="relative">
-            <div class="relative flex flex-col items-center px-4 py-16">
-                <!--Titles-->
-                <div
-                    class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-6">
-                    <div
-                        class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
-                        <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
-                            We are in IT together Conference
-                        </h1>
-                        @if($goldSponsorCompany && $edition)
-                            <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
-                                Co-hosted by {{ $goldSponsorCompany->name }}
-                            </h2>
-                        @endif
-                    </div>
-                    <div class="w-full md:w-1/2 pt-1 text-xl font-montserrat">
-                        <h2 class="uppercase font-bold">
-                            Annual IT Conference
-                        </h2>
-                        <h2 class="uppercase font-medium mb-8">
-                            @if($edition)
-                                {{ $edition->start_at->format('j F Y') }}
-                            @else
-                                The date will be provided soon!
-                            @endif
-                        </h2>
-                        <h2 class="italic">
-                            "IT does not only build a bridge, IT involves us all"
-                        </h2>
-                        <h2 class="italic font-semibold">
-                            HZ University of Applied Sciences, Middelburg
-                        </h2>
-                        @if($edition)
-                            <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
-                                <a href="{{ route('companies.index') }}">
-                                    View companies
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1"
-                                         fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                    </svg>
-                                </a>
-                                <a href="{{ route('speakers.index') }}">
-                                    View speakers
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1"
-                                         fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                    </svg>
-                                </a>
-                            </h2>
-                        @else
-                            <h2 class="flex flex-wrap mt-8 uppercase font-medium text-2xl gap-12">Check back later for
-                                                                                                  updates</h2>
-                        @endif
-                        <br>
-                        @guest()
-                            @if(optional($edition)->is_participant_registration_opened)
-                                <x-button-link href="{{route('register.participant')}}" class="mt-4 mr-5">
-                                    Register as a participant
-                                </x-button-link>
-                            @endif
-                            @if(optional($edition)->is_company_registration_opened)
-                                <x-button-link href="{{route('register.company')}}" class="mt-4 mr-5">
-                                    Register my company
-                                </x-button-link>
-                            @endif
-                        @endguest
-                    </div>
+    <div class="flex flex-col overflow-hidden relative min-h-screen">
+
+        <!-- Full-page background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#e9f8ff] via-[#d6f2ff] to-[#f0fbff] -z-10"></div>
+
+        <!-- BUBBLE ANIMATION LAYER -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+
+        <!-- Custom Cursor -->
+        <div class="bubble-cursor"></div>
+
+        <!-- Hero Section -->
+        <div class="relative z-10">
+            <div class="relative flex flex-col items-center px-4 pt-36 pb-24">
+                <!-- Date -->
+                <div class="mb-6">
+                    <span class="bg-blue-100 text-blue-700 py-1 px-3 rounded-full text-sm font-semibold shadow-sm">
+                        {{ $edition->start_at->format('F d, Y') }}
+                    </span>
                 </div>
-                <!-- Countdown Timer -->
-                <div
-                    class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
-                    @if ($edition)
-                        <x-countdown :time="$edition->start_at"/>
-                    @endif
+
+                <!-- Title -->
+                <h1 class="text-center text-5xl md:text-6xl font-bold text-[#0b253f] mb-8 leading-tight max-w-4xl">
+                    We Are In IT Together Conference 2026
+                </h1>
+
+                <h2 class="text-center text-xl md:text-2xl mb-4 text-[#0b253f] max-w-3xl">
+                    Theme: <span class="text-blue-500 font-bold">Water</span> & <span class="text-yellow-400 font-bold">Energy</span> - Co-hosted by {{ $goldSponsorCompany?->name }}
+                </h2>
+
+                <p class="text-center text-lg text-[#1f415f] max-w-2xl mb-10">
+                    Uniting tech, sustainability, and innovation. Join us for a journey into the future of IT.
+                </p>
+
+                <!-- CTAs -->
+                <div class="mb-16 flex gap-4 flex-wrap justify-center">
+                    <a href="{{ route('companies.index') }}" class="px-6 py-3 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition shadow-lg">
+                        View Companies
+                    </a>
+                    <a href="{{ route('speakers.index') }}" class="px-6 py-3 rounded-lg border border-blue-500 text-blue-500 font-semibold hover:bg-blue-50 transition shadow-md">
+                        View Speakers
+                    </a>
+                </div>
+
+                <!-- Countdown -->
+                <div class="w-full flex justify-center mt-8 max-w-xl">
+                    <x-countdown :time="$edition->start_at"/>
                 </div>
             </div>
         </div>
 
-        <!--Statistics-->
-        <div class="bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
-            <div class="grid md:grid-cols-4 mt-5 lg:mr-40 lg:ml-40">
-                <div class="text-center mb-5">
-                    <p class="text-5xl font-bold text-center text-crew-500">10+</p>
-                    <p class="uppercase font-bold text-sm">Speakers</p>
-                </div>
-                <div class="text-center mb-5">
-                    <p class="text-5xl font-bold text-center text-partner-600">200+</p>
-                    <p class="uppercase font-bold text-sm">Students</p>
-                </div>
-                <div class="text-center mb-5">
-                    <p class="text-5xl font-bold text-center text-participant-500">20+</p>
-                    <p class="uppercase font-bold text-sm">Companies</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-5xl font-bold text-center text-pink-500">5+</p>
-                    <p class="uppercase font-bold text-sm">Sponsors</p>
-                </div>
-            </div>
-        </div>
+        <section class="relative z-10 py-24">
+            <div class="max-w-[90%] mx-auto px-4 md:px-8">
+                <div class="rounded-[16px] bg-white/30 backdrop-blur-lg shadow-2xl border border-white/50 p-16 md:p-20">
 
-        <!-- Second banner + third banner inside it (to use the gradient) -->
-        <div class="relative">
-            <!-- Blob -->
-            <!-- the auth/guest is necessary because the register now button changes the layout -->
-            @auth()
-                <img src="/img/rose-blob.png"
-                     class="absolute -top-72 -left-96 md:-top-48 md:-left-80 lg:-top-72 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
-                     style="transform: rotate(-90deg)">
-            @endauth
-            @guest()
-                <img src="/img/rose-blob.png"
-                     class="absolute -top-88 -left-96 md:-top-56 md:-left-80 lg:-top-88 lg:-left-72 xl:-top-88 xl:-left-48 h-[28rem] transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
-                     style="transform: rotate(-90deg)">
-            @endguest
-
-            <!-- Blob -->
-            <img src="/img/blue-blob.png"
-                 class="absolute -top-48 -right-36 md:-top-32 md:-right-20 lg:-top-32 lg:-right-32 xl:-top-48 xl:-right-40 h-80 transform translate-x-1/2 translate-y-1/2 z-10 opacity-100"
-                 style="transform: rotate(61deg)">
-
-            <!-- Gradient background -->
-            <div
-                class="absolute inset-0 bg-linear-to-br from-gradient-light-blue via-gradient-light-pink to-gradient-light-pink dark:from-gradient-dark-blue dark:via-gradient-dark-pink dark:to-gradient-dark-pink opacity-80"></div>
-
-            <h2 class="flex justify-center mt-8 mb-5 uppercase text-xl font-montserrat font-bold relative z-10">
-                What to expect during the conference
-            </h2>
-
-            {{-- Cards for speakers, presentations, companies --}}
-            <div class="flex flex-wrap justify-between mb-16 lg:px-44 md:px-32 sm:px-24">
-                <!-- Card 1 -->
-                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div
-                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
-                        <!-- Top dark gradient -->
-                        <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-linear-to-b from-black to-transparent opacity-60"></div>
-                        <!-- Bottom dark gradient -->
-                        <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-linear-to-t from-black to-transparent opacity-60"></div>
-                        <!-- Color gradient -->
-                        <div
-                            class="absolute inset-0 bg-linear-to-br from-crew-500 to-crew-800 mix-blend-soft-light opacity-60"></div>
-                        <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-speaker.jpg')}});"></div>
-                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                            <div class="relative">
-                                <h2 class="text-2xl font-bold">SPEAKERS</h2>
-                                <p class="mt-4">During the conference you will have the chance to meet and speak to
-                                                our
-                                                speakers.</p>
-                            </div>
-                        </div>
+                    <!-- Badge -->
+                    <div class="text-center mb-4">
+                <span class="inline-block bg-white/80 text-blue-500 font-semibold px-4 py-1 rounded-full shadow backdrop-blur-sm">
+                    Why Attend
+                </span>
                     </div>
-                </div>
 
-                <!-- Card 2 -->
-                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div
-                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
-                        <!-- Top dark gradient -->
-                        <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-linear-to-b from-black to-transparent opacity-60"></div>
-                        <!-- Bottom dark gradient -->
-                        <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-linear-to-t from-black to-transparent opacity-60"></div>
-                        <!-- Color gradient -->
-                        <div
-                            class="absolute inset-0 bg-linear-to-br from-gradient-blue to-participant-500 mix-blend-soft-light opacity-50"></div>
-                        <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-presentations.jpg')}});"></div>
-                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                            <div class="relative">
-                                <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
-                                <p class="mt-4">During the conference you can visit a lot of different workshops and
-                                                lectures.</p>
+                    <!-- Title -->
+                    <h2 class="text-center text-4xl md:text-5xl font-bold text-[#0b253f] mb-4">
+                        The Future of IT in <span class="text-blue-500">Water & Energy</span>
+                    </h2>
+
+                    <!-- Subtitle -->
+                    <p class="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                        Discover how technology is transforming the water and energy sectors, creating sustainable solutions for our future.
+                    </p>
+
+                    <!-- Divider -->
+                    <div class="w-24 h-1 bg-blue-400 mx-auto rounded-full mb-12"></div>
+
+                    <!-- Cards -->
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="bg-white rounded-xl shadow-md px-6 py-8">
+                            <div class="flex flex-col items-center mb-4">
+                                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2"></div>
+                                <h3 class="text-2xl font-bold text-blue-500">50+</h3>
                             </div>
+                            <h4 class="text-lg font-semibold text-[#0b253f]">Expert Speakers</h4>
+                            <p class="text-gray-600 mt-2">Industry leaders and innovators sharing insights</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
-                    <div
-                        class="h-[32rem] rounded-lg shadow-md overflow-hidden relative transform transition-transform duration-300 hover:scale-105">
-                        <!-- Top dark gradient -->
-                        <div
-                            class="absolute top-0 left-0 right-0 h-3/4 bg-linear-to-b from-black to-transparent opacity-60"></div>
-                        <!-- Bottom dark gradient -->
-                        <div
-                            class="absolute bottom-0 left-0 right-0 h-3/4 bg-linear-to-t from-black to-transparent opacity-60"></div>
-                        <!-- Color gradient -->
-                        <div
-                            class="absolute inset-0 bg-linear-to-br from-gradient-purple to-gradient-pink mix-blend-hard-light opacity-60"></div>
-                        <div class="bg-cover bg-center h-full"
-                             style="background-image: url({{asset('/img/card-companies.png')}});"></div>
-                        <div class="text-white text-center absolute bottom-0 left-0 right-0 p-6">
-                            <div class="relative">
-                                <h2 class="text-2xl font-bold">COMPANIES</h2>
-                                <p class="mt-4">During the conference you will have the chance to meet different
-                                                companies.</p>
+                        <div class="bg-white rounded-xl shadow-md px-6 py-8">
+                            <div class="flex flex-col items-center mb-4">
+                                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2"></div>
+                                <h3 class="text-2xl font-bold text-blue-500">1000+</h3>
                             </div>
+                            <h4 class="text-lg font-semibold text-[#0b253f]">Attendees</h4>
+                            <p class="text-gray-600 mt-2">IT professionals, developers, and decision makers</p>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-md px-6 py-8">
+                            <div class="flex flex-col items-center mb-4">
+                                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2"></div>
+                                <h3 class="text-2xl font-bold text-blue-500">30+</h3>
+                            </div>
+                            <h4 class="text-lg font-semibold text-[#0b253f]">Workshops</h4>
+                            <p class="text-gray-600 mt-2">Hands-on sessions on cutting-edge technologies</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Third banner-->
-            @if(!$anySponsorships)
-                <div class="relative bg-white dark:bg-gray-900 w-full min-h-32 px-4 py-4">
-                    <div>
-                        <h2 class="flex justify-center mt-8 mb-5 uppercase text-3xl font-montserrat font-bold pl-4">
-                            A big thank you to our sponsors
-                        </h2>
-                        <div class="flex flex-col mb-4 text-left pl-4">
-                            <div class="text-xl font-montserrat">
-                                @if(\App\Models\Sponsorship::find(1)->companies()->where('is_sponsorship_approved', true)->count() > 0)
-                                    <div class="py-10">
-                                        <h2 class="text-3xl mb-5 font-semibold">Gold sponsor</h2>
-                                        <div class="flex flex-wrap">
-                                            @foreach(\App\Models\Sponsorship::find(1)->companies as $company)
-                                                @if($company->is_sponsorship_approved)
-                                                    <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
-                                                        <a href="{{$company->website}}"
-                                                           class="bg-gray-50 border h-56 p-5 w-full rounded-sm">
-                                                            @if($company->logo_path)
-                                                                <img
-                                                                    class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
-                                                                    src="{{ url('storage/'. $company->logo_path) }}"
-                                                                    alt="Logo of {{$company->name}}">
-                                                            @else
-                                                                <div class="h-full flex text-center items-center justify-center">
-                                                                    <h2 class="text-6xl font-semibold">{{$company->name}}</h2>
-                                                                </div>
-                                                            @endif
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-                                @if(\App\Models\Sponsorship::find(2)->companies()->where('is_sponsorship_approved', true)->count() > 0)
-                                    <div class="pb-10">
-                                        <h2 class="text-2xl font-semibold mb-5">Silver sponsor</h2>
-                                        <div class="flex flex-wrap">
-                                            @foreach(\App\Models\Sponsorship::find(2)->companies as $company)
-                                                @if($company->is_sponsorship_approved)
-                                                    <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
-                                                        <a href="{{$company->website}}"
-                                                           class="bg-gray-50 border h-44 p-5 w-full rounded-sm">
-                                                            @if($company->logo_path)
-                                                                <img
-                                                                    class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
-                                                                    src="{{ url('storage/'. $company->logo_path) }}"
-                                                                    alt="Logo of {{$company->name}}">
-                                                            @else
-                                                                <div class="h-full flex text-center items-center justify-center">
-                                                                    <h2 class="text-5xl font-semibold">{{$company->name}}</h2>
-                                                                </div>
-                                                            @endif
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-                                @if(\App\Models\Sponsorship::find(3)->companies()->where('is_sponsorship_approved', true)->count() > 0)
-                                    <div class="pb-10">
-                                        <h2 class="text-xl mb-5 font-semibold">Bronze sponsor</h2>
-                                        <div class="flex flex-wrap">
-                                            @foreach(\App\Models\Sponsorship::find(3)->companies as $company)
-                                                @if($company->is_sponsorship_approved)
-                                                    <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
-                                                        <a href="{{$company->website}}"
-                                                           class="bg-gray-50 border h-36 px-5 py-3 w-full rounded-sm">
-                                                            @if($company->logo_path)
-                                                                <img
-                                                                    class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
-                                                                    src="{{ url('storage/'. $company->logo_path) }}"
-                                                                    alt="Logo of {{$company->name}}">
-                                                            @else
-                                                                <div class="h-full flex text-center items-center justify-center">
-                                                                    <h2 class="text-3xl font-semibold">{{$company->name}}</h2>
-                                                                </div>
-                                                            @endif
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
+        </section>
+
+        <div class="flex flex-col overflow-hidden relative min-h-screen">
+                <!-- Full-page background gradient -->
+                <div class="absolute inset-0 bg-gradient-to-br from-[#e9f8ff] via-[#d6f2ff] to-[#f0fbff] -z-10"></div>
+
+                <!-- Custom Cursor -->
+                <div class="bubble-cursor"></div>
+
+{{--                <section class="relative z-10 py-24 overflow-hidden bg-gradient-to-br from-[#89d4f6] via-[#e7efff] to-[#ffffff] backdrop-blur-sm">--}}
+                    <div class="flex flex-col overflow-hidden relative min-h-screen">
+
+                        <!-- Full-page background gradient -->
+{{--                        <div class="absolute inset-0 bg-gradient-to-br from-[#e9f8ff] via-[#d6f2ff] to-[#f0fbff] -z-10"></div>--}}
+
+                        <!-- BUBBLE ANIMATION LAYER -->
+                        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+
                         </div>
-                    </div>
-                </div>
-            @endif
-            <hr>
-        </div>
-    </div>
+
+                        <div class="max-w-7xl mx-auto px-8 flex flex-col items-center space-y-24">
+
+                            <!-- Gold Sponsors -->
+                            @if($goldSponsors->count())
+                                <div class="w-full text-center mt-16">
+                                    <h3 class="text-4xl font-bold text-yellow-500 mb-8">Gold Sponsors</h3>
+                                    <div class="flex justify-center gap-8 flex-wrap">
+                                        @foreach($goldSponsors as $company)
+                                            <a href="{{ $company->website }}" class="group relative bg-white/80 rounded-3xl shadow-xl p-8 w-72 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl border border-yellow-300">
+                                                <span class="absolute top-4 left-4 text-xs uppercase font-bold px-3 py-1 rounded-full bg-yellow-400 text-white shadow">Gold</span>
+                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="object-contain h-24 w-auto transition-transform group-hover:scale-110">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+
+                            <!-- Silver Sponsors -->
+                            @if($silverSponsors->count())
+                                <div class="w-full text-center mt-16">
+                                    <h3 class="text-4xl font-bold text-gray-500 mb-8">Silver Sponsors</h3>
+                                    <div class="flex justify-center gap-8 flex-wrap">
+                                        @foreach($silverSponsors as $company)
+                                            <a href="{{ $company->website }}" class="group relative bg-white/80 rounded-3xl shadow-xl p-8 w-64 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl border border-gray-400">
+                                                <span class="absolute top-4 left-4 text-xs uppercase font-bold px-3 py-1 rounded-full bg-gray-500 text-white shadow">Silver</span>
+                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="object-contain h-20 w-auto transition-transform group-hover:scale-110">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+
+                            <!-- Bronze Sponsors -->
+                            @if($bronzeSponsors->count())
+                                <div class="w-full text-center mt-16 mb-24">
+                                    <h3 class="text-4xl font-bold text-orange-500 mb-8">Bronze Sponsors</h3>
+                                    <div class="flex justify-center gap-8 flex-wrap">
+                                        @foreach($bronzeSponsors as $company)
+                                            <a href="{{ $company->website }}" class="group relative bg-white/80 rounded-3xl shadow-xl p-8 w-60 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl border border-orange-400">
+                                                <span class="absolute top-4 left-4 text-xs uppercase font-bold px-3 py-1 rounded-full bg-orange-400 text-white shadow">Bronze</span>
+                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="object-contain h-16 w-auto transition-transform group-hover:scale-110">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+{{--                </section>--}}
+
+            </div>
+        <style>
+            .glow-effect::before {
+                content: "";
+                position: absolute;
+                width: 200%;
+                height: 200%;
+                top: -50%;
+                left: -50%;
+                background: radial-gradient(circle, rgba(255, 234, 0, 0.15) 0%, rgba(255, 234, 0, 0) 70%);
+                opacity: 0.6;
+                animation: soft-glow 2.5s infinite;
+                pointer-events: none;
+            }
+
+            @keyframes soft-glow {
+                0% { transform: scale(1); opacity: 0.6; }
+                50% { transform: scale(1.15); opacity: 0.4; }
+                100% { transform: scale(1); opacity: 0.6; }
+            }
+
+            .bubble-cursor {
+                position: fixed;
+                width: 30px;
+                height: 30px;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 20%, rgba(0, 175, 255, 0.4) 70%, rgba(0, 175, 255, 0.1) 100%);
+                border-radius: 50%;
+                box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(0, 175, 255, 0.4);
+                pointer-events: none;
+                z-index: 50;
+                transform: translate(-50%, -50%);
+                transition: transform 0.05s ease;
+                backdrop-filter: blur(1px);
+            }
+    @keyframes bubble-rise {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-150%) scale(0.8); opacity: 0; }
+    }
+    body {
+        cursor: none;
+    }
+
+    .bubble-cursor {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 20%, rgba(0, 175, 255, 0.4) 70%, rgba(0, 175, 255, 0.1) 100%);
+        border-radius: 50%;
+        box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(0, 175, 255, 0.4);
+        pointer-events: none;
+        z-index: 50;
+        transform: translate(-50%, -50%);
+        transition: transform 0.05s ease;
+        backdrop-filter: blur(1px);
+    }
+
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 20%, rgba(0, 175, 255, 0.3) 70%, rgba(0, 175, 255, 0.1) 100%);
+        box-shadow: inset -8px -8px 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(0, 175, 255, 0.4);
+        opacity: 0.9;
+        backdrop-filter: blur(1px);
+    }
+
+    /* Optional: scale effect when hovering clickable elements */
+    a:hover ~ .bubble-cursor,
+    button:hover ~ .bubble-cursor {
+        transform: scale(1.2);
+    }
+
+            /* Bottom to Top */
+            .bubble:nth-child(1)  { width: 60px; height: 60px; left: 5%; bottom: -100px; animation: rise-up 8s infinite ease-in-out; }
+            .bubble:nth-child(2)  { width: 80px; height: 80px; left: 20%; bottom: -100px; animation: rise-up 10s infinite ease-in-out; }
+            .bubble:nth-child(3)  { width: 50px; height: 50px; left: 75%; bottom: -100px; animation: rise-up 9s infinite ease-in-out; }
+
+            /* Left to Top-Right */
+            .bubble:nth-child(4)  { width: 70px; height: 70px; left: -80px; top: 20%; animation: rise-diagonal-right 15s infinite ease-in-out; }
+            .bubble:nth-child(5)  { width: 45px; height: 45px; left: -80px; top: 50%; animation: rise-diagonal-right 12s infinite ease-in-out; }
+
+            /* Right to Top-Left */
+            .bubble:nth-child(6)  { width: 60px; height: 60px; right: -80px; top: 15%; animation: rise-diagonal-left 13s infinite ease-in-out; }
+            .bubble:nth-child(7)  { width: 35px; height: 35px; right: -80px; top: 70%; animation: rise-diagonal-left 10s infinite ease-in-out; }
+
+            /* Top to Bottom-Right */
+            .bubble:nth-child(8)  { width: 65px; height: 65px; left: 25%; top: -100px; animation: float-down-right 14s infinite ease-in-out; }
+
+            /* Top to Bottom-Left */
+            .bubble:nth-child(9)  { width: 55px; height: 55px; left: 65%; top: -100px; animation: float-down-left 12s infinite ease-in-out; }
+
+            /* Extra bottom bubbles */
+            .bubble:nth-child(10) { width: 50px; height: 50px; left: 50%; bottom: -100px; animation: rise-up 11s infinite ease-in-out; }
+            .bubble:nth-child(11) { width: 40px; height: 40px; left: 90%; bottom: -100px; animation: rise-up 9s infinite ease-in-out; }
+            .bubble:nth-child(12) { width: 70px; height: 70px; left: 35%; bottom: -100px; animation: rise-up 8s infinite ease-in-out; }
+
+            /* Animations */
+    @keyframes rise-up {
+        0% { transform: translateY(0) scale(1); opacity: 0.9; }
+        50% { transform: translateY(-50vh) scale(1.05); opacity: 0.6; }
+        100% { transform: translateY(-120vh) scale(1); opacity: 0; }
+    }
+
+    @keyframes rise-diagonal-right {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+        50% { transform: translate(50vw, -40vh) scale(1.05); opacity: 0.6; }
+        100% { transform: translate(100vw, -90vh) scale(0.95); opacity: 0; }
+    }
+
+    @keyframes rise-diagonal-left {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+        50% { transform: translate(-50vw, -40vh) scale(1.05); opacity: 0.6; }
+        100% { transform: translate(-100vw, -90vh) scale(0.95); opacity: 0; }
+    }
+
+    @keyframes float-down-right {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+        50% { transform: translate(20vw, 40vh) scale(1.05); opacity: 0.6; }
+        100% { transform: translate(50vw, 90vh) scale(0.95); opacity: 0; }
+    }
+
+    @keyframes float-down-left {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+        50% { transform: translate(-20vw, 40vh) scale(1.05); opacity: 0.6; }
+        100% { transform: translate(-50vw, 90vh) scale(0.95); opacity: 0; }
+    }
+</style>
+
+<script>
+    document.addEventListener('mousemove', e => {
+        const bubbleCursor = document.querySelector('.bubble-cursor');
+        bubbleCursor.style.left = `${e.clientX}px`;
+        bubbleCursor.style.top = `${e.clientY}px`;
+    });
+</script>
 </x-app-layout>
+
