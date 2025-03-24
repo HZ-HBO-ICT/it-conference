@@ -11,7 +11,7 @@
         <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all p-10">
             <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-            <div class="grid grid-cols-3 pt-5 px-6 pb-5 text-gray-900 dark:text-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 px-6 pb-5 text-gray-900 dark:text-gray-200">
                 <div>
                     @if($presentation->speakers->count() > 1)
                         <h4 class="tracking-tight text-2xl font-bold pb-5 pl-5 text-left">Speakers</h4>
