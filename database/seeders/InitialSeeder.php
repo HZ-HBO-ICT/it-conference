@@ -27,7 +27,7 @@ class InitialSeeder extends Seeder
         $user->markEmailAsVerified();
         $user->assignRole('event organizer');
 
-        // 2. Call the edition seeder
+        // 2. Seed the edition and the default rooms
         $this->call([EditionSeeder::class, RoomSeeder::class]);
 
         // 3. Retrieve the created edition and activate it
