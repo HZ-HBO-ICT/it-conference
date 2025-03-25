@@ -4585,12 +4585,6 @@ parameters:
 			path: database/seeders/CompanySeeder.php
 
 		-
-			message: '#^Property Database\\Seeders\\DatabaseSeeder\:\:\$roomNames has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: database/seeders/DatabaseSeeder.php
-
-		-
 			message: '#^Cannot call method activate\(\) on App\\Models\\Edition\|null\.$#'
 			identifier: method.nonObject
 			count: 1
