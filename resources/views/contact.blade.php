@@ -46,6 +46,23 @@
                                 <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
+
+                            <div class="p-2 w-full">
+                                <div class="relative">
+                                    <label for="subject" class="leading-7 text-sm text-gray-600">Subject</label>
+                                    <select id="subject" name="subject"
+                                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <option disabled selected>Select a subject</option>
+                                        @foreach (['Program Inquiry', 'Booth Inquiry', 'Speaker Inquiry', 'Sponsorship', 'General Question'] as $option)
+                                            <option value="{{ $option }}" {{ old('subject') == $option ? 'selected' : '' }}>{{ $option }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('subject')
+                                <span class="text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="p-2 w-full">
                                 <div class="relative">
                                     <label for="message" class="leading-7 text-sm text-gray-600">Message</label>

@@ -63,7 +63,7 @@ Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'in
 
 // routes for getting in contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send')->middleware('throttle:3,1'); // 3 requests per minute
 
 // routes for registering from invitation
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
