@@ -21,7 +21,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    public function test_that_user_successfully_sends_a_question()
+    public function test_that_user_successfully_sends_a_question(): void
     {
         # Arrange
         Mail::fake();
@@ -44,17 +44,17 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    public function test_that_it_requires_all_fields_to_be_filled()
+    public function test_that_it_requires_all_fields_to_be_filled(): void
     {
         # Act
-        $response = $this->post(route('contact.send'), []);
+        $response = $this->post(route('contact.send'));
 
         # Assert
         $response->assertSessionHasErrors(['name', 'email', 'subject', 'message']);
     }
 
     /** @test */
-    public function test_that_email_field_must_be_valid()
+    public function test_that_email_field_must_be_valid(): void
     {
         # Arrange
         $data = [
@@ -72,7 +72,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    public function test_that_subject_must_be_from_allowed_options()
+    public function test_that_subject_must_be_from_allowed_options(): void
     {
         # Arrange
         $data = [

@@ -30,7 +30,7 @@ class ContactController extends Controller
         ]);
 
         // makes the Email dynamic with the .env
-        $recipientEmail = trim(env('MAIL_FROM_ADDRESS'));
+        $recipientEmail = trim((string)config('MAIL_FROM_ADDRESS'));
         Mail::to($recipientEmail)->send(new ContactUs($data));
 
 
