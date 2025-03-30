@@ -208,6 +208,8 @@ class CompanyControllerTest extends TestCase
             $role = Role::findByName('company representative');
             $user->assignRole($role);
         }))->create();
+        $company->approval_status = ApprovalStatus::AWAITING_APPROVAL->value;
+        $company->save();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => 1]));
