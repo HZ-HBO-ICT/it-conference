@@ -31,6 +31,9 @@ class CompanyFactory extends Factory
             'house_number' => $this->faker->numberBetween(0, 10),
             'city' => $this->faker->city,
             'logo_path' => 'logos/img.png',
+            'approval_status' => $this->faker->boolean
+                ? ApprovalStatus::APPROVED->value
+                : ApprovalStatus::AWAITING_APPROVAL->value,
         ];
     }
 

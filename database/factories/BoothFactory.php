@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApprovalStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,9 @@ class BoothFactory extends Factory
         return [
             "width" => $this->faker->numberBetween(0, 3),
             "length" => $this->faker->numberBetween(0, 3),
+            'approval_status' => $this->faker->boolean
+                ? ApprovalStatus::APPROVED->value
+                : ApprovalStatus::AWAITING_APPROVAL->value,
         ];
     }
 }
