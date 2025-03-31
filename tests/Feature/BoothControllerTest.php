@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Booth;
 use App\Models\Company;
 use App\Models\Edition;
@@ -149,10 +150,15 @@ class BoothControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user->assignRole('event organizer');
-        $company = Company::factory()->has(Booth::factory(1))->has(User::factory(1)->afterCreating(function ($user) {
-            $role = Role::findByName('company representative');
-            $user->assignRole($role);
-        }))->create();
+
+        $company = Company::factory()
+            ->has(Booth::factory(1)
+                ->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value))
+            ->has(User::factory(1)
+            ->afterCreating(function ($user) {
+                $role = Role::findByName('company representative');
+                $user->assignRole($role);
+            }))->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.booths.approve', [$company->booth, 'isApproved' => true]));
@@ -167,7 +173,10 @@ class BoothControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $user->assignRole('participant');
-        $company = Company::factory()->has(Booth::factory(1))->create();
+        $company = Company::factory()
+            ->has(Booth::factory()
+                ->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value))
+            ->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.booths.approve', [$company->booth, 'isApproved' => true]));
