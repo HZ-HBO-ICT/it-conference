@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\ApprovalStatus;
+use App\Models\Booth;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,5 +25,20 @@ class BoothFactory extends Factory
                 ? ApprovalStatus::APPROVED->value
                 : ApprovalStatus::AWAITING_APPROVAL->value,
         ];
+    }
+
+    /**
+     * Specify the approval status of the entity
+     * @param ApprovalStatus|string $status
+     * @return Factory<Booth>
+     */
+    public function setApprovalStatus(ApprovalStatus|string $status) :  Factory
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $this->state(function (array $attributes) use ($statusValue) {
+            return [
+                'approval_status' => $statusValue,
+            ];
+        });
     }
 }

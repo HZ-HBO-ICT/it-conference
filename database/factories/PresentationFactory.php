@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\ApprovalStatus;
-use App\Models\Difficulty;
+use App\Models\Presentation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,6 +28,21 @@ class PresentationFactory extends Factory
                 ? ApprovalStatus::APPROVED->value
                 : ApprovalStatus::AWAITING_APPROVAL->value,
         ];
+    }
+
+    /**
+     * Specify the approval status of the entity
+     * @param ApprovalStatus|string $status
+     * @return Factory<Presentation>
+     */
+    public function setApprovalStatus(ApprovalStatus|string $status) :  Factory
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $this->state(function (array $attributes) use ($statusValue) {
+            return [
+                'approval_status' => $statusValue,
+            ];
+        });
     }
 
     public $presentationTopics = [

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\ApprovalStatus;
+use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\Sponsorship;
 use App\Models\UserPresentation;
@@ -50,6 +51,21 @@ class CompanyFactory extends Factory
                 'sponsorship_id' => $sponsorship->id,
                 'sponsorship_approval_status' => ApprovalStatus::APPROVED->value,
                 'approval_status' => ApprovalStatus::APPROVED->value,
+            ];
+        });
+    }
+
+    /**
+     * Specify the approval status of the entity
+     * @param ApprovalStatus|string $status
+     * @return Factory<Company>
+     */
+    public function setApprovalStatus(ApprovalStatus|string $status) :  Factory
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $this->state(function (array $attributes) use ($statusValue) {
+            return [
+                'approval_status' => $statusValue,
             ];
         });
     }

@@ -169,7 +169,7 @@ class PresentationControllerTest extends TestCase
     public function event_organizer_can_approve_presentation()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $presentation = Presentation::factory()->create(['approval_status' => ApprovalStatus::AWAITING_APPROVAL->value]);
+        $presentation = Presentation::factory()->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
@@ -182,7 +182,7 @@ class PresentationControllerTest extends TestCase
     public function event_organizer_can_reject_presentation()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $presentation = Presentation::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
+        $presentation = Presentation::factory()->setApprovalStatus(ApprovalStatus::APPROVED->value)->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 0]));
@@ -195,9 +195,7 @@ class PresentationControllerTest extends TestCase
     public function participant_cannot_approve_or_reject_presentation()
     {
         $user = User::factory()->create()->assignRole('participant');
-        $presentation = Presentation::factory()->create();
-        $presentation->approval_status = ApprovalStatus::AWAITING_APPROVAL->value;
-        $presentation->save();
+        $presentation = Presentation::factory()->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
