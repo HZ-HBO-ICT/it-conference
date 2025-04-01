@@ -108,6 +108,15 @@ class Edition extends Model
     }
 
     /**
+     * Establishes a relationship between Edition and PresentationTypes
+     * @return HasMany
+     */
+    public function presentationTypes(): HasMany
+    {
+        return $this->hasMany(PresentationType::class);
+    }
+
+    /**
      * Check if the final programme is released
      *
      * @return Attribute

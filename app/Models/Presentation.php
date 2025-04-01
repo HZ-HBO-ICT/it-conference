@@ -84,7 +84,7 @@ class Presentation extends Model
     use LogsActivity;
     use HasApprovalStatus;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
+    protected $fillable = ['name', 'max_participants', 'description', 'presentation_type_id', 'difficulty_id', 'file_path',
         'company_id', 'room_id', 'timeslot_id', 'start', 'approval_status'];
 
     /**
@@ -97,7 +97,6 @@ class Presentation extends Model
             'name' => 'required|string|min:1|max:255',
             'max_participants' => 'required|numeric|min:1|max:999',
             'description' => 'required|string|min:1|max:300',
-            'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required|numeric|exists:difficulties,id',
         ];
     }
@@ -141,6 +140,15 @@ class Presentation extends Model
     public function difficulty(): BelongsTo
     {
         return $this->belongsTo(Difficulty::class);
+    }
+
+    /**
+     * Establishes a relationship between the Presentation and the PresentationType
+     * @return BelongsTo
+     */
+    public function presentationType(): BelongsTo
+    {
+        return $this->belongsTo(PresentationType::class);
     }
 
     /**
@@ -238,6 +246,16 @@ class Presentation extends Model
                     ->where('role', 'speaker');
             })->orderBy('created_at')
                 ->first()
+        );
+    }
+
+    /**
+     * Returns the type name of the presentation
+     * @return Attribute
+     */
+    public function type(): Attribute {
+        return Attribute::make(
+            get: fn() => $this->presentationType->name,
         );
     }
 
