@@ -32,7 +32,7 @@
                             </p>
                     </div>
 
-                    <!-- Placeholder for a map -->
+                    {{--  map  --}}
                     <div>
                         <x-map/>
                     </div>
@@ -48,11 +48,19 @@
                             <label for="name" >Name</label>
                             <input type="text" id="name" name="name" value="{{ old('name') }}"
                                    class="dark:text-black w-full rounded border-gray-300 focus:ring-black focus:border-black">
+                            @error('name')
+                            <p>{{ $message }}</p>
+                            @enderror
                         </div>
+
+
                         <div>
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}"
                                    class="dark:text-black w-full rounded border-gray-300 focus:ring-black focus:border-black">
+                            @error('email')
+                            <p>{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -65,12 +73,19 @@
                                 <option value="{{ $option }}" {{ old('subject') == $option ? 'selected' : '' }}>{{ $option }}</option>
                             @endforeach
                         </select>
+                        @error('subject')
+                        <p>{{ $message }}</p>
+                        @enderror
                     </div>
+
 
                     <div>
                         <label for="message">Message</label>
                         <textarea id="message" name="message"
                                   class="dark:text-black w-full rounded border-gray-300 focus:ring-black focus:border-black h-32 resize-none">{{ old('message') }}</textarea>
+                        @error('message')
+                        <p>{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="text-center">
