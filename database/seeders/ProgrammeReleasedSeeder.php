@@ -45,7 +45,7 @@ class ProgrammeReleasedSeeder extends Seeder
             Timeslot::generateTimeslots();
 
             Presentation::all()->each(function (Presentation $presentation) {
-               $presentation->update(['approval_status' => ApprovalStatus::APPROVED->value]);
+                $presentation->update(['approval_status' => ApprovalStatus::APPROVED->value]);
             });
 
             $timezone = new DateTimeZone('Europe/Amsterdam');
@@ -74,8 +74,8 @@ class ProgrammeReleasedSeeder extends Seeder
                 }
 
                 if ($room_id == Room::count()) {
-                  break;
-                } else if ($currentTime >= $closingTime) {
+                    break;
+                } elseif ($currentTime >= $closingTime) {
                     $room_id += 1;
                     $currentTime = new DateTime($opening->end, $timezone);
                 }
