@@ -109,3 +109,5 @@ permissions:
   presentation type:
     viewAny: event organizer
     update: event organizer
+    create: event organizer
+    delete: event organizer

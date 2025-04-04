@@ -1,6 +1,6 @@
-<x-livewire-modal form-action="save">
+<x-livewire-modal form-action="{{ is_null($presentationTypeId) ? 'store' : 'update' }}">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
-        Edit {{ $presentationType->name }}
+        @if(is_null($presentationTypeId)) Create new presentation type @else Edit {{ $presentationType->name }} @endif
     </x-slot>
 
     <x-slot name="description" class="dark:bg-gray-800">

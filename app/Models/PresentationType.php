@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PresentationType extends Model
 {
-    protected $fillable = ['name', 'duration', 'description'];
+    protected $fillable = ['name', 'duration', 'description', 'edition_id'];
 
     /**
      * Establishes a relationship between PresentationType and Presentation

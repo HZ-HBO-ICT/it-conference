@@ -17,6 +17,16 @@ class PresentationTypePolicy
     }
 
     /**
+     * Determine whether the user can create the model.
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user): bool
+    {
+        return $user->can('create presentation type');
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, PresentationType $presentationType): bool

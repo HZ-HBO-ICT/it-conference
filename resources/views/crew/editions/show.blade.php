@@ -1,5 +1,6 @@
 @php
     use App\Models\Edition;
+    use App\Models\PresentationType;
 @endphp
 
 <x-hub-layout>
@@ -49,8 +50,7 @@
             </x-action-section>
 
             <x-section-border/>
-
-            @can('update', $edition)
+            @can('viewAny', PresentationType::class)
                 <x-action-section>
                     <x-slot name="title">
                         {{ __('Presentation Types') }}
@@ -62,8 +62,11 @@
 
                     <x-slot name="content">
                         @foreach($edition->presentationTypes as $presentationType)
-                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4"
-                                 onclick="Livewire.dispatch('openModal', { component: 'presentation-type.edit', arguments: { presentationTypeId: {{ $presentationType->id }} } })">
+                            <div
+                                class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4"
+                                @can('update', $presentationType)
+                                    onclick="Livewire.dispatch('openModal', { component: 'presentation-type.create-edit-modal', arguments: { editionId: {{ $edition->id }}, presentationTypeId: {{ $presentationType->id }} } })"
+                                @endcan>
                                 <div class="px-4 py-6 flex justify-between">
                                     <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">{{ $presentationType->name }}</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -82,10 +85,19 @@
                             </div>
                         @endforeach
                     </x-slot>
+                    <x-slot name="actions">
+                        <x-button class="hover:cursor-pointer"
+                                  onclick="Livewire.dispatch('openModal', { component: 'presentation-type.create-edit-modal', arguments: { editionId: {{ $edition->id }} }})"
+                        >
+                            {{ __('Add') }}
+                        </x-button>
+                    </x-slot>
                 </x-action-section>
 
                 <x-section-border/>
+            @endcan
 
+            @can('update', $edition)
                 <x-action-section>
                     <x-slot name="title">
                         {{ __('Edition Events Information') }}
@@ -104,8 +116,9 @@
 
                     <x-slot name="content">
                         @foreach($events as $event)
-                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4"
-                                 onclick="Livewire.dispatch('openModal', { component: 'edition-event.edit-edition-event-modal', arguments: { edition: {{ $edition }}, editionEvent: {{ $event }} } })">
+                            <div
+                                class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4"
+                                onclick="Livewire.dispatch('openModal', { component: 'edition-event.edit-edition-event-modal', arguments: { edition: {{ $edition }}, editionEvent: {{ $event }} } })">
                                 <div class="px-4 py-6 flex justify-between">
                                     <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">{{ $event->event->name }}</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -153,7 +166,8 @@
                                     {{ $edition->keynote_description }}
                                 </x-details-list-item>
                                 <x-details-list-item label="Keynote Speaker Photo">
-                                    <img src="{{ url('storage/' . $edition->keynote_photo_path) }}" alt="{{ $edition->keynote_name }}"
+                                    <img src="{{ url('storage/' . $edition->keynote_photo_path) }}"
+                                         alt="{{ $edition->keynote_name }}"
                                          class="rounded-full h-20 w-20 object-cover">
                                 </x-details-list-item>
                             </x-slot>
