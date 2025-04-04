@@ -53,6 +53,41 @@
             @can('update', $edition)
                 <x-action-section>
                     <x-slot name="title">
+                        {{ __('Presentation Types') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('All possible presentation types for this edition can be modified here.') }}
+                    </x-slot>
+
+                    <x-slot name="content">
+                        @foreach($edition->presentationTypes as $presentationType)
+                            <div class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4"
+                                 onclick="Livewire.dispatch('openModal', { component: 'presentation-type.edit', arguments: { presentationTypeId: {{ $presentationType->id }} } })">
+                                <div class="px-4 py-6 flex justify-between">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">{{ $presentationType->name }}</dt>
+                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                        <div class="flex">
+                                            <svg
+                                                class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400"
+                                                xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
+                                                aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            {{$presentationType->duration}} minutes
+                                        </div>
+                                    </dd>
+                                </div>
+                            </div>
+                        @endforeach
+                    </x-slot>
+                </x-action-section>
+
+                <x-section-border/>
+
+                <x-action-section>
+                    <x-slot name="title">
                         {{ __('Edition Events Information') }}
                     </x-slot>
 
