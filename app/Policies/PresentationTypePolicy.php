@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Edition;
 use App\Models\PresentationType;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -36,7 +37,7 @@ class PresentationTypePolicy
      */
     public function update(User $user, PresentationType $presentationType): bool
     {
-        return $user->can('update presentation type');
+        return $user->can('update presentation type') && !Edition::current()->is_final_programme_released;
     }
 
     /**

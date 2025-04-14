@@ -3,83 +3,45 @@
     <div class="flex-none w-58 mr-4 pt-2">
         <div class="mb-4 p-2">
             <h2 class="font-bold text-xl mb-2 text-center">Unscheduled</h2>
-            <div class="mb-4 bg-white dark:bg-gray-800 p-3">
-                <h3 class="font-bold text-lg mb-2 text-center text-crew-300 p-1 rounded-sm">Lectures</h3>
-                <ul class="space-y-1">
-                    @if($lectureCount > 0)
-                        @foreach ($unscheduledPresentations as $presentation)
-                            @if ($presentation->type === 'lecture')
-                                <li wire:key="task-{{ $presentation->id }}"
-                                    x-data="draggable()"
-                                    draggable="true"
-                                    @dragstart="dragStart"
-                                    data-id="{{ $presentation->id }}"
-                                    data-room="0"
-                                    class="p-2 h-20 rounded shadow cursor-pointer
+                @foreach($presentationTypes as $presentationType)
+                    <div class="mb-4 bg-white dark:bg-gray-800 p-3">
+                    <h3 class="font-bold text-lg mb-2 text-center text-crew-300 p-1 rounded-sm">{{$presentationType->name}}</h3>
+                        <ul class="space-y-1">
+                        @if($presentationType->unscheduledPresentationCount() > 0)
+                            @foreach ($unscheduledPresentations as $presentation)
+                                @if ($presentation->presentation_type_id === $presentationType->id)
+                                    <li wire:key="task-{{ $presentation->id }}"
+                                        x-data="draggable()"
+                                        draggable="true"
+                                        @dragstart="dragStart"
+                                        data-id="{{ $presentation->id }}"
+                                        data-room="0"
+                                        class="p-2 h-20 rounded shadow cursor-pointer
                                     {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-crew-200 hover:bg-crew-200 dark:bg-crew-400/50 dark:hover:bg-crew-400/70" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
-                                    <div class="grid grid-cols-1">
+                                        <div class="grid grid-cols-1">
                                     <span class="col-span-1">
                                         {{ $presentation->displayName(20) }}
                                     </span>
-                                        <span class="text-xs col-span-1">
+                                            <span class="text-xs col-span-1">
                                           {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}
                                     </span>
-                                        @if($presentation->company)
-                                            <span class="text-xs col-span-1">
+                                            @if($presentation->company)
+                                                <span class="text-xs col-span-1">
                                           {{ strlen($presentation->company->name) > 29 ? substr($presentation->company->name, 0, 29) . '...' : $presentation->company->name }}
                                         </span>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endif
-                        @endforeach
-                    @else
-                        <div
-                            class="p-2 text-center text-sm rounded-sm dark:text-gray-100">
-                            All lectures are scheduled.
-                        </div>
-                    @endif
-                </ul>
-            </div>
-
-            <div class="mb-4 bg-white dark:bg-gray-800 p-3">
-                <h3 class="font-bold text-lg mb-2 text-center text-apricot-peach-400 p-1 rounded-sm">Workshops</h3>
-                <ul class="space-y-1 ">
-                    @if($workshopCount > 0)
-                        @foreach ($unscheduledPresentations as $presentation)
-                            @if ($presentation->type === 'workshop')
-                                <li wire:key="task-{{ $presentation->id }}"
-                                    x-data="draggable()"
-                                    draggable="true"
-                                    @dragstart="dragStart"
-                                    data-id="{{ $presentation->id }}"
-                                    data-room="0"
-                                    class="p-2 h-20 rounded shadow cursor-pointer
-                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-apricot-peach-200 hover:bg-apricot-peach-300 dark:bg-apricot-peach-700/50 dark:hover:bg-apricot-peach-600/75" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
-                                <div class="grid grid-cols-1">
-                                    <span class="col-span-1">
-                                        {{ $presentation->displayName(20) }}
-                                    </span>
-                                        <span class="text-xs col-span-1">
-                                          {{ strlen($presentation->speakersName) > 29 ? substr($presentation->speakersName, 0, 29) . '...' : $presentation->speakersName }}
-                                    </span>
-                                        @if($presentation->company)
-                                            <span class="text-xs col-span-1">
-                                          {{ strlen($presentation->company->name) > 29 ? substr($presentation->company->name, 0, 29) . '...' : $presentation->company->name }}
-                                        </span>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endif
-                        @endforeach
-                    @else
-                        <div
-                            class="p-2 text-center text-sm rounded-sm dark:text-gray-100">
-                            All workshops are scheduled.
-                        </div>
-                    @endif
-                </ul>
-            </div>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        @else
+                            <div class="p-2 text-center text-sm rounded-sm dark:text-gray-100">
+                                All {{$presentationType->name}}s are scheduled.
+                            </div>
+                        @endif
+                    </ul>
+                </div>
+            @endforeach
         </div>
     </div>
 

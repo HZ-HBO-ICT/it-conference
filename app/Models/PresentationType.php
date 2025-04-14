@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ApprovalStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,5 +31,14 @@ class PresentationType extends Model
 
     public function canBeDeleted(): bool {
         return $this->presentations->count() == 0;
+    }
+
+    public function unscheduledPresentationCount(): int {
+        return $this->presentations()
+            ->whereNull('timeslot_id')
+            ->whereNull('room_id')
+            ->whereNull('start')
+            ->where('approval_status', ApprovalStatus::APPROVED)
+            ->count();
     }
 }
