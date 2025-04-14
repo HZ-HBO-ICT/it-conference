@@ -48,6 +48,6 @@ class PresentationTypePolicy
      */
     public function delete(User $user, PresentationType $presentationType): bool
     {
-        return $user->can('delete presentation type') && $presentationType->canBeDeleted();
+        return $user->can('delete presentation type') && $presentationType->canBeUpdatedOrDeleted();
     }
 }
