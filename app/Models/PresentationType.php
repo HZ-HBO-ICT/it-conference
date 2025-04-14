@@ -29,8 +29,22 @@ class PresentationType extends Model
         return $this->belongsTo(Edition::class);
     }
 
-    public function canBeUpdatedOrDeleted(): bool {
+    /**
+     * Establishes
+     * @return bool
+     */
+    public function canBeSafelyDeleted(): bool
+    {
         return $this->presentations->count() == 0;
+    }
+
+    public function canBeSafelyUpdated(): bool {
+        return $this->presentations()
+            ->whereNotNull('timeslot_id')
+            ->whereNotNull('room_id')
+            ->whereNotNull('start')
+            ->where('approval_status', ApprovalStatus::APPROVED)
+            ->count() == 0;
     }
 
     public function unscheduledPresentationCount(): int {

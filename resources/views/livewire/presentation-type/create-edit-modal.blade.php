@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="content" class="w-full dark:bg-gray-800">
-        <div class="px-4 py-6 sm:px-0">
+        <div class="px-4 py-2 sm:px-0">
             <dl class="sm:grid sm:grid-cols-3 sm:gap-6 items-center">
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Name</dt>
                 <dd class="sm:col-span-2">
@@ -28,9 +28,16 @@
                 <dd class="sm:col-span-2">
                     <input
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
-                        type="number" min="10" wire:model="duration">
+                        type="number" min="10" wire:model.live="duration">
                     @error('duration') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
+                <div class="sm:col-span-3">
+                    @if($this->getWarningMessage())
+                        <span class="font-bold text-orange-400 text-sm w-full">
+                        ⚠️ Changing the presentation duration will reset all scheduled presentations of this type. You'll need to reschedule them.
+                        </span>
+                    @endif
+                </div>
             </dl>
         </div>
     </x-slot>

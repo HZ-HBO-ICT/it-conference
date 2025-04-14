@@ -25,7 +25,7 @@ class CreateEditModal extends ModalComponent
     #[Validate('required|min:3|max:255')]
     public string $description;
 
-    #[Validate('required|min:10|max:720|integer')]
+    #[Validate('required|min:10|max:720|integer', onUpdate: false)]
     public int $duration;
 
     /**
@@ -76,6 +76,14 @@ class CreateEditModal extends ModalComponent
     {
         $this->authorize('update', $this->presentationType);
 
+        if ($this->getWarningMessage()) {
+            $this->presentationType->presentations()->update([
+                'room_id' => null,
+                'timeslot_id' => null,
+                'start' => null,
+            ]);
+        }
+
         $validated = $this->validate();
 
         $this->presentationType->update($validated);
@@ -83,6 +91,24 @@ class CreateEditModal extends ModalComponent
         session()->flash('flash.banner', "Presentation type {$this->presentationType->name} successfully updated.");
         $this->redirect(route('moderator.editions.show', $this->presentationType->edition));
     }
+
+
+    public function updatedDuration($value)
+    {
+        $this->duration = is_numeric($value) ? (int) $value : 0;
+    }
+
+
+    public function getWarningMessage() : bool
+    {
+        if (!$this->presentationTypeId || !$this->presentationType) {
+            return false;
+        }
+
+        return !$this->presentationType->canBeSafelyUpdated() &&
+            $this->presentationType->duration !== $this->duration;
+    }
+
 
     /**
      * Sets the maximum width of the modal according to docs
