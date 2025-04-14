@@ -27,4 +27,8 @@ class PresentationType extends Model
     {
         return $this->belongsTo(Edition::class);
     }
+
+    public function canBeDeleted(): bool {
+        return $this->presentations->count() == 0;
+    }
 }

@@ -64,7 +64,7 @@ class CreateEditModal extends ModalComponent
         PresentationType::create(array_merge($validated, ['edition_id' => $this->editionId]));
 
         session()->flash('flash.banner', "Presentation type {$this->name} successfully created.");
-        $this->redirect(route('moderator.editions.show', $this->presentationType->edition));
+        $this->redirect(route('moderator.editions.show', Edition::find($this->editionId)));
     }
 
     /**

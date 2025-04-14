@@ -10,6 +10,8 @@ class PresentationTypePolicy
 {
     /**
      * Determine whether the user can view any models.
+     * @param User $user
+     * @return bool
      */
     public function viewAny(User $user): bool
     {
@@ -28,9 +30,23 @@ class PresentationTypePolicy
 
     /**
      * Determine whether the user can update the model.
+     * @param User $user
+     * @param PresentationType $presentationType
+     * @return bool
      */
     public function update(User $user, PresentationType $presentationType): bool
     {
         return $user->can('update presentation type');
+    }
+
+    /**
+     *  Determine whether the user can delete the model.
+     * @param User $user
+     * @param PresentationType $presentationType
+     * @return bool
+     */
+    public function delete(User $user, PresentationType $presentationType): bool
+    {
+        return $user->can('delete presentation type') && $presentationType->canBeDeleted();
     }
 }
