@@ -24,6 +24,22 @@
                     ></textarea>
                     @error('description') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Colour</dt>
+                <dd class="sm:col-span-2">
+                    <select class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full"
+                              required wire:model.live="colour">
+                        <option value="">Select a colour</option>
+                        @foreach ($this->colours as $colour)
+                            <option {{ $colour == $this->colour ? 'selected' : '' }} value="{{ $colour }}">{{ ucfirst($colour) }}</option>
+                        @endforeach
+                    </select>
+                    @error('colour') <span class="error text-red-500">{{ $message }}</span> @enderror
+                    @if($this->colourUsedBy != '')
+                        <span class="font-bold text-orange-400 text-sm w-full">
+                        ⚠️ Colour also used by {{ $this->colourUsedBy }}
+                        </span>
+                    @endif
+                </dd>
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Duration</dt>
                 <dd class="sm:col-span-2">
                     <input
@@ -32,10 +48,12 @@
                     @error('duration') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
                 <div class="sm:col-span-3">
-                    @if($this->getWarningMessage())
-                        <span class="font-bold text-orange-400 text-sm w-full">
-                        ⚠️ Changing the presentation duration will reset all scheduled presentations of this type. You'll need to reschedule them.
-                        </span>
+                    @if (!is_null($presentationTypeId))
+                        @if($this->getWarningMessage())
+                            <span class="font-bold text-orange-400 text-sm w-full">
+                            ⚠️ Changing the presentation duration will reset all scheduled presentations of this type. You'll need to reschedule them.
+                            </span>
+                        @endif
                     @endif
                 </div>
             </dl>

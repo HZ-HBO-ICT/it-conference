@@ -6,10 +6,12 @@ use App\Models\Edition;
 use App\Models\PresentationType;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Features\SupportRedirects\Redirector;
 use LivewireUI\Modal\ModalComponent;
+use function PHPUnit\Framework\isNull;
 
 class CreateEditModal extends ModalComponent
 {
@@ -19,14 +21,19 @@ class CreateEditModal extends ModalComponent
 
     public int $editionId;
 
-    #[Validate('required|min:3|max:255')]
+    /**
+     * @var string[]
+     */
+    public array $colours;
+
     public string $name;
 
-    #[Validate('required|min:3|max:255')]
     public string $description;
 
-    #[Validate('required|min:10|max:720|integer', onUpdate: false)]
     public int $duration;
+
+    public string $colour;
+    public string $colourUsedBy;
 
     /**
      * Mounts the modal
@@ -36,6 +43,8 @@ class CreateEditModal extends ModalComponent
      */
     public function mount(int $editionId, ?int $presentationTypeId = null) : void
     {
+        $this->colour = '';
+
         if (!is_null($presentationTypeId)) {
             $this->presentationTypeId = $presentationTypeId;
             $presentationType = PresentationType::find($presentationTypeId);
@@ -44,10 +53,26 @@ class CreateEditModal extends ModalComponent
                 $this->name = $this->presentationType->name;
                 $this->description = $this->presentationType->description;
                 $this->duration = $this->presentationType->duration;
+                $this->colour = $this->presentationType->colour;
             }
         }
 
+        $this->colourUsedBy = '';
+        $this->colours = config('colours');
         $this->editionId = $editionId;
+    }
+
+    protected function rules()
+    {
+        return [
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:10|max:255',
+            'duration' => 'required|min:10|max:720|integer',
+            'colour' => [
+                'required',
+                Rule::in($this->colours),
+            ],
+        ];
     }
 
     /**
@@ -92,12 +117,19 @@ class CreateEditModal extends ModalComponent
         $this->redirect(route('moderator.editions.show', $this->presentationType->edition));
     }
 
-
     public function updatedDuration($value)
     {
         $this->duration = is_numeric($value) ? (int) $value : 0;
     }
 
+    public function updatedColour($value) {
+        $this->colourUsedBy = '';
+        $usedBy = PresentationType::where('colour', $value)->first();
+
+        if ($usedBy && $this->presentationType) {
+          $this->colourUsedBy = $usedBy->id != $this->presentationType->id ? $usedBy->name : '';
+        }
+    }
 
     public function getWarningMessage() : bool
     {
