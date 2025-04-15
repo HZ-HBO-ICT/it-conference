@@ -144,7 +144,7 @@ class Presentation extends Model
 
     /**
      * Establishes a relationship between the Presentation and the PresentationType
-     * @return BelongsTo
+     * @return BelongsTo<PresentationType, $this>
      */
     public function presentationType(): BelongsTo
     {
@@ -251,11 +251,12 @@ class Presentation extends Model
 
     /**
      * Returns the type name of the presentation
-     * @return Attribute
+     * @return Attribute<string, never>
      */
-    public function type(): Attribute {
+    public function type(): Attribute
+    {
         return Attribute::make(
-            get: fn() => $this->presentationType->name,
+            get: fn() => optional($this->presentationType)->name,
         );
     }
 

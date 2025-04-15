@@ -21,7 +21,7 @@ class PresentationTypeSeeder extends Seeder
             'description' => 'A presentation in which you can showcase a skill and teach the participants',
             'colour' => 'apricot-peach',
             'duration' => 90,
-            'edition_id' => $edition->id,
+            'edition_id' => optional($edition)->id,
         ]);
 
         PresentationType::create([
@@ -29,7 +29,7 @@ class PresentationTypeSeeder extends Seeder
             'description' => 'A presentation in which you can share something you are passionate about',
             'colour' => 'crew',
             'duration' => 30,
-            'edition_id' => $edition->id,
+            'edition_id' => optional($edition)->id,
         ]);
 
         PresentationType::create([
@@ -37,7 +37,7 @@ class PresentationTypeSeeder extends Seeder
             'description' => 'A presentation in which you and the participants discuss a topic',
             'colour' => 'amber',
             'duration' => 60,
-            'edition_id' => $edition->id,
+            'edition_id' => optional($edition)->id,
         ]);
     }
 }

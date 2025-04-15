@@ -23,7 +23,7 @@ class PresentationFactory extends Factory
             'name' => $this->faker->randomElement($this->presentationTopics),
             'description' => $this->faker->paragraph,
             'max_participants' => $this->faker->numberBetween(1, 200),
-            'presentation_type_id' => $this->faker->randomElement(PresentationType::all()->pluck('id')),
+            'presentation_type_id' => $this->faker->randomElement(PresentationType::pluck('id')->toArray()),
             'difficulty_id' => $this->faker->numberBetween(1, 3),
             'approval_status' => $this->faker->boolean
                 ? ApprovalStatus::APPROVED->value

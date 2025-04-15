@@ -17,10 +17,15 @@ class DeleteModal extends ModalComponent
      */
     public function mount(int $presentationTypeId) : void
     {
-        $this->presentationType = PresentationType::find($presentationTypeId);
+        $this->presentationType = PresentationType::findOrFail($presentationTypeId);
     }
 
-    public function delete(): void {
+    /**
+     * Deletes the entity
+     * @return void
+     */
+    public function delete(): void
+    {
         $this->authorize('delete', $this->presentationType);
 
         $this->presentationType->delete();

@@ -49,7 +49,7 @@
                 </dd>
                 <div class="sm:col-span-3">
                     @if (!is_null($presentationTypeId))
-                        @if($this->getWarningMessage())
+                        @if($this->showWarningMessage())
                             <span class="font-bold text-orange-400 text-sm w-full">
                             ⚠️ Changing the presentation duration will reset all scheduled presentations of this type. You'll need to reschedule them.
                             </span>

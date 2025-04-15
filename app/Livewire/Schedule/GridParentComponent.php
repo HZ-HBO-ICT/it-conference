@@ -9,6 +9,7 @@ use App\Models\Room;
 use App\Models\Sponsorship;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -19,6 +20,8 @@ class GridParentComponent extends Component
     public $rooms;
     public $timeslots;
     public $unscheduledPresentations;
+
+    /** @var Collection<int, PresentationType> */
     public $presentationTypes;
 
     /**

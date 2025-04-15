@@ -13,7 +13,7 @@ class PresentationType extends Model
 
     /**
      * Establishes a relationship between PresentationType and Presentation
-     * @return HasMany
+     * @return HasMany<Presentation, $this>
      */
     public function presentations(): HasMany
     {
@@ -22,7 +22,7 @@ class PresentationType extends Model
 
     /**
      * Establishes a relationship between PresentationType and Edition
-     * @return BelongsTo
+     * @return BelongsTo<Edition, $this>
      */
     public function edition(): BelongsTo
     {
@@ -38,7 +38,13 @@ class PresentationType extends Model
         return $this->presentations->count() == 0;
     }
 
-    public function canBeSafelyUpdated(): bool {
+    /**
+     * Determines if there are any scheduled presentations that can be affected if
+     * the model is updated; if there aren't then it can be safely updated
+     * @return bool
+     */
+    public function canBeSafelyUpdated(): bool
+    {
         return $this->presentations()
             ->whereNotNull('timeslot_id')
             ->whereNotNull('room_id')
@@ -47,7 +53,12 @@ class PresentationType extends Model
             ->count() == 0;
     }
 
-    public function unscheduledPresentationCount(): int {
+    /**
+     * Determines the numbered of presentations that are still to be scheduled
+     * @return int
+     */
+    public function unscheduledPresentationCount(): int
+    {
         return $this->presentations()
             ->whereNull('timeslot_id')
             ->whereNull('room_id')

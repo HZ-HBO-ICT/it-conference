@@ -2599,12 +2599,6 @@ parameters:
 			path: app/Livewire/Schedule/GridParentComponent.php
 
 		-
-			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$lectureCount has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
 			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$rooms has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -2618,12 +2612,6 @@ parameters:
 
 		-
 			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$unscheduledPresentations has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
-			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$workshopCount has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Schedule/GridParentComponent.php

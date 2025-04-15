@@ -109,7 +109,7 @@ class Edition extends Model
 
     /**
      * Establishes a relationship between Edition and PresentationTypes
-     * @return HasMany
+     * @return HasMany<PresentationType, $this>
      */
     public function presentationTypes(): HasMany
     {

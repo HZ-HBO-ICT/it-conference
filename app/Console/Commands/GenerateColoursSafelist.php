@@ -24,7 +24,7 @@ class GenerateColoursSafelist extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle() : int
     {
         $colors = config('colours');
 
@@ -43,8 +43,14 @@ class GenerateColoursSafelist extends Command
         }
 
         $path = base_path('tailwind.safelist.json');
-        File::put($path, json_encode($safelist, JSON_PRETTY_PRINT));
+        $encoded = json_encode($safelist, JSON_PRETTY_PRINT);
 
-        $this->info("✅ Safelist generated with " . count($safelist) . " entries at: $path");
+        if ($encoded) {
+            File::put($path, $encoded);
+            $this->info("✅ Safelist generated with " . count($safelist) . " entries at: $path");
+            return 0;
+        }
+
+        return 1;
     }
 }

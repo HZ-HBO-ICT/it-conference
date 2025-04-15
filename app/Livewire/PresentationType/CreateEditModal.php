@@ -5,13 +5,9 @@ namespace App\Livewire\PresentationType;
 use App\Models\Edition;
 use App\Models\PresentationType;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Livewire\Attributes\Validate;
-use Livewire\Features\SupportRedirects\Redirector;
 use LivewireUI\Modal\ModalComponent;
-use function PHPUnit\Framework\isNull;
 
 class CreateEditModal extends ModalComponent
 {
@@ -62,7 +58,11 @@ class CreateEditModal extends ModalComponent
         $this->editionId = $editionId;
     }
 
-    protected function rules()
+    /**
+     * Retrieves the validation rules for the fields
+     * @return array<string, string|array<int, \Illuminate\Contracts\Validation\Rule|string>>
+     */
+    protected function rules(): array
     {
         return [
             'name' => 'required|min:3|max:255',
@@ -101,7 +101,7 @@ class CreateEditModal extends ModalComponent
     {
         $this->authorize('update', $this->presentationType);
 
-        if ($this->getWarningMessage()) {
+        if ($this->showWarningMessage()) {
             $this->presentationType->presentations()->update([
                 'room_id' => null,
                 'timeslot_id' => null,
@@ -117,23 +117,39 @@ class CreateEditModal extends ModalComponent
         $this->redirect(route('moderator.editions.show', $this->presentationType->edition));
     }
 
-    public function updatedDuration($value)
+    /**
+     * Prevents the duration from becoming null
+     * @param int|null $value the current value of duration
+     * @return void
+     */
+    public function updatedDuration(?int $value)
     {
         $this->duration = is_numeric($value) ? (int) $value : 0;
     }
 
-    public function updatedColour($value) {
+    /**
+     * Determines if the colour is already used by another model when
+     * the selected color updates
+     * @param string $value
+     * @return void
+     */
+    public function updatedColour(string $value)
+    {
         $this->colourUsedBy = '';
         $usedBy = PresentationType::where('colour', $value)->first();
 
-        if ($usedBy && $this->presentationType) {
-          $this->colourUsedBy = $usedBy->id != $this->presentationType->id ? $usedBy->name : '';
+        if ($usedBy) {
+            $this->colourUsedBy = $usedBy->id != $this->presentationType->id ? $usedBy->name : '';
         }
     }
 
-    public function getWarningMessage() : bool
+    /**
+     * Determines whether the warning message for resetting the scheduled presentations should appear
+     * @return bool
+     */
+    public function showWarningMessage() : bool
     {
-        if (!$this->presentationTypeId || !$this->presentationType) {
+        if (!$this->presentationTypeId) {
             return false;
         }
 

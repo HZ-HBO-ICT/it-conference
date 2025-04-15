@@ -37,7 +37,7 @@ class PresentationTypePolicy
      */
     public function update(User $user, PresentationType $presentationType): bool
     {
-        return $user->can('update presentation type') && !Edition::current()->is_final_programme_released;
+        return $user->can('update presentation type') && !optional(Edition::current())->is_final_programme_released;
     }
 
     /**
