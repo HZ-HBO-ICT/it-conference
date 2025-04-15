@@ -37,7 +37,7 @@ class Presentation extends Component
      */
     protected function calculateHeightInREM()
     {
-        return $this->presentation->duration * (14 / 30) * 0.25;
+        return $this->presentation->presentationType->duration * (14 / 30) * 0.25;
     }
 
     /**
