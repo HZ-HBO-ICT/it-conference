@@ -72,7 +72,7 @@ class Presentation extends Component
      */
     protected function getColors()
     {
-        return $this->presentation->type == 'lecture' ? 'bg-crew-300' : 'bg-apricot-peach-300';
+        return "bg-{$this->presentation->presentationType->colour}-300";
     }
 
     /**

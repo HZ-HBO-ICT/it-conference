@@ -5,7 +5,7 @@
             <h2 class="font-bold text-xl mb-2 text-center">Unscheduled</h2>
                 @foreach($presentationTypes as $presentationType)
                     <div class="mb-4 bg-white dark:bg-gray-800 p-3">
-                    <h3 class="font-bold text-lg mb-2 text-center text-crew-300 p-1 rounded-sm">{{$presentationType->name}}</h3>
+                    <h3 class="font-bold text-lg mb-2 text-center text-{{$presentationType->colour}}-300 p-1 rounded-sm">{{$presentationType->name}}</h3>
                         <ul class="space-y-1">
                         @if($presentationType->unscheduledPresentationCount() > 0)
                             @foreach ($unscheduledPresentations as $presentation)
@@ -17,7 +17,7 @@
                                         data-id="{{ $presentation->id }}"
                                         data-room="0"
                                         class="p-2 h-20 rounded shadow cursor-pointer
-                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-crew-200 hover:bg-crew-200 dark:bg-crew-400/50 dark:hover:bg-crew-400/70" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
+                                    {{!optional(App\Models\Edition::current())->is_final_programme_released ? "bg-{$presentationType->colour}-200 hover:bg-{$presentationType->colour}-200 dark:bg-{$presentationType->colour}-400/50 dark:hover:bg-{$presentationType->colour}-400/70" : "bg-red-400 hover:bg-red-400 dark:bg-red-800/50 dark:hover:bg-red-800/50"}}">
                                         <div class="grid grid-cols-1">
                                     <span class="col-span-1">
                                         {{ $presentation->displayName(20) }}
