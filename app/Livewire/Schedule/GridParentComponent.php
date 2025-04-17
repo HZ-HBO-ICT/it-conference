@@ -3,6 +3,7 @@
 namespace App\Livewire\Schedule;
 
 use App\Enums\ApprovalStatus;
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\PresentationType;
 use App\Models\Room;
@@ -32,7 +33,7 @@ class GridParentComponent extends Component
     {
         $this->rooms = Room::all();
         $this->timeslots = Timeslot::all();
-        $this->presentationTypes = PresentationType::all();
+        $this->presentationTypes = optional(Edition::current())->presentationTypes;
         $this->refreshUnscheduledPresentations();
     }
 

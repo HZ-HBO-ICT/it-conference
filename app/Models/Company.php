@@ -17,7 +17,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -62,10 +62,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read int|null $users_count
  * @method static Builder<static>|Company approvedSponsor()
  * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
- * @method static Builder<static>|Company hasStatus($status, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Company hasStatus(\App\Enums\ApprovalStatus|string $status, string $fieldName = 'approval_status')
  * @method static Builder<static>|Company newModelQuery()
  * @method static Builder<static>|Company newQuery()
- * @method static Builder<static>|Company orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Company orderByPriorityStatus(\App\Enums\ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status')
  * @method static Builder<static>|Company query()
  * @method static Builder<static>|Company whereApprovalStatus($value)
  * @method static Builder<static>|Company whereCity($value)

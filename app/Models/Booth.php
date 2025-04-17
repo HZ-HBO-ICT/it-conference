@@ -14,7 +14,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $width
@@ -30,10 +30,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read \App\Models\Company $company
  * @property-read mixed $is_approved
  * @method static \Database\Factories\BoothFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth hasStatus($status, string $fieldName = 'approval_status')
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth hasStatus(\App\Enums\ApprovalStatus|string $status, string $fieldName = 'approval_status')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth orderByPriorityStatus(\App\Enums\ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status')
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereAdditionalInformation($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Booth whereApprovalStatus($value)

@@ -5,6 +5,7 @@ namespace App\Models;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,7 +28,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read mixed $configured
  * @property-read mixed $displayed_state
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EditionEvent> $editionEvents
+ * @property-read Collection<int, \App\Models\EditionEvent> $editionEvents
  * @property-read int|null $edition_events_count
  * @property-read mixed $is_company_registration_opened
  * @property-read mixed $is_final_programme_released
@@ -37,6 +38,8 @@ use Illuminate\Support\Carbon;
  * @property-read mixed $is_requesting_presentation_opened
  * @property-read mixed $keynote_configured
  * @property-read mixed $keynote_picture_source
+ * @property-read Collection<int, PresentationType> $presentationTypes
+ * @property-read int|null $presentation_types_count
  * @method static Builder<static>|Edition newModelQuery()
  * @method static Builder<static>|Edition newQuery()
  * @method static Builder<static>|Edition query()

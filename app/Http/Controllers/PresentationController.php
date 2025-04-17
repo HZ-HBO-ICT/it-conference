@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\PresentationType;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class PresentationController extends Controller
      */
     public function create(): View
     {
-        $presentationTypes = PresentationType::all();
+        $presentationTypes = optional(Edition::current())->presentationTypes;
         if (Auth::user()->cannot('request', Presentation::class)) {
             abort(403);
         }

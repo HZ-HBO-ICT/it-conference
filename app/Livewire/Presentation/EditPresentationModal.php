@@ -5,6 +5,7 @@ namespace App\Livewire\Presentation;
 use App\Jobs\NotifyPresentationRoles;
 use App\Livewire\Forms\PresentationForm;
 use App\Mail\PresentationUpdatedMailable;
+use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\PresentationType;
 use Illuminate\Database\Eloquent\Collection;
@@ -31,7 +32,7 @@ class EditPresentationModal extends ModalComponent
      */
     public function mount(Presentation $presentation)
     {
-        $this->presentationTypes = PresentationType::all();
+        $this->presentationTypes = optional(Edition::current())->presentationTypes;
         $this->presentation = $presentation;
         $this->form->setCompany($presentation);
     }
