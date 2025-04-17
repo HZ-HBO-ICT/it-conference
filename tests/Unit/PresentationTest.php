@@ -3,8 +3,11 @@
 namespace Tests\Unit;
 
 use App\Enums\ApprovalStatus;
+use App\Models\Edition;
 use App\Models\Presentation;
+use App\Models\PresentationType;
 use App\Models\User;
+use Database\Seeders\PresentationTypeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,6 +23,13 @@ class PresentationTest extends TestCase
         activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
         Artisan::call('admin:sync-permissions');
+        Edition::create([
+            'name' => 'test',
+            'state' => Edition::STATE_ANNOUNCE,
+            'start_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 09:00:00')),
+            'end_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 17:00:00')),
+        ]);
+        $this->seed(PresentationTypeSeeder::class);
     }
 
     #[Test]
@@ -63,12 +73,13 @@ class PresentationTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid approval status: test');
+        $presentationType = PresentationType::firstOrFail();
 
         $user = User::factory()->create();
         $presentation = Presentation::create([
             'name' => 'New Tech Trends',
             'description' => 'A look into future technologies.',
-            'type' => 'workshop',
+            'presentation_type_id' => $presentationType->id,
             'difficulty_id' => 1,
             'max_participants' => 50,
             'approval_status' => ApprovalStatus::AWAITING_APPROVAL->value,
@@ -83,10 +94,12 @@ class PresentationTest extends TestCase
     public function test_that_you_can_create_presentation_with_valid_approval_status(): void
     {
         $user = User::factory()->create();
+        $presentationType = PresentationType::firstOrFail();
+
         $presentation = Presentation::create([
             'name' => 'New Tech Trends',
             'description' => 'A look into future technologies.',
-            'type' => 'workshop',
+            'presentation_type_id' => $presentationType->id,
             'difficulty_id' => 1,
             'max_participants' => 50,
             'approval_status' => ApprovalStatus::AWAITING_APPROVAL->value,
