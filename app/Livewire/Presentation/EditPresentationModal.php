@@ -6,6 +6,8 @@ use App\Jobs\NotifyPresentationRoles;
 use App\Livewire\Forms\PresentationForm;
 use App\Mail\PresentationUpdatedMailable;
 use App\Models\Presentation;
+use App\Models\PresentationType;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -15,7 +17,12 @@ use LivewireUI\Modal\ModalComponent;
 class EditPresentationModal extends ModalComponent
 {
     public Presentation $presentation;
+
     public PresentationForm $form;
+
+    /** @var Collection<int, PresentationType> */
+    public $presentationTypes;
+
 
     /**
      * Initializes the component
@@ -24,6 +31,7 @@ class EditPresentationModal extends ModalComponent
      */
     public function mount(Presentation $presentation)
     {
+        $this->presentationTypes = PresentationType::all();
         $this->presentation = $presentation;
         $this->form->setCompany($presentation);
     }

@@ -4,27 +4,29 @@ namespace App\Livewire\Forms;
 
 use App\Models\Company;
 use App\Models\Presentation;
+use App\Models\PresentationType;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PresentationForm extends Form
 {
-    public $presentation;
+    public Presentation $presentation;
 
     #[Validate('required|string|max:255|min:1')]
-    public $name;
+    public string $name;
 
     #[Validate('required|string|max:300|min:1')]
-    public $description;
+    public string $description;
 
-    #[Validate(['required', 'in:workshop,lecture'])]
-    public $type;
+    #[Validate(['required', 'numeric', 'exists:presentation_types,id'])]
+    public int $presentation_type_id;
 
     #[Validate(['required', 'numeric', 'min:1', 'max:999'])]
-    public $max_participants;
+    public int $max_participants;
 
     #[Validate(['required', 'numeric', 'exists:difficulties,id'])]
-    public $difficulty_id;
+    public int $difficulty_id;
 
     /**
      * Sets the presentation details per each field
@@ -37,7 +39,7 @@ class PresentationForm extends Form
 
         $this->name = $presentation->name;
         $this->description = $presentation->description;
-        $this->type = $presentation->type;
+        $this->presentation_type_id = $presentation->presentation_type_id;
         $this->max_participants = $presentation->max_participants;
         $this->difficulty_id = $presentation->difficulty_id;
     }
@@ -48,6 +50,8 @@ class PresentationForm extends Form
      */
     public function update()
     {
+        $this->validate();
+
         $this->presentation->update(
             $this->all()
         );

@@ -31,12 +31,17 @@
                 <!-- Presentation Type -->
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation Type</dt>
                 <dd class="sm:col-span-2">
-                    <select wire:model="form.type"
+                    <select wire:model="form.presentation_type_id"
                             class="mt-1 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                        <option value="lecture">Lecture ({{\App\Models\Presentation::lectureDuration()}} minutes)</option>
-                        <option value="workshop">Workshop ({{\App\Models\Presentation::workshopDuration()}} minutes)</option>
+                        @foreach($presentationTypes as $presentationType)
+                            <option value={{$presentationType->id}}
+                                {{$presentationType->id == $presentation->presentation_type_id ? 'selected' : ''}}
+                            >
+                                {{$presentationType->name}} ({{$presentationType->duration}} minutes)
+                            </option>
+                        @endforeach
                     </select>
-                    @error('form.type') <span class="error text-red-500">{{ $message }}</span> @enderror
+                    @error('form.presentation_type_id') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
 
                 <!-- Difficulty Level -->
