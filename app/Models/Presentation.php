@@ -98,6 +98,7 @@ class Presentation extends Model
             'max_participants' => 'required|numeric|min:1|max:999',
             'description' => 'required|string|min:1|max:300',
             'difficulty_id' => 'required|numeric|exists:difficulties,id',
+            'presentation_type_id' => 'required|numeric|exists:presentation_types,id',
         ];
     }
 
