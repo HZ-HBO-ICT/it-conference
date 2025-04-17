@@ -40,8 +40,8 @@ class PresentationForm extends Form
         $this->name = $presentation->name;
         $this->description = $presentation->description;
         $this->presentation_type_id = $presentation->presentation_type_id;
-        $this->max_participants = $presentation->max_participants;
-        $this->difficulty_id = $presentation->difficulty_id;
+        $this->max_participants = $presentation->max_participants ?? 0;
+        $this->difficulty_id = $presentation->difficulty_id ?? 1;
     }
 
     /**

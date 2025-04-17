@@ -2023,42 +2023,6 @@ parameters:
 			path: app/Livewire/Forms/KeynoteForm.php
 
 		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$description has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$difficulty_id has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$max_participants has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$name has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$presentation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$type has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
 			message: '#^Method App\\Livewire\\Forms\\RoomForm\:\:setRoom\(\) has parameter \$room with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
