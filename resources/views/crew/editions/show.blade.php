@@ -61,9 +61,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        @foreach($edition->presentationTypes as $presentationType)
+                        @forelse($edition->presentationTypes as $presentationType)
                             <div
-                                class="border-transparent rounded-lg hover:cursor-pointer hover:bg-gray-100 shadow-sm rounded-lg my-4">
+                                class="border-transparent rounded-lg shadow-sm rounded-lg my-4">
                                 <div class="flex justify-between items-center px-4 py-6">
                                     <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">
                                         {{ $presentationType->name }}
@@ -72,7 +72,7 @@
                                     <dd>
                                         <div class="flex space-x-2">
                                             @can('update', $presentationType)
-                                                <button class="bg-gray-800 px-3 py-1 rounded-md hover:bg-gray-700 hover:cursor-pointer" :key="{{ $presentationType->id . '-edit' }}"
+                                                <button class="bg-gray-800 dark:bg-gray-400 px-3 py-1 rounded-md hover:bg-gray-700 hover:cursor-pointer" :key="{{ $presentationType->id . '-edit' }}"
                                                         onclick="Livewire.dispatch('openModal', { component: 'presentation-type.create-edit-modal', arguments: { editionId: {{ $edition->id }}, presentationTypeId: {{ $presentationType->id }} } })"
                                                 >
                                                     <svg class="w-5 h-5 stroke-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" fill="none" aria-hidden="true">
@@ -118,7 +118,11 @@
                                 </div>
 
                             </div>
-                        @endforeach
+                        @empty
+                            <div>
+                                There are no presentation types yet.
+                            </div>
+                        @endforelse
                     </x-slot>
                     <x-slot name="actions">
                         <x-button class="hover:cursor-pointer"
