@@ -14,9 +14,9 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 px-6 pb-5 text-gray-900 dark:text-gray-200">
                 <div>
                     @if($presentation->speakers->count() > 1)
-                        <h4 class="tracking-tight text-2xl font-bold pb-5 pl-5 text-left">Speakers</h4>
+                        <h4 class="tracking-tight text-2xl font-bold pb-5 text-left">Speakers</h4>
                     @else
-                        <h4 class="tracking-tight text-2xl font-bold pb-5 pl-5 text-left">Speaker</h4>
+                        <h4 class="tracking-tight text-2xl font-bold pb-5 text-left">Speaker</h4>
                     @endif
                     <div class="grid grid-cols-3">
                         @foreach($presentation->speakers as $speaker)
@@ -85,7 +85,7 @@
                                           method="POST">
                                         @csrf
                                         <button
-                                            class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                            class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                             Sign up
                                         </button>
                                     </form>
@@ -97,7 +97,7 @@
                                               method="POST">
                                             @csrf
                                             <button
-                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-24 py-1 rounded-lg text-white">
+                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-6 md:px-24 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                                 Deregister from presentation
                                             </button>
                                         </form>
@@ -106,7 +106,7 @@
                                     <div class="pt-5" data-te-toggle="tooltip"
                                          title="You cannot sign up because you are already busy during this time.">
                                         <button
-                                            class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                            class="bg-gray-500 cursor-default transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                             Sign up
                                         </button>
                                     </div>
