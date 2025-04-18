@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\ApprovalStatus;
+use Database\Factories\PresentationTypeFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +38,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PresentationType extends Model
 {
+    /** @use HasFactory<PresentationTypeFactory> */
+    use HasFactory;
+
     protected $fillable = ['name', 'duration', 'description', 'colour', 'edition_id'];
 
     /**
