@@ -24,25 +24,8 @@ class ProgrammeReleasedSeeder extends Seeder
         activity()->withoutLogs(function () {
             $this->call(ParticipantRegistrationSeeder::class);
 
-            $opening = DefaultPresentation::create([
-                'name' => 'Opening presentation',
-                'description' => 'This is the opening presentation!',
-                'start' => '08:00:00',
-                'end' => '9:30:00',
-                'type' => 'opening',
-                'room_id' => '1',
-            ]);
-
-            $closing = DefaultPresentation::create([
-                'name' => 'Closing presentation',
-                'description' => 'This is the closing presentation!',
-                'start' => '16:00:00',
-                'end' => '17:30:00',
-                'type' => 'closing',
-                'room_id' => '1',
-            ]);
-
-            Timeslot::generateTimeslots();
+            $opening = optional(DefaultPresentation::opening());
+            $closing = optional(DefaultPresentation::closing());
 
             Presentation::all()->each(function (Presentation $presentation) {
                 $presentation->update(['approval_status' => ApprovalStatus::APPROVED->value]);
