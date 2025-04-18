@@ -20,12 +20,10 @@
                     @endif
                     <div class="grid grid-cols-3">
                         @foreach($presentation->speakers as $speaker)
-                            <div class="flex justify-end">
-                                <div class="justify-self-end pr-3">
-                                    <img class="relative w-24 h-24 rounded-full object-cover border-4 border-white"
-                                         src="{{ $speaker->profile_photo_url }}"
-                                         alt="Profile picture of {{$speaker->name}}">
-                                </div>
+                            <div class="hidden md:flex justify-end pr-3">
+                                <img class="relative w-24 h-24 rounded-full object-cover border-4 border-white"
+                                     src="{{ $speaker->profile_photo_url }}"
+                                     alt="Profile picture of {{ $speaker->name }}">
                             </div>
                             <div
                                 class="col-span-2 sm:col-span-2 flex items-center tracking-tight text-lg font-semibold">{{$speaker->name}}</div>
