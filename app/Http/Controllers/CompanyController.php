@@ -15,19 +15,21 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = Company::where('is_approved', 1)->get()->sortBy(function ($company) {
-            if ($company->is_approved && $company->is_sponsorship_approved) {
-                return $company->sponsorship_id;
-            }
-            return 999; // Assign a high value to non-sponsored speakers
-        });
+        $goldSponsors = Company::whereHas('sponsorship', function($query) {
+            $query->where('id', 1)->where('is_sponsorship_approved', true);
+        })->get();
+        
+        $silverSponsors = Company::whereHas('sponsorship', function($query) {
+            $query->where('id', 2)->where('is_sponsorship_approved', true);
+        })->get();
+        
+        $bronzeSponsors = Company::whereHas('sponsorship', function($query) {
+            $query->where('id', 3)->where('is_sponsorship_approved', true);
+        })->get();
+        
+        $allCompanies = Company::where('is_approved', true)->get();
 
-        $edition = Edition::current();
-        if (!$edition) {
-            $companies = collect();
-        }
-
-        return view('teams.public.index', compact('companies'));
+        return view('companies.index', compact('goldSponsors', 'silverSponsors', 'bronzeSponsors', 'allCompanies'));
     }
 
     /**

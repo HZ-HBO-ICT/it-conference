@@ -1,69 +1,100 @@
-<div id="parent" class="grid grid-cols-5 text-black dark:text-white">
+@props(['time'])
+
+<div class="flex justify-center w-full">
+    <div id="parent" class="grid grid-cols-5 gap-4 md:gap-8 max-w-5xl">
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center">
+            <div class="text-4xl md:text-5xl font-bold text-white">00</div>
+            <div class="text-xs md:text-sm text-gray-400 mt-2">MONTHS</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center">
+            <div class="text-4xl md:text-5xl font-bold text-white">00</div>
+            <div class="text-xs md:text-sm text-gray-400 mt-2">DAYS</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center">
+            <div class="text-4xl md:text-5xl font-bold text-white">00</div>
+            <div class="text-xs md:text-sm text-gray-400 mt-2">HOURS</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center">
+            <div class="text-4xl md:text-5xl font-bold text-white">00</div>
+            <div class="text-xs md:text-sm text-gray-400 mt-2">MINUTES</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center">
+            <div class="text-4xl md:text-5xl font-bold text-white">00</div>
+            <div class="text-xs md:text-sm text-gray-400 mt-2">SECONDS</div>
+        </div>
+    </div>
 </div>
 
 @push('scripts')
-        <script>
-            document.addEventListener('livewire:navigated', () => {
-                // Livewire seems to be messing up with the clearing of the DOM
-                const parent = document.getElementById('parent');
-                while (parent.firstChild) {
-                    parent.removeChild(parent.firstChild);
-                }
+<script>
+    function initializeCountdown() {
+        const parent = document.getElementById('parent');
+        // Clear existing content
+        parent.innerHTML = '';
 
-                const countDownDate = new Date(@json($time->toIso8601String())).getTime();
-                const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
-                let valueElements = [];
-                let labelElements = [];
-                let value = [0, 0, 0, 0, 0];
+        const countDownDate = new Date(@json($time->toIso8601String())).getTime();
+        const timeUnits = ['months', 'days', 'hours', 'minutes', 'seconds'];
+        let valueElements = [];
+        let labelElements = [];
 
-                timeUnits.forEach((unit) => {
-                    let div = document.createElement('div');
-                    div.className = 'flex flex-col items-center justify-center mr-5';
+        timeUnits.forEach((unit) => {
+            let div = document.createElement('div');
+            div.className = 'bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center';
 
-                    let value = document.createElement('h2');
-                    value.className = 'lg:text-5xl sm:text-3xl font-bold text-center';
-                    valueElements.push(value);
+            let value = document.createElement('div');
+            value.className = 'text-4xl md:text-5xl font-bold text-white';
+            valueElements.push(value);
 
-                    let label = document.createElement('p');
-                    label.innerHTML = unit.charAt(0).toUpperCase() + unit.slice(1);
-                    label.className = 'text-xs sm:text-base text-center md:text-left font-bold';
-                    labelElements.push(label);
+            let label = document.createElement('div');
+            label.className = 'text-xs md:text-sm text-gray-400 mt-2';
+            labelElements.push(label);
 
-                    div.appendChild(value);
-                    div.appendChild(label);
+            div.appendChild(value);
+            div.appendChild(label);
+            parent.appendChild(div);
+        });
 
-                    parent.appendChild(div);
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            if (distance < 0) {
+                valueElements.forEach((el, i) => {
+                    el.innerHTML = "0";
+                    labelElements[i].innerHTML = timeUnits[i].toUpperCase();
                 });
+                return;
+            }
 
-                countdownInterval = setInterval(function() {
-                    let now = new Date().getTime();
-                    let interval = countDownDate - now;
+            // Calculate time
+            const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+            const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    value[0] = Math.floor(interval / (1000 * 60 * 60 * 24 * 30));
-                    value[1] = Math.floor(interval / (1000 * 60 * 60 * 24)) % 30;
-                    value[2] = Math.floor((interval % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    value[3] = Math.floor((interval % (1000 * 60 * 60)) / (1000 * 60));
-                    value[4] = Math.floor((interval % (1000 * 60)) / 1000);
+            const values = [months, days, hours, minutes, seconds];
 
-                    for (let i = 0; i < 5; i++) {
-                        valueElements[i].innerHTML = value[i];
-                        labelElements[i].innerHTML = timeUnits[i].charAt(0).toUpperCase() + timeUnits[i].slice(1);
+            values.forEach((value, i) => {
+                valueElements[i].innerHTML = String(value).padStart(2, '0');
+                labelElements[i].innerHTML = timeUnits[i].toUpperCase();
+            });
+        }
 
-                        if (value[i] === 1) {
-                            labelElements[i].innerHTML = (timeUnits[i].charAt(0).toUpperCase() + timeUnits[i].slice(1)).slice(0, -1);
-                        }
-                    }
+        // Update immediately and start interval
+        updateCountdown();
+        return setInterval(updateCountdown, 1000);
+    }
 
-                    if (value.every(v => v <= 0)) {
-                        clearInterval(countdownInterval);
+    // Initialize on page load
+    let countdownInterval = initializeCountdown();
 
-                        for (let i = 0; i < 5; i++) {
-                          valueElements[i].innerHTML = 0;
-                          labelElements[i].innerHTML = timeUnits[i].charAt(0).toUpperCase() + timeUnits[i].slice(1);
-                        }
-                    }
-
-                }, 1000);
-            }, { once: true });
-    </script>
+    // Handle Livewire navigation
+    document.addEventListener('livewire:navigated', () => {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+        }
+        countdownInterval = initializeCountdown();
+    });
+</script>
 @endpush

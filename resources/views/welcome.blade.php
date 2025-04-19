@@ -1,339 +1,199 @@
 @php
     use App\Models\Sponsorship;
+    use Carbon\Carbon;
     $goldSponsors = \App\Models\Sponsorship::find(1)?->companies()->where('is_sponsorship_approved', true)->get();
     $silverSponsors = \App\Models\Sponsorship::find(2)?->companies()->where('is_sponsorship_approved', true)->get();
     $bronzeSponsors = \App\Models\Sponsorship::find(3)?->companies()->where('is_sponsorship_approved', true)->get();
-
+    $eventDate = Carbon::create(2025, 11, 14, 9, 0, 0);
 @endphp
 
 <x-app-layout>
-    <div class="flex flex-col overflow-hidden relative min-h-screen">
-
-        <!-- Full-page background gradient -->
-        <div class="absolute inset-0 bg-gradient-to-br from-[#e9f8ff] via-[#d6f2ff] to-[#f0fbff] -z-10"></div>
-
-        <!-- BUBBLE ANIMATION LAYER -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
+    <div class="flex flex-col overflow-hidden relative min-h-screen bg-[#0B1221]">
+        <!-- Animated background gradients -->
+        <div class="absolute inset-0 overflow-hidden">
+            <!-- First gradient circle -->
+            <div class="absolute top-0 -left-1/4 w-[800px] h-[800px] bg-gradient-radial from-[#31F7F1]/30 via-[#3B82F6]/20 to-transparent rounded-full blur-3xl animate-float-slow"></div>
+            
+            <!-- Second gradient circle -->
+            <div class="absolute bottom-0 -right-1/4 w-[800px] h-[800px] bg-gradient-radial from-[#E2FF32]/30 via-[#31F7F1]/20 to-transparent rounded-full blur-3xl animate-float-slower"></div>
         </div>
-
-        <!-- Custom Cursor -->
-        <div class="bubble-cursor"></div>
 
         <!-- Hero Section -->
         <div class="relative z-10">
-            <div class="relative flex flex-col items-center px-4 pt-36 pb-24">
-                <!-- Date -->
-                <div class="mb-6">
-                    <span class="bg-blue-100 text-blue-700 py-1 px-3 rounded-full text-sm font-semibold shadow-sm">
-                        {{ $edition->start_at->format('F d, Y') }}
-                    </span>
+            <div class="relative max-w-7xl mx-auto px-4 pt-24 pb-24">
+                <!-- Main Hero Content -->
+                <div class="text-center mb-16">
+                    <h2 class="text-2xl text-white mb-8">Discover your spark in the IT Wave</h2>
+                    <div class="relative space-y-2">
+                        <div class="text-8xl font-bold" style="text-shadow: 0 0 40px rgba(226, 255, 50, 0.8);">
+                            <span class="text-[#E2FF32]">WE ARE IN IT</span>
+                            <span class="text-[#FF3B9A]" style="text-shadow: 0 0 40px rgba(255, 59, 154, 0.8);">TOGETHER</span>
+                        </div>
+                        <div class="text-8xl font-bold">
+                            <span class="text-[#E2FF32]" style="text-shadow: 0 0 40px rgba(226, 255, 50, 0.8);">CONFERENCE</span>
+                            <span class="text-[#FF3B9A]" style="text-shadow: 0 0 40px rgba(255, 59, 154, 0.8);">2025</span>
+                        </div>
+                        <div class="relative w-full">
+                            <span class="absolute left-32 text-xl text-white">Co-hosted by YourSurprise</span>
+                            <span class="absolute right-32 text-xl text-white">Powered by New Waves</span>
+                        </div>
+                    </div>
+                    <div class="mt-12 text-gray-400">
+                        <p class="text-2xl mb-1">14th November 2025</p>
+                        <p class="text-2xl">HZ University of Applied Sciences, Middelburg</p>
+                    </div>
+                    <div class="mt-16 flex justify-center space-x-6">
+                        <a href="#register" class="px-8 py-4 bg-[#31F7F1] text-[#0B1221] rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                            Register Now
+                        </a>
+                        <a href="#programme" class="px-8 py-4 border-2 border-[#31F7F1] text-[#31F7F1] rounded-xl text-xl font-semibold hover:bg-[#31F7F1] hover:text-[#0B1221] transition-all">
+                            View Programme
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Title -->
-                <h1 class="text-center text-5xl md:text-6xl font-bold text-[#0b253f] mb-8 leading-tight max-w-4xl">
-                    We Are In IT Together Conference 2026
-                </h1>
-
-                <h2 class="text-center text-xl md:text-2xl mb-4 text-[#0b253f] max-w-3xl">
-                    Theme: <span class="text-blue-500 font-bold">Water</span> & <span class="text-yellow-400 font-bold">Energy</span> - Co-hosted by {{ $goldSponsorCompany?->name }}
-                </h2>
-
-                <p class="text-center text-lg text-[#1f415f] max-w-2xl mb-10">
-                    Uniting tech, sustainability, and innovation. Join us for a journey into the future of IT.
-                </p>
-
-                <!-- CTAs -->
-                <div class="mb-16 flex gap-4 flex-wrap justify-center">
-                    <a href="{{ route('companies.index') }}" class="px-6 py-3 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition shadow-lg">
-                        View Companies
-                    </a>
-                    <a href="{{ route('speakers.index') }}" class="px-6 py-3 rounded-lg border border-blue-500 text-blue-500 font-semibold hover:bg-blue-50 transition shadow-md">
-                        View Speakers
-                    </a>
+                <!-- Countdown Section -->
+                <div class="mt-16 float-animation">
+                    <x-countdown :time="$eventDate" />
                 </div>
 
-                <!-- Countdown -->
-                <div class="w-full flex justify-center mt-8 max-w-xl">
-                    <x-countdown :time="$edition->start_at"/>
+                <!-- Stats Section -->
+                <div class="grid grid-cols-4 gap-8 text-center mt-32 mb-32">
+                    <div class="border-2 border-[#FF3B9A] rounded-lg p-6">
+                        <div class="text-5xl font-bold text-[#FF3B9A]">10+</div>
+                        <div class="text-white mt-2">SPEAKERS</div>
+                    </div>
+                    <div class="border-2 border-[#FF3B9A] rounded-lg p-6">
+                        <div class="text-5xl font-bold text-[#FF3B9A]">200+</div>
+                        <div class="text-white mt-2">STUDENTS</div>
+                    </div>
+                    <div class="border-2 border-[#FF3B9A] rounded-lg p-6">
+                        <div class="text-5xl font-bold text-[#FF3B9A]">20+</div>
+                        <div class="text-white mt-2">COMPANIES</div>
+                    </div>
+                    <div class="border-2 border-[#FF3B9A] rounded-lg p-6">
+                        <div class="text-5xl font-bold text-[#FF3B9A]">15+</div>
+                        <div class="text-white mt-2">PRESENTATIONS</div>
+                    </div>
+                </div>
+
+                <!-- What to Expect Section -->
+                <div class="mt-32">
+                    <h2 class="text-4xl font-bold text-white mb-12">What to expect</h2>
+                    <div class="grid grid-cols-3 gap-8">
+                        <!-- Speakers Card -->
+                        <div class="rounded-lg overflow-hidden bg-gradient-to-b from-[#0B1221] to-[#1A4145]">
+                            <div class="p-8">
+                                <h3 class="text-[#31F7F1] text-2xl font-bold mb-4">SPEAKERS</h3>
+                                <p class="text-white mb-8">Industry leaders and innovators. Find the chance to connect with the best in our industry.</p>
+                                <a href="#" class="text-[#31F7F1] flex items-center">
+                                    Learn more
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Presentations Card -->
+                        <div class="rounded-lg overflow-hidden bg-gradient-to-b from-[#0B1221] to-[#45154A]">
+                            <div class="p-8">
+                                <h3 class="text-[#FF3B9A] text-2xl font-bold mb-4">PRESENTATIONS & WORKSHOPS</h3>
+                                <p class="text-white mb-8">Cutting edge-topics and hands-on workshops to enhance your skills.</p>
+                                <a href="#" class="text-[#FF3B9A] flex items-center">
+                                    Learn more
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Companies Card -->
+                        <div class="rounded-lg overflow-hidden bg-gradient-to-b from-[#0B1221] to-[#454515]">
+                            <div class="p-8">
+                                <h3 class="text-[#E2FF32] text-2xl font-bold mb-4">COMPANIES</h3>
+                                <p class="text-white mb-8">Meet the companies that make the IT world move. Find your chance to start your career/internship.</p>
+                                <a href="#" class="text-[#E2FF32] flex items-center">
+                                    Learn more
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sponsors Section -->
+                <div class="mt-32">
+                    <h2 class="text-4xl font-bold text-white mb-12">Thank you to our Sponsors</h2>
+                    <!-- Gold Sponsors -->
+                    <div class="mb-12">
+                        <span class="inline-block bg-[#454515] text-[#E2FF32] px-4 py-1 rounded-full text-sm font-semibold mb-6">Gold</span>
+                        <div class="grid grid-cols-1 gap-6">
+                            @foreach($goldSponsors as $sponsor)
+                                <div class="border border-[#E2FF32]/20 rounded-lg p-6">
+                                    <img src="{{ $sponsor->logo_url }}" alt="{{ $sponsor->name }}" class="h-12">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Silver Sponsors -->
+                    <div class="mb-12">
+                        <span class="inline-block bg-gray-700 text-gray-300 px-4 py-1 rounded-full text-sm font-semibold mb-6">Silver</span>
+                        <div class="grid grid-cols-2 gap-6">
+                            @foreach($silverSponsors as $sponsor)
+                                <div class="border border-gray-300/20 rounded-lg p-6">
+                                    <img src="{{ $sponsor->logo_url }}" alt="{{ $sponsor->name }}" class="h-12">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Bronze Sponsors -->
+                    <div>
+                        <span class="inline-block bg-[#45291A] text-[#CD7F32] px-4 py-1 rounded-full text-sm font-semibold mb-6">Bronze</span>
+                        <div class="grid grid-cols-4 gap-6">
+                            @foreach($bronzeSponsors as $sponsor)
+                                <div class="border border-[#CD7F32]/20 rounded-lg p-6">
+                                    <img src="{{ $sponsor->logo_url }}" alt="{{ $sponsor->name }}" class="h-12">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <section class="relative z-10 py-24">
-            <div class="max-w-[90%] mx-auto px-4 md:px-8">
-                <div class="rounded-[16px] bg-white/30 backdrop-blur-lg shadow-2xl border border-white/50 p-16 md:p-20">
-
-                    <!-- Badge -->
-                    <div class="text-center mb-4">
-                <span class="inline-block bg-white/80 text-blue-500 font-semibold px-4 py-1 rounded-full shadow backdrop-blur-sm">
-                    Why Attend
-                </span>
-                    </div>
-
-                    <!-- Title -->
-                    <h2 class="text-center text-4xl md:text-5xl font-bold text-[#0b253f] mb-4">
-                        The Future of IT in <span class="text-blue-500">Water & Energy</span>
-                    </h2>
-
-                    <!-- Subtitle -->
-                    <p class="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-8">
-                        Discover how technology is transforming the water and energy sectors, creating sustainable solutions for our future.
-                    </p>
-
-                    <!-- Divider -->
-                    <div class="w-24 h-1 bg-blue-400 mx-auto rounded-full mb-12"></div>
-
-                    <!-- Cards -->
-                    <div class="grid md:grid-cols-3 gap-6 text-center">
-                        <div class="bg-white rounded-xl shadow-md px-6 py-8">
-                            <div class="flex flex-col items-center mb-4">
-                                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2"></div>
-                                <h3 class="text-2xl font-bold text-blue-500">50+</h3>
-                            </div>
-                            <h4 class="text-lg font-semibold text-[#0b253f]">Expert Speakers</h4>
-                            <p class="text-gray-600 mt-2">Industry leaders and innovators sharing insights</p>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-md px-6 py-8">
-                            <div class="flex flex-col items-center mb-4">
-                                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2"></div>
-                                <h3 class="text-2xl font-bold text-blue-500">1000+</h3>
-                            </div>
-                            <h4 class="text-lg font-semibold text-[#0b253f]">Attendees</h4>
-                            <p class="text-gray-600 mt-2">IT professionals, developers, and decision makers</p>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-md px-6 py-8">
-                            <div class="flex flex-col items-center mb-4">
-                                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2"></div>
-                                <h3 class="text-2xl font-bold text-blue-500">30+</h3>
-                            </div>
-                            <h4 class="text-lg font-semibold text-[#0b253f]">Workshops</h4>
-                            <p class="text-gray-600 mt-2">Hands-on sessions on cutting-edge technologies</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="flex flex-col overflow-hidden relative min-h-screen">
-                <!-- Full-page background gradient -->
-                <div class="absolute inset-0 bg-gradient-to-br from-[#e9f8ff] via-[#d6f2ff] to-[#f0fbff] -z-10"></div>
-
-                <!-- Custom Cursor -->
-                <div class="bubble-cursor"></div>
-
-{{--                <section class="relative z-10 py-24 overflow-hidden bg-gradient-to-br from-[#89d4f6] via-[#e7efff] to-[#ffffff] backdrop-blur-sm">--}}
-                    <div class="flex flex-col overflow-hidden relative min-h-screen">
-
-                        <!-- Full-page background gradient -->
-{{--                        <div class="absolute inset-0 bg-gradient-to-br from-[#e9f8ff] via-[#d6f2ff] to-[#f0fbff] -z-10"></div>--}}
-
-                        <!-- BUBBLE ANIMATION LAYER -->
-                        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-
-                        </div>
-
-                        <div class="max-w-7xl mx-auto px-8 flex flex-col items-center space-y-24">
-
-                            <!-- Gold Sponsors -->
-                            @if($goldSponsors->count())
-                                <div class="w-full text-center mt-16">
-                                    <h3 class="text-4xl font-bold text-yellow-500 mb-8">Gold Sponsors</h3>
-                                    <div class="flex justify-center gap-8 flex-wrap">
-                                        @foreach($goldSponsors as $company)
-                                            <a href="{{ $company->website }}" class="group relative bg-white/80 rounded-3xl shadow-xl p-8 w-72 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl border border-yellow-300">
-                                                <span class="absolute top-4 left-4 text-xs uppercase font-bold px-3 py-1 rounded-full bg-yellow-400 text-white shadow">Gold</span>
-                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="object-contain h-24 w-auto transition-transform group-hover:scale-110">
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-
-                            <!-- Silver Sponsors -->
-                            @if($silverSponsors->count())
-                                <div class="w-full text-center mt-16">
-                                    <h3 class="text-4xl font-bold text-gray-500 mb-8">Silver Sponsors</h3>
-                                    <div class="flex justify-center gap-8 flex-wrap">
-                                        @foreach($silverSponsors as $company)
-                                            <a href="{{ $company->website }}" class="group relative bg-white/80 rounded-3xl shadow-xl p-8 w-64 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl border border-gray-400">
-                                                <span class="absolute top-4 left-4 text-xs uppercase font-bold px-3 py-1 rounded-full bg-gray-500 text-white shadow">Silver</span>
-                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="object-contain h-20 w-auto transition-transform group-hover:scale-110">
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-
-                            <!-- Bronze Sponsors -->
-                            @if($bronzeSponsors->count())
-                                <div class="w-full text-center mt-16 mb-24">
-                                    <h3 class="text-4xl font-bold text-orange-500 mb-8">Bronze Sponsors</h3>
-                                    <div class="flex justify-center gap-8 flex-wrap">
-                                        @foreach($bronzeSponsors as $company)
-                                            <a href="{{ $company->website }}" class="group relative bg-white/80 rounded-3xl shadow-xl p-8 w-60 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl border border-orange-400">
-                                                <span class="absolute top-4 left-4 text-xs uppercase font-bold px-3 py-1 rounded-full bg-orange-400 text-white shadow">Bronze</span>
-                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="object-contain h-16 w-auto transition-transform group-hover:scale-110">
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-{{--                </section>--}}
-
-            </div>
-        <style>
-            .glow-effect::before {
-                content: "";
-                position: absolute;
-                width: 200%;
-                height: 200%;
-                top: -50%;
-                left: -50%;
-                background: radial-gradient(circle, rgba(255, 234, 0, 0.15) 0%, rgba(255, 234, 0, 0) 70%);
-                opacity: 0.6;
-                animation: soft-glow 2.5s infinite;
-                pointer-events: none;
+    <style>
+        @keyframes float-slow {
+            0%, 100% {
+                transform: translate(0, 0);
             }
-
-            @keyframes soft-glow {
-                0% { transform: scale(1); opacity: 0.6; }
-                50% { transform: scale(1.15); opacity: 0.4; }
-                100% { transform: scale(1); opacity: 0.6; }
+            50% {
+                transform: translate(100px, 50px);
             }
-
-            .bubble-cursor {
-                position: fixed;
-                width: 30px;
-                height: 30px;
-                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 20%, rgba(0, 175, 255, 0.4) 70%, rgba(0, 175, 255, 0.1) 100%);
-                border-radius: 50%;
-                box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(0, 175, 255, 0.4);
-                pointer-events: none;
-                z-index: 50;
-                transform: translate(-50%, -50%);
-                transition: transform 0.05s ease;
-                backdrop-filter: blur(1px);
+        }
+        @keyframes float-slower {
+            0%, 100% {
+                transform: translate(0, 0);
             }
-    @keyframes bubble-rise {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-150%) scale(0.8); opacity: 0; }
-    }
-    body {
-        cursor: none;
-    }
-
-    .bubble-cursor {
-        position: fixed;
-        width: 30px;
-        height: 30px;
-        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 20%, rgba(0, 175, 255, 0.4) 70%, rgba(0, 175, 255, 0.1) 100%);
-        border-radius: 50%;
-        box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(0, 175, 255, 0.4);
-        pointer-events: none;
-        z-index: 50;
-        transform: translate(-50%, -50%);
-        transition: transform 0.05s ease;
-        backdrop-filter: blur(1px);
-    }
-
-    .bubble {
-        position: absolute;
-        border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 20%, rgba(0, 175, 255, 0.3) 70%, rgba(0, 175, 255, 0.1) 100%);
-        box-shadow: inset -8px -8px 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(0, 175, 255, 0.4);
-        opacity: 0.9;
-        backdrop-filter: blur(1px);
-    }
-
-    /* Optional: scale effect when hovering clickable elements */
-    a:hover ~ .bubble-cursor,
-    button:hover ~ .bubble-cursor {
-        transform: scale(1.2);
-    }
-
-            /* Bottom to Top */
-            .bubble:nth-child(1)  { width: 60px; height: 60px; left: 5%; bottom: -100px; animation: rise-up 8s infinite ease-in-out; }
-            .bubble:nth-child(2)  { width: 80px; height: 80px; left: 20%; bottom: -100px; animation: rise-up 10s infinite ease-in-out; }
-            .bubble:nth-child(3)  { width: 50px; height: 50px; left: 75%; bottom: -100px; animation: rise-up 9s infinite ease-in-out; }
-
-            /* Left to Top-Right */
-            .bubble:nth-child(4)  { width: 70px; height: 70px; left: -80px; top: 20%; animation: rise-diagonal-right 15s infinite ease-in-out; }
-            .bubble:nth-child(5)  { width: 45px; height: 45px; left: -80px; top: 50%; animation: rise-diagonal-right 12s infinite ease-in-out; }
-
-            /* Right to Top-Left */
-            .bubble:nth-child(6)  { width: 60px; height: 60px; right: -80px; top: 15%; animation: rise-diagonal-left 13s infinite ease-in-out; }
-            .bubble:nth-child(7)  { width: 35px; height: 35px; right: -80px; top: 70%; animation: rise-diagonal-left 10s infinite ease-in-out; }
-
-            /* Top to Bottom-Right */
-            .bubble:nth-child(8)  { width: 65px; height: 65px; left: 25%; top: -100px; animation: float-down-right 14s infinite ease-in-out; }
-
-            /* Top to Bottom-Left */
-            .bubble:nth-child(9)  { width: 55px; height: 55px; left: 65%; top: -100px; animation: float-down-left 12s infinite ease-in-out; }
-
-            /* Extra bottom bubbles */
-            .bubble:nth-child(10) { width: 50px; height: 50px; left: 50%; bottom: -100px; animation: rise-up 11s infinite ease-in-out; }
-            .bubble:nth-child(11) { width: 40px; height: 40px; left: 90%; bottom: -100px; animation: rise-up 9s infinite ease-in-out; }
-            .bubble:nth-child(12) { width: 70px; height: 70px; left: 35%; bottom: -100px; animation: rise-up 8s infinite ease-in-out; }
-
-            /* Animations */
-    @keyframes rise-up {
-        0% { transform: translateY(0) scale(1); opacity: 0.9; }
-        50% { transform: translateY(-50vh) scale(1.05); opacity: 0.6; }
-        100% { transform: translateY(-120vh) scale(1); opacity: 0; }
-    }
-
-    @keyframes rise-diagonal-right {
-        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-        50% { transform: translate(50vw, -40vh) scale(1.05); opacity: 0.6; }
-        100% { transform: translate(100vw, -90vh) scale(0.95); opacity: 0; }
-    }
-
-    @keyframes rise-diagonal-left {
-        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-        50% { transform: translate(-50vw, -40vh) scale(1.05); opacity: 0.6; }
-        100% { transform: translate(-100vw, -90vh) scale(0.95); opacity: 0; }
-    }
-
-    @keyframes float-down-right {
-        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-        50% { transform: translate(20vw, 40vh) scale(1.05); opacity: 0.6; }
-        100% { transform: translate(50vw, 90vh) scale(0.95); opacity: 0; }
-    }
-
-    @keyframes float-down-left {
-        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-        50% { transform: translate(-20vw, 40vh) scale(1.05); opacity: 0.6; }
-        100% { transform: translate(-50vw, 90vh) scale(0.95); opacity: 0; }
-    }
-</style>
-
-<script>
-    document.addEventListener('mousemove', e => {
-        const bubbleCursor = document.querySelector('.bubble-cursor');
-        bubbleCursor.style.left = `${e.clientX}px`;
-        bubbleCursor.style.top = `${e.clientY}px`;
-    });
-</script>
+            50% {
+                transform: translate(-100px, -50px);
+            }
+        }
+        .animate-float-slow {
+            animation: float-slow 20s ease-in-out infinite;
+        }
+        .animate-float-slower {
+            animation: float-slower 25s ease-in-out infinite;
+        }
+        .bg-gradient-radial {
+            background: radial-gradient(circle at center, var(--tw-gradient-stops));
+        }
+    </style>
 </x-app-layout>
 

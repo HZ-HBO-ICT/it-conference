@@ -9,5 +9,5 @@ class FrequentQuestion extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['question', 'answer'];
+    protected $fillable = ['question', 'answer', 'category'];
 }
