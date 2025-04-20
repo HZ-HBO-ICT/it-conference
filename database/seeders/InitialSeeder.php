@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ApprovalStatus;
+use App\Models\Company;
 use App\Models\Edition;
 use App\Models\EditionEvent;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,10 +29,33 @@ class InitialSeeder extends Seeder
         $user->markEmailAsVerified();
         $user->assignRole('event organizer');
 
-        // 2. Seed the edition and the default rooms
+        // 2. Seed the company representative user
+        $company = Company::factory()->create([
+            'name' => 'Sample company',
+            'approval_status' => ApprovalStatus::APPROVED->value
+        ]);
+        $user = User::create([
+            'name' => 'Company rep',
+            'email' => 'rep@hz.nl',
+            'password' => bcrypt('123'),
+            'company_id' => $company->id,
+        ]);
+        $user->markEmailAsVerified();
+        $user->assignRole('company representative');
+
+        // 3. Seed the participant user
+        $user = User::create([
+            'name' => 'Participant',
+            'email' => 'par@hz.nl',
+            'password' => bcrypt('123'),
+        ]);
+        $user->markEmailAsVerified();
+        $user->assignRole('participant');
+
+        // 4. Seed the edition and the default rooms
         $this->call([EditionSeeder::class, RoomSeeder::class]);
 
-        // 3. Retrieve the created edition and activate it
+        // 5. Retrieve the created edition and activate it
         $edition = Edition::first();
         $edition->activate();
     }
