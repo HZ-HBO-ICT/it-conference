@@ -10,15 +10,6 @@ use Illuminate\Support\Facades\File;
 
 class GenerateColoursSafelistTest extends TestCase
 {
-    protected string $safelistPath;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->safelistPath = base_path('tailwind.safelist.json');
-        File::delete($this->safelistPath);
-    }
-
     #[Test]
     public function test_that_it_generates_tailwind_safelist_json_file(): void
     {
