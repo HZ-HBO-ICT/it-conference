@@ -2935,12 +2935,6 @@ parameters:
 			path: app/Mail/SponsorshipDisapprovedMailable.php
 
 		-
-			message: '#^Property App\\Mail\\UserInvitation\:\:\$invitation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Mail/UserInvitation.php
-
-		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 1

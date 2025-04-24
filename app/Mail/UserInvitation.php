@@ -10,41 +10,38 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
-use Illuminate\View\View;
 
 class UserInvitation extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * The invitation instance.
-     *
-     * @var Invitation
+     * Create a new message instance.
      */
-    private Invitation $invitation;
+    public function __construct(
+        public readonly Invitation $invitation,
+    ) {}
 
     /**
-     * Create a new message instance.
-     *
-     * @param Invitation $invitation
-     * @return void
+     * Get the message envelope.
      */
-    public function __construct(Invitation $invitation)
+    public function envelope(): Envelope
     {
-        $this->invitation = $invitation;
+        return new Envelope(
+            subject: 'Invitation to Join',
+        );
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * Get the message content definition.
      */
-    public function build()
+    public function content(): Content
     {
-        /** @var view-string */
-        $view = 'emails.user-invitation';
-        
-        return $this->markdown($view)
-            ->subject('Invitation to Join');
+        return new Content(
+            markdown: 'emails.user-invitation',
+            with: [
+                'invitation' => $this->invitation,
+            ],
+        );
     }
 }
