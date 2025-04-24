@@ -19,8 +19,9 @@ class UserInvitation extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public readonly Invitation $invitation,
-    ) {}
+        public readonly Invitation $invitation
+    ) {
+    }
 
     /**
      * Get the message envelope.
