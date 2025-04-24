@@ -18,6 +18,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -281,3 +282,9 @@ Route::middleware([
 
     Route::get('/moderator/tickets', [TicketController::class, 'index'])->name('tickets.index');
 });
+
+Route::get('/sponsors', function () {
+    return view('sponsors');
+})->name('sponsors');
+
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
