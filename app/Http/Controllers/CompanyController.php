@@ -16,15 +16,15 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $goldSponsors = Company::whereHas('sponsorship', function($query) {
+        $goldSponsors = Company::whereHas('sponsorship', function ($query) {
             $query->where('id', 1)->where('is_sponsorship_approved', true);
         })->get();
         
-        $silverSponsors = Company::whereHas('sponsorship', function($query) {
+        $silverSponsors = Company::whereHas('sponsorship', function ($query) {
             $query->where('id', 2)->where('is_sponsorship_approved', true);
         })->get();
         
-        $bronzeSponsors = Company::whereHas('sponsorship', function($query) {
+        $bronzeSponsors = Company::whereHas('sponsorship', function ($query) {
             $query->where('id', 3)->where('is_sponsorship_approved', true);
         })->get();
         

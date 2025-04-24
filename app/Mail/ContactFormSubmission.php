@@ -23,4 +23,4 @@ class ContactFormSubmission extends Mailable
                     ->subject('New Contact Form Submission - ' . $this->data['subject'])
                     ->with(['data' => $this->data]);
     }
-} 
+}
