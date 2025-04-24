@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\EditionEvent;
+use App\Models\Timeslot;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -33,5 +35,26 @@ class InitialSeeder extends Seeder
         // 3. Retrieve the created edition and activate it
         $edition = Edition::first();
         $edition->activate();
+
+        // 4. Create default opening and closing presentations
+        DefaultPresentation::create([
+            'name' => 'Opening presentation',
+            'description' => 'This is the opening presentation!',
+            'start' => '08:00:00',
+            'end' => '9:30:00',
+            'type' => 'opening',
+            'room_id' => '1',
+        ]);
+
+        DefaultPresentation::create([
+            'name' => 'Closing presentation',
+            'description' => 'This is the closing presentation!',
+            'start' => '16:00:00',
+            'end' => '17:30:00',
+            'type' => 'closing',
+            'room_id' => '1',
+        ]);
+
+        Timeslot::generateTimeslots();
     }
 }
