@@ -16,19 +16,29 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $goldSponsors = Company::whereHas('sponsorship', function($query) {
-            $query->where('id', 1)->where('is_sponsorship_approved', true);
-        })->get();
-        
-        $silverSponsors = Company::whereHas('sponsorship', function($query) {
-            $query->where('id', 2)->where('is_sponsorship_approved', true);
-        })->get();
-        
-        $bronzeSponsors = Company::whereHas('sponsorship', function($query) {
-            $query->where('id', 3)->where('is_sponsorship_approved', true);
-        })->get();
-        
-        $allCompanies = Company::hasStatus(ApprovalStatus::APPROVED)->get();
+        $companies = Company::hasStatus(ApprovalStatus::APPROVED)->get()->sortBy(function ($company) {
+            if ($company->is_approved && $company->is_sponsorship_approved) {
+                return $company->sponsorship_id;
+            }
+            return 999; // Assign a high value to non-sponsored companies
+        });
+
+        // Separate companies by sponsorship level
+        $goldSponsors = $companies->filter(function($company) {
+            return $company->sponsorship_id === 1 && $company->is_sponsorship_approved;
+        });
+
+        $silverSponsors = $companies->filter(function($company) {
+            return $company->sponsorship_id === 2 && $company->is_sponsorship_approved;
+        });
+
+        $bronzeSponsors = $companies->filter(function($company) {
+            return $company->sponsorship_id === 3 && $company->is_sponsorship_approved;
+        });
+
+        $allCompanies = $companies->filter(function($company) {
+            return !$company->is_sponsorship_approved;
+        });
 
         return view('companies.index', compact('goldSponsors', 'silverSponsors', 'bronzeSponsors', 'allCompanies'));
     }
