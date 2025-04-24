@@ -5,8 +5,8 @@
 <p align="center">
     <a href="https://github.com/HZ-HBO-ICT/it-conference/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/HZ-HBO-ICT/it-conference" alt="Contributors"/></a>
-    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/main.yml">
-        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/phpcs.yml/badge.svg" alt="PHPCS"/></a>
+    <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/static-analysis.yml">
+        <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/static-analysis.yml/badge.svg" alt="PHPCS"/></a>
     <a href="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/laravel.yml">
         <img src="https://github.com/HZ-HBO-ICT/it-conference/actions/workflows/build.yml/badge.svg" alt="Build"/></a>
     <a href="https://opensource.org/licenses/MIT">
@@ -57,13 +57,37 @@ In order to fix this run `chmod -R 777 storage bootstrap/cache`. This issue migh
 Instead of using every time `./vendor/bin/sail` this can be shorten by using an alias - `alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'`. This way the commands will shorten (e.g. `sail up -d`)
 
 
-## Running the tests
+## Commonly used commands
 
-[GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions) will trigger a workflow when you push your code to
+### Setting up database (based on stages)
+
+The application supports a couple of "stages". We created a specific function to ensure that the seeded data is as close as possible to the actual data at each stage. You can use it by running: `sail artisan db:setup [stage]`. The `stage` parameter allows for the following values: `initial`, `company-registration`, `participant-registration`.
+
+### Running tests
+> Note: The most important tests we have are also running as 
+[GitHub Actions](https://github.com/HZ-HBO-ICT/it-conference/actions). Opening a PR or making new commits to it will trigger a workflow when you push your code to
 the repository, which will run the tests automatically.
 
-On a local machine, you may run `./vendor/bin/sail phpunit`. If you get a large amount of errors, check whether the
-application key has been set successfully, and that either `npm run build` or `npm run dev` have been run.
+#### PHPUnit
+If you run the test normally you can use: `sail phpunit`. 
+
+If you want to run your tests a bit faster you can run them in parallel you can use: `sail artisan test --parallel`
+
+Keep in mind that in the [GitHub actions workflow](https://github.com/HZ-HBO-ICT/it-conference/blob/main/.github/workflows/build.yml) is running using the parallel testing which might cause some conflicting results if you run the local tests "normally" (e.g. actions fails while tests pass locally).
+
+#### PHP_CodeSniffer (PHPCS)
+
+If you want to check if your code passes the coding standards you can use: `sail run vendor/bin/phpcs`.
+
+Some of the sniffs can be fixed automatically - to fix those you can use: `sail run vendor/bin/phpcbf`
+
+#### Larastan (PHPStan)
+
+If you want to check if your code passes the PHPStan conventions you can use: `sail run /vendor/bin/phpstan analyse --configuration=phpstan.neon`
+
+### Model documentation
+
+If you have made changes on any model you can generate the new documentation using: `sail run artisan ide-helper:models -RW`
 
 <!-- ### Break down into end-to-end tests -->
 
@@ -99,7 +123,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 We use the following format for versioning: YYYY.R.B
 
-**YYYY** is the year of the release, so 2024.
+**YYYY** is the year of the release, so 2025.
 
 **R** represents the release within a year, so if it is the first it would be 1, if it is the second it would be 2.
 

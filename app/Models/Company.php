@@ -3,26 +3,137 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
+use App\Enums\ApprovalStatus;
+use App\Traits\HasApprovalStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Permission\Models\Role;
 
+/**
+ *
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $website
+ * @property string $description
+ * @property string|null $motivation
+ * @property string|null $phone_number
+ * @property string $approval_status
+ * @property int|null $sponsorship_id
+ * @property string $sponsorship_approval_status
+ * @property string|null $logo_path
+ * @property string|null $dark_logo_path
+ * @property string $postcode
+ * @property string $street
+ * @property string $house_number
+ * @property string $city
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Booth|null $booth
+ * @property-read mixed $booth_owners
+ * @property-read mixed $booth_status
+ * @property-read mixed $has_presentations_left
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InternshipAttribute> $internshipAttributes
+ * @property-read int|null $internship_attributes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invitation> $invitations
+ * @property-read int|null $invitations_count
+ * @property-read mixed $is_approved
+ * @property-read mixed $is_gold_sponsor
+ * @property-read mixed $is_hz
+ * @property-read mixed $is_sponsor
+ * @property-read mixed $is_sponsorship_approved
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
+ * @property-read int|null $presentations_count
+ * @property-read mixed $representative
+ * @property-read \App\Models\Sponsorship|null $sponsorship
+ * @property-read mixed $sponsorship_status
+ * @property-read mixed $status
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static Builder<static>|Company approvedSponsor()
+ * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Company hasStatus($status, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Company newModelQuery()
+ * @method static Builder<static>|Company newQuery()
+ * @method static Builder<static>|Company orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Company query()
+ * @method static Builder<static>|Company whereApprovalStatus($value)
+ * @method static Builder<static>|Company whereCity($value)
+ * @method static Builder<static>|Company whereCreatedAt($value)
+ * @method static Builder<static>|Company whereDarkLogoPath($value)
+ * @method static Builder<static>|Company whereDeletedAt($value)
+ * @method static Builder<static>|Company whereDescription($value)
+ * @method static Builder<static>|Company whereHouseNumber($value)
+ * @method static Builder<static>|Company whereId($value)
+ * @method static Builder<static>|Company whereLogoPath($value)
+ * @method static Builder<static>|Company whereMotivation($value)
+ * @method static Builder<static>|Company whereName($value)
+ * @method static Builder<static>|Company wherePhoneNumber($value)
+ * @method static Builder<static>|Company wherePostcode($value)
+ * @method static Builder<static>|Company whereSponsorshipApprovalStatus($value)
+ * @method static Builder<static>|Company whereSponsorshipId($value)
+ * @method static Builder<static>|Company whereStreet($value)
+ * @method static Builder<static>|Company whereUpdatedAt($value)
+ * @method static Builder<static>|Company whereWebsite($value)
+ * @mixin \Eloquent
+ */
 class Company extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use HasApprovalStatus;
 
-    protected $fillable = ['name', 'description', 'website', 'postcode', 'is_approved', 'motivation',
-        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'is_sponsorship_approved',
+    protected $fillable = ['name', 'description', 'website', 'postcode', 'approval_status', 'motivation',
+        'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'sponsorship_approval_status',
         'dark_logo_path'];
+
+    /**
+     * Ensures that if the company status or their sponsorship status is changed,
+     * it is changed to one of the enum statuses
+     * @return void
+     */
+    protected static function booted() : void
+    {
+        static::saving(function (Company $company) {
+            $company->validateApprovalStatus();
+            $company->validateApprovalStatus('sponsorship_approval_status');
+        });
+    }
+
+    /**
+     * Derived attribute that allows us to still use `is_sponsorship_approved` and minimize the
+     * refactoring from the new field
+     * @return Attribute<bool, never>
+     */
+    protected function isSponsorshipApproved() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->sponsorship_approval_status == ApprovalStatus::APPROVED->value,
+        );
+    }
+
+    /**
+     * Scope a query to only include companies with approved statuses
+     * and approved sponsorship statuses.
+     *
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeApprovedSponsor(Builder $query): Builder
+    {
+        return $query->where('approval_status', ApprovalStatus::APPROVED->value)
+            ->where('sponsorship_approval_status', ApprovalStatus::APPROVED->value);
+    }
 
     /**
      * Establishes a relationship between the company and
@@ -93,21 +204,23 @@ class Company extends Model
             ->setDescriptionForEvent(fn(string $eventName)
             => "{$this->name} has been {$eventName}" . (Auth::user() ? " by " . Auth::user()->name : ''))
             ->logOnlyDirty()
-            ->dontLogIfAttributesChangedOnly(['is_approved', 'is_sponsorship_approved', 'sponsorship_id']);
+            ->dontLogIfAttributesChangedOnly(['approval_status', 'sponsorship_approval_status', 'sponsorship_id']);
     }
 
     /**
+     * TODO: Fix the statuses once we determine all flows we need
      * Returns the status of the company based on the approval status
      * @return Attribute
      */
     public function status(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->is_approved ? 'Approved' : 'Awaiting approval'
+            get: fn() => $this->approval_status == ApprovalStatus::APPROVED->value ? 'Approved' : 'Awaiting approval'
         );
     }
 
     /**
+     *  TODO: Fix the statuses once we determine all flows we need
      * Returns the status of the company's sponsorship
      * @return Attribute
      */
@@ -118,7 +231,7 @@ class Company extends Model
                 if (!$this->sponsorship) {
                     return 'Not requested';
                 }
-                return $this->sponsorship->is_approved ? 'Approved' : 'Awaiting approval';
+                return $this->sponsorship_approval_status == ApprovalStatus::APPROVED->value ? 'Approved' : 'Awaiting approval';
             }
         );
     }
@@ -218,7 +331,7 @@ class Company extends Model
             get: function () {
                 $max_presentations = $this->is_gold_sponsor ? 2 : 1;
                 return $this->is_approved && $this->presentations->count() < $max_presentations
-                    || $this->isHz;
+                    || $this->is_hz;
             }
         );
     }
@@ -242,11 +355,11 @@ class Company extends Model
      */
     public function handleSponsorshipApproval(bool $isApproved): void
     {
-        (new ApprovalHandler())->execute($this, $isApproved, 'is_sponsorship_approved');
+        (new ApprovalHandler())->execute($this, $isApproved, 'sponsorship_approval_status');
 
         if (!$isApproved) {
             $this->disableLogging();
-            $this->is_sponsorship_approved = null;
+            $this->sponsorship_approval_status = ApprovalStatus::NOT_REQUESTED->value;
             $this->sponsorship_id = null;
             $this->save();
             $this->enableLogging();

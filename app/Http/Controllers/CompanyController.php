@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class CompanyController extends Controller
             $query->where('id', 3)->where('is_sponsorship_approved', true);
         })->get();
         
-        $allCompanies = Company::where('is_approved', true)->get();
+        $allCompanies = Company::hasStatus(ApprovalStatus::APPROVED)->get();
 
         return view('companies.index', compact('goldSponsors', 'silverSponsors', 'bronzeSponsors', 'allCompanies'));
     }

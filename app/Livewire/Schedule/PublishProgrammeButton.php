@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Schedule;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Presentation;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -32,7 +33,7 @@ class PublishProgrammeButton extends Component
         $this->allPresentationsAreApproved = Presentation::all()->every(function ($presentation) {
             return $presentation->is_approved;
         });
-        $this->allPresentationsAreScheduled = Presentation::where('is_approved', true)
+        $this->allPresentationsAreScheduled = Presentation::hasStatus(ApprovalStatus::APPROVED)
             ->get()
             ->every(function ($presentation) {
                 return $presentation->isScheduled;
@@ -59,7 +60,7 @@ class PublishProgrammeButton extends Component
         $this->allPresentationsAreApproved = Presentation::all()->every(function ($presentation) {
             return $presentation->is_approved;
         });
-        $this->allPresentationsAreScheduled = Presentation::where('is_approved', true)
+        $this->allPresentationsAreScheduled = Presentation::hasStatus(ApprovalStatus::APPROVED)
             ->get()
             ->every(function ($presentation) {
                 return $presentation->isScheduled;

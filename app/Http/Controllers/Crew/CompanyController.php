@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Crew;
 
+use App\Enums\ApprovalStatus;
 use App\Events\CompanyRolesNotified;
 use App\Http\Controllers\Controller;
 use App\Jobs\NotifyCompanyRoles;
@@ -28,7 +29,7 @@ class CompanyController extends Controller
             abort(403);
         }
 
-        $companies = Company::orderBy('is_approved')->paginate(15);
+        $companies = Company::orderByPriorityStatus(ApprovalStatus::AWAITING_APPROVAL)->paginate(15);
 
         return view('crew.companies.index', compact('companies'));
     }
@@ -64,8 +65,8 @@ class CompanyController extends Controller
             'phone_number' => ['nullable', 'phone:INTERNATIONAL,NL'],
             'street' => 'required',
             'city' => 'required',
-            'rep_email' => empty($input['rep_new_email']) ? 'required' : '',
-            'rep_new_email' => !empty($input['rep_new_email']) ? 'required|email' : '',
+            'rep_email' => empty($request->input('rep_new_email')) ? 'required' : '',
+            'rep_new_email' => !empty($request->input('rep_new_email')) ? 'required|email' : '',
         ]);
 
         $company = $input['rep_new_email'] ?
@@ -170,7 +171,7 @@ class CompanyController extends Controller
             'website' => 'https://' . $input['website'],
             'description' => $input['description'],
             'phone_number' => $input['phone_number'],
-            'is_approved' => 1,
+            'approval_status' => ApprovalStatus::APPROVED->value,
         ]);
         $user->company_id = $company->id;
 
@@ -198,7 +199,7 @@ class CompanyController extends Controller
             'website' => 'https://' . $input['website'],
             'description' => $input['description'],
             'phone_number' => $input['phone_number'],
-            'is_approved' => 1,
+            'approval_status' => ApprovalStatus::APPROVED->value,
         ]);
 
         $invitation = $company->invitations()->create([

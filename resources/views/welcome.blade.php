@@ -18,6 +18,87 @@
             <div class="absolute bottom-0 -right-1/4 w-[800px] h-[800px] bg-gradient-radial from-[#E2FF32]/30 via-[#31F7F1]/20 to-transparent rounded-full blur-3xl animate-float-slower"></div>
         </div>
 
+        <!-- The main banner -->
+        <div class="relative">
+            <div class="relative flex flex-col items-center px-4 py-16">
+                <!--Titles-->
+                <div class="flex flex-col md:flex-row justify-start items-start w-full max-w-7xl space-y-8 md:space-y-0 md:space-x-8 mt-6">
+                    <div class="text-white w-full lg:ml-16 md:w-3/5 font-extrabold text-5xl lg:text-7xl md:text-7xl sm:text-5xl uppercase">
+                        <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
+                            We are in IT together Conference
+                        </h1>
+                        @if($goldSponsor && $edition)
+                            <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
+                                Co-hosted by {{ $goldSponsor->name }}
+                            </h2>
+                        @endif
+                    </div>
+                    <div class="w-full md:w-1/2 pt-1 text-xl font-montserrat">
+                        <h2 class="uppercase font-bold">
+                            Annual IT Conference
+                        </h2>
+                        <h2 class="uppercase font-medium mb-8">
+                            @if($edition)
+                                {{ $edition->start_at->format('j F Y') }}
+                            @else
+                                The date will be provided soon!
+                            @endif
+                        </h2>
+                        <h2 class="italic">
+                            "IT does not only build a bridge, IT involves us all"
+                        </h2>
+                        <h2 class="italic font-semibold">
+                            HZ University of Applied Sciences, Middelburg
+                        </h2>
+                        @if($edition)
+                            <h2 class="flex flex-wrap mt-8 uppercase font-bold text-sm gap-12">
+                                <a href="{{ route('companies.index') }}">
+                                    View companies
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1"
+                                         fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </a>
+                                <a href="{{ route('speakers.index') }}">
+                                    View speakers
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-1"
+                                         fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </a>
+                            </h2>
+                        @else
+                            <h2 class="flex flex-wrap mt-8 uppercase font-medium text-2xl gap-12">Check back later for
+                                updates</h2>
+                        @endif
+                        <br>
+                        @guest()
+                            @if(optional($edition)->is_participant_registration_opened)
+                                <x-button-link href="{{route('register.participant')}}" class="mt-4 mr-5">
+                                    Register as a participant
+                                </x-button-link>
+                            @endif
+                            @if(optional($edition)->is_company_registration_opened)
+                                <x-button-link href="{{route('register.company')}}" class="mt-4 mr-5">
+                                    Register my company
+                                </x-button-link>
+                            @endif
+                        @endguest
+                    </div>
+                </div>
+                <!-- Countdown Timer -->
+                <div class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
+                    @if ($edition)
+                        <x-countdown :time="$edition->start_at"/>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <!-- Hero Section -->
         <div class="relative z-10">
             <div class="relative max-w-7xl mx-auto px-4 pt-24 pb-24">
