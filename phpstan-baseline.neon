@@ -1,0 +1,5047 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:createCompany\(\) has parameter \$attributes with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:passwordRules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:prepareAttributes\(\) has parameter \$array with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:prepareAttributes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:storeInternshipAttributes\(\) has parameter \$attributes with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\CreateNewUser\:\:storeInternshipAttributes\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\ResetUserPassword\:\:passwordRules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Actions/Fortify/ResetUserPassword.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\UpdateUserPassword\:\:passwordRules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Actions/Fortify/UpdateUserPassword.php
+
+		-
+			message: '#^Instanceof between App\\Models\\User and Illuminate\\Contracts\\Auth\\MustVerifyEmail will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: app/Actions/Fortify/UpdateUserProfileInformation.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\UpdateUserProfileInformation\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Fortify/UpdateUserProfileInformation.php
+
+		-
+			message: '#^Method App\\Actions\\Fortify\\UpdateUserProfileInformation\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Fortify/UpdateUserProfileInformation.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Actions/Log/ApprovalHandler.php
+
+		-
+			message: '#^Method App\\Actions\\Log\\ApprovalHandler\:\:execute\(\) has parameter \$entity with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Log/ApprovalHandler.php
+
+		-
+			message: '#^Method App\\Actions\\Log\\ApprovalHandler\:\:execute\(\) has parameter \$field with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Log/ApprovalHandler.php
+
+		-
+			message: '#^Method App\\Actions\\Log\\ApprovalHandler\:\:execute\(\) has parameter \$isApproved with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Log/ApprovalHandler.php
+
+		-
+			message: '#^Method App\\Actions\\Log\\ApprovalHandler\:\:handleAdditionalCompanyRejection\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Log/ApprovalHandler.php
+
+		-
+			message: '#^Method App\\Actions\\Permissions\\ReadPermissionConfig\:\:execute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Actions/Permissions/ReadPermissionConfig.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:canHelp\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:canHelp\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:canHelp\(\) has parameter \$timeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:findTimeslotByStartingTime\(\) has parameter \$startingTime with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:tryToScheduleInPreviousTimeslot\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:tryToScheduleInPreviousTimeslot\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:tryToScheduleInPreviousTimeslot\(\) has parameter \$timeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:tryToSchedulePresentationInTimeslot\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:tryToSchedulePresentationInTimeslot\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationAllocationHelper\:\:tryToSchedulePresentationInTimeslot\(\) has parameter \$timeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationAllocationHelper.php
+
+		-
+			message: '#^Cannot access property \$duration on App\\Models\\Timeslot\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Cannot access property \$start on App\\Models\\Timeslot\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:findConflictPresentationAfter\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:findConflictPresentationAfter\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:findConflictPresentationAfter\(\) has parameter \$suggestedStart with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:findConflictPresentationBefore\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:findConflictPresentationBefore\(\) has parameter \$suggestedStart with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:isClearOfConflicts\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:isClearOfConflicts\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:isClearOfConflicts\(\) has parameter \$start with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:isWithinBoundariesOfTheDay\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\PresentationConflictChecker\:\:isWithinBoundariesOfTheDay\(\) has parameter \$startTime with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/PresentationConflictChecker.php
+
+		-
+			message: '#^Method App\\Actions\\Schedule\\ResetSchedule\:\:reset\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Actions/Schedule/ResetSchedule.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Actions/Users/AddParticipantToCompanyHandler.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Console/Commands/AddParticipantToCompany.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\AddParticipantToCompany\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/AddParticipantToCompany.php
+
+		-
+			message: '#^Cannot call method update\(\) on App\\Models\\Company\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/ApproveLastCreatedCompany.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\ApproveLastCreatedCompany\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/ApproveLastCreatedCompany.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\ConfirmAllEmails\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/ConfirmAllEmails.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\CreateAdmin\:\:createUser\(\) has parameter \$email with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/CreateAdmin.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\CreateAdmin\:\:createUser\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/CreateAdmin.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\CreateAdmin\:\:createUser\(\) has parameter \$password with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/CreateAdmin.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\CreateTicketsForVerifiedUsers\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/CreateTicketsForVerifiedUsers.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\ModifyTimeslotDuration\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/ModifyTimeslotDuration.php
+
+		-
+			message: '#^Property App\\Console\\Commands\\SetupStage\:\:\$availableStages type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SetupStage.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:convertPermissionList\(\) has parameter \$permissions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:convertPermissionList\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:hasPermissionAttributes\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:isNested\(\) has parameter \$content with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:prepareRoles\(\) has parameter \$roles with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:prepareRoles\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:syncPermissions\(\) has parameter \$permissions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\SyncPermissions\:\:syncRoles\(\) has parameter \$input with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Property App\\Console\\Commands\\SyncPermissions\:\:\$newPermissions has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Property App\\Console\\Commands\\SyncPermissions\:\:\$newRoles has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Console/Commands/SyncPermissions.php
+
+		-
+			message: '#^Call to an undefined method object\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Call to an undefined method object\:\:restore\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Call to an undefined method object\:\:save\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Call to an undefined method object\:\:trashed\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Method App\\Console\\Commands\\UpsertMasterData\:\:upsertRecord\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Parameter \#1 \$model of method App\\Console\\Commands\\UpsertMasterData\:\:isSoftDeletable\(\) expects string, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Parameter \#1 \$object_or_class of function class_uses expects object\|string, class\-string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, array\<string, class\-string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, array\<string, class\-string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Property App\\Console\\Commands\\UpsertMasterData\:\:\$master_data type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Console/Commands/UpsertMasterData.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:approve\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: app/Http/Controllers/Crew/BoothController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\CompanyController\:\:approve\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\CompanyController\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\CompanyController\:\:createCompanyWithExistingUser\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\CompanyController\:\:createCompanyWithNewUser\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\CompanyController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\CompanyController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Parameter \#1 \$invitation of class App\\Mail\\CompanyRepInvitation constructor expects App\\Models\\Invitation, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Crew/CompanyController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Http/Controllers/Crew/CrewController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: app/Http/Controllers/Crew/EditionController.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: app/Http/Controllers/Crew/EditionController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Http/Controllers/Crew/FeedbackController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: app/Http/Controllers/Crew/FrequentQuestionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\FrequentQuestionController\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/FrequentQuestionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\FrequentQuestionController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/FrequentQuestionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\FrequentQuestionController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/FrequentQuestionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\FrequentQuestionController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/FrequentQuestionController.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Cannot call method joinPresentation\(\) on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\PresentationController\:\:approve\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\PresentationController\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\PresentationController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\PresentationController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/PresentationController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: app/Http/Controllers/Crew/RoomController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\RoomController\:\:show\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/RoomController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Crew/ScheduleController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\ScheduleController\:\:publishFinalProgramme\(\) with return type void returns Illuminate\\Http\\RedirectResponse but should not return anything\.$#'
+			identifier: return.void
+			count: 2
+			path: app/Http/Controllers/Crew/ScheduleController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\ScheduleController\:\:reset\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Controllers/Crew/ScheduleController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 3
+			path: app/Http/Controllers/Crew/ScheduleController.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\Company\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Company\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^Cannot call method fresh\(\) on App\\Models\\Company\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Company\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^Cannot call method update\(\) on App\\Models\\Company\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Company\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\SponsorshipController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Crew\\SponsorshipController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$request$#'
+			identifier: parameter.notFound
+			count: 1
+			path: app/Http/Controllers/Crew/SponsorshipController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Crew/TicketController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Crew/UserController.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Http/Controllers/Hub/CompanyController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Hub/CompanyController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Hub\\CompanyController\:\:dashboard\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Hub/CompanyController.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/Hub/ParticipantController.php
+
+		-
+			message: '#^Cannot access property \$participating_in on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/Hub/ParticipantController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Http/Controllers/Hub/ParticipantController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Hub\\ParticipantController\:\:createFeedback\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Hub/ParticipantController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Hub\\ParticipantController\:\:storeFeedback\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/Hub/ParticipantController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Http\\RedirectResponse\|Illuminate\\Routing\\Redirector\:\:banner\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/InvitationController.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/InvitationController.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/InvitationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InvitationController\:\:passwordRules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Controllers/InvitationController.php
+
+		-
+			message: '#^Property App\\Http\\Controllers\\InvitationController\:\:\$guard has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Controllers/InvitationController.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Http/Controllers/PresentationController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: app/Http/Controllers/PresentationController.php
+
+		-
+			message: '#^Cannot call method joinPresentation\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/PresentationController.php
+
+		-
+			message: '#^Cannot call method refresh\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/PresentationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PresentationController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/PresentationController.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Http/Controllers/ProgrammeController.php
+
+		-
+			message: '#^Cannot call method joinPresentation\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/ProgrammeController.php
+
+		-
+			message: '#^Cannot call method leavePresentation\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/ProgrammeController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ProgrammeController\:\:disenroll\(\) should return int but returns Illuminate\\Http\\RedirectResponse\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/ProgrammeController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ProgrammeController\:\:enroll\(\) should return int but returns Illuminate\\Http\\RedirectResponse\.$#'
+			identifier: return.type
+			count: 2
+			path: app/Http/Controllers/ProgrammeController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RegistrationController\:\:showCompanyRegistration\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/RegistrationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\RegistrationController\:\:showParticipantRegistration\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/RegistrationController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SpeakerController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Controllers/SpeakerController.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/Booths/DeleteBoothForm.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/Booths/EditBoothModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Booths\\EditBoothModal\:\:\$rules has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Booths/EditBoothModal.php
+
+		-
+			message: '#^Parameter \#1 \$path of static method Illuminate\\Filesystem\\FilesystemAdapter\:\:download\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/DownloadPresentation.php
+
+		-
+			message: '#^Cannot access property \$receive_emails on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Http/Livewire/EmailNotificationPreference.php
+
+		-
+			message: '#^Cannot call method save\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Livewire/EmailNotificationPreference.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\EmailNotificationPreference\:\:\$receiveEmails has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/EmailNotificationPreference.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\OverrideDifficulty\:\:mount\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Livewire/OverrideDifficulty.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\OverrideDifficulty\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/OverrideDifficulty.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\OverrideDifficulty\:\:\$rules has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/OverrideDifficulty.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\OverrideDifficulty\:\:\$selectedDifficultyId has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/OverrideDifficulty.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/Presentations/DeletePresentationForm.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$description has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$difficulty_id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$max_participants has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$rules has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Presentations/EditPresentationModal.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isApproved\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Livewire/ReleaseFinalProgramme.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Livewire/ReleaseFinalProgramme.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\ReleaseFinalProgramme\:\:\$isOpen has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/ReleaseFinalProgramme.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\ReleaseFinalProgramme\:\:\$numberOfUnscheduledPresentations has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/ReleaseFinalProgramme.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$timeslot\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Controllers\\Crew\\ScheduleController\:\:checkIfTimeslotAndRoomAreAvailable\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Cannot access property \$max_participants on App\\Models\\Room\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Room\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:updatedSelectedRoom\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$maxParticipants has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$rooms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$selectedRoom has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$timeslots has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/RoomAndTimeslotSelector.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/Rooms/DeleteRoomForm.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Schedule\\AddTimeslotPadding\:\:\$isModalOpen has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Schedule/AddTimeslotPadding.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Casts\\Attribute\:\:detach\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/Schedule/RemovePresentationFromSchedule.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:\$room_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:\$timeslot_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:save\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Casts\\Attribute\:\:detach\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Presentation\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Schedule\\ReplacePresentation\:\:\$availablePresentations has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Schedule\\ReplacePresentation\:\:\$newPresentationId has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Schedule/ReplacePresentation.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Schedule\\ResetTimeslots\:\:\$isOpen has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Http/Livewire/Schedule/ResetTimeslots.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Http\\RedirectResponse\:\:dangerButton\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Middleware/EditionMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$mailable of method Illuminate\\Mail\\PendingMail\:\:send\(\) expects Illuminate\\Contracts\\Mail\\Mailable, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Jobs/NotifyCompanyRoles.php
+
+		-
+			message: '#^Parameter \#1 \$mailable of method Illuminate\\Mail\\PendingMail\:\:send\(\) expects Illuminate\\Contracts\\Mail\\Mailable, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Jobs/NotifyPresentationRoles.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Auth\\MustVerifyEmail\:\:createTicket\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Listeners/EmailVerifiedListener.php
+
+		-
+			message: '#^Cannot access property \$state on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Listeners/HandleFinalProgrammeReleased.php
+
+		-
+			message: '#^Cannot call method save\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Listeners/HandleFinalProgrammeReleased.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Cannot access property \$users on App\\Models\\Company\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Company\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Method App\\Livewire\\Booth\\CreateBooth\:\:selectUser\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$additionalInformation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$companies has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$companyId has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$isDropdownVisible has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$length has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$searchValue has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$selectedUser has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$users has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Property App\\Livewire\\Booth\\CreateBooth\:\:\$width has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Booth/CreateBooth.php
+
+		-
+			message: '#^Method App\\Livewire\\Booth\\EditBoothModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Booth/EditBoothModal.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Booth/JoinBoothOwnerModal.php
+
+		-
+			message: '#^Cannot call method assignRole\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Booth/JoinBoothOwnerModal.php
+
+		-
+			message: '#^Cannot call method removeRole\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Booth/JoinBoothOwnerModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Booth\\JoinBoothOwnerModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Booth/JoinBoothOwnerModal.php
+
+		-
+			message: '#^Cannot call method delete\(\) on App\\Models\\Invitation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Invitation\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Company/AddMember.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\AddMember\:\:cancelInvitation\(\) has parameter \$invitation_id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/AddMember.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\AddMember\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/AddMember.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\AddMember\:\:selectRole\(\) has parameter \$role with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/AddMember.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddMember\:\:\$currentRole has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddMember.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddMember\:\:\$roles has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddMember.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\AddParticipant\:\:mount\(\) has parameter \$companyId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\AddParticipant\:\:selectUser\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$assignedRole has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$canAssignRole has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$defaultUsers has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$isDropdownVisible has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$searchValue has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$selectedUser has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\AddParticipant\:\:\$users has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/AddParticipant.php
+
+		-
+			message: '#^Cannot call method assignRole\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Cannot call method hasRole\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Cannot call method removeRole\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\BoothRequest\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\BoothRequest\:\:\$additionalInformation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\BoothRequest\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\BoothRequest\:\:\$requestSent has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/BoothRequest.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\DeleteCompany\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/DeleteCompany.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\DeleteCompany\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/DeleteCompany.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\DetailsForm\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/DetailsForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\DetailsForm\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/DetailsForm.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Company/EditCompanyModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:mount\(\) has parameter \$theme with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:updatedPhoto\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\ManageLogo\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\ManageLogo\:\:\$currentLogo has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\ManageLogo\:\:\$photo has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\ManageLogo\:\:\$theme has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/ManageLogo.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\MemberManager\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/MemberManager.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\MemberManager\:\:\$company \(App\\Models\\Company\) does not accept App\\Models\\Company\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Livewire/Company/MemberManager.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\RemoveMember\:\:mount\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/RemoveMember.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\SponsorshipRequest\:\:mount\(\) has parameter \$company with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Company/SponsorshipRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\SponsorshipRequest\:\:\$chosenTierName has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/SponsorshipRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\SponsorshipRequest\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/SponsorshipRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\SponsorshipRequest\:\:\$requestSent has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/SponsorshipRequest.php
+
+		-
+			message: '#^Property App\\Livewire\\Company\\SponsorshipRequest\:\:\$tiers has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Company/SponsorshipRequest.php
+
+		-
+			message: '#^Method App\\Livewire\\Company\\UpdateMemberRole\:\:getRolesProperty\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/Company/UpdateMemberRole.php
+
+		-
+			message: '#^Property App\\Livewire\\ConfirmationModal\:\:\$isApproved has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/ConfirmationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\ConfirmationModal\:\:\$method has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/ConfirmationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\ConfirmationModal\:\:\$route has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/ConfirmationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\ConfirmationModal\:\:\$title has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/ConfirmationModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Crew\\AddTeam\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Crew/AddTeam.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AddTeam\:\:\$crew_team has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AddTeam.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Method App\\Livewire\\Crew\\AssignRoleToUser\:\:mount\(\) has parameter \$role with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Method App\\Livewire\\Crew\\AssignRoleToUser\:\:selectUser\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AssignRoleToUser\:\:\$defaultUsers has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AssignRoleToUser\:\:\$isDropdownVisible has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AssignRoleToUser\:\:\$role has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AssignRoleToUser\:\:\$searchValue has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AssignRoleToUser\:\:\$selectedUser has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\AssignRoleToUser\:\:\$users has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/AssignRoleToUser.php
+
+		-
+			message: '#^Method App\\Livewire\\Crew\\RevokeRoleOfUser\:\:mount\(\) has parameter \$role with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Crew/RevokeRoleOfUser.php
+
+		-
+			message: '#^Method App\\Livewire\\Crew\\RevokeRoleOfUser\:\:mount\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Crew/RevokeRoleOfUser.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Livewire/Crew/RevokeRoleOfUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\RevokeRoleOfUser\:\:\$role has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/RevokeRoleOfUser.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\RevokeRoleOfUser\:\:\$user has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/RevokeRoleOfUser.php
+
+		-
+			message: '#^Cannot access property \$name on Illuminate\\Database\\Eloquent\\Collection\<int, Spatie\\Permission\\Models\\Role\>\|Spatie\\Permission\\Models\\Role\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Crew/RolePermissionsInfo.php
+
+		-
+			message: '#^Method App\\Livewire\\Crew\\RolePermissionsInfo\:\:mount\(\) has parameter \$role with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Crew/RolePermissionsInfo.php
+
+		-
+			message: '#^Offset ''permissions'' might not exist on array\|null\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Livewire/Crew/RolePermissionsInfo.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\RolePermissionsInfo\:\:\$permissionsForRole has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/RolePermissionsInfo.php
+
+		-
+			message: '#^Property App\\Livewire\\Crew\\RolePermissionsInfo\:\:\$role has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Crew/RolePermissionsInfo.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Edition/AddKeynoteModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Edition\\AddKeynoteModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Edition/AddKeynoteModal.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Edition/EditEditionModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Edition\\EditEditionModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Edition/EditEditionModal.php
+
+		-
+			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/EditionEvent/EditEditionEventModal.php
+
+		-
+			message: '#^Method App\\Livewire\\EditionEvent\\EditEditionEventModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/EditionEvent/EditEditionEventModal.php
+
+		-
+			message: '#^Cannot access property \$receive_emails on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Livewire/EmailNotificationPreference.php
+
+		-
+			message: '#^Cannot call method save\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/EmailNotificationPreference.php
+
+		-
+			message: '#^Property App\\Livewire\\EmailNotificationPreference\:\:\$receiveEmails has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/EmailNotificationPreference.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\BoothForm\:\:\$additional_information has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/BoothForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\BoothForm\:\:\$length has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/BoothForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\BoothForm\:\:\$width has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/BoothForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\CompanyForm\:\:\$phone_number \(string\) does not accept string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Livewire/Forms/CompanyForm.php
+
+		-
+			message: '#^Cannot access property \$end on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Cannot call method update\(\) on App\\Models\\DefaultPresentation\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Forms\\DefaultPresentationForm\:\:setDetails\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Forms\\DefaultPresentationForm\:\:setType\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\DefaultPresentationForm\:\:\$description has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\DefaultPresentationForm\:\:\$end has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\DefaultPresentationForm\:\:\$name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\DefaultPresentationForm\:\:\$room_id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\DefaultPresentationForm\:\:\$start has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\DefaultPresentationForm\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/DefaultPresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$edition has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$editionEvent has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$end_at has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$lowerBoundary has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$messages has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$start_at has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionEventForm\:\:\$upperBoundary has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionEventForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$edition has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$end_at has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$lecture_duration has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$lowerBoundary has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$messages has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$start_at has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$upperBoundary has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$workshop_duration has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/EditionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\FrequentQuestionForm\:\:\$answer has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/FrequentQuestionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\FrequentQuestionForm\:\:\$faq has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/FrequentQuestionForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\FrequentQuestionForm\:\:\$question has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/FrequentQuestionForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Forms\\KeynoteForm\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Forms/KeynoteForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Forms\\KeynoteForm\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Forms/KeynoteForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\KeynoteForm\:\:\$edition has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/KeynoteForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\KeynoteForm\:\:\$keynote_description has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/KeynoteForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\KeynoteForm\:\:\$keynote_name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/KeynoteForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\KeynoteForm\:\:\$keynote_photo_path has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/KeynoteForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$description has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/PresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$difficulty_id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/PresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$max_participants has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/PresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/PresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/PresentationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Forms/PresentationForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Forms\\RoomForm\:\:setRoom\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Forms/RoomForm.php
+
+		-
+			message: '#^Method App\\Livewire\\FrequentQuestions\\EditFrequentQuestionModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/FrequentQuestions/EditFrequentQuestionModal.php
+
+		-
+			message: '#^Cannot access property \$unreadNotifications on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/NotificationsList.php
+
+		-
+			message: '#^Property App\\Livewire\\NotificationsList\:\:\$listeners has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/NotificationsList.php
+
+		-
+			message: '#^Property App\\Livewire\\NotificationsList\:\:\$unreadNotifications has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/NotificationsList.php
+
+		-
+			message: '#^Cannot access property \$presenter_of on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Presentation/EditPresentationModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Presentation\\EditPresentationModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Presentation/EditPresentationModal.php
+
+		-
+			message: '#^Cannot call method joinPresentation\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Presentation/JoinAsSpeakerModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Presentation\\JoinAsSpeakerModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Presentation/JoinAsSpeakerModal.php
+
+		-
+			message: '#^Cannot access property \$email on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Method App\\Livewire\\Presentation\\UploadPresentation\:\:mount\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Method App\\Livewire\\Presentation\\UploadPresentation\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Method App\\Livewire\\Presentation\\UploadPresentation\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Presentation\\UploadPresentation\:\:\$file has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Presentation\\UploadPresentation\:\:\$filename has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Presentation\\UploadPresentation\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Presentation/UploadPresentation.php
+
+		-
+			message: '#^Cannot access property \$scanned_at on App\\Models\\Ticket\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/QrCode/InfoModal.php
+
+		-
+			message: '#^Cannot call method save\(\) on App\\Models\\Ticket\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/QrCode/InfoModal.php
+
+		-
+			message: '#^Method App\\Livewire\\QrCode\\InfoModal\:\:mount\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/QrCode/InfoModal.php
+
+		-
+			message: '#^Parameter \#1 \$ticket of method App\\Livewire\\QrCode\\InfoModal\:\:isTicketValid\(\) expects App\\Models\\Ticket, App\\Models\\Ticket\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/QrCode/InfoModal.php
+
+		-
+			message: '#^Property App\\Livewire\\QrCode\\InfoModal\:\:\$user \(App\\Models\\User\) does not accept App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Livewire/QrCode/InfoModal.php
+
+		-
+			message: '#^Cannot call method generateExistingTicket\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/QrCode/Ticket.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\CompanyBasicForm\:\:updatePhoneNumber\(\) has parameter \$phoneNumber with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Registration/CompanyBasicForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\CompanyInternshipsForm\:\:\$internshipYear has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/CompanyInternshipsForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\CompanyInternshipsForm\:\:\$languages has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/CompanyInternshipsForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\CompanyInternshipsForm\:\:\$tracks has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/CompanyInternshipsForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\CompanyLocationForm\:\:\$terms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/CompanyLocationForm.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\CompanyMotivationForm\:\:\$motivation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/CompanyMotivationForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\CompanyRepresentativeForm\:\:passwordRules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/Registration/CompanyRepresentativeForm.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\ParentComponent\:\:handleGoingBack\(\) has parameter \$formName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\ParentComponent\:\:handleGoingNext\(\) has parameter \$formName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\ParentComponent\:\:handleGoingNext\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\ParentComponent\:\:register\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\ParentComponent\:\:\$companyBasicInfoInput type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\ParentComponent\:\:\$companyInternshipsInfoInput type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\ParentComponent\:\:\$companyMotivationInfoInput type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\ParentComponent\:\:\$companyRepresentativeInput type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Livewire/Registration/ParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Registration\\SelectCountryCode\:\:chooseCountry\(\) has parameter \$code with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$countryFlags has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$filterCode has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$filteredFlags has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$fullNumber has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$isHidden has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$phoneNumber has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Property App\\Livewire\\Registration\\SelectCountryCode\:\:\$selected has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Registration/SelectCountryCode.php
+
+		-
+			message: '#^Method App\\Livewire\\Room\\EditRoomModal\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Livewire/Room/EditRoomModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\AddDefaultPresentation\:\:mount\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/AddDefaultPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\AddDefaultPresentation\:\:\$rooms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/AddDefaultPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\AddDefaultPresentation\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/AddDefaultPresentation.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Room\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Room\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Timeslot\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Timeslot\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Timeslot\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Timeslot\>\:\:\$start\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Cannot call method format\(\) on Carbon\\Carbon\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:dispatchMoveEventToGrid\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:dispatchMoveEventToGrid\(\) has parameter \$newRoom with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:dispatchMoveEventToGrid\(\) has parameter \$newTime with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:dispatchMoveEventToGrid\(\) has parameter \$newTimeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:mount\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:mount\(\) has parameter \$timeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:movePresentation\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:movePresentation\(\) has parameter \$newRoom with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:movePresentation\(\) has parameter \$newTimeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:tryUsingPresentationAllocator\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:tryUsingPresentationAllocator\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Cell\:\:tryUsingPresentationAllocator\(\) has parameter \$timeslot with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Cell\:\:\$height has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Cell\:\:\$id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Cell\:\:\$presentations has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Cell\:\:\$room has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Cell\:\:\$timeslot has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Cell.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\DefaultPresentation\:\:mount\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/DefaultPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\DefaultPresentation\:\:\$height has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/DefaultPresentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\DefaultPresentation\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/DefaultPresentation.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\EditDefaultPresentationModal\:\:mount\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/EditDefaultPresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\EditDefaultPresentationModal\:\:\$rooms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/EditDefaultPresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\EditDefaultPresentationModal\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/EditDefaultPresentationModal.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Room\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Timeslot\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot access property \$room on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot access property \$room_id on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot access property \$timeslot on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot access property \$timeslot_id on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot call method refresh\(\) on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot call method room\(\) on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot call method save\(\) on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot call method timeslot\(\) on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Cannot call method update\(\) on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\GridParentComponent\:\:proccessMovingPresentation\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\GridParentComponent\:\:removeScheduledPresentation\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$lectureCount has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$rooms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$timeslots has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$unscheduledPresentations has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$workshopCount has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/GridParentComponent.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\Presentation\:\:mount\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Presentation\:\:\$colors has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Presentation\:\:\$details has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Presentation\:\:\$height has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Presentation\:\:\$id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Presentation\:\:\$marginTop has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\Presentation\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/Presentation.php
+
+		-
+			message: '#^Cannot access property \$end on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Room\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Cannot access property \$is_final_programme_released on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Cannot access property \$room on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Cannot access property \$start on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Cannot access property \$start on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\PresentationModal\:\:additionalStartTimeValidation\(\) has parameter \$start with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Method App\\Livewire\\Schedule\\PresentationModal\:\:mount\(\) has parameter \$presentationId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PresentationModal\:\:\$errorMessage has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PresentationModal\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PresentationModal\:\:\$room_id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PresentationModal\:\:\$rooms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PresentationModal\:\:\$start has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PresentationModal.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$allPresentationsAreApproved has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$allPresentationsAreScheduled has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$buttonClasses has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$disabledClasses has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$enabledClasses has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$iconClasses has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$isReadyToBePublished has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Property App\\Livewire\\Schedule\\PublishProgrammeButton\:\:\$oldValue has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Schedule/PublishProgrammeButton.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$allRoles\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function stripos expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fclose expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fputcsv expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Property App\\Livewire\\Users\\UserFilteringList\:\:\$email has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Property App\\Livewire\\Users\\UserFilteringList\:\:\$institution has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Property App\\Livewire\\Users\\UserFilteringList\:\:\$role has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Property App\\Livewire\\Users\\UserFilteringList\:\:\$users has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Livewire/Users/UserFilteringList.php
+
+		-
+			message: '#^Property App\\Mail\\BoothApprovedMailable\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/BoothApprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\BoothApprovedMailable\:\:\$date has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/BoothApprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\BoothDisapprovedMailable\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/BoothDisapprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\CancelledPresentationMailable\:\:\$presentation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/CancelledPresentationMailable.php
+
+		-
+			message: '#^Property App\\Mail\\CancelledPresentationMailable\:\:\$user has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/CancelledPresentationMailable.php
+
+		-
+			message: '#^Property App\\Mail\\CompanyApprovedMailable\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/CompanyApprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\CompanyApprovedMailable\:\:\$date has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/CompanyApprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\CompanyDisapprovedMailable\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/CompanyDisapprovedMailable.php
+
+		-
+			message: '#^Method App\\Mail\\CustomCompanyInvitation\:\:__construct\(\) has parameter \$invitation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Mail/CustomCompanyInvitation.php
+
+		-
+			message: '#^Property App\\Mail\\FinalProgrammeReleasedMailable\:\:\$user has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/FinalProgrammeReleasedMailable.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$unreadNotifications\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Mail/GenericNewUpdatesMailable.php
+
+		-
+			message: '#^Property App\\Mail\\GenericNewUpdatesMailable\:\:\$unreadNotifications has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/GenericNewUpdatesMailable.php
+
+		-
+			message: '#^Property App\\Mail\\SponsorshipApprovedMailable\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/SponsorshipApprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\SponsorshipDisapprovedMailable\:\:\$company has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/SponsorshipDisapprovedMailable.php
+
+		-
+			message: '#^Property App\\Mail\\UserInvitation\:\:\$invitation has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Mail/UserInvitation.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Booth.php
+
+		-
+			message: '#^Class App\\Models\\Booth uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Booth.php
+
+		-
+			message: '#^Method App\\Models\\Booth\:\:company\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Booth.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany\:\:role\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Models/Company.php
+
+		-
+			message: '#^Class App\\Models\\Company uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:booth\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:boothOwners\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:boothStatus\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:hasPresentationsLeft\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:internshipAttributes\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:invitations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:isGoldSponsor\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:isHz\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:isSponsor\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:presentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:representative\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:sponsorship\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:sponsorshipStatus\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:status\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Method App\\Models\\Company\:\:users\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: '#^Class App\\Models\\DefaultPresentation uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/DefaultPresentation.php
+
+		-
+			message: '#^Method App\\Models\\DefaultPresentation\:\:room\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/DefaultPresentation.php
+
+		-
+			message: '#^Class App\\Models\\Difficulty uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Difficulty.php
+
+		-
+			message: '#^Method App\\Models\\Difficulty\:\:presentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Difficulty.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$state\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Call to an undefined method object\:\:save\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Event\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Class App\\Models\\Edition uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:configured\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:displayedState\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:editionEvents\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:getEvent\(\) should return App\\Models\\EditionEvent but returns App\\Models\\EditionEvent\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:isCompanyRegistrationOpened\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:isFinalProgrammeReleased\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:isInProgress\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:isOver\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:isParticipantRegistrationOpened\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:isRequestingPresentationOpened\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:keynoteConfigured\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Method App\\Models\\Edition\:\:keynotePictureSource\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Result of \|\| is always false\.$#'
+			identifier: booleanOr.alwaysFalse
+			count: 1
+			path: app/Models/Edition.php
+
+		-
+			message: '#^Class App\\Models\\EditionEvent uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/EditionEvent.php
+
+		-
+			message: '#^Method App\\Models\\EditionEvent\:\:edition\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/EditionEvent.php
+
+		-
+			message: '#^Method App\\Models\\EditionEvent\:\:event\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/EditionEvent.php
+
+		-
+			message: '#^Class App\\Models\\Event uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Event.php
+
+		-
+			message: '#^Method App\\Models\\Event\:\:editionEvents\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Event.php
+
+		-
+			message: '#^Class App\\Models\\Feedback uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Feedback.php
+
+		-
+			message: '#^Method App\\Models\\Feedback\:\:reportedBy\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Feedback.php
+
+		-
+			message: '#^Property App\\Models\\Feedback\:\:\$rules has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/Models/Feedback.php
+
+		-
+			message: '#^Class App\\Models\\FrequentQuestion uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/FrequentQuestion.php
+
+		-
+			message: '#^Class App\\Models\\InternshipAttribute uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/InternshipAttribute.php
+
+		-
+			message: '#^Method App\\Models\\InternshipAttribute\:\:company\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/InternshipAttribute.php
+
+		-
+			message: '#^Method App\\Models\\InternshipAttribute\:\:scopeLanguages\(\) has parameter \$query with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/InternshipAttribute.php
+
+		-
+			message: '#^Method App\\Models\\InternshipAttribute\:\:scopeTracks\(\) has parameter \$query with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/InternshipAttribute.php
+
+		-
+			message: '#^Method App\\Models\\InternshipAttribute\:\:scopeYears\(\) has parameter \$query with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/InternshipAttribute.php
+
+		-
+			message: '#^Class App\\Models\\Invitation uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invitation.php
+
+		-
+			message: '#^Method App\\Models\\Invitation\:\:company\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invitation.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Difficulty\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Cannot access property \$lecture_duration on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Cannot access property \$max_participants on App\\Models\\Room\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Cannot access property \$workshop_duration on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Class App\\Models\\Presentation uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:company\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:creator\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:difficulty\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:displayName\(\) has parameter \$maxLength with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:duration\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:isScheduled\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:participants\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:remainingCapacity\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:room\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:speakers\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:speakersName\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:timeslot\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Method App\\Models\\Presentation\:\:userPresentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Presentation.php
+
+		-
+			message: '#^Class App\\Models\\Room uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Room.php
+
+		-
+			message: '#^Method App\\Models\\Room\:\:defaultPresentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Room.php
+
+		-
+			message: '#^Method App\\Models\\Room\:\:presentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Room.php
+
+		-
+			message: '#^Class App\\Models\\Sponsorship uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Sponsorship.php
+
+		-
+			message: '#^Method App\\Models\\Sponsorship\:\:companies\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Sponsorship.php
+
+		-
+			message: '#^Method App\\Models\\Sponsorship\:\:scopeAwaitingApproval\(\) has parameter \$query with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/Sponsorship.php
+
+		-
+			message: '#^Class App\\Models\\Ticket uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Ticket.php
+
+		-
+			message: '#^Method App\\Models\\Ticket\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Ticket.php
+
+		-
+			message: '#^Cannot access property \$end on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Timeslot.php
+
+		-
+			message: '#^Cannot access property \$start on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Timeslot.php
+
+		-
+			message: '#^Class App\\Models\\Timeslot uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Timeslot.php
+
+		-
+			message: '#^Method App\\Models\\Timeslot\:\:presentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Timeslot.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\:\:role\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Cannot access property \$token on App\\Models\\Ticket\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Class App\\Models\\User uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:allRoles\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:company\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:feedback\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:generateExistingTicket\(\) should return Illuminate\\Support\\HtmlString but returns Illuminate\\Support\\HtmlString\|string\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:isCrew\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:isDefaultCompanyMember\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:joinPresentation\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:leavePresentation\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:mainRoles\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:participatingIn\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:presenterOf\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:roleColour\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:scopeForCompanyRep\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:scopeSendEmailPreference\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:scopeUsersWithTickets\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:scopeVerified\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:ticket\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:ticketStatus\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:userPresentations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$appends is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$appends\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Class App\\Models\\UserPresentation uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/UserPresentation.php
+
+		-
+			message: '#^Method App\\Models\\UserPresentation\:\:presentation\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/UserPresentation.php
+
+		-
+			message: '#^Method App\\Models\\UserPresentation\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/UserPresentation.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Notifications/NotifyPresentationApproved.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Notifications/NotifyPresentationApproved.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/NotifyPresentationApproved.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Presentation\:\:mainSpeaker\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Notifications/NotifyPresentationApproved.php
+
+		-
+			message: '#^Method App\\Notifications\\NotifyPresentationApproved\:\:toMail\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Notifications/NotifyPresentationApproved.php
+
+		-
+			message: '#^Parameter \#1 \$user of class App\\Mail\\GenericNewUpdatesMailable constructor expects App\\Models\\User, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Notifications/NotifyPresentationApproved.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/NotifyPresentationDisapproved.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/NotifyPresentationDisapproved.php
+
+		-
+			message: '#^Method App\\Notifications\\NotifyPresentationDisapproved\:\:toMail\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Notifications/NotifyPresentationDisapproved.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/NotifyTeamDisapproved.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$receive_emails\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/NotifyTeamDisapproved.php
+
+		-
+			message: '#^Method App\\Notifications\\NotifyTeamDisapproved\:\:__construct\(\) has parameter \$team with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/NotifyTeamDisapproved.php
+
+		-
+			message: '#^Method App\\Notifications\\NotifyTeamDisapproved\:\:toMail\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Notifications/NotifyTeamDisapproved.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$isDefaultCompanyMember\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Policies/CompanyPolicy.php
+
+		-
+			message: '#^Left side of \|\| is always true\.$#'
+			identifier: booleanOr.leftAlwaysTrue
+			count: 1
+			path: app/Policies/CompanyPolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isApproved\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Policies/PresentationPolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$isDefaultCompanyMember\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Policies/PresentationPolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$presenterOf\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Policies/PresentationPolicy.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\User\:\:is_presenter_of\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Policies/PresentationPolicy.php
+
+		-
+			message: '#^Cannot access property \$is_final_programme_released on object\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Policies/PresentationPolicy.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$additionalInfo with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$boothName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$companyName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$createdAt with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$formActionApprove with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$formActionReject with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModBoothRequestDetails\:\:__construct\(\) has parameter \$isSponsor with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/View/Components/ContentModBoothRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$address with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$companyName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$createdAt with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$description with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$formActionApprove with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$formActionReject with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$teamOwnerEmail with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$teamOwnerName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModCompanyRequestDetails\:\:__construct\(\) has parameter \$website with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/View/Components/ContentModCompanyRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$affiliation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$createdAt with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$formActionApprove with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$formActionReject with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$maxParticipants with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$presentationDescription with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$presentationTitle with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$presentationType with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$speakerEmail with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModPresentationRequestDetails\:\:__construct\(\) has parameter \$speakerName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/View/Components/ContentModPresentationRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModSponsorRequestDetails\:\:__construct\(\) has parameter \$companyName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModSponsorRequestDetails\:\:__construct\(\) has parameter \$companyRepEmail with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModSponsorRequestDetails\:\:__construct\(\) has parameter \$companyRepName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModSponsorRequestDetails\:\:__construct\(\) has parameter \$formActionApprove with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModSponsorRequestDetails\:\:__construct\(\) has parameter \$formActionReject with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\ContentModSponsorRequestDetails\:\:__construct\(\) has parameter \$sponsorTier with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/View/Components/ContentModSponsorRequestDetails.php
+
+		-
+			message: '#^Cannot access property \$booth on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/BoothOwnerInfo.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/BoothOwnerInfo.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\BoothOwnerInfo\:\:\$boothButtons has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/BoothOwnerInfo.php
+
+		-
+			message: '#^Cannot access property \$boothStatus on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Company.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Company.php
+
+		-
+			message: '#^Cannot access property \$sponsorshipStatus on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Company.php
+
+		-
+			message: '#^Cannot access property \$status on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Company.php
+
+		-
+			message: '#^Cannot access property \$booth on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^Cannot access property \$hasPresentationsLeft on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^Cannot access property \$presentations on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\CompanyRoleDecider\:\:\$boothButtons has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\CompanyRoleDecider\:\:\$speakerButtons has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$count with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$icon with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$label with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$param with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$roleColour with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$route with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:__construct\(\) has parameter \$styleMode with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:determineStyle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:determineStyle\(\) has parameter \$roleColour with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:determineStyle\(\) has parameter \$styleMode with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$count has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$icon has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$label has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$param has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$roleColour has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$route has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$selectedStyle has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Crew\:\:\$styleMode has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Log\:\:getEntityRoute\(\) has parameter \$entity with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Log.php
+
+		-
+			message: '#^Method App\\View\\Components\\Dashboards\\Blocks\\Log\:\:getEntityRoute\(\) has parameter \$event with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Log.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\Log\:\:\$route has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/Log.php
+
+		-
+			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
+
+		-
+			message: '#^Cannot access property \$hasPresentationsLeft on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
+
+		-
+			message: '#^Cannot access property \$presentations on App\\Models\\Company\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\SpeakerInfo\:\:\$speakerButtons has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Blocks/SpeakerInfo.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isApproved\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/View/Components/Dashboards/Crew.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/View/Components/Dashboards/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Crew\:\:\$numberOfPresentationRequests has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Crew\:\:\$numberOfScheduledPresentations has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Crew.php
+
+		-
+			message: '#^Property App\\View\\Components\\Dashboards\\Crew\:\:\$numberOfUnscheduledPresentations has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Dashboards/Crew.php
+
+		-
+			message: '#^Method App\\View\\Components\\MarkdownViewer\:\:__construct\(\) has parameter \$content with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/MarkdownViewer.php
+
+		-
+			message: '#^Method App\\View\\Components\\PresentationDetails\:\:__construct\(\) has parameter \$filename with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/PresentationDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\PresentationDetails\:\:__construct\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/PresentationDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\PresentationDetails\:\:__construct\(\) has parameter \$presentationDescription with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/PresentationDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\PresentationDetails\:\:__construct\(\) has parameter \$presentationMaxParticipants with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/PresentationDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\PresentationDetails\:\:__construct\(\) has parameter \$presentationName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/PresentationDetails.php
+
+		-
+			message: '#^Method App\\View\\Components\\PresentationDetails\:\:__construct\(\) has parameter \$presentationType with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/PresentationDetails.php
+
+		-
+			message: '#^Property App\\View\\Components\\Schedule\\ProgressBar\:\:\$closingBackgroundColor has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Schedule/ProgressBar.php
+
+		-
+			message: '#^Property App\\View\\Components\\Schedule\\ProgressBar\:\:\$closingColor has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Schedule/ProgressBar.php
+
+		-
+			message: '#^Property App\\View\\Components\\Schedule\\ProgressBar\:\:\$openingBackgroundColor has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Schedule/ProgressBar.php
+
+		-
+			message: '#^Property App\\View\\Components\\Schedule\\ProgressBar\:\:\$openingBorderColor has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Schedule/ProgressBar.php
+
+		-
+			message: '#^Property App\\View\\Components\\Schedule\\ProgressBar\:\:\$openingColor has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/Schedule/ProgressBar.php
+
+		-
+			message: '#^Method App\\View\\Components\\ScheduleBlock\:\:__construct\(\) has parameter \$colorName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ScheduleBlock.php
+
+		-
+			message: '#^Method App\\View\\Components\\ScheduleBlock\:\:__construct\(\) has parameter \$presentation with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/ScheduleBlock.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLink\:\:__construct\(\) has parameter \$icon with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLink\:\:__construct\(\) has parameter \$label with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLink\:\:__construct\(\) has parameter \$param with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLink\:\:__construct\(\) has parameter \$roleColour with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLink\:\:__construct\(\) has parameter \$route with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLink\:\:__construct\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLink\:\:\$label has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLink\:\:\$param has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLink\:\:\$route has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLink\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLink.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLinkContentMod\:\:__construct\(\) has parameter \$icon with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLinkContentMod\:\:__construct\(\) has parameter \$label with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLinkContentMod\:\:__construct\(\) has parameter \$param with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLinkContentMod\:\:__construct\(\) has parameter \$roleColour with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Method App\\View\\Components\\SidebarLinkContentMod\:\:__construct\(\) has parameter \$route with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLinkContentMod\:\:\$label has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLinkContentMod\:\:\$param has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Property App\\View\\Components\\SidebarLinkContentMod\:\:\$route has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: app/View/Components/SidebarLinkContentMod.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Sponsorship\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: database/factories/CompanyFactory.php
+
+		-
+			message: '#^Method Database\\Factories\\CompanyFactory\:\:hasSponsorship\(\) has parameter \$sponsorshipTypeName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: database/factories/CompanyFactory.php
+
+		-
+			message: '#^Method Database\\Factories\\CompanyFactory\:\:hasSponsorship\(\) return type with generic class Illuminate\\Database\\Eloquent\\Factories\\Factory does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: database/factories/CompanyFactory.php
+
+		-
+			message: '#^Property Database\\Factories\\PresentationFactory\:\:\$presentationTopics has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: database/factories/PresentationFactory.php
+
+		-
+			message: '#^Method CreateStatsTables\:\:down\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_05_12_200203_create_stats_tables.php
+
+		-
+			message: '#^Method CreateStatsTables\:\:up\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_05_12_200203_create_stats_tables.php
+
+		-
+			message: '#^Method CreateActivityLogTable\:\:down\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_09_11_094258_create_activity_log_table.php
+
+		-
+			message: '#^Method CreateActivityLogTable\:\:up\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_09_11_094258_create_activity_log_table.php
+
+		-
+			message: '#^Method AddEventColumnToActivityLogTable\:\:down\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_09_11_094259_add_event_column_to_activity_log_table.php
+
+		-
+			message: '#^Method AddEventColumnToActivityLogTable\:\:up\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_09_11_094259_add_event_column_to_activity_log_table.php
+
+		-
+			message: '#^Method AddBatchUuidColumnToActivityLogTable\:\:down\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_09_11_094300_add_batch_uuid_column_to_activity_log_table.php
+
+		-
+			message: '#^Method AddBatchUuidColumnToActivityLogTable\:\:up\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: database/migrations/2024_09_11_094300_add_batch_uuid_column_to_activity_log_table.php
+
+		-
+			message: '#^Method Database\\Seeders\\CompanySeeder\:\:setPresentation\(\) has parameter \$companies with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: database/seeders/CompanySeeder.php
+
+		-
+			message: '#^Cannot call method activate\(\) on App\\Models\\Edition\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: database/seeders/InitialSeeder.php
+
+		-
+			message: '#^Call to an undefined method Database\\Factories\\UserFactory\:\:withPersonalTeam\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Feature/ApiTokenPermissionsTest.php
+
+		-
+			message: '#^Cannot access property \$is_approved on App\\Models\\Booth\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:approve_denies_action_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:approve_updates_booth_and_redirects_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:create_denies_access_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:create_displays_view_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:destroy_deletes_and_redirects_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:destroy_denies_action_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:index_denies_participant_access_to_booths\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:index_displays_booths_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:show_denies_access_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\BoothControllerTest\:\:show_displays_correct_booth_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/BoothControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_access_create_company_form\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_approve_company\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_delete_company\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_reject_company\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_store_company_with_existing_user\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_store_company_with_new_user\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_view_companies_index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_can_view_company_details\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:event_organizer_receives_validation_errors_on_invalid_company_data\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:participant_cannot_access_create_company_form\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:participant_cannot_approve_or_reject_company\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:participant_cannot_delete_company\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:participant_cannot_store_company\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:participant_cannot_view_companies_index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\CompanyControllerTest\:\:participant_cannot_view_company_details\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/CompanyControllerTest.php
+
+		-
+			message: '#^Call to an undefined method Database\\Factories\\UserFactory\:\:withPersonalTeam\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Feature/CreateApiTokenTest.php
+
+		-
+			message: '#^Call to an undefined method Database\\Factories\\UserFactory\:\:withPersonalTeam\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Feature/DeleteApiTokenTest.php
+
+		-
+			message: '#^Cannot call method hasVerifiedEmail\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/Feature/EmailVerificationTest.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$token\.$#'
+			identifier: property.notFound
+			count: 2
+			path: tests/Feature/PasswordResetTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_access_create_presentation_form\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_approve_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_delete_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_reject_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_store_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_view_presentation_details\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_view_presentations\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_receives_validation_errors_on_invalid_presentation_data\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_access_create_presentation_form\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_approve_or_reject_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_delete_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_store_presentation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_view_presentation_details\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_view_presentations\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/PresentationControllerTest.php
+
+		-
+			message: '#^Access to an undefined property Livewire\\Features\\SupportTesting\\Testable\:\:\$state\.$#'
+			identifier: property.notFound
+			count: 2
+			path: tests/Feature/ProfileInformationTest.php
+
+		-
+			message: '#^Cannot access property \$email on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/Feature/ProfileInformationTest.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/Feature/ProfileInformationTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:create_denies_access_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:create_displays_view_to_rooms\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:destroy_deletes_and_redirects_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:destroy_denies_action_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:index_denies_participant_access_to_rooms\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:index_displays_rooms_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:show_denies_access_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:show_displays_correct_room_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:store_denies_action_to_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\RoomControllerTest\:\:store_saves_and_redirects_to_crew\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/RoomControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_access_create_sponsorship_form\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_approve_sponsorship\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_delete_sponsorship\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_reject_sponsorship\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_store_sponsorship\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_view_sponsorship\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:event_organizer_can_view_sponsorships_index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:user_cannot_access_create_sponsorship_form_without_permission\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:user_cannot_approve_or_reject_sponsorship_without_permission\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:user_cannot_delete_sponsorship_without_permission\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:user_cannot_show_nonexistent_sponsorship\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Method Tests\\Feature\\SponsorshipControllerTest\:\:user_cannot_view_sponsorships_index_without_permission\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Feature/SponsorshipControllerTest.php
+
+		-
+			message: '#^Cannot access property \$two_factor_secret on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: tests/Feature/TwoFactorAuthenticationSettingsTest.php
+
+		-
+			message: '#^Cannot call method fresh\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Feature/TwoFactorAuthenticationSettingsTest.php
+
+		-
+			message: '#^Cannot call method recoveryCodes\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: tests/Feature/TwoFactorAuthenticationSettingsTest.php
+
+		-
+			message: '#^Cannot access property \$password on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: tests/Feature/UpdatePasswordTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with App\\Models\\User will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Unit/CreateNewUserTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Unit/CreateNewUserTest.php
+
+		-
+			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_company_is_created_with_user\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Unit/CreateNewUserTest.php
+
+		-
+			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_user_is_created_successfully\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Unit/CreateNewUserTest.php
+
+		-
+			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_validation_fails_with_missing_fields\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Unit/CreateNewUserTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Unit/ExampleTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Unit/PresentationTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Unit/UserTest.php
+
+		-
+			message: '#^Method Tests\\Unit\\UserTest\:\:test_that_participant_returns_presentation_where_user_is_enrolled_as_participant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Unit/UserTest.php
+
+		-
+			message: '#^Method Tests\\Unit\\UserTest\:\:test_that_speaker_returns_presentation_where_user_is_speaker\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Unit/UserTest.php

@@ -7,6 +7,7 @@ return [
         'companies.index',
         'companies.show',
         'presentations.show',
+        'programme',
         'faq',
         'contact',
     ],
