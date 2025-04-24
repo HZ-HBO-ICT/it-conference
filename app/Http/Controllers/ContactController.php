@@ -9,6 +9,12 @@ use Exception;
 
 class ContactController extends Controller
 {
+    /**
+     * Handle the contact form submission.
+     * 
+     * @param Request $request The incoming request containing contact form data
+     * @return \Illuminate\Http\RedirectResponse Redirects back with success or error message
+     */
     public function submit(Request $request)
     {
         try {

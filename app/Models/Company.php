@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Models\Role;
+use App\Enums\ApprovalStatus;
 
 class Company extends Model
 {
@@ -103,8 +104,20 @@ class Company extends Model
     public function status(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->is_approved ? 'Approved' : 'Awaiting approval'
+            get: fn() => $this->is_approved ? ApprovalStatus::APPROVED : ApprovalStatus::PENDING
         );
+    }
+
+    /**
+     * Scope a query to only include companies with a specific approval status.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \App\Enums\ApprovalStatus $status
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHasStatus($query, ApprovalStatus $status)
+    {
+        return $query->where('is_approved', $status === ApprovalStatus::APPROVED);
     }
 
     /**

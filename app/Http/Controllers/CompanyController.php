@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class CompanyController extends Controller
             $query->where('id', 3)->where('is_sponsorship_approved', true);
         })->get();
         
-        $allCompanies = Company::where('is_approved', true)->get();
+        $allCompanies = Company::hasStatus(ApprovalStatus::APPROVED)->get();
 
         return view('companies.index', compact('goldSponsors', 'silverSponsors', 'bronzeSponsors', 'allCompanies'));
     }
@@ -68,8 +69,8 @@ class CompanyController extends Controller
         if ($company->is_sponsorship_approved && isset($styles[$company->sponsorship_id])) {
             $borderColor = $styles[$company->sponsorship_id]['borderColor'];
             $linkColor = $styles[$company->sponsorship_id]['linkColor'];
-            $iconColor = $styles[$company->sponsorship_id]['iconColor'];
             $textColor = $styles[$company->sponsorship_id]['textColor'];
+            $iconColor = $styles[$company->sponsorship_id]['iconColor'];
         } else {
             $borderColor = 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
             $linkColor = 'text-blue-400 hover:text-blue-600';
@@ -78,7 +79,7 @@ class CompanyController extends Controller
         }
 
         return view(
-            'teams.public.show',
+            'companies.show',
             compact('company', 'borderColor', 'textColor', 'linkColor', 'iconColor')
         );
     }

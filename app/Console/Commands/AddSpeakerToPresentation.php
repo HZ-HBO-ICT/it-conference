@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Presentation;
+use App\Models\Speaker;
 use App\Models\User;
 use Illuminate\Console\Command;
 
