@@ -10,7 +10,13 @@ class ContactFormSubmission extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * The contact form submission data.
+     *
+     * @var array<string, string>
+     */
     public array $data;
+
 
     /**
      * Create a new message instance.

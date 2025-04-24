@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormSubmission;
+use Illuminate\Http\RedirectResponse;
 use Exception;
 
 class ContactController extends Controller
 {
-    public function submit(Request $request)
+    /**
+     * Handle the contact form submission.
+     *
+     * Validates the incoming request, sends a notification email to the site team,
+     * and returns the user back to the contact page with a success or error message.
+     *
+     * @param \Illuminate\Http\Request $request  The HTTP request containing contact form input
+     * @return \Illuminate\Http\RedirectResponse  Redirects back with a session message
+     */
+    public function submit(Request $request): RedirectResponse
     {
         try {
             $validated = $request->validate([
