@@ -41,7 +41,11 @@
                 <div class="flex justify-between h-16 items-center">
                     <!-- Logo -->
                     <div class="flex items-center">
-                        <a href="{{ route('welcome') }}" class="text-2xl font-bold text-[#E2FF32] hover:text-[#f0ff32] transition-colors">WAITT25</a>
+                        <a href="{{ route('welcome') }}" class="flex items-center space-x-3 group">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <img src="{{ asset('img/logo-small-participant.png') }}" alt="IT Conference" class="w-full h-full object-contain">
+                            </div>
+                        </a>
                     </div>
 
                     <!-- Navigation Links -->
@@ -74,23 +78,6 @@
                             Login
                             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#31F7F1] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                         </a>
-                        <button class="dark-mode-toggle hover:rotate-90 transition-transform duration-300" x-data="{
-                            darkMode: $persist(false).as('dark_mode'),
-                            toggleDarkMode(){
-                                this.darkMode = !this.darkMode;
-                                if(this.darkMode){
-                                    document.documentElement.classList.add('dark');
-                                } else {
-                                    document.documentElement.classList.remove('dark');
-                                }
-                            }
-                        }"
-                        @click="toggleDarkMode()"
-                        x-init="darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')">
-                            <svg class="w-6 h-6 text-[#31F7F1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -109,7 +96,11 @@
                     <!-- Conference Info -->
                     <div class="space-y-4">
                         <div class="flex items-center space-x-3">
-                            <a href="{{ route('welcome') }}" class="text-2xl font-bold text-[#E2FF32] hover:text-[#f0ff32] transition-colors">WAITT25</a>
+                            <a href="{{ route('welcome') }}" class="flex items-center">
+                                <div class="w-12 h-12 flex items-center justify-center">
+                                    <img src="{{ asset('img/logo-small-participant.png') }}" alt="IT Conference" class="w-full h-full object-contain">
+                                </div>
+                            </a>
                         </div>
                         <p class="text-gray-400 text-sm">
                             Join us for an immersive experience where technology meets innovation, powering the future of IT together.

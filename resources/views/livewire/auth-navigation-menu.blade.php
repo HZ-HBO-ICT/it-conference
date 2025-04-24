@@ -8,17 +8,11 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 items-center">
-            <!-- Logo and Brand -->
+            <!-- Logo -->
             <div class="flex items-center">
                 <a href="{{ route('welcome') }}" class="flex items-center space-x-3 group">
                     <div class="w-12 h-12 flex items-center justify-center">
                         <img src="{{ asset('img/logo-small-participant.png') }}" alt="IT Conference" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <div class="text-lg font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-                            IT Conference
-                        </div>
-                        <div class="text-xs text-gray-500">2025 Edition</div>
                     </div>
                 </a>
             </div>
