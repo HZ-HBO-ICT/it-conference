@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Company;
 use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -17,7 +18,14 @@ class CompanyRepInvitation extends Mailable
      *
      * @var Invitation
      */
-    public $invitation;
+    public Invitation $invitation;
+
+    /**
+     * The company instance.
+     *
+     * @var Company|null
+     */
+    public ?Company $company;
 
     /**
      * Create a new message instance.
@@ -28,6 +36,7 @@ class CompanyRepInvitation extends Mailable
     public function __construct(Invitation $invitation)
     {
         $this->invitation = $invitation;
+        $this->company = $invitation->company;
     }
 
     /**
@@ -37,8 +46,7 @@ class CompanyRepInvitation extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.invite-company-rep', ['acceptUrl' => URL::signedRoute('registration.page.via.invitation', [
-            'invitation' => $this->invitation,
-        ])])->subject(__('Participation in the IT Conference'));
+        return $this->markdown('emails.invite-company-rep')
+            ->subject('Invitation to Join ' . $this->company?->name . ' as a Representative');
     }
 }

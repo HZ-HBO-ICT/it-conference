@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormSubmission;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
-    public function submit(Request $request)
+    /**
+     * Handle the contact form submission.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function submit(Request $request): RedirectResponse
     {
         try {
             $validated = $request->validate([
@@ -29,4 +36,4 @@ class ContactController extends Controller
                 ->withErrors(['error' => 'Sorry, there was an error sending your message. Please try again later.']);
         }
     }
-} 
+}

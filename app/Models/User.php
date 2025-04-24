@@ -114,9 +114,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'company_id',
-        'institution',
-        'crew_team'
+        'first_name',
+        'last_name',
     ];
 
     /**
@@ -127,8 +126,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
@@ -141,24 +138,36 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * The user's first name.
+     *
+     * @var string|null
+     */
+    protected ?string $first_name;
+
+    /**
+     * The user's last name.
+     *
+     * @var string|null
+     */
+    protected ?string $last_name;
 
     /**
      * Establishes a relationship between the user and the company they're part of
      * (if they have a company)
-     * @return BelongsTo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function company(): BelongsTo
+    public function company(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
@@ -527,5 +536,49 @@ class User extends Authenticatable implements MustVerifyEmail
             ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
             ->errorCorrection('M')
             ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
+    }
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Get the user's role in the company.
+     *
+     * @return string|null
+     */
+    public function getCompanyRoleAttribute(): ?string
+    {
+        if (!$this->company) {
+            return null;
+        }
+
+        return $this->company->pivot->role ?? null;
+    }
+
+    /**
+     * Get the user's first name.
+     *
+     * @return string|null
+     */
+    public function getFirstNameAttribute(): ?string
+    {
+        return $this->attributes['first_name'] ?? null;
+    }
+
+    /**
+     * Get the user's last name.
+     *
+     * @return string|null
+     */
+    public function getLastNameAttribute(): ?string
+    {
+        return $this->attributes['last_name'] ?? null;
     }
 }

@@ -35,31 +35,49 @@ trait HasApprovalStatus
     }
 
     /**
-     * Scope a query to only include models that have a specified approval status.
+     * Scope a query to only include models with a specific status.
      *
-     * @param Builder<static> $query
-     * @param string|ApprovalStatus $status The status to filter by.
-     * @param string $fieldName The attribute name to filter.
-     * @return Builder<static>
+     * @param Builder<Model> $query
+     * @param ApprovalStatus|string $status
+     * @return Builder<Model>
      */
-    public function scopeHasStatus(Builder $query, ApprovalStatus|string $status, string $fieldName = 'approval_status'): Builder
+    public function scopeHasStatus(Builder $query, ApprovalStatus|string $status): Builder
     {
         $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
-        return $query->where($fieldName, $statusValue);
+        return $query->where('status', $statusValue);
     }
 
     /**
-     * Scope a query to order models so that records with the given status appear first. Limited to
-     * a single status. If you require more than one create a local function for it.
+     * Scope a query to only include models with a specific sponsorship status.
+     *
+     * @param Builder<Model> $query
+     * @param ApprovalStatus|string $status
+     * @return Builder<Model>
+     */
+    public function scopeHasSponsorshipStatus(Builder $query, ApprovalStatus|string $status): Builder
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $query->where('sponsorship_status', $statusValue);
+    }
+
+    /**
+     * Scope a query to order models so that records with the given status appear first.
+     * Limited to a single status. If you require more than one create a local function for it.
      *
      * @param Builder<static> $query
      * @param string|ApprovalStatus $approvalStatus
      * @param string $fieldName The attribute name to check.
      * @return Builder<static>
      */
-    public function scopeOrderByPriorityStatus(Builder $query, ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status'): Builder
-    {
-        $statusValue = $approvalStatus instanceof ApprovalStatus ? $approvalStatus->value : $approvalStatus;
+    public function scopeOrderByPriorityStatus(
+        Builder $query,
+        ApprovalStatus|string $approvalStatus,
+        string $fieldName = 'approval_status'
+    ): Builder {
+        $statusValue = $approvalStatus instanceof ApprovalStatus
+            ? $approvalStatus->value
+            : $approvalStatus;
+            
         return $query->orderByRaw("{$fieldName} != ?", [$statusValue]);
     }
 

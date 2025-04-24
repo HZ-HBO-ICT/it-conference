@@ -10,15 +10,24 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
+use Illuminate\View\View;
 
 class UserInvitation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $invitation;
+    /**
+     * The invitation instance.
+     *
+     * @var Invitation
+     */
+    private Invitation $invitation;
 
     /**
      * Create a new message instance.
+     *
+     * @param Invitation $invitation
+     * @return void
      */
     public function __construct(Invitation $invitation)
     {
@@ -32,8 +41,10 @@ class UserInvitation extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user-invite', ['acceptUrl' => URL::signedRoute('registration.page.via.invitation', [
-            'invitation' => $this->invitation,
-        ])])->subject(__('You have been invited to join the IT Conference'));
+        /** @var view-string */
+        $view = 'emails.user-invitation';
+        
+        return $this->markdown($view)
+            ->subject('Invitation to Join');
     }
 }

@@ -16,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = Company::hasStatus(ApprovalStatus::APPROVED)->get()->sortBy(function ($company) {
+        $companies = Company::where('approval_status', ApprovalStatus::APPROVED->value)->get()->sortBy(function ($company) {
             if ($company->is_approved && $company->is_sponsorship_approved) {
                 return $company->sponsorship_id;
             }
@@ -24,19 +24,19 @@ class CompanyController extends Controller
         });
 
         // Separate companies by sponsorship level
-        $goldSponsors = $companies->filter(function($company) {
+        $goldSponsors = $companies->filter(function ($company) {
             return $company->sponsorship_id === 1 && $company->is_sponsorship_approved;
         });
 
-        $silverSponsors = $companies->filter(function($company) {
+        $silverSponsors = $companies->filter(function ($company) {
             return $company->sponsorship_id === 2 && $company->is_sponsorship_approved;
         });
 
-        $bronzeSponsors = $companies->filter(function($company) {
+        $bronzeSponsors = $companies->filter(function ($company) {
             return $company->sponsorship_id === 3 && $company->is_sponsorship_approved;
         });
 
-        $allCompanies = $companies->filter(function($company) {
+        $allCompanies = $companies->filter(function ($company) {
             return !$company->is_sponsorship_approved;
         });
 
