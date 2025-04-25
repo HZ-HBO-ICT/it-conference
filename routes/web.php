@@ -60,7 +60,9 @@ Route::get('/companies', [CompanyController::class, 'index'])->name('companies.i
 Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('companies.show');
 Route::get('/faq', [\App\Http\Controllers\FrequentQuestionController::class, 'index'])->name('faq');
 Route::view('/contact', 'contact')->name('contact');
-Route::post('/contact', function() { return redirect()->back(); })->name('contact.submit');
+Route::post('/contact', function () {
+    return redirect()->back();
+})->name('contact.submit');
 
 // routes for registering from invitation
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
