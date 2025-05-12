@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use Illuminate\Console\Command;
 
@@ -29,6 +30,6 @@ class ApproveLastCreatedCompany extends Command
     public function handle()
     {
         $company = Company::latest()->first();
-        $company->update(['is_approved' => 1]);
+        $company->update(['approval_status' => ApprovalStatus::APPROVED->value]);
     }
 }
