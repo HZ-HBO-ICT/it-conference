@@ -1,85 +1,79 @@
 @php
-    $borderColor = 'bg-linear-to-r from-pink-400 via-purple-400 to-blue-400';
-    $linkColor = 'text-pink-400 hover:text-pink-600';
+    $badgeColors = [
+        1 => 'bg-yellow-400 text-gray-900', // Gold
+        2 => 'bg-gray-400 text-gray-900',  // Silver
+        3 => 'bg-orange-400 text-gray-900', // Bronze
+    ];
 @endphp
 
 <x-app-layout>
-    <div class="container mx-auto px-6 py-12">
-        <h2 class="text-center text-gray-900 dark:text-gray-50 text-5xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
-            Our Speakers
-        </h2>
+    <div class="min-h-screen w-full bg-[#070E1C] px-6 py-12">
+        <h1 class="text-7xl font-extrabold text-yellow-400 mb-8 tracking-tight" style="text-shadow: 0 0 16px #fff600;">SPEAKERS</h1>
+        <!-- Keynote Speaker Section (static for frontend) -->
+        <div class="mb-16">
+            <h2 class="text-2xl font-extrabold text-white mb-4">Keynote Speaker</h2>
+            <div class="flex flex-col md:flex-row bg-[#0F172A] rounded-xl border border-gray-600 overflow-hidden shadow-lg">
+                <div class="flex-shrink-0 flex items-center justify-center min-h-[220px] min-w-[320px] bg-gray-300">
+                    <!-- Placeholder image -->
+                </div>
+                <div class="flex-1 p-8 flex flex-col justify-center">
+                    <h3 class="font-extrabold text-2xl text-white mb-2">Dr. Alex Morgan</h3>
+                    <div class="text-lg text-gray-300 mb-2">Keynote Speaker at TechWave Solutions</div>
+                    <div class="font-bold italic text-white text-lg mb-2">The future of digital transformation</div>
+                    <div class="text-gray-300">Join us for an inspiring keynote that will set the tone for our conference and explore the cutting-edge developments in technology.</div>
+                </div>
+            </div>
+        </div>
         @if(!$speakers->isEmpty())
             @if($edition->keynote_name)
-                <div
-                    class="relative mb-12 min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all">
-                    <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                    <div class="p-8 grid grid-cols-1 lg:grid-cols-4">
-                        <div class="col-span-1 h-full flex items-center justify-center">
-                            <div class="relative w-40 h-40 md:w-64 md:h-64">
-                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                <img class="relative w-40 h-40 md:w-64 md:h-64 rounded-full object-cover border-4 border-white"
-                                     src="{{ $edition->keynote_picture_source }}"
-                                     alt="Profile picture of {{$edition->keynote_name}}">
-                            </div>
+                <div class="mb-16">
+                    <h2 class="text-2xl font-extrabold text-white mb-4">Keynote Speaker</h2>
+                    <div class="flex flex-col md:flex-row bg-[#0F172A] rounded-xl border border-gray-600 overflow-hidden shadow-lg">
+                        <div class="flex-shrink-0 flex items-center justify-center min-h-[220px] min-w-[320px] bg-gray-300">
+                            @if($edition->keynote_picture_source)
+                                <img src="{{ $edition->keynote_picture_source }}" alt="Profile picture of {{$edition->keynote_name}}" class="object-cover w-full h-full max-h-64 max-w-xs" />
+                            @endif
                         </div>
-                        <div class="col-span-1 lg:col-span-3 flex flex-col justify-center ml-0 mt-2 md:mt-0 md:ml-8 text-center md:text-left">
-                            <h3 class="font-bold text-2xl text-gray-900 dark:text-white">Keynote Speaker - {{$edition->keynote_name}}</h3>
-                            <p class="mt-4 text-gray-600 dark:text-gray-400">{{strlen($edition->keynote_description) > 700 ? substr($edition->keynote_description, 0, 700) . '...' : $edition->keynote_description}}</p>
+                        <div class="flex-1 p-8 flex flex-col justify-center">
+                            <h3 class="font-extrabold text-2xl text-white mb-2">Dr. {{ $edition->keynote_name }}</h3>
+                            <div class="text-lg text-gray-300 mb-2">Keynote Speaker at {{ $edition->keynote_company ?? 'TechWave Solutions' }}</div>
+                            <div class="font-bold italic text-white text-lg mb-2">The future of digital transformation</div>
+                            <div class="text-gray-300">{{ $edition->keynote_description }}</div>
                         </div>
                     </div>
-                    <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
                 </div>
             @endif
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+            <h2 class="text-2xl font-extrabold text-white mb-6 mt-12">All Speakers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
                 @foreach($speakers as $speaker)
-                    @php
-                        if ($speaker->user->company && $speaker->user->company->is_sponsorship_approved) {
-                            switch ($speaker->user->company->sponsorship_id) {
-                                case 1:
-                                    $borderColor = 'bg-linear-to-r from-yellow-300 to-yellow-600'; // Gold
-                                    $linkColor = 'text-yellow-400 hover:text-yellow-500';
-                                    break;
-                                case 2:
-                                    $borderColor = 'bg-linear-to-r from-gray-300 to-gray-600'; // Silver
-                                    $linkColor = 'text-gray-600 hover:text-gray-700';
-                                    break;
-                                case 3:
-                                    $borderColor = 'bg-linear-to-r from-orange-300 to-orange-600'; // Bronze
-                                    $linkColor = 'text-orange-400 hover:text-orange-500';
-                                    break;
-                            }
-                        } else {
-                            $borderColor = 'bg-linear-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
-                            $linkColor = 'text-blue-400 hover:text-blue-600';
-                        }
-                    @endphp
-                    <a href="{{route('programme.presentation.show', $speaker->presentation)}}" class="{{$linkColor}}">
-                        <div
-                            class="relative min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
-                            <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                            <div class="p-8 flex flex-col items-center">
-                                <div class="relative w-32 h-32 mb-6">
-                                    <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                    <img class="relative w-32 h-32 rounded-full object-cover border-4 border-white"
-                                         src="{{$speaker->user->profile_photo_url}}"
-                                         alt="Profile picture of {{$speaker->user->name}}">
+                    <div class="bg-[#0F172A] rounded-xl border border-gray-700 shadow-lg overflow-hidden flex flex-col min-h-[320px]">
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div class="flex flex-col items-center p-8 pb-4">
+                                <div class="w-full flex justify-center mb-6">
+                                    <div class="w-40 h-32 bg-gray-300 rounded-lg"></div>
                                 </div>
-                                <h3 class="font-bold text-2xl text-gray-900 dark:text-white text-center">{{$speaker->user->name}}</h3>
-                                @if($speaker->user->company)
-                                    <p class="text-gray-600 dark:text-gray-400 text-center">{{$speaker->user->company->name}}</p>
-                                @endif
-                                <p class="mt-4 text-gray-600 dark:text-gray-400 text-center">{{strlen($speaker->presentation->description) > 165 ? substr($speaker->presentation->description, 0, 165) . '...' : $speaker->presentation->description}}</p>
-                                <div class="mt-6">
+                                <div class="w-full">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="font-extrabold text-xl text-white">{{$speaker->user->name}}</span>
+                                        @if($speaker->user->company && $speaker->user->company->is_sponsorship_approved)
+                                            @php $badge = $speaker->user->company->sponsorship_id; @endphp
+                                            <span class="ml-2 px-2 py-0.5 rounded-full text-xs font-bold {{$badgeColors[$badge] ?? ''}}">
+                                                {{ $badge === 1 ? 'Gold' : ($badge === 2 ? 'Silver' : ($badge === 3 ? 'Bronze' : '')) }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="text-gray-300 mb-1 text-base">{{$speaker->user->company->name ?? ''}}</div>
+                                    <div class="font-bold italic text-white text-base mb-1">{{$speaker->presentation->name ?? ''}}</div>
+                                    <div class="text-gray-400 text-sm">{{strlen($speaker->presentation->description) > 120 ? substr($speaker->presentation->description, 0, 120) . '...' : $speaker->presentation->description}}</div>
                                 </div>
                             </div>
-                            <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
         @else
-            <div class="bg-white dark:bg-gray-800 rounded-sm py-2">
-                <p class="text-center text-2xl font-bold">
+            <div class="bg-[#0F172A] rounded-xl py-8">
+                <p class="text-center text-2xl font-bold text-white">
                     There are no speakers available now.
                 </p>
             </div>
