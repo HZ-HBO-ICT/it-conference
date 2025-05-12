@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ApprovalStatus;
 use App\Models\Booth;
 use App\Models\Company;
 use App\Models\Presentation;
@@ -19,10 +18,10 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        Company::factory(5)->has(User::factory(1)->afterCreating(function ($user) {
+        $companies = Company::factory(5)->has(User::factory(1)->afterCreating(function ($user) {
             $role = Role::findByName('company representative');
             $user->assignRole($role);
-        }))->create();
+        }))->create(['is_approved' => false]);
 
         $companies = Company::factory(2)
             ->has(Booth::factory(1))
@@ -46,7 +45,6 @@ class CompanySeeder extends Seeder
         foreach ($company->users as $user) {
             $presentation = Presentation::factory()->create();
             $presentation->company_id = $company->id;
-            $presentation->approval_status = ApprovalStatus::APPROVED->value;
             $presentation->save();
             $user->joinPresentation($presentation, 'speaker');
         }
@@ -76,11 +74,7 @@ class CompanySeeder extends Seeder
         foreach ($companies as $company) {
             $presentation = Presentation::factory()->create();
             $presentation->company_id = $company->id;
-            $presentation->approval_status = ApprovalStatus::APPROVED->value;
             $presentation->save();
-
-            $company->approval_status = ApprovalStatus::APPROVED->value;
-            $company->save();
 
             foreach ($company->users as $user) {
                 $user->joinPresentation($presentation, 'speaker');

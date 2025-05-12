@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Crew;
 
-use App\Enums\ApprovalStatus;
 use App\Http\Controllers\Controller;
 use App\Mail\SponsorshipApprovedMailable;
 use App\Mail\SponsorshipDisapprovedMailable;
@@ -27,8 +26,7 @@ class SponsorshipController extends Controller
         }
 
         $companies = Company::whereNotNull('sponsorship_id')
-            ->orderByPriorityStatus(ApprovalStatus::AWAITING_APPROVAL, 'sponsorship_approval_status')
-            ->paginate(15);
+            ->orderBy('is_sponsorship_approved')->paginate(15);
 
         return view('crew.sponsorships.index', compact('companies'));
     }
@@ -42,7 +40,7 @@ class SponsorshipController extends Controller
             abort(403);
         }
 
-        $companies = Company::whereNull('sponsorship_id')->hasStatus(ApprovalStatus::APPROVED)->get();
+        $companies = Company::whereNull('sponsorship_id')->where('is_approved', 1)->get();
         $tiers = Sponsorship::all()->filter(function ($tier) {
             return $tier->areMoreSponsorsAllowed();
         });
@@ -67,7 +65,7 @@ class SponsorshipController extends Controller
         $company = Company::find($validated['company_id']);
         $company->update([
             'sponsorship_id' => $validated['sponsorship_id'],
-            'sponsorship_approval_status' => ApprovalStatus::APPROVED->value
+            'is_sponsorship_approved' => 1
         ]);
         $company->fresh();
 

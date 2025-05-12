@@ -2,7 +2,6 @@
 
 namespace App\View\Components\Dashboards;
 
-use App\Enums\ApprovalStatus;
 use App\Models\Presentation;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -19,7 +18,7 @@ class Crew extends Component
      */
     public function __construct()
     {
-        $this->numberOfPresentationRequests = Presentation::hasStatus(ApprovalStatus::AWAITING_APPROVAL)->count();
+        $this->numberOfPresentationRequests = Presentation::where('is_approved', 0)->count();
 
         $this->numberOfUnscheduledPresentations = Presentation::all()->filter(function ($presentation) {
             return !$presentation->isScheduled && $presentation->isApproved;

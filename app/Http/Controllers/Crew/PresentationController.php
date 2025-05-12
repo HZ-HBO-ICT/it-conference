@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Crew;
 
-use App\Enums\ApprovalStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePresentationRequest;
 use App\Jobs\NotifyPresentationRoles;
@@ -30,7 +29,7 @@ class PresentationController extends Controller
             abort(403);
         }
 
-        $presentations = Presentation::orderByPriorityStatus(ApprovalStatus::AWAITING_APPROVAL)
+        $presentations = Presentation::orderBy('is_approved')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
@@ -67,7 +66,7 @@ class PresentationController extends Controller
         $validated = $request->validated();
 
         $presentation = Presentation::create($request->validate(Presentation::rules()));
-        $presentation->approval_status = ApprovalStatus::APPROVED->value;
+        $presentation->is_approved = 1;
         $presentation->save();
 
         $user = User::find($validated['user_id']);

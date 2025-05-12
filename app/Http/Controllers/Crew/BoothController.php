@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Crew;
 
-use App\Enums\ApprovalStatus;
 use App\Http\Controllers\Controller;
 use App\Mail\BoothApprovedMailable;
 use App\Mail\BoothDisapprovedMailable;
@@ -22,7 +21,7 @@ class BoothController extends Controller
             abort(403);
         }
 
-        $booths = Booth::orderByPriorityStatus(ApprovalStatus::AWAITING_APPROVAL)->paginate(15);
+        $booths = Booth::orderBy('is_approved')->paginate(15);
 
         return view('crew.booths.index', compact('booths'));
     }
@@ -58,7 +57,7 @@ class BoothController extends Controller
             'additional_information' => ['nullable', 'max:255']
         ]);
 
-        $booth = Booth::create(array_merge($input, ['approval_status' => ApprovalStatus::APPROVED->value]));
+        $booth = Booth::create(array_merge($input, ['is_approved' => 1]));
 
         $template = 'You created a booth for the :company';
         return redirect(route('moderator.booths.index'))

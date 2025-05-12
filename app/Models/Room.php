@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  *
  *
- * @property int $id
- * @property string $name
- * @property int $max_participants
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DefaultPresentation> $defaultPresentations
  * @property-read int|null $default_presentations_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Presentation> $presentations
@@ -23,11 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereMaxParticipants($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Room extends Model

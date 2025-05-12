@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use App\Models\Edition;
 use App\Models\User;
@@ -80,7 +79,7 @@ class SponsorshipControllerTest extends TestCase
     public function event_organizer_can_store_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
+        $company = Company::factory()->create(['is_approved' => true]);
 
         $data = [
             'company_id' => $company->id,
@@ -93,7 +92,7 @@ class SponsorshipControllerTest extends TestCase
         $this->assertDatabaseHas('companies', [
             'id' => $company->id,
             'sponsorship_id' => $data['sponsorship_id'],
-            'sponsorship_approval_status' => ApprovalStatus::APPROVED->value,
+            'is_sponsorship_approved' => 1,
         ]);
     }
 
@@ -127,13 +126,13 @@ class SponsorshipControllerTest extends TestCase
         $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
             $role = Role::findByName('company representative');
             $user->assignRole($role);
-        }))->create(['approval_status' => ApprovalStatus::APPROVED->value,'sponsorship_id' => 1]);
+        }))->create(['is_approved' => 1,'sponsorship_id' => 1]);
 
         $response = $this->actingAs($user)
             ->post(route('moderator.sponsorships.approve', ['company' => $company, 'isApproved' => 1]));
 
         $response->assertRedirect(route('moderator.sponsorships.show', $company));
-        $this->assertEquals(ApprovalStatus::APPROVED->value, $company->refresh()->sponsorship_approval_status);
+        $this->assertEquals(1, $company->refresh()->is_sponsorship_approved);
     }
 
     /** @test */
@@ -149,7 +148,7 @@ class SponsorshipControllerTest extends TestCase
             ->post(route('moderator.sponsorships.approve', ['company' => $company, 'isApproved' => 0]));
 
         $response->assertRedirect(route('moderator.sponsorships.index'));
-        $this->assertEquals(ApprovalStatus::NOT_REQUESTED->value, $company->refresh()->sponsorship_approval_status);
+        $this->assertNull($company->refresh()->is_sponsorship_approved);
     }
 
     /** @test */

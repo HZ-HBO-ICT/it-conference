@@ -18,14 +18,14 @@ class EditionEventForm extends Form
 
     public $lowerBoundary;
 
-    #[Validate(['required', 'date', 'after:lowerBoundary', 'before:upperBoundary'])]
+    #[Validate(['required', 'date', 'after_or_equal:today', 'before:upperBoundary'])]
     public $start_at;
 
     #[Validate(['required', 'date', 'after:start_at', 'before:upperBoundary'])]
     public $end_at;
 
     protected $messages = [
-        'start_at.after' => 'The start date should be within the 12 months before the edition',
+        'start_at.after' => 'The start date should be at least from today.',
         'start_at.before' => 'The start date should be earlier than the start date of edition.',
         'end_at.after' => 'The end date should be later than start date.',
         'end_at.before' => 'The end date should be be earlier than the start date of edition.',
@@ -46,7 +46,7 @@ class EditionEventForm extends Form
         $this->start_at = $editionEvent->start_at ? $editionEvent->start_at->format('Y-m-d') : '';
         $this->end_at = $editionEvent->end_at ? $editionEvent->end_at->format('Y-m-d') : '';
         $this->upperBoundary = $this->edition->start_at;
-        $this->lowerBoundary = $this->edition->start_at->subMonths(12);
+        $this->lowerBoundary = Carbon::now()->subMonths(2);
     }
 
     /**

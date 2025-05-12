@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ApprovalStatus;
 use App\Models\Edition;
 use App\Models\UserPresentation;
 
@@ -28,9 +27,9 @@ class SpeakerController extends Controller
                     ->whereNotNull('timeslot_id');
             });
         } else {
-            // Otherwise, filter by approval
+            // Otherwise, filter by is_approved
             $query->whereHas('presentation', function ($query) {
-                $query->where('approval_status', ApprovalStatus::APPROVED->value);
+                $query->where('is_approved', true);
             });
         }
 

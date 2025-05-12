@@ -1,3 +1,7 @@
+@php
+    use App\Models\Sponsorship;
+@endphp
+
 <x-app-layout>
     <div class="flex flex-col overflow-hidden">
         <!-- The main banner -->
@@ -11,9 +15,9 @@
                         <h1 class="leading-extra-tight" style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);">
                             We are in IT together Conference
                         </h1>
-                        @if($goldSponsor && $edition)
+                        @if($goldSponsorCompany && $edition)
                             <h2 class="mt-3 pl-1 uppercase font-bold text-lg">
-                                Co-hosted by {{ $goldSponsor->name }}
+                                Co-hosted by {{ $goldSponsorCompany->name }}
                             </h2>
                         @endif
                     </div>
@@ -57,7 +61,7 @@
                             </h2>
                         @else
                             <h2 class="flex flex-wrap mt-8 uppercase font-medium text-2xl gap-12">Check back later for
-                                updates</h2>
+                                                                                                  updates</h2>
                         @endif
                         <br>
                         @guest()
@@ -155,8 +159,8 @@
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">SPEAKERS</h2>
                                 <p class="mt-4">During the conference you will have the chance to meet and speak to
-                                    our
-                                    speakers.</p>
+                                                our
+                                                speakers.</p>
                             </div>
                         </div>
                     </div>
@@ -181,7 +185,7 @@
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">PRESENTATIONS & WORKSHOPS</h2>
                                 <p class="mt-4">During the conference you can visit a lot of different workshops and
-                                    lectures.</p>
+                                                lectures.</p>
                             </div>
                         </div>
                     </div>
@@ -206,7 +210,7 @@
                             <div class="relative">
                                 <h2 class="text-2xl font-bold">COMPANIES</h2>
                                 <p class="mt-4">During the conference you will have the chance to meet different
-                                    companies.</p>
+                                                companies.</p>
                             </div>
                         </div>
                     </div>
@@ -221,75 +225,80 @@
                         </h2>
                         <div class="flex flex-col mb-4 text-left pl-4">
                             <div class="text-xl font-montserrat">
-                                @if($goldSponsor)
+                                @if(\App\Models\Sponsorship::find(1)->companies()->where('is_sponsorship_approved', true)->count() > 0)
                                     <div class="py-10">
                                         <h2 class="text-3xl mb-5 font-semibold">Gold sponsor</h2>
                                         <div class="flex flex-wrap">
-                                            <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
-                                                <a href="{{$goldSponsor->website}}"
-                                                   class="bg-gray-50 border h-56 p-5 w-full rounded-sm">
-                                                    @if($goldSponsor->logo_path)
-                                                        <img
-                                                            class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
-                                                            src="{{ url('storage/'. $goldSponsor->logo_path) }}"
-                                                            alt="Logo of {{$goldSponsor->name}}">
-                                                    @else
-                                                        <div
-                                                            class="h-full flex text-center items-center justify-center">
-                                                            <h2 class="text-6xl font-semibold">{{$goldSponsor->name}}</h2>
-                                                        </div>
-                                                    @endif
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if($silverSponsors->isNotEmpty())
-                                    <div class="pb-10">
-                                        <h2 class="text-2xl font-semibold mb-5">Silver sponsor</h2>
-                                        <div class="flex flex-wrap">
-                                            @foreach($silverSponsors as $company)
-                                                <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
-                                                    <a href="{{$company->website}}"
-                                                       class="bg-gray-50 border h-44 p-5 w-full rounded-sm">
-                                                        @if($company->logo_path)
-                                                            <img
-                                                                class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
-                                                                src="{{ url('storage/'. $company->logo_path) }}"
-                                                                alt="Logo of {{$company->name}}">
-                                                        @else
-                                                            <div
-                                                                class="h-full flex text-center items-center justify-center">
-                                                                <h2 class="text-5xl font-semibold">{{$company->name}}</h2>
-                                                            </div>
-                                                        @endif
-                                                    </a>
-                                                </div>
+                                            @foreach(\App\Models\Sponsorship::find(1)->companies as $company)
+                                                @if($company->is_sponsorship_approved)
+                                                    <div class="flex items-center justify-start mr-4 mb-4 w-1/2">
+                                                        <a href="{{$company->website}}"
+                                                           class="bg-gray-50 border h-56 p-5 w-full rounded-sm">
+                                                            @if($company->logo_path)
+                                                                <img
+                                                                    class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                                    src="{{ url('storage/'. $company->logo_path) }}"
+                                                                    alt="Logo of {{$company->name}}">
+                                                            @else
+                                                                <div class="h-full flex text-center items-center justify-center">
+                                                                    <h2 class="text-6xl font-semibold">{{$company->name}}</h2>
+                                                                </div>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>
                                 @endif
-                                @if($bronzeSponsors->isNotEmpty())
+                                @if(\App\Models\Sponsorship::find(2)->companies()->where('is_sponsorship_approved', true)->count() > 0)
+                                    <div class="pb-10">
+                                        <h2 class="text-2xl font-semibold mb-5">Silver sponsor</h2>
+                                        <div class="flex flex-wrap">
+                                            @foreach(\App\Models\Sponsorship::find(2)->companies as $company)
+                                                @if($company->is_sponsorship_approved)
+                                                    <div class="flex items-center justify-start mr-4 mb-4 w-1/3">
+                                                        <a href="{{$company->website}}"
+                                                           class="bg-gray-50 border h-44 p-5 w-full rounded-sm">
+                                                            @if($company->logo_path)
+                                                                <img
+                                                                    class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                                    src="{{ url('storage/'. $company->logo_path) }}"
+                                                                    alt="Logo of {{$company->name}}">
+                                                            @else
+                                                                <div class="h-full flex text-center items-center justify-center">
+                                                                    <h2 class="text-5xl font-semibold">{{$company->name}}</h2>
+                                                                </div>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                                @if(\App\Models\Sponsorship::find(3)->companies()->where('is_sponsorship_approved', true)->count() > 0)
                                     <div class="pb-10">
                                         <h2 class="text-xl mb-5 font-semibold">Bronze sponsor</h2>
                                         <div class="flex flex-wrap">
-                                            @foreach($bronzeSponsors as $company)
-                                                <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
-                                                    <a href="{{$company->website}}"
-                                                       class="bg-gray-50 border h-36 px-5 py-3 w-full rounded-sm">
-                                                        @if($company->logo_path)
-                                                            <img
-                                                                class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
-                                                                src="{{ url('storage/'. $company->logo_path) }}"
-                                                                alt="Logo of {{$company->name}}">
-                                                        @else
-                                                            <div
-                                                                class="h-full flex text-center items-center justify-center">
-                                                                <h2 class="text-3xl font-semibold">{{$company->name}}</h2>
-                                                            </div>
-                                                        @endif
-                                                    </a>
-                                                </div>
+                                            @foreach(\App\Models\Sponsorship::find(3)->companies as $company)
+                                                @if($company->is_sponsorship_approved)
+                                                    <div class="flex items-center justify-start mr-4 mb-4 w-1/4">
+                                                        <a href="{{$company->website}}"
+                                                           class="bg-gray-50 border h-36 px-5 py-3 w-full rounded-sm">
+                                                            @if($company->logo_path)
+                                                                <img
+                                                                    class="object-contain h-full w-full block dark:text-white transition ease-in-out hover:saturate-[1.25]"
+                                                                    src="{{ url('storage/'. $company->logo_path) }}"
+                                                                    alt="Logo of {{$company->name}}">
+                                                            @else
+                                                                <div class="h-full flex text-center items-center justify-center">
+                                                                    <h2 class="text-3xl font-semibold">{{$company->name}}</h2>
+                                                                </div>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>

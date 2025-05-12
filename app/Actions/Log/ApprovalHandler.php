@@ -2,7 +2,6 @@
 
 namespace App\Actions\Log;
 
-use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -18,14 +17,14 @@ class ApprovalHandler
      * @return void
      * @throws \ReflectionException
      */
-    public function execute($entity, $isApproved, $field = 'approval_status')
+    public function execute($entity, $isApproved, $field = 'is_approved')
     {
-        $status = $isApproved ? ApprovalStatus::APPROVED->value : ApprovalStatus::REJECTED->value;
+        $status = $isApproved ? 'approved' : 'rejected';
 
         $entity->disableLogging();
 
         $logMessage = '';
-        if ($field != 'approval_status') {
+        if ($field != 'is_approved') {
             $logMessage = $entity->name . "'s sponsorship has been {$status} by " . Auth::user()->name;
         } else {
             $entityType = (new \ReflectionClass($entity))->getShortName();
@@ -39,11 +38,10 @@ class ApprovalHandler
             ->event($status)
             ->log($logMessage);
 
-        if ($isApproved == ApprovalStatus::APPROVED->value) {
-            $entity->$field = $status;
+        if ($isApproved) {
+            $entity->$field = true;
             $entity->save();
-        } elseif ($field == 'approval_status') {
-            // TODO: Determine better "rejection" scenario
+        } elseif ($field == 'is_approved') {
             $entity->delete();
 
             if ($entity instanceof Company) {

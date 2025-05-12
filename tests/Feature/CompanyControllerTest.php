@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use App\Models\Edition;
 use App\Models\User;
@@ -204,13 +203,10 @@ class CompanyControllerTest extends TestCase
     public function event_organizer_can_approve_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()
-            ->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)
-            ->has(User::factory(1)
-            ->afterCreating(function ($user) {
-                $role = Role::findByName('company representative');
-                $user->assignRole($role);
-            }))->create();
+        $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => 1]));
@@ -218,7 +214,7 @@ class CompanyControllerTest extends TestCase
         $response->assertRedirect(route('moderator.companies.show', $company));
         $this->assertDatabaseHas('companies', [
             'id' => $company->id,
-            'approval_status' => ApprovalStatus::APPROVED->value
+            'is_approved' => true
         ]);
     }
 
@@ -226,13 +222,10 @@ class CompanyControllerTest extends TestCase
     public function event_organizer_can_reject_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $company = Company::factory()
-            ->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)
-            ->has(User::factory(1)
-            ->afterCreating(function ($user) {
-                $role = Role::findByName('company representative');
-                $user->assignRole($role);
-            }))->create();
+        $company = Company::factory()->has(User::factory(1)->afterCreating(function ($user) {
+            $role = Role::findByName('company representative');
+            $user->assignRole($role);
+        }))->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => 0]));
@@ -245,14 +238,15 @@ class CompanyControllerTest extends TestCase
     public function participant_cannot_approve_or_reject_company()
     {
         $user = User::factory()->create()->assignRole('participant');
-        $company = Company::factory()->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)->create();
+        $company = Company::factory()->create();
+        $company->is_approved = false;
+        $company->save();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.companies.approve', ['company' => $company, 'isApproved' => true]));
 
-        $company->refresh();
         $response->assertStatus(403);
-        $this->assertEquals(ApprovalStatus::AWAITING_APPROVAL->value, $company->approval_status);
+        $this->assertEquals(0, $company->is_approved);
     }
 
     /** @test */

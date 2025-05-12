@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -42,11 +40,6 @@ class ParticipantRegistrationSeeder extends Seeder
                     $user->joinPresentation($presentation);
                 }
             }
-
-            // 3. Change the event starting date so that the participant registration is open
-            optional(Edition::current())->getEvent('Participant registration')->update([
-                'start_at' => Carbon::today(),
-            ]);
         });
     }
 }

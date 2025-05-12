@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactUs;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
@@ -20,11 +21,20 @@ class ContactController extends Controller
     /**
      * validates and send the message to info@weareinittogether.nl
      */
-    public function send():RedirectResponse
+    public function send (Request $request)
     {
-        $data = request()->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255|min:3',
-            'email' => 'required|email',
+            'email' =>[
+                'required',
+                'email',
+                'max:255',
+                'min:3',
+                Rule::email()
+                    ->rfcCompliant(strict: false)
+                    ->validateMxRecord()
+                    ->preventSpoofing()
+            ],
             'subject' => 'required|string',
             'message' => 'required|string|min:8',
         ]);
