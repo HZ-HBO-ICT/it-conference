@@ -31,7 +31,7 @@ class ContactController extends Controller
                 'max:255',
                 'min:3',
                 Rule::email()
-                    ->rfcCompliant(strict: false)
+                    ->rfcCompliant( strict: false )
                     ->validateMxRecord()
                     ->preventSpoofing()
             ],

@@ -78,7 +78,7 @@
                         @csrf
                         @if(session('success'))
                             <div class="bg-green-500/10 text-green-400 p-4 rounded-lg mb-6">
-                                {{ session('success') }}
+                                {{ session( 'success' ) }}
                             </div>
                         @endif
 
