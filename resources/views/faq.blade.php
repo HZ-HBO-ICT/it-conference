@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="relative bg-[#070E1C] overflow-hidden min-h-screen px-4 py-12 flex flex-col items-center">
-        <h1 class="text-7xl font-extrabold text-yellow-400 mb-2 tracking-tight text-left w-full max-w-5xl" style="text-shadow: 0 0 16px #fff600;">FAQ</h1>
+        <h1 class="font-extrabold text-yellow-400 mb-2 tracking-tight text-left w-full max-w-5xl" style="font-size:5rem; text-shadow: 0 0 13px #fff600;">FAQ</h1>
         <div class="w-full max-w-5xl mb-10">
             <p class="text-lg text-white mb-6">Find answers to common questions about the We Are In IT Together Conference. If you can't find what you're looking for, please <a href="{{ route('contact') }}" class="text-[#7B61FF] font-bold underline hover:text-[#a18aff]">contact us here</a>.</p>
         </div>
