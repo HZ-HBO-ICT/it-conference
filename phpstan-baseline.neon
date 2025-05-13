@@ -439,18 +439,6 @@ parameters:
 			path: app/Console/Commands/UpsertMasterData.php
 
 		-
-			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Cannot access property \$representative on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 4
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
 			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
 			identifier: method.nonObject
 			count: 5
@@ -489,18 +477,6 @@ parameters:
 		-
 			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:store\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothApprovedMailable constructor expects App\\Models\\Company, App\\Models\\Company\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothDisapprovedMailable constructor expects App\\Models\\Company, App\\Models\\Company\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/Http/Controllers/Crew/BoothController.php
 
@@ -651,12 +627,6 @@ parameters:
 		-
 			message: '#^Method App\\Http\\Controllers\\Crew\\PresentationController\:\:store\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Crew/PresentationController.php
-
-		-
-			message: '#^Property App\\Models\\Presentation\:\:\$is_approved \(bool\) does not accept int\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/Http/Controllers/Crew/PresentationController.php
 
@@ -899,12 +869,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/RegistrationController.php
-
-		-
-			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: app/Http/Controllers/SpeakerController.php
 
 		-
 			message: '#^Method App\\Http\\Controllers\\SpeakerController\:\:index\(\) has no return type specified\.$#'
@@ -2977,12 +2941,6 @@ parameters:
 			path: app/Mail/UserInvitation.php
 
 		-
-			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Models/Booth.php
-
-		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2999,12 +2957,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Booth.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Sponsorship\:\:\$is_approved\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Company.php
 
 		-
 			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany\:\:role\(\)\.$#'
@@ -4585,12 +4537,6 @@ parameters:
 			path: database/seeders/CompanySeeder.php
 
 		-
-			message: '#^Property Database\\Seeders\\DatabaseSeeder\:\:\$roomNames has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: database/seeders/DatabaseSeeder.php
-
-		-
 			message: '#^Cannot call method activate\(\) on App\\Models\\Edition\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -5079,18 +5025,6 @@ parameters:
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
-			count: 1
-			path: tests/Unit/PresentationTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\PresentationTest\:\:test_that_participants_returns_the_users_attached_with_role_participant\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/PresentationTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\PresentationTest\:\:test_that_speakers_returns_the_users_attached_with_role_speaker\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: tests/Unit/PresentationTest.php
 

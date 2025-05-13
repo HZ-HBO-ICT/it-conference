@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Difficulty;
+use App\Enums\ApprovalStatus;
+use App\Models\Presentation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,11 +21,28 @@ class PresentationFactory extends Factory
         return [
             'name' => $this->faker->randomElement($this->presentationTopics),
             'description' => $this->faker->paragraph,
-            'is_approved' => $this->faker->boolean,
             'max_participants' => $this->faker->numberBetween(1, 200),
             'type' => $this->faker->boolean ? 'workshop' : 'lecture',
-            'difficulty_id' => $this->faker->numberBetween(1, 3)
+            'difficulty_id' => $this->faker->numberBetween(1, 3),
+            'approval_status' => $this->faker->boolean
+                ? ApprovalStatus::APPROVED->value
+                : ApprovalStatus::AWAITING_APPROVAL->value,
         ];
+    }
+
+    /**
+     * Specify the approval status of the entity
+     * @param ApprovalStatus|string $status
+     * @return Factory<Presentation>
+     */
+    public function setApprovalStatus(ApprovalStatus|string $status) :  Factory
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $this->state(function (array $attributes) use ($statusValue) {
+            return [
+                'approval_status' => $statusValue,
+            ];
+        });
     }
 
     public $presentationTopics = [
