@@ -1,31 +1,56 @@
 <x-app-layout>
-    <div class="relative bg-cover overflow-hidden min-h-screen">
-{{--        <div--}}
-{{--            class="before:absolute before:bg-linear-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>--}}
-
-        <h2 class="text-center dark:text-gray-50 text-gray-900 text-5xl font-extrabold py-12">
-            Frequently Asked Questions
-        </h2>
-        <div class="isolate px-6 py-6 max-w-7xl mx-auto my-5 border border-gray-100 rounded-sm bg-white dark:bg-gray-800 dark:border-gray-700">
-            <div class="text-center max-w-2xl mx-auto">
-                <p class="leading-7 text-base dark:text-gray-200">
-                    Have a different question and can’t find the answer you’re looking for? Reach out to our support team by emailing
-                    <a class="text-blue-600 hover:text-blue-400 visited:text-purple-600" href="mailto: info@weareinittogether.nl">info@weareinittogether.nl</a>
-                    and we’ll get back to you as soon as we can.
-                </p>
+    <div class="relative bg-[#070E1C] overflow-hidden min-h-screen px-4 py-12 flex flex-col items-center">
+        <h1 class="text-7xl font-extrabold text-yellow-400 mb-2 tracking-tight text-left w-full max-w-5xl" style="text-shadow: 0 0 16px #fff600;">FAQ</h1>
+        <div class="w-full max-w-5xl mb-10">
+            <p class="text-lg text-white mb-6">Find answers to common questions about the We Are In IT Together Conference. If you can't find what you're looking for, please <a href="{{ route('contact') }}" class="text-[#7B61FF] font-bold underline hover:text-[#a18aff]">contact us here</a>.</p>
+        </div>
+        <div class="w-full max-w-5xl flex flex-col gap-8">
+            <!-- Registration & Tickets Section -->
+            <div class="rounded-xl border border-gray-400 bg-[#0F172A] p-0 overflow-hidden">
+                <div class="px-8 py-4 border-b border-gray-400">
+                    <span class="text-2xl font-extrabold text-white">Registration & Tickets</span>
+                </div>
+                <div class="divide-y divide-gray-600">
+                    <details class="group">
+                        <summary class="px-8 py-4 cursor-pointer text-lg font-semibold text-white group-open:text-[#FFFF3C] transition-colors">How do I register for the conference?</summary>
+                        <div class="px-8 py-4 text-gray-200">You can register online via our registration page. Follow the instructions to complete your registration.</div>
+                    </details>
+                    <details class="group">
+                        <summary class="px-8 py-4 cursor-pointer text-lg font-semibold text-white group-open:text-[#FFFF3C] transition-colors">What is included?</summary>
+                        <div class="px-8 py-4 text-gray-200">Your ticket includes access to all sessions, workshops, and networking events.</div>
+                    </details>
+                    <details class="group">
+                        <summary class="px-8 py-4 cursor-pointer text-lg font-semibold text-white group-open:text-[#FFFF3C] transition-colors">Is it paid? Do I get a refund if I can't attend?</summary>
+                        <div class="px-8 py-4 text-gray-200">Please check our refund policy on the registration page for details about payments and refunds.</div>
+                    </details>
+                </div>
             </div>
-            <div class="m-5 md:mt-10 md:mb-20">
-                <dl class="grid-cols-1 gap-y-5 md:gap-x-10 md:gap-y-16 md:grid-cols-2 grid">
-                    @foreach(\App\Models\FrequentQuestion::all() as $faq)
-                        <div class="border rounded-sm border-gray-300 shadow-sm p-4 dark:bg-gray-800 dark:border-gray-700">
-                            <dt class="leading-7 font-semibold text-base dark:text-white">{{$faq->question}}</dt>
-                            <dd class="leading-7 mt-2 dark:text-gray-200">
-                                <x-markdown-viewer :content="$faq->answer" />
-                            </dd>
-                        </div>
-                    @endforeach
-                </dl>
+            <!-- Programme & Content Section -->
+            <div class="rounded-xl border border-gray-400 bg-[#0F172A] p-0 overflow-hidden">
+                <div class="px-8 py-4 border-b border-gray-400">
+                    <span class="text-2xl font-extrabold text-white">Programme & Content</span>
+                </div>
+                <div class="divide-y divide-gray-600">
+                    <details class="group">
+                        <summary class="px-8 py-4 cursor-pointer text-lg font-semibold text-white group-open:text-[#FFFF3C] transition-colors">How are speakers selected for the conference?</summary>
+                        <div class="px-8 py-4 text-gray-200">Speakers are selected by our committee based on their expertise and relevance to the conference themes.</div>
+                    </details>
+                    <details class="group">
+                        <summary class="px-8 py-4 cursor-pointer text-lg font-semibold text-white group-open:text-[#FFFF3C] transition-colors">Will presentations be recorded?</summary>
+                        <div class="px-8 py-4 text-gray-200">Some presentations will be recorded and made available after the event.</div>
+                    </details>
+                    <details class="group">
+                        <summary class="px-8 py-4 cursor-pointer text-lg font-semibold text-white group-open:text-[#FFFF3C] transition-colors">Can I suggest a topic or speaker for the conference?</summary>
+                        <div class="px-8 py-4 text-gray-200">Yes! Please <a href="{{ route('contact') }}" class="text-[#7B61FF] underline">contact us here</a> with your suggestions.</div>
+                    </details>
+                </div>
             </div>
+        </div>
+        <!-- Still have questions section -->
+        <div class="w-full max-w-5xl flex flex-col items-center mt-16">
+            <h3 class="text-2xl font-extrabold text-white mb-2 text-center">Still have questions?</h3>
+            <p class="text-white mb-6 text-center">Contact our support team and we'll get back to you as soon as possible.</p>
+            <a href="{{ route('contact') }}" class="bg-[#7B61FF] hover:bg-[#a18aff] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors">Contact Us</a>
         </div>
     </div>
 </x-app-layout>
