@@ -22,7 +22,7 @@ class ContactController extends Controller
     /**
      * validates and send the message to info@weareinittogether.nl
      */
-    public function send (Request $request): RedirectResponse
+    public function send(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'name' => 'required|string|max:255|min:3',
