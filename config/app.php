@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /* Used to make the email dynamic using the env */
+    'email' => env('MAIL_FROM_ADDRESS', 'info@weareinittogether.nl'),
+
 ];

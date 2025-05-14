@@ -20,7 +20,7 @@
                     <div class="bg-[#0B1221]/30 backdrop-blur-sm rounded-2xl p-8">
                         <h2 class="text-2xl font-bold text-white mb-4">Get in Touch</h2>
                         <p class="text-gray-400 mb-8">Have questions about the conference? We're here to help!</p>
-                        
+
                         <div class="space-y-6">
                             <div class="flex items-start space-x-3">
                                 <svg class="w-5 h-5 text-[#9333EA] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,6 +69,63 @@
                         </div>
                     </div>
                 </div>
+                <!-- Right Column - Contact Form -->
+                <div class="bg-[#0B1221]/30 backdrop-blur-sm rounded-2xl p-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">Send us a Message</h2>
+                    <p class="text-gray-400 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+                    <form action="{{ route('contact.send') }}" method="POST" class="space-y-6">
+                        @csrf
+                        @if(session('success'))
+                            <div class="bg-green-500/10 text-green-400 p-4 rounded-lg mb-6">
+                                {{ session( 'success' ) }}
+                            </div>
+                        @endif
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg bg-[#1a1f2e]/50 border-0 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#9333EA] @error('name') ring-2 ring-red-500 @enderror" placeholder="Your name" value="{{ old('name') }}">
+                                @error('name')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg bg-[#1a1f2e]/50 border-0 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#9333EA] @error('email') ring-2 ring-red-500 @enderror" placeholder="Your email" value="{{ old('email') }}">
+                                @error('email')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-400 mb-2">Subject</label>
+                            <select id="subject" name="subject" class="w-full px-4 py-3 rounded-lg bg-[#1a1f2e]/50 border-0 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#9333EA] @error('subject') ring-2 ring-red-500 @enderror">
+                                <option value="" disabled {{ old('subject') ? '' : 'selected' }}>Select a subject</option>
+                                <option value="general" {{ old('subject') == 'general' ? 'selected' : '' }}>General Inquiry</option>
+                                <option value="registration" {{ old('subject') == 'registration' ? 'selected' : '' }}>Registration</option>
+                                <option value="sponsorship" {{ old('subject') == 'sponsorship' ? 'selected' : '' }}>Sponsorship</option>
+                                <option value="speaking" {{ old('subject') == 'speaking' ? 'selected' : '' }}>Speaking Opportunity</option>
+                                <option value="other" {{ old('subject') == 'other' ? 'selected' : '' }}>Other</option>
+                            </select>
+                            @error('subject')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="6" class="w-full px-4 py-3 rounded-lg bg-[#1a1f2e]/50 border-0 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#9333EA] @error('message') ring-2 ring-red-500 @enderror" placeholder="Your message">{{ old('message') }}</textarea>
+                            @error('message')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="w-full bg-[#9333EA] hover:bg-[#A855F7] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200">
+                            Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
