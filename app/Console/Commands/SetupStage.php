@@ -22,7 +22,7 @@ class SetupStage extends Command
      */
     protected $description = 'Set up the database for a specific conference stage';
 
-    private array $availableStages = ['initial', 'company-registration', 'participant-registration'];
+    private array $availableStages = ['initial', 'company-registration', 'participant-registration', 'programme-released'];
 
     /**
      * Execute the console command.
@@ -57,6 +57,9 @@ class SetupStage extends Command
                     break;
                 case 'participant-registration':
                     Artisan::call('db:seed --class=ParticipantRegistrationSeeder');
+                    break;
+                case 'programme-released':
+                    Artisan::call('db:seed --class=ProgrammeReleasedSeeder');
                     break;
                 default:
                     throw new Exception('Invalid Stage was given');
