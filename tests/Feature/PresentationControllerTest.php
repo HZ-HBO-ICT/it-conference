@@ -2,14 +2,16 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Edition;
 use App\Models\Presentation;
+use App\Models\PresentationType;
 use App\Models\User;
-use Database\Seeders\PermissionSeeder;
+use Database\Seeders\PresentationTypeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\Activitylog\Models\Activity;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PresentationControllerTest extends TestCase
@@ -28,10 +30,11 @@ class PresentationControllerTest extends TestCase
             'start_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 09:00:00')),
             'end_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 17:00:00')),
         ]);
+        $this->seed(PresentationTypeSeeder::class);
     }
 
-    /** @test */
-    public function event_organizer_can_view_presentations()
+    #[Test]
+    public function event_organizer_can_view_presentations(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
 
@@ -42,8 +45,8 @@ class PresentationControllerTest extends TestCase
         $response->assertViewHas('presentations');
     }
 
-    /** @test */
-    public function participant_cannot_view_presentations()
+    #[Test]
+    public function participant_cannot_view_presentations(): void
     {
         $user = User::factory()->create()->assignRole('participant');
 
@@ -52,8 +55,8 @@ class PresentationControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
-    public function event_organizer_can_access_create_presentation_form()
+    #[Test]
+    public function event_organizer_can_access_create_presentation_form(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
 
@@ -63,8 +66,8 @@ class PresentationControllerTest extends TestCase
         $response->assertViewIs('crew.presentations.create');
     }
 
-    /** @test */
-    public function participant_cannot_access_create_presentation_form()
+    #[Test]
+    public function participant_cannot_access_create_presentation_form(): void
     {
         $user = User::factory()->create()->assignRole('participant');
 
@@ -73,15 +76,17 @@ class PresentationControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
-    public function event_organizer_can_store_presentation()
+    #[Test]
+    public function event_organizer_can_store_presentation(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
         $speaker = User::factory()->create()->assignRole('participant');
+        $presentationType = PresentationType::firstOrFail();
+
         $presentationData = [
             'name' => 'New Tech Trends',
             'description' => 'A look into future technologies.',
-            'type' => 'workshop',
+            'presentation_type_id' => $presentationType->id,
             'difficulty_id' => 1,
             'max_participants' => 50,
             'user_id' => $speaker->id
@@ -94,15 +99,17 @@ class PresentationControllerTest extends TestCase
         $this->assertDatabaseHas('presentations', ['name' => 'New Tech Trends']);
     }
 
-    /** @test */
-    public function participant_cannot_store_presentation()
+    #[Test]
+    public function participant_cannot_store_presentation(): void
     {
         $user = User::factory()->create()->assignRole('participant');
         $speaker = User::factory()->create()->assignRole('participant');
+        $presentationType = PresentationType::firstOrFail();
+
         $presentationData = [
             'name' => 'New Tech Trends',
             'description' => 'A look into future technologies.',
-            'type' => 'Tech',
+            'presentation_type_id' => $presentationType->id,
             'difficulty_id' => 1,
             'max_participants' => 50,
             'user_id' => $speaker->id
@@ -115,16 +122,15 @@ class PresentationControllerTest extends TestCase
         $this->assertDatabaseMissing('presentations', ['name' => $presentationData['name']]);
     }
 
-    /** @test */
-    public function event_organizer_receives_validation_errors_on_invalid_presentation_data()
+    #[Test]
+    public function event_organizer_receives_validation_errors_on_invalid_presentation_data() : void
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $speaker = User::factory()->create()->assignRole('participant');
 
         $invalidPresentationData = [
             'name' => '',
             'description' => '',
-            'type' => '',
+            'presentation_type_id' => '',
             'difficulty_id' => null,
             'max_participants' => null,
             'user_id' => 'abc'
@@ -134,14 +140,14 @@ class PresentationControllerTest extends TestCase
             ->post(route('moderator.presentations.store'), $invalidPresentationData);
 
         $response->assertSessionHasErrors([
-            'name', 'description', 'type', 'difficulty_id', 'max_participants'
+            'name', 'description', 'presentation_type_id', 'difficulty_id', 'max_participants'
         ]);
 
         $this->assertDatabaseMissing('presentations', ['name' => $invalidPresentationData['name']]);
     }
 
-    /** @test */
-    public function event_organizer_can_view_presentation_details()
+    #[Test]
+    public function event_organizer_can_view_presentation_details(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
         $presentation = Presentation::factory()->create();
@@ -153,8 +159,8 @@ class PresentationControllerTest extends TestCase
         $response->assertViewHas('presentation', $presentation);
     }
 
-    /** @test */
-    public function participant_cannot_view_presentation_details()
+    #[Test]
+    public function participant_cannot_view_presentation_details(): void
     {
         $user = User::factory()->create()->assignRole('participant');
         $presentation = Presentation::factory()->create();
@@ -164,49 +170,47 @@ class PresentationControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
-    public function event_organizer_can_approve_presentation()
+    #[Test]
+    public function event_organizer_can_approve_presentation(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $presentation = Presentation::factory()->create(['is_approved' => false]);
+        $presentation = Presentation::factory()->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
 
         $response->assertRedirect(route('moderator.presentations.show', $presentation));
-        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => true]);
+        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'approval_status' => ApprovalStatus::APPROVED->value]);
     }
 
-    /** @test */
-    public function event_organizer_can_reject_presentation()
+    #[Test]
+    public function event_organizer_can_reject_presentation(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
-        $presentation = Presentation::factory()->create(['is_approved' => true]);
+        $presentation = Presentation::factory()->setApprovalStatus(ApprovalStatus::APPROVED->value)->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 0]));
 
         $response->assertRedirect(route('moderator.presentations.index'));
-        $this->assertDatabaseMissing('presentations', ['id' => $presentation->id, 'is_approved' => false]);
+        $this->assertDatabaseMissing('presentations', ['id' => $presentation->id, 'approval_status' => ApprovalStatus::APPROVED->value]);
     }
 
-    /** @test */
-    public function participant_cannot_approve_or_reject_presentation()
+    #[Test]
+    public function participant_cannot_approve_or_reject_presentation(): void
     {
         $user = User::factory()->create()->assignRole('participant');
-        $presentation = Presentation::factory()->create();
-        $presentation->is_approved = false;
-        $presentation->save();
+        $presentation = Presentation::factory()->setApprovalStatus(ApprovalStatus::AWAITING_APPROVAL->value)->create();
 
         $response = $this->actingAs($user)
             ->post(route('moderator.presentations.approve', ['presentation' => $presentation, 'isApproved' => 1]));
 
         $response->assertStatus(403);
-        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'is_approved' => false]);
+        $this->assertDatabaseHas('presentations', ['id' => $presentation->id, 'approval_status' => ApprovalStatus::AWAITING_APPROVAL->value]);
     }
 
-    /** @test */
-    public function event_organizer_can_delete_presentation()
+    #[Test]
+    public function event_organizer_can_delete_presentation(): void
     {
         $user = User::factory()->create()->assignRole('event organizer');
         $presentation = Presentation::factory()->create();
@@ -218,8 +222,8 @@ class PresentationControllerTest extends TestCase
         $this->assertDatabaseMissing('presentations', ['id' => $presentation->id]);
     }
 
-    /** @test */
-    public function participant_cannot_delete_presentation()
+    #[Test]
+    public function participant_cannot_delete_presentation(): void
     {
         $user = User::factory()->create()->assignRole('participant');
         $presentation = Presentation::factory()->create();

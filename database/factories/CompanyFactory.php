@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApprovalStatus;
+use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\Sponsorship;
 use App\Models\UserPresentation;
@@ -26,12 +28,13 @@ class CompanyFactory extends Factory
             'motivation' => $this->faker->paragraph(),
             'phone_number' => $this->faker->phoneNumber,
             'postcode' => '1234 AB',
-            'is_approved' => true,
             'street' => $this->faker->streetAddress,
             'house_number' => $this->faker->numberBetween(0, 10),
             'city' => $this->faker->city,
             'logo_path' => 'logos/img.png',
-
+            'approval_status' => $this->faker->boolean
+                ? ApprovalStatus::APPROVED->value
+                : ApprovalStatus::AWAITING_APPROVAL->value,
         ];
     }
 
@@ -46,7 +49,23 @@ class CompanyFactory extends Factory
         return $this->state(function (array $attributes) use ($sponsorship) {
             return [
                 'sponsorship_id' => $sponsorship->id,
-                'is_sponsorship_approved' => true
+                'sponsorship_approval_status' => ApprovalStatus::APPROVED->value,
+                'approval_status' => ApprovalStatus::APPROVED->value,
+            ];
+        });
+    }
+
+    /**
+     * Specify the approval status of the entity
+     * @param ApprovalStatus|string $status
+     * @return Factory<Company>
+     */
+    public function setApprovalStatus(ApprovalStatus|string $status) :  Factory
+    {
+        $statusValue = $status instanceof ApprovalStatus ? $status->value : $status;
+        return $this->state(function (array $attributes) use ($statusValue) {
+            return [
+                'approval_status' => $statusValue,
             ];
         });
     }

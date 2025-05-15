@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Booth;
 
+use App\Enums\ApprovalStatus;
 use App\Livewire\Forms\BoothForm;
 use App\Models\Booth;
 use App\Models\Company;
@@ -36,7 +37,9 @@ class CreateBooth extends Component
      */
     public function mount()
     {
-        $this->companies = Company::whereDoesntHave('booth')->where('is_approved', '=', '1')->get();
+        $this->companies = Company::whereDoesntHave('booth')
+            ->hasStatus(ApprovalStatus::APPROVED)
+            ->get();
         $this->company = $this->companies->first();
         $this->isDropdownVisible = false;
         $this->users = optional($this->company)->users;
@@ -61,7 +64,7 @@ class CreateBooth extends Component
             'length' => $this->length,
             'additional_information' => $this->additionalInformation,
             'company_id' => $this->company->id,
-            'is_approved' => true
+            'approval_status' => ApprovalStatus::APPROVED->value
         ];
 
         Booth::create($boothData);

@@ -1,12 +1,14 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
+const safelist = require('./tailwind.safelist.json');
 
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/wire-elements/modal/resources/views/*.blade.php',
+        './vendor/wire-elements/modal/src/ModalComponent.php',
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
@@ -91,8 +93,8 @@ export default {
         'bg-apricot-peach-200',
         'hover:bg-apricot-peach-300',
         'dark:bg-apricot-peach-700/50',
-        'dark:hover:bg-apricot-peach-600/75'
-
+        'dark:hover:bg-apricot-peach-600/75',
+        safelist
     ],
     theme: {
         extend: {

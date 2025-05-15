@@ -15,23 +15,24 @@ return new class extends Migration {
 
             $table->string('name');
             $table->text('description');
-            $table->boolean('is_approved')->default(false);
+            $table->string('approval_status')->default('awaiting_approval');
             $table->unsignedInteger('max_participants')
                 ->comment('The max number of participants that the presenter allows;
                 If left empty it would be based on the room capacity')
                 ->nullable();
-            $table->string('type')
-                ->comment('Can be only lecture or workshop');
             $table->string('file_path', 2048)->nullable()
                 ->comment('Path to the uploaded presentation by the speaker');
             $table->string('file_original_name')->nullable();
             $table->time('start')->nullable();
 
+            $table->unsignedBigInteger('presentation_type_id');
             $table->unsignedBigInteger('timeslot_id')->nullable();
             $table->unsignedBigInteger('room_id')->nullable();
             $table->unsignedBigInteger('difficulty_id')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
 
+            $table->foreign('presentation_type_id')->references('id')->on('presentation_types')
+                ->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('timeslot_id')->references('id')->on('timeslots')
                 ->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('room_id')->references('id')->on('rooms')
