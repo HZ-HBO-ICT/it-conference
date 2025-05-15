@@ -3,11 +3,14 @@
 namespace App\Livewire\Schedule;
 
 use App\Enums\ApprovalStatus;
+use App\Models\Edition;
 use App\Models\Presentation;
+use App\Models\PresentationType;
 use App\Models\Room;
 use App\Models\Sponsorship;
 use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -18,8 +21,9 @@ class GridParentComponent extends Component
     public $rooms;
     public $timeslots;
     public $unscheduledPresentations;
-    public $lectureCount;
-    public $workshopCount;
+
+    /** @var Collection<int, PresentationType> */
+    public $presentationTypes;
 
     /**
      * Initializes the component
@@ -29,6 +33,7 @@ class GridParentComponent extends Component
     {
         $this->rooms = Room::all();
         $this->timeslots = Timeslot::all();
+        $this->presentationTypes = optional(Edition::current())->presentationTypes;
         $this->refreshUnscheduledPresentations();
     }
 
@@ -42,9 +47,6 @@ class GridParentComponent extends Component
         $this->unscheduledPresentations = Presentation::where(function ($presentation) {
             return $presentation->whereNull(['timeslot_id', 'room_id', 'start']);
         })->hasStatus(ApprovalStatus::APPROVED)->get();
-
-        $this->lectureCount = $this->unscheduledPresentations->where('type', 'lecture')->count();
-        $this->workshopCount = $this->unscheduledPresentations->where('type', 'workshop')->count();
     }
 
     /**

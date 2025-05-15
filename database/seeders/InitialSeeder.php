@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\EditionEvent;
+use App\Models\PresentationType;
 use App\Models\Timeslot;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -56,5 +57,8 @@ class InitialSeeder extends Seeder
         ]);
 
         Timeslot::generateTimeslots();
+
+        // 4. Seed with the presentation type (connected to the edition)
+        $this->call([PresentationTypeSeeder::class]);
     }
 }
