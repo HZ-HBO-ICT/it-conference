@@ -27,10 +27,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $approval_status
  * @property int|null $max_participants The max number of participants that the presenter allows;
  *                 If left empty it would be based on the room capacity
- * @property string $type Can be only lecture or workshop
  * @property string|null $file_path Path to the uploaded presentation by the speaker
  * @property string|null $file_original_name
  * @property string|null $start
+ * @property int $presentation_type_id
  * @property int|null $timeslot_id
  * @property int|null $room_id
  * @property int|null $difficulty_id
@@ -47,18 +47,20 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read mixed $is_approved
  * @property-read mixed $is_scheduled
  * @property-read mixed $participants
+ * @property-read \App\Models\PresentationType $presentationType
  * @property-read mixed $remaining_capacity
  * @property-read \App\Models\Room|null $room
  * @property-read mixed $speakers
  * @property-read mixed $speakers_name
  * @property-read \App\Models\Timeslot|null $timeslot
+ * @property-read mixed $type
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserPresentation> $userPresentations
  * @property-read int|null $user_presentations_count
  * @method static \Database\Factories\PresentationFactory factory($count = null, $state = [])
- * @method static Builder<static>|Presentation hasStatus($status, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Presentation hasStatus(\App\Enums\ApprovalStatus|string $status, string $fieldName = 'approval_status')
  * @method static Builder<static>|Presentation newModelQuery()
  * @method static Builder<static>|Presentation newQuery()
- * @method static Builder<static>|Presentation orderByPriorityStatus($approvalStatus, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Presentation orderByPriorityStatus(\App\Enums\ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status')
  * @method static Builder<static>|Presentation query()
  * @method static Builder<static>|Presentation whereApprovalStatus($value)
  * @method static Builder<static>|Presentation whereCompanyId($value)
@@ -71,10 +73,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static Builder<static>|Presentation whereId($value)
  * @method static Builder<static>|Presentation whereMaxParticipants($value)
  * @method static Builder<static>|Presentation whereName($value)
+ * @method static Builder<static>|Presentation wherePresentationTypeId($value)
  * @method static Builder<static>|Presentation whereRoomId($value)
  * @method static Builder<static>|Presentation whereStart($value)
  * @method static Builder<static>|Presentation whereTimeslotId($value)
- * @method static Builder<static>|Presentation whereType($value)
  * @method static Builder<static>|Presentation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -84,7 +86,7 @@ class Presentation extends Model
     use LogsActivity;
     use HasApprovalStatus;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
+    protected $fillable = ['name', 'max_participants', 'description', 'presentation_type_id', 'difficulty_id', 'file_path',
         'company_id', 'room_id', 'timeslot_id', 'start', 'approval_status'];
 
     /**
@@ -97,8 +99,8 @@ class Presentation extends Model
             'name' => 'required|string|min:1|max:255',
             'max_participants' => 'required|numeric|min:1|max:999',
             'description' => 'required|string|min:1|max:300',
-            'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required|numeric|exists:difficulties,id',
+            'presentation_type_id' => 'required|numeric|exists:presentation_types,id',
         ];
     }
 
@@ -141,6 +143,15 @@ class Presentation extends Model
     public function difficulty(): BelongsTo
     {
         return $this->belongsTo(Difficulty::class);
+    }
+
+    /**
+     * Establishes a relationship between the Presentation and the PresentationType
+     * @return BelongsTo<PresentationType, $this>
+     */
+    public function presentationType(): BelongsTo
+    {
+        return $this->belongsTo(PresentationType::class);
     }
 
     /**
@@ -238,6 +249,17 @@ class Presentation extends Model
                     ->where('role', 'speaker');
             })->orderBy('created_at')
                 ->first()
+        );
+    }
+
+    /**
+     * Returns the type name of the presentation
+     * @return Attribute<string, never>
+     */
+    public function type(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => optional($this->presentationType)->name,
         );
     }
 

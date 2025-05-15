@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 use App\Enums\ApprovalStatus;
 use App\Models\Company;
+use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\EditionEvent;
+use App\Models\PresentationType;
+use App\Models\Timeslot;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -41,7 +44,7 @@ class InitialSeeder extends Seeder
             'company_id' => $company->id,
         ]);
         $user->markEmailAsVerified();
-        $user->assignRole('company representative');
+        $user->assignRole(['participant', 'company representative']);
 
         // 3. Seed the participant user
         $user = User::create([
@@ -58,5 +61,30 @@ class InitialSeeder extends Seeder
         // 5. Retrieve the created edition and activate it
         $edition = Edition::first();
         $edition->activate();
+
+        // 6. Create default opening and closing presentations
+        DefaultPresentation::create([
+            'name' => 'Opening presentation',
+            'description' => 'This is the opening presentation!',
+            'start' => '08:00:00',
+            'end' => '9:30:00',
+            'type' => 'opening',
+            'room_id' => '1',
+        ]);
+
+        DefaultPresentation::create([
+            'name' => 'Closing presentation',
+            'description' => 'This is the closing presentation!',
+            'start' => '16:00:00',
+            'end' => '17:30:00',
+            'type' => 'closing',
+            'room_id' => '1',
+        ]);
+
+        // 7. Generates timeslots
+        Timeslot::generateTimeslots();
+
+        // 8. Seed with the presentation type (connected to the edition)
+        $this->call([PresentationTypeSeeder::class]);
     }
 }

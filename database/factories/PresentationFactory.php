@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ApprovalStatus;
 use App\Models\Presentation;
+use App\Models\PresentationType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class PresentationFactory extends Factory
             'name' => $this->faker->randomElement($this->presentationTopics),
             'description' => $this->faker->paragraph,
             'max_participants' => $this->faker->numberBetween(1, 200),
-            'type' => $this->faker->boolean ? 'workshop' : 'lecture',
+            'presentation_type_id' => $this->faker->randomElement(PresentationType::pluck('id')->toArray()),
             'difficulty_id' => $this->faker->numberBetween(1, 3),
             'approval_status' => $this->faker->boolean
                 ? ApprovalStatus::APPROVED->value
