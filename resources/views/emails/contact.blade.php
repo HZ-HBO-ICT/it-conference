@@ -1,10 +1,10 @@
 <x-mail::message>
-    # You've received a contact request!
+# You've received a contact request!
 
-    # Name: {{ $data['name'] }}
-    # Email: {{ $data['email'] }}
+# Name: {{ $data['name'] }}
+# Email: {{ $data['email'] }}
 
-    # Message:
+# Message:
     {{ $data['message'] }}
 
     Thanks,
