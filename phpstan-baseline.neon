@@ -2023,42 +2023,6 @@ parameters:
 			path: app/Livewire/Forms/KeynoteForm.php
 
 		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$description has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$difficulty_id has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$max_participants has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$name has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$presentation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$type has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
 			message: '#^Method App\\Livewire\\Forms\\RoomForm\:\:setRoom\(\) has parameter \$room with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -2599,12 +2563,6 @@ parameters:
 			path: app/Livewire/Schedule/GridParentComponent.php
 
 		-
-			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$lectureCount has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
 			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$rooms has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -2618,12 +2576,6 @@ parameters:
 
 		-
 			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$unscheduledPresentations has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
-			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$workshopCount has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Schedule/GridParentComponent.php
@@ -4727,90 +4679,6 @@ parameters:
 			identifier: property.notFound
 			count: 2
 			path: tests/Feature/PasswordResetTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_access_create_presentation_form\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_approve_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_delete_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_reject_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_store_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_view_presentation_details\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_view_presentations\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_receives_validation_errors_on_invalid_presentation_data\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_access_create_presentation_form\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_approve_or_reject_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_delete_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_store_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_view_presentation_details\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_view_presentations\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
 
 		-
 			message: '#^Access to an undefined property Livewire\\Features\\SupportTesting\\Testable\:\:\$state\.$#'

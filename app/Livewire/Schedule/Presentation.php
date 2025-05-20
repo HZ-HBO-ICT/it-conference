@@ -37,7 +37,7 @@ class Presentation extends Component
      */
     protected function calculateHeightInREM()
     {
-        return $this->presentation->duration * (14 / 30) * 0.25;
+        return $this->presentation->presentationType->duration * (14 / 30) * 0.25;
     }
 
     /**
@@ -72,7 +72,7 @@ class Presentation extends Component
      */
     protected function getColors()
     {
-        return $this->presentation->type == 'lecture' ? 'bg-crew-300' : 'bg-apricot-peach-300';
+        return "bg-{$this->presentation->presentationType->colour}-300";
     }
 
     /**
