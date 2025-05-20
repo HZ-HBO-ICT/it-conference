@@ -1,150 +1,106 @@
 @php
-    $borderColor = 'bg-linear-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
-    $linkColor = 'text-blue-400 hover:text-blue-600';
-    $iconColor = 'stroke-blue-400 dark:stroke-blue-400';
+    $tiers = [
+        1 => ['label' => 'Gold sponsor', 'badge' => 'Gold', 'color' => 'bg-yellow-400 text-yellow-900', 'border' => 'border-yellow-400'],
+        2 => ['label' => 'Silver sponsors', 'badge' => 'Silver', 'color' => 'bg-gray-300 text-gray-900', 'border' => 'border-gray-300'],
+        3 => ['label' => 'Bronze sponsors', 'badge' => 'Bronze', 'color' => 'bg-amber-900 text-amber-100', 'border' => 'border-amber-900'],
+    ];
+    $grouped = $companies->where('is_sponsorship_approved', true)->groupBy('sponsorship_id');
 @endphp
 
 <x-app-layout>
-    <div class="container mx-auto px-6 py-12">
-        <h2 class="text-center text-gray-900 dark:text-gray-50 text-5xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
-            Our Companies
-        </h2>
-        @if(!$companies->isEmpty())
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                @foreach($companies as $company)
-                    @php
-                        if($company->is_sponsorship_approved) {
-                            switch ($company->sponsorship_id) {
-                                case 1:
-                                    $borderColor = 'bg-linear-to-r from-yellow-300 to-yellow-600'; // Gold
-                                    $linkColor = 'text-yellow-400 hover:text-yellow-500';
-                                    $iconColor = 'stroke-yellow-400 hover:stroke-yellow-500';
-                                    break;
-                                case 2:
-                                    $borderColor = 'bg-linear-to-r from-gray-300 to-gray-600'; // Silver
-                                    $linkColor = 'text-gray-600 hover:text-gray-700';
-                                    $iconColor = 'stroke-gray-600 hover:stroke-gray-700';
-                                    break;
-                                case 3:
-                                    $borderColor = 'bg-linear-to-r from-orange-300 to-orange-600'; // Bronze
-                                    $linkColor = 'text-orange-400 hover:text-orange-500';
-                                    $iconColor = 'stroke-orange-400 hover:stroke-orange-500';
-                                    break;
-                            }
-                        } else {
-                            $borderColor = 'bg-linear-to-r from-blue-300 via-blue-400 to-blue-500'; // Default
-                            $linkColor = 'text-blue-400 hover:text-blue-600';
-                            $iconColor = 'stroke-blue-400 dark:stroke-blue-400';
-                        }
-                    @endphp
-                    <a href="{{route('companies.show', $company)}}" class="{{$linkColor}}">
-                        <div
-                                class="relative min-h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all hover:bg-gray-100 dark:hover:bg-gray-900">
-                            <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-                            <div class="p-8 flex flex-col items-center">
-                                <div class="relative w-56 h-56 mb-6">
-                                    @if($company->logo_path)
-                                        <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                        <img class="relative w-56 h-56 rounded-full object-contain {{$company->dark_logo_path ? 'dark:hidden' : ''}}"
-                                             src="{{url('storage/'. $company->logo_path) }}"
-                                             alt="Profile picture of {{$company->name}}">
-                                        @if($company->dark_logo_path)
-                                            <img class="relative w-56 h-56 rounded-full object-contain hidden dark:block"
-                                                 src="{{url('storage/'. $company->dark_logo_path) }}"
-                                                 alt="Profile picture of {{$company->name}}">
-                                        @endif
-                                    @else
-                                        <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1"
-                                             stroke="gray" aria-hidden="true" class="w-56 h-56 {{$iconColor}}">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                        </svg>
-                                    @endif
-                                </div>
-                                <h3 class="font-bold text-2xl text-gray-900 dark:text-white text-center">{{$company->name}}</h3>
-                                <p class="mt-4 text-gray-600 dark:text-gray-400 text-center">{{strlen($company->description) > 165 ? substr($company->description, 0, 165) . '...' : $company->description}}</p>
+    <div class="min-h-screen bg-[#0a0e1a] py-16 px-4 sm:px-8 relative overflow-hidden">
+        <!-- Colorful Blobs Background -->
+        <div class="absolute top-[-120px] left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/4 right-[-100px] w-80 h-80 bg-yellow-300 opacity-20 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-32 left-1/3 w-72 h-72 bg-purple-500 opacity-30 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-10 right-40 w-80 h-80 bg-pink-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-green-400 opacity-25 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/3 left-1/5 w-64 h-64 bg-red-400 opacity-35 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-400 opacity-30 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-20 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        <!-- End Blobs -->
+
+        <div class="relative z-10">
+            <h1 class="text-6xl font-extrabold text-center mb-4 uppercase"
+                style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">
+                Companies
+            </h1>
+            <p class="text-center text-lg text-gray-200 max-w-3xl mx-auto mb-12">
+                We're proud to partner with leading technology companies who are driving innovation in the industry. Visit their booths at the conference to learn more about their products, services, and career opportunities.
+            </p>
+
+            <div class="max-w-7xl mx-auto">
+                @foreach($tiers as $tierId => $tier)
+                    @if(isset($grouped[$tierId]) && $grouped[$tierId]->count())
+                        <div class="mb-12">
+                            <div class="flex items-center gap-4 mb-6">
+                                <h2 class="text-3xl font-extrabold text-white">{{ $tier['label'] }}</h2>
+                                <span class="px-3 py-1 rounded-full text-sm font-semibold {{ $tier['color'] }}">{{ $tier['badge'] }}</span>
                             </div>
-                            <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                @foreach($grouped[$tierId] as $company)
+                                    <a href="{{ route('companies.show', $company) }}" class="block hover:scale-[1.02] transition-transform">
+                                        <div class="border rounded-xl p-8 bg-[#101426] {{ $tier['border'] }} flex flex-col items-start min-h-[220px]">
+                                            <div class="w-full flex justify-center mb-6">
+                                                @if($company->logo_path)
+                                                    <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 object-contain rounded bg-white p-2 shadow" style="max-width: 220px;" />
+                                                @else
+                                                    <div class="h-24 w-48 bg-gray-700 rounded flex items-center justify-center">
+                                                        <span class="text-gray-400">Logo</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div>
+                                                <div class="font-extrabold text-2xl text-white mb-1">{{ $company->name }}</div>
+                                                <div class="text-gray-300 text-base">{{ $company->description }}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
-                    </a>
+                    @endif
                 @endforeach
-            </div>
-        @else
-            <div class="bg-white dark:bg-gray-800 rounded-sm py-2">
-                <p class="text-center text-2xl font-bold">
-                    There are no companies available right now.
-                </p>
-            </div>
-    @endif
 
-{{--    <div class="relative bg-cover overflow-hidden min-h-screen">--}}
-{{--        <div--}}
-{{--            class="before:absolute before:bg-linear-to-br before:from-gradient-yellow before:via-gradient-pink before:via-gradient-purple before:to-gradient-blue before:opacity-70 before:w-full before:h-full"></div>--}}
-{{--        @if(!$teams->isEmpty())--}}
-{{--            <div--}}
-{{--                class="isolate px-6 py-6 max-w-7xl mx-auto my-5 border border-gray-100 rounded-sm bg-white dark:bg-gray-800 dark:border-gray-700">--}}
-{{--                <div class="text-center max-w-2xl mx-auto mb-5">--}}
-{{--                    <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">Conference Line-up</h2>--}}
-{{--                </div>--}}
-{{--                <ul class="grid-cols-1 gap-y-5 md:gap-x-8 md:gap-y-8 md:grid-cols-3 max-w-none mx-0 grid" role="list">--}}
-{{--                    @foreach ($teams as $team)--}}
-{{--                        <li class="px-3 py-6 lg:px-10 lg:py-8 rounded-2xl border-2 shadow dark:bg-gray-800--}}
-{{--                    @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold--}}
-{{--                    @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver--}}
-{{--                    @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze--}}
-{{--                    @else border-gray-200 dark:border-gray-500 @endif">--}}
-{{--                            <a href="{{route('companies.show', $team)}}">--}}
-{{--                                @if($team->logo_path)--}}
-{{--                                    <img class="object-scale-down p-2 @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold--}}
-{{--                            @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver--}}
-{{--                            @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze--}}
-{{--                            @else border-gray-200 dark:border-gray-500 @endif w-56 h-56 mx-auto my-auto max-w-full block dark:text-white"--}}
-{{--                                         src="{{ url('storage/'. $team->logo_path) }}" alt="Logo of {{$team->name}}">--}}
-{{--                                @else--}}
-{{--                                    @php--}}
-{{--                                        $color = '';--}}
-{{--                                         if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) $color='#FFD700';--}}
-{{--                                         elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) $color='#C0C0C0';--}}
-{{--                                         elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) $color='#CD7F32';--}}
-{{--                                         else $color='#60a5fa'--}}
-{{--                                    @endphp--}}
-{{--                                    <div--}}
-{{--                                        class="flex items-center justify-center w-56 h-56 mx-auto my-auto max-w-full block dark:text-white--}}
-{{--                                @if ($team->sponsor_tier_id === 1 && $team->is_sponsor_approved === 1) border-gold dark:border-gold--}}
-{{--                                @elseif ($team->sponsor_tier_id === 2 && $team->is_sponsor_approved === 1) border-silver dark:border-silver--}}
-{{--                                @elseif ($team->sponsor_tier_id === 3 && $team->is_sponsor_approved === 1) border-bronze dark:border-bronze--}}
-{{--                                @else border-blue-400 dark:border-blue-400 @endif">--}}
-{{--                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"--}}
-{{--                                             stroke-width="1.5"--}}
-{{--                                             stroke="{{$color}}" aria-hidden="true" class="w-24 h-24">--}}
-{{--                                            <path stroke-linecap="round" stroke-linejoin="round"--}}
-{{--                                                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </div>--}}
-{{--                                @endif--}}
-{{--                                <h3 class="tracking-tight leading-7 font-semibold text-base mt-6 text-center dark:text-white">{{$team->name}}</h3>--}}
-{{--                                <p class="leading-6 text-sm text-center dark:text-gray-200">--}}
-{{--                                    {{substr($team->description, 0, 70) . '...' }}--}}
-{{--                                </p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    @endforeach--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        @else--}}
-{{--            <div--}}
-{{--                class="isolate px-6 py-6 max-w-7xl mx-auto my-5 border border-gray-100 rounded-sm bg-white dark:bg-gray-800 dark:border-gray-700">--}}
-{{--                <div class="text-center max-w-2xl mx-auto">--}}
-{{--                    <h2 class="tracking-tight leading-10 font-bold text-2xl dark:text-white">There are currently--}}
-{{--                                                                                             no--}}
-{{--                                                                                             companies--}}
-{{--                                                                                             registered. Check--}}
-{{--                                                                                             back later!</h2>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endif--}}
-{{--    </div>--}}
+                {{-- All companies section --}}
+                @php
+                    $allCompanies = $companies->where('is_sponsorship_approved', true);
+                @endphp
+                @if($allCompanies->count())
+                    <div class="mb-12">
+                        <h2 class="text-3xl font-extrabold text-white mb-6">All companies</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            @foreach($allCompanies as $company)
+                                <a href="{{ route('companies.show', $company) }}" class="block hover:scale-[1.02] transition-transform">
+                                    <div class="border rounded-xl p-8 bg-[#101426] flex flex-col items-start min-h-[220px]">
+                                        <div class="w-full flex justify-center mb-6">
+                                            @if($company->logo_path)
+                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 object-contain rounded bg-white p-2 shadow" style="max-width: 220px;" />
+                                            @else
+                                                <div class="h-24 w-48 bg-gray-700 rounded flex items-center justify-center">
+                                                    <span class="text-gray-400">Logo</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <div class="font-extrabold text-2xl text-white mb-1">{{ $company->name }}</div>
+                                            <div class="text-gray-300 text-base">{{ $company->description }}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </div>
 
+            @if($companies->where('is_sponsorship_approved', true)->count() === 0)
+                <div class="bg-[#101426] rounded-xl py-8 mt-12">
+                    <p class="text-center text-2xl font-bold text-white">
+                        There are no companies available right now.
+                    </p>
+                </div>
+            @endif
+        </div>
+    </div>
 </x-app-layout>
