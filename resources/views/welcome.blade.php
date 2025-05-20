@@ -36,9 +36,9 @@
                                 <span class="text-accent-yellow uppercase" style="text-shadow: 0 0 5px #e2ff32;">Conference</span>
                                 <span class="text-accent-pink uppercase" style="text-shadow: 0 0 5px #ff3b9a;">2025</span>
                             </div>
-                            <div class="relative w-full">
-                                <span class="absolute left-32 text-xl text-white">Co-hosted by YourSurprise</span>
-                                <span class="absolute right-32 text-xl text-white">Powered by New Waves</span>
+                            <div class="flex justify-center gap-16 mt-10">
+                                <span class="text-xl text-white">Co-hosted by YourSurprise</span>
+                                <span class="text-xl text-white">Powered by New Waves</span>
                             </div>
                         </div>
                         <div class="mt-12 text-gray-400">
@@ -93,7 +93,7 @@
                         <h2 class="text-4xl font-bold text-white mb-12">What to expect</h2>
                         <div class="grid grid-cols-3 gap-8">
                             <!-- Speakers Card -->
-                            <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark to-accent-purple">
+                            <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark via-accent-cyan/20 to-accent-cyan/40">
                                 <div class="p-8">
                                     <h3 class="text-accent-cyan text-2xl font-bold mb-4">SPEAKERS</h3>
                                     <p class="text-white mb-8">Industry leaders and innovators. Find the chance to connect with the best in our industry.</p>
@@ -107,7 +107,7 @@
                             </div>
 
                             <!-- Presentations Card -->
-                            <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark to-accent-pink">
+                            <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark via-accent-pink/20 to-accent-pink/40">
                                 <div class="p-8">
                                     <h3 class="text-accent-pink text-2xl font-bold mb-4">PRESENTATIONS & WORKSHOPS</h3>
                                     <p class="text-white mb-8">Cutting edge-topics and hands-on workshops to enhance your skills.</p>
