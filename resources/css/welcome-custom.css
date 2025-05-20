@@ -1,0 +1,48 @@
+@keyframes float-slow {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(100px, 50px);
+    }
+}
+@keyframes float-slower {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-100px, -50px);
+    }
+}
+.animate-float-slow {
+    animation: float-slow 20s ease-in-out infinite;
+}
+.animate-float-slower {
+    animation: float-slower 25s ease-in-out infinite;
+}
+.bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-stops));
+}
+@keyframes blob1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    20% { transform: translate(80px, 60px) scale(1.12); }
+    40% { transform: translate(-60px, 100px) scale(0.95); }
+    60% { transform: translate(-100px, -40px) scale(1.08); }
+    80% { transform: translate(60px, -80px) scale(1.03); }
+}
+@keyframes blob2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    15% { transform: translate(-60px, 80px) scale(1.13); }
+    35% { transform: translate(90px, -60px) scale(0.92); }
+    55% { transform: translate(-80px, 60px) scale(1.09); }
+    75% { transform: translate(40px, -100px) scale(1.05); }
+}
+@keyframes blob3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(100px, -60px) scale(1.15); }
+    50% { transform: translate(-80px, 80px) scale(0.9); }
+    75% { transform: translate(60px, 100px) scale(1.12); }
+}
+.animate-blob1 { animation: blob1 22s ease-in-out infinite; }
+.animate-blob2 { animation: blob2 28s ease-in-out infinite; }
+.animate-blob3 { animation: blob3 25s ease-in-out infinite; }
