@@ -1,11 +1,5 @@
-@php
-    use Carbon\Carbon;
-    $eventDate = Carbon::create(2025, 11, 14, 9, 0, 0);
-@endphp
-
-@vite(['resources/css/welcome-custom.css'])
-
 <x-app-layout>
+    <link href="{{ asset('/css/welcome-custom.css') }}" rel="stylesheet">
     <div class="relative min-h-screen bg-primary-dark overflow-hidden">
         <!-- Animated Blobs Background (fixed, covers whole viewport) -->
         <div class="fixed inset-0 pointer-events-none z-0">
