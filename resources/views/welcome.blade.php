@@ -23,11 +23,11 @@
                         <h2 class="text-2xl text-white mb-8">Discover your spark in the IT Wave</h2>
                         <div class="relative space-y-2">
                             <div class="text-8xl font-bold" style="text-shadow: 0 0 5px #e2ff32;">
-                                <span class="text-accent-yellow" style="text-shadow: 0 0 5px #e2ff32;">WE ARE IN IT</span>
-                                <span class="text-accent-pink" style="text-shadow: 0 0 5px #ff3b9a;">TOGETHER</span>
+                                <span class="text-accent-yellow uppercase" style="text-shadow: 0 0 5px #e2ff32;">we are in it</span>
+                                <span class="text-accent-pink uppercase" style="text-shadow: 0 0 5px #ff3b9a;">together</span>
                             </div>
                             <div class="text-8xl font-bold">
-                                <span class="text-accent-yellow uppercase" style="text-shadow: 0 0 5px #e2ff32;">Conference</span>
+                                <span class="text-accent-yellow uppercase" style="text-shadow: 0 0 5px #e2ff32;">conference</span>
                                 <span class="text-accent-pink uppercase" style="text-shadow: 0 0 5px #ff3b9a;">2025</span>
                             </div>
                             <div class="flex justify-center gap-16 mt-10">
@@ -46,14 +46,22 @@
                             <p class="text-2xl">HZ University of Applied Sciences, Middelburg</p>
                         </div>
                         <div class="mt-16 flex justify-center space-x-6">
-                            <a href="{{ route('register.participant') }}" class="px-8 py-4 bg-accent-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
-                                Register Now
-                            </a>
-                            <a href="{{ route('programme') }}" class="px-8 py-4 border-2 border-accent-cyan text-accent-cyan rounded-xl text-xl font-semibold hover:bg-accent-cyan hover:text-primary-dark transition-all">
-                                View Programme
-                            </a>
+                            @if(optional($edition)->is_participant_registration_opened)
+                                <a href="{{ route('register.participant') }}" class="px-8 py-4 bg-accent-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                                    Register Now
+                                </a>
+                            @endif
+                            @if(optional($edition)->is_final_programme_released)
+                                <a href="{{ route('programme') }}" class="px-8 py-4 border-2 border-accent-cyan text-accent-cyan rounded-xl text-xl font-semibold hover:bg-accent-cyan hover:text-primary-dark transition-all">
+                                    View Programme
+                                </a>
+                            @endif
                         </div>
                     </div>
+
+                    @php
+                        $showButtons = optional($edition)->is_participant_registration_opened || optional($edition)->is_final_programme_released;
+                    @endphp
 
                     <!-- Countdown Timer -->
                     <div class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
@@ -66,19 +74,19 @@
                     <div class="grid grid-cols-4 gap-8 text-center mt-32 mb-32">
                         <div class="border-2 border-accent-pink rounded-lg p-6">
                             <div class="text-5xl font-bold text-accent-pink">10+</div>
-                            <div class="text-white mt-2">SPEAKERS</div>
+                            <div class="text-white mt-2 uppercase">speakers</div>
                         </div>
                         <div class="border-2 border-accent-pink rounded-lg p-6">
                             <div class="text-5xl font-bold text-accent-pink">200+</div>
-                            <div class="text-white mt-2">STUDENTS</div>
+                            <div class="text-white mt-2 uppercase">students</div>
                         </div>
                         <div class="border-2 border-accent-pink rounded-lg p-6">
                             <div class="text-5xl font-bold text-accent-pink">20+</div>
-                            <div class="text-white mt-2">COMPANIES</div>
+                            <div class="text-white mt-2 uppercase">companies</div>
                         </div>
                         <div class="border-2 border-accent-pink rounded-lg p-6">
                             <div class="text-5xl font-bold text-accent-pink">15+</div>
-                            <div class="text-white mt-2">PRESENTATIONS</div>
+                            <div class="text-white mt-2 uppercase">presentations</div>
                         </div>
                     </div>
 
@@ -89,7 +97,7 @@
                             <!-- Speakers Card -->
                             <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark via-accent-cyan/20 to-accent-cyan/40">
                                 <div class="p-8">
-                                    <h3 class="text-accent-cyan text-2xl font-bold mb-4">SPEAKERS</h3>
+                                    <h3 class="text-accent-cyan text-2xl font-bold mb-4 uppercase">speakers</h3>
                                     <p class="text-white mb-8">Industry leaders and innovators. Find the chance to connect with the best in our industry.</p>
                                     <a href="{{ route('speakers.index') }}" class="text-accent-cyan flex items-center">
                                         Learn more
@@ -103,21 +111,23 @@
                             <!-- Presentations Card -->
                             <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark via-accent-pink/20 to-accent-pink/40">
                                 <div class="p-8">
-                                    <h3 class="text-accent-pink text-2xl font-bold mb-4">PRESENTATIONS & WORKSHOPS</h3>
+                                    <h3 class="text-accent-pink text-2xl font-bold mb-4 uppercase">presentations & workshops</h3>
                                     <p class="text-white mb-8">Cutting edge-topics and hands-on workshops to enhance your skills.</p>
-                                    <a href="{{ route('programme') }}" class="text-accent-pink flex items-center">
-                                        Learn more
-                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                        </svg>
-                                    </a>
+                                    @if(optional($edition)->is_final_programme_released)
+                                        <a href="{{ route('programme') }}" class="text-accent-pink flex items-center">
+                                            Learn more
+                                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                            </svg>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
 
                             <!-- Companies Card -->
                             <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark to-accent-olive">
                                 <div class="p-8">
-                                    <h3 class="text-accent-yellow text-2xl font-bold mb-4">COMPANIES</h3>
+                                    <h3 class="text-accent-yellow text-2xl font-bold mb-4 uppercase">companies</h3>
                                     <p class="text-white mb-8">Meet the companies that make the IT world move. Find your chance to start your career/internship.</p>
                                     <a href="{{ route('companies.index') }}" class="text-accent-yellow flex items-center">
                                         Learn more
@@ -135,7 +145,7 @@
                         <h2 class="text-4xl font-bold text-white mb-12">Thank you to our Sponsors</h2>
                         <!-- Gold Sponsors -->
                         <div class="mb-12">
-                            <span class="inline-block bg-accent-olive text-accent-yellow px-4 py-1 rounded-full text-sm font-semibold mb-6">Gold</span>
+                            <span class="inline-block bg-accent-olive text-accent-yellow px-4 py-1 rounded-full text-sm font-semibold mb-6 uppercase">gold</span>
                             <div class="grid grid-cols-1 gap-6">
                                 @if($goldSponsor)
                                     <div class="border border-accent-yellow/20 rounded-lg p-6">
@@ -147,7 +157,7 @@
 
                         <!-- Silver Sponsors -->
                         <div class="mb-12">
-                            <span class="inline-block bg-gray-700 text-gray-300 px-4 py-1 rounded-full text-sm font-semibold mb-6">Silver</span>
+                            <span class="inline-block bg-gray-700 text-gray-300 px-4 py-1 rounded-full text-sm font-semibold mb-6 uppercase">silver</span>
                             <div class="grid grid-cols-2 gap-6">
                                 @foreach($silverSponsors as $sponsor)
                                     <div class="border border-gray-300/20 rounded-lg p-6">
@@ -159,7 +169,7 @@
 
                         <!-- Bronze Sponsors -->
                         <div>
-                            <span class="inline-block bg-[#45291A] text-[#CD7F32] px-4 py-1 rounded-full text-sm font-semibold mb-6">Bronze</span>
+                            <span class="inline-block bg-[#45291A] text-[#CD7F32] px-4 py-1 rounded-full text-sm font-semibold mb-6 uppercase">bronze</span>
                             <div class="grid grid-cols-4 gap-6">
                                 @foreach($bronzeSponsors as $sponsor)
                                     <div class="border border-[#CD7F32]/20 rounded-lg p-6">
