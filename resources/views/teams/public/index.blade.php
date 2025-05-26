@@ -4,7 +4,7 @@
         2 => ['label' => 'Silver sponsors', 'badge' => 'Silver', 'color' => 'bg-gray-300 text-gray-900', 'border' => 'border-gray-300'],
         3 => ['label' => 'Bronze sponsors', 'badge' => 'Bronze', 'color' => 'bg-amber-900 text-amber-100', 'border' => 'border-amber-900'],
     ];
-    $grouped = $companies->where('is_sponsorship_approved', true)->groupBy('sponsorship_id');
+    $grouped = $companies->groupBy('sponsorship_id');
 @endphp
 
 <x-app-layout>
