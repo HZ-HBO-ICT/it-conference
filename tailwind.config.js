@@ -169,6 +169,7 @@ export default {
                     '900': '#71251d',
                     '950': '#3d100d',
                 },
+                'conference-dark': '#070E1C',
             }
         },
     },
