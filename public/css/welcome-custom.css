@@ -43,6 +43,6 @@
     50% { transform: translate(-80px, 80px) scale(0.9); }
     75% { transform: translate(60px, 100px) scale(1.12); }
 }
-.animate-blob1 { animation: blob1 22s ease-in-out infinite; }
-.animate-blob2 { animation: blob2 28s ease-in-out infinite; }
-.animate-blob3 { animation: blob3 25s ease-in-out infinite; }
+.animate-blob1 { animation: blob1 6s ease-in-out infinite; }
+.animate-blob2 { animation: blob2 7s ease-in-out infinite; }
+.animate-blob3 { animation: blob3 6.5s ease-in-out infinite; }
