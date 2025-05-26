@@ -170,6 +170,12 @@ export default {
                     '950': '#3d100d',
                 },
                 'conference-dark': '#070E1C',
+                'primary-dark': '#0B1221',
+                'accent-cyan': '#31F7F1',
+                'accent-yellow': '#E2FF32',
+                'accent-pink': '#FF3B9A',
+                'accent-purple': '#45154A',
+                'accent-olive': '#454515',
             }
         },
     },
