@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/weareinit/public_html/
+    - cp -a . "$DEPLOY_DIR"/
