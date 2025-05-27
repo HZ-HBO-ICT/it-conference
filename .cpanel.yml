@@ -15,7 +15,7 @@ deployment:
         BRANCH="${CPANEL__BRANCH:-$(git symbolic-ref --short HEAD)}"
         echo "Detected branch: $BRANCH"
         
-        if [ "$CPANEL__BRANCH" = "release" ]; then
+        if [ "$BRANCH" = "release" ]; then
           echo "Deploying release to PRODUCTION"
           git --work-tree=$PROD_PATH --git-dir=$REPO_PATH/.git checkout -f origin/release
           cd $PROD_PATH
@@ -25,7 +25,7 @@ deployment:
           # php artisan route:cache
           # php artisan migrate --force
           echo "Production deployment complete."
-        elif [ "$CPANEL__BRANCH" = "acc" ]; then
+        elif [ "$BRANCH" = "acc" ]; then
           echo "Deploying acc to ACCEPTANCE"
           git --work-tree=$TEST_PATH --git-dir=$REPO_PATH/.git checkout -f origin/acc
           # cd $TEST_PATH
@@ -35,6 +35,6 @@ deployment:
           # php artisan migrate
           echo "Acceptance deployment complete."
         else
-          echo "Branch $CPANEL__BRANCH is not configured for deployment."      
+          echo "Branch $BRANCH is not configured for deployment."      
         fi
       } >> /home/weareinit/deploy.log 2>&1
