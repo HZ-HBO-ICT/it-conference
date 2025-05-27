@@ -1,6 +1,10 @@
 ---
 deployment:
   tasks:
+    - |
+      {
+        echo "Starting logged deployment"
+      } >> /home/weareinit/deploy.log 2>&1
     - export REPO_PATH=/home/weareinit/repositories/it-conference
     - export PROD_PATH=/home/weareinit/conference.weareinittogether.nl
     - export TEST_PATH=/home/weareinit/acc.weareinittogether.nl
