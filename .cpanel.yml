@@ -1,5 +1,34 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/weareinit/public_html/
-    - cp -a . "$DEPLOY_DIR"/
+    - export REPO_PATH=/home/weareinit/repositories/it-conference
+    - export PROD_PATH=/home/weareinit/conference.weareinittogether.nl
+    - export TEST_PATH=/home/weareinit/acc.weareinittogether.nl
+
+    - cd $REPO_PATH
+    - git fetch origin
+
+    - |
+      if [ "$CPANEL__BRANCH" = "release" ]; then
+        echo "Deploying release to PRODUCTION"
+        git --work-tree=$PROD_PATH --git-dir=$REPO_PATH/.git checkout -f origin/release
+        cd $PROD_PATH
+        # cp .env.production .env
+        # composer install --no-dev --optimize-autoloader
+        # php artisan config:cache
+        # php artisan route:cache
+        # php artisan migrate --force
+        echo "Production deployment complete."
+      elif [ "$CPANEL__BRANCH" = "acc" ]; then
+        echo "Deploying acc to ACCEPTANCE"
+        git --work-tree=$TEST_PATH --git-dir=$REPO_PATH/.git checkout -f origin/acc
+        # cd $TEST_PATH
+        # cp .env.testing .env
+        # composer install
+        # php artisan config:clear
+        # php artisan migrate
+        echo "Acceptance deployment complete."
+      else
+        echo "Branch $CPANEL__BRANCH is not configured for deployment."
+      
+      fi
