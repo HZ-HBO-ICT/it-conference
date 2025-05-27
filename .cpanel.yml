@@ -9,12 +9,13 @@ deployment:
         export TEST_PATH=/home/weareinit/acc.weareinittogether.nl
 
         env
-        BRANCH="${CPANEL__BRANCH:-$(git symbolic-ref --short HEAD)}"
-        echo "Detected branch: $BRANCH"
         
         cd $REPO_PATH
         git fetch origin
-            if [ "$CPANEL__BRANCH" = "release" ]; then
+        BRANCH="${CPANEL__BRANCH:-$(git symbolic-ref --short HEAD)}"
+        echo "Detected branch: $BRANCH"
+        
+        if [ "$CPANEL__BRANCH" = "release" ]; then
           echo "Deploying release to PRODUCTION"
           git --work-tree=$PROD_PATH --git-dir=$REPO_PATH/.git checkout -f origin/release
           cd $PROD_PATH
