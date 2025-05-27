@@ -5,6 +5,7 @@ deployment:
     - export PROD_PATH=/home/weareinit/conference.weareinittogether.nl
     - export TEST_PATH=/home/weareinit/acc.weareinittogether.nl
 
+    - echo "Starting deployment"
     - cd $REPO_PATH
     - git fetch origin
 
