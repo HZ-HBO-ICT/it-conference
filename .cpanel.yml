@@ -6,7 +6,7 @@ deployment:
         echo "========Started deployment at $(date)"
         export REPO_PATH=/home/weareinit/repositories/it-conference
         export PROD_PATH=/home/weareinit/conference.weareinittogether.nl
-        export TEST_PATH=/home/weareinit/acc.weareinittogether.nl
+        export ACC_PATH=/home/weareinit/acc.weareinittogether.nl
 
         env
         
@@ -27,13 +27,14 @@ deployment:
           echo "Production deployment complete."
         elif [ "$BRANCH" = "acc" ]; then
           echo "Deploying acc to ACCEPTANCE"
-          pwd
-          git --work-tree=$TEST_PATH --git-dir=$REPO_PATH/.git checkout -f origin/acc
-          # cd $TEST_PATH
-          # cp .env.testing .env
-          # composer install
-          # php artisan config:clear
-          # php artisan migrate
+          rsync -av --delete --exclude='.git' $REPO_PATH $ACC_PATH
+          cd $ACC_PATH
+          composer install --no-ansi --no-interaction --no-progress --prefer-dist
+          npm install
+          # npm run build --if-present
+          php artisan config:clear
+          php artisan migrate --force
+          php artisan storage:link
           echo "Acceptance deployment complete."
         else
           echo "Branch $BRANCH is not configured for deployment."      
