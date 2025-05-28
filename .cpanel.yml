@@ -27,6 +27,7 @@ deployment:
           echo "Production deployment complete."
         elif [ "$BRANCH" = "acc" ]; then
           echo "Deploying acc to ACCEPTANCE"
+          pwd
           git --work-tree=$TEST_PATH --git-dir=$REPO_PATH/.git checkout -f origin/acc
           # cd $TEST_PATH
           # cp .env.testing .env
