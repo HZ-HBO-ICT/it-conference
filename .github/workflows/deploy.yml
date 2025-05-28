@@ -54,8 +54,7 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
         protocol: ftps
-        local_dir: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}        
-               
+        local-dir: ${{env.TMP_DIR}}
 
     # - name: Extract build results on server
     #   uses: appleboy/ssh-action@v1.0.0
