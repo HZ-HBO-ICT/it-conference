@@ -53,6 +53,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}        
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
+        protocol: ftps
         local_dir: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}        
                
 
