@@ -47,15 +47,14 @@ jobs:
       run: mkdir ${{env.TMP_DIR}} && tar --exclude="${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}" -czf ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}} . 
 
     - name: Send compressed build result to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        username: ${{ secrets.FTP_USERNAME }}
         server: ${{ secrets.FTP_HOST }}
-        port: 21
-        local_path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
-        remote_path: .
-        sftp_only: true
+        username: ${{ secrets.FTP_USERNAME }}        
         password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        local_dir: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}        
+               
 
     # - name: Extract build results on server
     #   uses: appleboy/ssh-action@v1.0.0
