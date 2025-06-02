@@ -15,7 +15,7 @@ class FrequentQuestionController extends Controller
      */
     public function index() : View
     {
-        $faqs = FrequentQuestion::query()->take(6)->get();
+        $faqs = FrequentQuestion::all();
         return view('faq', compact('faqs'));
     }
 }

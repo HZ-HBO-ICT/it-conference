@@ -14,7 +14,7 @@
             FAQ
         </h1>
         <div class="w-full max-w-5xl mb-10">
-            <p class="text-lg text-white mb-6">Find answers to common questions about the "We are in IT Together" Conference. If you can't find what you're looking for, please <a href="{{ route('contact') }}" class="text-[#7B61FF] font-bold underline hover:text-[#a18aff]">contact us here</a>.</p>
+            <p class="text-lg text-white mb-6">Find answers to common questions about the "We are in IT Together" Conference. If you can't find what you're looking for, please <a href="{{ route('contact') }}" class="text-accent-purple font-bold underline hover:text-accent-purple-hover">contact us here</a>.</p>
         </div>
         <div class="w-full max-w-5xl flex flex-col gap-8">
             @foreach($faqs as $faq)
