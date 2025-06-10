@@ -74,7 +74,6 @@
     visibility: visible;
     opacity: 1;
 }
-
 /* Bubble and Blob Animations */
 @keyframes float-slow {
     0%, 100% {
