@@ -3,6 +3,7 @@
         1 => ['label' => 'Gold sponsor', 'badge' => 'Gold', 'color' => 'bg-yellow-400 text-yellow-900', 'border' => 'border-yellow-400'],
         2 => ['label' => 'Silver sponsors', 'badge' => 'Silver', 'color' => 'bg-gray-300 text-gray-900', 'border' => 'border-gray-300'],
         3 => ['label' => 'Bronze sponsors', 'badge' => 'Bronze', 'color' => 'bg-amber-900 text-amber-100', 'border' => 'border-amber-900'],
+        0 => ['label' => 'Other companies', 'badge' => '', 'color' => 'bg-cyan-900 text-cyan-100', 'border' => 'border-cyan-900'],
     ];
     $grouped = $companies->groupBy('sponsorship_id');
 @endphp
@@ -31,16 +32,18 @@
 
             <div class="max-w-7xl mx-auto">
                 @foreach($tiers as $tierId => $tier)
-                    @if(isset($grouped[$tierId]) && $grouped[$tierId]->count())
+                    @if(($companies->where('sponsorship_id', $tierId)->count() > 0 && $tierId != 0) || ($tierId == 0 && $companies->where('sponsorship_id', null)->count() > 0))
                         <div class="mb-12">
                             <div class="flex items-center gap-4 mb-6">
                                 <h2 class="text-3xl font-extrabold text-white">{{ $tier['label'] }}</h2>
-                                <span class="px-3 py-1 rounded-full text-sm font-semibold {{ $tier['color'] }}">{{ $tier['badge'] }}</span>
+                                @if ($tierId != 0)
+                                    <span class="px-3 py-1 rounded-full text-sm font-semibold {{ $tier['color'] }}">{{ $tier['badge'] }}</span>
+                                @endif
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                @foreach($grouped[$tierId] as $company)
+                                @foreach($companies->where('sponsorship_id', $tierId) as $company)
                                     <a href="{{ route('companies.show', $company) }}" class="block hover:scale-[1.02] transition-transform">
-                                        <div class="border rounded-xl p-8 bg-[#101426] {{ $tier['border'] }} flex flex-col items-start min-h-[220px]">
+                                        <div class="border rounded-xl p-8 bg-[#101426] {{ $tier['border'] }} flex flex-col items-start h-[280px]">
                                             <div class="w-full flex justify-center mb-6">
                                                 @if($company->logo_path)
                                                     <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 object-contain rounded bg-white p-2 shadow" style="max-width: 220px;" />
@@ -50,9 +53,9 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div>
-                                                <div class="font-extrabold text-2xl text-white mb-1">{{ $company->name }}</div>
-                                                <div class="text-gray-300 text-base">{{ $company->description }}</div>
+                                            <div class="flex-1 flex flex-col">
+                                                <div class="font-extrabold text-2xl text-white mb-1 truncate">{{ $company->name }}</div>
+                                                <div class="text-gray-300 text-base overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">{{ $company->description }}</div>
                                             </div>
                                         </div>
                                     </a>
@@ -62,37 +65,6 @@
                     @endif
                 @endforeach
 
-                {{-- All companies section --}}
-                @php
-                    $allCompanies = $companies->where('is_sponsorship_approved', true);
-                @endphp
-                @if($allCompanies->count())
-                    <div class="mb-12">
-                        <h2 class="text-3xl font-extrabold text-white mb-6">All companies</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            @foreach($allCompanies as $company)
-                                <a href="{{ route('companies.show', $company) }}" class="block hover:scale-[1.02] transition-transform">
-                                    <div class="border rounded-xl p-8 bg-[#101426] flex flex-col items-start min-h-[220px]">
-                                        <div class="w-full flex justify-center mb-6">
-                                            @if($company->logo_path)
-                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 object-contain rounded bg-white p-2 shadow" style="max-width: 220px;" />
-                                            @else
-                                                <div class="h-24 w-48 bg-gray-700 rounded flex items-center justify-center">
-                                                    <span class="text-gray-400">Logo</span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <div class="font-extrabold text-2xl text-white mb-1">{{ $company->name }}</div>
-                                            <div class="text-gray-300 text-base">{{ $company->description }}</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-            </div>
 
             @if($companies->where('is_sponsorship_approved', true)->count() === 0)
                 <div class="bg-[#101426] rounded-xl py-8 mt-12">
