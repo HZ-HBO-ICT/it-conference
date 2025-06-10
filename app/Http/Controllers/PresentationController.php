@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Edition;
 use App\Models\Presentation;
+use App\Models\PresentationType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -16,11 +18,12 @@ class PresentationController extends Controller
      */
     public function create(): View
     {
+        $presentationTypes = optional(Edition::current())->presentationTypes;
         if (Auth::user()->cannot('request', Presentation::class)) {
             abort(403);
         }
 
-        return view('presentations.create');
+        return view('presentations.create', compact('presentationTypes'));
     }
 
     /**
@@ -37,8 +40,7 @@ class PresentationController extends Controller
             abort(403);
         }
 
-        $presentation =
-            Presentation::create($request->validate(Presentation::rules()));
+        $presentation = Presentation::create($request->validate(Presentation::rules()));
 
         if ($user->company) {
             $presentation->update(['company_id' => $user->company->id]);

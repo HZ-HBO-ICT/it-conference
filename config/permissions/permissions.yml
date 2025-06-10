@@ -106,3 +106,8 @@ permissions:
   feedback:
     viewAny: event organizer
     view: event organizer
+  presentation type:
+    viewAny: event organizer
+    update: event organizer
+    create: event organizer
+    delete: event organizer

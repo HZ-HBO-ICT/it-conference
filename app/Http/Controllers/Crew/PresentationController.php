@@ -10,7 +10,9 @@ use App\Mail\PresentationApprovedMailable;
 use App\Mail\PresentationDeletedMailable;
 use App\Mail\PresentationDisapprovedMailable;
 use App\Models\Company;
+use App\Models\Edition;
 use App\Models\Presentation;
+use App\Models\PresentationType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,13 +48,15 @@ class PresentationController extends Controller
             abort(403);
         }
 
+        $presentationTypes = optional(Edition::current())->presentationTypes;
+
         // Also possible to use the relationship with UserPresentation,
         // but as a personal choice I'd rather stick to isolating that
         $users = User::all()->filter(function ($user) {
             return is_null($user->presenter_of) && $user->hasRole('participant');
         });
 
-        return view('crew.presentations.create', compact('users'));
+        return view('crew.presentations.create', compact('users', 'presentationTypes'));
     }
 
     /**
