@@ -176,7 +176,8 @@ export default {
                 'accent-cyan': '#31F7F1',
                 'accent-yellow': '#E2FF32',
                 'accent-pink': '#FF3B9A',
-                'accent-purple': '#45154A',
+                'accent-purple': '#7B61FF',
+                'accent-purple-hover': '#a18aff',
                 'accent-olive': '#454515',
             }
         },
