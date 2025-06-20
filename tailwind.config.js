@@ -94,6 +94,11 @@ export default {
         'hover:bg-apricot-peach-300',
         'dark:bg-apricot-peach-700/50',
         'dark:hover:bg-apricot-peach-600/75',
+        'text-green-200',
+        'text-blue-200',
+        'text-gray-200',
+        'text-red-200',
+        'text-yellow-200',
         safelist
     ],
     theme: {
