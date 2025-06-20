@@ -26,8 +26,11 @@
                   :icon="'M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z'"/>
           </div>
           <div class="w-full h-full col-span-3 row-span-2 border border-2 border-cyan-300"></div>
-          <div class="w-full min-h-20 col-span-5">
+          <div class="w-full col-span-5">
               <livewire:dashboards.widgets.company-members :company="Auth::user()->company"/>
+          </div>
+          <div class="w-full min-h-20 col-span-3">
+              <livewire:dashboards.widgets.presentations :presentations="Auth::user()->company->presentations"/>
           </div>
       </div>
 </div>

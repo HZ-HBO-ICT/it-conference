@@ -44,7 +44,7 @@
                         @if($isInvitation)
                             {{ ucfirst($record->role) }}
                         @else
-                            {{ $record->mainRoles()->implode('name', ', ') }}
+                            {{ $record->mainRoles()->implode(', ') }}
                         @endif
                     </td>
                     <td class="py-4"><a class="text-red-500 underline">Remove</a></td>

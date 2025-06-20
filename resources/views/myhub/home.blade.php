@@ -13,7 +13,7 @@
             <div class="absolute top-1/5 left-3/7 w-sm h-[24rem] bg-[#FF3B9A] rounded-full filter blur-3xl opacity-60 mix-blend-screen z-0"></div>
 
             <!-- Content -->
-            <div class="relative z-10 py-8 px-3 mx-auto max-w-8xl">
+            <div class="relative z-5 py-8 px-3 mx-auto max-w-8xl">
                 <div>
                     @if(Auth::user()->company)
                         <x-dashboards.company/>
