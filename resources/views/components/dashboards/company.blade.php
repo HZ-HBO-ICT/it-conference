@@ -32,5 +32,10 @@
           <div class="w-full min-h-20 col-span-3">
               <livewire:dashboards.widgets.presentations :presentations="Auth::user()->company->presentations"/>
           </div>
+          <div class="w-full min-h-20 col-span-2">
+              <livewire:dashboards.widgets.request
+                  :type="'Sponsorship'"
+                  :description="'Gain visibility and connect with attendees by becoming a sponsor. Submit your sponsorship request to get started.'"/>
+          </div>
       </div>
 </div>
