@@ -29,13 +29,20 @@
           <div class="w-full col-span-5">
               <livewire:dashboards.widgets.company-members :company="Auth::user()->company"/>
           </div>
-          <div class="w-full min-h-20 col-span-3">
+          <div class="w-full min-h-20 h-fit col-span-3">
               <livewire:dashboards.widgets.presentations :presentations="Auth::user()->company->presentations"/>
           </div>
-          <div class="w-full min-h-20 col-span-2">
+          <div class="w-full h-full col-span-2 grid grid-cols-1 gap-3">
               <livewire:dashboards.widgets.request
+                  class="bg-sponsor-gradient "
                   :type="'Sponsorship'"
                   :description="'Gain visibility and connect with attendees by becoming a sponsor. Submit your sponsorship request to get started.'"/>
+              <livewire:dashboards.widgets.request
+                  class="bg-booth-gradient"
+                  :type="'Booth'"
+                  :description="'Want a presence at the event? Request a booth to showcase your company.'"
+
+              />
           </div>
       </div>
 </div>

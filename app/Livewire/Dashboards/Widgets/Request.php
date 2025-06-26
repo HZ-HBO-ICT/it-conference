@@ -8,6 +8,7 @@ class Request extends Component
 {
     public string $type;
     public string $description;
+    public string $class;
 
     public function mount($type, $description) : void {
         $this->type = $type;

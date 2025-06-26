@@ -1,4 +1,4 @@
-<div class="relative w-full h-full bg-black/[var(--bg-opacity)] [--bg-opacity:60%] w-full h-full rounded rounded-lg text-white">
+<div class="relative w-full h-full min-h-48 rounded rounded-lg text-white {{ $class ?? 'bg-black/[var(--bg-opacity)] [--bg-opacity:60%]' }}">
     <div class="pt-5 px-5">
         <h3 class="text-lg font-semibold">{{$type}}</h3>
         <p class="text-xs">{{ $description }}</p>

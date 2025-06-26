@@ -99,10 +99,16 @@ export default {
         'text-gray-200',
         'text-red-200',
         'text-yellow-200',
+        'bg-sponsor-gradient',
+        'bg-booth-gradient',
         safelist
     ],
     theme: {
         extend: {
+            backgroundImage: {
+                'sponsor-gradient': 'linear-gradient(to bottom right, rgba(0,0,0,0.5) 50%, rgba(219,39,119,0.6), rgba(249,115,22,0.6))',
+                'booth-gradient': 'linear-gradient(to bottom right, rgba(27, 45, 124,0.8) 50%, rgba(219,39,119,0.6), rgba(249,115,22,0.6))',
+            },
             fontFamily: {
 
                 sans: ['Inter Var', 'Montserrat', ...defaultTheme.fontFamily.sans],
