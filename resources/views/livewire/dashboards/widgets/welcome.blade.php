@@ -1,4 +1,5 @@
-<div class="relative w-full h-full bg-radial-[at_90%_105%] from-cyan-900 to-[#060916] to-65% rounded rounded-lg">
+<div class="relative w-full h-full bg-radial-[at_90%_105%] from-cyan-900 to-[#060916] to-65% rounded rounded-lg"
+     onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.company-details-modal', arguments: {company: {{$user->company_id}}} })">
     <div class="pt-5 pl-5">
         <p class="text-xs font-semibold text-gray-400">Welcome back,</p>
         <p class="text-gray-100 text-xl font-bold">{{ $user->name }}</p>
