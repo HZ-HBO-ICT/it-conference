@@ -398,4 +398,16 @@ class Presentation extends Model
             $this->max_participants == $presentation->max_participants &&
             $this->difficulty->id == $presentation->difficulty->id;
     }
+
+    public function startTime() : Attribute {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->start)
+        );
+    }
+
+    public function endTime() : Attribute {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->start)->copy()->addMinutes($this->presentationType->duration)
+        );
+    }
 }
