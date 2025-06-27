@@ -1,22 +1,17 @@
-<x-spa-livewire-modal form-action="save" wire:key="{{ $company->id }}">
-    {{-- ─────── Title ─────── --}}
+<x-waitt.modal form-action="save" wire:key="{{ $company->id }}">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         Company Settings
     </x-slot>
 
-    {{-- ─────── Content ─────── --}}
     <x-slot name="content" class="w-full dark:bg-gray-800">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {{-- ========= DETAILS CARD ========= --}}
             <div class="relative md:col-span-2 border border-gray-700 rounded-lg p-6 space-y-4">
-                {{-- badge --}}
                 <span
                     class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
                            bg-gray-800 text-gray-400 rounded">
                     Details
                 </span>
 
-                {{-- Name --}}
                 <div>
                     <x-waitt.label for="name" value="Name"/>
                     @if($editing)
@@ -28,11 +23,10 @@
                     @endif
                 </div>
 
-                {{-- Description --}}
                 <div>
                     <x-waitt.label for="description" value="Description"/>
                     @if($editing)
-                        <x-input-textarea id="description" class="mt-1 block w-full"
+                        <x-waitt.input-textarea id="description" class="mt-1 block w-full"
                                           wire:model.defer="form.description"/>
                         @error('form.description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     @else
@@ -40,7 +34,6 @@
                     @endif
                 </div>
 
-                {{-- Website & Phone --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <x-waitt.label for="website" value="Website"/>
@@ -65,7 +58,6 @@
                     </div>
                 </div>
 
-                {{-- Address block --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <x-waitt.label for="postcode" value="Postcode"/>
@@ -113,49 +105,52 @@
                 </div>
             </div>
 
-            {{-- ========= LOGO CARD ========= --}}
-            <div class="relative flex flex-col items-center space-y-4 border border-gray-700 rounded-lg p-6">
-                {{-- badge --}}
-                <span
-                    class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
-                           bg-gray-800 text-gray-400 rounded">
-                    Logo
-                </span>
+            <div class="relative flex flex-col justify-between items-center space-y-4 border border-gray-700 rounded-lg p-6 h-full">
+    <span
+        class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
+               bg-gray-800 text-gray-400 rounded">
+        Logo
+    </span>
 
-                <div class="w-32 h-32 bg-gray-700 rounded-full overflow-hidden flex items-center justify-center">
-                    @if($company->logo_path)
-                        <img src="{{ url('storage/'.$company->logo_path) }}"
-                             alt="Logo" class="object-cover w-full h-full">
-                    @else
-                        <span class="text-gray-400 text-sm">No Logo</span>
+                <div class="h-full flex flex-col gap-3 items-center justify-center w-full">
+                    <div class="w-full">
+                        <x-waitt.label for="logo" value="Current Logo" class="text-left" />
+                    </div>
+                    <div class="h-32 w-full bg-gray-700 object-contain rounded overflow-hidden flex items-center justify-center">
+                        @if($company->logo_path)
+                            <img src="{{ url('storage/'.$company->logo_path) }}"
+                                 alt="Logo" class="object-contain max-h-full max-w-full">
+                        @else
+                            <span class="text-gray-400 text-sm">No Logo</span>
+                        @endif
+                    </div>
+                    @if($editing)
+                        <div class="w-full">
+                            <label class="block w-full cursor-pointer">
+                                <input
+                                    type="file"
+                                    id="logo"
+                                    wire:model="form.logo"
+                                    class="sr-only"/>
+                                <div class="flex items-center justify-center w-full h-12 bg-gray-900 text-gray-300 text-sm rounded-lg border border-gray-600 hover:bg-gray-700 transition">
+                                    Choose File
+                                </div>
+                            </label>
+
+                            @error('form.logo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        </div>
                     @endif
                 </div>
-
-                @if($editing)
-                    <div class="w-full">
-                        <x-waitt.label for="logo" value="Upload Logo"/>
-                        <input
-                            type="file"
-                            id="logo"
-                            wire:model="form.logo"
-                            class="block w-full text-sm text-gray-300 bg-gray-800 border border-gray-600
-                                   rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded
-                                   file:border-0 file:text-sm file:bg-indigo-600 file:text-white
-                                   hover:file:bg-indigo-500"/>
-                        @error('form.logo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    </div>
-                @endif
             </div>
         </div>
     </x-slot>
 
-    {{-- ─────── Buttons ─────── --}}
     <x-slot name="buttons">
         @if($editing)
-            <x-button wire:click="$set('editing', false)">Cancel</x-button>
-            <x-button type="submit">Save</x-button>
+            <x-waitt.button wire:click="$set('editing', false)">Cancel</x-waitt.button>
+            <x-waitt.button type="submit">Save</x-waitt.button>
         @else
-            <x-button wire:click="$set('editing', true)">Edit</x-button>
+            <x-waitt.button wire:click="$set('editing', true)">Edit</x-waitt.button>
         @endif
     </x-slot>
-</x-spa-livewire-modal>
+</x-waitt.modal>
