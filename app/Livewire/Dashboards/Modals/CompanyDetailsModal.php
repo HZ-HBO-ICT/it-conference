@@ -4,14 +4,22 @@ namespace App\Livewire\Dashboards\Modals;
 
 use App\Livewire\Forms\CompanyForm;
 use App\Models\Company;
+use App\Traits\FileValidation;
+use Illuminate\Contracts\View\View;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toaster;
 
 class CompanyDetailsModal extends ModalComponent
 {
+    use WithFileUploads;
+    use FileValidation;
+
     public Company $company;
     public CompanyForm $form;
+    public $photo;
 
-    public $editing = false;
+    public bool $editing = false;
 
     /**
      * Triggered on initializing of the component
@@ -24,16 +32,79 @@ class CompanyDetailsModal extends ModalComponent
         $this->form->setCompany($company);
     }
 
-    public function save() {
+    /**
+     * Updates the company details
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function save() : void {
+        if ($this->photo) {
+            $this->validateFileNameLength($this->photo, 'photo');
 
+            $this->validate([
+                'photo' => [
+                    'image',
+                    'max:10240',
+                ]
+            ], [
+                'file.max' => 'The file must not be larger than 10MB',
+            ]);
+
+            $path = $this->photo->store('logos', 'public');
+            $this->company->update(['logo_path' => $path]);
+            $this->photo = null;
+        }
+
+        $this->validate();
+
+        $this->form->update();
+        $this->editing = false;
+        Toaster::success('Company details were saved successfully!');
     }
 
+    /**
+     * Resets all things that could be updated in the form
+     * @return void
+     */
+    public function cancel() {
+        $this->form->setCompany($this->company);
+        $this->photo = null;
+        $this->editing = false;
+    }
+
+    /**
+     * Validates the uploaded picture before showing the preview
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function updatedPhoto()
+    {
+        $this->validateFileNameLength($this->photo, 'photo');
+
+        $this->validate([
+            'photo' => [
+                'image',
+                'max:10240',
+            ]
+        ], [
+            'file.max' => 'The file must not be larger than 10MB',
+        ]);
+    }
+
+    /**
+     * The maximum width of the modal
+     * @return string
+     */
     public static function modalMaxWidth(): string
     {
         return '7xl';
     }
 
-    public function render()
+    /**
+     * Return the view for the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.dashboards.modals.company-details-modal');
     }

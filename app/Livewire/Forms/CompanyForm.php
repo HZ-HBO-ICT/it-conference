@@ -57,7 +57,7 @@ class CompanyForm extends Form
      * Updates the company details with the new data
      * @return void
      */
-    public function update()
+    public function update() : void
     {
         $this->company->update(
             $this->all()

@@ -9,7 +9,7 @@
     @endif
       <div class="grid grid-cols-1 lg:grid-cols-8 gap-3">
           <div class="w-full h-52 col-span-3">
-              <livewire:dashboards.widgets.welcome/>
+              <livewire:dashboards.widgets.welcome :user="Auth::user()"/>
           </div>
           <div class="w-full h-52 col-span-2 grid grid-cols-1 gap-3">
               <livewire:dashboards.widgets.status

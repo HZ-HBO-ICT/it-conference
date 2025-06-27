@@ -17,7 +17,7 @@
                     @if($editing)
                         <x-waitt.input id="name" type="text" class="mt-1 block w-full"
                                        wire:model.defer="form.name"/>
-                        @error('form.name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        @error('form.name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     @else
                         <p class="mt-1 text-gray-300">{{ $form->name }}</p>
                     @endif
@@ -28,7 +28,7 @@
                     @if($editing)
                         <x-waitt.input-textarea id="description" class="mt-1 block w-full"
                                           wire:model.defer="form.description"/>
-                        @error('form.description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        @error('form.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     @else
                         <p class="mt-1 text-gray-300">{{ $form->description }}</p>
                     @endif
@@ -40,7 +40,7 @@
                         @if($editing)
                             <x-waitt.input id="website" type="text" class="mt-1 block w-full"
                                            wire:model.defer="form.website"/>
-                            @error('form.website') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('form.website') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         @else
                             <p class="mt-1 text-gray-300">{{ $form->website }}</p>
                         @endif
@@ -51,7 +51,7 @@
                         @if($editing)
                             <x-waitt.input id="phone_number" type="text" class="mt-1 block w-full"
                                            wire:model.defer="form.phone_number"/>
-                            @error('form.phone_number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('form.phone_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         @else
                             <p class="mt-1 text-gray-300">{{ $form->phone_number }}</p>
                         @endif
@@ -64,7 +64,7 @@
                         @if($editing)
                             <x-waitt.input id="postcode" type="text" class="mt-1 block w-full"
                                            wire:model.defer="form.postcode"/>
-                            @error('form.postcode') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('form.postcode') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         @else
                             <p class="mt-1 text-gray-300">{{ $form->postcode }}</p>
                         @endif
@@ -75,7 +75,7 @@
                         @if($editing)
                             <x-waitt.input id="house_number" type="text" class="mt-1 block w-full"
                                            wire:model.defer="form.house_number"/>
-                            @error('form.house_number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('form.house_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         @else
                             <p class="mt-1 text-gray-300">{{ $form->house_number }}</p>
                         @endif
@@ -86,7 +86,7 @@
                         @if($editing)
                             <x-waitt.input id="street" type="text" class="mt-1 block w-full"
                                            wire:model.defer="form.street"/>
-                            @error('form.street') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('form.street') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         @else
                             <p class="mt-1 text-gray-300">{{ $form->street }}</p>
                         @endif
@@ -97,7 +97,7 @@
                         @if($editing)
                             <x-waitt.input id="city" type="text" class="mt-1 block w-full"
                                            wire:model.defer="form.city"/>
-                            @error('form.city') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('form.city') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         @else
                             <p class="mt-1 text-gray-300">{{ $form->city }}</p>
                         @endif
@@ -114,14 +114,16 @@
 
                 <div class="h-full flex flex-col gap-3 items-center justify-center w-full">
                     <div class="w-full">
-                        <x-waitt.label for="logo" value="Current Logo" class="text-left" />
+                        <x-waitt.label for="logo" value="{{$editing ? 'Preview uploaded logo' : 'Current Logo'}}" class="text-left" />
                     </div>
                     <div class="h-32 w-full bg-gray-700 object-contain rounded overflow-hidden flex items-center justify-center">
-                        @if($company->logo_path)
+                        @if($company->logo_path && !$photo)
                             <img src="{{ url('storage/'.$company->logo_path) }}"
                                  alt="Logo" class="object-contain max-h-full max-w-full">
+                        @elseif ($photo && in_array($photo->getMimeType(), config('livewire.temporary_file_upload.preview_mimes')))
+                            <img alt="Preview" src="{{ $photo->temporaryUrl() }}" class="object-contain max-h-full max-w-full">
                         @else
-                            <span class="text-gray-400 text-sm">No Logo</span>
+                            <p class="text-gray-400">No logo uploaded</p>
                         @endif
                     </div>
                     @if($editing)
@@ -130,14 +132,15 @@
                                 <input
                                     type="file"
                                     id="logo"
-                                    wire:model="form.logo"
+                                    accept="image/*"
+                                    wire:model="photo"
                                     class="sr-only"/>
                                 <div class="flex items-center justify-center w-full h-12 bg-gray-900 text-gray-300 text-sm rounded-lg border border-gray-600 hover:bg-gray-700 transition">
                                     Choose File
                                 </div>
                             </label>
 
-                            @error('form.logo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('photo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
                     @endif
                 </div>
@@ -147,10 +150,10 @@
 
     <x-slot name="buttons">
         @if($editing)
-            <x-waitt.button wire:click="$set('editing', false)">Cancel</x-waitt.button>
+            <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
             <x-waitt.button type="submit">Save</x-waitt.button>
         @else
-            <x-waitt.button wire:click="$set('editing', true)">Edit</x-waitt.button>
+            <x-waitt.button type="button" wire:click="$set('editing', true)">Edit</x-waitt.button>
         @endif
     </x-slot>
 </x-waitt.modal>
