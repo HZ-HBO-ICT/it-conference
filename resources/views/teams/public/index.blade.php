@@ -24,10 +24,10 @@
         <!-- End Blobs -->
 
         <div class="relative z-10 max-w-7xl mx-auto">
-            <h1 class="text-6xl font-extrabold text-left mb-4 uppercase tracking-wide text-waitt-yellow">
+            <h1 class="text-6xl font-extrabold text-left mb-4 uppercase tracking-wide mb-10 text-waitt-yellow">
                 Companies
             </h1>
-            <p class="text-left text-lg text-gray-200 mx-auto mb-12">
+            <p class="text-left text-lg text-gray-200 mx-auto mb-5">
                 We're proud to partner with leading technology companies who are driving innovation in the industry. Visit their booths at the conference to learn more about their products, services, and career opportunities.
             </p>
 
