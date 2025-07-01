@@ -31,7 +31,7 @@
                                 <span class="text-waitt-pink uppercase waitt-pink-glow-title">2025</span>
                             </div>
                             <div class="flex justify-center gap-16 mt-10">
-                                <span class="text-xl text-white">Co-hosted by YourSurprise</span>
+                                <span class="text-xl text-white">Co-hosted by {{ $goldSponsor->name  }}</span>
                                 <span class="text-xl text-white">Powered by New Waves</span>
                             </div>
                         </div>
