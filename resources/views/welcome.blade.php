@@ -47,12 +47,12 @@
                         </div>
                         <div class="mt-16 flex justify-center space-x-6">
                             @if(optional($edition)->is_participant_registration_opened)
-                                <a href="{{ route('register.participant') }}" class="px-8 py-4 bg-accent-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                                <a href="{{ route('register.participant') }}" class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
                                     Register Now
                                 </a>
                             @endif
                             @if(optional($edition)->is_final_programme_released)
-                                <a href="{{ route('programme') }}" class="px-8 py-4 border-2 border-accent-cyan text-accent-cyan rounded-xl text-xl font-semibold hover:bg-accent-cyan hover:text-primary-dark transition-all">
+                                <a href="{{ route('programme') }}" class="px-8 py-4 border-2 border-waitt-cyan text-waitt-cyan rounded-xl text-xl font-semibold hover:bg-waitt-cyan hover:text-primary-dark transition-all">
                                     View Programme
                                 </a>
                             @endif
@@ -95,11 +95,11 @@
                         <h2 class="text-4xl font-bold text-white mb-12">What to expect</h2>
                         <div class="grid grid-cols-3 gap-8">
                             <!-- Speakers Card -->
-                            <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark via-accent-cyan/20 to-accent-cyan/40">
+                            <div class="rounded-lg overflow-hidden bg-gradient-to-b from-primary-dark via-waitt-cyan/20 to-waitt-cyan/40">
                                 <div class="p-8">
-                                    <h3 class="text-accent-cyan text-2xl font-bold mb-4 uppercase">speakers</h3>
+                                    <h3 class="text-waitt-cyan text-2xl font-bold mb-4 uppercase">speakers</h3>
                                     <p class="text-white mb-8">Industry leaders and innovators. Find the chance to connect with the best in our industry.</p>
-                                    <a href="{{ route('speakers.index') }}" class="text-accent-cyan flex items-center">
+                                    <a href="{{ route('speakers.index') }}" class="text-waitt-cyan flex items-center">
                                         Learn more
                                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

@@ -176,7 +176,7 @@ export default {
                 },
                 'waitt-dark': '#070E1C',
                 'primary-dark': '#0B1221',
-                'accent-cyan': '#31F7F1',
+                'waitt-cyan': '#31F7F1',
                 'waitt-yellow': '#E2FF32',
                 'waitt-pink': '#FF3B9A',
                 'accent-purple': '#7B61FF',

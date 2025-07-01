@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="relative max-w-7xl mx-auto px-4 pt-14 pb-24">
        <!-- Decorative Blobs -->
-        <div class="absolute inset-0 pointer-events-none z-0">
-            <div class="absolute top-32 left-10 w-40 h-40 rounded-full bg-accent-cyan opacity-30 blur-2xl"></div>
-            <div class="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-accent-yellow opacity-20 blur-2xl"></div>
-            <div class="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-accent-pink opacity-25 blur-2xl"></div>
-            <div class="absolute top-40 right-32 w-32 h-32 rounded-full bg-accent-cyan opacity-15 blur-2xl"></div>
-            <div class="absolute bottom-32 left-1/4 w-28 h-28 rounded-full bg-accent-yellow opacity-15 blur-2xl"></div>
-            <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-accent-pink opacity-10 blur-2xl"></div>
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-32 left-10 w-40 h-40 rounded-full bg-waitt-cyan opacity-30 blur-2xl"></div>
+            <div class="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-waitt-yellow opacity-20 blur-2xl"></div>
+            <div class="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-waitt-pink opacity-25 blur-2xl"></div>
+            <div class="absolute top-40 right-32 w-32 h-32 rounded-full bg-waitt-cyan opacity-15 blur-2xl"></div>
+            <div class="absolute bottom-32 left-1/4 w-28 h-28 rounded-full bg-waitt-yellow opacity-15 blur-2xl"></div>
+            <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-waitt-pink opacity-10 blur-2xl"></div>
         </div>
         <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
             FAQ
@@ -18,10 +18,10 @@
         <div class="w-full flex flex-col gap-8">
             <div class="space-y-4 w-full" x-data="{ selected: null }">
                 @foreach($faqs as $index => $faq)
-                    <div class="border border-gray-600 rounded-xl overflow-hidden w-full bg-dark-card">
+                    <div class="border border-gray-600 rounded-xl overflow-hidden w-full bg-dark-card transition-colors hover:bg-gray-900">
                         <button
                             @click="selected !== {{ $index }} ? selected = {{ $index }} : selected = null"
-                            class=" hover:cursor-pointer flex items-center justify-between w-full px-6 py-4 text-left text-lg font-semibold text-white hover:text-yellow-300 transition-colors"
+                            class=" hover:cursor-pointer flex items-center justify-between w-full px-6 py-4 text-left text-lg font-semibold text-white hover:text-waitt-yellow transition-colors"
                         >
                             {{ $faq->question }}
                             <svg
@@ -52,7 +52,9 @@
         <div class="w-full max-w-5xl flex flex-col items-start mt-16">
             <h3 class="text-2xl font-extrabold text-white mb-2">Still have questions?</h3>
             <p class="text-white mb-6">Contact our support team and we'll get back to you as soon as possible.</p>
-            <a href="{{ route('contact') }}" class="bg-[#7B61FF] hover:bg-[#a18aff] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors">Contact Us</a>
+            <a href="{{ route('contact') }}" class="px-8 py-4 bg-waitt-pink transition-colors hover:bg-pink-600 text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                Contact Us
+            </a>
         </div>
     </div>
 </x-app-layout>
