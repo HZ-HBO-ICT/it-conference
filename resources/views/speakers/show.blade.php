@@ -1,18 +1,3 @@
-@php
-    // Unified badge style definitions
-    $badgeStyles = [
-        1 => ['label' => 'GOLD',   'bg' => 'bg-yellow-100', 'text' => 'text-yellow-800', 'border' => 'border-yellow-400'],
-        2 => ['label' => 'SILVER', 'bg' => 'bg-gray-100',   'text' => 'text-gray-800',  'border' => 'border-gray-400'],
-        3 => ['label' => 'BRONZE', 'bg' => 'bg-orange-100', 'text' => 'text-orange-800','border' => 'border-orange-400'],
-    ];
-
-    // Determine speaker badge style
-    $badge = optional($speaker->user->company)->is_sponsorship_approved
-           ? $speaker->user->company->sponsorship_id
-           : null;
-    $style = $badge ? $badgeStyles[$badge] : null;
-@endphp
-
 <x-app-layout>
   <section class="min-h-screen py-20 px-6 lg:px-12 relative overflow-hidden">
     <!-- Decorative Blobs Background -->
@@ -25,72 +10,57 @@
     <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-400 opacity-30 rounded-full blur-3xl z-0"></div>
     <div class="absolute top-40 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
     <!-- End Blobs -->
-    <div class="max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-3 gap-16 items-start">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-3 gap-16 items-start">
 
-      {{-- LEFT CARD: Speaker Info --}}
-      <aside class="col-span-1 bg-dark-card z-10 rounded-3xl shadow-2xl border-4 {{ $style['border'] ?? 'border-gray-700' }} p-10 space-y-8">
-        {{-- Profile Photo or Initials --}}
+      <aside class="col-span-1 z-10 rounded-3xl pr-5 space-y-8">
         <div class="flex justify-center">
-          @if($speaker->user->profile_photo_url)
             <img src="{{ $speaker->user->profile_photo_url }}"
                  alt="{{ $speaker->user->name }}"
-                 class="h-32 w-32 rounded-full shadow-xl border-4 border-opacity-30" />
-          @else
-            <div class="h-32 w-32 rounded-full bg-gray-700 flex items-center justify-center">
-              <span class="text-4xl text-gray-300">{{ strtoupper(substr($speaker->user->name, 0, 2)) }}</span>
-            </div>
-          @endif
+                 class="rounded-lg w-full object-contain shadow-xl border-4 border-opacity-30" />
         </div>
 
-        {{-- Name & Badge --}}
-        <div class="text-center">
-          <h2 class="text-3xl font-bold text-white">{{ $speaker->user->name }}</h2>
-          @if($style)
-            <span class="mt-3 inline-block px-5 py-2 text-base font-semibold uppercase rounded-full border-2
-                         {{ $style['bg'] }} {{ $style['text'] }} {{ $style['border'] }}">
-              {{ $style['label'] }}
-            </span>
-          @endif
+        <div class="text-left text-white text-lg grid grid-cols-1 gap-5">
+          <h2 class="text-3xl font-bold">{{ $speaker->user->name }}</h2>
+            @if($speaker->user->company)
+                <div>
+                    <p><strong>Company:</strong> {{ $speaker->user->company->name }}</p>
+                    <a href="{{ route('companies.show', $speaker->user->company) }}"
+                       class="inline-flex items-center gap-1 mt-1 rounded-md text-brand-yellow underline font-medium hover:text-waitt-yellow transition-all duration-200">
+                        Learn more about the company here
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
+            @else
+                <p><strong>Institution:</strong> {{ $speaker->user->insitutiuon }}</p>
+            @endif
         </div>
-
-        {{-- Company / Contact details --}}
-        <div class="space-y-4 text-gray-300 text-base">
-          <p><strong>Company:</strong> {{ $speaker->user->company->name ?? 'Independent' }}</p>
-          <p><strong>Email:</strong> {{ $speaker->user->email ?? 'Not specified' }}</p>
-          <p><strong>City:</strong> {{ $speaker->user->city ?? 'Not specified' }}</p>
-        </div>
-
-        {{-- Website Button (if provided) --}}
-        @if($speaker->user->company && $speaker->user->company->website)
-          <div class="text-center">
-            <a href="{{ $speaker->user->company->website }}" target="_blank"
-               class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full py-3 px-8 text-lg">
-              Visit website
-            </a>
-          </div>
-        @endif
       </aside>
 
-      {{-- RIGHT PANEL: About & Presentation --}}
       <article class="col-span-2 space-y-12">
-        {{-- About Section --}}
-        <div>
-          <h3 class="text-2xl font-semibold text-white mb-3">About</h3>
-          <p class="text-gray-400 leading-relaxed text-lg">
-            {{ $speaker->presentation->description ?? 'No description available.' }}
-          </p>
-        </div>
-
-        {{-- Divider --}}
-        <hr class="border-gray-700">
-
-        {{-- Presentation Title --}}
         @if($speaker->presentation->name)
           <div>
-            <h3 class="text-2xl font-semibold text-white mb-3">Presentation</h3>
-            <p class="italic text-gray-300 text-lg">
-              {{ $speaker->presentation->name }}
-            </p>
+            <h3 class="text-2xl text-white font-semibold mb-3">Presentation</h3>
+            <div class="border-gray-400 border-2 text-white gap-4 grid grid-cols-1 rounded-lg p-5">
+                <x-waitt.tag :title="$speaker->presentation->difficulty->level"/>
+                <h1 class="text-2xl font-semibold italic">{{$speaker->presentation->name}}</h1>
+                <p> {{$speaker->presentation->description}} </p>
+                <div class="inline-flex gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    {{ $edition->is_final_programme_released ? \Carbon\Carbon::parse($speaker->presentation->start)->format('H:i') : 'TBC' }}
+                </div>
+                    <div class="inline-flex gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        {{ $edition->is_final_programme_released ? $speaker->presentation->room->name : 'TBC' }}
+                    </div>
+                </div>
+            </div>
           </div>
         @endif
       </article>
