@@ -50,8 +50,8 @@
                         @endif
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 @foreach($companyGroup as $company)
-                                    <a href="{{ route('companies.show', $company) }}" class="block h-full hover:scale-[1.02] transition-transform">
-                                        <div class="border rounded-xl p-8 bg-[#101426] h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-gray-700' }}">
+                                    <a href="{{ route('companies.show', $company) }}" class="block h-full transition-transform">
+                                        <div class="border rounded-xl p-8 bg-dark-card hover:bg-gray-900 transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-gray-700' }}">
                                             <div class="w-full flex justify-center mb-6">
                                                 @if($company->logo_path)
                                                     <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 object-contain rounded bg-white p-2 shadow" style="max-width: 220px;" />

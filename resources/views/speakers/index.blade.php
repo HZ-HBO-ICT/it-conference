@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="relative max-w-7xl mx-auto px-4 pt-14 pb-24">
-        <!-- Decorative Bubbles (Static) -->
-        <div class="absolute inset-0 pointer-events-none z-0">
+    <div class="min-h-screen relative overflow-hidden mx-auto px-4 pt-14 pb-24">
+        <!-- Colorful Blobs Background -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-32 right-10 w-40 h-40 rounded-full bg-waitt-cyan opacity-30 blur-2xl"></div>
             <div class="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-waitt-yellow opacity-20 blur-2xl"></div>
             <div class="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-waitt-pink opacity-25 blur-2xl"></div>
@@ -15,6 +15,7 @@
             <div class="absolute top-1/3 right-1/6 w-16 h-16 rounded-full bg-waitt-yellow opacity-12 blur-2xl"></div>
         </div>
 
+        <div class="relative z-10 max-w-7xl mx-auto">
         <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
             Speakers
         </h1>
@@ -58,17 +59,21 @@
                                         : 'border-gray-700';
                         @endphp
                         <a href="{{ route('speakers.show', $speaker->id) }}"
-                           class="w-full bg-dark-card rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden
-                                  flex flex-col items-center max-w-md mx-auto transition-transform duration-200
+                           class="w-full bg-dark-card hover:bg-gray-900 transition-colors rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden
+                                  flex flex-col items-center max-w-md mx-auto
                                   hover:bg hover:shadow-xl cursor-pointer">
                             <div class="p-8 pb-6 w-full flex flex-col items-center">
                                 <div class="w-32 h-32 bg-gray-300 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                                    {{-- Speaker image if available --}}
+                                        <img
+                                            src="{{ $speaker->user->profile_photo_url }}"
+                                            alt="{{ $speaker->user->name }}'s profile picture"
+                                            class="object-cover w-full h-full"
+                                        />
                                 </div>
                                 <div class="text-center w-full">
                                     <div class="flex items-center justify-center gap-2 mb-1">
                                         <span class="font-extrabold text-xl text-white">{{ $speaker->user->name }}</span>
-                                        @if($badge)
+                                        @if ($badge)
                                             <x-waitt.tag :textSize="'text-xs'" :title="$speaker->user->company->sponsorship->name" />
                                         @endif
                                     </div>
@@ -86,35 +91,6 @@
                         </a>
                     @endforeach
                 </div>
-
-                {{-- Modal --}}
-                <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" style="display: none;">
-                    <div class="bg-[#101426] border border-gray-400 rounded-xl p-8 w-full max-w-md flex flex-col items-center shadow-lg relative">
-                        <button @click="open = false"
-                                class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl">
-                            &times;
-                        </button>
-                        <template x-if="speaker">
-                            <div class="w-full flex flex-col items-center">
-                                <template x-if="speaker.photo">
-                                    <img :src="speaker.photo" :alt="'Profile photo of ' + speaker.name"
-                                         class="h-24 w-24 object-cover rounded-full bg-white p-2 shadow mb-6" />
-                                </template>
-                                <div class="font-extrabold text-2xl text-white mb-2 text-center" x-text="speaker.name"></div>
-                                <template x-if="speaker.badgeName">
-                                    <span class="px-3 py-1 rounded-full text-sm font-semibold mb-4"
-                                          :class="speaker.badgeColor + ' ' + speaker.badgeBorder"
-                                          x-text="speaker.badgeName"></span>
-                                </template>
-                                <div class="text-gray-200 mb-2 w-full text-lg font-semibold" x-text="speaker.company"></div>
-                                <div class="text-gray-200 mb-2 w-full text-lg font-semibold" x-text="speaker.email"></div>
-                                <div class="text-gray-200 mb-6 w-full text-lg font-semibold" x-text="speaker.city"></div>
-                                <div class="font-bold italic text-white text-base mb-1" x-text="speaker.presentation"></div>
-                                <div class="text-gray-400 text-sm mb-4" x-text="speaker.description"></div>
-                            </div>
-                        </template>
-                    </div>
-                </div>
             </div>
         @else
             <div class="bg-dark-card rounded-xl py-8 w-full flex justify-center">
@@ -123,9 +99,6 @@
                 </p>
             </div>
         @endif
+        </div>
     </div>
 </x-app-layout>
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-@endpush

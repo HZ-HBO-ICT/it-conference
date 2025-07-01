@@ -7,23 +7,26 @@
 <nav x-data="{ open: false }"
      class="relative z-10 w-full">
     <!-- Primary Navigation Menu -->
-    <div class="w-full mx-auto">
+    <div class="w-full max-w-7xl mx-auto">
         <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8" style="background:rgba(7,14,28,0.95);">
-            <!-- Logo -->
             <div class="flex items-center flex-shrink-0">
-                <span class="text-xl sm:text-2xl font-extrabold text-brand-yellow">WAITT25</span>
+                <img src="{{ asset('/img/waitt25/logo.webp') }}" alt="WAITT Logo" class="h-6 w-auto max-w-full" />
             </div>
-            <!-- Centered Nav Links -->
-            <div class="hidden md:flex flex-1 justify-center gap-4 lg:gap-6">
-                <a href="{{ route('welcome') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('welcome') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Home</a>
-                <a href="{{ route('speakers.index') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('speakers.index') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Speakers</a>
-                <a href="{{ route('programme') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('programme') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Presentations</a>
-                <a href="{{ route('companies.index') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('companies.index') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Companies</a>
-                <a href="{{ route('faq') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('faq') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">FAQ</a>
-                <a href="{{ route('contact') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('contact') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Contact</a>
+
+            <div class="hidden ml-8 md:flex flex-1 gap-4 lg:gap-6">
+                <a href="{{ route('welcome') }}" wire:navigate.hover class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('welcome') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Home</a>
+                @if($edition)
+                    <a href="{{ route('speakers.index') }}" wire:navigate.hover class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('speakers.index') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Speakers</a>
+                    <a href="{{ route('companies.index') }}" wire:navigate.hover class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('companies.index') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Companies</a>
+                @endif
+                @if(optional($edition)->is_final_programme_released)
+                    <a href="{{ route('programme') }}" wire:navigate.hover class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('programme') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Programme</a>
+                @endif
+                <a href="{{ route('faq') }}" wire:navigate.hover class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('faq') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">FAQ</a>
+                <a href="{{ route('contact') }}" wire:navigate.hover class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('contact') ? 'text-brand-yellow font-bold underline underline-offset-8' : '' }}">Contact</a>
             </div>
             <!-- Login on the right -->
-            <div class="hidden md:flex items-center ml-4 lg:ml-8">
+            <div class="hidden md:flex pr-2">
                 <a href="{{ route('login') }}" class="text-sm lg:text-base font-normal text-white hover:text-gray-200 transition-colors duration-200 {{ request()->routeIs('login') ? 'text-brand-yellow font-bold' : '' }}">Login</a>
             </div>
             <!-- Hamburger -->
