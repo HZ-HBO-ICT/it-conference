@@ -8,8 +8,9 @@
     $lower = strtolower($title);
     $bgClass = $bg ?? ($presets[$lower]['bg'] ?? 'bg-gray-300');
     $textClass = $text ?? ($presets[$lower]['text'] ?? 'text-white');
+    $textSize = $textSize ?? 'text-sm';
 @endphp
 
-<span class="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-6 uppercase tracking-wide {{ $bgClass }} {{ $textClass }}">
+<span class="inline-block {{ $textSize == 'text-xs' ? 'px-2' : 'px-4'  }} py-1 rounded-full {{ $textSize ?? 'text-sm' }} font-semibold uppercase {{ $textSize != 'text-xs' ? 'tracking-wide' : '' }} {{ $bgClass }} {{ $textClass }}">
     {{ $title }}
 </span>

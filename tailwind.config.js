@@ -185,7 +185,7 @@ export default {
                 'dark-card': '#181c2a',
                 'gold': '#FDC700',
                 'gold-light': '#fffdc1',
-                'silver': '#4B5563',
+                'silver': '#64748b',
                 'silver-light': '#D1D5DB',
                 'bronze': '#45291A',
                 'bronze-light': '#CD7F32',

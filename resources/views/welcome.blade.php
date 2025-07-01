@@ -146,9 +146,9 @@
                         <!-- Gold Sponsors -->
                         <div class="mb-12">
                             <x-waitt.tag title="Gold" />
-                            <div class="grid grid-cols-1 gap-6">
+                            <div class="grid grid-cols-1 gap-6 mt-6">
                                 @if($goldSponsor)
-                                    <div class="border border-gold-light/20 rounded-lg p-6">
+                                    <div class="border border-gold rounded-lg p-6">
                                         <img src="{{ $goldSponsor->logo_path }}" alt="{{ $goldSponsor->name }}" class="h-12">
                                     </div>
                                 @endif
@@ -158,9 +158,9 @@
                         <!-- Silver Sponsors -->
                         <div class="mb-12">
                             <x-waitt.tag title="Silver" />
-                            <div class="grid grid-cols-2 gap-6">
+                            <div class="grid grid-cols-2 gap-6 mt-6">
                                 @foreach($silverSponsors as $sponsor)
-                                    <div class="border border-silver-light/20 rounded-lg p-6">
+                                    <div class="border border-silver rounded-lg p-6">
                                         <img src="{{ $sponsor->logo_path }}" alt="{{ $sponsor->name }}" class="h-12">
                                     </div>
                                 @endforeach
@@ -170,9 +170,9 @@
                         <!-- Bronze Sponsors -->
                         <div>
                             <x-waitt.tag title="Bronze" />
-                            <div class="grid grid-cols-4 gap-6">
+                            <div class="grid grid-cols-4 gap-6 mt-6">
                                 @foreach($bronzeSponsors as $sponsor)
-                                    <div class="border border-bronze-light/20 rounded-lg p-6">
+                                    <div class="border border-bronze rounded-lg p-6">
                                         <img src="{{ $sponsor->logo_path }}" alt="{{ $sponsor->name }}" class="h-12">
                                     </div>
                                 @endforeach
