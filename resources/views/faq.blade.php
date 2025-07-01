@@ -1,11 +1,11 @@
 <x-app-layout>
-    <div class="relative bg-conference-dark overflow-hidden min-h-screen px-4 py-12 flex flex-col items-center">
+    <div class="relative overflow-hidden min-h-screen px-4 py-12 flex flex-col items-center">
         <!-- Decorative Blobs -->
         <div class="absolute inset-0 pointer-events-none z-0">
-            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-accent-cyan opacity-30 blur-2xl"></div>
+            <div class="absolute top-32 left-10 w-40 h-40 rounded-full bg-accent-cyan opacity-30 blur-2xl"></div>
             <div class="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-accent-yellow opacity-20 blur-2xl"></div>
             <div class="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-accent-pink opacity-25 blur-2xl"></div>
-            <div class="absolute top-24 right-32 w-32 h-32 rounded-full bg-accent-cyan opacity-15 blur-2xl"></div>
+            <div class="absolute top-40 right-32 w-32 h-32 rounded-full bg-accent-cyan opacity-15 blur-2xl"></div>
             <div class="absolute bottom-32 left-1/4 w-28 h-28 rounded-full bg-accent-yellow opacity-15 blur-2xl"></div>
             <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-accent-pink opacity-10 blur-2xl"></div>
         </div>

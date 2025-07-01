@@ -22,20 +22,20 @@
 @endphp
 
 <x-app-layout>
-    <div class="relative min-h-screen w-full bg-[#070E1C] px-6 py-12 flex flex-col items-center overflow-hidden">
+    <div class="relative min-h-screen w-full px-6 py-12 flex flex-col items-center overflow-hidden">
         <!-- Decorative Bubbles (Static) -->
         <div class="absolute inset-0 pointer-events-none z-0">
-            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-accent-cyan opacity-30 blur-2xl"></div>
+            <div class="absolute top-32 left-10 w-40 h-40 rounded-full bg-accent-cyan opacity-30 blur-2xl"></div>
             <div class="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-accent-yellow opacity-20 blur-2xl"></div>
             <div class="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-accent-pink opacity-25 blur-2xl"></div>
-            <div class="absolute top-24 right-32 w-32 h-32 rounded-full bg-accent-cyan opacity-15 blur-2xl"></div>
+            <div class="absolute top-40 right-32 w-32 h-32 rounded-full bg-accent-cyan opacity-15 blur-2xl"></div>
             <div class="absolute bottom-32 left-1/4 w-28 h-28 rounded-full bg-accent-yellow opacity-15 blur-2xl"></div>
             <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-accent-pink opacity-10 blur-2xl"></div>
-            <div class="absolute top-1/4 left-1/2 w-24 h-24 rounded-full bg-accent-cyan opacity-20 blur-2xl"></div>
+            <div class="absolute top-1/2 left-1/2 w-24 h-24 rounded-full bg-accent-cyan opacity-20 blur-2xl"></div>
             <div class="absolute bottom-1/4 right-1/3 w-20 h-20 rounded-full bg-accent-yellow opacity-10 blur-2xl"></div>
             <div class="absolute top-2/3 left-1/5 w-28 h-28 rounded-full bg-accent-pink opacity-15 blur-2xl"></div>
             <div class="absolute bottom-1/5 right-1/4 w-32 h-32 rounded-full bg-accent-cyan opacity-18 blur-2xl"></div>
-            <div class="absolute top-1/6 right-1/6 w-16 h-16 rounded-full bg-accent-yellow opacity-12 blur-2xl"></div>
+            <div class="absolute top-1/3 right-1/6 w-16 h-16 rounded-full bg-accent-yellow opacity-12 blur-2xl"></div>
         </div>
 
         <h1 class="text-6xl font-extrabold text-center mb-4 uppercase" style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">

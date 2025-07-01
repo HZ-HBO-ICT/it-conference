@@ -1,18 +1,23 @@
 <x-app-layout>
-    <div class="min-h-screen bg-[#0B1221] relative overflow-hidden py-20">
-        <!-- Background gradient effects -->
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-1/3 h-1/3 bg-gradient-to-br from-blue-400/10 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-            <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-purple-400/10 to-transparent rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-            <div class="absolute bottom-0 left-1/2 w-1/2 h-1/2 bg-gradient-to-t from-blue-500/10 to-transparent rounded-full blur-3xl transform -translate-x-1/2"></div>
-        </div>
+    <div class="min-h-screen relative overflow-hidden py-20">
+        <!-- Colorful Blobs Background -->
+        <div class="absolute top-32 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/3 right-[-100px] w-80 h-80 bg-yellow-300 opacity-20 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-32 left-1/3 w-72 h-72 bg-purple-500 opacity-30 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-10 right-40 w-80 h-80 bg-pink-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-green-400 opacity-25 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/2 left-1/5 w-64 h-64 bg-red-400 opacity-35 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-400 opacity-30 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-40 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        <!-- End Blobs -->
+
+        <!-- Neon Contact Heading -->
+        <h1 class="text-6xl font-extrabold text-center mb-4 uppercase"
+            style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">
+            CONTACT
+        </h1>
 
         <div class="relative max-w-6xl mx-auto px-4">
-            <!-- Neon Contact Heading -->
-            <h1 class="text-8xl font-bold text-center mb-20" style="color: #E2FF32; text-shadow: 0 0 30px rgba(226, 255, 50, 0.9), 0 0 50px rgba(226, 255, 50, 0.7), 0 0 70px rgba(226, 255, 50, 0.5);">
-                CONTACT
-            </h1>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <!-- Left Column -->
                 <div class="space-y-8">

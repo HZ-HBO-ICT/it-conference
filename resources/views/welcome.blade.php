@@ -4,10 +4,10 @@
         <!-- Animated Blobs Background (fixed, covers whole viewport) -->
         <div class="fixed inset-0 pointer-events-none z-0">
             <!-- Yellow Blob -->
-            <div class="absolute left-[8%] top-[12%] w-[400px] h-[400px] rounded-full animate-blob1"
+            <div class="absolute left-[8%] top-[20%] w-[400px] h-[400px] rounded-full animate-blob1"
                  style="background: radial-gradient(circle, #e2ff32 0%, transparent 70%); filter: blur(40px); opacity: 0.55;"></div>
             <!-- Pink Blob -->
-            <div class="absolute right-[8%] top-[30%] w-[350px] h-[350px] rounded-full animate-blob2"
+            <div class="absolute right-[8%] top-[35%] w-[350px] h-[350px] rounded-full animate-blob2"
                  style="background: radial-gradient(circle, #ff3b9a 0%, transparent 70%); filter: blur(50px); opacity: 0.38;"></div>
             <!-- Blue Blob -->
             <div class="absolute left-1/2 bottom-[10%] w-[500px] h-[500px] -translate-x-1/2 rounded-full animate-blob3"
