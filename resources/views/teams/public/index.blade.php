@@ -43,7 +43,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 @foreach($companies->where('sponsorship_id', $tierId) as $company)
                                     <a href="{{ route('companies.show', $company) }}" class="block hover:scale-[1.02] transition-transform">
-                                        <div class="border rounded-xl p-8 bg-[#101426] {{ $tier['border'] }} flex flex-col items-start h-[280px]">
+                                        <div class="border rounded-xl p-8 bg-[#101426] {{ $tier['border'] }} flex flex-col items-start">
                                             <div class="w-full flex justify-center mb-6">
                                                 @if($company->logo_path)
                                                     <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 object-contain rounded bg-white p-2 shadow" style="max-width: 220px;" />
@@ -54,8 +54,8 @@
                                                 @endif
                                             </div>
                                             <div class="flex-1 flex flex-col">
-                                                <div class="font-extrabold text-2xl text-white mb-1 truncate">{{ $company->name }}</div>
-                                                <div class="text-gray-300 text-base overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">{{ $company->description }}</div>
+                                                <div class="font-extrabold text-2xl text-white mb-1 line-clamp-2 break-words w-full" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-width: 100%;" title="{{ $company->name }}">{{ $company->name }}</div>
+                                                <div class="text-gray-300 text-base line-clamp-3 break-words overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; text-overflow: ellipsis; max-width: 100%;">{{ $company->description }}</div>
                                             </div>
                                         </div>
                                     </a>

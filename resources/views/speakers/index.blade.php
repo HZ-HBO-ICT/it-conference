@@ -1,8 +1,23 @@
 @php
-    $badgeColors = [
-        1 => 'bg-yellow-400 text-gray-900', // Gold
-        2 => 'bg-gray-400 text-gray-900',  // Silver
-        3 => 'bg-orange-400 text-gray-900', // Bronze
+    $badgeStyles = [
+        1 => [
+            'label'  => 'GOLD',
+            'bg'      => 'bg-yellow-400',
+            'text'    => 'text-gray-900',
+            'border'  => 'border-yellow-400',
+        ],
+        2 => [
+            'label'  => 'SILVER',
+            'bg'      => 'bg-gray-400',
+            'text'    => 'text-gray-900',
+            'border'  => 'border-gray-400',
+        ],
+        3 => [
+            'label'  => 'BRONZE',
+            'bg'      => 'bg-orange-400',
+            'text'    => 'text-gray-900',
+            'border'  => 'border-orange-400',
+        ],
     ];
 @endphp
 
@@ -22,30 +37,27 @@
             <div class="absolute bottom-1/5 right-1/4 w-32 h-32 rounded-full bg-accent-cyan opacity-18 blur-2xl"></div>
             <div class="absolute top-1/6 right-1/6 w-16 h-16 rounded-full bg-accent-yellow opacity-12 blur-2xl"></div>
         </div>
-        <h1 class="text-6xl font-extrabold text-center mb-4 uppercase"
-            style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">
+
+        <h1 class="text-6xl font-extrabold text-center mb-4 uppercase" style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">
             Speakers
         </h1>
-        
-        @if(!$speakers->isEmpty())
+
+        @if($speakers->isNotEmpty())
+            {{-- Keynote Speaker --}}
             @if($edition->keynote_name)
                 <div class="mb-16 max-w-5xl w-full">
                     <h2 class="text-3xl font-extrabold text-white mb-6 text-left">Keynote Speaker</h2>
                     <div class="flex flex-col md:flex-row bg-dark-card border border-gray-400 rounded-2xl overflow-hidden shadow-lg">
-                        <div class="flex-shrink-0 flex items-center justify-center min-h-[260px] min-w-[340px] bg-gray-300" style="border-top-left-radius: 1rem; border-bottom-left-radius: 1rem;">
+                        <div class="flex-shrink-0 flex items-center justify-center min-h-[260px] min-w-[340px] bg-gray-300 rounded-l-2xl">
                             @if($edition->keynote_photo_path)
-                                <img src="{{ $edition->keynote_photo_path }}" alt="Profile picture of {{$edition->keynote_name}}" class="object-cover w-full h-full max-h-64 max-w-xs" />
-                            @else
-                                <!-- Placeholder image -->
+                                <img src="{{ $edition->keynote_photo_path }}" alt="Profile of {{ $edition->keynote_name }}" class="object-cover w-full h-full max-h-64 max-w-xs" />
                             @endif
                         </div>
-                        <div class="flex-1 p-10 flex flex-col justify-center border-l border-gray-400" style="border-top-right-radius: 1rem; border-bottom-right-radius: 1rem;">
+                        <div class="flex-1 p-10 flex flex-col justify-center border-l border-gray-400 rounded-r-2xl">
                             <h3 class="font-extrabold text-3xl text-white mb-2">{{ $edition->keynote_name }}</h3>
-                            @if($edition->keynote_company)
-                                <div class="text-xl text-gray-200 mb-4">Keynote Speaker at {{ $edition->keynote_company }}</div>
-                            @else
-                                <div class="text-xl text-gray-200 mb-4">Keynote Speaker</div>
-                            @endif
+                            <div class="text-xl text-gray-200 mb-4">
+                                {{ $edition->keynote_company ? 'Keynote Speaker at ' . $edition->keynote_company : 'Keynote Speaker' }}
+                            </div>
                             @if($edition->keynote_presentation_title)
                                 <div class="font-bold italic text-white text-2xl mb-4">{{ $edition->keynote_presentation_title }}</div>
                             @endif
@@ -54,32 +66,82 @@
                     </div>
                 </div>
             @endif
+
             <h2 class="text-2xl font-extrabold text-white mb-6 mt-12 text-center">All Speakers</h2>
-            <div class="w-full flex justify-center">
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+
+            <div x-data="{ open: false, speaker: null }" class="w-full flex flex-col items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center w-full">
                     @foreach($speakers as $speaker)
-                        <div class="bg-dark-card rounded-2xl border border-gray-600 shadow-md overflow-hidden flex flex-col items-center max-w-md mx-auto transition-transform duration-200 hover:scale-105 hover:shadow-xl min-h-0">
-                            <div class="flex flex-col items-center p-8 pb-6 w-full">
+                        @php
+                            $badge = optional($speaker->user->company)->is_sponsorship_approved
+                                      ? $speaker->user->company->sponsorship_id
+                                      : null;
+                            $cardBorder = $badge && isset($badgeStyles[$badge])
+                                          ? $badgeStyles[$badge]['border']
+                                          : 'border-gray-600';
+                        @endphp
+                        <a href="{{ route('speakers.show', $speaker->id) }}" 
+                           class="bg-dark-card rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden 
+                                  flex flex-col items-center max-w-md mx-auto transition-transform duration-200 
+                                  hover:scale-105 hover:shadow-xl cursor-pointer">
+                            <div class="p-8 pb-6 w-full flex flex-col items-center">
                                 <div class="w-32 h-32 bg-gray-300 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                                    <!-- Speaker image here if available -->
+                                    {{-- Speaker image if available --}}
                                 </div>
-                                <div class="w-full text-center">
+                                <div class="text-center w-full">
                                     <div class="flex items-center justify-center gap-2 mb-1">
-                                        <span class="font-extrabold text-xl text-white">{{$speaker->user->name}}</span>
-                                        @if($speaker->user->company && $speaker->user->company->is_sponsorship_approved && $speaker->user->company->sponsorship_id)
-                                            @php $badge = $speaker->user->company->sponsorship_id; @endphp
-                                            <span class="ml-2 px-2 py-0.5 rounded-full text-xs font-bold {{$badgeColors[$badge] ?? ''}} border border-yellow-400">
-                                                {{ $speaker->user->company->sponsorship->name }}
+                                        <span class="font-extrabold text-xl text-white">{{ $speaker->user->name }}</span>
+                                        @if($badge)
+                                            <span class="ml-2 px-3 py-1 rounded-full text-xs font-semibold uppercase 
+                                                          {{ $badgeStyles[$badge]['bg'] }} 
+                                                          {{ $badgeStyles[$badge]['text'] }} 
+                                                          {{ $badgeStyles[$badge]['border'] }}">
+                                                {{ $badgeStyles[$badge]['label'] }}
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="text-gray-300 mb-1 text-base">{{$speaker->user->company->name ?? ''}}</div>
-                                    <div class="font-bold italic text-white text-base mb-1">{{$speaker->presentation->name ?? ''}}</div>
-                                    <div class="text-gray-400 text-sm">{{strlen($speaker->presentation->description) > 100 ? substr($speaker->presentation->description, 0, 100) . '...' : $speaker->presentation->description}}</div>
+                                    <div class="text-gray-300 mb-1 text-base">
+                                        {{ $speaker->user->company->name ?? 'Independent' }}
+                                    </div>
+                                    <div class="font-bold italic text-white text-base mb-1">
+                                        {{ $speaker->presentation->name ?? '' }}
+                                    </div>
+                                    <div class="text-gray-400 text-sm">
+                                        {{ Str::limit($speaker->presentation->description, 100) }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
+                </div>
+
+                {{-- Modal --}}
+                <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" style="display: none;">
+                    <div class="bg-[#101426] border border-gray-400 rounded-xl p-8 w-full max-w-md flex flex-col items-center shadow-lg relative">
+                        <button @click="open = false" 
+                                class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl">
+                            &times;
+                        </button>
+                        <template x-if="speaker">
+                            <div class="w-full flex flex-col items-center">
+                                <template x-if="speaker.photo">
+                                    <img :src="speaker.photo" :alt="'Profile photo of ' + speaker.name" 
+                                         class="h-24 w-24 object-cover rounded-full bg-white p-2 shadow mb-6" />
+                                </template>
+                                <div class="font-extrabold text-2xl text-white mb-2 text-center" x-text="speaker.name"></div>
+                                <template x-if="speaker.badgeName">
+                                    <span class="px-3 py-1 rounded-full text-sm font-semibold mb-4" 
+                                          :class="speaker.badgeColor + ' ' + speaker.badgeBorder" 
+                                          x-text="speaker.badgeName"></span>
+                                </template>
+                                <div class="text-gray-200 mb-2 w-full text-lg font-semibold" x-text="speaker.company"></div>
+                                <div class="text-gray-200 mb-2 w-full text-lg font-semibold" x-text="speaker.email"></div>
+                                <div class="text-gray-200 mb-6 w-full text-lg font-semibold" x-text="speaker.city"></div>
+                                <div class="font-bold italic text-white text-base mb-1" x-text="speaker.presentation"></div>
+                                <div class="text-gray-400 text-sm mb-4" x-text="speaker.description"></div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
         @else
@@ -92,3 +154,6 @@
     </div>
 </x-app-layout>
 
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+@endpush

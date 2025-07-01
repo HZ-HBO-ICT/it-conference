@@ -200,7 +200,7 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
-
+Route::get('/speakers/{id}', [SpeakerController::class, 'show'])->name('speakers.show');
 
 // ===== Routes for crew =====
 Route::middleware([

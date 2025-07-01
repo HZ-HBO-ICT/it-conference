@@ -179,6 +179,7 @@ export default {
                 'accent-purple': '#7B61FF',
                 'accent-purple-hover': '#a18aff',
                 'accent-olive': '#454515',
+                'dark-card': '#181c2a',
             }
         },
     },

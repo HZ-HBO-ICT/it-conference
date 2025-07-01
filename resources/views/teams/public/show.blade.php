@@ -21,7 +21,7 @@
 
         <div class="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 min-h-[80vh] justify-center">
             <!-- Left Card -->
-            <div class="bg-[#101426] border border-gray-400 rounded-xl p-8 w-full max-w-md flex flex-col items-center shadow-lg">
+            <div class="bg-[#101426] border border-gray-400 rounded-xl p-4 w-auto min-w-[220px] max-w-xs flex flex-col items-center shadow-lg self-start">
                 @if($company->logo_path)
                     <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 w-48 object-contain rounded bg-white p-2 shadow mb-6" />
                 @else

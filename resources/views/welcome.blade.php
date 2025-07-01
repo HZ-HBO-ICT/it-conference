@@ -20,7 +20,7 @@
                 <div class="relative max-w-7xl mx-auto px-4 pt-24 pb-24">
                     <!-- Main Hero Content -->
                     <div class="text-center mb-16">
-                        <h2 class="text-2xl text-white mb-8">Discover your spark in the IT Wave</h2>
+                        <h2 class="text-2xl text-white mb-8">Discover your spark in the digital wave</h2>
                         <div class="relative space-y-2">
                             <div class="text-8xl font-bold" style="text-shadow: 0 0 5px #e2ff32;">
                                 <span class="text-accent-yellow uppercase" style="text-shadow: 0 0 5px #e2ff32;">we are in it</span>
@@ -64,7 +64,7 @@
                     @endphp
 
                     <!-- Countdown Timer -->
-                    <div class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-16 @else mt-24 @endif">
+                    <div class="w-full flex justify-center @if(optional($edition)->is_in_progress) mt-8 @else mt-16 @endif">
                         @if ($edition)
                             <x-countdown :time="$edition->start_at"/>
                         @endif
