@@ -22,8 +22,7 @@
         <!-- End Blobs -->
 
         <div class="relative z-10">
-            <h1 class="text-6xl font-extrabold text-center mb-4 uppercase"
-                style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">
+            <h1 class="text-6xl font-extrabold text-center mb-4 uppercase tracking-wide text-waitt-yellow waitt-glow-title">
                 Companies
             </h1>
             <p class="text-center text-lg text-gray-200 max-w-3xl mx-auto mb-12">

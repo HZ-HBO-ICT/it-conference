@@ -74,6 +74,15 @@
     visibility: visible;
     opacity: 1;
 }
+
+.waitt-yellow-glow-title {
+    text-shadow: 0 0 2px #E2FF32, 0 0 4px #E2FF32;
+}
+
+.waitt-pink-glow-title {
+    text-shadow: 0 0 2px #FF3B9A, 0 0 4px #FF3B9A;
+}
+
 /* Bubble and Blob Animations */
 @keyframes float-slow {
     0%, 100% {

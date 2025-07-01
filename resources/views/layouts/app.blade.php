@@ -31,9 +31,9 @@
         }
     </script>
 </head>
-<body class="font-sans antialiased bg-white dark:bg-gray-900">
+<body class="font-sans antialiased bg-waitt-dark">
 
-    <div class="bg-[#070E1C]">
+    <div>
         <x-banner/>
         <div class="text-black dark:text-white">
             @if (!Str::contains(Request::url(), ['errors']))
