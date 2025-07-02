@@ -184,7 +184,7 @@ export default {
                 'accent-olive': '#454515',
                 'dark-card': '#181c2a',
                 'gold': '#fbc808',
-                'gold-light': '#c39a18',
+                'gold-light': '#faf6ec',
                 'silver': '#64748b',
                 'silver-light': '#D1D5DB',
                 'bronze': '#45291A',

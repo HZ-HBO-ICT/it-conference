@@ -16,7 +16,9 @@
         <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
             Speakers
         </h1>
-
+        <p class="text-left text-lg text-gray-200 mx-auto mb-5">
+            Get inspired by industry experts, researchers, and changemakers as they share insights, stories, and forward-thinking ideas on the conference stage — offering fresh perspectives, practical knowledge, and bold visions for the future.
+        </p>
         @if($speakers->isNotEmpty())
             {{-- Keynote Speaker --}}
             @if($edition->keynote_name)

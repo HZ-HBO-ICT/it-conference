@@ -16,11 +16,14 @@
             <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
                 Contact
             </h1>
+            <p class="text-left text-lg text-gray-200 mx-auto mb-7">
+                Have a question or want to get in touch? We're here to help — reach out and we'll get back to you as soon as possible.
+            </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <!-- Left Column -->
                 <div class="space-y-8">
                     <!-- Get in Touch Section -->
-                    <div class="bg-waitt-dark/70 backdrop-blur-sm rounded-2xl p-8">
+                    <div class="bg-waitt-dark/70 backdrop-blur-sm border border-slate-900 rounded-2xl p-8">
                         <h2 class="text-2xl font-bold text-white mb-4">Get in Touch</h2>
                         <p class="text-gray-400 mb-8">Have questions about the conference? We're here to help!</p>
 
@@ -55,7 +58,7 @@
                     </div>
 
                     <!-- Follow Us Section -->
-                    <div class="bg-waitt-dark/70 backdrop-blur-sm rounded-2xl p-8">
+                    <div class="bg-waitt-dark/70 backdrop-blur-sm border border-slate-900 rounded-2xl p-8">
                         <h2 class="text-2xl font-bold text-white mb-4">Follow Us</h2>
                         <p class="text-gray-400 mb-6">Stay updated with the latest news and announcements.</p>
                         <div class="flex space-x-6">
@@ -73,7 +76,7 @@
                     </div>
                 </div>
                 <!-- Right Column - Contact Form -->
-                <div class="bg-waitt-dark/70 backdrop-blur-sm rounded-2xl p-8">
+                <div class="bg-waitt-dark/70 backdrop-blur-sm border border-slate-900 rounded-2xl p-8">
                     <h2 class="text-2xl font-bold text-white mb-4">Send us a Message</h2>
                     <p class="text-gray-400 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
 
