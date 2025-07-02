@@ -57,10 +57,10 @@
                                         ? 'border-' . strtolower($speaker->user->company->sponsorship->name)
                                         : 'border-slate-900';
                         @endphp
-                        <a href="{{ route('speakers.show', $speaker->id) }}"
+                        <div
                            class="w-full bg-waitt-dark/70 backdrop-blur-sm transition-colors rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden
                                   flex flex-col items-center max-w-md mx-auto
-                                  hover:bg hover:shadow-xl cursor-pointer shine-effect"
+                                  shine-effect"
                            style="--shine-color: {{optional($speaker->user->company)->sponsorship ? $speaker->user->company->sponsorship->shine() : ''}}">
                             <div class="p-8 pb-6 w-full flex flex-col items-center">
                                 <div class="w-32 h-32 bg-gray-300 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     @endforeach
                 </div>
             </div>

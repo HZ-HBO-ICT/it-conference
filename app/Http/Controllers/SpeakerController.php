@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ApprovalStatus;
+use App\Livewire\Schedule\Presentation;
 use App\Models\Edition;
 use App\Models\UserPresentation;
 
@@ -42,15 +43,5 @@ class SpeakerController extends Controller
         });
 
         return view('speakers.index', compact('speakers', 'edition'));
-    }
-
-    public function show($id)
-    {
-        $speaker = \App\Models\UserPresentation::with(['user.company.sponsorship', 'presentation'])
-            ->where('id', $id)
-            ->where('role', 'speaker')
-            ->firstOrFail();
-        $edition = Edition::current();
-        return view('speakers.show', compact('speaker', 'edition'));
     }
 }
