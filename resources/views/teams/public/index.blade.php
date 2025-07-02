@@ -51,11 +51,11 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 @foreach($companyGroup as $company)
                                     <a href="{{ route('companies.show', $company) }}" class="block h-full transition-transform">
-                                        <div class="border rounded-xl p-8 bg-dark-card hover:bg-gray-900 transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-gray-700' }}">
+                                        <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-slate-900' }}"
+                                             style="--shine-color: {{$company->sponsorship ? $company->sponsorship->shine() : ''}}">
                                             <div class="w-full flex justify-center mb-6">
                                                 @if($company->logo_path)
                                                     <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-28 w-3/4 bg-waitt-dark object-contain rounded p-2 shadow" />
-
                                                 @else
                                                     <div class="h-28 w-4/5 bg-waitt-dark rounded flex items-center justify-center">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24">

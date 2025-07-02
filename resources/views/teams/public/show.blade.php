@@ -20,26 +20,43 @@
         <!-- End Blobs -->
 
         <div class="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 min-h-[80vh] justify-center">
-            <!-- Left Card -->
-            <div class="bg-[#101426] border border-gray-400 rounded-xl p-4 w-auto min-w-[220px] max-w-xs flex flex-col items-center shadow-lg self-start">
-                @if($company->logo_path)
-                    <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-24 w-48 object-contain rounded bg-white p-2 shadow mb-6" />
-                @else
-                    <div class="h-24 w-48 bg-gray-700 rounded flex items-center justify-center mb-6">
-                        <span class="text-gray-400">Logo</span>
+            <aside class="col-span-1 z-10 rounded-3xl pr-5 space-y-8">
+                <div class="flex justify-center">
+                    @if($company->logo_path)
+                        <img src="{{ asset($company->logo_path) }}"
+                             alt="{{ $company->name }}"
+                             class="rounded-lg w-full h-56 object-contain shadow-xl border-4 border-opacity-30" />
+                    @else
+                        <div class="h-56 w-full bg-waitt-dark rounded flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                            </svg>
+                        </div>
+                    @endif
+                </div>
+
+                <div class="text-left text-white text-lg grid grid-cols-1 gap-2">
+                    @if($company->sponsorship)
+                        <x-waitt.tag :title="$company->sponsorship->name"/>
+                    @endif
+                    <h2 class="text-3xl font-bold">{{ $company->name }}</h2>
+                    <div class="inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        {{ $company->city }}
                     </div>
-                @endif
-                <div class="font-extrabold text-2xl text-white mb-2 text-center">{{ $company->name }}</div>
-                @if(isset($tiers[$company->sponsorship_id]))
-                    <span class="px-3 py-1 rounded-full text-sm font-semibold mb-4 {{ $tiers[$company->sponsorship_id]['color'] }}">{{ $tiers[$company->sponsorship_id]['label'] }}</span>
-                @endif
-                <div class="flex items-center text-gray-200 mb-2 w-full text-lg font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>{{ $company->city ?? 'Location not specified' }}</div>
-                <div class="flex items-center text-gray-200 mb-2 w-full text-lg font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 01-8 0m8 0a4 4 0 00-8 0m8 0V8a4 4 0 00-8 0v4m8 0v4a4 4 0 01-8 0v-4"/></svg>{{ $company->email ?? 'Email not specified' }}</div>
-                <div class="flex items-center text-gray-200 mb-6 w-full text-lg font-semibold"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2M16 11V7a4 4 0 00-8 0v4"/></svg>{{ $company->employees ?? 'Employees not specified' }}</div>
-                @if($company->website)
-                    <a href="{{ $company->website }}" target="_blank" class="w-full mt-auto"><button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition">Visit website</button></a>
-                @endif
-            </div>
+                    <div class="inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                        </svg>
+                        <a href="{{$company->website}}" class="underline hover:text-waitt-pink transition-colors">
+                            {{ $company->website }}
+                        </a>
+                    </div>
+                </div>
+            </aside>
 
             <!-- Right Section -->
             <div class="flex-1 flex flex-col gap-8 text-white">
@@ -49,12 +66,9 @@
                 </div>
                 <div>
                     <h2 class="text-2xl font-extrabold mb-2">Internship opportunities</h2>
-                    @php
-                        $internships = $company->internshipAttributes()->tracks()->pluck('value');
-                    @endphp
-                    @if($internships->count())
+                    @if($company->internshipAttributes()->tracks()->pluck('value')->count() > 0)
                         <ul class="list-disc ml-6 text-lg text-gray-200">
-                            @foreach($internships as $track)
+                            @foreach($company->internshipAttributes()->tracks()->pluck('value') as $track)
                                 <li>{{ $track }}</li>
                             @endforeach
                         </ul>
@@ -62,10 +76,12 @@
                         <p class="text-lg text-gray-400">No internship opportunities specified.</p>
                     @endif
                 </div>
-                <div>
-                    <h2 class="text-2xl font-extrabold mb-2">Meet Us at the Conference</h2>
-                    <p class="text-lg text-gray-200">Visit our booth at the conference to learn more about {{ $company->name }} and the opportunities we offer. Our team will be available to answer your questions and discuss potential career paths.</p>
-                </div>
+                @if($company->booth)
+                    <div>
+                        <h2 class="text-2xl font-extrabold mb-2">Meet Us at the Conference</h2>
+                        <p class="text-lg text-gray-200">Visit our booth at the conference to learn more about {{ $company->name }} and the opportunities we offer. Our team will be available to answer your questions and discuss potential career paths.</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

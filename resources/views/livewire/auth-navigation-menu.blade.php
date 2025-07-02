@@ -64,16 +64,20 @@
                     <x-waitt.dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <span
-                                class="bg-waitt-dark hover:cursor-pointer inline-flex py-1 pr-2 rounded-md text-gray-200 hover:text-gray-400 border border-gray-400 focus:outline-hidden transition ease-in-out duration-150">
-                                <div
-                                   class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md">
+                                class="bg-waitt-dark hover:cursor-pointer inline-flex py-1 pr-2 rounded-md text-gray-200 hover:text-gray-400 focus:outline-hidden transition ease-in-out duration-150"
+                            >
+                                <div :class="open ? 'text-waitt-yellow' : 'text-gray-200'"
+                                    class="inline-flex items-center px-3 border border-transparent text-sm leading-4 font-medium rounded-md"
+                                >
                                     {{ Auth::user()->name }}
                                 </div>
-                                <div
-                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-hidden focus:border-gray-300 transition">
-                                    <img class="h-8 w-8 rounded-full object-cover"
-                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
-                                </div>
+                                <svg
+                                    class="w-5 h-5 transform transition-transform duration-300"
+                                    :class="open ? 'rotate-180 text-waitt-yellow' : 'rotate-0 text-gray-200'"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
                             </span>
                         </x-slot>
 

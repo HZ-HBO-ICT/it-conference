@@ -18,15 +18,15 @@
         <div class="w-full flex flex-col gap-8">
             <div class="space-y-4 w-full" x-data="{ selected: null }">
                 @foreach($faqs as $index => $faq)
-                    <div class="border border-gray-600 rounded-xl overflow-hidden w-full bg-dark-card transition-colors hover:bg-gray-900">
+                    <div class="rounded-xl overflow-hidden w-full bg-waitt-dark/70 backdrop-blur-sm transition-colors hover:bg-waitt-dark/70">
                         <button
                             @click="selected !== {{ $index }} ? selected = {{ $index }} : selected = null"
-                            class=" hover:cursor-pointer flex items-center justify-between w-full px-6 py-4 text-left text-lg font-semibold text-white hover:text-waitt-yellow transition-colors"
+                            class="hover:cursor-pointer flex items-center justify-between w-full px-6 py-4 text-left text-lg font-semibold text-white hover:text-waitt-yellow transition-colors"
                         >
                             {{ $faq->question }}
                             <svg
                                 class="w-5 h-5 transform transition-transform duration-300"
-                                :class="selected === {{ $index }} ? 'rotate-180 text-yellow-300' : 'rotate-0 text-gray-400'"
+                                :class="selected === {{ $index }} ? 'rotate-180 text-waitt-yellow' : 'rotate-0 text-gray-400'"
                                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -34,10 +34,10 @@
                         </button>
                         <div
                             x-show="selected === {{ $index }}"
-                            x-collapse.duration.500ms
+                            x-collapse.duration.300ms
                             class="px-6 w-full border-t border-gray-700"
                         >
-                            <div class="prose prose-invert w-full max-w-none py-4 !mt-0">
+                            <div class="prose prose-invert text-gray-200 w-full max-w-none py-4 !mt-0">
                                 {!! Str::markdown($faq->answer) !!}
                             </div>
                         </div>

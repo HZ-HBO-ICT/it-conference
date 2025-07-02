@@ -83,6 +83,36 @@
     text-shadow: 0 0 2px #FF3B9A, 0 0 4px #FF3B9A;
 }
 
+.shine-effect {
+    --shine-deg: 45deg;
+    --shine-color: rgba(255, 255, 255, 0.2); /* default */
+
+    position: relative;
+    overflow: hidden;
+
+    background-repeat: no-repeat;
+    background-position: -100% 0, 0 0;
+
+    background-image: linear-gradient(
+        var(--shine-deg),
+        transparent 20%,
+        transparent 40%,
+        var(--shine-color) 50%,
+        var(--shine-color) 55%,
+        transparent 70%,
+        transparent 100%
+    );
+
+    background-size: 250% 250%, 100% 100%;
+    transition: background-position 0s ease;
+}
+
+.shine-effect:hover {
+    background-position: 200% 0, 0 0;
+    transition-duration: 1.5s;
+}
+
+
 /* Bubble and Blob Animations */
 @keyframes float-slow {
     0%, 100% {
