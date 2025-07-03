@@ -51,7 +51,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 @foreach($companyGroup as $company)
                                     <a href="{{ route('companies.show', $company) }}" class="block h-full transition-transform">
-                                        <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-slate-900' }}"
+                                        <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-slate-950' }}"
                                              style="--shine-color: {{$company->sponsorship ? $company->sponsorship->shine() : ''}}">
                                             <div class="w-full flex justify-center mb-6">
                                                 @if($company->logo_path)

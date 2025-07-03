@@ -55,7 +55,7 @@
                                       : null;
                             $cardBorder = $badge
                                         ? 'border-' . strtolower($speaker->user->company->sponsorship->name)
-                                        : 'border-slate-900';
+                                        : 'border-slate-950';
                         @endphp
                         <div
                            class="w-full bg-waitt-dark/70 backdrop-blur-sm transition-colors rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden
