@@ -16,6 +16,11 @@ jobs:
       REMOTE_DIR: './deploy'
 
     steps:
+    - name: Test FTP port connectivity
+      run: |
+        apt-get update && apt-get install -y telnet
+        telnet ${{ secrets.FTP_HOST }} 21
+    
     - uses: shivammathur/setup-php@2.31.1
       with:
         php-version: '8.4.8'
