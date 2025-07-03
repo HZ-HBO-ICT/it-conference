@@ -21,13 +21,14 @@ class ProgrammeController extends Controller
             abort(404);
         }
 
-        $lectures = Presentation::where('type', 'lecture')
+        // TODO: Once we create the new programme page this hardcoding needs to be removed
+        $workshops = Presentation::where('presentation_type_id', '1')
             ->whereNotNull('room_id')
             ->whereNotNull('timeslot_id')
             ->orderBy('start')
             ->get();
 
-        $workshops = Presentation::where('type', 'workshop')
+        $lectures = Presentation::where('presentation_type_id', '2')
             ->whereNotNull('room_id')
             ->whereNotNull('timeslot_id')
             ->orderBy('start')

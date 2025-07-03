@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Actions\Log\ApprovalHandler;
+use App\Enums\ApprovalStatus;
+use App\Traits\HasApprovalStatus;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,34 +21,73 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  *
  *
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property string $approval_status
+ * @property int|null $max_participants The max number of participants that the presenter allows;
+ *                 If left empty it would be based on the room capacity
+ * @property string|null $file_path Path to the uploaded presentation by the speaker
+ * @property string|null $file_original_name
+ * @property string|null $start
+ * @property int $presentation_type_id
+ * @property int|null $timeslot_id
+ * @property int|null $room_id
+ * @property int|null $difficulty_id
+ * @property int|null $company_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Company|null $company
  * @property-read mixed $creator
  * @property-read \App\Models\Difficulty|null $difficulty
  * @property-read mixed $duration
+ * @property-read mixed $is_approved
  * @property-read mixed $is_scheduled
  * @property-read mixed $participants
+ * @property-read \App\Models\PresentationType $presentationType
  * @property-read mixed $remaining_capacity
  * @property-read \App\Models\Room|null $room
  * @property-read mixed $speakers
  * @property-read mixed $speakers_name
  * @property-read \App\Models\Timeslot|null $timeslot
+ * @property-read mixed $type
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserPresentation> $userPresentations
  * @property-read int|null $user_presentations_count
  * @method static \Database\Factories\PresentationFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Presentation query()
+ * @method static Builder<static>|Presentation hasStatus(\App\Enums\ApprovalStatus|string $status, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Presentation newModelQuery()
+ * @method static Builder<static>|Presentation newQuery()
+ * @method static Builder<static>|Presentation orderByPriorityStatus(\App\Enums\ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status')
+ * @method static Builder<static>|Presentation query()
+ * @method static Builder<static>|Presentation whereApprovalStatus($value)
+ * @method static Builder<static>|Presentation whereCompanyId($value)
+ * @method static Builder<static>|Presentation whereCreatedAt($value)
+ * @method static Builder<static>|Presentation whereDeletedAt($value)
+ * @method static Builder<static>|Presentation whereDescription($value)
+ * @method static Builder<static>|Presentation whereDifficultyId($value)
+ * @method static Builder<static>|Presentation whereFileOriginalName($value)
+ * @method static Builder<static>|Presentation whereFilePath($value)
+ * @method static Builder<static>|Presentation whereId($value)
+ * @method static Builder<static>|Presentation whereMaxParticipants($value)
+ * @method static Builder<static>|Presentation whereName($value)
+ * @method static Builder<static>|Presentation wherePresentationTypeId($value)
+ * @method static Builder<static>|Presentation whereRoomId($value)
+ * @method static Builder<static>|Presentation whereStart($value)
+ * @method static Builder<static>|Presentation whereTimeslotId($value)
+ * @method static Builder<static>|Presentation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Presentation extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use HasApprovalStatus;
 
-    protected $fillable = ['name', 'max_participants', 'description', 'type', 'difficulty_id', 'file_path',
-        'company_id', 'room_id', 'timeslot_id', 'start', 'is_approved'];
+    protected $fillable = ['name', 'max_participants', 'description', 'presentation_type_id', 'difficulty_id', 'file_path',
+        'company_id', 'room_id', 'timeslot_id', 'start', 'approval_status'];
 
     /**
      * Returns the basic validation rules for the model
@@ -57,9 +99,20 @@ class Presentation extends Model
             'name' => 'required|string|min:1|max:255',
             'max_participants' => 'required|numeric|min:1|max:999',
             'description' => 'required|string|min:1|max:300',
-            'type' => 'required|in:workshop,lecture',
             'difficulty_id' => 'required|numeric|exists:difficulties,id',
+            'presentation_type_id' => 'required|numeric|exists:presentation_types,id',
         ];
+    }
+
+    /**
+     * Ensures that if the presentation status is changed, it is changed to one of the enum statuses
+     * @return void
+     */
+    protected static function booted() : void
+    {
+        static::saving(function (Presentation $presentation) {
+            $presentation->validateApprovalStatus();
+        });
     }
 
     /**
@@ -90,6 +143,15 @@ class Presentation extends Model
     public function difficulty(): BelongsTo
     {
         return $this->belongsTo(Difficulty::class);
+    }
+
+    /**
+     * Establishes a relationship between the Presentation and the PresentationType
+     * @return BelongsTo<PresentationType, $this>
+     */
+    public function presentationType(): BelongsTo
+    {
+        return $this->belongsTo(PresentationType::class);
     }
 
     /**
@@ -187,6 +249,17 @@ class Presentation extends Model
                     ->where('role', 'speaker');
             })->orderBy('created_at')
                 ->first()
+        );
+    }
+
+    /**
+     * Returns the type name of the presentation
+     * @return Attribute<string, never>
+     */
+    public function type(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => optional($this->presentationType)->name,
         );
     }
 

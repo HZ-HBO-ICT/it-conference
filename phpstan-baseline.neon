@@ -439,18 +439,6 @@ parameters:
 			path: app/Console/Commands/UpsertMasterData.php
 
 		-
-			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Cannot access property \$representative on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 4
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
 			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
 			identifier: method.nonObject
 			count: 5
@@ -489,18 +477,6 @@ parameters:
 		-
 			message: '#^Method App\\Http\\Controllers\\Crew\\BoothController\:\:store\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothApprovedMailable constructor expects App\\Models\\Company, App\\Models\\Company\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/Crew/BoothController.php
-
-		-
-			message: '#^Parameter \#1 \$company of class App\\Mail\\BoothDisapprovedMailable constructor expects App\\Models\\Company, App\\Models\\Company\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/Http/Controllers/Crew/BoothController.php
 
@@ -651,12 +627,6 @@ parameters:
 		-
 			message: '#^Method App\\Http\\Controllers\\Crew\\PresentationController\:\:store\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Crew/PresentationController.php
-
-		-
-			message: '#^Property App\\Models\\Presentation\:\:\$is_approved \(bool\) does not accept int\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/Http/Controllers/Crew/PresentationController.php
 
@@ -901,292 +871,10 @@ parameters:
 			path: app/Http/Controllers/RegistrationController.php
 
 		-
-			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: app/Http/Controllers/SpeakerController.php
-
-		-
 			message: '#^Method App\\Http\\Controllers\\SpeakerController\:\:index\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/SpeakerController.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Booths/DeleteBoothForm.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Booths/EditBoothModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Booths\\EditBoothModal\:\:\$rules has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Booths/EditBoothModal.php
-
-		-
-			message: '#^Parameter \#1 \$path of static method Illuminate\\Filesystem\\FilesystemAdapter\:\:download\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/DownloadPresentation.php
-
-		-
-			message: '#^Cannot access property \$receive_emails on App\\Models\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: app/Http/Livewire/EmailNotificationPreference.php
-
-		-
-			message: '#^Cannot call method save\(\) on App\\Models\\User\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Http/Livewire/EmailNotificationPreference.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\EmailNotificationPreference\:\:\$receiveEmails has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/EmailNotificationPreference.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\OverrideDifficulty\:\:mount\(\) has parameter \$presentation with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Http/Livewire/OverrideDifficulty.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\OverrideDifficulty\:\:\$presentation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/OverrideDifficulty.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\OverrideDifficulty\:\:\$rules has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/OverrideDifficulty.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\OverrideDifficulty\:\:\$selectedDifficultyId has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/OverrideDifficulty.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Presentations/DeletePresentationForm.php
-
-		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$description has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$difficulty_id has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$max_participants has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$name has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$presentation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$rules has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Presentations\\EditPresentationModal\:\:\$type has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Presentations/EditPresentationModal.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isApproved\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/ReleaseFinalProgramme.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/ReleaseFinalProgramme.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\ReleaseFinalProgramme\:\:\$isOpen has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/ReleaseFinalProgramme.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\ReleaseFinalProgramme\:\:\$numberOfUnscheduledPresentations has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/ReleaseFinalProgramme.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$timeslot\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Call to an undefined method App\\Http\\Controllers\\Crew\\ScheduleController\:\:checkIfTimeslotAndRoomAreAvailable\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Cannot access property \$max_participants on App\\Models\\Room\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Room\>\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:updatedSelectedRoom\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$maxParticipants has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$presentation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$rooms has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$selectedRoom has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\RoomAndTimeslotSelector\:\:\$timeslots has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/RoomAndTimeslotSelector.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/Rooms/DeleteRoomForm.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Schedule\\AddTimeslotPadding\:\:\$isModalOpen has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Schedule/AddTimeslotPadding.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Casts\\Attribute\:\:detach\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/Schedule/RemovePresentationFromSchedule.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\:\:\$isScheduled\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:\$room_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:\$timeslot_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Call to an undefined method App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\:\:save\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Casts\\Attribute\:\:detach\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Cannot access property \$id on App\\Models\\Presentation\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Schedule\\ReplacePresentation\:\:\$availablePresentations has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Schedule\\ReplacePresentation\:\:\$newPresentationId has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Schedule/ReplacePresentation.php
-
-		-
-			message: '#^Property App\\Http\\Livewire\\Schedule\\ResetTimeslots\:\:\$isOpen has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Http/Livewire/Schedule/ResetTimeslots.php
 
 		-
 			message: '#^Call to an undefined method Illuminate\\Http\\RedirectResponse\:\:dangerButton\(\)\.$#'
@@ -2059,42 +1747,6 @@ parameters:
 			path: app/Livewire/Forms/KeynoteForm.php
 
 		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$description has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$difficulty_id has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$max_participants has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$name has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$presentation has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\PresentationForm\:\:\$type has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/PresentationForm.php
-
-		-
 			message: '#^Method App\\Livewire\\Forms\\RoomForm\:\:setRoom\(\) has parameter \$room with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -2635,12 +2287,6 @@ parameters:
 			path: app/Livewire/Schedule/GridParentComponent.php
 
 		-
-			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$lectureCount has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
 			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$rooms has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -2654,12 +2300,6 @@ parameters:
 
 		-
 			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$unscheduledPresentations has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Schedule/GridParentComponent.php
-
-		-
-			message: '#^Property App\\Livewire\\Schedule\\GridParentComponent\:\:\$workshopCount has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Schedule/GridParentComponent.php
@@ -2977,12 +2617,6 @@ parameters:
 			path: app/Mail/UserInvitation.php
 
 		-
-			message: '#^Cannot access property \$name on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Models/Booth.php
-
-		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2999,12 +2633,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Booth.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Sponsorship\:\:\$is_approved\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Company.php
 
 		-
 			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany\:\:role\(\)\.$#'
@@ -4585,12 +4213,6 @@ parameters:
 			path: database/seeders/CompanySeeder.php
 
 		-
-			message: '#^Property Database\\Seeders\\DatabaseSeeder\:\:\$roomNames has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: database/seeders/DatabaseSeeder.php
-
-		-
 			message: '#^Cannot call method activate\(\) on App\\Models\\Edition\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -4781,90 +4403,6 @@ parameters:
 			identifier: property.notFound
 			count: 2
 			path: tests/Feature/PasswordResetTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_access_create_presentation_form\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_approve_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_delete_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_reject_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_store_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_view_presentation_details\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_can_view_presentations\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:event_organizer_receives_validation_errors_on_invalid_presentation_data\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_access_create_presentation_form\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_approve_or_reject_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_delete_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_store_presentation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_view_presentation_details\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
-
-		-
-			message: '#^Method Tests\\Feature\\PresentationControllerTest\:\:participant_cannot_view_presentations\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Feature/PresentationControllerTest.php
 
 		-
 			message: '#^Access to an undefined property Livewire\\Features\\SupportTesting\\Testable\:\:\$state\.$#'
@@ -5079,18 +4617,6 @@ parameters:
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
-			count: 1
-			path: tests/Unit/PresentationTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\PresentationTest\:\:test_that_participants_returns_the_users_attached_with_role_participant\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/PresentationTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\PresentationTest\:\:test_that_speakers_returns_the_users_attached_with_role_speaker\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: tests/Unit/PresentationTest.php
 

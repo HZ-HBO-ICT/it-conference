@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,17 +16,12 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = Company::where('is_approved', 1)->get()->sortBy(function ($company) {
-            if ($company->is_approved && $company->is_sponsorship_approved) {
+        $companies = Company::hasStatus(ApprovalStatus::APPROVED)->get()->sortBy(function ($company) {
+            if ($company->approval_status == ApprovalStatus::APPROVED->value && $company->is_sponsorship_approved) {
                 return $company->sponsorship_id;
             }
             return 999; // Assign a high value to non-sponsored speakers
         });
-
-        $edition = Edition::current();
-        if (!$edition) {
-            $companies = collect();
-        }
 
         return view('teams.public.index', compact('companies'));
     }
