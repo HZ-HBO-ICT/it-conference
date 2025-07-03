@@ -1,53 +1,30 @@
-@php
-    $badgeStyles = [
-        1 => [
-            'label'  => 'GOLD',
-            'bg'      => 'bg-yellow-400',
-            'text'    => 'text-gray-900',
-            'border'  => 'border-yellow-400',
-        ],
-        2 => [
-            'label'  => 'SILVER',
-            'bg'      => 'bg-gray-400',
-            'text'    => 'text-gray-900',
-            'border'  => 'border-gray-400',
-        ],
-        3 => [
-            'label'  => 'BRONZE',
-            'bg'      => 'bg-orange-400',
-            'text'    => 'text-gray-900',
-            'border'  => 'border-orange-400',
-        ],
-    ];
-@endphp
-
 <x-app-layout>
-    <div class="relative min-h-screen w-full px-6 py-12 flex flex-col items-center overflow-hidden">
-        <!-- Decorative Bubbles (Static) -->
-        <div class="absolute inset-0 pointer-events-none z-0">
-            <div class="absolute top-32 left-10 w-40 h-40 rounded-full bg-accent-cyan opacity-30 blur-2xl"></div>
-            <div class="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-accent-yellow opacity-20 blur-2xl"></div>
-            <div class="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-accent-pink opacity-25 blur-2xl"></div>
-            <div class="absolute top-40 right-32 w-32 h-32 rounded-full bg-accent-cyan opacity-15 blur-2xl"></div>
-            <div class="absolute bottom-32 left-1/4 w-28 h-28 rounded-full bg-accent-yellow opacity-15 blur-2xl"></div>
-            <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-accent-pink opacity-10 blur-2xl"></div>
-            <div class="absolute top-1/2 left-1/2 w-24 h-24 rounded-full bg-accent-cyan opacity-20 blur-2xl"></div>
-            <div class="absolute bottom-1/4 right-1/3 w-20 h-20 rounded-full bg-accent-yellow opacity-10 blur-2xl"></div>
-            <div class="absolute top-2/3 left-1/5 w-28 h-28 rounded-full bg-accent-pink opacity-15 blur-2xl"></div>
-            <div class="absolute bottom-1/5 right-1/4 w-32 h-32 rounded-full bg-accent-cyan opacity-18 blur-2xl"></div>
-            <div class="absolute top-1/3 right-1/6 w-16 h-16 rounded-full bg-accent-yellow opacity-12 blur-2xl"></div>
+    <div class="min-h-screen relative overflow-hidden mx-auto px-4 pt-14 pb-24">
+        <!-- Colorful Blobs Background -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-32 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-1/3 right-[-100px] w-80 h-80 bg-yellow-300 opacity-20 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-32 left-1/3 w-72 h-72 bg-purple-500 opacity-30 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-10 right-40 w-80 h-80 bg-pink-400 opacity-20 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-green-400 opacity-25 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-1/2 left-1/5 w-64 h-64 bg-red-400 opacity-35 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-400 opacity-30 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-40 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
         </div>
 
-        <h1 class="text-6xl font-extrabold text-center mb-4 uppercase" style="color: #ffe600; text-shadow: 0 0 2px #ffe600, 0 0 4px #ffe600; letter-spacing: 2px;">
+        <div class="relative z-10 max-w-7xl mx-auto">
+        <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
             Speakers
         </h1>
-
+        <p class="text-left text-lg text-gray-200 mx-auto mb-5">
+            Get inspired by industry experts, researchers, and changemakers as they share insights, stories, and forward-thinking ideas on the conference stage — offering fresh perspectives, practical knowledge, and bold visions for the future.
+        </p>
         @if($speakers->isNotEmpty())
             {{-- Keynote Speaker --}}
             @if($edition->keynote_name)
-                <div class="mb-16 max-w-5xl w-full">
-                    <h2 class="text-3xl font-extrabold text-white mb-6 text-left">Keynote Speaker</h2>
-                    <div class="flex flex-col md:flex-row bg-dark-card border border-gray-400 rounded-2xl overflow-hidden shadow-lg">
+                <div class="w-full mb-12">
+                    <h2 class="text-3xl font-extrabold text-white text-left my-6">Keynote Speaker</h2>
+                    <div class="flex flex-col md:flex-row bg-waitt-dark/70 backdrop-blur-sm border border-gray-400 rounded-2xl overflow-hidden shadow-lg">
                         <div class="flex-shrink-0 flex items-center justify-center min-h-[260px] min-w-[340px] bg-gray-300 rounded-l-2xl">
                             @if($edition->keynote_photo_path)
                                 <img src="{{ $edition->keynote_photo_path }}" alt="Profile of {{ $edition->keynote_name }}" class="object-cover w-full h-full max-h-64 max-w-xs" />
@@ -67,81 +44,49 @@
                 </div>
             @endif
 
-            <h2 class="text-2xl font-extrabold text-white mb-6 mt-12 text-center">All Speakers</h2>
+            <h2 class="text-3xl font-extrabold text-white text-left my-6">All Speakers</h2>
 
-            <div x-data="{ open: false, speaker: null }" class="w-full flex flex-col items-center">
+            <div class="w-full flex flex-col items-center">
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center w-full">
                     @foreach($speakers as $speaker)
                         @php
                             $badge = optional($speaker->user->company)->is_sponsorship_approved
                                       ? $speaker->user->company->sponsorship_id
                                       : null;
-                            $cardBorder = $badge && isset($badgeStyles[$badge])
-                                          ? $badgeStyles[$badge]['border']
-                                          : 'border-gray-600';
+                            $cardBorder = $badge
+                                        ? 'border-' . strtolower($speaker->user->company->sponsorship->name)
+                                        : 'border-slate-950';
                         @endphp
-                        <a href="{{ route('speakers.show', $speaker->id) }}" 
-                           class="bg-dark-card rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden 
-                                  flex flex-col items-center max-w-md mx-auto transition-transform duration-200 
-                                  hover:scale-105 hover:shadow-xl cursor-pointer">
+                        <div
+                           class="w-full bg-waitt-dark/70 backdrop-blur-sm transition-colors rounded-2xl border {{ $cardBorder }} shadow-md overflow-hidden
+                                  flex flex-col items-center max-w-md mx-auto
+                                  shine-effect"
+                           style="--shine-color: {{optional($speaker->user->company)->sponsorship ? $speaker->user->company->sponsorship->shine() : ''}}">
                             <div class="p-8 pb-6 w-full flex flex-col items-center">
                                 <div class="w-32 h-32 bg-gray-300 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                                    {{-- Speaker image if available --}}
+                                        <img
+                                            src="{{ $speaker->user->profile_photo_url }}"
+                                            alt="{{ $speaker->user->name }}'s profile picture"
+                                            class="object-cover w-full h-full"
+                                        />
                                 </div>
                                 <div class="text-center w-full">
                                     <div class="flex items-center justify-center gap-2 mb-1">
                                         <span class="font-extrabold text-xl text-white">{{ $speaker->user->name }}</span>
-                                        @if($badge)
-                                            <span class="ml-2 px-3 py-1 rounded-full text-xs font-semibold uppercase 
-                                                          {{ $badgeStyles[$badge]['bg'] }} 
-                                                          {{ $badgeStyles[$badge]['text'] }} 
-                                                          {{ $badgeStyles[$badge]['border'] }}">
-                                                {{ $badgeStyles[$badge]['label'] }}
-                                            </span>
+                                        @if ($badge)
+                                            <x-waitt.tag :textSize="'text-xs'" :title="$speaker->user->company->sponsorship->name" />
                                         @endif
                                     </div>
                                     <div class="text-gray-300 mb-1 text-base">
-                                        {{ $speaker->user->company->name ?? 'Independent' }}
+                                        {{ $speaker->user->company->name ?? $speaker->user->institution }}
                                     </div>
                                     <div class="font-bold italic text-white text-base mb-1">
                                         {{ $speaker->presentation->name ?? '' }}
                                     </div>
-                                    <div class="text-gray-400 text-sm">
-                                        {{ Str::limit($speaker->presentation->description, 100) }}
-                                    </div>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     @endforeach
-                </div>
-
-                {{-- Modal --}}
-                <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" style="display: none;">
-                    <div class="bg-[#101426] border border-gray-400 rounded-xl p-8 w-full max-w-md flex flex-col items-center shadow-lg relative">
-                        <button @click="open = false" 
-                                class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl">
-                            &times;
-                        </button>
-                        <template x-if="speaker">
-                            <div class="w-full flex flex-col items-center">
-                                <template x-if="speaker.photo">
-                                    <img :src="speaker.photo" :alt="'Profile photo of ' + speaker.name" 
-                                         class="h-24 w-24 object-cover rounded-full bg-white p-2 shadow mb-6" />
-                                </template>
-                                <div class="font-extrabold text-2xl text-white mb-2 text-center" x-text="speaker.name"></div>
-                                <template x-if="speaker.badgeName">
-                                    <span class="px-3 py-1 rounded-full text-sm font-semibold mb-4" 
-                                          :class="speaker.badgeColor + ' ' + speaker.badgeBorder" 
-                                          x-text="speaker.badgeName"></span>
-                                </template>
-                                <div class="text-gray-200 mb-2 w-full text-lg font-semibold" x-text="speaker.company"></div>
-                                <div class="text-gray-200 mb-2 w-full text-lg font-semibold" x-text="speaker.email"></div>
-                                <div class="text-gray-200 mb-6 w-full text-lg font-semibold" x-text="speaker.city"></div>
-                                <div class="font-bold italic text-white text-base mb-1" x-text="speaker.presentation"></div>
-                                <div class="text-gray-400 text-sm mb-4" x-text="speaker.description"></div>
-                            </div>
-                        </template>
-                    </div>
                 </div>
             </div>
         @else
@@ -151,9 +96,6 @@
                 </p>
             </div>
         @endif
+        </div>
     </div>
 </x-app-layout>
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-@endpush
