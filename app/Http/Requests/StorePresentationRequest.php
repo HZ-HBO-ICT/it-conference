@@ -24,7 +24,7 @@ class StorePresentationRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            'type' => 'required',
+            'presentation_type_id' => 'required|numeric|exists:presentation_types,id',
             'difficulty_id' => 'required|numeric',
             'max_participants' => 'required|numeric',
             'user_id' => 'required|numeric'
@@ -39,6 +39,7 @@ class StorePresentationRequest extends FormRequest
     {
         return [
             'user_id' => 'A user must be selected.',
+            'presentation_type_id' => 'A presentation type must be selected.',
         ];
     }
 }

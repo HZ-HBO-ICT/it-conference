@@ -29,7 +29,7 @@
 
                             @endif
                         </div>
-                        <div class="flex-col flex-grow pl-2 pt-3 text-gray-800 dark:text-gray-200">
+                        <div class="flex-col grow pl-2 pt-3 text-gray-800 dark:text-gray-200">
                             <h3>{{ $company->name }}</h3>
                             <p class="text-sm">
                                 {{ $company->street }} {{ $company->house_number }} <br>
@@ -118,7 +118,7 @@
                     <div class="text-gray-800 dark:text-gray-200">
                         <ul class="space-y-3">
                             @forelse($company->users as $user)
-                                <li class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-md shadow-sm">
+                                <li class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-md shadow-xs">
                                     <!-- Profile Image -->
                                     <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}"
                                          class="w-10 h-10 rounded-full object-cover mr-3">
@@ -204,7 +204,7 @@
                                             isApproved: 1,
                                         }
                                     })"
-                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                                         {{ __('Approve') }}
                                     </x-button>
 
@@ -276,9 +276,9 @@
                         <div class="space-y-2">
                             @forelse($company->presentations as $presentation)
                                 <a href="{{route('moderator.presentations.show', $presentation)}}"
-                                   class="block bg-white dark:bg-gray-700 p-4 borde rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-300">
+                                   class="block bg-white dark:bg-gray-700 p-4 borde rounded-lg shadow-xs hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-300">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke-width="1.5" stroke="#E77A50"
                                                  aria-hidden="true" class="w-6 h-6">

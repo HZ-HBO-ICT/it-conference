@@ -24,8 +24,8 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
                                 @forelse ($role->users as $user)
                                     <div
-                                        class="relative bg-white dark:bg-gray-800 shadow rounded-lg p-2 flex items-center space-x-4">
-                                        <div class="flex-shrink-0">
+                                        class="relative bg-white dark:bg-gray-800 shadow-sm rounded-lg p-2 flex items-center space-x-4">
+                                        <div class="shrink-0">
                                             <img class="h-10 w-10 rounded-full" src="{{ $user->profile_photo_url }}"
                                                  alt="{{ $user->name }}">
                                         </div>
@@ -42,7 +42,7 @@
                                         @can('remove-crew-member')
                                             <button
                                                 onclick="Livewire.dispatch('openModal', { component: 'crew.revoke-role-of-user', arguments: {user: {{$user->id}}, role: {{$role->id}}} })"
-                                                class="absolute top-1 right-1 h-4 w-4 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-700 focus:outline-none">
+                                                class="absolute top-1 right-1 h-4 w-4 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-700 focus:outline-hidden">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="1.5" stroke="currentColor" class="h-3 w-3">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +52,7 @@
                                             @if($role->name == 'event organizer')
                                                 <button
                                                     onclick="Livewire.dispatch('openModal', { component: 'crew.add-team', arguments: {user: {{$user->id}}} })"
-                                                    class="absolute top-1 right-6 h-4 w-4 rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-700 focus:outline-none">
+                                                    class="absolute top-1 right-6 h-4 w-4 rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-700 focus:outline-hidden">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="h-3 w-3" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
@@ -66,8 +66,8 @@
                                 @can('invite-crew-member')
                                     <button
                                         onclick="Livewire.dispatch('openModal', { component: 'crew.assign-role-to-user', arguments: {role: {{$role->id}}} })"
-                                        class="bg-white dark:bg-gray-800 text-apricot-peach-500 dark:text-gray-400 shadow rounded-lg p-2 flex items-center space-x-2 hover:cursor-pointer hover:bg-gray-100">
-                                        <div class="flex-shrink-0">
+                                        class="bg-white dark:bg-gray-800 text-apricot-peach-500 dark:text-gray-400 shadow-sm rounded-lg p-2 flex items-center space-x-2 hover:cursor-pointer hover:bg-gray-100">
+                                        <div class="shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke-width="1.5" stroke="currentColor" class="size-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"

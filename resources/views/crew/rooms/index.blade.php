@@ -41,7 +41,7 @@
                                                     <path
                                                         d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 </svg>
-                                                <div class="ml-2 flex-grow">
+                                                <div class="ml-2 grow">
                                                     <strong>{{$room->name}}</strong>
                                                 </div>
                                             </div>

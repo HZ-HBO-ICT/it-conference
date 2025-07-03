@@ -98,7 +98,6 @@ class SelectCountryCode extends Component
     }
 
     public $countryFlags = [
-        '+1' => 'flag-icon flag-icon-us',   // USA
         '+44' => 'flag-icon flag-icon-gb',  // United Kingdom
         '+213' => 'flag-icon flag-icon-dz', // Algeria
         '+376' => 'flag-icon flag-icon-ad', // Andorra
@@ -150,7 +149,6 @@ class SelectCountryCode extends Component
         '+45' => 'flag-icon flag-icon-dk',  // Denmark
         '+253' => 'flag-icon flag-icon-dj', // Djibouti
         '+1809' => 'flag-icon flag-icon-dm', // Dominica
-        '+1809' => 'flag-icon flag-icon-do', // Dominican Republic
         '+593' => 'flag-icon flag-icon-ec',  // Ecuador
         '+20' => 'flag-icon flag-icon-eg',  // Egypt
         '+503' => 'flag-icon flag-icon-sv', // El Salvador
@@ -222,7 +220,6 @@ class SelectCountryCode extends Component
         '+692' => 'flag-icon flag-icon-mh', // Marshall Islands
         '+596' => 'flag-icon flag-icon-mq', // Martinique
         '+222' => 'flag-icon flag-icon-mr', // Mauritania
-        '+269' => 'flag-icon flag-icon-yt', // Mayotte
         '+52' => 'flag-icon flag-icon-mx',  // Mexico
         '+691' => 'flag-icon flag-icon-fm', // Micronesia
         '+373' => 'flag-icon flag-icon-md', // Moldova
@@ -258,7 +255,6 @@ class SelectCountryCode extends Component
         '+974' => 'flag-icon flag-icon-qa', // Qatar
         '+262' => 'flag-icon flag-icon-re', // Reunion
         '+40' => 'flag-icon flag-icon-ro',  // Romania
-        '+7' => 'flag-icon flag-icon-ru',   // Russia
         '+250' => 'flag-icon flag-icon-rw', // Rwanda
         '+378' => 'flag-icon flag-icon-sm', // San Marino
         '+239' => 'flag-icon flag-icon-st', // Sao Tome & Principe
@@ -285,7 +281,6 @@ class SelectCountryCode extends Component
         '+41' => 'flag-icon flag-icon-ch',  // Switzerland
         '+963' => 'flag-icon flag-icon-sy', // Syria
         '+886' => 'flag-icon flag-icon-tw', // Taiwan
-        '+7' => 'flag-icon flag-icon-tj',   // Tajikstan
         '+66' => 'flag-icon flag-icon-th',  // Thailand
         '+228' => 'flag-icon flag-icon-tg', // Togo
         '+676' => 'flag-icon flag-icon-to', // Tonga
@@ -299,7 +294,6 @@ class SelectCountryCode extends Component
         '+380' => 'flag-icon flag-icon-ua', // Ukraine
         '+971' => 'flag-icon flag-icon-ae', // United Arab Emirates
         '+598' => 'flag-icon flag-icon-uy', // Uruguay
-        '+7' => 'flag-icon flag-icon-uz',   // Uzbekistan
         '+678' => 'flag-icon flag-icon-vu', // Vanuatu
         '+379' => 'flag-icon flag-icon-va', // Vatican City
         '+58' => 'flag-icon flag-icon-ve',  // Venezuela

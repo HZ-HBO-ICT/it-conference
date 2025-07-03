@@ -10,7 +10,7 @@
     </select>
     @if($availablePresentations->count() > 0)
         <x-button wire:click="replace"
-                  class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 hover:dark:bg-crew-600 active:bg-green-600 active:dark:bg-green-600">
+                  class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 dark:hover:bg-crew-600 active:bg-green-600 dark:active:bg-green-600">
             Replace
         </x-button>
     @endif

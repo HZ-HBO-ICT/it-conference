@@ -22,7 +22,7 @@
                                         <img class="h-8 w-8 rounded-full object-cover"
                                              src="{{ Auth::user()->profile_photo_url }}"
                                              alt="{{ Auth::user()->name }}"/>
-                                        <div class="ml-4 flex-grow">
+                                        <div class="ml-4 grow">
                                             <strong>{{$user->name}}</strong>
                                         </div>
                                     </div>

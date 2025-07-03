@@ -13,7 +13,7 @@
             Programme
         </h2>
         <div
-            class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 rounded bg-white dark:bg-gray-800 dark:border-gray-700 my-5">
+            class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 rounded-sm bg-white dark:bg-gray-800 dark:border-gray-700 my-5">
             <div class="m-5 mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                     <!-- Start of the opening -->
@@ -27,8 +27,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden hover:transition-all hover:duration-300 hover:ease-in-out bg-{{ $roleColour }}-400 hover:bg-gradient-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600
-                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden hover:transition-all hover:duration-300 hover:ease-in-out bg-{{ $roleColour }}-400 hover:bg-linear-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600
+                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-linear-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
@@ -115,8 +115,8 @@
                                 </td>
                                 <td class="pl-4 w-11/12">
                                     <div
-                                        class="w-full rounded overflow-hidden bg-{{ $roleColour }}-400 hover:bg-gradient-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600 hover:transition-all hover:duration-300 hover:ease-in-out
-                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-gradient-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
+                                        class="w-full rounded overflow-hidden bg-{{ $roleColour }}-400 hover:bg-linear-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600 hover:transition-all hover:duration-300 hover:ease-in-out
+                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-linear-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
                                         <div class="px-3 py-1">
                                             <div
                                                 class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>

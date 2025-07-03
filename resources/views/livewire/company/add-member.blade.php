@@ -25,7 +25,7 @@
                     <div class="relative z-0 mt-1 border border-gray-200 dark:border-gray-700 rounded-lg">
                         @foreach ($this->roles as $role => $description)
                             <button type="button" wire:key="$role" wire:click="selectRole('{{$role}}')"
-                                    class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-partner-500 dark:focus:border-partner-600 focus:ring-2 focus:ring-partner-500 dark:focus:ring-partner-600 transition duration-150 ease-in-out
+                                    class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-hidden focus:border-partner-500 dark:focus:border-partner-600 focus:ring-2 focus:ring-partner-500 dark:focus:ring-partner-600 transition duration-150 ease-in-out
                        {{ $loop->first ? 'border-t rounded-t-lg' : '' }}
                        {{ ! $loop->last ? 'border-b' : 'rounded-b-lg' }}
                        {{ $currentRole == $role ? 'bg-partner-100 dark:bg-partner-800' : 'bg-white dark:bg-gray-800' }}">
@@ -85,7 +85,7 @@
 
                                 @can('deleteMemberInvitation', $company)
                                     <div class="flex items-center">
-                                        <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
+                                        <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-hidden"
                                                 wire:click="cancelInvitation({{ $invitation->id }})"
                                                 wire:key="$invitation->id">
                                             {{ __('Cancel') }}

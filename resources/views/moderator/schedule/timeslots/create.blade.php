@@ -5,7 +5,7 @@
         </h1>
         <div class="pt-5">
             <div
-                class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-md">
+                class="mt-5 gap-6 text-gray-900 dark:text-gray-200 px-4 py-5 sm:p-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-md">
                 <div class="pt-1 p-2">
                     <div class="pr-5">
                         <form method="POST" action="{{route('moderator.schedule.timeslots.store')}}">
@@ -39,7 +39,7 @@
                                 <x-input-error for="ending" class="mt-2"/>
                             </div>
                             <x-button
-                                class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 hover:dark:bg-crew-600 active:bg-green-600 active:dark:bg-green-600">
+                                class="mt-5 dark:bg-crew-500 bg-crew-500 hover:bg-crew-600 dark:hover:bg-crew-600 active:bg-green-600 dark:active:bg-green-600">
                                 Generate
                             </x-button>
                         </form>

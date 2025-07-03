@@ -1,5 +1,6 @@
 @php
     use App\Models\Company;
+    use App\Enums\ApprovalStatus;
 @endphp
 
 <form wire:submit="save">
@@ -25,7 +26,7 @@
                              value="{{ __('Company name') }}"></x-label>
                     <x-select wire:model="companyId" name="company_id" class="mt-1 block w-full">
                         @foreach(Company::whereDoesntHave('booth')
-                                    ->where('is_approved', '=', '1')->get() as $company)
+                                    ->hasStatus(ApprovalStatus::APPROVED)->get() as $company)
                             <option value="{{ $company->id }}">
                                 {{$company->name}}
                                 @if($company->sponsorship)
@@ -51,7 +52,7 @@
                 <div class="col-span-6 sm:col-span-4 pt-3">
                     <x-label for="additionalInformation" value="{{ __('Additional information') }}"></x-label>
                     <textarea wire:model="additionalInformation" maxlength="255"
-                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"
+                              class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full"
                               name="description"
                     ></textarea>
                     @error('additionalInformation')  <p class="mt-2 text-red-500"> {{$message}} </p> @enderror
@@ -62,18 +63,18 @@
                                  value="{{ __('Choose company member to become the booth owner') }}"></x-label>
                         <div>
                             <input
-                                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-apricot-peach-500 dark:focus:border-apricot-peach-600 focus:ring-apricot-peach-500 dark:focus:ring-apricot-peach-600 rounded-md shadow-sm mt-1 block"
+                                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-apricot-peach-500 dark:focus:border-apricot-peach-600 focus:ring-apricot-peach-500 dark:focus:ring-apricot-peach-600 rounded-md shadow-xs mt-1 block"
                                 type="text" maxlength="255" wire:focus="toggleDropdown"
                                 wire:model.live="searchValue">
-                            <div class="{{$isDropdownVisible ? 'block' : 'hidden'}} max-h-48 rounded overflow-auto bg-white dark:bg-gray-900">
+                            <div class="{{$isDropdownVisible ? 'block' : 'hidden'}} max-h-48 rounded-sm overflow-auto bg-white dark:bg-gray-900">
                                 <ul>
                                     @if($users)
                                         @forelse($users as $user)
                                             <li wire:click="selectUser({{$user->id}})" wire:key="{{$user->id}}"
                                                 class="hover:cursor-pointer w-full" onclick="event.stopPropagation()">
                                                 <div
-                                                    class="bg-white hover:bg-gray-100 dark:bg-gray-800 shadow rounded-md p-2 flex items-center space-x-3">
-                                                    <img class="h-8 w-8 rounded-full flex-shrink-0" src="{{ $user->profile_photo_url }}"
+                                                    class="bg-white hover:bg-gray-100 dark:bg-gray-800 shadow-sm rounded-md p-2 flex items-center space-x-3">
+                                                    <img class="h-8 w-8 rounded-full shrink-0" src="{{ $user->profile_photo_url }}"
                                                          alt="{{ $user->name }}">
                                                     <div class="flex-1 min-w-0">
                                                         <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ $user->name }}</p>
@@ -103,7 +104,7 @@
         <x-slot name="actions">
             <x-button
                 type="submit"
-                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                 Save
             </x-button>
         </x-slot>

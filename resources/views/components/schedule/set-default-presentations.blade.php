@@ -18,7 +18,7 @@
                 @if(is_null(DefaultPresentation::opening()))
                     <div class="w-full">
                         <button
-                            class="bg-apricot-peach-300 py-2 px-3 border border-apricot-peach-400 hover:bg-apricot-peach-400 rounded"
+                            class="bg-apricot-peach-300 py-2 px-3 border border-apricot-peach-400 hover:bg-apricot-peach-400 rounded-sm"
                             onclick="Livewire.dispatch('openModal', { component: 'schedule.add-default-presentation', arguments: { type: 'opening' }})">
                             Create opening presentation
                         </button>
@@ -26,7 +26,7 @@
                 @else
                     <div class="w-full">
                         <button
-                            class="bg-apricot-peach-300 py-2 px-3 border border-apricot-peach-400 hover:bg-apricot-peach-400 rounded"
+                            class="bg-apricot-peach-300 py-2 px-3 border border-apricot-peach-400 hover:bg-apricot-peach-400 rounded-sm"
                             onclick="Livewire.dispatch('openModal', { component: 'schedule.add-default-presentation', arguments: { type: 'closing' }})">
                             Create closing presentation
                         </button>

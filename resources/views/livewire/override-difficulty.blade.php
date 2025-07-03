@@ -14,7 +14,7 @@
                 @endforeach
             </select>
         </div>
-        <button class="bg-indigo-800 hover:bg-indigo-700 text-white py-2 px-4 rounded">
+        <button class="bg-indigo-800 hover:bg-indigo-700 text-white py-2 px-4 rounded-sm">
             Save
         </button>
         @if (session()->has('message'))

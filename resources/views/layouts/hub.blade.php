@@ -8,8 +8,8 @@
     <div class="flex">
         <div class="flex-col lg:w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
             <div
-                class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto flex-col flex-grow flex">
-                <div class="items-center flex-shrink-0 h-16 flex mt-4">
+                class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto flex-col grow flex">
+                <div class="items-center shrink-0 h-16 flex mt-4">
                     <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}"
                          alt="IT Conference logo">
                     <h3 class="ml-4 font-semibold dark:text-white hidden lg:block">My hub</h3>
@@ -93,7 +93,7 @@
             </div>
         </div>
         <!-- Content -->
-        <div class="flex-grow overflow-y-auto bg-gray-100 dark:bg-gray-900">
+        <div class="grow overflow-y-auto bg-gray-100 dark:bg-gray-900">
             {{ $slot }}
         </div>
     </div>

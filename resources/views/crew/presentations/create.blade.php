@@ -28,24 +28,25 @@
                                 <x-label for="description" value="Description"
                                          class="after:content-['*'] after:text-red-500"/>
                                 <textarea name="description" maxlength="300"
-                                          class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">{{old('description')}}
+                                          class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs block mt-1 w-full">{{old('description')}}
                                     </textarea>
                                 <x-input-error for="description" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="type" value="Type of presentation"
+                                <x-label for="presentation_type_id" value="Type of presentation"
                                          class="after:content-['*'] after:text-red-500"/>
-                                <select name="type"
+                                <select name="presentation_type_id"
                                         class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                                    <option {{old('type') == 'lecture' ? 'selected' : ''}} value="lecture">Lecture
-                                                                                                           ({{\App\Models\Presentation::lectureDuration()}}
-                                                                                                           minutes)
-                                    </option>
-                                    <option {{old('type') == 'workshop' ? 'selected' : ''}} value="workshop">
-                                        Workshop ({{\App\Models\Presentation::workshopDuration()}} minutes)
-                                    </option>
+                                    @foreach($presentationTypes as $presentationType)
+                                        @php
+                                            $selected = old('presentation_type_id', 1) == $presentationType->id ? 'selected' : '';
+                                        @endphp
+                                        <option value="{{ $presentationType->id }}" {{ $selected }}>
+                                            {{ $presentationType->name }} ({{ $presentationType->duration }} minutes)
+                                        </option>
+                                    @endforeach
                                 </select>
-                                <x-input-error for="workshop" class="mt-2"/>
+                                <x-input-error for="presentation_type_id" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
                                 <x-label for="difficulty_id" value="Difficulty of the presentation"
@@ -86,7 +87,7 @@
                     <x-slot name="actions">
                         <x-button
                             type="submit"
-                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 hover:dark:bg-green-600 active:bg-green-600 active:dark:bg-green-600">
+                            class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
                             Save
                         </x-button>
                     </x-slot>

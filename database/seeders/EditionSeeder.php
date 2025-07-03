@@ -16,30 +16,30 @@ class EditionSeeder extends Seeder
     public function run(): void
     {
         Edition::create([
-            'name' => 'We are in IT together Conference ' . date('Y'),
-            'start_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 09:00:00')),
-            'end_at' => date('Y-m-d H:i:s', strtotime('2024-11-18 17:00:00')),
+            'name' => 'We are in IT together Conference ' . Carbon::now()->year,
+            'start_at' => Carbon::now()->addMonths(11)->setTime(9, 0),
+            'end_at' => Carbon::now()->addMonths(11)->setTime(17, 0),
         ]);
 
         EditionEvent::create([
             'edition_id' => 1,
             'event_id' => 1,
-            'start_at' => Carbon::now(),
-            'end_at' => Carbon::now()->addWeeks(2),
+            'start_at' => Carbon::today()->addWeek(),
+            'end_at' => Carbon::today()->addWeeks(2),
         ]);
 
         EditionEvent::create([
             'edition_id' => 1,
             'event_id' => 2,
-            'start_at' => Carbon::now(),
-            'end_at' => Carbon::now()->addWeeks(2),
+            'start_at' => Carbon::today()->addWeek(),
+            'end_at' => Carbon::today()->addWeeks(2),
         ]);
 
         EditionEvent::create([
             'edition_id' => 1,
             'event_id' => 3,
-            'start_at' => Carbon::now(),
-            'end_at' => Carbon::now()->addWeeks(2),
+            'start_at' => Carbon::today()->addWeek(),
+            'end_at' => Carbon::today()->addWeeks(3),
         ]);
     }
 }

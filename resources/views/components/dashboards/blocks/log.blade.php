@@ -1,4 +1,4 @@
-<div class="px-4 py-4 my-3 bg-apricot-peach-200 dark:bg-gray-700 rounded-lg shadow-sm">
+<div class="px-4 py-4 my-3 bg-apricot-peach-200 dark:bg-gray-700 rounded-lg shadow-xs">
     <p class="text-gray-700 dark:text-gray-300 font-medium text-lg">
         {{$activity->description}}
     </p>
