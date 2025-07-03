@@ -40,14 +40,3 @@ jobs:
       with:
         name: build-result
         path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
-
-    # - name: Send compressed build result to server
-    #   uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-    #   with:
-    #     username: ${{ secrets.SSH_USERNAME }}
-    #     server: ${{ secrets.SSH_HOST }}
-    #     port: 22
-    #     local_path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
-    #     remote_path: deploy/
-    #     sftp_only: true
-    #     password: ${{ secrets.SSH_PASSWORD }}
