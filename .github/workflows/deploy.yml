@@ -35,13 +35,19 @@ jobs:
     - name: Compress build results
       run: mkdir ${{env.TMP_DIR}} && tar --exclude="${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}" -czf ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}} . 
 
-    - name: Send compressed build result to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+    - name: Upload result artifact
+      uses: actions/upload-artifact@v4
       with:
-        username: ${{ secrets.SSH_USERNAME }}
-        server: ${{ secrets.SSH_HOST }}
-        port: 22
-        local_path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
-        remote_path: deploy/
-        sftp_only: true
-        password: ${{ secrets.SSH_PASSWORD }}
+        name: build-result
+        path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
+
+    # - name: Send compressed build result to server
+    #   uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+    #   with:
+    #     username: ${{ secrets.SSH_USERNAME }}
+    #     server: ${{ secrets.SSH_HOST }}
+    #     port: 22
+    #     local_path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
+    #     remote_path: deploy/
+    #     sftp_only: true
+    #     password: ${{ secrets.SSH_PASSWORD }}
