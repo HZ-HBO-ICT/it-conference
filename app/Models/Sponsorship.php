@@ -104,4 +104,19 @@ class Sponsorship extends Model
 
         return $availableTeam > 0 && $availableTierNumber > 0;
     }
+
+    /**
+     * Determines the colour of the shine of the sponsor card
+     *
+     * @return string
+     */
+    public function shine(): string
+    {
+        return match (strtolower($this->name)) {
+            'gold' => 'rgba(255, 185, 0, 0.4)',
+            'silver' => 'rgba(224, 224, 224, 0.25)',
+            'bronze' => 'rgba(205, 127, 50, 0.25)',
+            default => '',
+        };
+    }
 }

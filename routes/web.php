@@ -200,8 +200,6 @@ Route::get('/programme', [ProgrammeController::class, 'index'])
 Route::get('/programme/presentation/{presentation}', [ProgrammeController::class, 'show'])
     ->name('programme.presentation.show');
 
-
-
 // ===== Routes for crew =====
 Route::middleware([
     'auth:sanctum',

@@ -21,12 +21,12 @@
                     div.className = 'flex flex-col items-center justify-center mr-5';
 
                     let value = document.createElement('h2');
-                    value.className = 'lg:text-5xl sm:text-3xl font-bold text-center';
+                    value.className = 'lg:text-5xl sm:text-3xl font-bold text-center text-white';
                     valueElements.push(value);
 
                     let label = document.createElement('p');
                     label.innerHTML = unit.charAt(0).toUpperCase() + unit.slice(1);
-                    label.className = 'text-xs sm:text-base text-center md:text-left font-bold';
+                    label.className = 'text-xs sm:text-base text-center md:text-left font-bold text-white';
                     labelElements.push(label);
 
                     div.appendChild(value);
