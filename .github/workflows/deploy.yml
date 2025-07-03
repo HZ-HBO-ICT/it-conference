@@ -15,12 +15,7 @@ jobs:
       OUTPUT_FILE: 'deploy.tar.gz'
       REMOTE_DIR: './deploy'
 
-    steps:
-    - name: Test FTP port connectivity
-      run: |
-        apt-get update && apt-get install -y telnet
-        telnet ${{ secrets.FTP_HOST }} 21
-    
+    steps:    
     - uses: shivammathur/setup-php@2.31.1
       with:
         php-version: '8.4.8'
@@ -41,11 +36,12 @@ jobs:
       run: mkdir ${{env.TMP_DIR}} && tar --exclude="${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}" -czf ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}} . 
 
     - name: Send compressed build result to server
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}        
-        password: ${{ secrets.FTP_PASSWORD }}
-        port: 21
-        protocol: ftps
-        local-dir: ${{env.TMP_DIR}}/
+        username: ${{ secrets.SSH_USERNAME }}
+        server: ${{ secrets.SSH_HOST }}
+        port: 22
+        local_path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
+        remote_path: deploy/
+        sftp_only: true
+        password: ${{ secrets.SSH_PASSWORD }}
