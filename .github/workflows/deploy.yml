@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      NODE_VERSION: '20.17'
+      NODE_VERSION: '22.17'
       TMP_DIR: './tmp'
       OUTPUT_FILE: 'deploy.tar.gz'
       REMOTE_DIR: './deploy'
@@ -18,7 +18,7 @@ jobs:
     steps:    
     - uses: shivammathur/setup-php@2.31.1
       with:
-        php-version: '8.3.11'
+        php-version: '8.4.8'
     - uses: actions/checkout@v3
   
     - name: Composer install
@@ -35,12 +35,8 @@ jobs:
     - name: Compress build results
       run: mkdir ${{env.TMP_DIR}} && tar --exclude="${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}" -czf ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}} . 
 
-    - name: Send compressed build result to server
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+    - name: Upload result artifact
+      uses: actions/upload-artifact@v4
       with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}        
-        password: ${{ secrets.FTP_PASSWORD }}
-        port: 21
-        protocol: ftps
-        local-dir: ${{env.TMP_DIR}}/
+        name: build-result
+        path: ${{env.TMP_DIR}}/${{env.OUTPUT_FILE}}
