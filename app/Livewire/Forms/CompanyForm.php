@@ -54,6 +54,19 @@ class CompanyForm extends Form
     }
 
     /**
+     * Determines whether the form is dirty
+     * @return bool
+     */
+    public function isDirty(): bool
+    {
+        $original = collect($this->company->toArray());
+        $current = collect($this->only(array_keys($original->toArray())));
+
+        return $original->intersectAssoc($current)->count() !== $original->count();
+    }
+
+
+    /**
      * Updates the company details with the new data
      * @return void
      */

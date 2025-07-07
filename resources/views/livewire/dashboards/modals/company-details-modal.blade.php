@@ -96,6 +96,13 @@
                     </div>
                         <div class="w-full">
                             <label class="block w-full cursor-pointer">
+                                @if($photo)
+                                    <div class="py-2">
+                                        <button type="submit" class="flex items-center hover:cursor-pointer justify-center w-full h-12 bg-gray-900 text-teal-600 text-sm rounded-lg border border-teal-600 hover:bg-gray-700 transition">
+                                            Save
+                                        </button>
+                                    </div>
+                                @endif
                                 <input
                                     type="file"
                                     id="logo"
@@ -115,10 +122,10 @@
     </x-slot>
 
     <x-slot name="buttons">
-        <div wire:dirty >
+        <div wire:dirty>
             @can('update', $company)
                 <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
-                <x-waitt.button type="submit">Save</x-waitt.button>
+                <x-waitt.button type="submit" variant="save">Save</x-waitt.button>
             @endcan
         </div>
     </x-slot>

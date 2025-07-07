@@ -20,8 +20,6 @@ class CompanyDetailsModal extends ModalComponent
     public CompanyForm $form;
     public $photo;
 
-    public bool $editing = false;
-
     /**
      * Triggered on initializing of the component
      * @param Company $company
@@ -62,7 +60,6 @@ class CompanyDetailsModal extends ModalComponent
         $this->validate();
 
         $this->form->update();
-        $this->editing = false;
         Toaster::success('Company details were saved successfully!');
     }
 
@@ -73,7 +70,6 @@ class CompanyDetailsModal extends ModalComponent
     public function cancel() {
         $this->form->setCompany($this->company);
         $this->photo = null;
-        $this->editing = false;
     }
 
     /**

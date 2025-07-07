@@ -1,3 +1,18 @@
-<button {{ $attributes->merge(['type' => 'submit', 'class' => 'inline-flex items-center px-5 py-2 border border-gray-400 rounded-md font-medium text-xs text-white uppercase tracking-widest hover:cursor-pointer hover:bg-gray-700 active:bg-gray-900 transition ease-in-out duration-150']) }}>
+@props([
+    'type' => 'submit',
+    'variant' => 'default',
+])
+
+@php
+    $variantClasses = match($variant) {
+        'save' => 'border-teal-600 text-teal-600',
+        'default' => 'border-gray-40 text-white ',
+    };
+@endphp
+
+<button {{ $attributes->merge([
+    'type' => $type,
+    'class' => "inline-flex items-center px-5 py-2 border 0 rounded-md font-medium text-xs hover:bg-gray-700 uppercase tracking-widest hover:cursor-pointer active:bg-gray-900 transition ease-in-out duration-150 $variantClasses"
+]) }}>
     {{ $slot }}
 </button>
