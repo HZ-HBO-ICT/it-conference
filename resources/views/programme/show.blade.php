@@ -11,21 +11,19 @@
         <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all p-10">
             <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-            <div class="grid grid-cols-3 pt-5 px-6 pb-5 text-gray-900 dark:text-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 px-6 pb-5 text-gray-900 dark:text-gray-200">
                 <div>
                     @if($presentation->speakers->count() > 1)
-                        <h4 class="tracking-tight text-2xl font-bold pb-5 pl-5 text-left">Speakers</h4>
+                        <h4 class="tracking-tight text-2xl font-bold pb-5 text-left">Speakers</h4>
                     @else
-                        <h4 class="tracking-tight text-2xl font-bold pb-5 pl-5 text-left">Speaker</h4>
+                        <h4 class="tracking-tight text-2xl font-bold pb-5 text-left">Speaker</h4>
                     @endif
                     <div class="grid grid-cols-3">
                         @foreach($presentation->speakers as $speaker)
-                            <div class="flex justify-end">
-                                <div class="justify-self-end pr-3">
-                                    <img class="relative w-24 h-24 rounded-full object-cover border-4 border-white"
-                                         src="{{ $speaker->profile_photo_url }}"
-                                         alt="Profile picture of {{$speaker->name}}">
-                                </div>
+                            <div class="hidden md:flex justify-end pr-3">
+                                <img class="relative w-24 h-24 rounded-full object-cover border-4 border-white"
+                                     src="{{ $speaker->profile_photo_url }}"
+                                     alt="Profile picture of {{ $speaker->name }}">
                             </div>
                             <div
                                 class="col-span-2 sm:col-span-2 flex items-center tracking-tight text-lg font-semibold">{{$speaker->name}}</div>
@@ -87,7 +85,7 @@
                                           method="POST">
                                         @csrf
                                         <button
-                                            class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                            class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                             Sign up
                                         </button>
                                     </form>
@@ -99,7 +97,7 @@
                                               method="POST">
                                             @csrf
                                             <button
-                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-24 py-1 rounded-lg text-white">
+                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-6 md:px-24 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                                 Deregister from presentation
                                             </button>
                                         </form>
@@ -108,7 +106,7 @@
                                     <div class="pt-5" data-te-toggle="tooltip"
                                          title="You cannot sign up because you are already busy during this time.">
                                         <button
-                                            class="bg-gray-500 cursor-default transition-all text-lg px-48 py-1 rounded-lg text-white">
+                                            class="bg-gray-500 cursor-default transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                             Sign up
                                         </button>
                                     </div>

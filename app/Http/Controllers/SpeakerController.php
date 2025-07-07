@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ApprovalStatus;
+use App\Livewire\Schedule\Presentation;
 use App\Models\Edition;
 use App\Models\UserPresentation;
 

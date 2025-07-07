@@ -1,119 +1,88 @@
+@php
+    $tiers = [
+        1 => ['label' => 'Gold', 'color' => 'bg-yellow-400 text-yellow-900'],
+        2 => ['label' => 'Silver', 'color' => 'bg-gray-300 text-gray-900'],
+        3 => ['label' => 'Bronze', 'color' => 'bg-amber-900 text-amber-100'],
+    ];
+@endphp
+
 <x-app-layout>
-    <div class="container min-h-screen mx-auto px-6 py-12">
-        <h2 class="text-center text-gray-50 dark:text-gray-900 text-4xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
-            Our Companies / <span class="text-gray-900 dark:text-gray-50">{{$company->name}}</span>
-        </h2>
-        <div
-            class="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-all">
-            <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 p-10">
-                <div class="h-full flex items-center justify-center">
-                    <div class="w-grid grid-cols-1">
-                        <div class="relative w-64 h-64 col-span-1">
-                            @if($company->logo_path)
-                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                <img class="relative w-64 h-64 rounded-full object-contain {{$company->dark_logo_path ? 'dark:hidden' : ''}}"
-                                     src="{{url('storage/'. $company->logo_path) }}"
-                                     alt="Profile picture of {{$company->name}}">
-                                @if($company->dark_logo_path)
-                                    <img class="relative w-64 h-64 rounded-full object-contain hidden dark:block"
-                                         src="{{url('storage/'. $company->dark_logo_path) }}"
-                                         alt="Profile picture of {{$company->name}}">
-                                @endif
-                            @else
-                                <div class="absolute inset-0 rounded-full opacity-75 blur-lg"></div>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     stroke-width="1"
-                                     stroke="gray" aria-hidden="true" class="w-56 h-56 {{$iconColor}}">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                </svg>
-                            @endif
-                        </div>
-                        <h3 class="col-span-1 tracking-tight leading-7 font-semibold text-base mt-6 text-center dark:text-white">
-                            Meet us at our booth!</h3>
-                    </div>
-                </div>
-                <div class="col-span-2">
-                    <h2 class="text-3xl {{$textColor}} font-bold mb-4">{{$company->name}}</h2>
+    <div class="min-h-screen py-16 px-4 sm:px-8 relative overflow-hidden">
+        <!-- Colorful Blobs Background -->
+        <div class="absolute top-32 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/3 right-[-100px] w-80 h-80 bg-yellow-300 opacity-20 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-32 left-1/3 w-72 h-72 bg-purple-500 opacity-30 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-10 right-40 w-80 h-80 bg-pink-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-green-400 opacity-25 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-1/2 left-1/5 w-64 h-64 bg-red-400 opacity-35 rounded-full blur-3xl z-0"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-400 opacity-30 rounded-full blur-3xl z-0"></div>
+        <div class="absolute top-40 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        <!-- End Blobs -->
 
-                    <div>
-                        <h2 class="text-2xl font-bold">About Us</h2>
-                        <p class="leading-relaxed">{{ $company->description }}</p>
-                    </div>
-
-                    @if(!$company->internshipAttributes->isEmpty())
-                        <div class="mt-5">
-                            <h2 class="text-2xl font-bold">Internship opportunities</h2>
-                            <div class="space-y-2">
-                                @if($company->internshipAttributes()->years()->exists())
-                                    <div class="mt-2">
-                                        <h3 class="font-semibold">Internship for years:</h3>
-                                        <p class="leading-relaxed">{{ implode(', ', $company->internshipAttributes()->years()->pluck('value')->toArray()) }}</p>
-                                    </div>
-                                @endif
-                                @if($company->internshipAttributes()->tracks()->exists())
-                                    <div>
-                                        <h3 class="font-semibold">Internship for tracks:</h3>
-                                        <p class="leading-relaxed">{{ implode(', ', $company->internshipAttributes()->tracks()->pluck('value')->toArray()) }}</p>
-                                    </div>
-                                @endif
-                                @if($company->internshipAttributes()->languages()->exists())
-                                    <div>
-                                        <h3 class="font-semibold">Internship in the following languages:</h3>
-                                        <p class="leading-relaxed">{{ implode(', ', $company->internshipAttributes()->languages()->pluck('value')->toArray()) }}</p>
-                                    </div>
-                                @endif
-                            </div>
+        <div class="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 min-h-[80vh] justify-center">
+            <aside class="col-span-1 z-10 rounded-3xl pr-5 space-y-8">
+                <div class="flex justify-center">
+                    @if($company->logo_path)
+                        <img src="{{ asset($company->logo_path) }}"
+                             alt="{{ $company->name }}"
+                             class="rounded-lg w-full h-56 object-contain shadow-xl border-4 border-opacity-30" />
+                    @else
+                        <div class="h-56 w-full bg-waitt-dark rounded flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                            </svg>
                         </div>
                     @endif
+                </div>
 
-                    <div class="mt-5">
-                        <h3 class="text-2xl font-semibold">Location</h3>
-                        <p class="leading-relaxed">
-                            {{ $company->street }} {{ $company->house_number }}<br>
-                            {{ $company->postcode }} {{ $company->city }}
-                        </p>
+                <div class="text-left text-white text-lg grid grid-cols-1 gap-2">
+                    @if($company->sponsorship)
+                        <x-waitt.tag :title="$company->sponsorship->name"/>
+                    @endif
+                    <h2 class="text-3xl font-bold">{{ $company->name }}</h2>
+                    <div class="inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        {{ $company->city }}
                     </div>
-
-                    <div class="mt-5">
-                        <h3 class="text-2xl font-semibold">Visit Our Website</h3>
-                        <a href="{{ $company->website }}" class="{{$linkColor}} hover:underline">
+                    <div class="inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                        </svg>
+                        <a href="{{$company->website}}" class="underline hover:text-waitt-pink transition-colors">
                             {{ $company->website }}
                         </a>
                     </div>
-
-                    <div class="mt-5">
-                        @if(!$company->presentations->isEmpty())
-                            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Presentations</h3>
-                            <div class="space-y-4">
-                                @foreach($company->presentations as $presentation)
-                                    <a href="{{route('programme.presentation.show', $presentation)}}"
-                                       class="block bg-white dark:bg-gray-700 p-4 border  rounded-lg shadow-xs hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-300">
-                                        <div class="flex items-center">
-                                            <div class="shrink-0">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                     stroke-width="1.5" stroke="#8b5cf6"
-                                                     aria-hidden="true" class="w-6 h-6 {{$iconColor}}">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                          d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/>
-                                                </svg>
-                                            </div>
-                                            <div class="ml-4">
-                                                <h4 class="text-lg font-semibold">{{ $presentation->name }}</h4>
-                                                <p class="text-sm text-gray-600 dark:text-gray-400">Hosted
-                                                                                                    by: {{ $presentation->speakers_name }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
                 </div>
-            </div>
-            <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
-        </div>
+            </aside>
 
+            <!-- Right Section -->
+            <div class="flex-1 flex flex-col gap-8 text-white">
+                <div>
+                    <h2 class="text-2xl font-extrabold mb-2">About</h2>
+                    <p class="text-lg text-gray-200">{{ $company->description }}</p>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold mb-2">Internship opportunities</h2>
+                    @if($company->internshipAttributes()->tracks()->pluck('value')->count() > 0)
+                        <ul class="list-disc ml-6 text-lg text-gray-200">
+                            @foreach($company->internshipAttributes()->tracks()->pluck('value') as $track)
+                                <li>{{ $track }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-lg text-gray-400">No internship opportunities specified.</p>
+                    @endif
+                </div>
+                @if($company->booth)
+                    <div>
+                        <h2 class="text-2xl font-extrabold mb-2">Meet Us at the Conference</h2>
+                        <p class="text-lg text-gray-200">Visit our booth at the conference to learn more about {{ $company->name }} and the opportunities we offer. Our team will be available to answer your questions and discuss potential career paths.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </x-app-layout>
