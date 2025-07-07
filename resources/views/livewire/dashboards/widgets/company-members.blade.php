@@ -27,7 +27,7 @@
             <tbody>
             @foreach($members as $member)
                 @php
-                    $isInvitation = filter_var($member->name, FILTER_VALIDATE_EMAIL);
+                    $isInvitation = filter_var($member->name, FILTER_VALIDATE_EMAIL) !== false;
                     $record = $isInvitation ? $this->getInvitation($member->id) : $this->getUser($member->id);
                 @endphp
                 <tr class="border-y">
@@ -49,11 +49,17 @@
                             {{ $record->mainRoles()->implode(', ') }}
                         @endif
                     </td>
-                    <td class="py-4"><a class="text-red-500 underline">Remove</a></td>
+                    <td class="py-4">
+                        @if($isInvitation || (!$isInvitation && !$record->hasRole('company representative')))
+                            <p class="text-red-500 underline hover:cursor-pointer" onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.delete-company-member-modal', arguments: { id: {{ $record->id }}, isInvitation: {{ json_encode($isInvitation) }} }})">
+                                Remove
+                            </p>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        {{ $members->links('components.pagination.waitt') }}
+        {{ $members->links(data: ['scrollTo' => false] ) }}
     </div>
 </div>

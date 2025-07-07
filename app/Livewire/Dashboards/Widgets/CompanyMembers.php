@@ -8,10 +8,11 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 class CompanyMembers extends Component
 {
-    use WithPagination;
+    use WithPagination, WithoutUrlPagination;
 
     public Company $company;
 
@@ -45,5 +46,10 @@ class CompanyMembers extends Component
         return view('livewire.dashboards.widgets.company-members', [
             'members' => $members
         ]);
+    }
+
+    public function paginationView()
+    {
+        return 'components.pagination.waitt';
     }
 }

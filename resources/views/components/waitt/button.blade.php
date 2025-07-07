@@ -6,6 +6,7 @@
 @php
     $variantClasses = match($variant) {
         'save' => 'border-teal-600 text-teal-600',
+        'delete' => 'border-red-600 text-red-600',
         'default' => 'border-gray-40 text-white ',
     };
 @endphp
