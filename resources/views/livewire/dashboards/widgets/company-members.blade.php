@@ -9,11 +9,13 @@
             </p>
         </div>
         <div>
-            <button class="text-sm text-white opacity-80 hover:opacity-100 hover:cursor-pointer py-2 px-4 bg-black rounded rounded-lg">Invite a member</button>
+            <button class="text-sm text-white opacity-80 hover:opacity-100 hover:cursor-pointer py-2 px-4 bg-black rounded rounded-lg "
+                    onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.invite-company-member-modal', arguments: {company: {{$company}}} })"
+            >Invite a member</button>
         </div>
     </div>
 
-    <div class="w-full px-5 text-sm font-light">
+    <div class="w-full px-5 pb-5 text-sm font-light">
         <table class="table-fixed w-full">
             <thead class="text-left uppercase text-xs opacity-70">
             <tr>
