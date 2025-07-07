@@ -4,7 +4,8 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
+use function Laravel\Prompts\multiselect;
+use function Laravel\Prompts\confirm;
 
 class SetupProduction extends Command
 {
@@ -20,25 +21,48 @@ class SetupProduction extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Starts a wizard to setup the production environment';
+
+    /**
+     * Array of the commands that can be chosen.
+     * @var array
+     */
+    private array $commands = ['migrate:fresh', 'admin:upsert-master-data', 'admin:sync-permissions', 'storage:link'];
 
     /**
      * Execute the console command.
-     * Sets up the app for production.
+     * A wizard that helps to set up the application for production.
      */
     public function handle(): void
     {
-        try {
-            $this->line('Inserting the master data...');
-            Artisan::call('admin:upsert-master-data');
+        $checkFirstDeployment = confirm(
+        'Is this the first deployment of the year?',
+        'false',
+        'Yes',
+        'No');
 
-            $this->line('Syncing permissions...');
-            Artisan::call('admin:sync-permissions');
+        if (!$checkFirstDeployment) {
+            $valueToRemove = 'migrate:fresh';
+            $key = array_search($valueToRemove, $this->commands);
 
-            $this->line('Setting up storage link...');
-            Artisan::call('storage:link');
-        } catch (Exception $e) {
-            $this->error($e->getMessage());
+            if ($key !== false) {
+                unset($this->commands[$key]);
+            }
+
+            $commands = array_values($this->commands);
+
+            $commandsToExecute = multiselect('What commands do you want to run?', $commands);
+        } else {
+            $commandsToExecute = multiselect('What commands do you want to run?', $this->commands);
+        }
+
+        foreach ($commandsToExecute as $command) {
+            $this->line("{$command} is being executed...");
+            $this->newLine();
+            $this->call("{$command}");
+            $this->newLine();
+            $this->line('<fg=green;options=bold>Finished</> '. $command);
+            $this->newLine();
         }
     }
 }
