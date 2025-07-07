@@ -36,10 +36,11 @@ class SetupProduction extends Command
     public function handle(): void
     {
         $checkFirstDeployment = confirm(
-        'Is this the first deployment of the year?',
-        'false',
-        'Yes',
-        'No');
+            'Is this the first deployment of the year?',
+            'false',
+            'Yes',
+            'No'
+        );
 
         if (!$checkFirstDeployment) {
             $valueToRemove = 'migrate:fresh';
