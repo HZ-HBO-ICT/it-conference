@@ -8,99 +8,67 @@
             <div class="relative md:col-span-2 border border-gray-700 rounded-lg p-6 space-y-4">
                 <span
                     class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
-                           bg-gray-800 text-gray-400 rounded">
+                           bg-gray-900 text-gray-400 rounded">
                     Details
                 </span>
 
                 <div>
                     <x-waitt.label for="name" value="Name"/>
-                    @if($editing)
-                        <x-waitt.input id="name" type="text" class="mt-1 block w-full"
-                                       wire:model.defer="form.name"/>
-                        @error('form.name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    @else
-                        <p class="mt-1 text-gray-300">{{ $form->name }}</p>
-                    @endif
+                    <x-waitt.input id="name" type="text" class="mt-1 block w-full"
+                                   wire:model.defer="form.name"/>
+                    @error('form.name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <x-waitt.label for="description" value="Description"/>
-                    @if($editing)
-                        <x-waitt.input-textarea id="description" class="mt-1 block w-full"
-                                          wire:model.defer="form.description"/>
-                        @error('form.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    @else
-                        <p class="mt-1 text-gray-300">{{ $form->description }}</p>
-                    @endif
+                    <x-waitt.input-textarea id="description" class="mt-1 block w-full"
+                                            wire:model.defer="form.description"/>
+                    @error('form.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <x-waitt.label for="website" value="Website"/>
-                        @if($editing)
-                            <x-waitt.input id="website" type="text" class="mt-1 block w-full"
-                                           wire:model.defer="form.website"/>
-                            @error('form.website') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        @else
-                            <p class="mt-1 text-gray-300">{{ $form->website }}</p>
-                        @endif
+                        <x-waitt.input id="website" type="text" class="mt-1 block w-full"
+                                       wire:model.defer="form.website"/>
+                        @error('form.website') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <x-waitt.label for="phone_number" value="Phone Number"/>
-                        @if($editing)
-                            <x-waitt.input id="phone_number" type="text" class="mt-1 block w-full"
-                                           wire:model.defer="form.phone_number"/>
-                            @error('form.phone_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        @else
-                            <p class="mt-1 text-gray-300">{{ $form->phone_number }}</p>
-                        @endif
+                        <x-waitt.input id="phone_number" type="text" class="mt-1 block w-full"
+                                       wire:model.defer="form.phone_number"/>
+                        @error('form.phone_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <x-waitt.label for="postcode" value="Postcode"/>
-                        @if($editing)
-                            <x-waitt.input id="postcode" type="text" class="mt-1 block w-full"
-                                           wire:model.defer="form.postcode"/>
-                            @error('form.postcode') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        @else
-                            <p class="mt-1 text-gray-300">{{ $form->postcode }}</p>
-                        @endif
+                        <x-waitt.input id="postcode" type="text" class="mt-1 block w-full"
+                                       wire:model.defer="form.postcode"/>
+                        @error('form.postcode') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <x-waitt.label for="house_number" value="House Number"/>
-                        @if($editing)
-                            <x-waitt.input id="house_number" type="text" class="mt-1 block w-full"
-                                           wire:model.defer="form.house_number"/>
-                            @error('form.house_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        @else
-                            <p class="mt-1 text-gray-300">{{ $form->house_number }}</p>
-                        @endif
+                        <x-waitt.input id="house_number" type="text" class="mt-1 block w-full"
+                                       wire:model.defer="form.house_number"/>
+                        @error('form.house_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <x-waitt.label for="street" value="Street"/>
-                        @if($editing)
-                            <x-waitt.input id="street" type="text" class="mt-1 block w-full"
-                                           wire:model.defer="form.street"/>
-                            @error('form.street') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        @else
-                            <p class="mt-1 text-gray-300">{{ $form->street }}</p>
-                        @endif
+                        <x-waitt.input id="street" type="text" class="mt-1 block w-full"
+                                       wire:model.defer="form.street"/>
+                        @error('form.street') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <x-waitt.label for="city" value="City"/>
-                        @if($editing)
-                            <x-waitt.input id="city" type="text" class="mt-1 block w-full"
-                                           wire:model.defer="form.city"/>
-                            @error('form.city') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        @else
-                            <p class="mt-1 text-gray-300">{{ $form->city }}</p>
-                        @endif
+                        <x-waitt.input id="city" type="text" class="mt-1 block w-full"
+                                       wire:model.defer="form.city"/>
+                        @error('form.city') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>
@@ -108,13 +76,13 @@
             <div class="relative flex flex-col justify-between items-center space-y-4 border border-gray-700 rounded-lg p-6 h-full">
     <span
         class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
-               bg-gray-800 text-gray-400 rounded">
+               bg-gray-900 text-gray-400 rounded">
         Logo
     </span>
 
                 <div class="h-full flex flex-col gap-3 items-center justify-center w-full">
                     <div class="w-full">
-                        <x-waitt.label for="logo" value="{{$editing ? 'Preview uploaded logo' : 'Current Logo'}}" class="text-left" />
+                        <x-waitt.label for="logo" value="Logo preview" class="text-left" />
                     </div>
                     <div class="h-32 w-full bg-gray-700 object-contain rounded overflow-hidden flex items-center justify-center">
                         @if($company->logo_path && !$photo)
@@ -126,7 +94,6 @@
                             <p class="text-gray-400">No logo uploaded</p>
                         @endif
                     </div>
-                    @if($editing)
                         <div class="w-full">
                             <label class="block w-full cursor-pointer">
                                 <input
@@ -142,18 +109,17 @@
 
                             @error('photo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
-                    @endif
                 </div>
             </div>
         </div>
     </x-slot>
 
     <x-slot name="buttons">
-        @if($editing)
-            <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
-            <x-waitt.button type="submit">Save</x-waitt.button>
-        @else
-            <x-waitt.button type="button" wire:click="$set('editing', true)">Edit</x-waitt.button>
-        @endif
+        <div wire:dirty >
+            @can('update', $company)
+                <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
+                <x-waitt.button type="submit">Save</x-waitt.button>
+            @endcan
+        </div>
     </x-slot>
 </x-waitt.modal>

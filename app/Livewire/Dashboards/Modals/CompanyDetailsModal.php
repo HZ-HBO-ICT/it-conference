@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboards\Modals;
 use App\Livewire\Forms\CompanyForm;
 use App\Models\Company;
 use App\Traits\FileValidation;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
@@ -36,8 +37,11 @@ class CompanyDetailsModal extends ModalComponent
      * Updates the company details
      * @return void
      * @throws \Illuminate\Validation\ValidationException
+     * @throws AuthorizationException
      */
     public function save() : void {
+        $this->authorize('update', $this->company);
+
         if ($this->photo) {
             $this->validateFileNameLength($this->photo, 'photo');
 
