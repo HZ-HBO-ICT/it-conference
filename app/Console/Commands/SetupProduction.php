@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\confirm;
@@ -25,7 +24,7 @@ class SetupProduction extends Command
 
     /**
      * Array of the commands that can be chosen.
-     * @var array
+     * @var array<string>
      */
     private array $commands = ['migrate:fresh', 'admin:upsert-master-data', 'admin:sync-permissions', 'storage:link'];
 
@@ -37,22 +36,15 @@ class SetupProduction extends Command
     {
         $checkFirstDeployment = confirm(
             'Is this the first deployment of the year?',
-            'false',
+            false,
             'Yes',
             'No'
         );
 
         if (!$checkFirstDeployment) {
-            $valueToRemove = 'migrate:fresh';
-            $key = array_search($valueToRemove, $this->commands);
+            array_shift($this->commands);
 
-            if ($key !== false) {
-                unset($this->commands[$key]);
-            }
-
-            $commands = array_values($this->commands);
-
-            $commandsToExecute = multiselect('What commands do you want to run?', $commands);
+            $commandsToExecute = multiselect('What commands do you want to run?', $this->commands);
         } else {
             $commandsToExecute = multiselect('What commands do you want to run?', $this->commands);
         }
