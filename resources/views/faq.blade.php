@@ -9,11 +9,11 @@
             <div class="absolute top-64 left-1/4 w-28 h-28 rounded-full bg-waitt-yellow opacity-15 blur-2xl"></div>
             <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-waitt-pink opacity-10 blur-2xl"></div>
         </div>
-        <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
+        <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow max-sm:text-center">
             FAQ
         </h1>
-        <div class="w-full mb-10">
-            <p class="text-lg text-white mb-6">Find answers to common questions about the "We are in IT Together" Conference. If you can't find what you're looking for, please <a href="{{ route('contact') }}" class="text-waitt-pink font-bold underline hover:text-pink-600">contact us here</a>.</p>
+        <div class="relative max-w-7xl mx-auto px-4">
+            <p class="text-lg text-white mx-auto mb-7">Find answers to common questions about the "We are in IT Together" Conference. If you can't find what you're looking for, please <a href="{{ route('contact') }}" class="text-waitt-pink font-bold underline hover:text-pink-600">contact us here</a>.</p>
         </div>
         <div class="w-full flex flex-col gap-8">
             <div class="space-y-4 w-full" x-data="{ selected: null }">
@@ -50,7 +50,7 @@
 
         </div>
         <!-- Still have questions section -->
-        <div class="w-full max-w-5xl flex flex-col items-start mt-16">
+        <div class="w-full max-w-7xl mx-auto flex flex-col px-4 items-start mt-16">
             <h3 class="text-2xl font-extrabold text-white mb-2">Still have questions?</h3>
             <p class="text-white mb-6">Contact our support team and we'll get back to you as soon as possible.</p>
             <a href="{{ route('contact') }}" class="px-8 py-4 bg-waitt-pink transition-colors hover:bg-pink-600 text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
