@@ -61,6 +61,7 @@
     </x-slot>
 
     <x-slot name="buttons">
+        <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
         @if(!$this->requestSent && !is_null($chosenTierName))
             <x-waitt.button type="submit">
                 {{ __('Send request') }}

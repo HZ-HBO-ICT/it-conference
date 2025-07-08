@@ -54,6 +54,15 @@ class RequestSponsorshipModal extends ModalComponent
     }
 
     /**
+     * Close the modal
+     * @return void
+     */
+    public function cancel() : void
+    {
+        $this->closeModal();
+    }
+
+    /**
      * Renders the component
      * @return View
      */

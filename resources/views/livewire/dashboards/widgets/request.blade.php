@@ -1,4 +1,4 @@
-<div class="relative w-full h-full min-h-48 rounded rounded-lg text-white {{ $class ?? 'bg-black/[var(--bg-opacity)] [--bg-opacity:60%]' }}"
+<div class="relative w-full h-full min-h-48 rounded rounded-lg hover:cursor-pointer text-white {{ $class ?? 'bg-black/[var(--bg-opacity)] [--bg-opacity:60%]' }}"
      onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.request-{{lcfirst($type)}}-modal', arguments: { company: {{$company}} } })">
     <div class="pt-5 px-5">
         <h3 class="text-lg font-semibold">{{$type}}</h3>
