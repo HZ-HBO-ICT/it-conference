@@ -51,6 +51,7 @@ class RequestSponsorshipModal extends ModalComponent
             $this->company->save();
             $this->company->refresh();
             $this->requestSent = true;
+            $this->dispatch('updated-dashboard');
             Toaster::success('Sponsorship request sent successfully.');
         }
     }

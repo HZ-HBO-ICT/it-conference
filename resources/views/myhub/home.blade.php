@@ -16,7 +16,7 @@
             <div class="relative z-5 py-8 px-3 mx-auto max-w-8xl">
                 <div>
                     @if(Auth::user()->company)
-                        <x-dashboards.company/>
+                        <livewire:dashboards.company/>
                     @endif
                     @if(Auth::user()->is_crew)
                         <x-dashboards.crew/>

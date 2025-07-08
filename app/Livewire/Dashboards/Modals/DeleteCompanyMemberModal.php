@@ -41,6 +41,7 @@ class DeleteCompanyMemberModal extends ModalComponent
         $this->authorize('update', $this->member->company);
 
         $this->member->delete();
+        $this->dispatch('updated-dashboard');
 
         Toaster::success('Company member was deleted successfully!');
 

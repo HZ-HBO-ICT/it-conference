@@ -60,6 +60,7 @@ class RequestBoothModal extends ModalComponent
             $this->additionalInformation = '';
             $this->requestSent = true;
             $this->company->refresh();
+            $this->dispatch('updated-dashboard');
             Toaster::success('Booth was successfully requested.');
         }
     }

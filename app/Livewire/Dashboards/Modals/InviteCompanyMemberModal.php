@@ -79,6 +79,7 @@ class InviteCompanyMemberModal extends ModalComponent
         $this->company = $this->company->refresh();
 
         Toaster::success('Company member was invited successfully!');
+        $this->dispatch('updated-dashboard');
 
         $this->closeModal();
     }
