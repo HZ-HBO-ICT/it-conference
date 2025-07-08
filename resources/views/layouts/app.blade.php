@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="px-4 py-3 md:flex md:items-center md:justify-between">
-                    <span class="text-sm text-gray-300 sm:text-center"> © 2025 IT Together Conference | Made by IT-Conference Website Team. All Rights Reserved.
+                    <span class="text-sm text-gray-300 sm:text-center"> © 2025 We are in IT Together Conference | Made by IT-Conference Website Team
                     </span>
                 </div>
             </div>
