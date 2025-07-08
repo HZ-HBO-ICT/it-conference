@@ -12,7 +12,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center flex-shrink-0">
+                    <a href="/">
                     <img src="{{ asset('/img/waitt25/logo.webp') }}" alt="WAITT Logo" class="h-6 w-auto max-w-full" />
+                    </a>
                 </div>
 
                 <!-- Navigation Links -->
