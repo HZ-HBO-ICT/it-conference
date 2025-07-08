@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboards\Modals;
 
 use App\Models\Booth;
 use App\Models\Company;
+use App\Models\Sponsorship;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -24,6 +25,7 @@ class RequestBoothModal extends ModalComponent
     public function mount(Company $company) : void
     {
         $this->company = $company;
+        $this->requestSent = (bool)$this->company->booth;
     }
 
     /**
@@ -32,6 +34,8 @@ class RequestBoothModal extends ModalComponent
      */
     public function requestBooth()
     {
+        $this->authorize('createRequest', Booth::class);
+
         $this->validate([
             'additionalInformation' => 'nullable|max:255',
         ]);

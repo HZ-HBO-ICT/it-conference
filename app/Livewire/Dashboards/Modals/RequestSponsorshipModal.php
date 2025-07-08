@@ -42,6 +42,8 @@ class RequestSponsorshipModal extends ModalComponent
      */
     public function requestSponsorship()
     {
+        $this->authorize('createRequest', Sponsorship::class);
+
         if (!$this->company->sponsorship) {
             $chosenTier = $this->tiers->firstWhere('name', $this->chosenTierName);
             $this->company->sponsorship_id = $chosenTier->id;
