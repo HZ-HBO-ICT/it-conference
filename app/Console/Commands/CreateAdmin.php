@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use function Laravel\Prompts\text;
+use function Laravel\Prompts\password;
 
 class CreateAdmin extends Command
 {
@@ -23,31 +25,28 @@ class CreateAdmin extends Command
     protected $description = 'Create a new admin user';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      */
     public function handle(): void
     {
-        // email address is taken as an argument
-        $email = $this->argument('email');
+        $name = text(
+            'Please input the name of the admin user',
+        'E.g. John Smith',
+        '',
+        true);
 
-        // get the name as argument
-        $name = $this->argument('name');
+        $email = text(
+            'Please input the email of the admin user',
+            'E.g. user@example.com',
+            '',
+            true
+        );
 
-        // get the password as argument.
-        // Note, we have to take this as an argument, on our STRATO server the STDIN is not available
-        // therefore $this->ask and $this->secret won't work
-        $password = $this->argument('password');
+        $password = password(
+            'Please input the password for the admin user',
+        '',
+        true);
 
         $this->createUser($email, $name, $password);
     }
@@ -55,11 +54,11 @@ class CreateAdmin extends Command
     /**
      * Create the user and assign admin rights
      *
-     * @param $email
-     * @param $name
-     * @param $password
+     * @param $email string
+     * @param $name string
+     * @param $password string
      */
-    private function createUser($email, $name, $password): void
+    private function createUser(string $email, string $name, string $password): void
     {
         $user = User::create([
             'email' => $email,
