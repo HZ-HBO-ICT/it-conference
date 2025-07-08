@@ -36,14 +36,15 @@
           </div>
           <div class="w-full h-full col-span-2 grid grid-cols-1 gap-3">
               <livewire:dashboards.widgets.request
-                  class="bg-sponsor-gradient "
+                  class="bg-sponsor-gradient"
                   :type="'Sponsorship'"
+                  :company="Auth::user()->company"
                   :description="'Gain visibility and connect with attendees by becoming a sponsor. Submit your sponsorship request to get started.'"/>
               <livewire:dashboards.widgets.request
                   class="bg-booth-gradient"
                   :type="'Booth'"
+                  :company="Auth::user()->company"
                   :description="'Want a presence at the event? Request a booth to showcase your company.'"
-
               />
           </div>
       </div>
