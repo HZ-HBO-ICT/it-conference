@@ -131,7 +131,7 @@ Route::middleware([
 
 // Routes for policy files
 Route::get('/files/policies/privacy-policy', function () {
-    $path = public_path('files/policies/privacy_policy_1-9-2024.pdf');
+    $path = public_path('files/policies/privacy_policy_1-7-2025.pdf');
 
     if (file_exists($path)) {
         return Response::file($path);
@@ -141,7 +141,7 @@ Route::get('/files/policies/privacy-policy', function () {
 })->name('privacy-policy');
 
 Route::get('/files/policies/cookie-statement', function () {
-    $path = public_path('files/policies/cookie_statement_1-9-2024.pdf');
+    $path = public_path('files/policies/cookie_statement_1-7-2025.pdf');
 
     if (file_exists($path)) {
         return Response::file($path);
@@ -151,7 +151,7 @@ Route::get('/files/policies/cookie-statement', function () {
 })->name('cookie-statement');
 
 Route::get('/files/policies/terms-and-conditions', function () {
-    $path = public_path('files/policies/terms_and_conditions_1-9-2024.pdf');
+    $path = public_path('files/policies/terms_and_conditions_1-7-2025.pdf');
 
     if (file_exists($path)) {
         return Response::file($path);
