@@ -21,7 +21,7 @@ class CreateEditPresentationModal extends ModalComponent
     use FileValidation;
 
     public PresentationForm $form;
-    public Presentation $presentation;
+    public ?Presentation $presentation = null;
     public User $user;
     public $file;
     public $presentationTypes;
@@ -82,7 +82,7 @@ class CreateEditPresentationModal extends ModalComponent
         } else {
             $this->authorize('request', Presentation::class);
             $this->form->create($this->user);
-            Toaster::success("Presentation {$this->presentation->name} has been created");
+            Toaster::success("The presentation has been created");
         }
 
         $this->closeModal();

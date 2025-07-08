@@ -18,7 +18,7 @@ class InviteCompanyMemberModal extends ModalComponent
     #[Validate('required|in:speaker,booth owner,company member')]
     public $currentRole;
 
-    #[Validate('required|unique:users')]
+    #[Validate('required|unique:users|email:rfc,dns')]
     public string $email;
 
     /**

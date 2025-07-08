@@ -21,22 +21,21 @@
                         <div class="relative z-10">
                             <p class="uppercase text-xs opacity-70">{{ $presentation->type }}</p>
                             <h2 class=" font-bold">{{ $presentation->name  }}</h2>
-                            <p class="text-xs opacity-50">{{ $presentation->participants->count() }}
-                                /{{ $presentation->max_participants }} participants</p>
+                            <x-waitt.approval-status :status="$presentation->approval_status" />
                         </div>
                     </div>
 
-                    <div class="mt-5 font-extralight text-xs">
-                        Do you want more presentations? <span class="text-yellow-300 underline">Let us know!</span>
+                    <div class="mt-5 font-light text-xs">
+                        Do you want more presentations? <a href='{{route('contact')}}' class="text-waitt-pink hover:cursor-pointer underline">Let us know!</a>
                     </div>
                 </div>
             @empty
-                <div class="font-extralight">
+                <div class="font-normal">
                     You have no presentations.
                     @can('request', Presentation::class)
-                        <span
+                        <span class="underline transition-colors hover:text-waitt-pink hover:cursor-pointer"
                             onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: {user: {{Auth::user()}}, presentationId: null } })">
-                             You can still request one.
+                             Request one!
                          </span>
                     @endcan
                 </div>

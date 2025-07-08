@@ -1,7 +1,7 @@
 @php use App\Models\Presentation; @endphp
-<x-waitt.modal form-action="save" wire:key="{{ $id ?? 'new-presentation' }}">
+<x-waitt.modal form-action="save" wire:key="{{ optional($presentation)->id ?? 'new-presentation' }}">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
-        Request presentation
+        {{ $presentation ? 'Update presentation' : 'Request presentation'}}
     </x-slot>
 
     <x-slot name="content" class="w-full dark:bg-gray-800">
