@@ -5,7 +5,9 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
-use function Laravel\Prompts\{progress, text, password};
+use function Laravel\Prompts\progress;
+use function Laravel\Prompts\text;
+use function Laravel\Prompts\password;
 
 class CreateAdmin extends Command
 {
@@ -31,9 +33,10 @@ class CreateAdmin extends Command
     {
         $name = text(
             'Please input the name of the admin user',
-        'E.g. John Smith',
-        '',
-        true);
+            'E.g. John Smith',
+            '',
+            true
+        );
 
         $email = text(
             'Please input the email of the admin user',
@@ -45,8 +48,9 @@ class CreateAdmin extends Command
 
         $password = password(
             'Please input the password for the admin user',
-        '',
-        true);
+            '',
+            true
+        );
 
         progress(
             'Creating admin user',
