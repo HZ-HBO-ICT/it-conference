@@ -45,7 +45,7 @@ class SetupProduction extends Command
             array_shift($this->commands);
         }
         
-       $commandsToExecute = multiselect('What commands do you want to run?', $this->commands);
+        $commandsToExecute = multiselect('What commands do you want to run?', $this->commands);
 
         foreach ($commandsToExecute as $command) {
             $this->line("{$command} is being executed...");
