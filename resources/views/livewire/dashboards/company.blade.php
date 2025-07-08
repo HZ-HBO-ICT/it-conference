@@ -35,7 +35,7 @@
             <livewire:dashboards.widgets.company-members :company="$user->company"/>
         </div>
         <div class="w-full min-h-20 h-fit col-span-3">
-            <livewire:dashboards.widgets.presentations :presentations="Auth::user()->company->presentations"/>
+            <livewire:dashboards.widgets.presentations :company="$user->company"/>
         </div>
         <div class="w-full h-full col-span-2 grid grid-cols-1 gap-3">
             <livewire:dashboards.widgets.request

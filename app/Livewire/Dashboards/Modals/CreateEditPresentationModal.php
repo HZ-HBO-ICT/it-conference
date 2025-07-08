@@ -85,6 +85,7 @@ class CreateEditPresentationModal extends ModalComponent
             Toaster::success("The presentation has been created");
         }
 
+        $this->dispatch('updated-dashboard');
         $this->closeModal();
     }
 
