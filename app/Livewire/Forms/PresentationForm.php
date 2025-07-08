@@ -36,7 +36,7 @@ class PresentationForm extends Form
      * @param Presentation $presentation
      * @return void
      */
-    public function setCompany(Presentation $presentation)
+    public function setPresentation(Presentation $presentation)
     {
         $this->presentation = $presentation;
 

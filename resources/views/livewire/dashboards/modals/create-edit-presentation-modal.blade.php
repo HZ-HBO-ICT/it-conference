@@ -1,5 +1,5 @@
 @php use App\Models\Presentation; @endphp
-<x-waitt.modal form-action="create" wire:key="{{ $presentation->id ?? 'new-presentation' }}">
+<x-waitt.modal form-action="save" wire:key="{{ $id ?? 'new-presentation' }}">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         Request presentation
     </x-slot>
@@ -73,9 +73,51 @@
                     Slides
                 </span>
 
-                <p class="text-gray-400 text-sm text-center">
-                    You would be able to upload slides for your presentation after it has been approved.
-                </p>
+                @if($presentation)
+                    <div class="w-full">
+                        <label class="block w-full cursor-pointer">
+                            <div>
+                                @if($file && !$errors->has('file') )
+                                    <div class="mt-2">
+                                        <p class="text-gray-500 text-sm">Uploaded file: {{ $file->getClientOriginalName() }}</p>
+                                    </div>
+                                @elseif($presentation->file_original_name)
+                                    <p wire:click="downloadFile" class="text-sm text-white mb-3 hover:text-waitt-yellow">Download {{$presentation->file_original_name}}</p>
+                                @else
+                                    <p class="text-gray-400">No slides uploaded</p>
+                                @endif
+                            </div>
+                            @if($file)
+                                <div class="py-2">
+                                    <button type="submit"
+                                            class="flex items-center hover:cursor-pointer justify-center w-full h-12 bg-gray-900 text-teal-600 text-sm rounded-lg border border-teal-600 hover:bg-gray-700 transition">
+                                        Save
+                                    </button>
+                                </div>
+                            @endif
+                            <div>
+                                <input
+                                    type="file"
+                                    id="logo"
+                                    accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                    wire:model="file"
+                                    class="sr-only"/>
+                                <div
+                                    class="flex items-center justify-center w-full h-12 bg-gray-900 text-gray-300 text-sm rounded-lg border border-gray-600 hover:bg-gray-700 transition">
+                                    Choose File
+                                </div>
+                            </div>
+                        </label>
+
+                        @error('file')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+                @else
+                    <p class="text-gray-400 text-sm text-center">
+                        You would be able to upload slides for your presentation after it has been approved.
+                    </p>
+                @endif
             </div>
         </div>
 
@@ -83,10 +125,17 @@
 
     <x-slot name="buttons">
         <div wire:dirty>
-            @can('request', Presentation::class)
-                <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
-                <x-waitt.button type="submit" variant="save">Save</x-waitt.button>
-            @endcan
+            @if($presentation)
+                @can('update', $presentation)
+                    <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
+                    <x-waitt.button type="submit" variant="save">Save</x-waitt.button>
+                @endcan
+            @else
+                @can('request', Presentation::class)
+                    <x-waitt.button type="button" wire:click="cancel">Cancel</x-waitt.button>
+                    <x-waitt.button type="submit" variant="save">Save</x-waitt.button>
+                @endcan
+            @endif
         </div>
     </x-slot>
 </x-waitt.modal>
