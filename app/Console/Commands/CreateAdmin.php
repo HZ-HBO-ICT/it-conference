@@ -5,8 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
-use function Laravel\Prompts\text;
-use function Laravel\Prompts\password;
+use function Laravel\Prompts\{progress, text, password};
 
 class CreateAdmin extends Command
 {
@@ -15,7 +14,7 @@ class CreateAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:create-admin-user {email} {name} {password}';
+    protected $signature = 'admin:create-admin-user';
 
     /**
      * The console command description.
@@ -40,7 +39,8 @@ class CreateAdmin extends Command
             'Please input the email of the admin user',
             'E.g. user@example.com',
             '',
-            true
+            true,
+            validate: ['email' => 'required|string|email|max:255|unique:users']
         );
 
         $password = password(
@@ -48,7 +48,13 @@ class CreateAdmin extends Command
         '',
         true);
 
-        $this->createUser($email, $name, $password);
+        progress(
+            'Creating admin user',
+            ['creating admin user'],
+            function () use ($name, $email, $password) {
+                $this->createUser($name, $email, $password);
+            }
+        );
     }
 
     /**
@@ -58,11 +64,12 @@ class CreateAdmin extends Command
      * @param $name string
      * @param $password string
      */
-    private function createUser(string $email, string $name, string $password): void
+    private function createUser(string $name, string $email, string $password): void
     {
         $user = User::create([
-            'email' => $email,
             'name' => $name,
+            'email' => $email,
+            'email_verified_at' => now(),
             'password' => Hash::make($password)
         ]);
         // Do stuff here to make the user an admin user
