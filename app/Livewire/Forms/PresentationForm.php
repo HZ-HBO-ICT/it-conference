@@ -5,7 +5,10 @@ namespace App\Livewire\Forms;
 use App\Models\Company;
 use App\Models\Presentation;
 use App\Models\PresentationType;
+use App\Models\User;
+use App\Models\UserPresentation;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -55,5 +58,19 @@ class PresentationForm extends Form
         $this->presentation->update(
             $this->all()
         );
+    }
+
+    /**
+     * Creates a new presentation
+     * @param User $user
+     * @return void
+     */
+    public function create(User $user) {
+        $presentation = Presentation::create($this->all());
+        $user->joinPresentation($presentation, 'speaker');
+
+        if ($user->company) {
+           $presentation->update(['company_id' => $user->company->id]);
+        }
     }
 }

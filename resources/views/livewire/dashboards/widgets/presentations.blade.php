@@ -2,7 +2,7 @@
     <div class="font-semibold text-sm p-5">
         <p class="text-lg">Presentations</p>
         <div class="grid grid-col-1 w-full pt-5">
-            @foreach($presentations as $presentation)
+            @forelse($presentations as $presentation)
                 <div>
                     <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 text-white px-6 py-3 rounded-xl overflow-hidden">
                         <!-- Slanted overlay -->
@@ -24,7 +24,17 @@
                         Do you want more presentations? <span class="text-yellow-300 underline">Let us know!</span>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="font-extralight">
+                    You have no presentations.
+                    @can('request', \App\Models\Presentation::class)
+                         <span
+                             onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-presentation-modal', arguments: {user: {{\Illuminate\Support\Facades\Auth::user()}}} })">
+                             You can still request one.
+                         </span>
+                    @endcan
+                </div>
+            @endforelse
         </div>
     </div>
 </div>

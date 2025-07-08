@@ -10,7 +10,7 @@
             </span>
         @else
             <button wire:click="previousPage" wire:loading.attr="disabled" rel="prev"
-               class="px-2 py-1 rounded bg-white/10 border border-white/20 text-sm hover:bg-white/20 transition">
+               class="px-2 py-1 rounded bg-white/10 border border-white/20 text-sm hover:cursor-pointer hover:bg-white/20 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -25,7 +25,7 @@
         {{-- Next Page --}}
         @if ($paginator->hasMorePages())
             <button wire:click="nextPage" wire:loading.attr="disabled" rel="next"
-               class="px-2 py-1 rounded bg-white/10 border border-white/20 text-sm hover:bg-white/20 transition">
+               class="px-2 py-1 rounded bg-white/10 border border-white/20 text-sm hover:cursor-pointer hover:bg-white/20 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>

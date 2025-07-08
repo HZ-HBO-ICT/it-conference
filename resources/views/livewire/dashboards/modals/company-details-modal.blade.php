@@ -74,12 +74,11 @@
             </div>
 
             <div class="relative flex flex-col justify-between items-center space-y-4 border border-gray-700 rounded-lg p-6 h-full">
-    <span
-        class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
-               bg-gray-900 text-gray-400 rounded">
-        Logo
-    </span>
-
+                <span
+                    class="absolute -top-3 left-3 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide
+                           bg-gray-900 text-gray-400 rounded">
+                    Logo
+                </span>
                 <div class="h-full flex flex-col gap-3 items-center justify-center w-full">
                     <div class="w-full">
                         <x-waitt.label for="logo" value="Logo preview" class="text-left" />
