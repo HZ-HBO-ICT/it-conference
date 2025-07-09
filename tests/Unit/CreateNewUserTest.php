@@ -85,7 +85,8 @@ class CreateNewUserTest extends TestCase
         $action->create(['registration_type' => 'participant']);
     }
 
-    public function test_validation_fails_with_invalid_email_field(): void {
+    public function test_validation_fails_with_invalid_email_field(): void
+    {
         $this->expectException(ValidationException::class);
 
         $action = new CreateNewUser();
