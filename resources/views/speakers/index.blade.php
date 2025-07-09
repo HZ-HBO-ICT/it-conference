@@ -14,7 +14,7 @@
 
         <div class="relative z-10 max-w-7xl mx-auto">
             <!-- Mobile-friendly title -->
-            <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow max-sm:text-4xl max-sm:text-center max-sm:mb-8">
+            <h1 class="px-4 text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow max-sm:text-4xl max-sm:text-center max-sm:mb-8">
                 Speakers
             </h1>
 

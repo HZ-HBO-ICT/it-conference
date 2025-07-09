@@ -9,7 +9,7 @@
             <div class="absolute top-64 left-1/4 w-28 h-28 rounded-full bg-waitt-yellow opacity-15 blur-2xl"></div>
             <div class="absolute top-3/4 left-3/4 w-36 h-36 rounded-full bg-waitt-pink opacity-10 blur-2xl"></div>
         </div>
-        <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow max-sm:text-center">
+        <h1 class="px-4 text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow max-sm:text-center">
             FAQ
         </h1>
         <div class="relative max-w-7xl mx-auto px-4">
