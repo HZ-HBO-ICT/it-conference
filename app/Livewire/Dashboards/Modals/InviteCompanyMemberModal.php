@@ -13,20 +13,22 @@ use Masmerise\Toaster\Toaster;
 class InviteCompanyMemberModal extends ModalComponent
 {
     public Company $company;
-    public $roles;
+
+    /** @var array<string, string> */
+    public array $roles;
 
     #[Validate('required|in:speaker,booth owner,company member')]
-    public $currentRole;
+    public string $currentRole;
 
     #[Validate('required|unique:users|email:rfc,dns')]
     public string $email;
 
     /**
      * Called when initializing the component
-     * @param $company
+     * @param Company $company
      * @return void
      */
-    public function mount($company)
+    public function mount(Company $company) : void
     {
         $this->company = $company;
         $this->roles = [
@@ -42,10 +44,10 @@ class InviteCompanyMemberModal extends ModalComponent
     /**
      * Handles the selecting of a new role
      *
-     * @param $role
+     * @param string $role
      * @return void
      */
-    public function selectRole($role)
+    public function selectRole(string $role)
     {
         $this->currentRole = $role;
     }

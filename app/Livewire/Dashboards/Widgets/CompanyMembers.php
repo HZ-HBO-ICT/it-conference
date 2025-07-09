@@ -18,15 +18,32 @@ class CompanyMembers extends Component
 
     public Company $company;
 
-    public function totalMembers() {
+    /**
+     * Calculates the total members
+     * @return int
+     */
+    public function totalMembers()
+    {
         return $this->company->users->count() + $this->company->invitations->count();
     }
 
-    public function getUser($id) {
+    /**
+     * Helper method to retrieve the user
+     * @param int $id
+     * @return User|null
+     */
+    public function getUser(int $id) : User|null
+    {
         return $this->company->users->find($id);
     }
 
-    public function getInvitation($id) {
+    /**
+     * Helper method to retrieve the invitation
+     * @param int $id
+     * @return Invitation|null
+     */
+    public function getInvitation(int $id) : Invitation|null
+    {
         return $this->company->invitations->find($id);
     }
 
@@ -39,6 +56,7 @@ class CompanyMembers extends Component
         $users = User::select('id', 'name', 'created_at')->where('company_id', $this->company->id);
         $invitations = Invitation::select('id', 'email', 'created_at')->where('company_id', $this->company->id);
 
+        /** @phpstan-ignore-next-line */
         $members = $users->unionAll($invitations)->orderBy('created_at')->paginate(3);
 
         return view('livewire.dashboards.widgets.company-members', [
@@ -46,12 +64,20 @@ class CompanyMembers extends Component
         ]);
     }
 
+    /**
+     * Refreshes the component
+     * @return void
+     */
     #[On('updated-dashboard')]
     public function refreshDashboard() : void
     {
         $this->company->refresh();
     }
 
+    /**
+     * Specify the custom pagination
+     * @return string
+     */
     public function paginationView()
     {
         return 'components.pagination.waitt';

@@ -11,8 +11,8 @@ use Masmerise\Toaster\Toaster;
 
 class DeleteCompanyMemberModal extends ModalComponent
 {
-   public User|Invitation $member;
-   public bool $isInvitation = false;
+    public User|Invitation $member;
+    public bool $isInvitation = false;
 
     /**
      * Initializes the component
@@ -25,9 +25,9 @@ class DeleteCompanyMemberModal extends ModalComponent
         $this->isInvitation = $isInvitation;
 
         if ($this->isInvitation) {
-            $this->member = Invitation::find($id);
+            $this->member = Invitation::findOrFail($id);
         } else {
-            $this->member = User::find($id);
+            $this->member = User::findOrFail($id);
         }
     }
 
@@ -52,7 +52,8 @@ class DeleteCompanyMemberModal extends ModalComponent
      * Cancels the action
      * @return void
      */
-    public function cancel() : void {
+    public function cancel() : void
+    {
         $this->closeModal();
     }
 

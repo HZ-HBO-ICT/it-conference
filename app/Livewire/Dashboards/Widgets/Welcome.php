@@ -17,7 +17,8 @@ class Welcome extends Component
      * @param Authenticatable|User $user
      * @return void
      */
-    public function mount(Authenticatable|User $user) : void {
+    public function mount(Authenticatable|User $user) : void
+    {
         $this->user = $user;
     }
 

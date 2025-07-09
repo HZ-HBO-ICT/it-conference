@@ -26,8 +26,8 @@ class HandleFinalProgrammeReleased
     public function handle(FinalProgrammeReleased $event): void
     {
         $current = Edition::current();
-        $current->state = Edition::STATE_ENROLLMENT;
-        $current->save();
+        optional($current)->state = Edition::STATE_ENROLLMENT;
+        optional($current)->save();
 
         foreach (User::sendEmailPreference()->get() as $user) {
             if ($user->ticket && !$user->is_crew) {

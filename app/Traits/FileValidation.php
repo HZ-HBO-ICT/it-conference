@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait FileValidation
 {
@@ -12,12 +13,12 @@ trait FileValidation
      * since files with longer names cannot be saved, therefore, do not
      * have extensions
      *
-     * @param $file
-     * @param $key
+     * @param TemporaryUploadedFile $file
+     * @param string $key
      * @return void
      * @throws ValidationException
      */
-    protected function validateFileNameLength($file, $key)
+    protected function validateFileNameLength(TemporaryUploadedFile $file, string $key): void
     {
         if (empty($file->getClientOriginalExtension())) {
             $validator = Validator::make([], []);

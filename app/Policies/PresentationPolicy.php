@@ -174,7 +174,7 @@ class PresentationPolicy
         }
 
         // decline if the final programme is not released
-        if (!Edition::current()->is_final_programme_released) {
+        if (!optional(Edition::current())->is_final_programme_released) {
             return false;
         }
 
@@ -201,7 +201,7 @@ class PresentationPolicy
     public function disenroll(User $user, Presentation $presentation): bool
     {
         // decline if the final programme is not released
-        if (!Edition::current()->is_final_programme_released) {
+        if (!optional(Edition::current())->is_final_programme_released) {
             return false;
         }
 

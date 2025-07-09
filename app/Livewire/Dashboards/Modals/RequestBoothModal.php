@@ -5,6 +5,8 @@ namespace App\Livewire\Dashboards\Modals;
 use App\Models\Booth;
 use App\Models\Company;
 use App\Models\Sponsorship;
+use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -14,23 +16,26 @@ use Masmerise\Toaster\Toaster;
 class RequestBoothModal extends ModalComponent
 {
     public Company $company;
-    public $additionalInformation;
-    public $requestSent;
+    public User $user;
+    public string $additionalInformation;
+    public bool $requestSent;
 
     /**
      * Initializes the component
      * @param Company $company
      * @return void
      */
-    public function mount(Company $company) : void
+    public function mount(Company $company, User $user) : void
     {
         $this->company = $company;
+        $this->user = $user;
         $this->requestSent = (bool)$this->company->booth;
     }
 
     /**
      * Sends a request for booth
      * @return void
+     * @throws AuthorizationException
      */
     public function requestBooth()
     {
@@ -45,16 +50,16 @@ class RequestBoothModal extends ModalComponent
                 [
                     'width' => 1,
                     'length' => 2,
-                    'additional_information' => is_null($this->additionalInformation)
+                    'additional_information' => strlen($this->additionalInformation) == 0
                         ? 'No additional demands' : $this->additionalInformation,
                     'company_id' => $this->company->id
                 ]
             );
 
-            Auth::user()->assignRole('booth owner');
+            $this->user->assignRole('booth owner');
 
-            if (Auth::user()->hasRole('pending booth owner')) {
-                Auth::user()->removeRole('pending booth owner');
+            if ($this->user->hasRole('pending booth owner')) {
+                $this->user->removeRole('pending booth owner');
             }
 
             $this->additionalInformation = '';

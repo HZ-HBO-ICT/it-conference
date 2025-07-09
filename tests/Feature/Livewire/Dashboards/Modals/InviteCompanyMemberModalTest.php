@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature\Livewire\Dashboards\Modals;
+namespace Tests\Feature\Livewire\Dashboards\Modals;
 
 use App\Enums\ApprovalStatus;
 use App\Livewire\Dashboards\Modals\InviteCompanyMemberModal;
@@ -19,7 +19,8 @@ class InviteCompanyMemberModalTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
@@ -33,7 +34,7 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_that_it_can_mount_the_component_with_a_company()
+    public function test_that_it_can_mount_the_component_with_a_company() : void
     {
         $company = Company::factory()->create();
         $component = Livewire::test(InviteCompanyMemberModal::class, ['company' => $company]);
@@ -44,7 +45,7 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_can_render_the_component()
+    public function test_it_can_render_the_component() : void
     {
         $company = Company::factory()->create();
         $component = Livewire::test(InviteCompanyMemberModal::class, ['company' => $company]);
@@ -53,7 +54,7 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_saves_company_details_with_valid_input()
+    public function test_it_saves_company_details_with_valid_input() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);
@@ -71,7 +72,8 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_throws_authorization_error_when_user_is_not_company_representative() {
+    public function test_it_throws_authorization_error_when_user_is_not_company_representative() : void
+    {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);
         $user->assignRole('company member');
@@ -84,7 +86,8 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_throws_authorization_error_when_user_is_not_from_the_company() {
+    public function test_it_throws_authorization_error_when_user_is_not_from_the_company() : void
+    {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create();
         $user->assignRole('company representative');
@@ -97,7 +100,7 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_validates_input_fields()
+    public function test_it_validates_input_fields() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);
@@ -119,7 +122,7 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_everything_resets_on_cancel()
+    public function test_everything_resets_on_cancel() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);

@@ -51,7 +51,8 @@ class PresentationForm extends Form
      * Resets the form
      * @return void
      */
-    public function resetPresentation(): void {
+    public function resetPresentation(): void
+    {
         $this->name = '';
         $this->description = '';
         $this->presentation_type_id = 0;
@@ -77,12 +78,13 @@ class PresentationForm extends Form
      * @param User $user
      * @return void
      */
-    public function create(User $user) {
+    public function create(User $user)
+    {
         $presentation = Presentation::create($this->all());
         $user->joinPresentation($presentation, 'speaker');
 
         if ($user->company) {
-           $presentation->update(['company_id' => $user->company->id]);
+            $presentation->update(['company_id' => $user->company->id]);
         }
     }
 }

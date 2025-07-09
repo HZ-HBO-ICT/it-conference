@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboards\Widgets;
 
 use App\Models\Company;
+use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -14,7 +15,16 @@ class Status extends Component
     public string $type;
     public Company $company;
 
-    public function mount($icon, $label, $type, $company) : void {
+    /**
+     * Initializes the component
+     * @param string $icon
+     * @param string $label
+     * @param string $type
+     * @param Company $company
+     * @return void
+     */
+    public function mount(string $icon, string $label, string $type, Company $company) : void
+    {
         $this->icon = $icon;
         $this->label = $label;
         $this->type = $type;
@@ -23,6 +33,10 @@ class Status extends Component
         $this->determineStatus();
     }
 
+    /**
+     * Determines which status the component should follow
+     * @return void
+     */
     #[On('updated-dashboard')]
     public function determineStatus() : void
     {
@@ -36,7 +50,11 @@ class Status extends Component
         };
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.dashboards.widgets.status');
     }

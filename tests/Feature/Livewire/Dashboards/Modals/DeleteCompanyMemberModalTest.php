@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature\Livewire\Dashboards\Modals;
+namespace Tests\Feature\Livewire\Dashboards\Modals;
 
 use App\Enums\ApprovalStatus;
 use App\Livewire\Dashboards\Modals\DeleteCompanyMemberModal;
@@ -21,7 +21,8 @@ class DeleteCompanyMemberModalTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         activity()->disableLogging();
         Artisan::call('admin:upsert-master-data');
@@ -35,7 +36,7 @@ class DeleteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_that_it_can_mount_the_component_with_an_id()
+    public function test_that_it_can_mount_the_component_with_an_id() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);
@@ -48,7 +49,7 @@ class DeleteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_can_render_the_component()
+    public function test_it_can_render_the_component() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);
@@ -60,7 +61,8 @@ class DeleteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_throws_authorization_error_when_user_is_not_company_representative() {
+    public function test_it_throws_authorization_error_when_user_is_not_company_representative() : void
+    {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $toBeDeletedUser = User::factory()->create(['company_id' => $company->id]);
         $toBeDeletedUser->refresh();
@@ -75,7 +77,7 @@ class DeleteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_user_gets_deleted_successfully()
+    public function test_user_gets_deleted_successfully() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $toBeDeletedUser = User::factory()->create(['company_id' => $company->id]);
@@ -92,7 +94,7 @@ class DeleteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_invitation_gets_deleted_successfully()
+    public function test_invitation_gets_deleted_successfully() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $toBeDeleted = Invitation::create(['email' => 'email@email.com', 'company_id' => $company->id, 'role' => 'speaker']);

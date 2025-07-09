@@ -8,6 +8,8 @@ use App\Models\Timeslot;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 
 /**
@@ -16,26 +18,34 @@ use Livewire\Component;
  */
 class Schedule extends Component
 {
-    /**
-     * @var string[]
-     */
+    /** @var array<array<string, int|string>|string> */
     public array $timeslots = [];
-    public Authenticatable|User $user;
+    /** @var Collection<int, Presentation> */
     public $presentations;
+    public User $user;
     public int $startHour;
     public int $endHour;
     public Edition|null $edition;
 
-    public function mount(Authenticatable|User $user, $startHour, $endHour) {
+    /**
+     * Initializes the component
+     * @param User $user
+     * @param int $startHour
+     * @param int $endHour
+     * @return void
+     */
+    public function mount(User $user, int $startHour, int $endHour) : void
+    {
         $this->generateTimeslots();
         $this->user = $user;
-        $this->presentations = $user->participatingIn->merge($user->presenter_of ? collect([$user->presenter_of]) : []);
+        $this->presentations = $user->participating_in->merge($user->presenter_of ? collect([$user->presenter_of]) : []);
         $this->startHour = $startHour;
         $this->endHour = $endHour;
         $this->edition = Edition::current();
     }
 
     /**
+     * Generate timeslots for within the view
      * @return void
      */
     public function generateTimeslots()
@@ -49,6 +59,11 @@ class Schedule extends Component
         }
     }
 
+    /**
+     * Calculates where the presentation should be displayed at
+     * @param Presentation $presentation
+     * @return string[]
+     */
     public function getPresentationPosition(Presentation $presentation)
     {
         $startTime = Carbon::parse($presentation->start);
@@ -68,7 +83,11 @@ class Schedule extends Component
         ];
     }
 
-    public function render()
+    /**
+     * Renders the component
+     * @return View
+     */
+    public function render() : View
     {
         return view('livewire.dashboards.widgets.schedule');
     }
