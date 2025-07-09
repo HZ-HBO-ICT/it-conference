@@ -73,7 +73,6 @@ class CreateAdmin extends Command
         $user = User::create([
             'name' => $name,
             'email' => $email,
-            'email_verified_at' => now(),
             'password' => Hash::make($password)
         ]);
         // Do stuff here to make the user an admin user
