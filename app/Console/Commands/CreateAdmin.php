@@ -43,7 +43,7 @@ class CreateAdmin extends Command
             'E.g. user@example.com',
             '',
             true,
-            validate: ['email' => 'required|string|email|max:255|unique:users']
+            validate: ['email' => 'required|string|email:rfc,dns|max:255|unique:users']
         );
 
         $password = password(
