@@ -79,7 +79,8 @@ class RegistrationTest extends TestCase
         $response->assertRedirect(route('dashboard', absolute: false));
     }
 
-    public function test_new_users_cannot_register_with_invalid_email(): void {
+    public function test_new_users_cannot_register_with_invalid_email(): void
+    {
         if (! Features::enabled(Features::registration())) {
             $this->markTestSkipped('Registration support is not enabled.');
         }
