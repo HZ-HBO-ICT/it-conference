@@ -1,7 +1,7 @@
 @php use App\Models\Presentation;use Illuminate\Support\Facades\Auth; @endphp
 <div class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] w-full h-full rounded rounded-lg text-white">
     <div class="font-semibold text-sm p-5">
-        <p class="text-lg">Presentations</p>
+        <p class="text-md md:text-lg">Presentations</p>
         <div class="grid grid-col-1 w-full pt-5">
             @forelse($presentations as $presentation)
                 <div>

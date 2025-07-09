@@ -1,7 +1,7 @@
-<div class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] rounded-lg shadow-lg overflow-hidden">
+<div class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] h-full rounded-lg shadow-lg overflow-hidden">
     <div class="px-6 py-4 ">
         <div class="flex items-center justify-between">
-            <div class="flex flex-col text-md">
+            <div class="flex flex-col text-xs md:text-lg">
                 <span class="text-white font-semibold">Event schedule</span>
                 <span class="text-gray-200 text-xs">{{ $edition->start_at->format('l jS \\of F Y ') }}</span>
             </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         @else
-            <p class="text-waitt-yellow pl-6">The programme hasn't been released yet.</p>
+            <p class="text-xs md:text-md text-waitt-yellow pl-6">The programme hasn't been released yet.</p>
         @endif
     </div>
 </div>
