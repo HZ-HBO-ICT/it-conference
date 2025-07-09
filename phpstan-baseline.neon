@@ -4573,24 +4573,6 @@ parameters:
 			path: tests/Unit/CreateNewUserTest.php
 
 		-
-			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_company_is_created_with_user\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_user_is_created_successfully\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_validation_fails_with_missing_fields\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
