@@ -70,6 +70,7 @@ class CompanyDetailsModal extends ModalComponent
     public function cancel() {
         $this->form->setCompany($this->company);
         $this->photo = null;
+        $this->closeModal();
     }
 
     /**

@@ -48,6 +48,18 @@ class PresentationForm extends Form
     }
 
     /**
+     * Resets the form
+     * @return void
+     */
+    public function resetPresentation(): void {
+        $this->name = '';
+        $this->description = '';
+        $this->presentation_type_id = 0;
+        $this->max_participants = 0;
+        $this->difficulty_id = 0;
+    }
+
+    /**
      * Updates the company details with the new data
      * @return void
      */

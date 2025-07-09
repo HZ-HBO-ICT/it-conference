@@ -123,6 +123,20 @@ class CreateEditPresentationModal extends ModalComponent
     }
 
     /**
+     * Resets all things that could be updated in the form
+     * @return void
+     */
+    public function cancel(): void {
+        $this->form->resetPresentation();
+        if ($this->presentation) {
+            $this->form->setPresentation($this->presentation);
+        }
+
+        $this->file = null;
+        $this->closeModal();
+    }
+
+    /**
      * Sets the maximum width of the modal according to docs
      * @return string
      */
