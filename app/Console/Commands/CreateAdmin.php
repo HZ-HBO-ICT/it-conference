@@ -35,7 +35,8 @@ class CreateAdmin extends Command
             'Please input the name of the admin user',
             'E.g. John Smith',
             '',
-            true
+            true,
+            validate: ['name' => 'required|string|max:255']
         );
 
         $email = text(
