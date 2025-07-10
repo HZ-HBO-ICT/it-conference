@@ -20,6 +20,47 @@
   }
 }
 
+@theme {
+    /* WAITT Cyan colour ranges */
+    --color-waitt-cyan-50: #effefd;
+    --color-waitt-cyan-100: #c7fffb;
+    --color-waitt-cyan-200: #90fff8;
+    --color-waitt-cyan-300: #31f7f1; /* Default */
+    --color-waitt-cyan-400: #1ce5e5;
+    --color-waitt-cyan-500: #03c6c9;
+    --color-waitt-cyan-600: #009ca2;
+    --color-waitt-cyan-700: #057980;
+    --color-waitt-cyan-800: #096066;
+    --color-waitt-cyan-900: #0d5054;
+    --color-waitt-cyan-950: #002e33;
+
+    /* WAITT Yellow colour ranges */
+    --color-waitt-yellow-50: #feffe4;
+    --color-waitt-yellow-100: #fcffc4;
+    --color-waitt-yellow-200: #f7ff90;
+    --color-waitt-yellow-300: #ecff50;
+    --color-waitt-yellow-400: #e2ff32; /* Default */
+    --color-waitt-yellow-500: #c0e600;
+    --color-waitt-yellow-600: #95b800;
+    --color-waitt-yellow-700: #708b00;
+    --color-waitt-yellow-800: #586d07;
+    --color-waitt-yellow-900: #4a5c0b;
+    --color-waitt-yellow-950: #263400;
+
+    /* WAITT Pink colour ranges */
+    --color-waitt-pink-50: #fef1f8;
+    --color-waitt-pink-100: #fee5f3;
+    --color-waitt-pink-200: #ffcae9;
+    --color-waitt-pink-300: #ff9fd4;
+    --color-waitt-pink-400: #ff63b6;
+    --color-waitt-pink-500: #ff3b9a; /* Default */
+    --color-waitt-pink-600: #f01273;
+    --color-waitt-pink-700: #d10558;
+    --color-waitt-pink-800: #ad0748;
+    --color-waitt-pink-900: #8f0c40;
+    --color-waitt-pink-950: #580021;
+}
+
 @font-face {
     font-family: 'Inter Var';
     src: local('Inter-Var'), url(../fonts/Inter-Var.ttf) format('truetype');
