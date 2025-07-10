@@ -30,6 +30,7 @@ class CompanyDetailsModal extends ModalComponent
     {
         $this->company = $company;
         $this->form->setCompany($company);
+        $this->photo = null;
     }
 
     /**

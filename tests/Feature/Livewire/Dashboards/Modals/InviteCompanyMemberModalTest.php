@@ -54,7 +54,7 @@ class InviteCompanyMemberModalTest extends TestCase
     }
 
     #[Test]
-    public function test_it_saves_company_details_with_valid_input() : void
+    public function test_it_invites_company_member_with_valid_input() : void
     {
         $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
         $user = User::factory()->create(['company_id' => $company->id]);
@@ -63,7 +63,7 @@ class InviteCompanyMemberModalTest extends TestCase
 
         $component = Livewire::actingAs($user)
             ->test(InviteCompanyMemberModal::class, ['company' => $company])
-            ->set('email', 'example@example.com')
+            ->set('email', 'example@hz.nl')
             ->set('currentRole', 'speaker');
 
         $component
