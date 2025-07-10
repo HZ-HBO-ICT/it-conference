@@ -27,7 +27,7 @@ class CreateEditPresentationModal extends ModalComponent
     public PresentationForm $form;
     public ?Presentation $presentation = null;
     public User $user;
-    public TemporaryUploadedFile|null $file;
+    public TemporaryUploadedFile|null $file = null;
 
     /** @var Collection<int, PresentationType> */
     public $presentationTypes;
@@ -46,7 +46,6 @@ class CreateEditPresentationModal extends ModalComponent
         $this->user = $user;
         $this->presentationTypes = optional(Edition::current())->presentationTypes;
         $this->difficulties = Difficulty::all();
-        $this->file = null;
 
         if ($presentationId) {
             $this->presentation = Presentation::findOrFail($presentationId);

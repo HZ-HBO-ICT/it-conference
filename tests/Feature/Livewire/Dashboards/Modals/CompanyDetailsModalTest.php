@@ -158,10 +158,8 @@ class CompanyDetailsModalTest extends TestCase
             ->test(CompanyDetailsModal::class, ['company' => $company])
             ->set('form.name', 'Changed Name')
             ->set('photo', $file)
-            ->set('editing', true)
             ->call('cancel')
             ->assertSet('photo', null)
-            ->assertSet('editing', false)
             ->assertSet('form.name', $company->name);
     }
 }

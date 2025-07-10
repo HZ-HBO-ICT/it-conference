@@ -19,7 +19,7 @@ class CompanyDetailsModal extends ModalComponent
 
     public Company $company;
     public CompanyForm $form;
-    public TemporaryUploadedFile|null $photo;
+    public TemporaryUploadedFile|null $photo = null;
 
     /**
      * Triggered on initializing of the component
@@ -30,7 +30,6 @@ class CompanyDetailsModal extends ModalComponent
     {
         $this->company = $company;
         $this->form->setCompany($company);
-        $this->photo = null;
     }
 
     /**
