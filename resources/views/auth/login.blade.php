@@ -1,6 +1,5 @@
 <x-app-layout>
     <div class="h-screen relative overflow-hidden mx-auto px-4 pt-14 pb-24">
-        <!-- Decorative Blobs -->
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-24 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
             <div
