@@ -77,6 +77,7 @@ class CreateAdmin extends Command
             'password' => Hash::make($password)
         ]);
         // Do stuff here to make the user an admin user
+        $user->markEmailAsVerified();
         $user->assignRole('event organizer');
 
         // Finish off
