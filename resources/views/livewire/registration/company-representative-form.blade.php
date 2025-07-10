@@ -1,5 +1,5 @@
 <div>
-    <div class="text-center md:text-left text-black dark:text-gray-100 w-full pb-5">
+    <div class="text-center md:text-left text-gray-100 w-full pb-5">
         <h2 class="text-3xl pt-5 font-semibold">Register</h2>
         <h3 class="text-2xl">Company representative details</h3>
     </div>
@@ -13,9 +13,9 @@
             @endif
             <div>
                 <div class="mt-3">
-                    <x-label for="name" value="{{ __('Full Name') }}"
+                    <x-waitt.label for="name" value="{{ __('Full Name') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="name"
+                    <x-waitt.input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="name"
                              :value="old('name')"
                              required
                              autofocus autocomplete="name"/>
@@ -23,9 +23,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="email" value="{{ __('Email') }}"
+                    <x-waitt.label for="email" value="{{ __('Email') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" wire:model="email"
+                    <x-waitt.input id="email" class="block mt-1 w-full" type="email" name="email" wire:model="email"
                              :value="old('email')"
                              required
                              autocomplete="username"/>
@@ -33,9 +33,9 @@
                 </div>
 
                 <div class="mt-4" x-data="{showRules:false}">
-                    <x-label for="password" value="{{ __('Password') }}"
+                    <x-waitt.label for="password" value="{{ __('Password') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="participant-password" class="block mt-1 w-full" type="password" name="password"
+                    <x-waitt.input id="participant-password" class="block mt-1 w-full" type="password" name="password"
                              wire:model="password"
                              required
                              autocomplete="new-password"
@@ -54,9 +54,9 @@
 
 
                 <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}"
+                    <x-waitt.label for="password_confirmation" value="{{ __('Confirm Password') }}"
                              class="after:content-['*'] after:text-red-500"/>
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    <x-waitt.input id="password_confirmation" class="block mt-1 w-full" type="password"
                              wire:model="password_confirmation"
                              name="password_confirmation" required autocomplete="new-password"/>
                 </div>
@@ -70,9 +70,9 @@
                             {{ __('Already registered?') }}
                         </a>
 
-                        <x-button type="submit" class="ml-4 bg-participant-400 dark:bg-participant-400 hover:bg-participant-500 dark:hover:bg-participant-500">
+                        <x-waitt.button type="submit" class="ml-4">
                             {{ __('Next') }}
-                        </x-button>
+                        </x-waitt.button>
                     </div>
                 </div>
             </div>
