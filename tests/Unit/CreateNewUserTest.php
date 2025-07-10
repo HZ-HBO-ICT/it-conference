@@ -29,11 +29,11 @@ class CreateNewUserTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function test_user_is_created_successfully()
+    public function test_user_is_created_successfully(): void
     {
         $data = [
             'name' => 'John Doe',
-            'email' => 'john@example.com',
+            'email' => 'john@hz.nl',
             'password' => 'PassworDD@123!!',
             'password_confirmation' => 'PassworDD@123!!',
             'institution' => "HZ University of Applied Sciences",
@@ -49,13 +49,13 @@ class CreateNewUserTest extends TestCase
         $this->assertEquals($user->email, $data['email']);
     }
 
-    public function test_company_is_created_with_user()
+    public function test_company_is_created_with_user(): void
     {
         $action = new CreateNewUser();
 
         $user = $action->create([
             'name' => 'Jane Doe',
-            'email' => 'jane@example.com',
+            'email' => 'jane@hz.nl',
             'password' => 'PassworDD@123!!',
             'password_confirmation' => 'PassworDD@123!!',
             'terms' => 'on',
@@ -76,12 +76,39 @@ class CreateNewUserTest extends TestCase
     }
 
 
-    public function test_validation_fails_with_missing_fields()
+    public function test_validation_fails_with_missing_fields(): void
     {
         $this->expectException(ValidationException::class);
 
         $action = new CreateNewUser();
 
         $action->create(['registration_type' => 'participant']);
+    }
+
+    public function test_validation_fails_with_invalid_email_field(): void
+    {
+        $this->expectException(ValidationException::class);
+
+        $action = new CreateNewUser();
+
+        $user = $action->create([
+            'name' => 'Jane Doe',
+            'email' => 'jane@asdasd.asd',
+            'password' => 'PassworDD@123!!',
+            'password_confirmation' => 'PassworDD@123!!',
+            'terms' => 'on',
+            'registration_type' => 'company_representative',
+            'company_name' => 'Example Company',
+            'company_motivation' => 'An example motivation',
+            'company_description' => 'An example company.',
+            'company_website' => 'https://example.com',
+            'company_postcode' => '1234AB',
+            'company_house_number' => '1A',
+            'company_phone_number' => '0888888888',
+            'company_street' => 'Example Street',
+            'company_city' => 'Example City',
+        ]);
+
+        $action->create(['registration_type' => 'company_representative']);
     }
 }
