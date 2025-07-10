@@ -18,7 +18,7 @@
                 class="grid grid-cols-1 md:grid-cols-7 h-full w-full max-w-6xl rounded-xl border border-slate-900 overflow-hidden shadow-lg">
                 <div class="hidden md:block md:col-span-3">
                     <div class="relative h-full">
-                        <img class="w-full h-full object-cover" src="/img/market.jpg" alt="market"/>
+                        <img class="w-full h-full object-cover" src="/img/market-scaled.webp" alt="market"/>
                         <div class="absolute inset-0 bg-gradient-to-br from-waitt-yellow/70 via-waitt-cyan/50 to-waitt-pink/30"></div>
                         <div class="absolute inset-0 bg-black/60"></div>
                         <div class="absolute inset-0 flex items-center justify-center px-6">

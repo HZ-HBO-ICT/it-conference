@@ -48,8 +48,16 @@
                             <p class="text-2xl">HZ University of Applied Sciences, Middelburg</p>
                         </div>
                         <div class="mt-16 flex justify-center space-x-6">
-                            @if(optional($edition)->is_participant_registration_opened)
-                                <a href="{{ route('register.participant') }}" class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                            @if(optional($edition)->is_company_registration_opened)
+                                <a href="{{ route('register.company') }}"
+                                   wire:navigate.hover
+                                   class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                                    Register Now
+                                </a>
+                            @elseif(optional($edition)->is_participant_registration_opened)
+                                <a href="{{ route('register.participant') }}"
+                                   wire:navigate.hover
+                                   class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
                                     Register Now
                                 </a>
                             @endif
