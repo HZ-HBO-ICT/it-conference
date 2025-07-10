@@ -1,7 +1,7 @@
 <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
 <!-- Potential dynamic classes: bg-partner-500 bg-partner-600 bg-partner-700 -->
 <div
-    class="grid grid-cols-1 md:grid-cols-7 h-full w-full max-w-6xl rounded-xl border border-slate-900 overflow-hidden shadow-lg">
+    class="grid grid-cols-1 md:grid-cols-7 w-full max-w-6xl rounded-xl border border-slate-900 overflow-hidden shadow-lg min-h-[600px]">
     <div class="hidden md:block md:col-span-3">
         <div class="relative h-full">
             <img class="w-full h-full object-cover" src="/img/market-scaled.webp" alt="market"/>

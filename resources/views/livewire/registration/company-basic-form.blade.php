@@ -1,4 +1,4 @@
-<div>
+<div class="h-fit">
     <div class="text-center md:text-left text-gray-100 w-full pb-5">
         <h2 class="text-3xl pt-5 font-semibold">Register</h2>
         <h3 class="text-2xl">Company details</h3>
@@ -26,7 +26,7 @@
                     <x-waitt.label for="companyDescription" value="{{ __('Company Description') }}"
                              class="after:content-['*'] after:text-red-500"/>
                     <x-waitt.input-textarea id="email" wire:model="companyDescription"
-                              name="companyDescription" required
+                              name="companyDescription" class="w-full" required
                     >{{old('companyDescription')}}</x-waitt.input-textarea>
                     <div class="text-red-500 mt-1">@error('companyDescription') {{ $message }} @enderror</div>
                 </div>

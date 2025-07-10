@@ -1,7 +1,7 @@
 <!-- Leave this to fool Tailwind compilation, otherwise it will delete dynamic styles. There is a better fix! -->
 <!-- Potential dynamic classes: bg-partner-500 bg-partner-600 bg-partner-700 -->
 <x-app-layout>
-    <div class="h-screen relative overflow-hidden mx-auto px-4 pt-14 pb-24">
+    <div class="min-h-screen flex items-center justify-center relative overflow-x-hidden mx-auto md:px-4 md:pt-14 md:pb-24">
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-24 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
             <div
@@ -15,7 +15,7 @@
             <div class="absolute top-24 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
         </div>
 
-        <div class="relative h-full flex items-center justify-center max-w-7xl mx-auto px-4">
+        <div class="relative h-full flex items-center justify-center max-w-7xl mx-auto md:px-4">
             <livewire:registration.parent-component/>
         </div>
     </div>
