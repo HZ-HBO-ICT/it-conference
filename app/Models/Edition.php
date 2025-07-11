@@ -93,9 +93,7 @@ class Edition extends Model
         return [
             'name' => 'required|unique:editions|max:255',
             'start_at' => 'required|date|after:' . Carbon::now()->addMonth() . '|before:' . Carbon::now()->addYears(2),
-            'end_at' => 'required|date|after:start_at|before:' . Carbon::now()->addYears(2),
-            'lecture_duration' => 'required|numeric|min:1|max:120',
-            'workshop_duration' => 'required|numeric|min:1|max:180'
+            'end_at' => 'required|date|after:start_at|before:' . Carbon::now()->addYears(2)
         ];
     }
 

@@ -1633,12 +1633,6 @@ parameters:
 			path: app/Livewire/Forms/EditionForm.php
 
 		-
-			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$lecture_duration has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/EditionForm.php
-
-		-
 			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$lowerBoundary has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -1664,12 +1658,6 @@ parameters:
 
 		-
 			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$upperBoundary has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/EditionForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$workshop_duration has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Forms/EditionForm.php
@@ -2965,12 +2953,6 @@ parameters:
 			path: app/Models/Presentation.php
 
 		-
-			message: '#^Cannot access property \$lecture_duration on object\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
 			message: '#^Cannot access property \$max_participants on App\\Models\\Room\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2978,12 +2960,6 @@ parameters:
 
 		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Models/Presentation.php
-
-		-
-			message: '#^Cannot access property \$workshop_duration on object\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Models/Presentation.php
