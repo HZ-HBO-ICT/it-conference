@@ -20,6 +20,16 @@
   }
 }
 
+/*
+  NOTE: This is included because the package wire-model does not allow for customization of the
+  overlay. This targets specific set of tailwind classes that are hopefully not used anywhere else.
+ */
+@layer components {
+    .absolute.inset-0.bg-gray-500.opacity-75 {
+        background-color: rgba(17, 24, 39, 0.80) !important;
+    }
+}
+
 @theme {
     /* WAITT Cyan colour ranges */
     --color-waitt-cyan-50: #effefd;

@@ -376,4 +376,26 @@ class Presentation extends Model
             $this->max_participants == $presentation->max_participants &&
             $this->difficulty->id == $presentation->difficulty->id;
     }
+
+    /**
+     * Retrieves the starting time of a presentation as Carbon
+     * @return Attribute<Carbon, never>
+     */
+    public function startTime() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->start)
+        );
+    }
+
+    /**
+     * Calculates the end time of a presentation as Carbon
+     * @return Attribute<Carbon, never>
+     */
+    public function endTime() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->start)->copy()->addMinutes($this->presentationType->duration)
+        );
+    }
 }

@@ -109,7 +109,7 @@ class PresentationModal extends ModalComponent
      */
     public function remove()
     {
-        if (Edition::current()->is_final_programme_released) {
+        if (optional(Edition::current())->is_final_programme_released) {
             $participants = $this->presentation->participants;
             foreach ($participants as $participant) {
                 $participant->leavePresentation($this->presentation);

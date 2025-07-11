@@ -55,18 +55,6 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserProfileInformation.php
 
 		-
-			message: '#^Method App\\Actions\\Fortify\\UpdateUserProfileInformation\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Actions/Fortify/UpdateUserProfileInformation.php
-
-		-
-			message: '#^Method App\\Actions\\Fortify\\UpdateUserProfileInformation\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Actions/Fortify/UpdateUserProfileInformation.php
-
-		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 2
@@ -881,19 +869,7 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/Listeners/EmailVerifiedListener.php
-
-		-
-			message: '#^Cannot access property \$state on object\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Listeners/HandleFinalProgrammeReleased.php
-
-		-
-			message: '#^Cannot call method save\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Listeners/HandleFinalProgrammeReleased.php
-
+			
 		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
 			identifier: property.nonObject
@@ -1193,19 +1169,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: app/Livewire/Company/ManageLogo.php
-
-		-
-			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Livewire/Company/ManageLogo.php
-
-		-
-			message: '#^Method App\\Livewire\\Company\\ManageLogo\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Livewire/Company/ManageLogo.php
-
 		-
 			message: '#^Property App\\Livewire\\Company\\ManageLogo\:\:\$company has no type specified\.$#'
 			identifier: missingType.property
@@ -1681,18 +1644,6 @@ parameters:
 			path: app/Livewire/Forms/FrequentQuestionForm.php
 
 		-
-			message: '#^Method App\\Livewire\\Forms\\KeynoteForm\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Livewire/Forms/KeynoteForm.php
-
-		-
-			message: '#^Method App\\Livewire\\Forms\\KeynoteForm\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Livewire/Forms/KeynoteForm.php
-
-		-
 			message: '#^Property App\\Livewire\\Forms\\KeynoteForm\:\:\$edition has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -1778,18 +1729,6 @@ parameters:
 
 		-
 			message: '#^Method App\\Livewire\\Presentation\\UploadPresentation\:\:mount\(\) has parameter \$presentation with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Livewire/Presentation/UploadPresentation.php
-
-		-
-			message: '#^Method App\\Livewire\\Presentation\\UploadPresentation\:\:validateFileNameLength\(\) has parameter \$file with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Livewire/Presentation/UploadPresentation.php
-
-		-
-			message: '#^Method App\\Livewire\\Presentation\\UploadPresentation\:\:validateFileNameLength\(\) has parameter \$key with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: app/Livewire/Presentation/UploadPresentation.php
@@ -2329,12 +2268,6 @@ parameters:
 			path: app/Livewire/Schedule/PresentationModal.php
 
 		-
-			message: '#^Cannot access property \$is_final_programme_released on object\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Livewire/Schedule/PresentationModal.php
-
-		-
 			message: '#^Cannot access property \$room on App\\Models\\Presentation\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Presentation\>\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2729,18 +2662,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Difficulty.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$state\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Edition.php
-
-		-
-			message: '#^Call to an undefined method object\:\:save\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Models/Edition.php
 
 		-
 			message: '#^Cannot access property \$id on App\\Models\\Event\|null\.$#'
@@ -3406,12 +3327,6 @@ parameters:
 			message: '#^Call to an undefined method App\\Models\\User\:\:is_presenter_of\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: app/Policies/PresentationPolicy.php
-
-		-
-			message: '#^Cannot access property \$is_final_programme_released on object\|null\.$#'
-			identifier: property.nonObject
-			count: 2
 			path: app/Policies/PresentationPolicy.php
 
 		-

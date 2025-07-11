@@ -48,11 +48,21 @@
                             <p class="text-2xl max-sm:text-lg">HZ University of Applied Sciences, Middelburg</p>
                         </div>
                         <div class="mt-16 flex justify-center space-x-6 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-4 max-sm:mt-8">
-                            @if(optional($edition)->is_participant_registration_opened)
-                                <a href="{{ route('register.participant') }}" class="px-8 py-4 max-sm:px-6 max-sm:py-3 bg-waitt-cyan text-primary-dark rounded-xl text-xl max-sm:text-lg font-semibold hover:bg-opacity-90 transition-all">
-                                    Register Now
-                                </a>
-                            @endif
+                            @guest
+                                @if(optional($edition)->is_company_registration_opened)
+                                    <a href="{{ route('register.company') }}"
+                                       wire:navigate.hover
+                                       class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                                        Register Now
+                                    </a>
+                                @elseif(optional($edition)->is_participant_registration_opened)
+                                    <a href="{{ route('register.participant') }}"
+                                       wire:navigate.hover
+                                       class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
+                                        Register Now
+                                    </a>
+                                @endif
+                            @endguest
                             @if(optional($edition)->is_final_programme_released)
                                 <a href="{{ route('programme') }}" class="px-8 py-4 max-sm:px-6 max-sm:py-3 border-2 border-waitt-cyan text-waitt-cyan rounded-xl text-xl max-sm:text-lg font-semibold hover:bg-waitt-cyan hover:text-primary-dark transition-all">
                                     View Programme
