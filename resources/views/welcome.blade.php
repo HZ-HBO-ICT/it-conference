@@ -152,9 +152,9 @@
                         @if ($goldSponsor)
                             <div class="mb-12">
                                 <x-waitt.tag title="Gold" />
-                                <div class="grid grid-cols-1 gap-6 mt-6">
+                                <div class="grid grid-cols-1 gap-6 mt-6 w-3/5">
                                     <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-gold rounded-lg p-6 max-sm:p-4">
-                                        <img src="{{ $goldSponsor->logo_path }}" alt="{{ $goldSponsor->name }}" class="h-12 max-sm:h-8">
+                                        <img src="{{ url('storage/' . $goldSponsor->logo_path) }}" alt="{{ $goldSponsor->name }}" class="w-full h-56 max-sm:h-8">
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                 <div class="grid grid-cols-2 gap-6 mt-6 max-sm:grid-cols-1">
                                     @foreach($silverSponsors as $sponsor)
                                         <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-silver rounded-lg p-6 max-sm:p-4">
-                                            <img src="{{ $sponsor->logo_path }}" alt="{{ $sponsor->name }}" class="h-12 max-sm:h-8">
+                                            <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-40 max-sm:h-8">
                                         </div>
                                     @endforeach
                                 </div>
@@ -181,7 +181,7 @@
                                 <div class="grid grid-cols-4 gap-6 mt-6 max-sm:grid-cols-2">
                                     @foreach($bronzeSponsors as $sponsor)
                                         <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-bronze rounded-lg p-6 max-sm:p-4">
-                                            <img src="{{ $sponsor->logo_path }}" alt="{{ $sponsor->name }}" class="h-12 max-sm:h-8">
+                                            <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-20 max-sm:h-8">
                                         </div>
                                     @endforeach
                                 </div>
