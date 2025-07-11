@@ -144,43 +144,67 @@
 
                     <!-- Sponsors Section adjusted for mobile -->
                     <div class="mt-32 max-sm:mt-16">
-                        <h2 class="text-4xl max-sm:text-2xl font-bold text-white mb-12 max-sm:mb-6">Thank you to our Sponsors</h2>
+                        @if ($goldSponsor || $silverSponsors->isNotEmpty() || $bronzeSponsors->isNotEmpty())
+                            <h2 class="text-4xl max-sm:text-2xl font-bold text-white mb-12 max-sm:mb-6">Thank you to our Sponsors</h2>
+                        @endif
 
                         <!-- Gold Sponsors -->
-                        <div class="mb-12">
-                            <x-waitt.tag title="Gold" />
-                            <div class="grid grid-cols-1 gap-6 mt-6">
-                                @if($goldSponsor)
+                        @if ($goldSponsor)
+                            <div class="mb-12">
+                                <x-waitt.tag title="Gold" />
+                                <div class="grid grid-cols-1 gap-6 mt-6 w-3/5">
                                     <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-gold rounded-lg p-6 max-sm:p-4">
-                                        <img src="{{ $goldSponsor->logo_path }}" alt="{{ $goldSponsor->name }}" class="h-12 max-sm:h-8">
+                                        @if($goldSponsor->logo_path)
+                                            <img src="{{ url('storage/' . $goldSponsor->logo_path) }}" alt="{{ $goldSponsor->name }}" class="w-full h-56 max-sm:h-8">
+                                        @else
+                                            <div class="h-56 flex items-center justify-center">
+                                                <span class="text-7xl font-semibold text-white">{{ $goldSponsor->name  }}</span>
+                                            </div>
+                                        @endif
                                     </div>
-                                @endif
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!-- Silver Sponsors -->
-                        <div class="mb-12">
-                            <x-waitt.tag title="Silver" />
-                            <div class="grid grid-cols-2 gap-6 mt-6 max-sm:grid-cols-1">
-                                @foreach($silverSponsors as $sponsor)
-                                    <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-silver rounded-lg p-6 max-sm:p-4">
-                                        <img src="{{ $sponsor->logo_path }}" alt="{{ $sponsor->name }}" class="h-12 max-sm:h-8">
-                                    </div>
-                                @endforeach
+                        @if($silverSponsors->isNotEmpty())
+                            <div class="mb-12">
+                                <x-waitt.tag title="Silver" />
+                                <div class="grid grid-cols-2 gap-6 mt-6 max-sm:grid-cols-1">
+                                    @foreach($silverSponsors as $sponsor)
+                                        <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-silver rounded-lg p-6 max-sm:p-4">
+                                            @if($sponsor->logo_path)
+                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-40 max-sm:h-8">
+                                            @else
+                                                <div class="h-40 flex items-center justify-center">
+                                                    <span class="text-5xl font-semibold text-white">{{ $sponsor->name  }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!-- Bronze Sponsors -->
-                        <div>
-                            <x-waitt.tag title="Bronze" />
-                            <div class="grid grid-cols-4 gap-6 mt-6 max-sm:grid-cols-2">
-                                @foreach($bronzeSponsors as $sponsor)
-                                    <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-bronze rounded-lg p-6 max-sm:p-4">
-                                        <img src="{{ $sponsor->logo_path }}" alt="{{ $sponsor->name }}" class="h-12 max-sm:h-8">
-                                    </div>
-                                @endforeach
+                        @if($bronzeSponsors->isNotEmpty())
+                            <div>
+                                <x-waitt.tag title="Bronze" />
+                                <div class="grid grid-cols-4 gap-6 mt-6 max-sm:grid-cols-2">
+                                    @foreach($bronzeSponsors as $sponsor)
+                                        <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-bronze rounded-lg p-6 max-sm:p-4">
+                                            @if($sponsor->logo_path)
+                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-20 max-sm:h-8">
+                                            @else
+                                                <div class="h-20 flex items-center justify-center">
+                                                    <span class="text-3xl font-semibold text-white">{{ $sponsor->name  }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
