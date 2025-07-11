@@ -16,6 +16,7 @@
                 <div>
                     <x-waitt.label for="name" value="Name"/>
                     <x-waitt.input id="name" type="text" class="mt-1 block w-full"
+                                   :disabled="$presentation && Auth::user()->cannot('update', $presentation)"
                                    wire:model.defer="form.name"/>
                     @error('form.name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
@@ -23,6 +24,7 @@
                 <div>
                     <x-waitt.label for="description" value="Description"/>
                     <x-waitt.input-textarea id="description" class="mt-1 block w-full"
+                                            :disabled="$presentation && Auth::user()->cannot('update', $presentation)"
                                             wire:model.defer="form.description"/>
                     @error('form.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
@@ -32,6 +34,7 @@
                         <x-waitt.label for="presentation_type_id" value="Presentation Type"/>
                         <select id="presentation_type_id"
                                 wire:model.defer="form.presentation_type_id"
+                                @if($presentation && Auth::user()->cannot('update', $presentation)) disabled @endif
                                 class="mt-1 block w-full bg-gray-900 border-gray-600 text-gray-300 rounded-lg">
                             <option value="">Choose type</option>
                             @foreach($presentationTypes as $type)
@@ -45,6 +48,7 @@
                     <div class="sm:col-span-1">
                         <x-waitt.label for="difficulty_id" value="Difficulty"/>
                         <select id="difficulty_id"
+                                @if($presentation && Auth::user()->cannot('update', $presentation)) disabled @endif
                                 wire:model.defer="form.difficulty_id"
                                 class="mt-1 block w-full bg-gray-900 border-gray-600 text-gray-300 rounded-lg">
                             <option value="">Choose difficulty</option>
@@ -59,6 +63,7 @@
                         <x-waitt.label for="max_participants" value="Max Participants"/>
                         <x-waitt.input id="max_participants" type="number" min="1" max="999"
                                        class="mt-1 block w-full"
+                                       :disabled="$presentation && Auth::user()->cannot('update', $presentation)"
                                        wire:model.defer="form.max_participants"/>
                         @error('form.max_participants') <span
                             class="text-red-500 text-xs">{{ $message }}</span> @enderror
@@ -87,26 +92,28 @@
                                     <p class="text-gray-400">No slides uploaded</p>
                                 @endif
                             </div>
-                            @if($file)
-                                <div class="py-2">
-                                    <button type="submit"
-                                            class="flex items-center hover:cursor-pointer justify-center w-full h-12 bg-gray-900 text-teal-600 text-sm rounded-lg border border-teal-600 hover:bg-gray-700 transition">
-                                        Save
-                                    </button>
+                            @can('update', $presentation)
+                                @if($file)
+                                    <div class="py-2">
+                                        <button type="submit"
+                                                class="flex items-center hover:cursor-pointer justify-center w-full h-12 bg-gray-900 text-teal-600 text-sm rounded-lg border border-teal-600 hover:bg-gray-700 transition">
+                                            Save
+                                        </button>
+                                    </div>
+                                @endif
+                                <div>
+                                    <input
+                                        type="file"
+                                        id="logo"
+                                        accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                        wire:model="file"
+                                        class="sr-only"/>
+                                    <div
+                                        class="flex items-center justify-center w-full h-12 bg-gray-900 text-gray-300 text-sm rounded-lg border border-gray-600 hover:bg-gray-700 transition">
+                                        Choose File
+                                    </div>
                                 </div>
-                            @endif
-                            <div>
-                                <input
-                                    type="file"
-                                    id="logo"
-                                    accept="application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                                    wire:model="file"
-                                    class="sr-only"/>
-                                <div
-                                    class="flex items-center justify-center w-full h-12 bg-gray-900 text-gray-300 text-sm rounded-lg border border-gray-600 hover:bg-gray-700 transition">
-                                    Choose File
-                                </div>
-                            </div>
+                            @endcan
                         </label>
 
                         @error('file')
