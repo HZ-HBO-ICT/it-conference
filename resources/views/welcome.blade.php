@@ -154,7 +154,13 @@
                                 <x-waitt.tag title="Gold" />
                                 <div class="grid grid-cols-1 gap-6 mt-6 w-3/5">
                                     <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-gold rounded-lg p-6 max-sm:p-4">
-                                        <img src="{{ url('storage/' . $goldSponsor->logo_path) }}" alt="{{ $goldSponsor->name }}" class="w-full h-56 max-sm:h-8">
+                                        @if($goldSponsor->logo_path)
+                                            <img src="{{ url('storage/' . $goldSponsor->logo_path) }}" alt="{{ $goldSponsor->name }}" class="w-full h-56 max-sm:h-8">
+                                        @else
+                                            <div class="h-56 flex items-center justify-center">
+                                                <span class="text-7xl font-semibold text-white">{{ $goldSponsor->name  }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +173,13 @@
                                 <div class="grid grid-cols-2 gap-6 mt-6 max-sm:grid-cols-1">
                                     @foreach($silverSponsors as $sponsor)
                                         <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-silver rounded-lg p-6 max-sm:p-4">
-                                            <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-40 max-sm:h-8">
+                                            @if($sponsor->logo_path)
+                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-40 max-sm:h-8">
+                                            @else
+                                                <div class="h-40 flex items-center justify-center">
+                                                    <span class="text-5xl font-semibold text-white">{{ $sponsor->name  }}</span>
+                                                </div>
+                                            @endif
                                         </div>
                                     @endforeach
                                 </div>
@@ -181,7 +193,13 @@
                                 <div class="grid grid-cols-4 gap-6 mt-6 max-sm:grid-cols-2">
                                     @foreach($bronzeSponsors as $sponsor)
                                         <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-bronze rounded-lg p-6 max-sm:p-4">
-                                            <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-20 max-sm:h-8">
+                                            @if($sponsor->logo_path)
+                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-20 max-sm:h-8">
+                                            @else
+                                                <div class="h-20 flex items-center justify-center">
+                                                    <span class="text-3xl font-semibold text-white">{{ $sponsor->name  }}</span>
+                                                </div>
+                                            @endif
                                         </div>
                                     @endforeach
                                 </div>
