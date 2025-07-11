@@ -2,7 +2,6 @@
 
 @section('code', '404')
 @section('message')
-    Lost in the Digital Maze? You've reached a page that does not exist.<br>
-    While this content isn't here, our IT Conference is bustling with tech excitement.<br>
-    Head back to the <a href="/" class="text-yellow-300 hover:text-yellow-500 hover:border-b-2 hover:border-yellow-500 transition-all">homepage</a> to explore the latest companies and speakers.
+    The page you are looking for does not exist or has been moved. <br> Please verify the URL or return to the
+    <a class="text-waitt-pink-400 hover:text-waitt-pink-600 underline" href="/">homepage</a> for navigation assistance.
 @endsection
