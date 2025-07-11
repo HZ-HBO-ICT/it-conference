@@ -6,7 +6,7 @@
 @endphp
 
 <!-- Fixing one dashboard at a time -->
-@if(Auth::user()->hasRole('company representative'))
+@if(Auth::user()->company)
     <x-spa-layout>
         <div class="min-h-screen bg-waitt-dark">
             <div class="py-4 md:py-8 px-4 md:px-8 mx-auto max-w-7xl">

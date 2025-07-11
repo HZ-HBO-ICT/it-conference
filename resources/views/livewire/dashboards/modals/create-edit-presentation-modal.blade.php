@@ -144,5 +144,8 @@
                 @endcan
             @endif
         </div>
+        @if($joinAsSpeaker)
+            <x-waitt.button type="button" class="border-waitt-pink text-waitt-pink" wire:click="becomeSpeaker">Join as co-speaker</x-waitt.button>
+        @endif
     </x-slot>
 </x-waitt.modal>
