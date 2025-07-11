@@ -204,5 +204,15 @@ export default {
         },
     },
     darkMode: 'class',
-    plugins: [forms, typography],
+    plugins: [forms, typography,    function ({ addUtilities }) {
+        const newUtilities = {
+            '.waitt-yellow-glow-title': {
+                textShadow: '0 0 2px #E2FF32, 0 0 4px #E2FF32',
+            },
+            '.waitt-pink-glow-title': {
+                textShadow: '0 0 2px #FF3B9A, 0 0 4px #FF3B9A',
+            },
+        };
+        addUtilities(newUtilities, ['responsive']);
+    },],
 };

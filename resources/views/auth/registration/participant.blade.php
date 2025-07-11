@@ -95,8 +95,8 @@
                                                 <x-waitt.checkbox name="terms" id="terms" required/>
                                                 <div class="ml-2 text-gray-300">
                                                     {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                                        'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800">' . __('Terms of Service') . '</a>',
-                                                        'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800">' . __('Privacy Policy') . '</a>',
+                                                        'terms_of_service' => '<a target="_blank" href="' . route('terms-and-conditions') . '" class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800">' . __('Terms of Service') . '</a>',
+                                                        'privacy_policy' => '<a target="_blank" href="' . route('privacy-policy') . '" class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800">' . __('Privacy Policy') . '</a>',
                                                     ]) !!}
                                                 </div>
                                             </div>

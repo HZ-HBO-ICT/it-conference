@@ -25,7 +25,7 @@
                 </dd>
 
                 <!-- Edition Start Date -->
-                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition Start Date</dt>
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Starting time of the event</dt>
                 <dd class="sm:col-span-2">
                     <input
                         type="datetime-local"
@@ -39,7 +39,7 @@
                 </dd>
 
                 <!-- Edition End Date -->
-                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition End Date</dt>
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Ending time of the event</dt>
                 <dd class="sm:col-span-2">
                     <input
                         type="datetime-local"
@@ -49,30 +49,6 @@
                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:[color-scheme:dark] focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
                     />
                     @error('form.end_at') <span class="error text-red-500">{{ $message }}</span> @enderror
-                </dd>
-
-                <!-- Edition Lecture Duration -->
-                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition Lecture Duration</dt>
-                <dd class="sm:col-span-2">
-                    <input
-                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
-                        type="number"
-                        min="1"
-                        wire:model="form.lecture_duration"
-                        value="30" >
-                    @error('form.lecture_duration') <span class="error text-red-500">{{ $message }}</span> @enderror
-                </dd>
-
-                <!-- Edition Workshop Duration -->
-                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Edition Workshop Duration</dt>
-                <dd class="sm:col-span-2">
-                    <input
-                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
-                        type="number"
-                        min="1"
-                        wire:model="form.workshop_duration"
-                        value="90" >
-                    @error('form.workshop_duration') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
             </dl>
         </div>

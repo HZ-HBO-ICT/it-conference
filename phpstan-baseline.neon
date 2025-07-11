@@ -265,24 +265,6 @@ parameters:
 			path: app/Console/Commands/ConfirmAllEmails.php
 
 		-
-			message: '#^Method App\\Console\\Commands\\CreateAdmin\:\:createUser\(\) has parameter \$email with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Console/Commands/CreateAdmin.php
-
-		-
-			message: '#^Method App\\Console\\Commands\\CreateAdmin\:\:createUser\(\) has parameter \$name with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Console/Commands/CreateAdmin.php
-
-		-
-			message: '#^Method App\\Console\\Commands\\CreateAdmin\:\:createUser\(\) has parameter \$password with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Console/Commands/CreateAdmin.php
-
-		-
 			message: '#^Method App\\Console\\Commands\\CreateTicketsForVerifiedUsers\:\:handle\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -1614,12 +1596,6 @@ parameters:
 			path: app/Livewire/Forms/EditionForm.php
 
 		-
-			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$lecture_duration has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/EditionForm.php
-
-		-
 			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$lowerBoundary has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -1645,12 +1621,6 @@ parameters:
 
 		-
 			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$upperBoundary has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Livewire/Forms/EditionForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\EditionForm\:\:\$workshop_duration has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Forms/EditionForm.php
@@ -4490,24 +4460,6 @@ parameters:
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_company_is_created_with_user\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_user_is_created_successfully\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/Unit/CreateNewUserTest.php
-
-		-
-			message: '#^Method Tests\\Unit\\CreateNewUserTest\:\:test_validation_fails_with_missing_fields\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: tests/Unit/CreateNewUserTest.php
 
