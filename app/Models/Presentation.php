@@ -116,26 +116,6 @@ class Presentation extends Model
     }
 
     /**
-     * Returns the duration of the lecture based on the Edition
-     *
-     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
-     */
-    public static function lectureDuration()
-    {
-        return Edition::current()->lecture_duration;
-    }
-
-    /**
-     * Returns the duration of the workshops based on the Edition
-     *
-     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed
-     */
-    public static function workshopDuration()
-    {
-        return Edition::current()->workshop_duration;
-    }
-
-    /**
      * Establishes a relationship between the presentation
      * and its difficulty
      * @return BelongsTo
@@ -344,9 +324,7 @@ class Presentation extends Model
     public function duration(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->type == 'workshop'
-                ? Presentation::workshopDuration()
-                : Presentation::lectureDuration()
+            get: fn() => $this->presentationType->duration,
         );
     }
 
@@ -394,7 +372,7 @@ class Presentation extends Model
         return $this->is($presentation) &&
             $this->name == $presentation->name &&
             $this->description == $presentation->description &&
-            $this->type == $presentation->type &&
+            $this->presentationType->id == $presentation->presentationType->id &&
             $this->max_participants == $presentation->max_participants &&
             $this->difficulty->id == $presentation->difficulty->id;
     }
