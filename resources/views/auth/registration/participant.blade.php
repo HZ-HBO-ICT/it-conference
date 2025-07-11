@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="h-screen relative overflow-hidden mx-auto md:px-4 md:pt-14 md:pb-24">
+    <div class="min-h-screen flex items-center justify-center relative overflow-hidden mx-auto md:px-4 md:pt-14 md:pb-24">
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-24 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
             <div
