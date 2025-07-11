@@ -24,14 +24,14 @@
                                 <x-input
                                     id="name"
                                     name="name"
-                                    value="We are in IT together Conference {{ date('Y') + 1 }}"
+                                    value="We are in IT together Conference {{ date('Y') }}"
                                     type="text"
                                     class="mt-1 block w-full"
                                 />
                                 <x-input-error for="name" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="start_at" value="Start Date" class="after:content-['*'] after:text-red-500"/>
+                                <x-label for="start_at" value="Starting time of the event" class="after:content-['*'] after:text-red-500"/>
                                 <input
                                     type="datetime-local"
                                     id="start_at"
@@ -43,7 +43,7 @@
                                 <x-input-error for="start_at" class="mt-2"/>
                             </div>
                             <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="end_at" value="End Date" class="after:content-['*'] after:text-red-500"/>
+                                <x-label for="end_at" value="End time of the event" class="after:content-['*'] after:text-red-500"/>
                                 <input
                                     type="datetime-local"
                                     id="end_at"
@@ -53,28 +53,6 @@
                                     class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-xs mt-1 block"
                                 />
                                 <x-input-error for="end_at" class="mt-2"/>
-                            </div>
-                            <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="lecture_duration" value="Lecture Duration"/>
-                                <x-input type="number"
-                                         id="lecture_duration"
-                                         name="lecture_duration"
-                                         value="30"
-                                         min="1"
-                                         class="mt-1 block w-full"
-                                />
-                                <x-input-error for="lecture_duration" class="mt-2"/>
-                            </div>
-                            <div class="col-span-6 sm:col-span-4 pb-4">
-                                <x-label for="workshop_duration" value="Workshop Duration"/>
-                                <x-input type="number"
-                                         id="workshop_duration"
-                                         name="workshop_duration"
-                                         value="90"
-                                         min="1"
-                                         class="mt-1 block w-full"
-                                />
-                                <x-input-error for="workshop_duration" class="mt-2"/>
                             </div>
                             <x-button
                                 class="mt-5 dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-purple-600 dark:active:bg-purple-600">

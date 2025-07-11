@@ -22,7 +22,7 @@
                     <x-details-list-item label="Edition title">
                         {{ $edition->name }}
                     </x-details-list-item>
-                    <x-details-list-item label="Edition Date">
+                    <x-details-list-item label="Event Date & Time">
                         @if (!$edition->start_at || !$edition->end_at)
                             TBD
                         @else
@@ -30,12 +30,6 @@
                             —
                             {{ $edition->end_at->format('d-m-Y H:i') }}
                         @endif
-                    </x-details-list-item>
-                    <x-details-list-item label="Edition Lecture Duration">
-                        {{ $edition->lecture_duration }}
-                    </x-details-list-item>
-                    <x-details-list-item label="Edition Workshop Duration">
-                        {{ $edition->workshop_duration }}
                     </x-details-list-item>
                 </x-slot>
 
