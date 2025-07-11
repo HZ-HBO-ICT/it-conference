@@ -28,6 +28,7 @@
     .absolute.inset-0.bg-gray-500.opacity-75 {
         background-color: rgba(17, 24, 39, 0.80) !important;
     }
+}
 
 @theme {
     /* WAITT Cyan colour ranges */
