@@ -92,7 +92,14 @@ class RequestBoothModal extends ModalComponent
         $this->authorize('becomeBoothOwner', $this->user->company);
 
         $this->user->assignRole('booth owner');
-        $this->user->removeRole('pending booth owner');
+
+        if ($this->user->hasRole('pending booth owner')) {
+            $this->user->removeRole('pending booth owner');
+        }
+
+        if ($this->user->hasRole('company member')) {
+            $this->user->removeRole('company member');
+        }
 
         $this->dispatch('updated-dashboard');
 

@@ -20,19 +20,19 @@ class CompanyRoleDecider extends Component
         $company = Auth::user()->company;
 
         if ($company->hasPresentationsLeft) {
-            $this->speakerButtons['Request a presentation'] = 'presentations.create';
+            $this->speakerButtons['Request a presentation'] = null;
         }
         if ($company->presentations) {
             foreach ($company->presentations as $presentation) {
                 $this->speakerButtons["Join '{$presentation->name}' as a co-speaker"] =
-                    ['presentations.show', $presentation];
+                    $presentation;
             }
         }
 
-        if (!$company->booth) {
-            $this->boothButtons['Request a booth'] = 'company.requests';
+        if (!Auth::user()->company->booth) {
+            $this->boothButtons['Request a booth'] = false;
         } else {
-            $this->boothButtons['Join the others at the booth'] = null;
+            $this->boothButtons['Join the others at the booth'] = true;
         }
     }
 
