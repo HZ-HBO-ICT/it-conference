@@ -38,10 +38,14 @@ class CompanyDetailsModalTest extends TestCase
     #[Test]
     public function test_that_it_can_mount_the_component_with_a_company() : void
     {
-        $company = Company::factory()->create();
-        $component = Livewire::test(CompanyDetailsModal::class, ['company' => $company]);
+        $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
+        $user = User::factory()->create(['company_id' => $company->id]);
+        $user->assignRole('company representative');
+        $user->refresh();
 
-        $component->assertSet('company', $company)
+        Livewire::actingAs($user)
+            ->test(CompanyDetailsModal::class, ['company' => $company])
+            ->assertSet('company', $company)
             ->assertSet('editing', false)
             ->assertSet('photo', null);
     }
@@ -49,10 +53,14 @@ class CompanyDetailsModalTest extends TestCase
     #[Test]
     public function test_it_can_render_the_component() : void
     {
-        $company = Company::factory()->create();
-        $component = Livewire::test(CompanyDetailsModal::class, ['company' => $company]);
+        $company = Company::factory()->create(['approval_status' => ApprovalStatus::APPROVED->value]);
+        $user = User::factory()->create(['company_id' => $company->id]);
+        $user->assignRole('company representative');
+        $user->refresh();
 
-        $component->assertViewIs('livewire.dashboards.modals.company-details-modal');
+        Livewire::actingAs($user)
+            ->test(CompanyDetailsModal::class, ['company' => $company])
+            ->assertViewIs('livewire.dashboards.modals.company-details-modal');
     }
 
     #[Test]

@@ -1,4 +1,8 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
+@php
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\Sponsorship;
+    use App\Models\Booth;
+@endphp
 <div>
     @if(Auth::user()->isDefaultCompanyMember)
         <x-dashboards.blocks.company-role-decider/>
@@ -38,19 +42,23 @@
             <livewire:dashboards.widgets.presentations :company="$user->company"/>
         </div>
         <div class="w-full h-full col-span-6 md:col-span-2 grid grid-cols-1 gap-3">
-            <livewire:dashboards.widgets.request
-                class="bg-sponsor-gradient"
-                :type="'Sponsorship'"
-                :company="$user->company"
-                :user="$user"
-                :description="'Gain visibility and connect with attendees by becoming a sponsor. Submit your sponsorship request to get started.'"/>
-            <livewire:dashboards.widgets.request
-                class="bg-booth-gradient"
-                :type="'Booth'"
-                :company="$user->company"
-                :user="$user"
-                :description="'Want a presence at the event? Request a booth to showcase your company.'"
-            />
+            @can('createRequest', Sponsorship::class)
+                <livewire:dashboards.widgets.request
+                    class="bg-sponsor-gradient"
+                    :type="'Sponsorship'"
+                    :company="$user->company"
+                    :user="$user"
+                    :description="'Gain visibility and connect with attendees by becoming a sponsor. Submit your sponsorship request to get started.'"/>
+            @endcan
+            @can('createRequest', Booth::class)
+                <livewire:dashboards.widgets.request
+                    class="bg-booth-gradient"
+                    :type="'Booth'"
+                    :company="$user->company"
+                    :user="$user"
+                    :description="'Want a presence at the event? Request a booth to showcase your company.'"
+                />
+            @endcan
         </div>
     </div>
 </div>

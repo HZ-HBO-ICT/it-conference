@@ -29,6 +29,16 @@ class Company extends Component
     }
 
     /**
+     * Updates the auth user
+     * @return void
+     */
+    #[On('updated-dashboard')]
+    public function refreshAuthUser(): void
+    {
+        $this->user->refresh();
+    }
+
+    /**
      * Renders the component
      * @return View
      */

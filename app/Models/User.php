@@ -172,7 +172,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Ticket::class);
     }
-  
+
     /**
      * Establishes the relationship between the user and the feedback given by them
      * @return HasMany
@@ -231,6 +231,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         if ($this->hasRole('pending speaker')) {
             $this->removeRole('pending speaker');
+        }
+
+        if ($this->hasRole('company member')) {
+            $this->removeRole('company member');
         }
 
         return true;

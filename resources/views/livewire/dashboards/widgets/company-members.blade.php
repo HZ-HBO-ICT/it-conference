@@ -8,11 +8,13 @@
                 <span class="text-yellow-300">{{ $this->company->invitations->count() }} awaiting</span>
             </p>
         </div>
-        <div>
-            <button class="text-xs md:text-sm text-white opacity-80 hover:opacity-100 hover:cursor-pointer py-2 px-4 bg-black rounded rounded-lg "
-                    onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.invite-company-member-modal', arguments: {company: {{$company}}} })"
-            >Invite a member</button>
-        </div>
+        @can('createMemberInvitation', $company)
+            <div>
+                <button class="text-xs md:text-sm text-white opacity-80 hover:opacity-100 hover:cursor-pointer py-2 px-4 bg-black rounded rounded-lg "
+                        onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.invite-company-member-modal', arguments: {company: {{$company}}} })"
+                >Invite a member</button>
+            </div>
+        @endcan
     </div>
 
     <div class="w-full px-5 pb-5 text-sm font-light">
@@ -51,11 +53,13 @@
                             @endif
                         </td>
                         <td class="py-4">
-                            @if($isInvitation || (!$isInvitation && !$record->hasRole('company representative')))
-                                <p class="text-red-500 underline hover:cursor-pointer" onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.delete-company-member-modal', arguments: { id: {{ $record->id }}, isInvitation: {{ json_encode($isInvitation) }} }})">
-                                    Remove
-                                </p>
-                            @endif
+                            @can('deleteMember', $company)
+                                @if($isInvitation || (!$isInvitation && !$record->hasRole('company representative')))
+                                    <p class="text-red-500 underline hover:cursor-pointer" onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.delete-company-member-modal', arguments: { id: {{ $record->id }}, isInvitation: {{ json_encode($isInvitation) }} }})">
+                                        Remove
+                                    </p>
+                                @endif
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
