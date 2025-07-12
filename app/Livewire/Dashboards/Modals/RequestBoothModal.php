@@ -19,17 +19,19 @@ class RequestBoothModal extends ModalComponent
     public User $user;
     public string $additionalInformation;
     public bool $requestSent;
+    public bool $joinBoothOwners;
 
     /**
      * Initializes the component
      * @param Company $company
      * @return void
      */
-    public function mount(Company $company, User $user) : void
+    public function mount(Company $company, User $user, bool $joinBoothOwners = false) : void
     {
         $this->company = $company;
         $this->user = $user;
         $this->requestSent = (bool)$this->company->booth;
+        $this->joinBoothOwners = $joinBoothOwners;
     }
 
     /**
@@ -77,6 +79,26 @@ class RequestBoothModal extends ModalComponent
     public function cancel() : void
     {
         $this->closeModal();
+    }
+
+    /**
+     * Joins the other booth owners
+     *
+     * @return void
+     * @throws AuthorizationException
+     */
+    public function joinBooth() : void
+    {
+        $this->authorize('becomeBoothOwner', $this->user->company);
+
+        $this->user->assignRole('booth owner');
+        $this->user->removeRole('pending booth owner');
+
+        $this->dispatch('updated-dashboard');
+
+        $this->closeModal();
+
+        Toaster::success('You successfully joined the other booth owners.');
     }
 
     /**
