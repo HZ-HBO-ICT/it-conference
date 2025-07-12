@@ -164,14 +164,16 @@ class CreateEditPresentationModal extends ModalComponent
      */
     public function becomeSpeaker() : void
     {
-        $this->authorize('joinAsCospeaker', $this->presentation);
+        if ($this->presentation) {
+            $this->authorize('joinAsCospeaker', $this->presentation);
 
-        $this->user->joinPresentation($this->presentation, 'speaker');
-        $this->dispatch('updated-dashboard');
+            $this->user->joinPresentation($this->presentation, 'speaker');
+            $this->dispatch('updated-dashboard');
 
-        Toaster::success('Joined successfully as co-speaker of ' . $this->presentation->name . '.');
+            Toaster::success('Joined successfully as co-speaker of ' . $this->presentation->name . '.');
 
-        $this->closeModal();
+            $this->closeModal();
+        }
     }
 
     /**
