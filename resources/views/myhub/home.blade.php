@@ -1,11 +1,7 @@
 @php
-    use App\Models\Team;
-    use App\Models\Booth;
-    use App\Models\Speaker;
-    use App\Models\User;use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Auth;
 @endphp
 
-<!-- Fixing one dashboard at a time -->
 @if(Auth::user()->company)
     <x-spa-layout>
         <div class="min-h-screen bg-waitt-dark">
@@ -16,13 +12,9 @@
                     class="absolute top-2/3 left-4/7 w-sm h-[24rem] bg-[#E2FF32] rounded-full filter blur-3xl opacity-60 mix-blend-screen z-0"></div>
                 <div
                     class="absolute top-1/5 left-3/7 w-sm h-[24rem] bg-[#FF3B9A] rounded-full filter blur-3xl opacity-60 mix-blend-screen z-0"></div>
-
-                <!-- Content -->
                 <div class="relative z-5 py-2 md:py-5 px-0 md:px-3 mx-auto max-w-8xl">
                     <div>
-                        @if(Auth::user()->company)
-                            <livewire:dashboards.company/>
-                        @endif
+                        <livewire:dashboards.company/>
                     </div>
                 </div>
             </div>
@@ -34,9 +26,6 @@
             <div class="py-8 px-8 mx-auto max-w-7xl">
                 <div>
                     <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
-                    @if(Auth::user()->company)
-                        <x-dashboards.company/>
-                    @endif
                     @if(Auth::user()->is_crew)
                         <x-dashboards.crew/>
                     @else
