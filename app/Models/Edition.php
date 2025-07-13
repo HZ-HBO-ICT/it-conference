@@ -19,8 +19,6 @@ use Illuminate\Support\Carbon;
  * @property int $state
  * @property Carbon $start_at
  * @property Carbon $end_at
- * @property int $lecture_duration
- * @property int $workshop_duration
  * @property string|null $keynote_name
  * @property string|null $keynote_description
  * @property string|null $keynote_photo_path
@@ -49,12 +47,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Edition whereKeynoteDescription($value)
  * @method static Builder<static>|Edition whereKeynoteName($value)
  * @method static Builder<static>|Edition whereKeynotePhotoPath($value)
- * @method static Builder<static>|Edition whereLectureDuration($value)
  * @method static Builder<static>|Edition whereName($value)
  * @method static Builder<static>|Edition whereStartAt($value)
  * @method static Builder<static>|Edition whereState($value)
  * @method static Builder<static>|Edition whereUpdatedAt($value)
- * @method static Builder<static>|Edition whereWorkshopDuration($value)
  * @mixin \Eloquent
  */
 class Edition extends Model
@@ -66,8 +62,6 @@ class Edition extends Model
         'state',
         'start_at',
         'end_at',
-        'lecture_duration',
-        'workshop_duration',
         'keynote_name',
         'keynote_description',
         'keynote_photo_path',

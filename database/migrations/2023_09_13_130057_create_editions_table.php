@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * @deprecated lecture_duration Now the presentation types are flexible so it's not needed
-     * @deprecated workshop_duration Now the presentation types are flexible so it's not needed
      * Run the migrations.
      */
     public function up(): void
@@ -20,8 +18,6 @@ return new class extends Migration
             $table->integer('state')->default(Edition::STATE_DESIGN);
             $table->timestamp('start_at');
             $table->timestamp('end_at');
-            $table->integer('lecture_duration')->default(30);
-            $table->integer('workshop_duration')->default(90);
             $table->string('keynote_name')->nullable();
             $table->text('keynote_description')->nullable();
             $table->string('keynote_photo_path', 2048)->nullable();
