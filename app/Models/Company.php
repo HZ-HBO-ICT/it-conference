@@ -359,7 +359,7 @@ class Company extends Model
     {
         (new ApprovalHandler())->execute($this, $isApproved, 'sponsorship_approval_status');
 
-        if ($isApproved && $this->sponsorship->name == 'gold') {
+        if ($isApproved && optional($this->sponsorship)->name == 'gold') {
             $this->update(['allowed_number_of_presentation' => 2]);
         }
 

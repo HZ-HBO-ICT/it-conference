@@ -79,6 +79,8 @@ Route::middleware([
 ])->group(function () {
     Route::prefix('/my')->group(function () {
         Route::view('/', 'myhub.home')->name('dashboard');
+        Route::post('/switch-view', [ParticipantController::class, 'switchView'])
+            ->name('switchView');
         Route::get('/feedback', [ParticipantController::class, 'createFeedback'])
             ->name('feedback.create');
         Route::post('/feedback', [ParticipantController::class, 'storeFeedback'])

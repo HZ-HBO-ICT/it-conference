@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hub;
 
 use App\Http\Controllers\Controller;
 use App\Models\Feedback;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -50,5 +51,20 @@ class ParticipantController extends Controller
         ));
 
         return redirect(route('dashboard'))->banner('You successfully submitted your feedback!');
+    }
+
+    /**
+     * Used to determine the view that the user will have if they are able to switch it
+     * @return RedirectResponse
+     */
+    public function switchView() : RedirectResponse
+    {
+        if (!optional(Auth::user())->canSwitchViews()) {
+            abort(403);
+        }
+
+        session(['showCompanyView' => !session('showCompanyView', false)]);
+
+        return redirect(route('dashboard'));
     }
 }

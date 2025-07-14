@@ -4,12 +4,16 @@
     use App\Models\Booth;
 @endphp
 <div>
-    @if(Auth::user()->isDefaultCompanyMember)
-        <x-dashboards.blocks.company-role-decider/>
-    @elseif(Auth::user()->hasRole('pending speaker'))
-        <x-dashboards.blocks.speaker-info/>
-    @elseif(Auth::user()->hasRole('pending booth owner'))
-        <x-dashboards.blocks.booth-owner-info/>
+    @if(!$user->company->is_unlimited)
+        @if(Auth::user()->isDefaultCompanyMember)
+            <x-dashboards.blocks.company-role-decider/>
+        @elseif(Auth::user()->hasRole('pending speaker'))
+            <x-dashboards.blocks.speaker-info/>
+        @elseif(Auth::user()->hasRole('pending booth owner'))
+            <x-dashboards.blocks.booth-owner-info/>
+        @endif
+    @elseif($user->hasRole('pending speaker') || $user->hasRole('company member'))
+        <x-dashboards.blocks.unlimited-company-speaker-info/>
     @endif
     <div class="grid grid-cols-6 lg:grid-cols-8 gap-3">
         <div class="w-full h-52 col-span-6 lg:col-span-3">
