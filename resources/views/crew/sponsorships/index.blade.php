@@ -2,85 +2,151 @@
     use App\Models\Sponsorship;
 @endphp
 <x-hub-layout>
-    <div class="py-8 px-8 mx-auto max-w-7xl">
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Sponsorships') }}
-        </h2>
-        <div class="pt-5">
-            <x-list-section>
-                @if(Sponsorship::canAddSponsor())
-                    @can('create', Sponsorship::class)
-                        <x-slot name="actions">
-                            <x-button-link href="{{route('moderator.sponsorships.create')}}">
-                                {{ __('Add a new sponsor') }}
-                            </x-button-link>
-                        </x-slot>
-                    @endcan
-                @endif
-                <x-slot name="content">
-                    <table class="min-w-full divide-gray-200 dark:divide-gray-700">
-                        <thead>
+    <div class="min-h-screen relative overflow-hidden py-10 px-8 bg-waitt-dark">
+        <!-- Decorative Blobs Background -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-32 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-1/3 right-[-100px] w-80 h-80 bg-yellow-300 opacity-20 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-32 left-1/3 w-72 h-72 bg-purple-500 opacity-30 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-10 right-40 w-80 h-80 bg-pink-400 opacity-20 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-green-400 opacity-25 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-1/2 left-1/5 w-64 h-64 bg-red-400 opacity-35 rounded-full blur-3xl z-0"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-400 opacity-30 rounded-full blur-3xl z-0"></div>
+            <div class="absolute top-40 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
+        </div>
+        <div class="relative z-10">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-4xl font-extrabold text-white mb-2">Sponsorships</h2>
+                    <p class="text-lg text-gray-300">Manage sponsorship packages and applications</p>
+                </div>
+                <a href="{{ route('moderator.sponsorships.create') }}" class="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl text-lg shadow transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m8-8H4"/></svg>
+                    Add Sponsor
+                </a>
+            </div>
+            <!-- Sponsorship Package Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                @php
+                    $gold = \App\Models\Sponsorship::where('name', 'gold')->first();
+                    $silver = \App\Models\Sponsorship::where('name', 'silver')->first();
+                    $bronze = \App\Models\Sponsorship::where('name', 'bronze')->first();
+                @endphp
+                <div class="rounded-2xl p-8 bg-gradient-to-br from-blue-500/30 via-blue-400/20 to-blue-700/30 backdrop-blur-md shadow-lg text-white flex flex-col">
+                    <div class="flex items-center mb-2">
+                        <span class="text-2xl mr-2">⭐</span>
+                        <span class="text-2xl font-bold">Gold Package</span>
+                    </div>
+                    <div class="text-3xl font-extrabold mb-2">$10,000</div>
+                    <div class="mb-4 text-lg">Premium sponsorship tier</div>
+                    <ul class="mb-6 space-y-1 text-base text-white/90">
+                        <li>• Logo on all materials</li>
+                        <li>• Speaking opportunity</li>
+                        <li>• Premium booth location</li>
+                        <li>• VIP networking access</li>
+                    </ul>
+                    <div class="mt-auto">
+                        <span class="block bg-blue-900/40 text-blue-100 font-bold rounded-lg px-4 py-2 text-center">
+                            {{ $gold ? $gold->companies()->where('sponsorship_approval_status', 'approved')->count() : 0 }} Sponsor{{ ($gold && $gold->companies()->where('sponsorship_approval_status', 'approved')->count() == 1) ? '' : 's' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="rounded-2xl p-8 bg-gradient-to-br from-yellow-300/60 via-yellow-200/40 to-yellow-400/70 backdrop-blur-md shadow-lg text-gray-900 flex flex-col">
+                    <div class="flex items-center mb-2">
+                        <span class="text-2xl mr-2">☆</span>
+                        <span class="text-2xl font-bold">Silver Package</span>
+                    </div>
+                    <div class="text-3xl font-extrabold mb-2">$5,000</div>
+                    <div class="mb-4 text-lg">Standard sponsorship tier</div>
+                    <ul class="mb-6 space-y-1 text-base text-gray-900/90">
+                        <li>• Logo on website</li>
+                        <li>• Standard booth</li>
+                        <li>• Networking access</li>
+                        <li>• Marketing materials</li>
+                    </ul>
+                    <div class="mt-auto">
+                        <span class="block bg-yellow-400/60 text-yellow-900 font-bold rounded-lg px-4 py-2 text-center">
+                            {{ $silver ? $silver->companies()->where('sponsorship_approval_status', 'approved')->count() : 0 }} Sponsor{{ ($silver && $silver->companies()->where('sponsorship_approval_status', 'approved')->count() == 1) ? '' : 's' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="rounded-2xl p-8 bg-gradient-to-br from-pink-400/30 via-pink-300/20 to-pink-600/30 backdrop-blur-md shadow-lg text-white flex flex-col">
+                    <div class="flex items-center mb-2">
+                        <span class="text-2xl mr-2">☆</span>
+                        <span class="text-2xl font-bold">Bronze Package</span>
+                    </div>
+                    <div class="text-3xl font-extrabold mb-2">$2,500</div>
+                    <div class="mb-4 text-lg">Basic sponsorship tier</div>
+                    <ul class="mb-6 space-y-1 text-base text-white/90">
+                        <li>• Logo on website</li>
+                        <li>• Small booth space</li>
+                        <li>• Basic networking</li>
+                        <li>• Event materials</li>
+                    </ul>
+                    <div class="mt-auto">
+                        <span class="block bg-pink-900/40 text-pink-100 font-bold rounded-lg px-4 py-2 text-center">
+                            {{ $bronze ? $bronze->companies()->where('sponsorship_approval_status', 'approved')->count() : 0 }} Sponsor{{ ($bronze && $bronze->companies()->where('sponsorship_approval_status', 'approved')->count() == 1) ? '' : 's' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Sponsorships Table -->
+            <div class="overflow-x-auto flex-1">
+                <table class="min-w-full overflow-hidden shadow-2xl rounded-2xl bg-white/5 backdrop-blur-md">
+                    <thead class="bg-white/10">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                                Company Name
-                            </th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400 right-0 sticky w-16">
-                                Created At
-                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Company Name</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Package</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Created At</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Actions</th>
                         </tr>
-                        </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y-4 divide-white dark:divide-gray-700">
-                        @forelse($companies as $index => $company)
-                            <tr class="{{ $company->is_sponsorship_approved ? 'hover:bg-gray-100 dark:hover:bg-gray-700' : 'bg-apricot-peach-400 bg-opacity-30 dark:bg-opacity-20 hover:bg-apricot-peach-200' }} cursor-pointer"
-                                onclick="window.location='{{ route('moderator.sponsorships.show', $company) }}'">
-                                <td class="px-4 py-4 whitespace-nowrap text-gray-700 dark:text-white">
-                                    <div class="flex">
-                                        <div class="text-gray-700 dark:text-white text-m items-center flex">
-                                            @if($company->logo_path)
-                                                <img class="w-6 h-6 mx-auto my-auto max-w-full block dark:text-white"
-                                                     src="{{ url('storage/'. $company->logo_path) }}"
-                                                     alt="Logo of {{$company->name}}">
-                                            @else
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                     stroke-width="1"
-                                                     stroke="gray" aria-hidden="true" class="w-6 h-6 {{$company->is_sponsorship_approved ? 'stroke-apricot-peach-300' : 'stroke-gray-800'}}">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                          d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
-                                                </svg>
-                                            @endif
-                                            <div class="ml-2 grow">
-                                                <strong>{{$company->name}}</strong>
-                                            </div>
-                                        </div>
-                                    </div>
+                    </thead>
+                    <tbody>
+                        @forelse($companies as $company)
+                            <tr class="hover:bg-white/10 transition cursor-pointer">
+                                <td class="px-6 py-4 whitespace-nowrap text-white font-semibold">{{$company->name}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($company->sponsorship)
+                                        @php
+                                            $tier = strtolower($company->sponsorship->name);
+                                            $badgeClass = match($tier) {
+                                                'gold' => 'bg-yellow-500/80',
+                                                'silver' => 'bg-gray-300/80',
+                                                'bronze' => 'bg-orange-400/80',
+                                                default => 'bg-gray-600/60',
+                                            };
+                                        @endphp
+                                        <span class="px-4 py-1 rounded-full text-sm font-semibold text-black {{ $badgeClass }}">
+                                            {{ ucfirst($tier) }}
+                                        </span>
+                                    @else
+                                        <span class="px-4 py-1 rounded-full text-sm font-semibold bg-gray-700/60 text-gray-300">-</span>
+                                    @endif
                                 </td>
-                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700 dark:text-white">
-                                    <div class="flex items-center">
-                                        <svg
-                                            class="shrink-0 w-6 h-6 mr-1.5 block stroke-apricot-peach-400 {{ !$company->is_sponsorship_approved ? 'stroke-gray-900 dark:stroke-white' : '' }}"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" fill="none"
-                                            aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                        {{ $company->created_at->format('d/m/Y') }}
-                                    </div>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-200">{{ $company->created_at->format('d/m/Y') }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($company->is_sponsorship_approved)
+                                        <span class="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Approved</span>
+                                    @else
+                                        <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap flex gap-4 items-center">
+                                    <a href="{{ route('moderator.sponsorships.show', $company) }}" class="text-waitt-yellow hover:text-waitt-yellow" title="View"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-4 py-2 text-center text-gray-500 dark:text-gray-300">
-                                    There are currently no sponsorships.
-                                </td>
+                                <td colspan="5" class="px-6 py-8 text-center text-gray-300">There are currently no sponsorships.</td>
                             </tr>
                         @endforelse
-                        </tbody>
-                    </table>
-                    <div class="pt-2">
-                        {{ $companies->links() }}
-                    </div>
-                </x-slot>
-            </x-list-section>
+                    </tbody>
+                </table>
+                <div class="pt-2">
+                    {{ $companies->links() }}
+                </div>
+            </div>
         </div>
     </div>
 </x-hub-layout>

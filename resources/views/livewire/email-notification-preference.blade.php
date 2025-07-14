@@ -8,28 +8,28 @@
     </x-slot>
 
     <x-slot name="content">
-        <form wire:submit.prevent="save" class="space-y-8 flex">
-            <div class="space-y-8 divide-y divide-gray-200 flex-1">
-                <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                    <div class="sm:col-span-6">
-                        <label>
-                            <input {{$receiveEmails ? 'checked' : ''}} class="rounded-sm pl-2 checked:bg-indigo-500"
-                                   wire:model="receiveEmails" type="checkbox"> Receive notifications and reminders on email
-                        </label>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg text-white px-8 py-8 w-full">
+            <form wire:submit.prevent="save" class="space-y-8 flex flex-col">
+                <div class="space-y-8 divide-y divide-gray-200 flex-1">
+                    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                        <div class="sm:col-span-6">
+                            <label class="text-white">
+                                <input {{$receiveEmails ? 'checked' : ''}} class="rounded-sm pl-2 checked:bg-indigo-500" wire:model="receiveEmails" type="checkbox"> Receive notifications and reminders on email
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="pt-4 flex justify-between items-center">
-                @if (session()->has('message'))
-                    <div class="text-sm text-green-600 pr-2">
-                        {{ session('message') }}
-                    </div>
-                @endif
-                <x-button>
-                    {{ __('Save') }}
-                </x-button>
-            </div>
-        </form>
+                <div class="pt-4 flex justify-between items-center">
+                    @if (session()->has('message'))
+                        <div class="text-sm text-green-400 pr-2">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                    <x-button>
+                        {{ __('Save') }}
+                    </x-button>
+                </div>
+            </form>
+        </div>
     </x-slot>
 </x-action-section>

@@ -10,19 +10,18 @@
 
     <x-slot name="content">
         @can('delete', Auth::user())
-            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+            <div class="max-w-xl text-sm text-gray-200 bg-white/5 dark:bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-4">
                 {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
             </div>
 
             <div class="mt-5">
-                <x-danger-button wire:click="confirmUserDeletion" wire:loading.attr="disabled">
+                <button wire:click="confirmUserDeletion" wire:loading.attr="disabled" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow">
                     {{ __('Delete Account') }}
-                </x-danger-button>
+                </button>
             </div>
         @else
-            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                If you wish to not be present during the conference contact us at <a
-                    href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
+            <div class="max-w-xl text-sm text-gray-200 bg-white/5 dark:bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-4">
+                If you wish to not be present during the conference contact us at <a href="mailto:info@weareinittogether.nl" class="text-purple-400 underline">info@weareinittogether.nl</a>
             </div>
         @endif
 
@@ -53,9 +52,9 @@
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ml-3" wire:click="deleteUser" wire:loading.attr="disabled">
+                <button class="ml-3 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow" wire:click="deleteUser" wire:loading.attr="disabled">
                     {{ __('Delete Account') }}
-                </x-danger-button>
+                </button>
             </x-slot>
         </x-dialog-modal>
     </x-slot>
