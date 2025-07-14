@@ -37,6 +37,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property int $allowed_number_of_presentation
+ * @property bool $is_unlimited
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Booth|null $booth
@@ -95,7 +97,7 @@ class Company extends Model
 
     protected $fillable = ['name', 'description', 'website', 'postcode', 'approval_status', 'motivation',
         'house_number', 'street', 'city', 'logo_path', 'phone_number', 'sponsorship_id', 'sponsorship_approval_status',
-        'dark_logo_path'];
+        'dark_logo_path', 'allowed_number_of_presentation', 'is_unlimited'];
 
     /**
      * Ensures that if the company status or their sponsorship status is changed,
@@ -329,9 +331,9 @@ class Company extends Model
     {
         return Attribute::make(
             get: function () {
-                $max_presentations = $this->is_gold_sponsor ? 2 : 1;
+                $max_presentations = $this->allowed_number_of_presentation;
                 return $this->is_approved && $this->presentations->count() < $max_presentations
-                    || $this->is_hz;
+                    || $this->is_unlimited;
             }
         );
     }
@@ -356,6 +358,10 @@ class Company extends Model
     public function handleSponsorshipApproval(bool $isApproved): void
     {
         (new ApprovalHandler())->execute($this, $isApproved, 'sponsorship_approval_status');
+
+        if ($isApproved && $this->sponsorship->name == 'gold') {
+            $this->update(['allowed_number_of_presentation' => 2]);
+        }
 
         if (!$isApproved) {
             $this->disableLogging();
