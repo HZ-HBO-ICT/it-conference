@@ -122,7 +122,7 @@ class PresentationPolicy
         // company has presentations left
         if ($user->company) {
             // When the user is company representative, speaker or pending speaker
-            if (!$user->hasRole(['company representative', 'pending speaker', 'speaker'])) {
+            if (!$user->hasRole(['company representative', 'pending speaker', 'speaker', 'company member'])) {
                 return false;
             }
 
