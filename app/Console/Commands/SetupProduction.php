@@ -47,7 +47,7 @@ class SetupProduction extends Command
             $this->line("Found {$this->checkPendingMigrations()} pending migrations.");
             array_push($this->commands, 'migrate');
         } else {
-           $this->line("No pending migrations found");
+            $this->line("No pending migrations found");
         }
 
         if (!$checkFirstDeployment) {
@@ -69,7 +69,8 @@ class SetupProduction extends Command
     /*
      * Checks if there are any pending migrations that need to be run.
      */
-    private function checkPendingMigrations(): int {
+    private function checkPendingMigrations(): int
+    {
         $migrator = app('migrator');
 
         $allFiles = $migrator->getMigrationFiles('database/migrations');
