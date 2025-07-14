@@ -18,7 +18,7 @@
 
     <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
         @foreach($speakerButtons as $label => $item)
-            <a onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: { user: {{ Auth::user() }}, presentationId: {{ $item ? $item->id : 'null' }}, joinAsSpeaker: {{ Auth::user()->can('joinAsCospeaker', $item) }} } })"
+            <a onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: { user: {{ Auth::user() }}, presentationId: {{ $item ? $item->id : 'null' }}, joinAsSpeaker: {{ $item ? Auth::user()->can('joinAsCospeaker', $item)  : json_encode(false)}} } })"
                class="inline-flex text-wrap items-center px-4 py-2 rounded-md text-sm font-medium bg-waitt-pink hover:bg-waitt-pink-600 hover:cursor-pointer text-black transition whitespace-nowrap">
                 {{ $label }}
             </a>

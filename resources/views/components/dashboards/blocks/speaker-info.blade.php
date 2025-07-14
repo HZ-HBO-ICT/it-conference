@@ -23,7 +23,7 @@
                 <span class="text-xs text-gray-400 text-center">or</span>
             @endif
 
-            <a onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: { user: {{ Auth::user() }}, presentationId: {{ $item ? $item->id : 'null' }}, joinAsSpeaker: {{ Auth::user()->can('joinAsCospeaker', $item) }} } })"
+            <a onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: { user: {{ Auth::user() }}, presentationId: {{ $item ? $item->id : 'null' }}, joinAsSpeaker: {{ $item ? Auth::user()->can('joinAsCospeaker', $item)  : json_encode(false)}} } })"
                class="inline-flex text-wrap items-center px-4 py-2 rounded-md text-sm font-medium bg-waitt-pink-600 hover:bg-waitt-pink-700 hover:cursor-pointer text-white transition whitespace-nowrap">
                 {{ $label }}
             </a>
