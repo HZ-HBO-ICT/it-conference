@@ -9,7 +9,7 @@
 
         @if(Sponsorship::canAddSponsor())
             @can('create', Sponsorship::class)
-                <x-waitt.button-link href="{{ route('moderator.booths.create') }}">
+                <x-waitt.button-link href="{{ route('moderator.sponsorships.create') }}">
                     {{ __('Create a new sponsor') }}
                 </x-waitt.button-link>
             @endcan
