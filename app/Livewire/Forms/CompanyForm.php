@@ -19,8 +19,8 @@ class CompanyForm extends Form
     #[Validate('required')]
     public string $website;
 
-    #[Validate('required|phone:INTERNATIONAL, NL')]
-    public string $phone_number;
+    #[Validate('nullable|phone:INTERNATIONAL, NL')]
+    public string|null $phone_number;
 
     #[Validate(['required','regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'])]
     public string $postcode;

@@ -532,4 +532,14 @@ class User extends Authenticatable implements MustVerifyEmail
             ->errorCorrection('M')
             ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
     }
+
+    /**
+     * Determines whether the user can switch between users
+     * Created in order to allow the mod to switch between HZ and crew
+     * @return bool
+     */
+    public function canSwitchViews(): bool
+    {
+        return $this->hasRole('event organizer') && $this->company;
+    }
 }

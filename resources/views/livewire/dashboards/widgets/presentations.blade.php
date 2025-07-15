@@ -2,7 +2,7 @@
     use App\Models\Presentation;
     use Illuminate\Support\Facades\Auth;
 @endphp
-<div class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] w-full h-full rounded rounded-lg text-white">
+<div id="presentations" class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] w-full h-full rounded rounded-lg text-white">
     <div class="font-semibold text-sm p-5">
         <p class="text-md md:text-lg">Presentations</p>
         <div class="grid grid-col-1 w-full pt-5">
@@ -14,7 +14,7 @@
                         <div class="absolute -right-5 top-0 h-full w-20 bg-silver/40 skew-x-12"></div>
                         @can('view', $presentation)
                             <div class="absolute top-1 right-3 z-10 text-white text-lg"
-                                 onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: {user: {{Auth::user()}}, presentationId: {{$presentation->id}} }})">
+                                 onclick="Livewire.dispatch('openModal', { component: 'dashboards.modals.create-edit-presentation-modal', arguments: {user: {{Auth::user()}}, presentationId: {{$presentation->id}}, joinAsSpeaker: {{  json_encode(Auth::user()->can('joinAsCospeaker', $presentation)) }} }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke-width="1.5"
                                      stroke="currentColor" class="size-6 hover:cursor-pointer">

@@ -144,7 +144,6 @@ class CompanyDetailsModalTest extends TestCase
                 ['form.name',
                 'form.description',
                 'form.website',
-                'form.phone_number',
                 'form.postcode',
                 'form.street',
                 'form.city']
