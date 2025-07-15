@@ -19,12 +19,12 @@ class SpeakerInfo extends Component
         $company = Auth::user()->company;
 
         if ($company->hasPresentationsLeft) {
-            $this->speakerButtons['Request a presentation'] = 'presentations.create';
+            $this->speakerButtons['Request a presentation'] = null;
         }
         if ($company->presentations) {
             foreach ($company->presentations as $presentation) {
                 $this->speakerButtons["Join '{$presentation->name}' as a co-speaker"] =
-                    ['presentations.show', $presentation];
+                    $presentation;
             }
         }
     }

@@ -23,11 +23,14 @@
         </div>
         <!-- End Blobs -->
 
-        <div class="relative z-10 max-w-7xl mx-auto">
-            <h1 class="text-6xl font-extrabold text-left mb-4 uppercase tracking-wide mb-10 text-waitt-yellow">
+        <div class="px-4 relative z-10 max-w-7xl mx-auto">
+            <!-- Mobile-friendly title -->
+            <h1 class="text-6xl font-extrabold text-left mb-4 uppercase tracking-wide mb-10 text-waitt-yellow max-sm:text-4xl max-sm:text-center">
                 Companies
             </h1>
-            <p class="text-left text-lg text-gray-200 mx-auto mb-5">
+
+            <!-- Mobile-friendly description -->
+            <p class="text-left text-lg text-gray-200 mx-auto mb-5 max-w-full">
                 We're proud to partner with leading technology companies who are driving innovation in the industry. Visit their booths at the conference to learn more about their products, services, and career opportunities.
             </p>
 
@@ -37,51 +40,57 @@
                         @if ($companyGroup->first()->sponsorship)
                             <div class="mb-6">
                                 <div class="flex items-center gap-4 mb-6">
-                                    <h2 class="text-3xl font-extrabold text-white">{{ ucfirst($companyGroup->first()->sponsorship->name) }} sponsor</h2>
+                                    <!-- Mobile-friendly tier heading -->
+                                    <h2 class="text-3xl font-extrabold text-white max-sm:text-2xl">{{ ucfirst($companyGroup->first()->sponsorship->name) }} sponsor</h2>
                                     <x-waitt.tag :title="$companyGroup->first()->sponsorship->name"/>
                                 </div>
                             </div>
                         @else
                             <div class="mb-12">
                                 <div class="flex items-center gap-4 mb-6">
-                                    <h2 class="text-3xl font-extrabold text-white">Other companies</h2>
+                                    <!-- Mobile-friendly tier heading -->
+                                    <h2 class="text-3xl font-extrabold text-white max-sm:text-2xl">Other companies</h2>
                                 </div>
                             </div>
                         @endif
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                @foreach($companyGroup as $company)
-                                    <a href="{{ route('companies.show', $company) }}" class="block h-full transition-transform">
-                                        <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-slate-950' }}"
-                                             style="--shine-color: {{$company->sponsorship ? $company->sponsorship->shine() : ''}}">
-                                            <div class="w-full flex justify-center mb-6">
-                                                @if($company->logo_path)
-                                                    <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-28 w-3/4 bg-waitt-dark object-contain rounded p-2 shadow" />
-                                                @else
-                                                    <div class="h-28 w-4/5 bg-waitt-dark rounded flex items-center justify-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
-                                                        </svg>
-                                                    </div>
-                                                @endif
+
+                        <!-- Mobile-friendly grid (already responsive) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            @foreach($companyGroup as $company)
+                                <a href="{{ route('companies.show', $company) }}" class="block h-full transition-transform">
+                                    <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-slate-950' }}"
+                                         style="--shine-color: {{$company->sponsorship ? $company->sponsorship->shine() : ''}}">
+                                        <div class="w-full flex justify-center mb-6">
+                                            @if($company->logo_path)
+                                                <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-28 w-3/4 bg-waitt-dark object-contain rounded p-2 shadow max-sm:h-20 max-sm:w-4/5" />
+                                            @else
+                                                <div class="h-28 w-4/5 bg-waitt-dark rounded flex items-center justify-center max-sm:h-20">
+                                                    <svg xmlns="" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24 max-sm:size-16">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                                                    </svg>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="flex-1 flex flex-col">
+                                            <!-- Mobile-friendly text sizes -->
+                                            <div class="font-extrabold text-2xl text-white mb-1 line-clamp-2 break-words max-sm:text-xl" title="{{ $company->name }}">
+                                                {{ $company->name }}
                                             </div>
-                                            <div class="flex-1 flex flex-col">
-                                                <div class="font-extrabold text-2xl text-white mb-1 line-clamp-2 break-words" title="{{ $company->name }}">
-                                                    {{ $company->name }}
-                                                </div>
-                                                <div class="text-gray-300 text-base line-clamp-3 break-words overflow-hidden">
-                                                    {{ $company->description }}
-                                                </div>
+                                            <div class="text-gray-300 text-base line-clamp-3 break-words overflow-hidden max-sm:text-sm">
+                                                {{ $company->description }}
                                             </div>
                                         </div>
-                                    </a>
-                                @endforeach
-                            </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 @endforeach
             </div>
+
             @if($companies->where('is_approved')->count() === 0)
                 <div class="bg-[#101426] rounded-xl py-8 mt-12">
-                    <p class="text-center text-2xl font-bold text-white">
+                    <p class="text-center text-2xl font-bold text-white max-sm:text-lg">
                         There are no companies available right now.
                     </p>
                 </div>

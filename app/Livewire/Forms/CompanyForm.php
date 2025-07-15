@@ -19,8 +19,8 @@ class CompanyForm extends Form
     #[Validate('required')]
     public string $website;
 
-    #[Validate('required|phone:INTERNATIONAL, NL')]
-    public string $phone_number;
+    #[Validate('nullable|phone:INTERNATIONAL, NL')]
+    public string|null $phone_number;
 
     #[Validate(['required','regex:/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i'])]
     public string $postcode;
@@ -54,10 +54,25 @@ class CompanyForm extends Form
     }
 
     /**
+     * Determines whether the form is dirty
+     * @return bool
+     */
+    public function isDirty(): bool
+    {
+        /** @var array<string, mixed> $original */
+        $original = collect($this->company->toArray());
+        /** @var array<string, mixed> $current */
+        $current = $this->only(array_keys($original));
+
+        return collect($original)->intersectAssoc($current)->count() !== count($original);
+    }
+
+
+    /**
      * Updates the company details with the new data
      * @return void
      */
-    public function update()
+    public function update() : void
     {
         $this->company->update(
             $this->all()

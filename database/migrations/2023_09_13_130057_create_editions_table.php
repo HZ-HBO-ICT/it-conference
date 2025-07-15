@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * @deprecated lecture_duration Now the presentation types are flexible so it's not needed
+     * @deprecated workshop_duration Now the presentation types are flexible so it's not needed
      * Run the migrations.
      */
     public function up(): void

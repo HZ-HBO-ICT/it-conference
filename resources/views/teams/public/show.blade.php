@@ -23,7 +23,7 @@
             <aside class="col-span-1 z-10 rounded-3xl pr-5 space-y-8">
                 <div class="flex justify-center">
                     @if($company->logo_path)
-                        <img src="{{ asset($company->logo_path) }}"
+                        <img src="{{ url('storage/' . $company->logo_path) }}"
                              alt="{{ $company->name }}"
                              class="rounded-lg w-full h-56 object-contain shadow-xl border-4 border-opacity-30" />
                     @else

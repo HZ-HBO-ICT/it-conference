@@ -20,6 +20,57 @@
   }
 }
 
+/*
+  NOTE: This is included because the package wire-model does not allow for customization of the
+  overlay. This targets specific set of tailwind classes that are hopefully not used anywhere else.
+ */
+@layer components {
+    .absolute.inset-0.bg-gray-500.opacity-75 {
+        background-color: rgba(17, 24, 39, 0.80) !important;
+    }
+}
+
+@theme {
+    /* WAITT Cyan colour ranges */
+    --color-waitt-cyan-50: #effefd;
+    --color-waitt-cyan-100: #c7fffb;
+    --color-waitt-cyan-200: #90fff8;
+    --color-waitt-cyan-300: #31f7f1; /* Default */
+    --color-waitt-cyan-400: #1ce5e5;
+    --color-waitt-cyan-500: #03c6c9;
+    --color-waitt-cyan-600: #009ca2;
+    --color-waitt-cyan-700: #057980;
+    --color-waitt-cyan-800: #096066;
+    --color-waitt-cyan-900: #0d5054;
+    --color-waitt-cyan-950: #002e33;
+
+    /* WAITT Yellow colour ranges */
+    --color-waitt-yellow-50: #feffe4;
+    --color-waitt-yellow-100: #fcffc4;
+    --color-waitt-yellow-200: #f7ff90;
+    --color-waitt-yellow-300: #ecff50;
+    --color-waitt-yellow-400: #e2ff32; /* Default */
+    --color-waitt-yellow-500: #c0e600;
+    --color-waitt-yellow-600: #95b800;
+    --color-waitt-yellow-700: #708b00;
+    --color-waitt-yellow-800: #586d07;
+    --color-waitt-yellow-900: #4a5c0b;
+    --color-waitt-yellow-950: #263400;
+
+    /* WAITT Pink colour ranges */
+    --color-waitt-pink-50: #fef1f8;
+    --color-waitt-pink-100: #fee5f3;
+    --color-waitt-pink-200: #ffcae9;
+    --color-waitt-pink-300: #ff9fd4;
+    --color-waitt-pink-400: #ff63b6;
+    --color-waitt-pink-500: #ff3b9a; /* Default */
+    --color-waitt-pink-600: #f01273;
+    --color-waitt-pink-700: #d10558;
+    --color-waitt-pink-800: #ad0748;
+    --color-waitt-pink-900: #8f0c40;
+    --color-waitt-pink-950: #580021;
+}
+
 @font-face {
     font-family: 'Inter Var';
     src: local('Inter-Var'), url(../fonts/Inter-Var.ttf) format('truetype');
@@ -83,16 +134,15 @@
     text-shadow: 0 0 2px #FF3B9A, 0 0 4px #FF3B9A;
 }
 
-.shine-effect {
+/* Base class */
+.shine-effect,
+.shine-effect-auto {
     --shine-deg: 45deg;
-    --shine-color: rgba(255, 255, 255, 0.2); /* default */
-
+    --shine-color: rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
-
     background-repeat: no-repeat;
-    background-position: -100% 0, 0 0;
-
+    background-position: -150% 0, 0 0;
     background-image: linear-gradient(
         var(--shine-deg),
         transparent 20%,
@@ -102,15 +152,31 @@
         transparent 70%,
         transparent 100%
     );
-
     background-size: 250% 250%, 100% 100%;
-    transition: background-position 0s ease;
 }
 
+/* Hover version */
+.shine-effect {
+    transition: background-position 0s ease;
+}
 .shine-effect:hover {
     background-position: 200% 0, 0 0;
     transition-duration: 1.5s;
 }
+
+/* Auto version */
+@keyframes shine {
+    0% {
+        background-position: -150% 0, 0 0;
+    }
+    100% {
+        background-position: 150% 0, 0 0;
+    }
+}
+.shine-effect-auto {
+    animation: shine 1.5s ease-in-out forwards;
+}
+
 
 
 /* Bubble and Blob Animations */
