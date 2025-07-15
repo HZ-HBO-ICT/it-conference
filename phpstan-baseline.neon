@@ -1476,12 +1476,6 @@ parameters:
 			path: app/Livewire/Forms/BoothForm.php
 
 		-
-			message: '#^Property App\\Livewire\\Forms\\CompanyForm\:\:\$phone_number \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Livewire/Forms/CompanyForm.php
-
-		-
 			message: '#^Cannot access property \$end on object\|null\.$#'
 			identifier: property.nonObject
 			count: 1
