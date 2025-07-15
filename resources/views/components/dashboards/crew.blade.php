@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="py-4 px-2 mx-auto max-w-7xl">
+        <div class="py-4 mx-auto max-w-7xl">
             <div>
                 <h3 class="leading-6 font-semibold text-xl text-white">Current totals</h3>
                 <div class="pb-3 rounded-lg overflow-hidden relative">
