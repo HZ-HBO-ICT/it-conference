@@ -13,7 +13,7 @@
         <x-waitt.list-section>
             <x-slot name="content">
                 <table class="w-full divide-gray-200 dark:divide-gray-700 text-left">
-                    <thead>
+                    <thead class="bg-white/5 rounded">
                     <tr>
                         <th class="rounded-tl-md px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
                             Presentation Name
