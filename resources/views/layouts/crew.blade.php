@@ -8,7 +8,7 @@
     <div class="flex">
         <div class="flex-col lg:w-72 flex inset-y-0 relative bg-waitt-dark/70 min-h-screen z-1">
             <div
-                class="pb-4 px-6  overflow-y-auto flex-col grow flex">
+                class="pb-4 pt-8 px-6 overflow-y-auto flex-col grow flex">
                 <nav class="flex-col flex-1 flex">
                     <ul class="gap-y-2 flex-col flex-1 flex" role="list">
                         <ul class="mt-2 -mx-2" role="list">
