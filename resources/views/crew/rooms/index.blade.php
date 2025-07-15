@@ -33,7 +33,7 @@
                                     <div class="flex">
                                         <div class="text-gray-200 text-sm items-center flex">
                                                 <svg
-                                                    class="shrink-0 w-6 h-6 mr-1.5 block stroke-waitt-pink"
+                                                    class="shrink-0 w-5 h-5 mr-1.5 block stroke-waitt-pink"
                                                     xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
                                                     aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
