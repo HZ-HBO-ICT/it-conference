@@ -15,10 +15,13 @@
                 <table class="w-full divide-gray-200 dark:divide-gray-700 text-left">
                     <thead class="bg-white/5 rounded">
                     <tr>
-                        <th class="rounded-tl-md px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                        <th class="rounded-tl-md px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider dark:text-gray-400">
                             Company Name
                         </th>
-                        <th class="rounded-tr-md px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400 right-0 sticky w-16">
+                        <th class="py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
+                            Approval status
+                        </th>
+                        <th class="rounded-tr-md px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider dark:text-gray-400 right-0 sticky w-16">
                             Created At
                         </th>
                     </tr>
@@ -43,10 +46,13 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <x-waitt.tag :uppercase="false" :textSize="'text-xs'" :title="ucfirst(str_replace('_', ' ', $booth->approval_status))"/>
+                            </td>
                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
                                 <div class="flex items-center">
                                     <svg
-                                        class="shrink-0 w-6 h-6 mr-1.5 block stroke-waitt-pink"
+                                        class="shrink-0 w-5 h-5 mr-1.5 block stroke-waitt-pink"
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" fill="none"
                                         aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round"
