@@ -37,10 +37,6 @@ class ProgrammeReleasedSeeder extends Seeder
             $room_id = 1;
             $helper = new PresentationAllocationHelper();
 
-            $edition = Edition::current();
-            $lecture_duration = $edition->lecture_duration ?? 30;
-            $workshop_duration = $edition->workshop_duration ?? 120;
-
             foreach (Presentation::all() as $presentation) {
                 $timeslot = $helper->findTimeslotByStartingTime($currentTime);
 
@@ -50,11 +46,7 @@ class ProgrammeReleasedSeeder extends Seeder
                     'start' => $currentTime->format('H:i'),
                 ]);
 
-                if ($presentation->type == 'lecture') {
-                    $currentTime->modify("+{$lecture_duration} minutes");
-                } else {
-                    $currentTime->modify("+{$workshop_duration} minutes");
-                }
+                $currentTime->modify("+{$presentation->presentationType->duration} minutes");
 
                 if ($room_id == Room::count()) {
                     break;

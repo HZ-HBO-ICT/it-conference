@@ -1,7 +1,7 @@
 <div class="relative font-[sans-serif] flex items-center pt-1">
     <div class="relative"> <!-- Add this wrapper for the dropdown-related elements -->
         <button type="button" id="dropdownToggle" wire:click="toggleDropdown"
-                class="px-5 py-2.5 rounded-md text-[#333] text-sm border bg-white dark:bg-gray-900 dark:text-gray-50 border-gray-300 dark:border-gray-700 outline-hidden hover:bg-indigo-50 flex items-center">
+                class="px-5 py-2.5 rounded-md text-sm border bg-gray-900 text-gray-50 border-gray-700 outline-hidden hover:cursor-pointer hover:bg-gray-900 flex items-center">
             <span class="flag-icon {{current($selected)}} mr-3"></span>
             {{key($selected)}}
             <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-[#333] dark:fill-gray-300 ml-3" viewBox="0 0 24 24">
@@ -10,13 +10,13 @@
                       clip-rule="evenodd" data-original="#000000" />
             </svg>
         </button>
-        <ul id="dropdownMenu" class='absolute {{$isHidden ? 'hidden' : 'block'}} shadow-lg bg-white dark:bg-gray-900 dark:text-gray-50 py-2 px-2 z-1000 min-w-full rounded-sm overflow-auto max-h-56'>
+        <ul id="dropdownMenu" class='absolute {{$isHidden ? 'hidden' : 'block'}} shadow-lg bg-gray-900 text-gray-50 py-2 px-2 z-1000 min-w-full rounded-sm overflow-auto max-h-56'>
             <li class="mb-2">
                 <input wire:model.live="filterCode" placeholder="Search..."
-                       class="px-4 py-2.5 w-full rounded-sm text-[#333] text-sm dark:text-gray-50 dark:bg-gray-800 border-none outline-blue-600 bg-blue-50 focus:bg-transparent" />
+                       class="px-4 py-2.5 w-full rounded-sm  text-sm text-gray-50 bg-gray-800 border-none outline-teal-600 bg-slate-950 focus:bg-transparent" />
             </li>
             @forelse($filteredFlags as $code => $flagClass)
-                <li class='py-2.5 px-4 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-sm text-black dark:text-gray-50 text-sm cursor-pointer' wire:click="chooseCountry('{{ $code }}')">
+                <li class='py-2.5 px-4 hover:bg-gray-700 rounded-sm ext-gray-50 text-sm cursor-pointer' wire:click="chooseCountry('{{ $code }}')">
                     <div class="flex items-center">
                         <span class="flag-icon {{$flagClass}} mr-3"></span>
                         {{$code}}
@@ -31,7 +31,7 @@
             @endforelse
         </ul>
     </div>
-    <x-input wire:model.live="phoneNumber" id="company_phone_number" placeholder="1234 56789" class="block ml-2 w-full" type="tel" name="companyPhoneNumber" wire:model="companyPhoneNumber"></x-input>
+    <x-waitt.input wire:model.live="phoneNumber" id="company_phone_number" placeholder="1234 56789" class="block ml-2 w-full" type="tel" name="companyPhoneNumber" wire:model="companyPhoneNumber"></x-waitt.input>
 </div>
 
 @script

@@ -58,6 +58,17 @@ class BoothPolicy
     }
 
     /**
+     * Determine whether the user can request sponsorship
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function createRequest(User $user): bool
+    {
+        return $user->can('create booth request');
+    }
+
+    /**
      * Determine whether the user can approve request for the model.
      */
     public function approveRequest(User $user, Booth $booth): bool

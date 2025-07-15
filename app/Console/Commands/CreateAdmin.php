@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use function Laravel\Prompts\progress;
+use function Laravel\Prompts\text;
+use function Laravel\Prompts\password;
 
 class CreateAdmin extends Command
 {
@@ -13,7 +16,7 @@ class CreateAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:create-admin-user {email} {name} {password}';
+    protected $signature = 'admin:create-admin-user';
 
     /**
      * The console command description.
@@ -23,50 +26,58 @@ class CreateAdmin extends Command
     protected $description = 'Create a new admin user';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      */
     public function handle(): void
     {
-        // email address is taken as an argument
-        $email = $this->argument('email');
+        $name = text(
+            'Please input the name of the admin user',
+            'E.g. John Smith',
+            '',
+            true,
+            validate: ['name' => 'required|string|max:255']
+        );
 
-        // get the name as argument
-        $name = $this->argument('name');
+        $email = text(
+            'Please input the email of the admin user',
+            'E.g. user@example.com',
+            '',
+            true,
+            validate: ['email' => 'required|string|email:rfc,dns|max:255|unique:users']
+        );
 
-        // get the password as argument.
-        // Note, we have to take this as an argument, on our STRATO server the STDIN is not available
-        // therefore $this->ask and $this->secret won't work
-        $password = $this->argument('password');
+        $password = password(
+            'Please input the password for the admin user',
+            '',
+            true
+        );
 
-        $this->createUser($email, $name, $password);
+        progress(
+            'Creating admin user',
+            ['creating admin user'],
+            function () use ($name, $email, $password) {
+                $this->createUser($name, $email, $password);
+            }
+        );
     }
 
     /**
      * Create the user and assign admin rights
      *
-     * @param $email
-     * @param $name
-     * @param $password
+     * @param $email string
+     * @param $name string
+     * @param $password string
      */
-    private function createUser($email, $name, $password): void
+    private function createUser(string $name, string $email, string $password): void
     {
         $user = User::create([
-            'email' => $email,
             'name' => $name,
+            'email' => $email,
             'password' => Hash::make($password)
         ]);
         // Do stuff here to make the user an admin user
+        $user->markEmailAsVerified();
         $user->assignRole('event organizer');
 
         // Finish off

@@ -34,7 +34,7 @@ class EditPresentationModal extends ModalComponent
     {
         $this->presentationTypes = optional(Edition::current())->presentationTypes;
         $this->presentation = $presentation;
-        $this->form->setCompany($presentation);
+        $this->form->setPresentation($presentation);
     }
 
     /**

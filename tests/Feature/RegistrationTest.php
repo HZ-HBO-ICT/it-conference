@@ -65,7 +65,7 @@ class RegistrationTest extends TestCase
 
         $response = $this->post('/register', [
             'name' => 'John Doe',
-            'email' => 'john@example.com',
+            'email' => 'john@hz.nl',
             'password' => 'Pa$$worDD@123!!',
             'password_confirmation' => 'Pa$$worDD@123!!',
             'institution' => "HZ University of Applied Sciences",
@@ -77,5 +77,24 @@ class RegistrationTest extends TestCase
         $response->assertValid();
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    public function test_new_users_cannot_register_with_invalid_email(): void
+    {
+        if (! Features::enabled(Features::registration())) {
+            $this->markTestSkipped('Registration support is not enabled.');
+        }
+
+        $response = $this->post('/register', [
+            'name' => 'John Doe',
+            'email' => 'asdasda@asdasd.asda',
+            'password' => 'Pa$$worDD@123!!',
+            'password_confirmation' => 'Pa$$worDD@123!!',
+            'institution' => "HZ University of Applied Sciences",
+            'registration_type' => 'participant',
+            'terms' => 'on',
+        ]);
+
+        $response->assertInvalid(['email']);
     }
 }

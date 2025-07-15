@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\ApprovalStatus;
 use App\Models\Company;
 use App\Models\Team;
 use App\Models\User;
@@ -54,7 +55,7 @@ class CompanyPolicy
     public function update(User $user, Company $company): bool
     {
         return ($user->is_crew
-                || $user->isMemberOf($company) && $company->is_approved)
+                || $user->isMemberOf($company) && $company->approval_status == ApprovalStatus::APPROVED->value)
             && $user->can('update company');
     }
 

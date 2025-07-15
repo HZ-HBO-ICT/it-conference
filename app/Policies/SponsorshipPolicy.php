@@ -62,6 +62,17 @@ class SponsorshipPolicy
     }
 
     /**
+     * Determine whether the user can request sponsorship
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function createRequest(User $user): bool
+    {
+        return $user->can('create sponsorship request');
+    }
+
+    /**
      * Determine whether the user can approve the sponsorship
      *
      * @param User $user

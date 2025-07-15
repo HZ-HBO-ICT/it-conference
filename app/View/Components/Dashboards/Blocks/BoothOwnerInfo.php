@@ -17,9 +17,9 @@ class BoothOwnerInfo extends Component
     public function __construct()
     {
         if (!Auth::user()->company->booth) {
-            $this->boothButtons['Request a booth'] = 'company.requests';
+            $this->boothButtons['Request a booth'] = false;
         } else {
-            $this->boothButtons['Join the others at the booth'] = null;
+            $this->boothButtons['Join the others at the booth'] = true;
         }
     }
 
