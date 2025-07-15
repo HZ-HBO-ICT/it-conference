@@ -20,7 +20,7 @@ class SetupProduction extends Command
      *
      * @var string
      */
-    protected $description = 'Starts a wizard to setup the production environment';
+    protected $description = 'Starts a wizard to setup or alter the production environment';
 
     /**
      * Array of the commands that can be chosen.
@@ -41,10 +41,19 @@ class SetupProduction extends Command
             'No'
         );
 
+        $this->line('Checking for pending migrations...');
+
+        if ($this->checkPendingMigrations()) {
+            $this->line("Found {$this->checkPendingMigrations()} pending migrations.");
+            array_push($this->commands, 'migrate');
+        } else {
+            $this->line("No pending migrations found");
+        }
+
         if (!$checkFirstDeployment) {
             array_shift($this->commands);
         }
-        
+
         $commandsToExecute = multiselect('What commands do you want to run?', $this->commands);
 
         foreach ($commandsToExecute as $command) {
@@ -55,5 +64,20 @@ class SetupProduction extends Command
             $this->line('<fg=green;options=bold>Finished</> '. $command);
             $this->newLine();
         }
+    }
+
+    /*
+     * Checks if there are any pending migrations that need to be run.
+     */
+    private function checkPendingMigrations(): int
+    {
+        $migrator = app('migrator');
+
+        $allFiles = $migrator->getMigrationFiles('database/migrations');
+        $ran = $migrator->getRepository()->getRan();
+
+        $pending = array_diff(array_keys($allFiles), $ran);
+
+        return count($pending);
     }
 }
