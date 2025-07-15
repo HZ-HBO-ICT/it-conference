@@ -53,13 +53,14 @@
                                     <a href="{{ route('register.company') }}"
                                        wire:navigate.hover
                                        class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
-                                        Register Now
+                                        Register {{optional($edition)->is_participant_registration_opened ? 'as a company' : 'Now'}}
                                     </a>
-                                @elseif(optional($edition)->is_participant_registration_opened)
+                                @endif
+                                @if(optional($edition)->is_participant_registration_opened)
                                     <a href="{{ route('register.participant') }}"
                                        wire:navigate.hover
                                        class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
-                                        Register Now
+                                        Register {{optional($edition)->is_company_registration_opened ? 'as a participant' : 'Now'}}
                                     </a>
                                 @endif
                             @endguest
