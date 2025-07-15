@@ -86,7 +86,7 @@
         </div>
         <!-- Content -->
         <div class="grow overflow-y-auto bg-gray-100 dark:bg-gray-900">
-            <div class="min-h-screen bg-waitt-dark">
+            <div class="h-full bg-waitt-dark">
                 <div class="pt-5 px-4 md:px-8 mx-auto max-w-7xl">
                     <div
                         class="absolute top-1/2 left-1/10 w-sm h-[24rem] bg-[#31F7F1] rounded-full filter blur-3xl opacity-60 mix-blend-screen z-0"></div>

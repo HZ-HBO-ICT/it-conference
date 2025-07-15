@@ -5,7 +5,7 @@
         </h2>
 
         <x-waitt.button-link href="{{ route('moderator.companies.create') }}">
-            {{ __('Invite a company') }}
+            {{ __('Create a new company') }}
         </x-waitt.button-link>
     </div>
 
