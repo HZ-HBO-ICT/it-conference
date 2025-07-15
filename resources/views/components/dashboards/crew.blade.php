@@ -8,11 +8,6 @@
     use App\Models\Edition;
     use App\Enums\ApprovalStatus;
 @endphp
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@endpush
-
 <div>
     @if(Edition::current())
         <div class="py-8 mx-auto max-w-7xl">
