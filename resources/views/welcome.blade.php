@@ -52,15 +52,15 @@
                                 @if(optional($edition)->is_company_registration_opened)
                                     <a href="{{ route('register.company') }}"
                                        wire:navigate.hover
-                                       class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
-                                        Register {{optional($edition)->is_participant_registration_opened ? 'as a company' : 'Now'}}
+                                       class="px-8 py-4 bg-waitt-cyan hover:bg-waitt-cyan-600 text-primary-dark rounded-xl text-xl font-semibold transition-all duration-150">
+                                        Company registration
                                     </a>
                                 @endif
                                 @if(optional($edition)->is_participant_registration_opened)
                                     <a href="{{ route('register.participant') }}"
                                        wire:navigate.hover
-                                       class="px-8 py-4 bg-waitt-cyan text-primary-dark rounded-xl text-xl font-semibold hover:bg-opacity-90 transition-all">
-                                        Register {{optional($edition)->is_company_registration_opened ? 'as a participant' : 'Now'}}
+                                       class="px-8 py-4 bg-waitt-cyan hover:bg-waitt-cyan-600 text-primary-dark rounded-xl text-xl font-semibold transition-all duration-150">
+                                        Participant registration
                                     </a>
                                 @endif
                             @endguest
