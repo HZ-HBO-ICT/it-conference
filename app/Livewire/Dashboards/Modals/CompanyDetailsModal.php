@@ -7,6 +7,8 @@ use App\Models\Company;
 use App\Traits\FileValidation;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
@@ -54,8 +56,20 @@ class CompanyDetailsModal extends ModalComponent
                 'file.max' => 'The file must not be larger than 10MB',
             ]);
 
-            /** @phpstan-ignore-next-line */
-            $path = $this->photo->store('logos', 'public');
+            // $this->photo is checked so that larastan doesn't complain; at this point it is not null
+            if ($this->photo && $this->photo->getMimeType() === 'image/svg+xml' &&
+                strtolower($this->photo->getClientOriginalExtension()) === 'svg'
+            ) {
+                $cleanSVG = $this->sanitizeSvgFile($this->photo);
+
+                $filename = Str::uuid() . '.svg';
+                $path = "logos/{$filename}";
+                Storage::disk('public')->put($path, $cleanSVG);
+            } else {
+                /** @phpstan-ignore-next-line */
+                $path = $this->photo->store('logos', 'public');
+            }
+
             $this->company->update(['logo_path' => $path]);
             $this->photo = null;
         }
