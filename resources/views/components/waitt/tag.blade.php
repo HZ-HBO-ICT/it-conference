@@ -8,6 +8,7 @@
         'expert' => ['bg' => 'bg-waitt-pink', 'text' => 'text-pink-800'],
         'approved' => ['bg' => 'bg-green-600/60', 'text' => 'text-green-200' ],
         'awaiting approval' => ['bg' => 'bg-yellow-500/60', 'text' => 'text-yellow-200' ],
+        'crew' => ['bg' => 'bg-waitt-cyan-800', 'text' => 'text-cyan-300']
     ];
 
     $lower = strtolower($title);
