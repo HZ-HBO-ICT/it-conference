@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Activitylog\Models\Activity;
 use Tests\TestCase;
 
@@ -31,7 +32,7 @@ class RoomControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function index_displays_rooms_to_crew()
     {
         $user = User::factory()->create();
@@ -44,7 +45,7 @@ class RoomControllerTest extends TestCase
         $response->assertViewHas('rooms');
     }
 
-    /** @test */
+    #[Test]
     public function index_denies_participant_access_to_rooms()
     {
         $user = User::factory()->create();
@@ -56,7 +57,7 @@ class RoomControllerTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function create_displays_view_to_rooms()
     {
         $user = User::factory()->create();
@@ -68,7 +69,7 @@ class RoomControllerTest extends TestCase
         $response->assertViewIs('crew.rooms.create');
     }
 
-    /** @test */
+    #[Test]
     public function create_denies_access_to_participant()
     {
         $user = User::factory()->create();
@@ -79,7 +80,7 @@ class RoomControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function store_saves_and_redirects_to_crew()
     {
         $user = User::factory()->create();
@@ -95,7 +96,7 @@ class RoomControllerTest extends TestCase
         $this->assertDatabaseHas('rooms', $data);
     }
 
-    /** @test */
+    #[Test]
     public function store_denies_action_to_participant()
     {
         $user = User::factory()->create();
@@ -112,7 +113,7 @@ class RoomControllerTest extends TestCase
         $this->assertNull($company->booth);
     }
 
-    /** @test */
+    #[Test]
     public function show_displays_correct_room_to_crew()
     {
         $user = User::factory()->create();
@@ -127,7 +128,7 @@ class RoomControllerTest extends TestCase
         $response->assertViewHas('room', $room);
     }
 
-    /** @test */
+    #[Test]
     public function show_denies_access_to_participant()
     {
         $user = User::factory()->create();
@@ -140,7 +141,7 @@ class RoomControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function destroy_deletes_and_redirects_to_crew()
     {
         $user = User::factory()->create();
@@ -156,7 +157,7 @@ class RoomControllerTest extends TestCase
         $this->assertEquals(Room::count() + 1, $roomCount);
     }
 
-    /** @test */
+    #[Test]
     public function destroy_denies_action_to_participant()
     {
         $user = User::factory()->create();
