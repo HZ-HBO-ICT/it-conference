@@ -25,7 +25,7 @@
                     @if($company->logo_path)
                         <img src="{{ url('storage/' . $company->logo_path) }}"
                              alt="{{ $company->name }}"
-                             class="rounded-lg w-full h-56 object-contain shadow-xl border-4 border-opacity-30" />
+                             class="rounded-lg w-full max-h-56 object-contain shadow-xl" />
                     @else
                         <div class="h-56 w-full bg-waitt-dark rounded flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24">

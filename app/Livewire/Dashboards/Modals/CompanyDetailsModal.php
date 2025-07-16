@@ -47,7 +47,7 @@ class CompanyDetailsModal extends ModalComponent
 
             $this->validate([
                 'photo' => [
-                    'image',
+                    'image:allow_svg',
                     'max:10240',
                 ]
             ], [
@@ -89,7 +89,7 @@ class CompanyDetailsModal extends ModalComponent
 
             $this->validate([
                 'photo' => [
-                    'image',
+                    'image:allow_svg',
                     'max:10240',
                 ]
             ], [
