@@ -39,6 +39,7 @@ class CompanyDetailsModal extends ModalComponent
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      * @throws AuthorizationException
+     * @throws \Exception
      */
     public function save() : void
     {
@@ -60,16 +61,15 @@ class CompanyDetailsModal extends ModalComponent
             if ($this->photo && $this->photo->getMimeType() === 'image/svg+xml' &&
                 strtolower($this->photo->getClientOriginalExtension()) === 'svg'
             ) {
-                $cleanSVG = $this->sanitizeSvgFile($this->photo);
-
-                $filename = Str::uuid() . '.svg';
-                $path = "logos/{$filename}";
-                Storage::disk('public')->put($path, $cleanSVG);
-            } else {
-                /** @phpstan-ignore-next-line */
-                $path = $this->photo->store('logos', 'public');
+                if ($this->hasSuspiciousContent($this->photo)) {
+                    Toaster::error('The file contains content that we cannot store. Please upload another file.');
+                    $this->addError('photo', 'Please upload another file.');
+                    return;
+                }
             }
 
+            /** @phpstan-ignore-next-line */
+            $path = $this->photo->store('logos', 'public');
             $this->company->update(['logo_path' => $path]);
             $this->photo = null;
         }

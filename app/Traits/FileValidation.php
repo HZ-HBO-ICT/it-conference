@@ -30,25 +30,34 @@ trait FileValidation
     }
 
     /**
-     * Create a method that sanitizes svg files when uploaded
+     * Checks if the svg file has a suspicious content
      * @param UploadedFile|TemporaryUploadedFile $file
-     * @return string
+     * @return bool
      * @throws \Exception
      */
-    public function sanitizeSvgFile(UploadedFile|TemporaryUploadedFile $file): string
+    public function hasSuspiciousContent(UploadedFile|TemporaryUploadedFile $file): bool
     {
-        $dirtySVG = file_get_contents($file->getRealPath());
-        if ($dirtySVG === false) {
+        $content = file_get_contents($file->getRealPath());
+        if ($content === false) {
             throw new \Exception('File was unable to be parsed.');
         }
 
-        $sanitizer = new Sanitizer();
-        $cleanSVG = $sanitizer->sanitize($dirtySVG);
+        $content = strtolower($content);
+        $suspiciousPatterns = [
+            '/<script\b[^>]*>/i', //Script tag
+            '/on\w+="[^"]*"/i', //On[] event handler
+            "/on\w+='[^']*'/i",
+            '/xlink:href="javascript:/i', //js in href
+            '/javascript:/i',
+            '/<!\[CDATA\[.*?<\/script>/is'
+        ];
 
-        if ($cleanSVG === false) {
-            throw new \Exception('Invalid or unsafe SVG.');
+        foreach ($suspiciousPatterns as $pattern) {
+            if (preg_match($pattern, $content)) {
+                return true;
+            }
         }
 
-        return $cleanSVG;
+        return false;
     }
 }
