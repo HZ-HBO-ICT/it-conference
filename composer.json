@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": "^8.4",
+        "enshrined/svg-sanitize": "^0.21.0",
         "laravel/framework": "^12.0",
         "laravel/jetstream": "^5.0",
         "laravel/prompts": "^0.3.5",
