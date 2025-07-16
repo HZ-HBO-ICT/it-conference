@@ -23,12 +23,12 @@
                         <h2 class="text-2xl text-white mb-8 max-sm:text-lg">Discover your spark in the digital wave</h2>
                         <div class="relative space-y-2">
                             <div class="text-8xl font-bold max-sm:text-4xl">
-                                <span class="text-waitt-yellow uppercase text-shadow-none sm:waitt-yellow-glow-title">We Are in IT</span>
-                                <span class="text-waitt-yellow uppercase sm:waitt-pink-glow-title sm:text-waitt-pink">Together</span>
+                                <span class="text-waitt-yellow uppercase">We Are in IT</span>
+                                <span class="text-waitt-yellow uppercase sm:text-waitt-pink">Together</span>
                             </div>
                             <div class="text-8xl font-bold max-sm:text-4xl">
-                                <span class="text-waitt-pink uppercase sm:waitt-yellow-glow-title sm:text-waitt-yellow">conference</span>
-                                <span class="text-waitt-pink uppercase sm:waitt-pink-glow-title sm:text-waitt-pink">2025</span>
+                                <span class="text-waitt-pink uppercase sm:text-waitt-yellow">conference</span>
+                                <span class="text-waitt-pink uppercase sm:text-waitt-pink">2025</span>
                             </div>
                             <div class="flex justify-center gap-16 mt-10 max-sm:flex-col max-sm:gap-4 max-sm:mt-6">
                                 @if($goldSponsor)
