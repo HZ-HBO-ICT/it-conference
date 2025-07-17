@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -31,7 +32,7 @@ class CompanyControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_view_companies_index()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -43,7 +44,7 @@ class CompanyControllerTest extends TestCase
         $response->assertViewHas('companies');
     }
 
-    /** @test */
+    #[Test]
     public function participant_cannot_view_companies_index()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -53,7 +54,7 @@ class CompanyControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_access_create_company_form()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -64,7 +65,7 @@ class CompanyControllerTest extends TestCase
         $response->assertViewIs('crew.companies.create');
     }
 
-    /** @test */
+    #[Test]
     public function participant_cannot_access_create_company_form()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -72,9 +73,7 @@ class CompanyControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function event_organizer_can_store_company_with_existing_user()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -98,9 +97,7 @@ class CompanyControllerTest extends TestCase
         $this->assertDatabaseHas('companies', ['name' => $companyData['name']]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function event_organizer_can_store_company_with_new_user()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -124,7 +121,7 @@ class CompanyControllerTest extends TestCase
         $this->assertDatabaseHas('companies', ['name' => $companyData['name']]);
     }
 
-    /** @test */
+    #[Test]
     public function participant_cannot_store_company()
     {
         $companyCount = Company::count();
@@ -148,7 +145,7 @@ class CompanyControllerTest extends TestCase
         $this->assertEquals($companyCount, Company::count());
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_receives_validation_errors_on_invalid_company_data()
     {
         $companyCount = Company::count();
@@ -176,7 +173,7 @@ class CompanyControllerTest extends TestCase
         $this->assertEquals($companyCount, Company::count());
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_view_company_details()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -189,7 +186,7 @@ class CompanyControllerTest extends TestCase
         $response->assertViewHas('company', $company);
     }
 
-    /** @test */
+    #[Test]
     public function participant_cannot_view_company_details()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -200,7 +197,7 @@ class CompanyControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_approve_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -222,7 +219,7 @@ class CompanyControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_reject_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -241,7 +238,7 @@ class CompanyControllerTest extends TestCase
         $this->assertDatabaseMissing('companies', ['name' => $company->name]);
     }
 
-    /** @test */
+    #[Test]
     public function participant_cannot_approve_or_reject_company()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -255,7 +252,7 @@ class CompanyControllerTest extends TestCase
         $this->assertEquals(ApprovalStatus::AWAITING_APPROVAL->value, $company->approval_status);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_delete_company()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -269,7 +266,7 @@ class CompanyControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function participant_cannot_delete_company()
     {
         $user = User::factory()->create()->assignRole('participant');
