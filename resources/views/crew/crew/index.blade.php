@@ -10,11 +10,11 @@
             <x-slot name="content">
                 @foreach ($roles as $role)
                     <div class="py-5">
-                        <h3 class="text-lg font-bold text-gray-300 inline-flex items-center relative">
+                        <h3 class="text-lg font-bold text-gray-100 inline-flex items-center relative">
                             {{ ucfirst($role->name) }}
                             <button
                                 onclick="Livewire.dispatch('openModal', { component: 'crew.role-permissions-info', arguments: {role: {{$role->id}}} })"
-                                class="ml-2 text-gray-400 hover:text-gray-500 relative group">
+                                class="ml-2 text-gray-200 hover:text-gray-300 hover:cursor-pointer relative group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                      fill="currentColor">
                                     <path fill-rule="evenodd"

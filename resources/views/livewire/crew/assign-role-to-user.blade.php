@@ -1,4 +1,4 @@
-<x-livewire-modal form-action="save" wire:key="{{$role->id}}">
+<x-waitt.modal form-action="save" wire:key="{{$role->id}}">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         Assign user as {{ucfirst($role->name)}}
     </x-slot>
@@ -13,7 +13,7 @@
                      value="{{ __('Choose user') }}"></x-label>
             <div>
                 <input
-                    class="w-full border-apricot-peach-300 dark:border-apricot-peach-700 dark:bg-gray-900 dark:text-gray-300 focus:border-apricot-peach-500 dark:focus:border-apricot-peach-600 focus:ring-apricot-peach-500 dark:focus:ring-apricot-peach-600 rounded-md shadow-xs mt-1 block"
+                    class="w-full border-teal-600 bg-gray-900 text-gray-300 focus:border-teal-500 rounded-md shadow-xs mt-1 block"
                     type="text" maxlength="255" wire:focus="toggleDropdown"
                     wire:model.live="searchValue">
                 <div class="{{$isDropdownVisible ? 'block' : 'hidden'}} max-h-48 overflow-auto bg-white">
@@ -55,4 +55,4 @@
             Save
         </button>
     </x-slot>
-</x-livewire-modal>
+</x-waitt.modal>
