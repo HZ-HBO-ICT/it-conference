@@ -9,6 +9,7 @@ use App\Models\Presentation;
 use App\Models\PresentationType;
 use App\Models\User;
 use App\Traits\FileValidation;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -26,6 +27,7 @@ class CreateEditPresentationModal extends ModalComponent
 
     public PresentationForm $form;
     public ?Presentation $presentation = null;
+    public bool $joinAsSpeaker;
     public User $user;
     public TemporaryUploadedFile|null $file = null;
 
@@ -41,11 +43,12 @@ class CreateEditPresentationModal extends ModalComponent
      * @param int|null $presentationId
      * @return void
      */
-    public function mount(User $user, ?int $presentationId) : void
+    public function mount(User $user, ?int $presentationId, bool $joinAsSpeaker = false) : void
     {
         $this->user = $user;
         $this->presentationTypes = optional(Edition::current())->presentationTypes;
         $this->difficulties = Difficulty::all();
+        $this->joinAsSpeaker = $joinAsSpeaker;
 
         if ($presentationId) {
             $this->presentation = Presentation::findOrFail($presentationId);
@@ -152,6 +155,25 @@ class CreateEditPresentationModal extends ModalComponent
 
         $this->file = null;
         $this->closeModal();
+    }
+
+    /**
+     * Handles the joining as co-speaker of a presentation
+     * @return void
+     * @throws AuthorizationException
+     */
+    public function becomeSpeaker() : void
+    {
+        if ($this->presentation) {
+            $this->authorize('joinAsCospeaker', $this->presentation);
+
+            $this->user->joinPresentation($this->presentation, 'speaker');
+            $this->dispatch('updated-dashboard');
+
+            Toaster::success('Joined successfully as co-speaker of ' . $this->presentation->name . '.');
+
+            $this->closeModal();
+        }
     }
 
     /**

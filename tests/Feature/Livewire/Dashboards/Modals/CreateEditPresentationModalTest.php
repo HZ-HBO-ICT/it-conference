@@ -50,7 +50,8 @@ class CreateEditPresentationModalTest extends TestCase
         $user->assignRole('company representative');
         $user->refresh();
 
-        $component = Livewire::test(CreateEditPresentationModal::class, ['userId' => $user->id, 'presentationId' => null]);
+        $component = Livewire::actingAs($user)
+            ->test(CreateEditPresentationModal::class, ['userId' => $user->id, 'presentationId' => null]);
 
         $component->assertSet('presentation', null)
             ->assertSet('file', null)
@@ -67,7 +68,8 @@ class CreateEditPresentationModalTest extends TestCase
         $user->joinPresentation($presentation, 'speaker');
         $user->refresh();
 
-        $component = Livewire::test(CreateEditPresentationModal::class, ['userId' => $user->id, 'presentationId' => $presentation->id]);
+        $component = Livewire::actingAs($user)
+            ->test(CreateEditPresentationModal::class, ['userId' => $user->id, 'presentationId' => $presentation->id]);
 
         $component->assertSet('presentation.id', $presentation->id)
             ->assertSet('file', null)
@@ -102,7 +104,8 @@ class CreateEditPresentationModalTest extends TestCase
         $user->assignRole('company representative');
         $user->refresh();
 
-        Livewire::test(CreateEditPresentationModal::class, ['userId' => $user->id, 'presentationId' => $presentation->id])
+        Livewire::actingAs($user)
+            ->test(CreateEditPresentationModal::class, ['userId' => $user->id, 'presentationId' => $presentation->id])
             ->call('save')
             ->assertForbidden();
     }

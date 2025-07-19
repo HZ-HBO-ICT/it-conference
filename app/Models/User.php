@@ -172,7 +172,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Ticket::class);
     }
-  
+
     /**
      * Establishes the relationship between the user and the feedback given by them
      * @return HasMany
@@ -231,6 +231,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         if ($this->hasRole('pending speaker')) {
             $this->removeRole('pending speaker');
+        }
+
+        if ($this->hasRole('company member')) {
+            $this->removeRole('company member');
         }
 
         return true;
@@ -527,5 +531,15 @@ class User extends Authenticatable implements MustVerifyEmail
             ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
             ->errorCorrection('M')
             ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
+    }
+
+    /**
+     * Determines whether the user can switch between users
+     * Created in order to allow the mod to switch between HZ and crew
+     * @return bool
+     */
+    public function canSwitchViews(): bool
+    {
+        return $this->hasRole('event organizer') && $this->company;
     }
 }

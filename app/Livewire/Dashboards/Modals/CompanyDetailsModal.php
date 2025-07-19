@@ -7,6 +7,8 @@ use App\Models\Company;
 use App\Traits\FileValidation;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
@@ -37,6 +39,7 @@ class CompanyDetailsModal extends ModalComponent
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      * @throws AuthorizationException
+     * @throws \Exception
      */
     public function save() : void
     {
@@ -47,12 +50,23 @@ class CompanyDetailsModal extends ModalComponent
 
             $this->validate([
                 'photo' => [
-                    'image',
+                    'image:allow_svg',
                     'max:10240',
                 ]
             ], [
                 'file.max' => 'The file must not be larger than 10MB',
             ]);
+
+            // $this->photo is checked so that larastan doesn't complain; at this point it is not null
+            if ($this->photo && $this->photo->getMimeType() === 'image/svg+xml' &&
+                strtolower($this->photo->getClientOriginalExtension()) === 'svg'
+            ) {
+                if ($this->hasSuspiciousContent($this->photo)) {
+                    Toaster::error('The file contains content that we cannot store. Please upload another file.');
+                    $this->addError('photo', 'Please upload another file.');
+                    return;
+                }
+            }
 
             /** @phpstan-ignore-next-line */
             $path = $this->photo->store('logos', 'public');
@@ -89,7 +103,7 @@ class CompanyDetailsModal extends ModalComponent
 
             $this->validate([
                 'photo' => [
-                    'image',
+                    'image:allow_svg',
                     'max:10240',
                 ]
             ], [

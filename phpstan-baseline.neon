@@ -869,7 +869,7 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/Listeners/EmailVerifiedListener.php
-			
+
 		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
 			identifier: property.nonObject
@@ -1474,12 +1474,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Forms/BoothForm.php
-
-		-
-			message: '#^Property App\\Livewire\\Forms\\CompanyForm\:\:\$phone_number \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Livewire/Forms/CompanyForm.php
 
 		-
 			message: '#^Cannot access property \$end on object\|null\.$#'
@@ -3586,36 +3580,6 @@ parameters:
 			identifier: property.nonObject
 			count: 1
 			path: app/View/Components/Dashboards/Blocks/Company.php
-
-		-
-			message: '#^Cannot access property \$booth on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
-
-		-
-			message: '#^Cannot access property \$company on App\\Models\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
-
-		-
-			message: '#^Cannot access property \$hasPresentationsLeft on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
-
-		-
-			message: '#^Cannot access property \$presentations on App\\Models\\Company\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
-
-		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: app/View/Components/Dashboards/Blocks/CompanyRoleDecider.php
 
 		-
 			message: '#^Property App\\View\\Components\\Dashboards\\Blocks\\CompanyRoleDecider\:\:\$boothButtons has no type specified\.$#'
