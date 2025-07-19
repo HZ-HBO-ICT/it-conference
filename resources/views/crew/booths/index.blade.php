@@ -1,5 +1,5 @@
 <x-hub-layout>
-    <div class="min-h-screen relative overflow-hidden py-10 px-8 bg-waitt-dark">
+    <div class="min-h-screen relative overflow-hidden py-6 sm:py-8 px-4 sm:px-6 md:px-8 bg-waitt-dark">
         <!-- Decorative Blobs Background -->
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-32 left-[-120px] w-96 h-96 bg-blue-500 opacity-25 rounded-full blur-3xl z-0"></div>
@@ -12,46 +12,58 @@
             <div class="absolute top-40 right-1/3 w-80 h-80 bg-teal-400 opacity-20 rounded-full blur-3xl z-0"></div>
         </div>
         <div class="relative z-10">
-            <div class="flex items-center justify-between mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
                 <div>
-                    <h2 class="text-4xl font-extrabold text-white mb-2">Booths</h2>
-                    <p class="text-lg text-gray-300">Manage company booths and assignments</p>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-2">Booths</h2>
+                    <p class="text-base sm:text-lg text-gray-300">Manage company booths and assignments</p>
                 </div>
-                <a href="{{ route('moderator.booths.create') }}" class="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl text-lg shadow transition flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m8-8H4"/></svg>
+                <a href="{{ route('moderator.booths.create') }}" class="px-4 sm:px-6 py-2 sm:py-3 bg-waitt-pink-500 hover:bg-waitt-pink-600 text-white font-bold rounded-xl text-sm sm:text-lg shadow transition flex items-center gap-2 w-full sm:w-auto justify-center">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m8-8H4"/></svg>
                     Add Booth
                 </a>
             </div>
-            <div class="overflow-x-auto flex-1">
+            <!-- Search Bar -->
+            <div class="mb-4 sm:mb-6">
+                <div class="relative">
+                    <input type="text" 
+                           id="boothSearch" 
+                           placeholder="Search booths..." 
+                           class="w-full px-3 sm:px-4 py-2 sm:py-3 pl-8 sm:pl-10 bg-white/10 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-waitt-pink-500 focus:border-transparent text-sm sm:text-base">
+                    <svg class="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="overflow-x-auto flex-1 responsive-table">
                 <table class="min-w-full overflow-hidden shadow-2xl rounded-2xl bg-white/5 backdrop-blur-md">
                     <thead class="bg-white/10">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Company Name</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Created At</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Actions</th>
+                            <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Company Name</th>
+                            <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider hidden sm:table-cell">Created At</th>
+                            <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Status</th>
+                            <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($booths as $booth)
                             <tr class="hover:bg-white/10 transition cursor-pointer">
-                                <td class="px-6 py-4 whitespace-nowrap text-white font-semibold">{{$booth->company->name}}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-200">{{ $booth->created_at->format('d/m/Y') }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-white font-semibold text-sm sm:text-base">{{$booth->company->name}}</td>
+                                <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-gray-200 text-sm hidden sm:table-cell">{{ $booth->created_at->format('d/m/Y') }}</td>
+                                <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
                                     @if($booth->is_approved)
-                                        <span class="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Approved</span>
+                                        <span class="bg-green-500 text-white px-2 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-semibold">Approved</span>
                                     @else
-                                        <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Pending</span>
+                                        <span class="bg-orange-500 text-white px-2 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-semibold">Pending</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap flex gap-4 items-center">
-                                    <a href="{{ route('moderator.booths.show', $booth) }}" class="text-waitt-yellow hover:text-waitt-yellow" title="View"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></a>
-                                    <a href="{{ route('moderator.booths.edit', $booth) }}" class="text-waitt-yellow hover:text-waitt-yellow" title="Edit"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z"/></svg></a>
+                                <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap flex gap-2 sm:gap-4 items-center">
+                                    <a href="{{ route('moderator.booths.show', $booth) }}" class="text-waitt-yellow hover:text-waitt-yellow" title="View"><svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></a>
+                                    <a href="{{ route('moderator.booths.edit', $booth) }}" class="text-waitt-yellow hover:text-waitt-yellow" title="Edit"><svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11-11a2.828 2.828 0 00-4-4L5 17v4z"/></svg></a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-8 text-center text-gray-300">There are currently no booths.</td>
+                                <td colspan="4" class="px-3 sm:px-6 py-6 sm:py-8 text-center text-gray-300 text-sm sm:text-base">There are currently no booths.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -62,4 +74,25 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('boothSearch');
+            const tableRows = document.querySelectorAll('tbody tr');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                tableRows.forEach(row => {
+                    const companyName = row.querySelector('td:first-child').textContent.toLowerCase();
+                    
+                    if (companyName.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </x-hub-layout>

@@ -5,21 +5,20 @@
 @endphp
 
 @php $user = Auth::user(); @endphp
-<div class="h-full min-h-screen w-64 bg-waitt-dark text-white flex flex-col py-6 px-4 shadow-xl">
-    <div class="mb-8">
+<div class="min-h-screen w-full bg-waitt-dark text-white flex flex-col py-4 px-2 sm:px-3 shadow-xl">
+    <div class="mb-4 sm:mb-6">
         <div class="mb-2">
-            <span class="block text-lg font-semibold text-white">Welcome back,</span>
-            <span class="block text-2xl font-extrabold text-white">{{ $user->name }}</span>
+            <span class="block text-xs sm:text-sm font-medium text-white">Welcome back,</span>
+            <span class="block text-sm sm:text-lg font-bold text-white hidden sm:block">{{ $user->name }}</span>
         </div>
-        <div class="text-gray-300 text-base leading-snug">Manage your team,<br>presentations, and booth — all in one place.</div>
     </div>
-    <div class="mb-8">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-3 mb-2 transition hover:bg-waitt-yellow/10">
-            <svg class="w-6 h-6 text-waitt-yellow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/></svg>
-            <span class="font-bold text-lg">Dashboard</span>
+    <div class="mb-4 sm:mb-6">
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-lg transition-all font-medium text-sm {{ request()->routeIs('dashboard') ? 'bg-waitt-pink-600 text-white shadow-md' : 'text-waitt-pink-400 hover:bg-waitt-pink-500 hover:text-white active:bg-waitt-pink-700' }}">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 {{ request()->routeIs('dashboard') ? 'stroke-white' : 'stroke-current' }}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/></svg>
+            <span class="hidden md:block">Dashboard</span>
         </a>
     </div>
-    <div class="text-xs font-bold text-gray-300 mb-2 pl-2">Event organizer</div>
+    <div class="text-xs font-bold text-gray-300 mb-2 pl-2 hidden md:block">Event organizer</div>
     <ul class="space-y-1">
         <x-sidebar-link-content-mod :label="'Companies'" :route="'moderator.companies.index'" :icon="'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z'" :param="''" :roleColour="Auth::user()->role_colour" :badgeText="\App\Models\Company::hasStatus(ApprovalStatus::AWAITING_APPROVAL)->count()" />
         <x-sidebar-link-content-mod :label="'Presentations'" :route="'moderator.presentations.index'" :icon="'M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6'" :param="''" :roleColour="Auth::user()->role_colour" :badgeText="\App\Models\Presentation::hasStatus(ApprovalStatus::AWAITING_APPROVAL)->count()" />
@@ -34,10 +33,10 @@
         <x-sidebar-link-content-mod :label="'Editions'" :route="'moderator.editions.index'" :icon="'M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z'" :roleColour="Auth::user()->role_colour" :badgeText="Edition::where('state', Edition::STATE_DESIGN)->count()" />
         <x-sidebar-link-content-mod :label="'Received feedback'" :route="'moderator.feedback.index'" :icon="'m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'" :roleColour="Auth::user()->role_colour" />
     </ul>
-    <div class="mt-auto pt-8 border-t border-white/10">
-        <a href="{{ route('profile.show') }}" class="text-gray-400 hover:text-waitt-yellow text-sm flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            Account settings
+    <div class="mt-auto pt-4 sm:pt-6 border-t border-white/10">
+        <a href="{{ route('profile.show') }}" class="text-waitt-pink-400 hover:text-waitt-pink-300 text-xs flex items-center gap-2 px-2 sm:px-3 py-2 rounded-lg transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="hidden md:block">Account settings</span>
         </a>
     </div>
 </div>

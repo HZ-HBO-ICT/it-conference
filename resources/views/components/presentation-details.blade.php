@@ -57,7 +57,7 @@
             @can('update', $presentation)
             <div class="pt-5">
                 <div class="flex justify-end">
-                    <a href="{{route('presentations.edit', $presentation)}}"
+                                            <a href="{{route('moderator.presentations.edit', $presentation)}}"
                             class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Edit
                     </a>

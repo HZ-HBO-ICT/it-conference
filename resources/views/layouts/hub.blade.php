@@ -5,21 +5,103 @@
 @endphp
 
 <x-app-layout>
-    <div class="flex bg-gradient-to-br from-[#2a0845] via-[#6441a5] to-[#1b1b2f] min-h-screen">
+    <div class="flex bg-gradient-to-br from-[#2a0845] via-[#6441a5] to-[#1b1b2f] min-h-screen overflow-hidden">
+        <style>
+            /* Hide all scrollbars globally */
+            * {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            *::-webkit-scrollbar {
+                display: none;
+            }
+            
+            /* Hide scrollbars for specific elements */
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            
+            /* Ensure all borders match dark theme */
+            .border-r, .border-l, .border-t, .border-b {
+                border-color: rgba(255, 255, 255, 0.1) !important;
+            }
+            
+            /* Dark theme borders for specific elements */
+            .dark .border-r, .dark .border-l, .dark .border-t, .dark .border-b {
+                border-color: rgba(75, 85, 99, 0.5) !important;
+            }
+            
+            /* Remove any default browser styling */
+            body, html {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            body::-webkit-scrollbar, html::-webkit-scrollbar {
+                display: none;
+            }
+            
+            /* Additional fixes for any remaining white lines */
+            .overflow-y-auto::-webkit-scrollbar,
+            .overflow-x-auto::-webkit-scrollbar,
+            .overflow-auto::-webkit-scrollbar {
+                display: none;
+            }
+            
+            /* Ensure all focus outlines are dark themed */
+            *:focus {
+                outline: none;
+            }
+            
+            *:focus-visible {
+                outline: 2px solid rgba(255, 255, 255, 0.3);
+                outline-offset: 2px;
+            }
+            
+            @media (max-width: 768px) {
+                .responsive-table {
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
+                }
+                .responsive-table::-webkit-scrollbar {
+                    display: none;
+                }
+                .responsive-table table {
+                    min-width: 600px;
+                }
+                .responsive-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 1rem;
+                }
+            }
+        </style>
         @if(Auth::user()->is_crew)
-            {{-- Moderator sidebar --}}
-            <x-sidemenus.content-moderator />
+            {{-- Responsive sidebar --}}
+            <div class="w-16 sm:w-20 md:w-56 lg:w-64 bg-waitt-dark text-white flex flex-col shadow-xl min-h-screen">
+                <x-sidemenus.content-moderator />
+            </div>
         @else
-            <div class="flex-col lg:w-72 flex inset-y-0 relative bg-white dark:bg-gray-800 min-h-screen">
+            {{-- Responsive sidebar --}}
+            <div class="w-16 sm:w-20 md:w-64 lg:w-72 bg-white dark:bg-gray-800 flex flex-col shadow-xl min-h-screen">
                 <div
-                    class="pb-4 px-6 border-r border-b border-t dark:border-gray-800 overflow-y-auto flex-col grow flex">
+                    class="pb-4 px-6 border-r border-b border-t border-white/10 dark:border-gray-800 overflow-y-auto flex-col grow flex scrollbar-hide">
                     <div class="items-center shrink-0 h-16 flex mt-4">
                         <img class="w-auto h-8" src="{{ url('/img/logo-small-' . Auth::user()->roleColour . '.png') }}"
                              alt="IT Conference logo">
-                        <h3 class="ml-4 font-semibold dark:text-white hidden lg:block">My hub</h3>
+                        <h3 class="ml-4 font-semibold dark:text-white hidden md:block">My hub</h3>
                     </div>
                     <nav class="flex-col flex-1 flex">
-                        <ul class="gap-y-7 flex-col flex-1 flex" role="list">
+                        <ul class="gap-y-2 flex-col flex-1 flex" role="list">
                             <ul class="mt-2 -mx-2" role="list">
                                 {{-- Home link --}}
                                 <x-sidebar-link
@@ -67,7 +149,7 @@
 
                             {{-- Profile links --}}
                             <li>
-                                <div class="leading-6 font-semibold text-xs text-gray-400 hidden lg:block">Profile</div>
+                                <div class="leading-6 font-semibold text-xs text-gray-400 hidden md:block">Profile</div>
                                 <ul class="mt-2 -mx-2 mb-auto" role="list">
                                     @can('create', \App\Models\Feedback::class)
                                         <x-sidebar-link
@@ -98,7 +180,7 @@
             </div>
         @endif
         <!-- Content -->
-        <div class="grow overflow-y-auto bg-gray-100 dark:bg-gray-900">
+        <div class="flex-1 overflow-y-auto bg-waitt-dark px-2 sm:px-4 md:px-6 scrollbar-hide">
             {{ $slot }}
         </div>
     </div>

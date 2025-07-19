@@ -20,76 +20,25 @@
                     <h2 class="text-4xl font-extrabold text-white mb-2">Sponsorships</h2>
                     <p class="text-lg text-gray-300">Manage sponsorship packages and applications</p>
                 </div>
-                <a href="{{ route('moderator.sponsorships.create') }}" class="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-xl text-lg shadow transition flex items-center gap-2">
+                <a href="{{ route('moderator.sponsorships.create') }}" class="px-6 py-3 bg-waitt-pink-500 hover:bg-waitt-pink-600 text-white font-bold rounded-xl text-lg shadow transition flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m8-8H4"/></svg>
                     Add Sponsor
                 </a>
             </div>
-            <!-- Sponsorship Package Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                @php
-                    $gold = \App\Models\Sponsorship::where('name', 'gold')->first();
-                    $silver = \App\Models\Sponsorship::where('name', 'silver')->first();
-                    $bronze = \App\Models\Sponsorship::where('name', 'bronze')->first();
-                @endphp
-                <div class="rounded-2xl p-8 bg-gradient-to-br from-blue-500/30 via-blue-400/20 to-blue-700/30 backdrop-blur-md shadow-lg text-white flex flex-col">
-                    <div class="flex items-center mb-2">
-                        <span class="text-2xl mr-2">⭐</span>
-                        <span class="text-2xl font-bold">Gold Package</span>
-                    </div>
-                    <div class="text-3xl font-extrabold mb-2">$10,000</div>
-                    <div class="mb-4 text-lg">Premium sponsorship tier</div>
-                    <ul class="mb-6 space-y-1 text-base text-white/90">
-                        <li>• Logo on all materials</li>
-                        <li>• Speaking opportunity</li>
-                        <li>• Premium booth location</li>
-                        <li>• VIP networking access</li>
-                    </ul>
-                    <div class="mt-auto">
-                        <span class="block bg-blue-900/40 text-blue-100 font-bold rounded-lg px-4 py-2 text-center">
-                            {{ $gold ? $gold->companies()->where('sponsorship_approval_status', 'approved')->count() : 0 }} Sponsor{{ ($gold && $gold->companies()->where('sponsorship_approval_status', 'approved')->count() == 1) ? '' : 's' }}
-                        </span>
-                    </div>
-                </div>
-                <div class="rounded-2xl p-8 bg-gradient-to-br from-yellow-300/60 via-yellow-200/40 to-yellow-400/70 backdrop-blur-md shadow-lg text-gray-900 flex flex-col">
-                    <div class="flex items-center mb-2">
-                        <span class="text-2xl mr-2">☆</span>
-                        <span class="text-2xl font-bold">Silver Package</span>
-                    </div>
-                    <div class="text-3xl font-extrabold mb-2">$5,000</div>
-                    <div class="mb-4 text-lg">Standard sponsorship tier</div>
-                    <ul class="mb-6 space-y-1 text-base text-gray-900/90">
-                        <li>• Logo on website</li>
-                        <li>• Standard booth</li>
-                        <li>• Networking access</li>
-                        <li>• Marketing materials</li>
-                    </ul>
-                    <div class="mt-auto">
-                        <span class="block bg-yellow-400/60 text-yellow-900 font-bold rounded-lg px-4 py-2 text-center">
-                            {{ $silver ? $silver->companies()->where('sponsorship_approval_status', 'approved')->count() : 0 }} Sponsor{{ ($silver && $silver->companies()->where('sponsorship_approval_status', 'approved')->count() == 1) ? '' : 's' }}
-                        </span>
-                    </div>
-                </div>
-                <div class="rounded-2xl p-8 bg-gradient-to-br from-pink-400/30 via-pink-300/20 to-pink-600/30 backdrop-blur-md shadow-lg text-white flex flex-col">
-                    <div class="flex items-center mb-2">
-                        <span class="text-2xl mr-2">☆</span>
-                        <span class="text-2xl font-bold">Bronze Package</span>
-                    </div>
-                    <div class="text-3xl font-extrabold mb-2">$2,500</div>
-                    <div class="mb-4 text-lg">Basic sponsorship tier</div>
-                    <ul class="mb-6 space-y-1 text-base text-white/90">
-                        <li>• Logo on website</li>
-                        <li>• Small booth space</li>
-                        <li>• Basic networking</li>
-                        <li>• Event materials</li>
-                    </ul>
-                    <div class="mt-auto">
-                        <span class="block bg-pink-900/40 text-pink-100 font-bold rounded-lg px-4 py-2 text-center">
-                            {{ $bronze ? $bronze->companies()->where('sponsorship_approval_status', 'approved')->count() : 0 }} Sponsor{{ ($bronze && $bronze->companies()->where('sponsorship_approval_status', 'approved')->count() == 1) ? '' : 's' }}
-                        </span>
-                    </div>
+            
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <div class="relative">
+                    <input type="text" 
+                           id="sponsorshipSearch" 
+                           placeholder="Search sponsorships..." 
+                           class="w-full px-4 py-3 pl-10 bg-white/10 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-waitt-pink-500 focus:border-transparent">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                 </div>
             </div>
+            
             <!-- Sponsorships Table -->
             <div class="overflow-x-auto flex-1">
                 <table class="min-w-full overflow-hidden shadow-2xl rounded-2xl bg-white/5 backdrop-blur-md">
@@ -149,4 +98,26 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('sponsorshipSearch');
+            const tableRows = document.querySelectorAll('tbody tr');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                tableRows.forEach(row => {
+                    const companyName = row.querySelector('td:first-child').textContent.toLowerCase();
+                    const package = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    
+                    if (companyName.includes(searchTerm) || package.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </x-hub-layout>

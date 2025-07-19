@@ -75,6 +75,7 @@
                         <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Role</th>
                         <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Company</th>
                         <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Ticket Status</th>
                         <th class="px-6 py-4 text-left text-xs font-bold text-gray-200 uppercase tracking-wider">Actions</th>
                     </tr>
                     </thead>
@@ -92,13 +93,28 @@
                                     <span class="bg-orange-700/80 text-orange-200 font-bold rounded-full px-4 py-1 text-sm">Pending</span>
                                 @endif
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @php
+                                    $ticketStatus = $user->ticket_status;
+                                    $colorClass = match($ticketStatus['color']) {
+                                        'green' => 'bg-green-500/80 text-green-100',
+                                        'yellow' => 'bg-yellow-500/80 text-yellow-100',
+                                        'red' => 'bg-red-500/80 text-red-100',
+                                        'sky' => 'bg-sky-500/80 text-sky-100',
+                                        default => 'bg-gray-500/80 text-gray-100',
+                                    };
+                                @endphp
+                                <span class="px-4 py-1 rounded-full text-sm font-semibold {{ $colorClass }}">
+                                    {{ $ticketStatus['status'] }}
+                                </span>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap flex gap-4 items-center">
                                 <a href="mailto:{{$user->email}}" class="text-blue-300 hover:text-blue-400" title="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-8 text-center text-gray-300">No users found.</td>
+                            <td colspan="7" class="px-6 py-8 text-center text-gray-300">No users found.</td>
                         </tr>
                     @endforelse
                     </tbody>
