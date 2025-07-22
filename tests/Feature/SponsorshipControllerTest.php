@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Activitylog\Contracts\Activity;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -31,7 +32,7 @@ class SponsorshipControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_view_sponsorships_index()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -43,7 +44,7 @@ class SponsorshipControllerTest extends TestCase
         $response->assertViewHas('companies');
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_view_sponsorships_index_without_permission()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -53,7 +54,7 @@ class SponsorshipControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_access_create_sponsorship_form()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -66,7 +67,7 @@ class SponsorshipControllerTest extends TestCase
         $response->assertViewHas('tiers');
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_access_create_sponsorship_form_without_permission()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -76,7 +77,7 @@ class SponsorshipControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_store_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -97,7 +98,7 @@ class SponsorshipControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_view_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -110,7 +111,7 @@ class SponsorshipControllerTest extends TestCase
         $response->assertViewHas('company', $company);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_show_nonexistent_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -120,7 +121,7 @@ class SponsorshipControllerTest extends TestCase
         $response->assertStatus(404);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_approve_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -136,7 +137,7 @@ class SponsorshipControllerTest extends TestCase
         $this->assertEquals(ApprovalStatus::APPROVED->value, $company->refresh()->sponsorship_approval_status);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_reject_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -152,7 +153,7 @@ class SponsorshipControllerTest extends TestCase
         $this->assertEquals(ApprovalStatus::NOT_REQUESTED->value, $company->refresh()->sponsorship_approval_status);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_approve_or_reject_sponsorship_without_permission()
     {
         $user = User::factory()->create()->assignRole('participant');
@@ -165,7 +166,7 @@ class SponsorshipControllerTest extends TestCase
         $this->assertDatabaseHas('companies', ['id' => $company->id]);
     }
 
-    /** @test */
+    #[Test]
     public function event_organizer_can_delete_sponsorship()
     {
         $user = User::factory()->create()->assignRole('event organizer');
@@ -177,7 +178,7 @@ class SponsorshipControllerTest extends TestCase
         $this->assertNull($company->refresh()->sponsorship_id);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_delete_sponsorship_without_permission()
     {
         $user = User::factory()->create()->assignRole('participant');

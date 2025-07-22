@@ -12,6 +12,7 @@ use Database\Seeders\PermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -34,7 +35,7 @@ class BoothControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function index_displays_booths_to_crew()
     {
         $user = User::factory()->create();
@@ -47,7 +48,7 @@ class BoothControllerTest extends TestCase
         $response->assertViewHas('booths');
     }
 
-    /** @test */
+    #[Test]
     public function index_denies_participant_access_to_booths()
     {
         $user = User::factory()->create();
@@ -59,7 +60,7 @@ class BoothControllerTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function create_displays_view_to_crew()
     {
         $user = User::factory()->create();
@@ -71,7 +72,7 @@ class BoothControllerTest extends TestCase
         $response->assertViewIs('crew.booths.create');
     }
 
-    /** @test */
+    #[Test]
     public function create_denies_access_to_participant()
     {
         $user = User::factory()->create();
@@ -119,7 +120,7 @@ class BoothControllerTest extends TestCase
             $this->assertNull($company->booth);
         }*/
 
-    /** @test */
+    #[Test]
     public function show_displays_correct_booth_to_crew()
     {
         $user = User::factory()->create();
@@ -133,7 +134,7 @@ class BoothControllerTest extends TestCase
         $response->assertViewHas('booth', $company->booth);
     }
 
-    /** @test */
+    #[Test]
     public function show_denies_access_to_participant()
     {
         $user = User::factory()->create();
@@ -145,7 +146,7 @@ class BoothControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function approve_updates_booth_and_redirects_to_crew()
     {
         $user = User::factory()->create();
@@ -168,7 +169,7 @@ class BoothControllerTest extends TestCase
         $this->assertEquals(1, $company->booth->is_approved);
     }
 
-    /** @test */
+    #[Test]
     public function approve_denies_action_to_participant()
     {
         $user = User::factory()->create();
@@ -185,7 +186,7 @@ class BoothControllerTest extends TestCase
         $this->assertEquals(0, $company->booth->is_approved);
     }
 
-    /** @test */
+    #[Test]
     public function destroy_deletes_and_redirects_to_crew()
     {
         $user = User::factory()->create();
@@ -199,7 +200,7 @@ class BoothControllerTest extends TestCase
         $this->assertEquals(Booth::count() + 1, $boothCount);
     }
 
-    /** @test */
+    #[Test]
     public function destroy_denies_action_to_participant()
     {
         $user = User::factory()->create();
