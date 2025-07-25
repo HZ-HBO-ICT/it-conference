@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class RoomController extends Controller
 {
@@ -19,7 +20,7 @@ class RoomController extends Controller
      */
     public function index(): View
     {
-        if (Auth::user()->cannot('viewAny', Room::class)) {
+        if (!Gate::allows('viewAny', Room::class)) {
             abort(403);
         }
 
@@ -34,7 +35,7 @@ class RoomController extends Controller
      */
     public function create(): View
     {
-        if (Auth::user()->cannot('create', Room::class)) {
+        if (!Gate::allows('create', Room::class)) {
             abort(403);
         }
 
@@ -49,7 +50,7 @@ class RoomController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        if (Auth::user()->cannot('create', Room::class)) {
+        if (!Gate::allows('create', Room::class)) {
             abort(403);
         }
 
@@ -66,11 +67,47 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        if (Auth::user()->cannot('view', Room::class)) {
+        if (!Gate::allows('view', Room::class)) {
             abort(403);
         }
 
         return view('crew.rooms.show', compact('room'));
+    }
+
+    /**
+     * Show the form for editing the specified room
+     *
+     * @param Room $room
+     * @return View
+     */
+    public function edit(Room $room): View
+    {
+        if (!Gate::allows('update', $room)) {
+            abort(403);
+        }
+
+        return view('crew.rooms.edit', compact('room'));
+    }
+
+    /**
+     * Update the specified room in the database
+     *
+     * @param Request $request
+     * @param Room $room
+     * @return RedirectResponse
+     */
+    public function update(Request $request, Room $room): RedirectResponse
+    {
+        if (!Gate::allows('update', $room)) {
+            abort(403);
+        }
+
+        $room->update($request->validate([
+            'name' => 'required|string|max:255|unique:rooms,name,' . $room->id,
+            'max_participants' => 'required|numeric|min:1|max:999'
+        ]));
+
+        return redirect(route('moderator.rooms.index'))->banner('Room updated successfully!');
     }
 
     /**
@@ -81,7 +118,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
-        if (Auth::user()->cannot('delete', $room)) {
+        if (!Gate::allows('delete', $room)) {
             abort(403);
         }
 
