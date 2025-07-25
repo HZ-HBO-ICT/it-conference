@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class RoomController extends Controller
 {
@@ -19,8 +20,7 @@ class RoomController extends Controller
      */
     public function index(): View
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('viewAny', Room::class)) {
+        if (!Gate::allows('viewAny', Room::class)) {
             abort(403);
         }
 
@@ -35,8 +35,7 @@ class RoomController extends Controller
      */
     public function create(): View
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('create', Room::class)) {
+        if (!Gate::allows('create', Room::class)) {
             abort(403);
         }
 
@@ -51,8 +50,7 @@ class RoomController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('create', Room::class)) {
+        if (!Gate::allows('create', Room::class)) {
             abort(403);
         }
 
@@ -69,8 +67,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('view', Room::class)) {
+        if (!Gate::allows('view', Room::class)) {
             abort(403);
         }
 
@@ -85,8 +82,7 @@ class RoomController extends Controller
      */
     public function edit(Room $room): View
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('update', $room)) {
+        if (!Gate::allows('update', $room)) {
             abort(403);
         }
 
@@ -102,8 +98,7 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room): RedirectResponse
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('update', $room)) {
+        if (!Gate::allows('update', $room)) {
             abort(403);
         }
 
@@ -123,8 +118,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
-        $user = Auth::user();
-        if ($user && $user->cannot('delete', $room)) {
+        if (!Gate::allows('delete', $room)) {
             abort(403);
         }
 
