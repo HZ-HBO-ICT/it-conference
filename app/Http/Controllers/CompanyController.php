@@ -20,8 +20,7 @@ class CompanyController extends Controller
         $numberOfApprovedCompanies = $companies->count();
 
         $grouped = $companies->groupBy(function ($company) {
-            if (
-                $company->approval_status == ApprovalStatus::APPROVED->value &&
+            if ($company->approval_status == ApprovalStatus::APPROVED->value &&
                 $company->is_sponsorship_approved &&
                 $company->sponsorship_id
             ) {

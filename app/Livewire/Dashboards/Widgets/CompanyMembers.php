@@ -56,7 +56,7 @@ class CompanyMembers extends Component
         $users = User::select('id', 'name', 'created_at')->where('company_id', $this->company->id);
         $invitations = Invitation::select('id', 'email', 'created_at')->where('company_id', $this->company->id);
 
-        /** @phpstan-ignore-next-line */
+        // @phpstan-ignore-next-line
         $members = $users->unionAll($invitations)->orderBy('created_at')->paginate(3);
 
         return view('livewire.dashboards.widgets.company-members', [
