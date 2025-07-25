@@ -19,7 +19,8 @@ class RoomController extends Controller
      */
     public function index(): View
     {
-        if (Auth::user()->cannot('viewAny', Room::class)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('viewAny', Room::class)) {
             abort(403);
         }
 
@@ -34,7 +35,8 @@ class RoomController extends Controller
      */
     public function create(): View
     {
-        if (Auth::user()->cannot('create', Room::class)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('create', Room::class)) {
             abort(403);
         }
 
@@ -49,7 +51,8 @@ class RoomController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        if (Auth::user()->cannot('create', Room::class)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('create', Room::class)) {
             abort(403);
         }
 
@@ -66,7 +69,8 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        if (Auth::user()->cannot('view', Room::class)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('view', Room::class)) {
             abort(403);
         }
 
@@ -81,7 +85,8 @@ class RoomController extends Controller
      */
     public function edit(Room $room): View
     {
-        if (Auth::user()->cannot('update', $room)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('update', $room)) {
             abort(403);
         }
 
@@ -97,7 +102,8 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room): RedirectResponse
     {
-        if (Auth::user()->cannot('update', $room)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('update', $room)) {
             abort(403);
         }
 
@@ -117,7 +123,8 @@ class RoomController extends Controller
      */
     public function destroy(Room $room): RedirectResponse // TODO: Refactor the FK constraints in the db
     {
-        if (Auth::user()->cannot('delete', $room)) {
+        $user = Auth::user();
+        if ($user && $user->cannot('delete', $room)) {
             abort(403);
         }
 
