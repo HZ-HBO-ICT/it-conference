@@ -74,6 +74,42 @@ class RoomController extends Controller
     }
 
     /**
+     * Show the form for editing the specified room
+     *
+     * @param Room $room
+     * @return View
+     */
+    public function edit(Room $room): View
+    {
+        if (Auth::user()->cannot('update', $room)) {
+            abort(403);
+        }
+
+        return view('crew.rooms.edit', compact('room'));
+    }
+
+    /**
+     * Update the specified room in the database
+     *
+     * @param Request $request
+     * @param Room $room
+     * @return RedirectResponse
+     */
+    public function update(Request $request, Room $room): RedirectResponse
+    {
+        if (Auth::user()->cannot('update', $room)) {
+            abort(403);
+        }
+
+        $room->update($request->validate([
+            'name' => 'required|string|max:255|unique:rooms,name,' . $room->id,
+            'max_participants' => 'required|numeric|min:1|max:999'
+        ]));
+
+        return redirect(route('moderator.rooms.index'))->banner('Room updated successfully!');
+    }
+
+    /**
      * Delete the specified room from db
      *
      * @param Room $room

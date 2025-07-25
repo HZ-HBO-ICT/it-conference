@@ -26,7 +26,7 @@
     @else
         <x-hub-layout>
             <div>
-                <div class="py-8 px-8 mx-auto max-w-7xl">
+                <div class="py-4 sm:py-6 md:py-8 px-2 sm:px-4 md:px-8 mx-auto max-w-7xl">
                     <div>
                         <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
                         <x-dashboards.crew/>
@@ -56,7 +56,7 @@
 @elseif($user->is_crew)
     <x-hub-layout>
         <div>
-            <div class="py-8 px-8 mx-auto max-w-7xl">
+            <div class="py-4 sm:py-6 md:py-8 px-2 sm:px-4 md:px-8 mx-auto max-w-7xl">
                 <div>
                     <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
                     <x-dashboards.crew/>
@@ -67,10 +67,10 @@
 @else
     <x-hub-layout>
         <div>
-            <div class="py-8 px-8 mx-auto max-w-7xl">
+            <div class="py-4 sm:py-6 md:py-8 px-2 sm:px-4 md:px-8 mx-auto max-w-7xl">
                 <div>
                     <h3 class="leading-6 font-semibold text-xl dark:text-white">Dashboard</h3>
-                    <div class="px-6">
+                    <div class="px-2 sm:px-4 md:px-6">
                         <x-dashboards.blocks.participant-notification>
                             <h4 class="text-lg font-semibold mb-2">New! 🌟 Submit Your Feedback</h4>
                             <p>We are eager to hear from you! Run into any issues, have ideas, or just want to tell
