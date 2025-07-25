@@ -5,7 +5,6 @@
         3 => ['label' => 'Bronze sponsors', 'badge' => 'Bronze', 'color' => 'bg-amber-900 text-amber-100', 'border' => 'border-amber-900'],
         0 => ['label' => 'Other companies', 'badge' => '', 'color' => 'bg-cyan-900 text-cyan-100', 'border' => 'border-cyan-900'],
     ];
-    $grouped = $companies->groupBy('sponsorship_id');
 @endphp
 
 <x-app-layout>
@@ -58,8 +57,8 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             @foreach($companyGroup as $company)
                                 <a href="{{ route('companies.show', $company) }}" class="block h-full transition-transform">
-                                    <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship ? 'border-' . $company->sponsorship->name : 'border-slate-950' }}"
-                                         style="--shine-color: {{$company->sponsorship ? $company->sponsorship->shine() : ''}}">
+                                    <div class="border shine-effect rounded-xl p-8 bg-waitt-dark/70 backdrop-blur-sm transition-colors h-full flex flex-col {{ $company->sponsorship && $company->is_sponsorship_approved ? 'border-' . $company->sponsorship->name : 'border-slate-950' }}"
+                                         style="--shine-color: {{$company->sponsorship && $company->is_sponsorship_approved ? $company->sponsorship->shine() : ''}}">
                                         <div class="w-full flex justify-center mb-6">
                                             @if($company->logo_path)
                                                 <img src="{{ url('storage/' . $company->logo_path) }}" alt="Logo of {{ $company->name }}" class="h-28 w-3/4 bg-waitt-dark object-contain rounded p-2 shadow max-sm:h-20 max-sm:w-4/5" />
@@ -88,7 +87,7 @@
                 @endforeach
             </div>
 
-            @if($companies->where('is_approved')->count() === 0)
+            @if($numberOfApprovedCompanies === 0)
                 <div class="bg-[#101426] rounded-xl py-8 mt-12">
                     <p class="text-center text-2xl font-bold text-white max-sm:text-lg">
                         There are no companies available right now.

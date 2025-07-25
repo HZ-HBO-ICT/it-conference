@@ -16,14 +16,22 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = Company::hasStatus(ApprovalStatus::APPROVED)->get()->sortBy(function ($company) {
-            if ($company->approval_status == ApprovalStatus::APPROVED->value && $company->is_sponsorship_approved) {
+        $companies = Company::hasStatus(ApprovalStatus::APPROVED)->get();
+        $numberOfApprovedCompanies = $companies->count();
+
+        $grouped = $companies->groupBy(function ($company) {
+            if (
+                $company->approval_status == ApprovalStatus::APPROVED->value &&
+                $company->is_sponsorship_approved &&
+                $company->sponsorship_id
+            ) {
                 return $company->sponsorship_id;
             }
-            return 999; // Assign a high value to non-sponsored speakers
-        });
 
-        return view('teams.public.index', compact('companies'));
+            return 999;
+        })->sortKeys();
+
+        return view('teams.public.index', compact('grouped', 'numberOfApprovedCompanies'));
     }
 
     /**
