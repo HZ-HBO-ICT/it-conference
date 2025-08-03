@@ -11,12 +11,12 @@ class ReadPermissionConfig
     /**
      * Reads the roles and permissions from the yml file
      * Originally in the SyncPermissions command but moved to be reused
-     * @param string $path
      * @return array|null
      */
-    public function execute(string $path): array|null
+    public function execute(): array|null
     {
-        $config = Yaml::parseFile($path);
+        $configFilePath = config_path('permissions/permissions.yml');
+        $config = Yaml::parseFile($configFilePath);
         // Validate if roles and permissions sections are present
         if (!isset($config['roles'])) {
             throw new Exception('Error: there are no roles specified!');
