@@ -30,7 +30,7 @@
                                 <div class="text-sm items-center flex ml-2 dark:text-white">
                                     <svg
                                         class="shrink-0 w-6 h-6 mr-1.5 block stroke-crew-400 {{ !$user->email_verified_at ? 'stroke-crew-900 dark:stroke-crew-900 hover:stroke-crew-500' : '' }}"
-                                        xlmns="http://www.w3.org/2000/svg" viewbox="0 0 23 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" fill="none"
                                         aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                               d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
