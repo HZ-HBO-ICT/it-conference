@@ -27,7 +27,7 @@ class HandleFinalProgrammeReleased
     {
         $current = Edition::current();
 
-        if($current) {
+        if ($current) {
             $current->state = Edition::STATE_ENROLLMENT;
             $current->save();
 
