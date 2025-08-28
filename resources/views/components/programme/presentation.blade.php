@@ -7,16 +7,16 @@
     >
         <div class="flex h-full w-full overflow-hidden">
             <div class="flex flex-col text-center items-center justify-center w-full px-2">
-            <span class="text-sm font-semibold">
-                {{ $presentation->displayName(50, false)  }}
-            </span>
+                <span class="text-sm font-semibold">
+                    {{ $presentation->displayName(50, false)  }}
+                </span>
                 <span class="text-xs">
-                {{
-                    Carbon::parse($presentation->start)->format('H:i')
-                    . '-'
-                    . Carbon::parse($presentation->start)->addMinutes($presentation->duration)->format('H:i')
-                }}
-            </span>
+                    {{
+                        Carbon::parse($presentation->start)->format('H:i')
+                        . '-'
+                        . Carbon::parse($presentation->start)->addMinutes($presentation->duration)->format('H:i')
+                    }}
+                </span>
             </div>
         </div>
     </div>

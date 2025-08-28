@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ApprovalStatus;
 use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\Room;
-use App\Models\Timeslot;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -36,9 +33,9 @@ class ProgrammeController extends Controller
         $presentations->push(DefaultPresentation::closing());
         $presentations = $presentations->sortBy('start');
 
-        $rooms = Room::all();
-        $opening = Carbon::parse(\App\Models\DefaultPresentation::opening()->start);
-        $closing = Carbon::parse(\App\Models\DefaultPresentation::closing()->end)->subMinutes(30);
+        $rooms = Room::whereHas('presentations')->get();
+        $opening = Carbon::parse(DefaultPresentation::opening()->start);
+        $closing = Carbon::parse(DefaultPresentation::closing()->end)->subMinutes(30);
         $timeslots = collect(CarbonPeriod::create($opening, '30 minutes', $closing));
 
         $height = 30 * (14 / 30) * 0.25;

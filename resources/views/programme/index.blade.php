@@ -19,13 +19,14 @@
         </div>
 
         <div class="relative max-w-7xl mx-auto px-4">
-            <h1 class="text-6xl font-extrabold text-left mb-12 uppercase tracking-wide text-waitt-yellow">
+            <h1 class="text-6xl font-extrabold text-left mb-4 uppercase tracking-wide mb-10 text-waitt-yellow max-sm:text-4xl max-sm:text-center">
                 Programme
             </h1>
-            <div>
-                <div class="flex w-full shadow-lg overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-waitt-cyan-500 scrollbar-track-rounded-full scrollbar-track-slate-950">
+            <div class="hidden md:block">
+                <div
+                    class="flex w-full shadow-lg overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-waitt-cyan-500 scrollbar-track-rounded-full scrollbar-track-slate-950">
                     <table
-                        class="h-max min-w-max bg-waitt-dark/70 backdrop-blur-sm rounded-4xl border  border-slate-900 ">
+                        class="h-max min-w-max bg-waitt-dark/70 backdrop-blur-sm rounded-4xl border border-slate-900 ">
                         <thead class="bg-waitt-dark border-b border-b-waitt-cyan-400/80">
                         <tr>
                             <th class="w-18 p-4 text-center text-white rounded-tl-lg border-gray-300 dark:border-gray-900">
@@ -66,6 +67,33 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="block md:hidden space-y-6">
+                @foreach($rooms as $room)
+                    <div>
+                        <h2 class="text-xl font-bold text-waitt-cyan-400 mb-3">
+                            {{ $room->name  }}
+                        </h2>
+                        <div class="space-y-4">
+                            @foreach($room->presentations->sortBy('start') as $presentation)
+                                <div class="bg-waitt-dark/70 rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}}">
+                                    <div class="flex flex-col text-center items-center justify-center w-full px-2">
+                                        <span class="text-sm font-semibold {{"text-{$presentation->presentationType->colour}-300"}}">
+                                            {{ $presentation->displayName(50, false)  }}
+                                        </span>
+                                        <span class="text-xs text-white">
+                                            {{
+                                                Carbon::parse($presentation->start)->format('H:i')
+                                                . '-'
+                                                . Carbon::parse($presentation->start)->addMinutes($presentation->duration)->format('H:i')
+                                            }}
+                                        </span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

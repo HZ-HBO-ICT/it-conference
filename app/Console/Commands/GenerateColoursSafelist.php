@@ -38,6 +38,7 @@ class GenerateColoursSafelist extends Command
         foreach ($colors as $color) {
             $safelist[] = "bg-{$color}-200";
             $safelist[] = "bg-{$color}-300";
+            $safelist[] = "border-{$color}-300";
             $safelist[] = "bg-{$color}-400/50";
             $safelist[] = "text-{$color}-300";
         }
