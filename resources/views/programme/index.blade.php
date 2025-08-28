@@ -12,133 +12,47 @@
         <h2 class="text-center text-waitt-yellow text-5xl font-extrabold py-12">
             Programme
         </h2>
-        <div
-            class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 my-5">
-            <div class="m-5 mt-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
-                    <!-- Start of the opening -->
-                    <div class="sm:col-span-2">
-                        <table class="table-auto w-full text-gray-900 dark:text-gray-200">
-                            <tbody>
-                            <tr>
-                                <td class="text-left text-md text-waitt-yellow font-bold align-top">
-                                    {{Carbon::parse(DefaultPresentation::opening()->start)->format('H:i')}}
-                                    - {{Carbon::parse(DefaultPresentation::opening()->end)->format('H:i')}}
-                                </td>
-                                <td class="pl-4 w-11/12">
-                                    <div
-                                        class="w-full rounded overflow-hidden hover:transition-all hover:duration-300 hover:ease-in-out bg-{{ $roleColour }}-400 hover:bg-linear-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600
-                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-linear-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
-                                        <div class="px-3 py-1">
-                                            <div
-                                                class="font-bold text-white text-md">{{DefaultPresentation::opening()->name}}</div>
-                                            <p class="text-gray-100 text-sm">
-                                                {{DefaultPresentation::opening()->description}}
-                                            </p>
-                                        </div>
-                                        <div class="px-2 pb-2">
-                                        <span
-                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
-                                            {{DefaultPresentation::opening()->room->name}}
-                                        </span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- End of the opening -->
-                    <div>
-                        <h3 class="tracking-tight leading-10 font-bold text-center text-xl dark:text-white">
-                            Lectures</h3>
-                        <table class="table-auto w-full text-gray-900 dark:text-gray-200">
-                            <tbody>
-                            @foreach($lectureTimeslots as $timeslot)
-                                <tr>
-                                    <td class="text-left text-md text-gray-900 dark:text-white align-top">
-                                        {{Carbon::parse($timeslot['start'])->format('H:i')}}
-                                        - {{(Carbon::parse($timeslot['start'])->addMinutes(Edition::current()->lecture_duration))->format('H:i')}}
-                                    </td>
-                                    <td class="pb-5">
-                                        @foreach($lectures as $lecture)
-                                            @if($lecture->start == $timeslot['start'])
-                                                <div class="pb-3">
-                                                    <a href="{{route('programme.presentation.show', $lecture)}}">
-                                                        <x-schedule-block :presentation="$lecture" :colorName="$roleColour"/>
-                                                    </a>
-                                                </div>
-                                            @endif
+        <div class="flex overflow-x-auto w-full py-2.5 shadow-lg overflow-x-auto overflow-y-hidden">
+            <table class="h-max min-w-max bg-white rounded-sm">
+                <thead class="bg-crew-300">
+                <tr>
+                    <th class="w-32 p-4 text-center text-white border-r rounded-tl-lg border-gray-300 dark:border-gray-900">
+                        Time Slot
+                    </th>
+                    @foreach ($rooms as $room)
+                        <th class="w-64 p-4 text-center text-white border-r border-gray-300 dark:border-gray-900m">{{$room->name}}</th>
+                    @endforeach
+                </tr>
+                </thead>
+                <tbody id="grid-body">
+                @foreach($presentationsBySlot as $key => $presentations)
+                    @php
+                        $isEven = $loop->index % 2 == 0;
+                    @endphp
+                    <tr class=" {{$isEven ? "border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-gray-100" : "dark:border-gray-700 dark:bg-gray-700"}} text-gray-700 dark:text-gray-100 h-max hover:bg-gray-50">
+                        <td class="{{$isEven ? 'text-gray-400' : 'text-gray-600' }} h-max text-center border-r border-gray-300 dark:border-gray-900">{{Carbon::parse($key)->format('H:i')}}</td>
+                        @foreach ($rooms as $room)
+                            <td class="text-left border-r h-max border-gray-300 dark:border-gray-900 relative overflow-visible">
+                                <div class="flex-none h-full w-full"
+                                     style="height: {{ $height }}rem">
+                                    <div class="flex flex-col">
+                                        @foreach($presentations as $presentation)
+                                            <div>
+                                                @if($presentation->timeslot_id && $presentation->room_id == $room->id)
+                                                   <x-programme.presentation :presentation="$presentation"/>
+                                                @elseif($presentation->room_id == $room->id)
+                                                    <x-programme.default-presentation :presentation="$presentation"/>
+                                                @endif
+                                            </div>
                                         @endforeach
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <h3 class="tracking-tight leading-10 font-bold text-center text-xl dark:text-white">
-                            Workshops</h3>
-                        <table class="table-auto w-full text-gray-900 dark:text-gray-200">
-                            <tbody>
-                            @foreach($workshopTimeslots as $timeslot)
-                                <tr>
-                                    <td class="text-left text-gray-900 dark:text-white align-top">
-                                        {{Carbon::parse($timeslot['start'])->format('H:i')}}
-                                        - {{(Carbon::parse($timeslot['start'])->addMinutes(Edition::current()->workshop_duration))->format('H:i')}}
-                                    </td>
-                                    <td class="pb-5">
-                                        @foreach($workshops as $workshop)
-                                            @if($workshop->start == $timeslot['start'])
-                                                <div class="pb-3">
-                                                    <a href="{{route('programme.presentation.show', $workshop)}}">
-                                                        <x-schedule-block :presentation="$workshop"
-                                                                          :colorName="$roleColour"/>
-                                                    </a>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Start of the closing -->
-                    <div class="sm:col-span-2">
-                        <table class="table-auto w-full text-gray-900 dark:text-gray-200">
-                            <tbody>
-                            <tr>
-                                <td class="text-left text-md text-gray-900 dark:text-white align-top">
-                                    {{Carbon::parse(DefaultPresentation::closing()->start)->format('H:i')}}
-                                    - {{Carbon::parse(DefaultPresentation::closing()->end)->format('H:i')}}
-                                </td>
-                                <td class="pl-4 w-11/12">
-                                    <div
-                                        class="w-full rounded overflow-hidden bg-{{ $roleColour }}-400 hover:bg-linear-to-r hover:from-{{ $roleColour }}-400 hover:to-{{ $roleColour }}-600 hover:transition-all hover:duration-300 hover:ease-in-out
-                                        dark:bg-{{ $roleColour }}-500 dark:hover:bg-linear-to-r dark:hover:from-{{ $roleColour }}-500 dark:hover:to-{{ $roleColour }}-800 dark:hover:transition-all dark:hover:duration-300 dark:hover:ease-in-out">
-                                        <div class="px-3 py-1">
-                                            <div
-                                                class="font-bold text-white text-md">{{DefaultPresentation::closing()->name}}</div>
-                                            <p class="text-gray-100 text-sm">
-                                                {{DefaultPresentation::closing()->description}}
-                                            </p>
-                                        </div>
-                                        <div class="px-2 pb-2">
-                                        <span
-                                            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
-                                            {{DefaultPresentation::closing()->room->name}}
-                                        </span>
-                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- End of the closing -->
-                </div>
-            </div>
+                                </div>
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </x-app-layout>

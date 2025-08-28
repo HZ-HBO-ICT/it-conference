@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ApprovalStatus;
+use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\Presentation;
+use App\Models\Room;
+use App\Models\Timeslot;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -21,27 +27,36 @@ class ProgrammeController extends Controller
             abort(404);
         }
 
-        // TODO: Once we create the new programme page this hardcoding needs to be removed
-        $workshops = Presentation::where('presentation_type_id', '1')
-            ->whereNotNull('room_id')
-            ->whereNotNull('timeslot_id')
-            ->orderBy('start')
-            ->get();
+        $presentations = Presentation::all()
+            ->where(function ($presentation) {
+                return $presentation->isScheduled;
+            });
 
-        $lectures = Presentation::where('presentation_type_id', '2')
-            ->whereNotNull('room_id')
-            ->whereNotNull('timeslot_id')
-            ->orderBy('start')
-            ->get();
+        $presentations->push(DefaultPresentation::opening());
+        $presentations->push(DefaultPresentation::closing());
+        $presentations = $presentations->sortBy('start');
 
-        $lectureTimeslots = $lectures->map->only('start')->unique();
-        $workshopTimeslots = $workshops->map->only('start')->unique();
+        $rooms = Room::all();
+        $opening = Carbon::parse(\App\Models\DefaultPresentation::opening()->start);
+        $closing = Carbon::parse(\App\Models\DefaultPresentation::closing()->end)->subMinutes(30);
+        $timeslots = collect(CarbonPeriod::create($opening, '30 minutes', $closing));
+
+        $height = 30 * (14 / 30) * 0.25;
+
+        $presentationsBySlot = $timeslots->mapWithKeys(function ($slot) use ($presentations) {
+            $group = $presentations->filter(function ($p) use ($slot) {
+                return Carbon::parse($p->start) >= $slot && Carbon::parse($p->start) < $slot->copy()->addMinutes(30);
+            });
+
+            return [$slot->format('H:i:s') => $group];
+        });
 
         return view('programme.index', compact(
-            'lectures',
-            'workshops',
-            'lectureTimeslots',
-            'workshopTimeslots'
+            'presentations',
+            'rooms',
+            'timeslots',
+            'height',
+            'presentationsBySlot'
         ));
     }
 

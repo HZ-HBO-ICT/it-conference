@@ -398,4 +398,37 @@ class Presentation extends Model
             get: fn() => Carbon::parse($this->start)->copy()->addMinutes($this->presentationType->duration)
         );
     }
+
+    /**
+     * Decides in what color to color the presentation based on the presentation type
+     * @return string
+     */
+    public function getColors()
+    {
+        return "bg-{$this->presentationType->colour}-300";
+    }
+
+    /**
+     * Calculates the height of the element in REM based on it's duration
+     * @return float
+     */
+    public function calculateHeightInREM()
+    {
+        return $this->presentationType->duration * (14 / 30) * 0.25;
+    }
+
+    /**
+     * Calculates the margin top of the element in REM based on how later
+     * the presentation starts in comparison to the beginning of the timeslot
+     * @return float
+     */
+    public function calculateMarginTopInREM()
+    {
+        $presentationStart = Carbon::parse($this->start);
+        $timeslotStart = Carbon::parse($this->timeslot->start);
+
+        $diff = $timeslotStart->copy()->diffInMinutes($presentationStart);
+
+        return $diff * (14 / 30) * 0.25;
+    }
 }
