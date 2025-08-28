@@ -9,11 +9,11 @@
 
 <x-app-layout>
     <div class="relative bg-cover overflow-hidden min-h-screen">
-        <h2 class="text-center dark:text-gray-50 text-gray-900 text-5xl font-extrabold py-12">
+        <h2 class="text-center text-waitt-yellow text-5xl font-extrabold py-12">
             Programme
         </h2>
         <div
-            class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 rounded-sm bg-white dark:bg-gray-800 dark:border-gray-700 my-5">
+            class="isolate px-6 py-6 max-w-7xl mx-auto border border-gray-100 my-5">
             <div class="m-5 mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                     <!-- Start of the opening -->
@@ -21,7 +21,7 @@
                         <table class="table-auto w-full text-gray-900 dark:text-gray-200">
                             <tbody>
                             <tr>
-                                <td class="text-left text-md text-gray-900 dark:text-white align-top">
+                                <td class="text-left text-md text-waitt-yellow font-bold align-top">
                                     {{Carbon::parse(DefaultPresentation::opening()->start)->format('H:i')}}
                                     - {{Carbon::parse(DefaultPresentation::opening()->end)->format('H:i')}}
                                 </td>
