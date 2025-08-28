@@ -23,7 +23,7 @@
                 Programme
             </h1>
             <div>
-                <div class="flex w-full py-2.5 shadow-lg overflow-x-auto overflow-y-hidden">
+                <div class="flex w-full shadow-lg overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-waitt-cyan-500 scrollbar-track-rounded-full scrollbar-track-slate-950">
                     <table
                         class="h-max min-w-max bg-waitt-dark/70 backdrop-blur-sm rounded-4xl border  border-slate-900 ">
                         <thead class="bg-waitt-dark border-b border-b-waitt-cyan-400/80">
