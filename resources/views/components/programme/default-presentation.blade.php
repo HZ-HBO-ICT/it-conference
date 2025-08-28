@@ -1,14 +1,22 @@
 @php use Carbon\Carbon; @endphp
-<div
-    class="cursor-move w-5/6 rounded-sm bg-opacity-50 absolute"
-    style="height: {{ Carbon::parse($presentation->start)->diffInMinutes(Carbon::parse($presentation->end)) * (14 / 30) * 0.25}}rem;"
->
-    <div class="flex h-full overflow-hidden">
-        <div class="w-2 rounded-tl rounded-bl"></div>
-        <div class="flex flex-col pt-1 pb-2 ml-2">
-            <span>
-                 {{ $presentation->name  }}
-            </span>
+<div class="absolute w-full py-0.5 px-2"
+     style="height: {{ Carbon::parse($presentation->start)->diffInMinutes(Carbon::parse($presentation->end)) * (14 / 30) * 0.25}}rem;">
+    <div
+        class="w-full h-full rounded-sm bg-waitt-yellow"
+    >
+        <div class="flex h-full overflow-hidden">
+            <div class="flex flex-col text-center items-center justify-center w-full">
+                <span class="text-sm font-semibold">
+                    {{ $presentation->name }}
+                </span>
+                <span class="text-xs">
+                {{
+                    Carbon::parse($presentation->start)->format('H:i')
+                    . '-'
+                    . Carbon::parse($presentation->end)->format('H:i')
+                }}
+                </span>
+            </div>
         </div>
     </div>
 </div>

@@ -94,5 +94,17 @@
     "bg-crew-200",
     "bg-crew-300",
     "bg-crew-400\/50",
-    "text-crew-300"
+    "text-crew-300",
+    "bg-waitt-pink-200",
+    "bg-waitt-pink-300",
+    "bg-waitt-pink-400\/50",
+    "text-waitt-pink-300",
+    "bg-waitt-cyan-200",
+    "bg-waitt-cyan-300",
+    "bg-waitt-cyan-400\/50",
+    "text-waitt-cyan-300",
+    "bg-waitt-yellow-200",
+    "bg-waitt-yellow-300",
+    "bg-waitt-yellow-400\/50",
+    "text-waitt-yellow-300"
 ]

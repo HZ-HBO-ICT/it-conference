@@ -5,5 +5,5 @@ return [
     'red', 'orange', 'amber', 'yellow', 'lime',
     'green', 'emerald', 'teal', 'cyan', 'sky',
     'blue', 'indigo', 'violet', 'purple', 'fuchsia',
-    'pink', 'rose', 'apricot-peach', 'crew'
+    'pink', 'rose', 'apricot-peach', 'crew', 'waitt-pink', 'waitt-cyan', 'waitt-yellow'
 ];

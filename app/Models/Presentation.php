@@ -332,15 +332,17 @@ class Presentation extends Model
      * Returns the display name for the presentation (useful in the scheduler)
      *
      * @param $maxLength
+     * @param bool $showIcon
      * @return string
      */
-    public function displayName($maxLength)
+    public function displayName($maxLength, $showIcon = true): string
     {
         $name = $this->name;
 
         if ($this->company
             && $this->company->sponsorship
-            && $this->company->is_sponsorship_approved) {
+            && $this->company->is_sponsorship_approved
+            && $showIcon) {
             $name = Sponsorship::icons()[$this->company->sponsorship_id] . $name;
         }
 
