@@ -332,15 +332,17 @@ class Presentation extends Model
      * Returns the display name for the presentation (useful in the scheduler)
      *
      * @param $maxLength
+     * @param bool $showIcon
      * @return string
      */
-    public function displayName($maxLength)
+    public function displayName($maxLength, $showIcon = true): string
     {
         $name = $this->name;
 
         if ($this->company
             && $this->company->sponsorship
-            && $this->company->is_sponsorship_approved) {
+            && $this->company->is_sponsorship_approved
+            && $showIcon) {
             $name = Sponsorship::icons()[$this->company->sponsorship_id] . $name;
         }
 
@@ -397,5 +399,38 @@ class Presentation extends Model
         return Attribute::make(
             get: fn() => Carbon::parse($this->start)->copy()->addMinutes($this->presentationType->duration)
         );
+    }
+
+    /**
+     * Decides in what color to color the presentation based on the presentation type
+     * @return string
+     */
+    public function getColors()
+    {
+        return "bg-{$this->presentationType->colour}-300";
+    }
+
+    /**
+     * Calculates the height of the element in REM based on it's duration
+     * @return float
+     */
+    public function calculateHeightInREM()
+    {
+        return $this->presentationType->duration * (14 / 30) * 0.25;
+    }
+
+    /**
+     * Calculates the margin top of the element in REM based on how later
+     * the presentation starts in comparison to the beginning of the timeslot
+     * @return float
+     */
+    public function calculateMarginTopInREM()
+    {
+        $presentationStart = Carbon::parse($this->start);
+        $timeslotStart = Carbon::parse($this->timeslot->start);
+
+        $diff = $timeslotStart->copy()->diffInMinutes($presentationStart);
+
+        return $diff * (14 / 30) * 0.25;
     }
 }
