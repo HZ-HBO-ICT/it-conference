@@ -22,6 +22,7 @@
             <h1 class="text-6xl font-extrabold text-left mb-4 uppercase tracking-wide mb-10 text-waitt-yellow max-sm:text-4xl max-sm:text-center">
                 Programme
             </h1>
+
             <div class="hidden md:block">
                 <div
                     class="flex w-full shadow-lg overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-waitt-cyan-500 scrollbar-track-rounded-full scrollbar-track-slate-950">
@@ -37,26 +38,25 @@
                         </tr>
                         </thead>
                         <tbody id="grid-body">
-                        @foreach($presentationsBySlot as $key => $presentations)
+                        <tr class="text-gray-900">
+                            <td class="text-gray-100 h-max align-top text-center border-gray-300 dark:border-gray-900">{{Carbon::parse($opening->start)->format('H:i')}}</td>
+                            <td colspan="{{$rooms->count()}}">
+                                <x-programme.default-presentation :presentation="$opening"/>
+                            </td>
+                        </tr>
+                        @foreach($timeslots as $key => $timeslot)
                             @php
                                 $isEven = $loop->index % 2 == 0;
                             @endphp
-                            <tr class=" text-gray-900">
-                                <td class="text-gray-100 h-max align-top text-center border-gray-300 dark:border-gray-900 pt-1">{{$isEven ? Carbon::parse($key)->format('H:i') : ''}}</td>
+                            <tr class="text-gray-900">
+                                <td class="text-gray-100 h-max align-top text-center border-gray-300 dark:border-gray-900">{{$isEven ? Carbon::parse($timeslot->start)->format('H:i') : ''}}</td>
                                 @foreach ($rooms as $room)
-                                    <td class="text-left h-max border-gray-300 dark:border-gray-900 relative overflow-visible">
+                                    <td class="text-left h-max border-gray-300 dark:border-gray-900  overflow-visible">
                                         <div class="flex-none h-full w-full"
                                              style="height: {{ $height }}rem">
                                             <div class="flex flex-col">
-                                                @foreach($presentations as $presentation)
-                                                    <div>
-                                                        @if($presentation->timeslot_id && $presentation->room_id == $room->id)
-                                                            <x-programme.presentation :presentation="$presentation"/>
-                                                        @elseif($presentation->room_id == $room->id)
-                                                            <x-programme.default-presentation
-                                                                :presentation="$presentation"/>
-                                                        @endif
-                                                    </div>
+                                                @foreach($presentations->where('timeslot_id', $timeslot->id)->where('room_id', $room->id) as $presentation)
+                                                    <x-programme.presentation :presentation="$presentation"/>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -64,6 +64,12 @@
                                 @endforeach
                             </tr>
                         @endforeach
+                        <tr class="text-gray-900">
+                            <td class="text-gray-100 h-max align-top text-center border-gray-300 dark:border-gray-900">{{Carbon::parse($closing->start)->format('H:i')}}</td>
+                            <td colspan="{{$rooms->count()}}">
+                                <x-programme.default-presentation :presentation="$closing"/>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -76,9 +82,11 @@
                         </h2>
                         <div class="space-y-4">
                             @foreach($room->presentations->sortBy('start') as $presentation)
-                                <div class="bg-waitt-dark/70 rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}}">
+                                <div
+                                    class="bg-waitt-dark/70 rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}}">
                                     <div class="flex flex-col text-center items-center justify-center w-full px-2">
-                                        <span class="text-sm font-semibold {{"text-{$presentation->presentationType->colour}-300"}}">
+                                        <span
+                                            class="text-sm font-semibold {{"text-{$presentation->presentationType->colour}-300"}}">
                                             {{ $presentation->displayName(50, false)  }}
                                         </span>
                                         <span class="text-xs text-white">

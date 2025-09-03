@@ -6,6 +6,7 @@ use App\Models\DefaultPresentation;
 use App\Models\Edition;
 use App\Models\Presentation;
 use App\Models\Room;
+use App\Models\Timeslot;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
@@ -29,31 +30,28 @@ class ProgrammeController extends Controller
                 return $presentation->isScheduled;
             });
 
-        $presentations->push(DefaultPresentation::opening());
-        $presentations->push(DefaultPresentation::closing());
+        $opening = DefaultPresentation::opening();
+        $closing = DefaultPresentation::closing();
+
         $presentations = $presentations->sortBy('start');
 
         $rooms = Room::whereHas('presentations')->get();
-        $opening = Carbon::parse(DefaultPresentation::opening()->start);
-        $closing = Carbon::parse(DefaultPresentation::closing()->end)->subMinutes(30);
-        $timeslots = collect(CarbonPeriod::create($opening, '30 minutes', $closing));
 
+        $openingHeight = Carbon::parse($opening->start)->diffInMinutes($opening->end) * (14/30) * 0.25;
+        $closingHeight = Carbon::parse($closing->start)->diffInMinutes($closing->end) * (14/30) * 0.25;
         $height = 30 * (14 / 30) * 0.25;
 
-        $presentationsBySlot = $timeslots->mapWithKeys(function ($slot) use ($presentations) {
-            $group = $presentations->filter(function ($p) use ($slot) {
-                return Carbon::parse($p->start) >= $slot && Carbon::parse($p->start) < $slot->copy()->addMinutes(30);
-            });
-
-            return [$slot->format('H:i:s') => $group];
-        });
+        $timeslots = Timeslot::all();
 
         return view('programme.index', compact(
             'presentations',
             'rooms',
             'timeslots',
             'height',
-            'presentationsBySlot'
+            'opening',
+            'closing',
+            'openingHeight',
+            'closingHeight',
         ));
     }
 
