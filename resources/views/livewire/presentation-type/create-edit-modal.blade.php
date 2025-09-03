@@ -40,6 +40,18 @@
                         </span>
                     @endif
                 </dd>
+                @if($this->colour)
+                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Preview</dt>
+                    <dd class="sm:col-span-2">
+                        <div class="rounded-md h-12 border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 grid grid-cols-3">
+                            <div class="w-full h-full bg-{{lcfirst($this->colour)}}-200 flex justify-center text-center items-center">Sample</div>
+                            <div class="w-full h-full bg-{{lcfirst($this->colour)}}-300 flex justify-center text-center items-center">Sample</div>
+                            <div class="w-full h-full bg-{{lcfirst($this->colour)}}-400/90 text-{{lcfirst($this->colour)}}-400 flex justify-center text-center items-center">
+                                Sample
+                            </div>
+                        </div>
+                    </dd>
+                @endif
                 <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Duration</dt>
                 <dd class="sm:col-span-2">
                     <input
