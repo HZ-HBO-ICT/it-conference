@@ -2,16 +2,16 @@
     <div class="flex items-center justify-between">
         <!-- Step 1 -->
         <div class="flex items-center">
-            <div class="flex items-center justify-center w-10 h-10 bg-apricot-peach-400 text-white rounded-full">
+            <div class="flex items-center justify-center w-10 h-10 bg-waitt-cyan-400 text-white rounded-full">
                 1
             </div>
-            <div class="ml-2 dark:text-apricot-peach-400 text-gray-800">
+            <div class="ml-2 text-gray-200">
                 Created Edition
             </div>
         </div>
 
         <!-- Line -->
-        <div class="flex-auto border-t-2 border-apricot-peach-400 mx-4"></div>
+        <div class="flex-auto border-t-2 border-waitt-cyan-400 mx-4"></div>
 
         <!-- Step 2 -->
         <div class="flex items-center">

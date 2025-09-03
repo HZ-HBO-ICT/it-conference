@@ -18,8 +18,8 @@ class PublishProgrammeButton extends Component
 
     public $buttonClasses = "flex items-center justify-center p-3 text-sm font-semibold rounded-md focus:outline-none
     focus:ring-2 focus:ring-offset-2 focus:ring-crew-400";
-    public $enabledClasses = "text-white bg-apricot-peach-500 hover:bg-apricot-peach-500";
-    public $disabledClasses = "text-gray-100 bg-gray-600";
+    public $enabledClasses = "text-emerald-400 border border-emerald-400 hover:border-waitt-pink hover:text-waitt-pink hover:cursor-pointer transition";
+    public $disabledClasses = "text-gray-400 border border-gray-400";
     public $iconClasses = "w-5 h-5 mr-2";
 
 

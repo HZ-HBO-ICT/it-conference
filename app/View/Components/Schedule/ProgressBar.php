@@ -25,20 +25,19 @@ class ProgressBar extends Component
             $this->closingColor = 'text-gray-800 dark:text-apricot-peach-400';
             $this->closingBackgroundColor = 'bg-apricot-peach-400';
         } else {
-            $this->closingColor = 'text-gray-800 dark:text-gray-400';
+            $this->closingColor = 'text-gray-200';
             $this->closingBackgroundColor = 'bg-gray-300';
         }
 
         if (DefaultPresentation::opening()) {
-            $this->openingColor = 'text-gray-800 dark:text-apricot-peach-400';
-            $this->openingBackgroundColor = 'bg-apricot-peach-400';
-            $this->openingBorderColor = 'border-apricot-peach-400';
-            $this->closingColor = 'text-gray-800 dark:text-crew-300';
-            $this->closingBackgroundColor = 'bg-crew-300';
+            $this->openingColor = 'text-gray-200';
+            $this->openingBackgroundColor = 'bg-waitt-cyan-400';
+            $this->openingBorderColor = 'border-waitt-pink-500';
+            $this->closingColor = 'text-gray-200';
+            $this->closingBackgroundColor = 'bg-waitt-pink-500';
         } else {
-            $this->openingColor = 'text-gray-800 dark:text-crew-300';
-            $this->openingBackgroundColor = 'bg-crew-300';
-            $this->openingBorderColor = 'border-gray-300';
+            $this->openingColor = 'text-gray-200';
+            $this->openingBackgroundColor = 'bg-waitt-pink-500';
         }
     }
 
