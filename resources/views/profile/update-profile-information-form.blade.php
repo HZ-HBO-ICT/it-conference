@@ -26,7 +26,7 @@
                             "
                        accept="image/jpeg, image/png, image/gif, image/webp, image/svg+xml, image/bmp, image/tiff"/>
 
-                <x-label for="photo" value="{{ __('Photo') }}"/>
+                <x-waitt.label for="photo" value="{{ __('Photo') }}"/>
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
@@ -41,14 +41,14 @@
                     </span>
                 </div>
 
-                <x-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+                <x-waitt.button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
                     {{ __('Select A New Photo') }}
-                </x-secondary-button>
+                </x-waitt.button>
 
                 @if ($this->user->profile_photo_path)
-                    <x-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
+                    <x-waitt.button type="button" variant="delete" class="mt-2" wire:click="deleteProfilePhoto">
                         {{ __('Remove Photo') }}
-                    </x-secondary-button>
+                    </x-waitt.button>
                 @endif
 
                 <x-input-error for="photo" class="mt-2"/>
@@ -57,15 +57,15 @@
 
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Name') }}"/>
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name"/>
+            <x-waitt.label for="name" value="{{ __('Name') }}"/>
+            <x-waitt.input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name"/>
             <x-input-error for="name" class="mt-2"/>
         </div>
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="email" value="{{ __('Email') }}"/>
-            <x-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email"
+            <x-waitt.label for="email" value="{{ __('Email') }}"/>
+            <x-waitt.input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email"
                      autocomplete="username"/>
             <x-input-error for="email" class="mt-2"/>
 
@@ -90,7 +90,7 @@
     </x-slot>
 
     <x-slot name="actions">
-        <x-action-message class="mr-3" on="saved">
+        <x-action-message class="mr-3 text-green-200" on="saved">
             {{ __('Saved.') }}
         </x-action-message>
 

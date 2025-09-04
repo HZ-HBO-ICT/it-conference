@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
-<x-action-section>
+<x-waitt.action-section>
     <x-slot name="title">
         {{ __('Delete Account') }}
     </x-slot>
@@ -20,9 +20,9 @@
                 </x-danger-button>
             </div>
         @else
-            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+            <div class="max-w-xl text-sm text-gray-400">
                 If you wish to not be present during the conference contact us at <a
-                    href="mailto:info@weareinittogether.nl" class="text-purple-500">info@weareinittogether.nl</a>
+                    href="mailto:info@weareinittogether.nl" class="text-waitt-pink-500">info@weareinittogether.nl</a>
             </div>
         @endif
 
@@ -59,4 +59,4 @@
             </x-slot>
         </x-dialog-modal>
     </x-slot>
-</x-action-section>
+</x-waitt.action-section>
