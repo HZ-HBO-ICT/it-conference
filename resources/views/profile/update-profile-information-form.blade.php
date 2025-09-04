@@ -1,4 +1,4 @@
-<x-form-section submit="updateProfileInformation">
+<x-waitt.form-section submit="updateProfileInformation">
     <x-slot name="title">
         {{ __('Profile Information') }}
     </x-slot>
@@ -98,4 +98,4 @@
             {{ __('Save') }}
         </x-button>
     </x-slot>
-</x-form-section>
+</x-waitt.form-section>
