@@ -10,17 +10,19 @@ use Illuminate\View\Component;
 
 class SidebarLink extends Component
 {
-    public $type;
-    public $route;
+    public string $type;
+    public string $route;
+    /** @phpstan-ignore-next-line */
     public $param;
-    public $label;
+    public string $label;
     public string $icon;
     public string $roleColour;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($type, $route, $label, $icon, $roleColour, $param = '')
+    /** @phpstan-ignore-next-line */
+    public function __construct(string $type, string $route, string $label, string $icon, string $roleColour, $param = '')
     {
         $this->route = $route;
         $this->param = $param;

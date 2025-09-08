@@ -9,16 +9,18 @@ use phpDocumentor\Reflection\Types\This;
 
 class SidebarLinkContentMod extends Component
 {
-    public $route;
+    public string $route;
+    /** @phpstan-ignore-next-line */
     public $param;
-    public $label;
+    public string $label;
     public string $icon;
     public string $roleColour;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($route, $label, $icon, $roleColour, $param = '')
+    /** @phpstan-ignore-next-line */
+    public function __construct(string $route, string $label, string $icon, string $roleColour, $param = '')
     {
         $this->route = $route;
         $this->label = $label;
