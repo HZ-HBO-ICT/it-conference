@@ -9,31 +9,31 @@
 
     <x-slot name="content" class="w-full dark:bg-gray-800">
         <div>
-            <x-label for="name" class="after:content-['*'] after:text-red-500"
-                     value="{{ __('Choose user') }}"></x-label>
+            <x-waitt.label for="name" class="after:content-['*'] after:text-red-500"
+                     value="{{ __('Choose user') }}"></x-waitt.label>
             <div>
                 <input
                     class="w-full border-teal-600 bg-gray-900 text-gray-300 focus:border-teal-500 rounded-md shadow-xs mt-1 block"
                     type="text" maxlength="255" wire:focus="toggleDropdown"
                     wire:model.live="searchValue">
-                <div class="{{$isDropdownVisible ? 'block' : 'hidden'}} max-h-48 overflow-auto bg-white">
+                <div class="{{$isDropdownVisible ? 'block' : 'hidden'}} max-h-48 overflow-auto ">
                     <ul>
                         @forelse($users as $user)
                             <li wire:click="selectUser({{$user->id}})" wire:key="{{$role->id}}-{{$user->id}}"
                                 class="hover:cursor-pointer w-full" onclick="event.stopPropagation()">
                                 <div
-                                    class="bg-white hover:bg-gray-100 dark:bg-gray-800 shadow-sm rounded-md p-2 flex items-center space-x-3">
+                                    class="bg-waitt-dark hover:bg-slate-800 shadow-sm rounded-md p-2 flex items-center space-x-3">
                                     <img class="h-8 w-8 rounded-full shrink-0" src="{{ $user->profile_photo_url }}"
                                          alt="{{ $user->name }}">
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ $user->name }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ $user->email }}</p>
+                                        <p class="text-sm font-medium text-gray-100 truncate">{{ $user->name }}</p>
+                                        <p class="text-xs text-gray-400 truncate">{{ $user->email }}</p>
                                     </div>
                                 </div>
                             </li>
                         @empty
                             <li class="py-2">
-                                <p class="text-sm font-medium text-gray-700 dark:text-gray-100 truncate">No results
+                                <p class="text-sm font-medium text-gray-100 truncate">No results
                                                                                                          found.</p>
                             </li>
                         @endforelse
@@ -42,17 +42,16 @@
             </div>
             @if($selectedUser && !$isDropdownVisible)
                 <span
-                    class="text-sm">The user already has the following roles: {{ $selectedUser->allRoles->implode(',') }}</span>
+                    class="text-sm text-yellow-500">The user already has the following roles: {{ $selectedUser->allRoles->implode(',') }}</span>
             @endif
         </div>
     </x-slot>
     <x-slot name="buttons" class="dark:bg-gray-900">
-        <x-secondary-button type="button" wire:click="$dispatch('closeModal')" class="mr-3">
+        <x-waitt.button type="button" wire:click="$dispatch('closeModal')">
             {{ __('Cancel') }}
-        </x-secondary-button>
-        <button type="submit"
-                class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+        </x-waitt.button>
+        <x-waitt.button type="submit" variant="save">
             Save
-        </button>
+        </x-waitt.button>
     </x-slot>
 </x-waitt.modal>
