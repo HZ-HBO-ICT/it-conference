@@ -144,7 +144,7 @@
                                     <!-- Company Representative Badge -->
                                     @if($company->representative->id == $user->id)
                                         <span
-                                            class="ml-3 px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-md">
+                                            class="ml-3 px-2 py-0.5 border-emerald-500 border text-emerald-500 text-xs font-semibold rounded-full">
                                 {{ __('Company Representative') }}
                             </span>
                                     @endif
@@ -197,7 +197,7 @@
                         @if(!$company->is_approved)
                             <x-slot name="actions">
                                 <div class="flex space-x-2">
-                                    <x-button
+                                    <x-waitt.button
                                         onclick="
                                     Livewire.dispatch('openModal', {
                                     component: 'confirmation-modal',
@@ -208,11 +208,12 @@
                                             isApproved: 1,
                                         }
                                     })"
-                                        class="dark:bg-green-500 bg-green-500 hover:bg-green-600 dark:hover:bg-green-600 active:bg-green-600 dark:active:bg-green-600">
+                                        variant="save"
+                                    >
                                         {{ __('Approve') }}
-                                    </x-button>
+                                    </x-waitt.button>
 
-                                    <x-danger-button
+                                    <x-waitt.button
                                         onclick="
                                     Livewire.dispatch('openModal', {
                                         component: 'confirmation-modal',
@@ -222,9 +223,9 @@
                                             route: '{{ route('moderator.companies.approve', ['company' => $company, 'isApproved' => 0]) }}',
                                             isApproved: 0,
                                         }
-                                    })">
+                                    })" variant="delete">
                                         {{ __('Reject') }}
-                                    </x-danger-button>
+                                    </x-waitt.button>
                                 </div>
                             </x-slot>
                         @endif
