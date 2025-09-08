@@ -17,7 +17,7 @@
         "laravel/prompts": "^0.3.5",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.4",
+        "livewire/livewire": "^3.6.4",
         "masmerise/livewire-toaster": "^2.2",
         "propaganistas/laravel-phone": "^5.2",
         "simplesoftwareio/simple-qrcode": "dev-develop",

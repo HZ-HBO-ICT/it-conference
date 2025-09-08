@@ -1169,6 +1169,7 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: app/Livewire/Company/ManageLogo.php
+
 		-
 			message: '#^Property App\\Livewire\\Company\\ManageLogo\:\:\$company has no type specified\.$#'
 			identifier: missingType.property

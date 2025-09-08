@@ -108,7 +108,7 @@
                     <div class="w-full">
                         @can('update', $company)
                             <label class="block w-full cursor-pointer">
-                                @if($photo)
+                                @if($photo && !$errors->has('photo'))
                                     <div class="py-2">
                                         <button type="submit"
                                                 class="flex items-center hover:cursor-pointer justify-center w-full h-12 bg-gray-900 text-teal-600 text-sm rounded-lg border border-teal-600 hover:bg-gray-700 transition">
