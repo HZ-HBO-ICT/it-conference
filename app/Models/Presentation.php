@@ -427,7 +427,7 @@ class Presentation extends Model
     public function calculateMarginTopInREM()
     {
         $presentationStart = Carbon::parse($this->start);
-        $timeslotStart = Carbon::parse($this->timeslot->start);
+        $timeslotStart = Carbon::parse($this->start);
 
         $diff = $timeslotStart->copy()->diffInMinutes($presentationStart);
 

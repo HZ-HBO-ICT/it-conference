@@ -37,8 +37,9 @@ class ProgrammeController extends Controller
 
         $rooms = Room::whereHas('presentations')->get();
 
-        $openingHeight = Carbon::parse($opening->start)->diffInMinutes($opening->end) * (14/30) * 0.25;
-        $closingHeight = Carbon::parse($closing->start)->diffInMinutes($closing->end) * (14/30) * 0.25;
+        $openingHeight = Carbon::parse($opening->start ?? 'default start')->diffInMinutes($opening->end ?? 'default end') * (14/30) * 0.25;
+        $closingHeight = Carbon::parse($closing->start ?? 'default start')->diffInMinutes($closing->end  ?? 'default end') * (14/30) * 0.25;
+
         $height = 30 * (14 / 30) * 0.25;
 
         $timeslots = Timeslot::all();
