@@ -12,7 +12,7 @@
     ];
 
     $lower = strtolower($title);
-    $bgClass = $bg ?? ($presets[$lower]['bg'] ?? 'bg-gray-300');
+    $bgClass = $bg ?? ($presets[$lower]['bg'] ?? 'bg-gray-400');
     $textClass = $text ?? ($presets[$lower]['text'] ?? 'text-white');
     $textSize = $textSize ?? 'text-sm';
     $uppercase = $uppercase ?? true;

@@ -166,7 +166,7 @@
                             </x-waitt.button>
                         @else
                             <div>
-                                <p class="text-sm text-gray-700 dark:text-gray-100">The company must be approved before
+                                <p class="text-sm text-gray-100">The company must be approved before
                                     adding participants.</p>
                             </div>
                         @endif
