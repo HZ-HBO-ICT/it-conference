@@ -8,6 +8,7 @@
         'save' => 'border-teal-600 text-teal-600',
         'delete' => 'border-red-600 text-red-600',
         'default' => 'border-gray-600 text-gray-400 ',
+        'edit' => 'border-waitt-yellow-600 text-waitt-yellow-400'
     };
 @endphp
 
