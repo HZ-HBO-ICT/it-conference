@@ -39,21 +39,21 @@ class Crew extends Component
     {
         $styles = [
             'default' => [
-                'bgColor' => 'bg-white',
-                'textColor' => 'text-gray-900',
-                'iconColor' => 'text-' . $roleColour . '-400',
-                'viewAllBgColor' => 'bg-' . $roleColour . '-300',
+                'bgColor' => 'bg-waitt-dark/80',
+                'textColor' => 'text-gray-100',
+                'iconColor' => 'text-waitt-pink',
+                'viewAllBgColor' => 'bg-slate-950/80',
                 'viewAllTextColor' => 'text-white',
                 'viewAllBgDark' => 'bg-' . $roleColour . '-300',
                 'darkMode' => 'dark:bg-gray-800',
                 'darkModeText' => 'dark:text-white'
             ],
             'alternate' => [
-                'bgColor' => 'bg-' . $roleColour . '-300',
+                'bgColor' => 'bg-slate-950/80',
                 'textColor' => 'text-white',
-                'iconColor' => '',
-                'viewAllBgColor' => 'bg-white',
-                'viewAllTextColor' => 'text-' . $roleColour . '-300',
+                'iconColor' => 'text-waitt-cyan',
+                'viewAllBgColor' => 'bg-waitt-dark/80',
+                'viewAllTextColor' => 'text-gray-100',
                 'viewAllBgDark' => 'dark:bg-gray-800',
                 'darkMode' => 'dark:bg-' . $roleColour . '-300',
                 'darkModeText' => 'dark:text-white',
