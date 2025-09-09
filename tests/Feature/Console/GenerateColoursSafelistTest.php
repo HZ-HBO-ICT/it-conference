@@ -51,7 +51,7 @@ class GenerateColoursSafelistTest extends TestCase
 
         $this->assertEquals(0, $exitCode);
         $this->assertStringContainsString(
-            '✅ Safelist generated with 4 entries at:',
+            '✅ Safelist generated with 5 entries at:',
             Artisan::output()
         );
     }

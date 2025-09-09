@@ -5,14 +5,14 @@
 
 <x-app-layout>
     <div class="container h-screen mx-auto px-6 py-12">
-        <h2 class="text-center {{$textColor}} text-4xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
+        <h2 class="text-center {{"text-{$presentation->presentationType->colour}-300"}} text-4xl font-extrabold bg-clip-text bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 mb-12">
             Programme / <span class=" font-bold text-waitt-yellow">{{$presentation->name}}</span>
         </h2>
         <div
             class="bg-waitt-dark backdrop-blur-sm border border-slate-900 rounded-2xl p-8 shadow-xl overflow-hidden transform transition-all">
             <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 px-6 pb-5">
-                <div class="{{$textColor}}">
+                <div class="{{"text-{$presentation->presentationType->colour}-300"}}">
                     @if($presentation->speakers->count() > 1)
                         <h4 class="tracking-tight text-2xl font-bold pb-5 text-left">Speakers</h4>
                     @else
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="sm:col-span-2 text-white">
-                    <h2 class="text-3xl {{$textColor}} font-bold mb-5">{{$presentation->name}}</h2>
+                    <h2 class="text-3xl {{"text-{$presentation->presentationType->colour}-300"}} font-bold mb-5">{{$presentation->name}}</h2>
 
                     <div>
                         <h2 class="text-2xl font-bold">About the presentation</h2>
@@ -117,7 +117,7 @@
                     @endif
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-2 {{$borderColor}}"></div>
+            <div class="absolute bottom-0 left-0 w-full h-2{{"border-{$presentation->presentationType->colour}-300"}}"></div>
         </div>
     </div>
 </x-app-layout>
