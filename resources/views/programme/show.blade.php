@@ -10,7 +10,7 @@
         </h2>
         <div
             class="bg-waitt-dark backdrop-blur-sm border border-slate-900 rounded-2xl p-8 shadow-xl overflow-hidden transform transition-all">
-            <div class="absolute top-0 left-0 w-full h-2 {{$borderColor}}"></div>
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-{{$presentation->presentationType->colour}}-300 via-{{$presentation->presentationType->colour}}-400 to-{{$presentation->presentationType->colour}}-500"></div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 px-6 pb-5">
                 <div class="{{"text-{$presentation->presentationType->colour}-300"}}">
                     @if($presentation->speakers->count() > 1)
@@ -86,7 +86,7 @@
                                           method="POST">
                                         @csrf
                                         <button
-                                            class="bg-violet-500 hover:bg-violet-700 transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
+                                            class="bg-{{$presentation->presentationType->colour}}-400 hover:bg-{{$presentation->presentationType->colour}}-700 transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                             Sign up
                                         </button>
                                     </form>
@@ -117,7 +117,7 @@
                     @endif
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-2{{"border-{$presentation->presentationType->colour}-300"}}"></div>
+            <div class="absolute bottom-0 left-0 w-full h-2 w-full h-2 bg-gradient-to-r from-{{$presentation->presentationType->colour}}-300 via-{{$presentation->presentationType->colour}}-400 to-{{$presentation->presentationType->colour}}-500"></div>
         </div>
     </div>
 </x-app-layout>
