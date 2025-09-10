@@ -74,6 +74,15 @@
                     </table>
                 </div>
             </div>
+
+            <div class="block md:hidden space-y-6">
+                <div>
+                    <div>
+                        <x-programme.default-presentation :presentation="$opening"/>
+                    </div>
+                </div>
+            </div>
+
             <div class="block md:hidden space-y-6">
                 @foreach($rooms as $room)
                     <div>
@@ -102,6 +111,13 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div class="block md:hidden space-y-6 pt-8">
+                <div>
+                    <div>
+                        <x-programme.default-presentation :presentation="$closing"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
