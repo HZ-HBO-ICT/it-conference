@@ -2,13 +2,13 @@ import { Html5Qrcode } from "html5-qrcode";
 
 let isScanning = false;
 
-const queryConvert = async function (data){
-    const queryArray = data.split(';');
+const decodeResponse = async function (data){
+    const parts = data.split(';');
     let result = {};
 
-    for (let i = 0; i < queryArray.length; i++) {
-        const splitArray = queryArray[i].split('=');
-        result[splitArray[0]] = splitArray[1];
+    for (let i = 0; i < parts.length; i++) {
+        const keyValue = parts[i].split('=');
+        result[keyValue[0]] = keyValue[1];
     }
 
     return result;
@@ -21,19 +21,19 @@ const startQrScanner = async function () {
 
         if (videoDevices.length === 0) {
             document.getElementById('errorMessage').innerHTML = 'No cameras found';
-            throw new Error('No cameras found.');
+            return;
         }
 
         const html5QrCode = new Html5Qrcode((window.innerWidth > 640) ? 'qr-reader' : 'qr-reader-modal');
 
-        const qrCodeSuccessCallback = async (decodedText) => {
+        const qrCodeSuccessCallback = async (response) => {
             if (isScanning) {
                 return;
             }
 
             isScanning = true;
 
-            decodedText = await queryConvert(decodedText);
+            const decodedText = await decodeResponse(response);
             Livewire.dispatch('openModal', {component: 'qr-code.info-modal', arguments: {data: decodedText}});
 
             html5QrCode.stop().then(() => {

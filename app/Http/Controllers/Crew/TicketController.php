@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Crew;
 
 use App\Http\Controllers\Controller;
+use App\Models\Edition;
+use App\Models\Room;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -20,6 +22,9 @@ class TicketController extends Controller
             abort(403);
         }
 
-        return view('crew.tickets.index');
+        $rooms = Room::all();
+        $edition = Edition::current();
+
+        return view('crew.tickets.index', compact('rooms', 'edition'));
     }
 }

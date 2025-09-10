@@ -506,7 +506,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return void
      */
-    public function createTicket()
+    public function createTicket(): void
     {
         if ($this->ticket || $this->is_crew) {
             return;

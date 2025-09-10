@@ -25,16 +25,18 @@ class HandleFinalProgrammeReleased
      */
     public function handle(FinalProgrammeReleased $event): void
     {
-        $current = Edition::current();
+        $edition = Edition::current();
 
-        if ($current) {
-            $current->state = Edition::STATE_ENROLLMENT;
-            $current->save();
+        if (!$edition) {
+            return;
+        }
 
-            foreach (User::sendEmailPreference()->get() as $user) {
-                if ($user->ticket && !$user->is_crew) {
-                    Mail::to($user->email)->send(new FinalProgrammeReleasedMailable($user));
-                }
+        $edition->state = Edition::STATE_ENROLLMENT;
+        $edition->save();
+
+        foreach (User::sendEmailPreference()->get() as $user) {
+            if ($user->ticket && !$user->is_crew) {
+                Mail::to($user->email)->send(new FinalProgrammeReleasedMailable($user));
             }
         }
     }
