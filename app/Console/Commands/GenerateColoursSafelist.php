@@ -38,8 +38,12 @@ class GenerateColoursSafelist extends Command
         foreach ($colors as $color) {
             $safelist[] = "bg-{$color}-200";
             $safelist[] = "bg-{$color}-300";
+            $safelist[] = "border-{$color}-300";
             $safelist[] = "bg-{$color}-400/50";
             $safelist[] = "text-{$color}-300";
+            $safelist[] = "from-{$color}-300";
+            $safelist[] = "via-{$color}-400";
+            $safelist[] = "to-{$color}-500";
         }
 
         $path = base_path('tailwind.safelist.json');
