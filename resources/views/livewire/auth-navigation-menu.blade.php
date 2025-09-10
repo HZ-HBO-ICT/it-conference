@@ -5,7 +5,7 @@
 @endphp
 
 <nav x-data="{ open: false }"
-     class="relative z-40">
+     class="relative">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto">
         <div class="flex flex-wrap items-center justify-between h-16">

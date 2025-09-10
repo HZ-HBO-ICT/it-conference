@@ -1,11 +1,14 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-<x-hub-layout>
-    <div class="py-8 px-8 mx-auto max-w-7xl">
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-            Profile
+<x-crew-colorful-layout>
+    <div class="flex items-center justify-between mt-5">
+        <h2 class="font-semibold text-3xl text-gray-200 leading-tight">
+            {{ __('Profile') }}
         </h2>
+    </div>
+
+    <div class="pt-5">
         <div class="pt-5">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
@@ -14,12 +17,12 @@
             @endif
 
             @if(Auth::user()->ticket && !Auth::user()->is_crew && optional(\App\Models\Edition::current())->is_final_programme_released)
-                <livewire:qr-code.ticket />
+                <livewire:qr-code.ticket/>
 
-                <x-section-border />
+                <x-section-border/>
             @endif
 
-                @livewire('email-notification-preference')
+            @livewire('email-notification-preference')
             <x-section-border/>
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
@@ -50,4 +53,4 @@
             @endif
         </div>
     </div>
-</x-hub-layout>
+</x-crew-colorful-layout>

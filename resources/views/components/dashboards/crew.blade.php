@@ -8,17 +8,12 @@
     use App\Models\Edition;
     use App\Enums\ApprovalStatus;
 @endphp
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@endpush
-
 <div>
     @if(Edition::current())
         <div class="py-8 mx-auto max-w-7xl">
             <div>
-                <h3 class="leading-6 font-semibold text-xl dark:text-white">Pending requests</h3>
-                <div class="pt-6 pb-12 rounded-lg overflow-hidden relative">
+                <h3 class="leading-6 font-semibold text-xl text-white">Pending requests</h3>
+                <div class="pb-3 rounded-lg overflow-hidden relative">
                     <dl class="gap-5 grid-cols-5 grid mt-5">
                         <x-dashboards.blocks.crew
                             :label="'Companies'"
@@ -54,10 +49,10 @@
                 </div>
             </div>
         </div>
-        <div class="py-4 px-2 mx-auto max-w-7xl">
+        <div class="py-4 mx-auto max-w-7xl">
             <div>
-                <h3 class="leading-6 font-semibold text-xl dark:text-white">Current totals</h3>
-                <div class="pt-6 pb-12 rounded-lg overflow-hidden relative">
+                <h3 class="leading-6 font-semibold text-xl text-white">Current totals</h3>
+                <div class="pb-3 rounded-lg overflow-hidden relative">
                     <dl class="gap-5 grid-cols-6 grid mt-5">
                         <x-dashboards.blocks.crew
                             :label="'Participants'"
@@ -115,9 +110,9 @@
     @endif
     @can('viewAny', Edition::class)
         <div>
-            <div class="p-6">
-                <h3 class="leading-6 font-semibold text-xl text-gray-800 dark:text-white pb-4">Logs</h3>
-                <div class="pt-6 pb-12">
+            <div class="py-6 px-2">
+                <h3 class="leading-6 font-semibold text-xl text-white pb-4">Logs</h3>
+                <div class="pb-6">
                     @forelse(\Spatie\Activitylog\Models\Activity::latest()->take(20)->get() as $activity)
                         <x-dashboards.blocks.log :activity="$activity"/>
                     @empty

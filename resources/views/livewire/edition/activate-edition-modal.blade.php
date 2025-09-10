@@ -1,17 +1,19 @@
-<x-livewire-modal>
+<x-waitt.livewire-modal>
     <x-slot name="title">
         Activate edition
     </x-slot>
 
     <x-slot name="content">
         <h3 class="font-bold text-red-600">{{ __('WARNING: this action will result in major changes in the application') }}</h3>
-        {{ __('Are you sure you want to activate this edition?') }}
+        <div class="text-white">
+            {{ __('Are you sure you want to activate this edition?') }}
+        </div>
     </x-slot>
 
     <x-slot name="buttons">
-        <x-secondary-button wire:click="$dispatch('closeModal')">
+        <x-waitt.button wire:click="$dispatch('closeModal')">
             {{ __('Cancel') }}
-        </x-secondary-button>
+        </x-waitt.button>
 
         <form method="POST"
               action="{{ Auth::user()->hasRole('event organizer')
@@ -19,9 +21,9 @@
                                 : ''}}">
             @csrf
             @method('POST')
-            <x-button class="ml-3" type="submit">
+            <x-waitt.button variant="delete" class="ml-3" type="submit">
                 {{ __('Activate Edition') }}
-            </x-button>
+            </x-waitt.button>
         </form>
     </x-slot>
-</x-livewire-modal>
+</x-waitt.livewire-modal>
