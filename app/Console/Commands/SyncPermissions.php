@@ -38,7 +38,7 @@ class SyncPermissions extends Command
     public function handle()
     {
         $this->readPermissionConfig = new ReadPermissionConfig();
-        $config = $this->readPermissionConfig->execute('config/permissions/permissions.yml');
+        $config = $this->readPermissionConfig->execute();
         if (!$config) {
             $this->error("Aborting...");
             return 1;

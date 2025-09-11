@@ -6,14 +6,18 @@
         'beginner' => ['bg' => 'bg-waitt-cyan', 'text' => 'text-cyan-700'],
         'intermediate' => ['bg' => 'bg-waitt-yellow', 'text' => 'text-yellow-600'],
         'expert' => ['bg' => 'bg-waitt-pink', 'text' => 'text-pink-800'],
+        'approved' => ['bg' => 'bg-green-600/60', 'text' => 'text-green-200' ],
+        'awaiting approval' => ['bg' => 'bg-yellow-500/60', 'text' => 'text-yellow-200' ],
+        'crew' => ['bg' => 'bg-waitt-cyan-800', 'text' => 'text-cyan-300']
     ];
 
     $lower = strtolower($title);
-    $bgClass = $bg ?? ($presets[$lower]['bg'] ?? 'bg-gray-300');
+    $bgClass = $bg ?? ($presets[$lower]['bg'] ?? 'bg-gray-400');
     $textClass = $text ?? ($presets[$lower]['text'] ?? 'text-white');
     $textSize = $textSize ?? 'text-sm';
+    $uppercase = $uppercase ?? true;
 @endphp
 
-<span class="inline-block w-fit {{ $textSize == 'text-xs' ? 'px-2' : 'px-4'  }} py-1 rounded-full {{ $textSize ?? 'text-sm' }} font-semibold uppercase {{ $textSize != 'text-xs' ? 'tracking-wide' : '' }} {{ $bgClass }} {{ $textClass }}">
+<span class="inline-block w-fit {{ $textSize == 'text-xs' ? 'px-2' : 'px-4'  }} py-1 rounded-full {{ $textSize ?? 'text-sm' }} font-semibold {{ $uppercase ? 'uppercase' : ''}} {{ $textSize != 'text-xs' ? 'tracking-wide' : '' }} {{ $bgClass }} {{ $textClass }}">
     {{ $title }}
 </span>

@@ -5,6 +5,7 @@ namespace Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use App\Mail\ContactUs;
 
@@ -20,7 +21,7 @@ class ContactTest extends TestCase
         Artisan::call('admin:sync-permissions');
     }
 
-    /** @test */
+    #[Test]
     public function test_that_user_successfully_sends_a_question(): void
     {
         # Arrange
@@ -43,7 +44,7 @@ class ContactTest extends TestCase
         Mail::assertSent(ContactUs::class);
     }
 
-    /** @test */
+    #[Test]
     public function test_that_it_requires_all_fields_to_be_filled(): void
     {
         # Act
@@ -53,7 +54,7 @@ class ContactTest extends TestCase
         $response->assertSessionHasErrors(['name', 'email', 'subject', 'message']);
     }
 
-    /** @test */
+    #[Test]
     public function test_that_email_field_must_be_valid(): void
     {
         # Arrange
@@ -71,7 +72,7 @@ class ContactTest extends TestCase
         $response->assertSessionHasErrors('email');
     }
 
-    /** @test */
+    #[Test]
     public function test_that_subject_must_be_from_allowed_options(): void
     {
         # Arrange

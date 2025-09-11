@@ -13,7 +13,7 @@ class CreateEditModal extends ModalComponent
 {
     public PresentationType $presentationType;
 
-    public ?int $presentationTypeId;
+    public ?int $presentationTypeId = null;
 
     public int $editionId;
 
@@ -138,8 +138,10 @@ class CreateEditModal extends ModalComponent
         $this->colourUsedBy = '';
         $usedBy = PresentationType::where('colour', $value)->first();
 
-        if ($usedBy) {
+        if ($usedBy && $this->presentationTypeId) {
             $this->colourUsedBy = $usedBy->id != $this->presentationType->id ? $usedBy->name : '';
+        } elseif ($usedBy) {
+            $this->colourUsedBy = $usedBy->name;
         }
     }
 

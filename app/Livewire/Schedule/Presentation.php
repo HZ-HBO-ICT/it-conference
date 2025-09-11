@@ -25,34 +25,10 @@ class Presentation extends Component
     {
         $this->presentation = $presentation;
         $this->id = $this->presentation->id;
-        $this->height = $this->calculateHeightInREM();
-        $this->marginTop = $this->calculateMarginTopInREM();
+        $this->height = $this->presentation->calculateHeightInREM();
+        $this->marginTop = $this->presentation->calculateMarginTopInREM();
         $this->details = $this->getDetails();
-        $this->colors = $this->getColors();
-    }
-
-    /**
-     * Calculates the height of the element in REM based on it's duration
-     * @return float
-     */
-    protected function calculateHeightInREM()
-    {
-        return $this->presentation->presentationType->duration * (14 / 30) * 0.25;
-    }
-
-    /**
-     * Calculates the margin top of the element in REM based on how later
-     * the presentation starts in comparison to the beginning of the timeslot
-     * @return float
-     */
-    protected function calculateMarginTopInREM()
-    {
-        $presentationStart = Carbon::parse($this->presentation->start);
-        $timeslotStart = Carbon::parse($this->presentation->timeslot->start);
-
-        $diff = $timeslotStart->copy()->diffInMinutes($presentationStart);
-
-        return $diff * (14 / 30) * 0.25;
+        $this->colors = $this->presentation->getColors();
     }
 
     /**
@@ -67,15 +43,6 @@ class Presentation extends Component
     }
 
     /**
-     * Decides in what color to color the presentation based on the presentation type
-     * @return string
-     */
-    protected function getColors()
-    {
-        return "bg-{$this->presentation->presentationType->colour}-300";
-    }
-
-    /**
      * Listens for an update event to be dispatched from the parent to refresh the component
      * @return void
      */
@@ -83,8 +50,8 @@ class Presentation extends Component
     public function refresh()
     {
         $this->presentation = $this->presentation->refresh();
-        $this->height = $this->calculateHeightInREM();
-        $this->marginTop = $this->calculateMarginTopInREM();
+        $this->height = $this->presentation->calculateHeightInREM();
+        $this->marginTop = $this->presentation->calculateMarginTopInREM();
     }
 
     /**

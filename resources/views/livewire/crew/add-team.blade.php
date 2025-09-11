@@ -1,4 +1,4 @@
-<x-livewire-modal form-action="save">
+<x-waitt.livewire-modal form-action="save">
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         Assign crew team to {{$user->name}}
     </x-slot>
@@ -9,10 +9,10 @@
 
     <x-slot name="content" class="w-full dark:bg-gray-800">
         <div>
-            <x-label for="crew_team" class="after:content-['*'] after:text-red-500"
-                     value="{{ __('Choose team') }}"></x-label>
+            <x-waitt.label for="crew_team" class="after:content-['*'] after:text-red-500"
+                     value="{{ __('Choose team') }}"></x-waitt.label>
             <select wire:model="crew_team" name="crew_team"
-                    class="mt-1 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
+                    class="w-full border-gray-700 bg-gray-900 text-gray-300 focus:border-teal-600 focus:ring-teal-600 rounded-md shadow-xs mt-1 block"
                 <option value="" {{ is_null($crew_team) ? 'selected' : '' }}>Choose team here</option>
                 <option value="organization" {{ $crew_team == 'organization' ? 'selected' : '' }}>Organization</option>
                 <option value="website" {{ $crew_team == 'website' ? 'selected' : '' }}>Website</option>
@@ -27,12 +27,11 @@
                 Remove role
             </button>
         @endif
-        <x-secondary-button type="button" wire:click="$dispatch('closeModal')" class="mr-3">
+        <x-waitt.button type="button" wire:click="$dispatch('closeModal')" class="mr-3">
             {{ __('Cancel') }}
-        </x-secondary-button>
-        <button type="submit"
-                class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+        </x-waitt.button>
+        <x-waitt.button type="submit" variant="save">
             Save
-        </button>
+        </x-waitt.button>
     </x-slot>
-</x-livewire-modal>
+</x-waitt.livewire-modal>

@@ -2,6 +2,8 @@
 
 @config '../../tailwind.config.js';
 
+@plugin 'tailwind-scrollbar';
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -96,7 +98,7 @@
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 220px;
-    background-color: #555;
+    background-color: #070E1C;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -118,7 +120,7 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent #555 transparent;
+    border-color: #0b1221;
 }
 
 .tooltip:hover .tooltiptext {
