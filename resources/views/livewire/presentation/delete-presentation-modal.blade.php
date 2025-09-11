@@ -1,17 +1,19 @@
-<x-livewire-modal>
+<x-waitt.livewire-modal>
     <x-slot name="title">
         Delete presentation
     </x-slot>
 
     <x-slot name="content">
         <h3 class="font-bold text-red-600">{{ __('WARNING: this action cannot be undone') }}</h3>
-        {{ __('Are you sure you want to delete this presentation?') }}
+        <div class="text-white">
+            {{ __('Are you sure you want to delete this presentation?') }}
+        </div>
     </x-slot>
 
     <x-slot name="buttons">
-        <x-secondary-button wire:click="$dispatch('closeModal')">
+        <x-waitt.button wire:click="$dispatch('closeModal')">
             {{ __('Cancel') }}
-        </x-secondary-button>
+        </x-waitt.button>
 
         <form method="POST"
               action="{{ Auth::user()->hasRole('content moderator')
@@ -19,9 +21,9 @@
                                 : /*route('presentations.destroy', $presentation)*/ ''}}">
             @csrf
             @method('DELETE')
-            <x-danger-button class="ml-3" type="submit">
+            <x-waitt.button variant="delete" type="submit">
                 {{ __('Delete Presentation') }}
-            </x-danger-button>
+            </x-waitt.button>
         </form>
     </x-slot>
-</x-livewire-modal>
+</x-waitt.livewire-modal>

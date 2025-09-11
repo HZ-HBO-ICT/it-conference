@@ -25,11 +25,13 @@
                     @if($company->logo_path)
                         <img src="{{ url('storage/' . $company->logo_path) }}"
                              alt="{{ $company->name }}"
-                             class="rounded-lg w-full max-h-56 object-contain shadow-xl" />
+                             class="rounded-lg w-full max-h-56 object-contain shadow-xl"/>
                     @else
                         <div class="h-56 w-full bg-waitt-dark rounded flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-300 size-24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="text-gray-300 size-24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/>
                             </svg>
                         </div>
                     @endif
@@ -41,15 +43,20 @@
                     @endif
                     <h2 class="text-3xl font-bold">{{ $company->name }}</h2>
                     <div class="inline-flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>
                         </svg>
                         {{ $company->city }}
                     </div>
                     <div class="inline-flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>
                         </svg>
                         <a href="{{$company->website}}" class="underline hover:text-waitt-pink transition-colors">
                             {{ $company->website }}
@@ -66,12 +73,39 @@
                 </div>
                 <div>
                     <h2 class="text-2xl font-extrabold mb-2">Internship opportunities</h2>
-                    @if($company->internshipAttributes()->tracks()->pluck('value')->count() > 0)
-                        <ul class="list-disc ml-6 text-lg text-gray-200">
-                            @foreach($company->internshipAttributes()->tracks()->pluck('value') as $track)
-                                <li>{{ $track }}</li>
-                            @endforeach
-                        </ul>
+                    @if($company->internshipAttributes()->count() > 0)
+                        <div class="w-full grid grid-cols-3">
+                            <div>
+                                @if($company->internshipAttributes()->tracks()->pluck('value')->count() > 0)
+                                    <h3 class="text-lg font-semibold mb-2">Tracks</h3>
+                                    <ul class="list-disc ml-6 text-lg text-gray-200">
+                                        @foreach($company->internshipAttributes()->tracks()->pluck('value') as $track)
+                                            <li>{{ $track }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                           <div>
+                               @if($company->internshipAttributes()->years()->pluck('value')->count() > 0)
+                                   <h3 class="text-lg font-semibold mb-2">Years</h3>
+                                   <ul class="list-disc ml-6 text-lg text-gray-200">
+                                       @foreach($company->internshipAttributes()->years()->pluck('value') as $year)
+                                           <li>{{ $year }}</li>
+                                       @endforeach
+                                   </ul>
+                               @endif
+                           </div>
+                            <div>
+                                @if($company->internshipAttributes()->languages()->pluck('value')->count() > 0)
+                                    <h3 class="text-lg font-semibold mb-2">Languages</h3>
+                                    <ul class="list-disc ml-6 text-lg text-gray-200">
+                                        @foreach($company->internshipAttributes()->languages()->pluck('value') as $language)
+                                            <li>{{ $language }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
                     @else
                         <p class="text-lg text-gray-400">No internship opportunities specified.</p>
                     @endif
@@ -79,7 +113,9 @@
                 @if($company->booth)
                     <div>
                         <h2 class="text-2xl font-extrabold mb-2">Meet Us at the Conference</h2>
-                        <p class="text-lg text-gray-200">Visit our booth at the conference to learn more about {{ $company->name }} and the opportunities we offer. Our team will be available to answer your questions and discuss potential career paths.</p>
+                        <p class="text-lg text-gray-200">Visit our booth at the conference to learn more
+                            about {{ $company->name }} and the opportunities we offer. Our team will be available to
+                            answer your questions and discuss potential career paths.</p>
                     </div>
                 @endif
             </div>

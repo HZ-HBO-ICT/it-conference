@@ -1,4 +1,4 @@
-<x-action-section>
+<x-waitt.action-section>
     <x-slot name="title">
         {{ __('Email preferences') }}
     </x-slot>
@@ -11,9 +11,9 @@
         <form wire:submit.prevent="save" class="space-y-8 flex">
             <div class="space-y-8 divide-y divide-gray-200 flex-1">
                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                    <div class="sm:col-span-6">
+                    <div class="sm:col-span-6 text-white">
                         <label>
-                            <input {{$receiveEmails ? 'checked' : ''}} class="rounded-sm pl-2 checked:bg-indigo-500"
+                            <input {{$receiveEmails ? 'checked' : ''}} class="rounded-sm mr-2 checked:bg-waitt-pink-500"
                                    wire:model="receiveEmails" type="checkbox"> Receive notifications and reminders on email
                         </label>
                     </div>
@@ -32,4 +32,4 @@
             </div>
         </form>
     </x-slot>
-</x-action-section>
+</x-waitt.action-section>
