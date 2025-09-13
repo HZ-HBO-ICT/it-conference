@@ -24,7 +24,15 @@ const startQrScanner = async function () {
             return;
         }
 
-        const html5QrCode = new Html5Qrcode((window.innerWidth > 640) ? 'qr-reader' : 'qr-reader-modal');
+        const scannerContainer = document.getElementById((window.innerWidth > 640) ? 'qr-reader' : 'qr-reader-modal');
+        const html5QrCode = new Html5Qrcode(scannerContainer.id);
+
+        const roomSelect = document.getElementById('room-select');
+        let selectedRoom;
+
+        roomSelect.addEventListener('change', function() {
+            selectedRoom = this.value;
+        })
 
         const qrCodeSuccessCallback = async (response) => {
             if (isScanning) {
@@ -34,7 +42,12 @@ const startQrScanner = async function () {
             isScanning = true;
 
             const decodedText = await decodeResponse(response);
-            Livewire.dispatch('openModal', {component: 'qr-code.info-modal', arguments: {data: decodedText}});
+
+            if (selectedRoom) {
+                decodedText['room'] = selectedRoom;
+            }
+
+            Livewire.dispatch('openModal', {component: 'qr-code.info-modal', arguments: { data: decodedText }});
 
             html5QrCode.stop().then(() => {
                 console.log('QR code scanner stopped...');

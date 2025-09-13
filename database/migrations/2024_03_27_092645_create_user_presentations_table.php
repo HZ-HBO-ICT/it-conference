@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('presentation_id');
             $table->string('role');
+            $table->boolean('attended')->default(false);
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnUpdate()->cascadeOnDelete();
