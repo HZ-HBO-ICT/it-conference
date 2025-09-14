@@ -78,7 +78,7 @@ class InfoModal extends ModalComponent
     }
 
     /**
-     * Sets the maximum width of the modal according to docs
+     * Set the maximum width of the modal according to docs
      * @return string
      */
     public static function modalMaxWidth(): string

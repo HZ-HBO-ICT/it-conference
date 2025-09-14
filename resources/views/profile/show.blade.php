@@ -1,5 +1,6 @@
 @php
     use Illuminate\Support\Facades\Auth;
+    use App\Models\Edition;
 @endphp
 <x-crew-colorful-layout>
     <div class="flex items-center justify-between mt-5">
@@ -16,7 +17,7 @@
                 <x-section-border/>
             @endif
 
-            @if(Auth::user()->ticket && !Auth::user()->is_crew && optional(\App\Models\Edition::current())->is_final_programme_released)
+            @if(Auth::user()->ticket && !Auth::user()->is_crew && Edition::current()?->is_final_programme_released)
                 <livewire:qr-code.ticket/>
 
                 <x-section-border/>

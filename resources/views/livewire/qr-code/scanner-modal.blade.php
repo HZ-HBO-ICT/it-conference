@@ -1,4 +1,4 @@
-<x-livewire-modal>
+<x-waitt.livewire-modal>
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         <p id="errorMessage"></p>
     </x-slot>
@@ -8,8 +8,8 @@
     </x-slot>
 
     <x-slot name="buttons">
-        <x-secondary-button wire:click="$dispatch('closeModal')">
+        <x-waitt.button wire:click="$dispatch('closeModal')">
             {{ __('Cancel') }}
-        </x-secondary-button>
+        </x-waitt.button>
     </x-slot>
-</x-livewire-modal>
+</x-waitt.livewire-modal>

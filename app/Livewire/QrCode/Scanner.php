@@ -16,6 +16,6 @@ class Scanner extends ModalComponent
     {
         $this->dispatch('enableScanner');
 
-        return view('livewire.qr-code.scanner');
+        return view('livewire.qr-code.scanner-modal');
     }
 }
