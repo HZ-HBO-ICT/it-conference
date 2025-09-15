@@ -2,6 +2,7 @@
 
 namespace App\Livewire\QrCode;
 
+use App\Actions\Ticket\TicketHandler;
 use App\Models\Presentation;
 use App\Models\Room;
 use App\Models\Ticket;
@@ -23,6 +24,7 @@ class InfoModal extends ModalComponent
      * Initialize the modal
      *
      * @param array $data
+     *
      * @return void
      */
     public function mount(array $data): void
@@ -32,7 +34,6 @@ class InfoModal extends ModalComponent
         }
 
         try {
-            $now = Carbon::now();
             $user = User::findOrFail($data['id']);
 
             $ticket = Ticket::where([
@@ -43,16 +44,8 @@ class InfoModal extends ModalComponent
             if (isset($data['room'])) {
                 $room = Room::findOrFail($data['room']);
 
-                $presentation = $user->participating_in->filter(function ($enrolledPresentation) use ($now, $room) {
-                    if ($enrolledPresentation->room_id !== $room->id) {
-                        return false;
-                    }
-
-                    $startTime = Carbon::parse($enrolledPresentation->start);
-
-                    return $now->betweenIncluded($startTime->copy()->subMinutes(15), $startTime) ||
-                        $now->betweenIncluded($startTime, $startTime->copy()->addMinutes($enrolledPresentation->duration / 2));
-                })->firstOrFail();
+                $handler = new TicketHandler();
+                $presentation = $handler->getClosestPresentation($room, $user);
 
                 $userPresentation = UserPresentation::where([
                     'user_id' => $user->id,
@@ -67,7 +60,7 @@ class InfoModal extends ModalComponent
                 $this->presentation = $presentation;
             }
 
-            $ticket->scanned_at = $now;
+            $ticket->scanned_at = Carbon::now();
             $ticket->save();
 
             $this->user = $user;
@@ -79,6 +72,7 @@ class InfoModal extends ModalComponent
 
     /**
      * Set the maximum width of the modal according to docs
+     *
      * @return string
      */
     public static function modalMaxWidth(): string

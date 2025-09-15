@@ -81,8 +81,12 @@ const startQrScanner = async function () {
 
 document.addEventListener('livewire:navigated', () => {
     if (document.getElementById('qr-reader')) {
-        document.getElementById('room-select')?.addEventListener('change', function() {
+        document.getElementById('room-select')?.addEventListener('change', function () {
             selectedRoom = this.value;
+        })
+
+        document.getElementById('manual-form-modal')?.addEventListener('click', function () {
+            Livewire.dispatch('openModal', { component: 'qr-code.manual-form-modal', arguments: { roomId: selectedRoom } });
         })
 
         if (window.innerWidth > 640) {
