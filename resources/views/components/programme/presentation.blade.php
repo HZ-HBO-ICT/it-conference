@@ -7,7 +7,18 @@
             style="margin-top: {{$presentation->calculateMarginTopInREM()}}rem;"
         >
             <div class="flex h-full w-full overflow-hidden">
-                <div class="flex flex-col text-center items-center justify-center w-full px-2">
+                <div class="flex relative flex-col text-center items-center justify-center w-full px-2">
+
+                    @if(Auth::user()->participating_in->contains($presentation))
+                        <div class=" absolute top-0 right-0 text-center bg-green-500"
+                             style="padding: 0 2em;
+                             transform:translateY(-300%) rotate(90deg) translateX(105%) rotate(-45deg);
+                             transform-origin: bottom right"
+                             >
+                            <div>Enrolled!</div>
+                        </div>
+                    @endif
+
                 <span class="text-sm font-semibold">
                     {{ $presentation->displayName(50, false)  }}
                 </span>
@@ -19,6 +30,7 @@
                     }}
                 </span>
                 </div>
+
             </div>
         </div>
     </div>
