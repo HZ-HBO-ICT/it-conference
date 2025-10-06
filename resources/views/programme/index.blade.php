@@ -92,8 +92,18 @@
                         <div class="space-y-4">
                             @foreach($room->presentations->sortBy('start') as $presentation)
                                 <div
-                                    class="bg-waitt-dark/70 rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}}">
-                                    <div class="flex flex-col text-center items-center justify-center w-full px-2">
+                                    class="bg-waitt-dark/70 relative rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}} overflow-hidden">
+                                        <div class="flex flex-col text-center items-center justify-center w-full px-2">
+
+                                            @if(Auth::user()->participating_in->contains($presentation))
+                                                <div class=" absolute top-0 right-0 text-center bg-green-500"
+                                                     style="padding: 0 2em;
+                             transform:translateY(-300%) rotate(90deg) translateX(105%) rotate(-45deg);
+                             transform-origin: bottom right"
+                                                >
+                                                    <div>Enrolled!</div>
+                                                </div>
+                                            @endif
                                         <span
                                             class="text-sm font-semibold {{"text-{$presentation->presentationType->colour}-300"}}">
                                             {{ $presentation->displayName(50, false)  }}
