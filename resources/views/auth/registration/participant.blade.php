@@ -105,10 +105,11 @@
                                 @endif
 
                                 <div class="flex items-center justify-end mt-4">
-                                    <a class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800"
+                                    <a class="underline text-sm text-gray-100 hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800"
                                        href="{{ route('login') }}">
-                                        {{ __('Already registered?') }}
+                                        {{__('Already registered?')}}
                                     </a>
+                                    
                                     <x-waitt.button type="submit"
                                                     class="ml-4">
                                         {{ __('Register') }}
