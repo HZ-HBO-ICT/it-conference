@@ -261,9 +261,10 @@ class Presentation extends Model
      * doesn't have any scheduling conflicts
      *
      * @param User $user
+     * @param int $buffer Minutes that person can be late for a presentation (when registering)
      * @return bool
      */
-    public function noConflicts(User $user): bool
+    public function noConflicts(User $user, int $buffer = 0): bool
     {
         $presentationStart = Carbon::parse($this->start);
         $presentationEnd = Carbon::parse($this->start)
@@ -287,7 +288,8 @@ class Presentation extends Model
                 ->copy()
                 ->addMinutes($enrolledPresentation->duration);
 
-            if ($presentationEnd > $enrolledStart && $presentationStart < $enrolledEnd) {
+            if ($presentationEnd > $enrolledStart->addMinutes($buffer)
+                && $presentationStart < $enrolledEnd->subMinutes($buffer)) {
                 return false;
             }
         }

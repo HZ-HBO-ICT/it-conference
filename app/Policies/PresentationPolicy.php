@@ -188,7 +188,7 @@ class PresentationPolicy
             return false;
         }
 
-        return $presentation->noConflicts($user);
+        return $presentation->noConflicts($user, 5);
     }
 
     /**
