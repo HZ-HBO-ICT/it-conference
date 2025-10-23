@@ -9,6 +9,7 @@
             <div class="flex h-full w-full overflow-hidden">
                 <div class="flex relative flex-col text-center items-center justify-center w-full px-2">
 
+                    @auth()
                     @if(Auth::user()->participating_in->contains($presentation))
                         <div class=" absolute top-0 right-0 text-center bg-green-500"
                              style="padding: 0 2em;
@@ -18,6 +19,7 @@
                             <div>Enrolled!</div>
                         </div>
                     @endif
+                    @endauth
 
                 <span class="text-sm font-semibold">
                     {{ $presentation->displayName(50, false)  }}
