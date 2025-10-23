@@ -252,7 +252,7 @@ class Presentation extends Model
     public function remainingCapacity(): Attribute
     {
         return Attribute::make(
-            get: fn() => min($this->room->max_participants, $this->max_participants) - $this->participants->count(),
+            get: fn() => $this->room->max_participants - $this->participants->count(),
         );
     }
 
