@@ -64,12 +64,21 @@
                         </div>
 
                         <div class="flex flex-col md:flex-row items-center justify-between mt-6 space-y-3 md:space-y-0">
-                            @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}"
-                                   class="text-sm text-waitt-pink hover:text-pink-700 transition duration-150 ease-in-out">
-                                    {{ __('Forgot your password?') }}
-                                </a>
-                            @endif
+                            <div class="grid space-y-1">
+                                @if (Route::has('password.request'))
+                                    <a href="{{ route('password.request') }}"
+                                       class="text-sm underline text-waitt-pink hover:text-pink-700 transition duration-150 ease-in-out">
+                                        {{ __('Forgot your password?') }}
+                                    </a>
+                                @endif
+                                    <div class="text-xs text-gray-100">No account? Register as
+                                        <a class="text-waitt-pink underline hover:text-pink-700 transition-all rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                           href="{{ route('register.company') }}">company</a>
+                                        or
+                                        <a class="text-waitt-pink underline hover:text-pink-700 transition-all rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                           href="{{ route('register.participant') }}">participant</a>
+                                    </div>
+                            </div>
 
                             <x-waitt.button class="w-full justify-center text-center md:w-auto transition-all">
                                 {{ __('Log in') }}
