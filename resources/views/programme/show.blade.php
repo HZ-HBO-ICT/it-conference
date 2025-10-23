@@ -93,7 +93,7 @@
                                           method="POST">
                                         @csrf
                                         <button
-                                            class="bg-{{$presentation->presentationType->colour}}-400 hover:bg-{{$presentation->presentationType->colour}}-700 transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
+                                            class="bg-{{$presentation->presentationType->colour}}-400 hover:bg-{{$presentation->presentationType->colour}}-700 hover:cursor-pointer transition-all text-lg px-6 md:px-48 py-1 rounded-lg text-white w-full md:w-auto text-center">
                                             Sign up
                                         </button>
                                     </form>
