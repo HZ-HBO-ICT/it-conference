@@ -506,7 +506,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return void
      */
-    public function createTicket()
+    public function createTicket(): void
     {
         if ($this->ticket || $this->is_crew) {
             return;
@@ -528,7 +528,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return QrCode::size(200)
             ->format('png')
-            ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
             ->errorCorrection('M')
             ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
     }

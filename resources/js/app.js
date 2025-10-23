@@ -1,6 +1,6 @@
 import './bootstrap';
 import './mapBox.js';
-import './qrScanner.js';
+import './ticketScanner.js';
 import '../../vendor/masmerise/livewire-toaster/resources/js';
 import 'livewire-sortable';
 

@@ -1,14 +1,15 @@
 import { Html5Qrcode } from "html5-qrcode";
 
 let isScanning = false;
+let selectedRoom;
 
-const queryConvert = async function (data){
-    const queryArray = data.split(';');
+const decodeResponse = async function (data){
+    const parts = data.split(';');
     let result = {};
 
-    for (let i = 0; i < queryArray.length; i++) {
-        const splitArray = queryArray[i].split('=');
-        result[splitArray[0]] = splitArray[1];
+    for (let i = 0; i < parts.length; i++) {
+        const keyValue = parts[i].split('=');
+        result[keyValue[0]] = keyValue[1];
     }
 
     return result;
@@ -21,20 +22,26 @@ const startQrScanner = async function () {
 
         if (videoDevices.length === 0) {
             document.getElementById('errorMessage').innerHTML = 'No cameras found';
-            throw new Error('No cameras found.');
+            return;
         }
 
-        const html5QrCode = new Html5Qrcode((window.innerWidth > 640) ? 'qr-reader' : 'qr-reader-modal');
+        const scannerContainer = document.getElementById((window.innerWidth > 640) ? 'qr-reader' : 'qr-reader-modal');
+        const html5QrCode = new Html5Qrcode(scannerContainer.id);
 
-        const qrCodeSuccessCallback = async (decodedText) => {
+        const qrCodeSuccessCallback = async (response) => {
             if (isScanning) {
                 return;
             }
 
             isScanning = true;
 
-            decodedText = await queryConvert(decodedText);
-            Livewire.dispatch('openModal', {component: 'qr-code.info-modal', arguments: {data: decodedText}});
+            const data = await decodeResponse(response);
+
+            if (selectedRoom) {
+                data['room'] = selectedRoom;
+            }
+
+            Livewire.dispatch('openModal', {component: 'qr-code.info-modal', arguments: { data: data }});
 
             html5QrCode.stop().then(() => {
                 console.log('QR code scanner stopped...');
@@ -46,7 +53,7 @@ const startQrScanner = async function () {
                 isScanning = false;
 
                 Livewire.dispatch('closeModal');
-                html5QrCode.start(facingMode, config, qrCodeSuccessCallback);
+                html5QrCode.start(facingMode, config, qrCodeSuccessCallback, null);
 
                 console.log('QR code scanner started...');
             }, 3000);
@@ -66,18 +73,28 @@ const startQrScanner = async function () {
             }
         }
 
-        await html5QrCode.start(facingMode, config, qrCodeSuccessCallback);
+        await html5QrCode.start(facingMode, config, qrCodeSuccessCallback, null);
     } catch (err) {
         console.error('Error starting QR code scanner:', err);
     }
 }
 
 document.addEventListener('livewire:navigated', () => {
-    if (document.getElementById('qr-reader') && window.innerWidth > 640) {
-        startQrScanner();
+    if (document.getElementById('qr-reader')) {
+        document.getElementById('room-select')?.addEventListener('change', function () {
+            selectedRoom = this.value;
+        })
+
+        document.getElementById('manual-form-modal')?.addEventListener('click', function () {
+            Livewire.dispatch('openModal', { component: 'qr-code.manual-form-modal', arguments: { roomId: selectedRoom } });
+        })
+
+        if (window.innerWidth > 640) {
+            startQrScanner().then(() => {});
+        }
     }
 });
 
-Livewire.on('enableScanner', (event) => {
-    startQrScanner();
+Livewire.on('enableScanner', () => {
+    startQrScanner().then(() => {});
 });

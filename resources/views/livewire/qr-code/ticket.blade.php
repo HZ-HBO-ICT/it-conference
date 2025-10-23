@@ -1,4 +1,4 @@
-<x-action-section>
+<x-waitt.action-section>
     <x-slot name="title">
         {{ __('Ticket') }}
     </x-slot>
@@ -8,6 +8,6 @@
     </x-slot>
 
     <x-slot name="content">
-        <img src="data:image/png;base64,{{ base64_encode($ticket) }}" alt="QR Code">
+        <img class="p-6 bg-white" src="data:image/png;base64,{{ base64_encode($ticket) }}" alt="QR Code">
     </x-slot>
-</x-action-section>
+</x-waitt.action-section>

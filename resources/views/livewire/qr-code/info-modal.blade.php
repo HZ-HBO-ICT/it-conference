@@ -1,9 +1,9 @@
-<x-livewire-modal>
+<x-waitt.livewire-modal>
     <x-slot name="title" class="dark:bg-gray-900 border-gray-800">
         {{ $message }}
     </x-slot>
 
-    <x-slot name="content">
+    <x-slot name="content" class="text-white">
         @if($user)
             <div class="flex flex-col">
                 <div>
@@ -12,15 +12,24 @@
                 <div>
                     Role: <span class="text-{{ $user->role_colour }}-600 dark:text-{{ $user->role_colour }}-200 capitalize">{{ $user->role_colour }}</span>
                 </div>
+
+                @if($presentation)
+                    <div>
+                        Room: <span class="text-{{ $user->role_colour }}-600 dark:text-{{ $user->role_colour }}-200 capitalize">{{ $presentation->room->name }}</span>
+                    </div>
+                    <div>
+                        Presentation: <span class="text-{{ $user->role_colour }}-600 dark:text-{{ $user->role_colour }}-200 capitalize">{{ $presentation->name }}</span>
+                    </div>
+                @endif
             </div>
         @else
-            Please scan a correct ticket.
+            {{ __('Please scan a correct ticket') }}
         @endif
     </x-slot>
 
     <x-slot name="buttons">
-        <x-secondary-button wire:click="$dispatch('closeModal')">
+        <x-waitt.button variant="save" wire:click="$dispatch('closeModal')">
             {{ __('Ok') }}
-        </x-secondary-button>
+        </x-waitt.button>
     </x-slot>
-</x-livewire-modal>
+</x-waitt.livewire-modal>

@@ -2,78 +2,77 @@
 
 namespace App\Livewire\QrCode;
 
+use App\Actions\Ticket\TicketHandler;
+use App\Models\Presentation;
+use App\Models\Room;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\UserPresentation;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\ItemNotFoundException;
 use Illuminate\View\View;
 use LivewireUI\Modal\ModalComponent;
 
 class InfoModal extends ModalComponent
 {
     public User $user;
-    public string $message;
-    public string $color;
+    public Presentation $presentation;
+    public string $message = 'Attendance confirmed';
 
     /**
      * Initialize the modal
      *
      * @param array $data
+     *
      * @return void
      */
     public function mount(array $data): void
     {
         if (!isset($data['id']) || !isset($data['token'])) {
-            $this->message = 'Invalid data';
-            $this->color = 'red';
-
             return;
         }
 
-        $this->user = User::find($data['id']);
+        try {
+            $user = User::findOrFail($data['id']);
 
-        $ticket = Ticket::where([
-            'user_id' => $data['id'],
-            'token' => $data['token']
-        ])->first();
+            $ticket = Ticket::where([
+                'user_id' => $user->id,
+                'token' => $data['token']
+            ])->firstOrFail();
 
-        if ($this->isTicketValid($ticket)) {
-            $this->message = 'Success';
-            $this->color = 'green';
+            if (isset($data['room'])) {
+                $room = Room::findOrFail($data['room']);
 
-            $ticket->scanned_at = now();
+                $handler = new TicketHandler();
+                $presentation = $handler->getClosestPresentation($room, $user);
+
+                $userPresentation = UserPresentation::where([
+                    'user_id' => $user->id,
+                    'presentation_id' => $presentation->id,
+                ])->firstOrFail();
+
+                if (!$userPresentation->attended) {
+                    $userPresentation->attended = true;
+                    $userPresentation->save();
+                }
+
+                $this->presentation = $presentation;
+            }
+
+            $ticket->scanned_at = Carbon::now();
             $ticket->save();
-        } else {
-            $this->color = 'red';
+
+            $this->user = $user;
+        } catch (ModelNotFoundException | ItemNotFoundException) {
+            $this->message = 'Ticket could not be processed';
+            return;
         }
     }
 
     /**
-     * Determine whether the given ticket is valid
+     * Set the maximum width of the modal according to docs
      *
-     * @param Ticket $ticket
-     * @return bool
-     */
-    public function isTicketValid(Ticket $ticket): bool
-    {
-        if (!$this->user->id) {
-            $this->message = 'Person does not exist';
-            return false;
-        }
-
-        if (!$ticket->id) {
-            $this->message = 'Ticket does not exist';
-            return false;
-        }
-
-        if ($ticket->scanned_at) {
-            $this->message = 'Ticket was already scanned';
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Sets the maximum width of the modal according to docs
      * @return string
      */
     public static function modalMaxWidth(): string
