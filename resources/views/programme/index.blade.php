@@ -97,14 +97,14 @@
                                         <div class="flex flex-col text-center items-center justify-center w-full px-2">
 
                                             @auth()
-                                            @if(Auth::user()->participating_in->contains($presentation))
-                                                <div class=" absolute top-0 right-0 text-center bg-green-500"
-                                                     style="padding: 0 2em;
-                             transform:translateY(-300%) rotate(90deg) translateX(105%) rotate(-45deg);
-                             transform-origin: bottom right">
-                                                    <div>Enrolled!</div>
-                                                </div>
-                                            @endif
+                                                @if(Auth::user()->participating_in->contains($presentation))
+                                                    <div class="absolute top-0 right-0 text-center bg-waitt-cyan"
+                                                         style="padding: 0 2em;
+                                                         transform: translateY(-50%) rotate(90deg) translateX(50%) rotate(-45deg);
+                                                         transform-origin: bottom right">
+                                                        <div>in!</div>
+                                                    </div>
+                                                @endif
                                             @endauth
                                         <span
                                             class="text-sm font-semibold {{"text-{$presentation->presentationType->colour}-300"}}">

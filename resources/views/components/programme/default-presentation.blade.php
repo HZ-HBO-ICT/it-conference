@@ -6,12 +6,11 @@
     >
         <div class="flex h-full overflow-hidden">
             <div class="flex relative flex-col text-center items-center justify-center w-full">
-                <div class=" absolute text-black top-0 right-0 text-center bg-green-500"
+                <div class="absolute top-0 right-0 text-center bg-waitt-cyan text-black"
                      style="padding: 0 2em;
-                             transform:translateY(-300%) rotate(90deg) translateX(105%) rotate(-45deg);
-                             transform-origin: bottom right"
-                >
-                    <div>Enrolled!</div>
+                     transform: translateY(-50%) rotate(90deg) translateX(50%) rotate(-45deg);
+                     transform-origin: bottom right">
+                    <div>in!</div>
                 </div>
                 <span class="font-semibold">
                     {{ $presentation->name }}
