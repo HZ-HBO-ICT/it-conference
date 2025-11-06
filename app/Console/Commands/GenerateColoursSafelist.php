@@ -35,6 +35,7 @@ class GenerateColoursSafelist extends Command
 
         $safelist = [];
 
+        // If you introduce more classes, make sure to update the tests accordingly!
         foreach ($colors as $color) {
             $safelist[] = "bg-{$color}-200";
             $safelist[] = "bg-{$color}-300";

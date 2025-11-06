@@ -24,7 +24,7 @@ class GenerateColoursSafelistTest extends TestCase
                 $decoded = json_decode($content, true);
                 $this->assertContains('bg-red-200', $decoded);
                 $this->assertContains('text-blue-300', $decoded);
-                $this->assertCount(16, $decoded);
+                $this->assertCount(20, $decoded);
 
                 return true;
             });
@@ -43,7 +43,7 @@ class GenerateColoursSafelistTest extends TestCase
             ->once()
             ->withArgs(function ($path, $content) {
                 $data = json_decode($content, true);
-                $this->assertCount(8, $data); // 8 classes per 1 colour
+                $this->assertCount(10, $data); // 10 classes per 1 colour
                 return true;
             });
 
