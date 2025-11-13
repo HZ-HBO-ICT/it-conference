@@ -51,7 +51,11 @@
                                 </div>
                             </td>
                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
-                               {{$presentation->participants->count()}}/{{ min($presentation->room->max_participants, $presentation->max_participants) }}
+                                @if($presentation->room)
+                                    {{$presentation->participants->count()}}/{{ min($presentation->room->max_participants, $presentation->max_participants) }}
+                                @else
+                                    N/a
+                                @endif
                             </td>
                             <td>
                                 <x-waitt.tag :uppercase="false" :textSize="'text-xs'" :title="ucfirst(str_replace('_', ' ', $presentation->approval_status))"/>
