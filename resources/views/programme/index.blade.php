@@ -112,7 +112,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="block md:hidden space-y-6 pt-8">
+            <div class="block md:hidden space-y-6 pt-3">
                 <div>
                     <div>
                         <x-programme.default-presentation :presentation="$closing"/>
