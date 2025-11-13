@@ -91,9 +91,21 @@
                         </h2>
                         <div class="space-y-4">
                             @foreach($room->presentations->sortBy('start') as $presentation)
+                                <a class="flex" href="{{route('programme.presentation.show', $presentation)}}">
                                 <div
-                                    class="bg-waitt-dark/70 rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}}">
-                                    <div class="flex flex-col text-center items-center justify-center w-full px-2">
+                                    class="bg-waitt-dark/70 w-full relative rounded-xl p-4 shadow border {{"border-{$presentation->presentationType->colour}-300"}} overflow-hidden">
+                                        <div class="flex flex-col text-center items-center justify-center w-full px-2">
+
+                                            @auth()
+                                                @if(Auth::user()->participating_in->contains($presentation))
+                                                    <div class="absolute top-0 right-0 text-center bg-waitt-cyan"
+                                                         style="padding: 0 2em;
+                                                         transform: translateY(-50%) rotate(90deg) translateX(50%) rotate(-45deg);
+                                                         transform-origin: bottom right">
+                                                        <div>in!</div>
+                                                    </div>
+                                                @endif
+                                            @endauth
                                         <span
                                             class="text-sm font-semibold {{"text-{$presentation->presentationType->colour}-300"}}">
                                             {{ $presentation->displayName(50, false)  }}
@@ -108,6 +120,7 @@
                                     </div>
                                 </div>
                             @endforeach
+                            </a>
                         </div>
                     </div>
                 @endforeach

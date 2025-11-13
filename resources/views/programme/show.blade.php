@@ -93,12 +93,13 @@
                                 </div>
                             @else
                                 @if(Auth::user()->participating_in->contains($presentation))
-                                    <div class="pt-5">
+                                    <div class="pt-5 flex">
+                                        <div class="md:text-center md:bg-waitt-dark/70 md:rounded-lg md:px-6 md:py-1 md:shadow md:border md:border-waitt-yellow md:text-waitt-yellow">You are enrolled in this presentation!</div>
                                         <form action="{{route('my.programme.disenroll', $presentation)}}"
                                               method="POST">
                                             @csrf
                                             <button
-                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-6 md:px-24 py-1 rounded-lg text-white w-full md:w-auto text-center">
+                                                class="bg-red-500 hover:bg-red-700 transition-all text-lg px-6 md:px-24 py-1 rounded-lg text-white w-full md:w-auto text-center ml-4">
                                                 Deregister from presentation
                                             </button>
                                         </form>
