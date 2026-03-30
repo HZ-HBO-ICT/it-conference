@@ -23,11 +23,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        activity()->withoutLogs(function () {
-            Artisan::call('admin:upsert-master-data');
-            Artisan::call('admin:sync-permissions');
+        app(\Spatie\Activitylog\Support\ActivityLogStatus::class)->disable();
 
-            $this->call([CompanySeeder::class, UserSeeder::class, EditionSeeder::class, RoomSeeder::class]);
-        });
+        Artisan::call('admin:upsert-master-data');
+        Artisan::call('admin:sync-permissions');
+
+        $this->call([EditionSeeder::class, PresentationTypeSeeder::class, RoomSeeder::class, CompanySeeder::class, UserSeeder::class]);
+
+        app(\Spatie\Activitylog\Support\ActivityLogStatus::class)->enable();
     }
 }
