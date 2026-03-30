@@ -16,7 +16,9 @@ class CompanyRegistrationSeeder extends Seeder
      */
     public function run(): void
     {
-        activity()->withoutLogs(function () {
+        $activityLogStatus = app(\Spatie\Activitylog\Support\ActivityLogStatus::class);
+        $activityLogStatus->disable();
+        try {
             // 1. Call the initial seeder to create the edition and admin user
             $this->call(InitialSeeder::class);
 
@@ -32,6 +34,8 @@ class CompanyRegistrationSeeder extends Seeder
             optional(Edition::current())->getEvent('Presentation request')->update([
                 'start_at' => Carbon::today(),
             ]);
-        });
+        } finally {
+            $activityLogStatus->enable();
+        }
     }
 }
