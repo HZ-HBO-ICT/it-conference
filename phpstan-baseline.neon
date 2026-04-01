@@ -2485,12 +2485,6 @@ parameters:
 			path: app/Mail/FinalProgrammeReleasedMailable.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\User\:\:\$unreadNotifications\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Mail/GenericNewUpdatesMailable.php
-
-		-
 			message: '#^Property App\\Mail\\GenericNewUpdatesMailable\:\:\$unreadNotifications has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -4235,6 +4229,42 @@ parameters:
 			identifier: method.nonObject
 			count: 2
 			path: tests/Feature/EmailVerificationTest.php
+
+		-
+			message: '#^Unable to resolve the template type TComponent in call to method Livewire\\LivewireManager\:\:test\(\)$#'
+			identifier: argument.templateType
+			count: 7
+			path: tests/Feature/Livewire/Dashboards/Modals/CompanyDetailsModalTest.php
+
+		-
+			message: '#^Unable to resolve the template type TComponent in call to method Livewire\\LivewireManager\:\:test\(\)$#'
+			identifier: argument.templateType
+			count: 8
+			path: tests/Feature/Livewire/Dashboards/Modals/CreateEditPresentationModalTest.php
+
+		-
+			message: '#^Unable to resolve the template type TComponent in call to method Livewire\\LivewireManager\:\:test\(\)$#'
+			identifier: argument.templateType
+			count: 3
+			path: tests/Feature/Livewire/Dashboards/Modals/DeleteCompanyMemberModalTest.php
+
+		-
+			message: '#^Unable to resolve the template type TComponent in call to method Livewire\\LivewireManager\:\:test\(\)$#'
+			identifier: argument.templateType
+			count: 5
+			path: tests/Feature/Livewire/Dashboards/Modals/InviteCompanyMemberModalTest.php
+
+		-
+			message: '#^Unable to resolve the template type TComponent in call to method Livewire\\LivewireManager\:\:test\(\)$#'
+			identifier: argument.templateType
+			count: 4
+			path: tests/Feature/Livewire/PresentationType/CreateEditModalTest.php
+
+		-
+			message: '#^Unable to resolve the template type TComponent in call to method Livewire\\LivewireManager\:\:test\(\)$#'
+			identifier: argument.templateType
+			count: 2
+			path: tests/Feature/Livewire/PresentationType/DeleteModalTest.php
 
 		-
 			message: '#^Access to an undefined property object\:\:\$token\.$#'
