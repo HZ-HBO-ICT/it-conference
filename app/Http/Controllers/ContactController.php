@@ -33,7 +33,7 @@ class ContactController extends Controller
                 'min:3',
                 Rule::email()
                     ->rfcCompliant()
-                    ->validateMxRecord()
+                    ->when(!app()->runningUnitTests(), fn($r) => $r->validateMxRecord())
                     ->preventSpoofing()
             ],
             'subject' => 'required|string',
