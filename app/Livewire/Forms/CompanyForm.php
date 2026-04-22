@@ -59,9 +59,7 @@ class CompanyForm extends Form
      */
     public function isDirty(): bool
     {
-        /** @var array<string, mixed> $original */
-        $original = collect($this->company->toArray());
-        /** @var array<string, mixed> $current */
+        $original = $this->company->toArray();
         $current = $this->only(array_keys($original));
 
         return collect($original)->intersectAssoc($current)->count() !== count($original);

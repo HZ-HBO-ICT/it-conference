@@ -14,7 +14,7 @@ class PresentationTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $edition = Edition::current();
+        $edition = Edition::current() ?? Edition::latest()->first();
 
         PresentationType::create([
             'name' => 'Workshop',
