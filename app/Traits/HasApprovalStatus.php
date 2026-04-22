@@ -60,6 +60,7 @@ trait HasApprovalStatus
     public function scopeOrderByPriorityStatus(Builder $query, ApprovalStatus|string $approvalStatus, string $fieldName = 'approval_status'): Builder
     {
         $statusValue = $approvalStatus instanceof ApprovalStatus ? $approvalStatus->value : $approvalStatus;
+        /** @phpstan-ignore argument.type */
         return $query->orderByRaw("{$fieldName} != ?", [$statusValue]);
     }
 

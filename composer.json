@@ -8,23 +8,31 @@
         {
             "type": "vcs",
             "url": "https://github.com/igornvk/simple-qrcode"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/masmerise/livewire-toaster"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Propaganistas/Laravel-Phone"
         }
     ],
     "require": {
         "php": "^8.4",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.0",
         "laravel/jetstream": "^5.0",
         "laravel/prompts": "^0.3.5",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.6.4",
-        "masmerise/livewire-toaster": "^2.2",
-        "propaganistas/laravel-phone": "^5.2",
+        "laravel/tinker": "^3.0",
+        "livewire/livewire": "^4.0",
+        "masmerise/livewire-toaster": "dev-master as 2.9.0",
+        "propaganistas/laravel-phone": "dev-master as 5.3.6",
         "simplesoftwareio/simple-qrcode": "dev-develop",
-        "spatie/laravel-activitylog": "^4.8",
+        "spatie/laravel-activitylog": "^5.0",
         "spatie/laravel-markdown": "^2.5",
-        "spatie/laravel-permission": "^6.4",
-        "wire-elements/modal": "^2.0"
+        "spatie/laravel-permission": "^7.0",
+        "wire-elements/modal": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.5",
@@ -35,7 +43,7 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^11.0",
+        "phpunit/phpunit": "^12.0",
         "spatie/laravel-ignition": "^2.4",
         "squizlabs/php_codesniffer": "^3.9"
     },
