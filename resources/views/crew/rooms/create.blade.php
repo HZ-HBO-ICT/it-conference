@@ -32,6 +32,13 @@
                                      class="mt-1 block w-full"></x-waitt.input>
                             <x-input-error for="max_participants" class="mt-2"></x-input-error>
                         </div>
+                        <div class="col-span-6 sm:col-span-4 py-4">
+                            <x-waitt.label for="notes" value="Special notes for this room"></x-waitt.label>
+                            <x-waitt.input-textarea id="name" name="notes" type="number"
+                                           value="{{ old('notes') }}" min="1" max="999"
+                                           class="mt-1 block w-full"></x-waitt.input-textarea>
+                            <x-input-error for="notes" class="mt-2"></x-input-error>
+                        </div>
                     </div>
                 </x-slot>
                 <x-slot name="actions">
