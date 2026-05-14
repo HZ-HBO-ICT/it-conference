@@ -24,6 +24,15 @@
                         type="number" wire:model="form.max_participants" min="1" max="999">
                     @error('form.max_participants') <span class="error text-red-500">{{ $message }}</span> @enderror
                 </dd>
+                <dt class="text-sm font-medium leading-6 text-white">Notes</dt>
+                <dd class="sm:col-span-2">
+                    <textarea
+                        class="w-full border-gray-700 bg-gray-900 text-gray-300 focus:border-teal-600 focus:ring-teal-600 rounded-md shadow-xs mt-1 block"
+                        type="text"
+                        wire:model="form.notes"
+                    ></textarea>
+                    @error('form.notes') <span class="error text-red-500">{{ $message }}</span> @enderror
+                </dd>
             </dl>
         </div>
     </x-slot>

@@ -16,6 +16,9 @@ class RoomForm extends Form
     #[Validate('required|string|max:255|min:1')]
     public string $name;
 
+    #[Validate('required|string|max:55')]
+    public string|null $notes;
+
     /**
      * Function that acts as initializer of the form
      * @param $room
@@ -26,6 +29,7 @@ class RoomForm extends Form
         $this->room = $room;
         $this->max_participants = $room->max_participants;
         $this->name = $room->name;
+        $this->notes = $room->notes;
     }
 
     /**

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property int $max_participants
+ * @property string $notes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DefaultPresentation> $defaultPresentations
@@ -34,7 +35,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['max_participants', 'name'];
+    protected $fillable = ['max_participants', 'name', 'notes'];
 
     /**
      * Establishes a relationship between the room and

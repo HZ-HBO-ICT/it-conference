@@ -22,6 +22,9 @@
                     <x-waitt.details-list-item label="Room maximum capacity/participants">
                         {{ $room->max_participants }}
                     </x-waitt.details-list-item>
+                    <x-waitt.details-list-item label="Notes">
+                        {{ $room->notes ?? 'N/A' }}
+                    </x-waitt.details-list-item>
                 </x-slot>
 
                 @can('update', \App\Models\Room::class)
