@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('rooms', function (Blueprint $table) {
 
             $table->longText('notes')->nullable()->after('max_participants');
-
         });
     }
 
