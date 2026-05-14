@@ -16,7 +16,7 @@ class RoomForm extends Form
     #[Validate('required|string|max:255|min:1')]
     public string $name;
 
-    #[Validate('required|string|max:255')]
+    #[Validate('string|max:255|nullable')]
     public string|null $notes;
 
     /**

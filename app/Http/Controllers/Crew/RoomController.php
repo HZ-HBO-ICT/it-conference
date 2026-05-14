@@ -56,7 +56,7 @@ class RoomController extends Controller
         Room::create($request->validate([
             'name' => 'required|unique:rooms|string|max:255',
             'max_participants' => 'required|numeric|min:1|max:999',
-            'notes' => 'required|string|max:255'
+            'notes' => 'string|max:255|nullable'
         ]));
 
         return redirect(route('moderator.rooms.index'))->banner('You successfully added the room!');

@@ -23,7 +23,7 @@
                         {{ $room->max_participants }}
                     </x-waitt.details-list-item>
                     <x-waitt.details-list-item label="Notes">
-                        {!! nl2br(e($room->notes ?? 'N/A')) !!}
+                        {!! nl2br(e(!empty($room->notes) ? $room->notes : 'N/A')) !!}
                     </x-waitt.details-list-item>
                 </x-slot>
 
