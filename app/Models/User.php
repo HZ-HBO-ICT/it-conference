@@ -58,8 +58,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read mixed $role_colour
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
- * @property-read \App\Models\Ticket|null $ticket
- * @property-read mixed $ticket_status
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserPresentation> $userPresentations
@@ -72,7 +70,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder<static>|User query()
  * @method static Builder<static>|User role($roles, $guard = null, $without = false)
  * @method static Builder<static>|User sendEmailPreference()
- * @method static Builder<static>|User usersWithTickets()
  * @method static Builder<static>|User verified()
  * @method static Builder<static>|User whereCompanyId($value)
  * @method static Builder<static>|User whereCreatedAt($value)
@@ -161,16 +158,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
-    }
-
-    /**
-     * Establish relationship with Ticket
-     *
-     * @return HasOne
-     */
-    public function ticket(): HasOne
-    {
-        return $this->hasOne(Ticket::class);
     }
 
     /**
@@ -428,20 +415,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Scope all users and order them by their tickets
-     *
-     * @param Builder $query
-     * @return void
-     */
-    public function scopeUsersWithTickets(Builder $query)
-    {
-        $query->select('users.*', 'tickets.scanned_at')
-            ->leftJoin('tickets', 'users.id', '=', 'tickets.user_id')
-            ->orderBy('tickets.scanned_at', 'desc')
-            ->orderBy('users.name');
-    }
-
-    /**
      * Scope users who have verified their email
      *
      * @param Builder $query
@@ -451,86 +424,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeVerified(Builder $query)
     {
         $query->whereNotNull('email_verified_at');
-    }
-
-    /**
-     * Determine the status of the user's ticket
-     *
-     * @return Attribute
-     */
-    public function ticketStatus(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                if ($this->is_crew) {
-                    return [
-                        'status' => 'Crew',
-                        'color' => 'sky',
-                        'icon' => 'M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
-                        ];
-                }
-
-                if ($this->ticket) {
-                    if ($this->ticket->scanned_at) {
-                        return [
-                            'status' => 'Scanned',
-                            'color' => 'green',
-                            'icon' => 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
-                            ];
-                    } elseif (optional(Edition::current())->is_final_programme_released) {
-                        return [
-                            'status' => 'Ticket sent',
-                            'color' => 'yellow',
-                            'icon' => 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
-                        ];
-                    } else {
-                        return [
-                            'status' => 'Ticket created',
-                            'color' => 'yellow',
-                            'icon' => 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
-                        ];
-                    }
-                }
-
-                return [
-                    'status' => 'Not verified',
-                    'color' => 'red',
-                    'icon' => 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
-                    ];
-            }
-        );
-    }
-
-    /**
-     * Create a new ticket for a user
-     *
-     * @return void
-     */
-    public function createTicket()
-    {
-        if ($this->ticket || $this->is_crew) {
-            return;
-        }
-
-        $ticket = new Ticket();
-        $ticket->user_id = $this->id;
-        $ticket->token = Str::uuid();
-
-        $ticket->save();
-    }
-
-    /**
-     * Generates a QR code with user's data
-     *
-     * @return HtmlString
-     */
-    public function generateExistingTicket(): HtmlString
-    {
-        return QrCode::size(200)
-            ->format('png')
-            ->merge('/public/img/logo-small-' . $this->role_colour . '.png')
-            ->errorCorrection('M')
-            ->generate('id=' . $this->id . ';' . 'token=' . $this->ticket->token);
     }
 
     /**

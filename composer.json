@@ -7,10 +7,6 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/igornvk/simple-qrcode"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/masmerise/livewire-toaster"
         },
         {
@@ -28,7 +24,6 @@
         "livewire/livewire": "^4.0",
         "masmerise/livewire-toaster": "dev-master as 2.9.0",
         "propaganistas/laravel-phone": "dev-master as 5.3.6",
-        "simplesoftwareio/simple-qrcode": "dev-develop",
         "spatie/laravel-activitylog": "^5.0",
         "spatie/laravel-markdown": "^2.5",
         "spatie/laravel-permission": "^7.0",
@@ -90,6 +85,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

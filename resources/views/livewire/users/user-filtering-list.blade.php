@@ -58,10 +58,6 @@
                     class="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
                     Role
                 </th>
-                <th scope="col"
-                    class="rounded-tr-md px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
-                    Ticket Status
-                </th>
             </tr>
             </thead>
             <tbody class="divide-y-2 divide-gray-700/10">
@@ -71,9 +67,6 @@
                     <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-300 w-1/5">{{$user->email}}</td>
                     <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-300 w-1/5">{{$user->company ? $user->company->name : $user->institution}}</td>
                     <td class="px-2 py-4 text-sm w-1/5 text-gray-300">{{$user->mainRoles()->implode(', ')}}</td>
-                    <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-300 w-1/5">
-                        <x-waitt.tag :textSize="'text-xs'" :uppercase="false" :title="$user->ticket_status['status']" />
-                    </td>
                 </tr>
             @empty
                 <tr>

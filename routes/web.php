@@ -283,6 +283,4 @@ Route::middleware([
     Route::resource('/moderator/rooms', RoomController::class);
 
     Route::get('/moderator/users/{role?}', [UserController::class, 'index'])->name('users.index');
-
-    Route::get('/moderator/tickets', [TicketController::class, 'index'])->name('tickets.index');
 });

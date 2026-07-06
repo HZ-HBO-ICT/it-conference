@@ -61,7 +61,7 @@ class UserFilteringList extends Component
      */
     public function filter()
     {
-        $this->users = User::usersWithTickets()->get();
+        $this->users = User::all()->sortBy('name');
 
         if ($this->role) {
             if ($this->role == 'speaker') {
@@ -70,7 +70,7 @@ class UserFilteringList extends Component
                     return $roles->contains('speaker');
                 });
             } else {
-                $this->users = User::role($this->role)->usersWithTickets()->get();
+                $this->users = User::role($this->role)->get()->sortBy('name');
             }
         }
 
@@ -104,7 +104,7 @@ class UserFilteringList extends Component
         $this->institution = '';
         $this->role = '';
 
-        $this->users = User::usersWithTickets()->get();
+        $this->users = User::all()->sortBy('name');;
     }
 
     /**
@@ -134,7 +134,6 @@ class UserFilteringList extends Component
                 'Phone Number',
                 'Institution/Company',
                 'Roles',
-                'Ticket Status',
             ]);
 
             // Fetch and process data in chunks
@@ -146,7 +145,6 @@ class UserFilteringList extends Component
                     $user->company && $user->company->phone_number ? $user->company->phone_number : '',
                     $user->company ? $user->company->name : $user->institution,
                     isset($user->all_roles) ? implode(", ", json_decode($user->all_roles)) : '',
-                    $user->ticket_status['status'],
                 ];
 
                 // Write data to a CSV file.
