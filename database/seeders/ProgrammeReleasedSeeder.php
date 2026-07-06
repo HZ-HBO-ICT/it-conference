@@ -29,8 +29,10 @@ class ProgrammeReleasedSeeder extends Seeder
             $opening = optional(DefaultPresentation::opening());
             $closing = optional(DefaultPresentation::closing());
 
-            Presentation::all()->each(function (Presentation $presentation) {
-                $presentation->update(['approval_status' => ApprovalStatus::APPROVED->value]);
+            Presentation::withoutEvents(function () {
+                Presentation::all()->each(function (Presentation $presentation) {
+                    $presentation->update(['approval_status' => ApprovalStatus::APPROVED->value]);
+                });
             });
 
             $timezone = new DateTimeZone('Europe/Amsterdam');
@@ -42,11 +44,13 @@ class ProgrammeReleasedSeeder extends Seeder
             foreach (Presentation::all() as $presentation) {
                 $timeslot = $helper->findTimeslotByStartingTime($currentTime);
 
-                $presentation->update([
-                    'room_id' => $room_id,
-                    'timeslot_id' => $timeslot->id,
-                    'start' => $currentTime->format('H:i'),
-                ]);
+                Presentation::withoutEvents(function () use ($presentation, $currentTime, $timeslot, $room_id) {
+                    $presentation->update([
+                        'room_id' => $room_id,
+                        'timeslot_id' => $timeslot->id,
+                        'start' => $currentTime->format('H:i'),
+                    ]);
+                });
 
                 $currentTime->modify("+{$presentation->presentationType->duration} minutes");
 
