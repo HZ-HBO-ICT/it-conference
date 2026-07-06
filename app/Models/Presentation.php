@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\Models\Concerns\HasActivity;
 use Spatie\Activitylog\Support\LogOptions;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 
@@ -83,7 +84,7 @@ use Spatie\Activitylog\Models\Concerns\LogsActivity;
 class Presentation extends Model
 {
     use HasFactory;
-    use LogsActivity;
+    use HasActivity;
     use HasApprovalStatus;
 
     protected $fillable = ['name', 'max_participants', 'description', 'presentation_type_id', 'difficulty_id', 'file_path',
