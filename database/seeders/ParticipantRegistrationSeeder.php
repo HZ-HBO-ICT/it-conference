@@ -30,8 +30,8 @@ class ParticipantRegistrationSeeder extends Seeder
 
             foreach ($users as $user) {
                 Presentation::withoutEvents(function () use ($user) {
-                   $presentation = Presentation::factory()->create();
-                   $user->joinPresentation($presentation, 'speaker');
+                    $presentation = Presentation::factory()->create();
+                    $user->joinPresentation($presentation, 'speaker');
                 });
             }
 

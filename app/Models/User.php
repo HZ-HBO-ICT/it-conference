@@ -17,7 +17,6 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Nette\Schema\ValidationException;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Spatie\Activitylog\Models\Concerns\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 

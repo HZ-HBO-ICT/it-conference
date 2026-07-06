@@ -265,12 +265,6 @@ parameters:
 			path: app/Console/Commands/ConfirmAllEmails.php
 
 		-
-			message: '#^Method App\\Console\\Commands\\CreateTicketsForVerifiedUsers\:\:handle\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Console/Commands/CreateTicketsForVerifiedUsers.php
-
-		-
 			message: '#^Method App\\Console\\Commands\\ModifyTimeslotDuration\:\:handle\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -682,12 +676,6 @@ parameters:
 			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: app/Http/Controllers/Crew/TicketController.php
-
-		-
-			message: '#^Cannot call method cannot\(\) on App\\Models\\User\|null\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: app/Http/Controllers/Crew/UserController.php
 
 		-
@@ -863,12 +851,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/Jobs/NotifyPresentationRoles.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Contracts\\Auth\\MustVerifyEmail\:\:createTicket\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Listeners/EmailVerifiedListener.php
 
 		-
 			message: '#^Cannot access property \$name on App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
@@ -1745,42 +1727,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: app/Livewire/Presentation/UploadPresentation.php
-
-		-
-			message: '#^Cannot access property \$scanned_at on App\\Models\\Ticket\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Livewire/QrCode/InfoModal.php
-
-		-
-			message: '#^Cannot call method save\(\) on App\\Models\\Ticket\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Livewire/QrCode/InfoModal.php
-
-		-
-			message: '#^Method App\\Livewire\\QrCode\\InfoModal\:\:mount\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Livewire/QrCode/InfoModal.php
-
-		-
-			message: '#^Parameter \#1 \$ticket of method App\\Livewire\\QrCode\\InfoModal\:\:isTicketValid\(\) expects App\\Models\\Ticket, App\\Models\\Ticket\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Livewire/QrCode/InfoModal.php
-
-		-
-			message: '#^Property App\\Livewire\\QrCode\\InfoModal\:\:\$user \(App\\Models\\User\) does not accept App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Livewire/QrCode/InfoModal.php
-
-		-
-			message: '#^Cannot call method generateExistingTicket\(\) on App\\Models\\User\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Livewire/QrCode/Ticket.php
 
 		-
 			message: '#^Method App\\Livewire\\Registration\\CompanyBasicForm\:\:updatePhoneNumber\(\) has parameter \$phoneNumber with no type specified\.$#'
@@ -2995,18 +2941,6 @@ parameters:
 			path: app/Models/Sponsorship.php
 
 		-
-			message: '#^Class App\\Models\\Ticket uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: '#^Method App\\Models\\Ticket\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
 			message: '#^Cannot access property \$end on object\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -3037,12 +2971,6 @@ parameters:
 			path: app/Models/User.php
 
 		-
-			message: '#^Cannot access property \$token on App\\Models\\Ticket\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Models/User.php
-
-		-
 			message: '#^Class App\\Models\\User uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -3069,12 +2997,6 @@ parameters:
 		-
 			message: '#^Method App\\Models\\User\:\:feedback\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Method App\\Models\\User\:\:generateExistingTicket\(\) should return Illuminate\\Support\\HtmlString but returns Illuminate\\Support\\HtmlString\|string\|null\.$#'
-			identifier: return.type
 			count: 1
 			path: app/Models/User.php
 
@@ -3139,25 +3061,7 @@ parameters:
 			path: app/Models/User.php
 
 		-
-			message: '#^Method App\\Models\\User\:\:scopeUsersWithTickets\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/User.php
-
-		-
 			message: '#^Method App\\Models\\User\:\:scopeVerified\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Method App\\Models\\User\:\:ticket\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: '#^Method App\\Models\\User\:\:ticketStatus\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/User.php

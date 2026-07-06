@@ -104,7 +104,7 @@ class UserFilteringList extends Component
         $this->institution = '';
         $this->role = '';
 
-        $this->users = User::all()->sortBy('name');;
+        $this->users = User::all()->sortBy('name');
     }
 
     /**
