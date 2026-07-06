@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f31f6772e1c36d6107abae6c6c13192",
+    "content-hash": "16920f170ea43f12c88dbc064a982bf4",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -685,16 +685,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php-lite",
-            "version": "9.0.28",
+            "version": "9.0.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php-lite.git",
-                "reference": "08acc9d605e1bb3d89dec504a09b6c435490f940"
+                "reference": "a9f129a296b1e31f7f9b73fd81845415d302bee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php-lite/zipball/08acc9d605e1bb3d89dec504a09b6c435490f940",
-                "reference": "08acc9d605e1bb3d89dec504a09b6c435490f940",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php-lite/zipball/a9f129a296b1e31f7f9b73fd81845415d302bee2",
+                "reference": "a9f129a296b1e31f7f9b73fd81845415d302bee2",
                 "shasum": ""
             },
             "require": {
@@ -759,7 +759,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php-lite/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php-lite"
             },
-            "time": "2026-04-13T11:33:01+00:00"
+            "time": "2026-07-03T10:23:06+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2481,100 +2481,6 @@
             "time": "2026-04-02T20:48:35+00:00"
         },
         {
-            "name": "masmerise/livewire-toaster",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/masmerise/livewire-toaster.git",
-                "reference": "694affbd0af06ee2a56f301c3c219311731667ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/masmerise/livewire-toaster/zipball/694affbd0af06ee2a56f301c3c219311731667ff",
-                "reference": "694affbd0af06ee2a56f301c3c219311731667ff",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
-                "illuminate/http": "^11.0 || ^12.0 || ^13.0",
-                "illuminate/routing": "^11.0 || ^12.0 || ^13.0",
-                "illuminate/support": "^11.0 || ^12.0 || ^13.0",
-                "illuminate/view": "^11.0 || ^12.0 || ^13.0",
-                "livewire/livewire": "^3.0 || ^4.0",
-                "php": "~8.2 || ~8.3 || ~8.4 || ~8.5"
-            },
-            "conflict": {
-                "stevebauman/unfinalize": "*"
-            },
-            "require-dev": {
-                "larastan/larastan": "^2.0 || ^3.1",
-                "laravel/pint": "^1.0",
-                "orchestra/testbench": "^9.0 || ^10.0 || ^11.0",
-                "phpunit/phpunit": "^10.0 || ^11.5.3 || ^12.5.12"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Toaster": "Masmerise\\Toaster\\Toaster"
-                    },
-                    "providers": [
-                        "Masmerise\\Toaster\\ToasterServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Masmerise\\Toaster\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "format": [
-                    "vendor/bin/pint"
-                ],
-                "larastan": [
-                    "vendor/bin/phpstan analyse --memory-limit=2G"
-                ],
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
-                "verify": [
-                    "@larastan",
-                    "@test"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Muhammed Sari",
-                    "email": "support@muhammedsari.me",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Beautiful toast notifications for Laravel / Livewire.",
-            "homepage": "https://github.com/masmerise/livewire-toaster",
-            "keywords": [
-                "alert",
-                "laravel",
-                "livewire",
-                "toast",
-                "toaster"
-            ],
-            "support": {
-                "source": "https://github.com/masmerise/livewire-toaster/tree/2.10.0",
-                "issues": "https://github.com/masmerise/livewire-toaster/issues"
-            },
-            "time": "2026-03-30T11:56:25+00:00"
-        },
-        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "4.8.10",
             "source": {
@@ -3347,7 +3253,7 @@
         },
         {
             "name": "propaganistas/laravel-phone",
-            "version": "dev-master",
+            "version": "6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Propaganistas/Laravel-Phone.git",
@@ -3372,7 +3278,6 @@
                 "orchestra/testbench": "*",
                 "phpunit/phpunit": "^11.5.3"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -3382,18 +3287,14 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Propaganistas\\LaravelPhone\\": "src/"
-                },
                 "files": [
                     "src/helpers.php"
-                ]
-            },
-            "autoload-dev": {
+                ],
                 "psr-4": {
-                    "Propaganistas\\LaravelPhone\\Tests\\": "tests/"
+                    "Propaganistas\\LaravelPhone\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3411,13 +3312,13 @@
                 "validation"
             ],
             "support": {
-                "source": "https://github.com/Propaganistas/Laravel-Phone/tree/6.0.3",
-                "issues": "https://github.com/Propaganistas/Laravel-Phone/issues"
+                "issues": "https://github.com/Propaganistas/Laravel-Phone/issues",
+                "source": "https://github.com/Propaganistas/Laravel-Phone/tree/6.0.3"
             },
             "funding": [
                 {
-                    "type": "github",
-                    "url": "https://github.com/Propaganistas"
+                    "url": "https://github.com/Propaganistas",
+                    "type": "github"
                 }
             ],
             "time": "2026-03-18T07:05:47+00:00"
@@ -4110,78 +4011,6 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.3"
             },
             "time": "2026-06-18T03:57:49+00:00"
-        },
-        {
-            "name": "simplesoftwareio/simple-qrcode",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/IGORnvk/simple-qrcode.git",
-                "reference": "5db63e8ec21408581aa33888dcc351d1c77a2a81"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/IGORnvk/simple-qrcode/zipball/5db63e8ec21408581aa33888dcc351d1c77a2a81",
-                "reference": "5db63e8ec21408581aa33888dcc351d1c77a2a81",
-                "shasum": ""
-            },
-            "require": {
-                "bacon/bacon-qr-code": "^3.0",
-                "ext-gd": "*",
-                "php": ">=7.2|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~1",
-                "phpunit/phpunit": "~9"
-            },
-            "suggest": {
-                "ext-imagick": "Allows the generation of PNG QrCodes.",
-                "illuminate/support": "Allows for use within Laravel."
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider"
-                    ],
-                    "aliases": {
-                        "QrCode": "SimpleSoftwareIO\\QrCode\\Facades\\QrCode"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SimpleSoftwareIO\\QrCode\\": "src"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Simple Software LLC",
-                    "email": "support@simplesoftware.io"
-                }
-            ],
-            "description": "Simple QrCode is a QR code generator made for Laravel.",
-            "homepage": "https://www.simplesoftware.io/#/docs/simple-qrcode",
-            "keywords": [
-                "generator",
-                "laravel",
-                "qrcode",
-                "simple",
-                "wrapper"
-            ],
-            "support": {
-                "source": "https://github.com/IGORnvk/simple-qrcode/tree/develop"
-            },
-            "time": "2024-09-11T20:53:22+00:00"
         },
         {
             "name": "spatie/commonmark-shiki-highlighter",
@@ -10724,31 +10553,14 @@
             "time": "2025-12-08T11:19:18+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "masmerise/livewire-toaster",
-            "version": "9999999-dev",
-            "alias": "2.9.0",
-            "alias_normalized": "2.9.0.0"
-        },
-        {
-            "package": "propaganistas/laravel-phone",
-            "version": "9999999-dev",
-            "alias": "5.3.6",
-            "alias_normalized": "5.3.6.0"
-        }
-    ],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "masmerise/livewire-toaster": 20,
-        "propaganistas/laravel-phone": 20,
-        "simplesoftwareio/simple-qrcode": 20
-    },
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.4"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
