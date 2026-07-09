@@ -3919,30 +3919,6 @@ parameters:
 			path: database/migrations/2024_09_11_094258_create_activity_log_table.php
 
 		-
-			message: '#^Method AddEventColumnToActivityLogTable\:\:down\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: database/migrations/2024_09_11_094259_add_event_column_to_activity_log_table.php
-
-		-
-			message: '#^Method AddEventColumnToActivityLogTable\:\:up\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: database/migrations/2024_09_11_094259_add_event_column_to_activity_log_table.php
-
-		-
-			message: '#^Method AddBatchUuidColumnToActivityLogTable\:\:down\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: database/migrations/2024_09_11_094300_add_batch_uuid_column_to_activity_log_table.php
-
-		-
-			message: '#^Method AddBatchUuidColumnToActivityLogTable\:\:up\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: database/migrations/2024_09_11_094300_add_batch_uuid_column_to_activity_log_table.php
-
-		-
 			message: '#^Method Database\\Seeders\\CompanySeeder\:\:setPresentation\(\) has parameter \$companies with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
