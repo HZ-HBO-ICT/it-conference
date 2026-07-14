@@ -14,7 +14,7 @@
     @if($type == "form")
         <form method="POST" action="{{ route($route) }}">
             @csrf
-            <button type="submit" class="w-full leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex {{ $bgColorClass }}">
+            <button type="submit" class="hover:cursor-pointer w-full leading-6 font-semibold text-sm p-2 rounded-md gap-x-3 flex {{ $bgColorClass }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
                           d="{{ $icon }}">

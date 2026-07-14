@@ -29,18 +29,20 @@ class AddParticipantToCompany extends Command
      */
     public function handle()
     {
-        activity()->withoutLogs(function () {
-            try {
-                $user = User::where('email', $this->argument('email'))->firstOrFail();
-                $company = Company::findOrFail($this->argument('company_id'));
+        $activityLogStatus = app(\Spatie\Activitylog\Support\ActivityLogStatus::class);
+        $activityLogStatus->disable();
+        try {
+            $user = User::where('email', $this->argument('email'))->firstOrFail();
+            $company = Company::findOrFail($this->argument('company_id'));
 
-                (new AddParticipantToCompanyHandler())->execute($user, $company, $this->argument('role'));
+            (new AddParticipantToCompanyHandler())->execute($user, $company, $this->argument('role'));
 
-                $user->refresh();
-                $this->info("You successfully added {$user->email} as part of the {$user->company->name}");
-            } catch (\Exception $e) {
-                $this->error($e);
-            }
-        });
+            $user->refresh();
+            $this->info("You successfully added {$user->email} as part of the {$user->company->name}");
+        } catch (\Exception $e) {
+            $this->error($e);
+        } finally {
+            $activityLogStatus->enable();
+        }
     }
 }

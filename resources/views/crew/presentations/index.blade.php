@@ -18,6 +18,9 @@
                         <th class="rounded-tl-md px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
                             Presentation Name
                         </th>
+                        <th class="rounded-tl-md px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
+                            Participants
+                        </th>
                         <th class="py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-300">
                             Approval status
                         </th>
@@ -46,6 +49,13 @@
                                         <strong>{{ $presentation->name }}</strong>
                                     </div>
                                 </div>
+                            </td>
+                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-200">
+                                @if($presentation->room)
+                                    {{$presentation->participants->count()}}/{{ min($presentation->room->max_participants, $presentation->max_participants) }}
+                                @else
+                                    N/a
+                                @endif
                             </td>
                             <td>
                                 <x-waitt.tag :uppercase="false" :textSize="'text-xs'" :title="ucfirst(str_replace('_', ' ', $presentation->approval_status))"/>

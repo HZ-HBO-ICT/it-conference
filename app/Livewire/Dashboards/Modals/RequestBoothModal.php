@@ -17,7 +17,7 @@ class RequestBoothModal extends ModalComponent
 {
     public Company $company;
     public User $user;
-    public string $additionalInformation;
+    public string $additionalInformation = "";
     public bool $requestSent;
     public bool $joinBoothOwners;
 

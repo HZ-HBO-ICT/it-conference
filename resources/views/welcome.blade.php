@@ -166,7 +166,7 @@
                                 <div class="grid grid-cols-1 gap-6 mt-6 w-3/5">
                                     <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-gold rounded-lg p-6 max-sm:p-4">
                                         @if($goldSponsor->logo_path)
-                                            <img src="{{ url('storage/' . $goldSponsor->logo_path) }}" alt="{{ $goldSponsor->name }}" class="w-full h-56 max-sm:h-8">
+                                            <img src="{{ url('storage/' . $goldSponsor->logo_path) }}" alt="{{ $goldSponsor->name }}" class="w-full h-56 max-sm:h-8 object-contain">
                                         @else
                                             <div class="h-56 flex items-center justify-center">
                                                 <span class="text-7xl font-semibold text-white">{{ $goldSponsor->name  }}</span>
@@ -185,7 +185,7 @@
                                     @foreach($silverSponsors as $sponsor)
                                         <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-silver rounded-lg p-6 max-sm:p-4">
                                             @if($sponsor->logo_path)
-                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-40 max-sm:h-8">
+                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-40 max-sm:h-8 object-contain">
                                             @else
                                                 <div class="h-40 flex items-center justify-center">
                                                     <span class="text-5xl font-semibold text-white">{{ $sponsor->name  }}</span>
@@ -205,7 +205,7 @@
                                     @foreach($bronzeSponsors as $sponsor)
                                         <div class="bg-waitt-dark/70 backdrop-blur-sm border-2 border-bronze rounded-lg p-6 max-sm:p-4">
                                             @if($sponsor->logo_path)
-                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-20 max-sm:h-8">
+                                                <img src="{{ url('storage/' . $sponsor->logo_path) }}" alt="{{ $sponsor->name }}" class="w-full h-20 max-sm:h-8 object-contain">
                                             @else
                                                 <div class="h-20 flex items-center justify-center">
                                                     <span class="text-3xl font-semibold text-white">{{ $sponsor->name  }}</span>

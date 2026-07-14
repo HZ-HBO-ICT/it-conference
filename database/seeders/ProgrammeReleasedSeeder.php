@@ -21,7 +21,9 @@ class ProgrammeReleasedSeeder extends Seeder
      */
     public function run(): void
     {
-        activity()->withoutLogs(function () {
+        $activityLogStatus = app(\Spatie\Activitylog\Support\ActivityLogStatus::class);
+        $activityLogStatus->disable();
+        try {
             $this->call(ParticipantRegistrationSeeder::class);
 
             $opening = optional(DefaultPresentation::opening());
@@ -57,6 +59,8 @@ class ProgrammeReleasedSeeder extends Seeder
             }
 
             FinalProgrammeReleased::dispatch();
-        });
+        } finally {
+            $activityLogStatus->enable();
+        }
     }
 }

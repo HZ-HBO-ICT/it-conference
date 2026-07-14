@@ -16,7 +16,9 @@ class ParticipantRegistrationSeeder extends Seeder
      */
     public function run(): void
     {
-        activity()->withoutLogs(function () {
+        $activityLogStatus = app(\Spatie\Activitylog\Support\ActivityLogStatus::class);
+        $activityLogStatus->disable();
+        try {
             // 1. Call the Company Registration Stage seeder.
             $this->call(CompanyRegistrationSeeder::class);
 
@@ -47,6 +49,8 @@ class ParticipantRegistrationSeeder extends Seeder
             optional(Edition::current())->getEvent('Participant registration')->update([
                 'start_at' => Carbon::today(),
             ]);
-        });
+        } finally {
+            $activityLogStatus->enable();
+        }
     }
 }

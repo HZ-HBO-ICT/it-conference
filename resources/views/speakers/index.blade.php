@@ -33,7 +33,7 @@
                         <div class="flex flex-col md:flex-row bg-waitt-dark/70 backdrop-blur-sm border border-gray-400 rounded-2xl overflow-hidden shadow-lg max-sm:flex-col">
                             <div class="flex-shrink-0 flex items-center justify-center min-h-[260px] min-w-[340px] bg-gray-300 rounded-l-2xl max-sm:min-h-[200px] max-sm:min-w-full max-sm:rounded-l-none max-sm:rounded-t-2xl">
                                 @if($edition->keynote_photo_path)
-                                    <img src="{{ $edition->keynote_photo_path }}" alt="Profile of {{ $edition->keynote_name }}" class="object-cover w-full h-full max-h-64 max-w-xs max-sm:max-h-48" />
+                                    <img src="{{ url('storage/' . $edition->keynote_photo_path) }}" alt="Profile of {{ $edition->keynote_name }}" class="object-cover w-full h-full max-h-64 max-w-xs max-sm:max-h-48" />
                                 @endif
                             </div>
                             <div class="flex-1 p-10 flex flex-col justify-center border-l border-gray-400 rounded-r-2xl max-sm:p-6 max-sm:border-l-0 max-sm:border-t max-sm:rounded-b-2xl max-sm:rounded-r-none">

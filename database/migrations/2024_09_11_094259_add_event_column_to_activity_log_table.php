@@ -11,7 +11,7 @@ class AddEventColumnToActivityLogTable extends Migration
      */
     public function up()
     {
-        Schema::connection(config('activitylog.database_connection'))->table(config('activitylog.table_name'), function (Blueprint $table) {
+        Schema::table('activity_log', function (Blueprint $table) {
             $table->string('event')->nullable()->after('subject_type');
         });
     }
@@ -21,7 +21,7 @@ class AddEventColumnToActivityLogTable extends Migration
      */
     public function down()
     {
-        Schema::connection(config('activitylog.database_connection'))->table(config('activitylog.table_name'), function (Blueprint $table) {
+        Schema::table('activity_log', function (Blueprint $table) {
             $table->dropColumn('event');
         });
     }
