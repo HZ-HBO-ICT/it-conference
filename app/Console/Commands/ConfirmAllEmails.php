@@ -33,8 +33,6 @@ class ConfirmAllEmails extends Command
                 $user->update([
                     'email_verified_at' => now()->timestamp
                 ]);
-
-                $user->createTicket();
             });
 
             $this->info('All emails are marked as confirmed successfully');

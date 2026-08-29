@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Concerns\HasActivity;
 use Spatie\Activitylog\Support\LogOptions;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 
@@ -49,7 +50,7 @@ use Spatie\Activitylog\Models\Concerns\LogsActivity;
 class Booth extends Model
 {
     use HasFactory;
-    use LogsActivity;
+    use HasActivity;
     use HasApprovalStatus;
 
     protected $fillable = ['width', 'length', 'company_id', 'additional_information', 'approval_status'];

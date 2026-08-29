@@ -21,16 +21,18 @@ class ParticipantRegistrationSeeder extends Seeder
         try {
             // 1. Call the Company Registration Stage seeder.
             $this->call(CompanyRegistrationSeeder::class);
-
             // 2. Create users and presentations.
             $users = User::factory(5)
                 ->create()
                 ->each(function ($user) {
                     $user->assignRole('participant');
                 });
+
             foreach ($users as $user) {
-                $presentation = Presentation::factory()->create();
-                $user->joinPresentation($presentation, 'speaker');
+                Presentation::withoutEvents(function () use ($user) {
+                    $presentation = Presentation::factory()->create();
+                    $user->joinPresentation($presentation, 'speaker');
+                });
             }
 
             foreach (Presentation::all() as $presentation) {
