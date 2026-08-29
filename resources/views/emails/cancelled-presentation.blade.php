@@ -13,5 +13,5 @@ You can still enroll for the other lectures and workshops.
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent

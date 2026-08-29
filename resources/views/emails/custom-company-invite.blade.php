@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have been invited to join {{ $invitation->company->name }} for We are in IT together conference!
+# You have been invited to join {{ $invitation->company->name }} for We are in IT Together Conference!
 Create an account and accept the invitation following the link bellow
 
 @component('mail::button', ['url' => $acceptUrl])
@@ -20,5 +20,5 @@ You could also become a participant of other lectures/workshops as soon as the p
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent

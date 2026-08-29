@@ -1,5 +1,5 @@
 @component('mail::message')
-# Congratulations, {{ $company->name }} was approved for We are in IT together conference!
+# Congratulations, {{ $company->name }} was approved for We are in IT Together Conference!
 We are excited that you want to join us and take a part in the conference.
 We look forward to seeing you on the {{ $date }}!
 
@@ -12,5 +12,5 @@ If you have any additional questions do not hesitate to contact us!
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent

@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have secured your booth for the We are in IT together conference!
+# You have secured your booth for the We are in IT Together Conference!
 
 We hereby confirm you have successfully secured your booth for the conference, and we look forward to seeing you on the {{ $date->format('jS \\o\\f F') }}!
 
@@ -16,5 +16,5 @@ If you have any question please do not hesitate to contact us.
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent
