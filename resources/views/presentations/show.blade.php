@@ -46,6 +46,10 @@
                         <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0">{{$presentation->max_participants}}</dd>
                     </div>
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Total Participants</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-100 sm:col-span-2 sm:mt-0"> {{ $presentation->participants->count() }}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Presentation status</dt>
                         <dd class="mt-1 text-sm leading-6 {{$presentation->is_approved ? "text-green-500" : "text-yellow-500"}} sm:col-span-2 sm:mt-0">
                             {{$presentation->is_approved ? 'Approved' : 'Awaiting approval'}}
