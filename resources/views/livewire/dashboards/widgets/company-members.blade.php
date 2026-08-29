@@ -40,7 +40,7 @@
                             @else
                                 <div class="flex items-center">
                                     <img class="h-6 w-6 rounded-lg object-cover mr-3"
-                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
+                                         src="{{ $record->profile_photo_url }}" alt="{{ $record->name }}"/>
                                     {{ $record->name }}
                                 </div>
                             @endif
