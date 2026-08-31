@@ -19,7 +19,9 @@
             <div class="relative z-10">
                 <div class="relative max-w-7xl mx-auto px-4 pt-24 pb-24 max-sm:pt-16 max-sm:pb-16">
                     <!-- Main Hero Content -->
-                    <div class="text-center mb-16">
+                    <x-anniversary-edition/>
+
+                    <div class="text-center">
                         <h2 class="text-2xl text-white mb-8 max-sm:text-lg">Discover your spark in the digital wave</h2>
                         <div class="relative space-y-2">
                             <div class="text-8xl font-bold max-sm:text-4xl">
@@ -28,7 +30,7 @@
                             </div>
                             <div class="text-8xl font-bold max-sm:text-4xl">
                                 <span class="text-waitt-pink uppercase sm:text-waitt-yellow">conference</span>
-                                <span class="text-waitt-pink uppercase sm:text-waitt-pink">2025</span>
+                                <span class="text-waitt-pink uppercase sm:text-waitt-pink">2026</span>
                             </div>
                             <div class="flex justify-center gap-16 mt-10 max-sm:flex-col max-sm:gap-4 max-sm:mt-6">
                                 @if($goldSponsor)

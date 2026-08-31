@@ -18,5 +18,5 @@ the company representative.
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent

@@ -1,5 +1,5 @@
 @component('mail::message')
-# The programme of We are in IT together conference was released!
+# The programme for the We are in IT Together Conference was released!
 
 Dear {{ $user->name }}
 
@@ -12,6 +12,6 @@ You can now enroll yourself for different lectures and workshops.
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 
 @endcomponent

@@ -89,7 +89,7 @@ class UpsertMasterData extends Command
             [
                 'id' => 2,
                 'question' => 'When and where does the “We are in IT together Conference” take place?',
-                'answer' => 'The conference will take place on November 17th at our location in Het Groenewoud
+                'answer' => 'The conference will take place on November 20th at our location in Het Groenewoud
                 Middelburg. Visit [hz.nl](https://www.hz.nl) for information about parking.'
             ],
             [

@@ -8,7 +8,12 @@
         >
             <div class="flex h-full w-full overflow-hidden">
                 <div class="flex flex-col text-center items-center justify-center w-full px-2">
-                <span class="text-sm font-semibold">
+                    @if(Auth::user()->participating_in->contains($presentation))
+                        <span class="font-bold text-xs px-2 rounded-sm bg-waitt-dark/10 border border-waitt-dark text-waitt-dark mb-1">
+                            ✓ Registered
+                        </span>
+                    @endif
+                    <span class="text-sm font-semibold">
                     {{ $presentation->displayName(50, false)  }}
                 </span>
                     <span class="text-xs">

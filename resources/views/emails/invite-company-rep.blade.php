@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have been invited to join We are in IT together conference as a company representative of {{ $invitation->company->name }}!
+# You have been invited to join We are in IT Together Conference as a company representative of {{ $invitation->company->name }}!
 
 As a company representative you are the main contact person for the conference.
 You will be able to add and remove employees that will be joining as speakers/workshop hosts. You can
@@ -13,5 +13,5 @@ Finish your registration
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent

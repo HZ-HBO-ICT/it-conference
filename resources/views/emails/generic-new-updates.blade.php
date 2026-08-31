@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have new notifications in your We are in IT together conference hub!
+# You have new notifications in your We are in IT Together Conference hub!
 
 We are writing to remind you that you have {{ $unreadNotifications }} unread notifications in
 the conference personal hub!
@@ -10,7 +10,7 @@ the conference personal hub!
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 
 If you did not expect to receive this, you may discard this email.
 @endcomponent

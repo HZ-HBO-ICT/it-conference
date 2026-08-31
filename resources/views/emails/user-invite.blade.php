@@ -1,5 +1,5 @@
 @component('mail::message')
-# You have been invited to join We are in IT together conference!
+# You have been invited to join We are in IT Together Conference!
 Create an account and accept the invitation following the link below
 
 @component('mail::button', ['url' => $acceptUrl])
@@ -18,5 +18,5 @@ Advanced: Experienced level of knowledge/skill.
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent

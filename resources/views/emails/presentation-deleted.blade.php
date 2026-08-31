@@ -5,5 +5,5 @@ Your presentation '{{ $presentation->name }}' was deleted by our crew. If you th
 
 Kind regards,
 
-We are in IT together conference team
+We are in IT Together Conference team
 @endcomponent
