@@ -8,7 +8,7 @@
             <div class="absolute inset-0 bg-gradient-to-br from-waitt-yellow/70 via-waitt-cyan/50 to-waitt-pink/30"></div>
             <div class="absolute inset-0 bg-black/60"></div>
             <div class="absolute inset-0 flex items-center justify-center px-6">
-                <img src="{{asset('/img/waitt25/light-full-logo.png')}}">
+                <img src="{{asset('/img/waitt26/light-full-logo.webp')}}">
             </div>
         </div>
     </div>
