@@ -15,7 +15,7 @@ class CompanyBasicForm extends Component
     #[Validate(['required', 'string', 'min:3', 'max:255'])]
     public string $companyDescription;
 
-    #[Validate(['required', 'string', 'regex:/^www\.[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}$/', 'min:3', 'max:255'])]
+    #[Validate(['required', 'string', 'regex:/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}$/', 'min:3', 'max:255'])]
     public string $companyWebsite;
 
     #[Validate(['nullable'])]
