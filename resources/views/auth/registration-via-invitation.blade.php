@@ -82,8 +82,18 @@
                                                    name="password_confirmation" required autocomplete="new-password"/>
                                 </div>
 
+                                <div class="mt-4">
+                                    <x-label for="is_alumni">
+                                        <div class="flex items-center">
+                                            <x-waitt.checkbox name="is_alumni" id="is_alumni"/>
+                                            <div class="ml-2 text-gray-300">
+                                                Are you HZ Alumni?
+                                            </div>
+                                        </div>
+                                    </x-label>
+                                </div>
                                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                                    <div class="mt-4">
+                                    <div class="mt-2">
                                         <x-label for="terms">
                                             <div class="flex items-center">
                                                 <x-waitt.checkbox name="terms" id="terms" required/>

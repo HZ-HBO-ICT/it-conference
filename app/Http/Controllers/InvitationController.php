@@ -58,6 +58,7 @@ class InvitationController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+            'is_alumni' => ['sometimes', 'accepted'],
         ];
 
         Validator::make($input, $rules)->validate();
@@ -67,6 +68,7 @@ class InvitationController extends Controller
             'email' => $input['email'],
             'company_id' => $invitation->company->id,
             'password' => Hash::make($input['password']),
+            'is_alumni' => array_key_exists('is_alumni', $input),
         ]);
 
         $user->markEmailAsVerified();
