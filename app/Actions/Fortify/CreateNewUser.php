@@ -29,6 +29,7 @@ class CreateNewUser implements CreatesNewUsers
             'institution' => [$input['registration_type'] == 'participant' ? 'required' : ''],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+            'is_alumni' => ['sometimes', 'accepted'],
         ];
 
         $validationRules = $input['registration_type'] == 'participant'
@@ -52,6 +53,7 @@ class CreateNewUser implements CreatesNewUsers
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'is_alumni' => array_key_exists('is_alumni', $input),
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
                 $user->assignRole('participant');

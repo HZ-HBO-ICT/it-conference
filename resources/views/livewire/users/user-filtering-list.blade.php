@@ -63,7 +63,7 @@
             <tbody class="divide-y-2 divide-gray-700/10">
             @forelse($users as $user)
                 <tr>
-                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-200 w-1/5">{{$user->name}}</td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-200 w-1/5">{{$user->name}}{{$user->is_alumni ? " (alumni)" : ""}}</td>
                     <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-300 w-1/5">{{$user->email}}</td>
                     <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-300 w-1/5">{{$user->company ? $user->company->name : $user->institution}}</td>
                     <td class="px-2 py-4 text-sm w-1/5 text-gray-300">{{$user->mainRoles()->implode(', ')}}</td>

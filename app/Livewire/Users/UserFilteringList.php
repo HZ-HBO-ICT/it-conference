@@ -134,6 +134,7 @@ class UserFilteringList extends Component
                 'Phone Number',
                 'Institution/Company',
                 'Roles',
+                "Is Alumni",
             ]);
 
             // Fetch and process data in chunks
@@ -145,6 +146,7 @@ class UserFilteringList extends Component
                     $user->company && $user->company->phone_number ? $user->company->phone_number : '',
                     $user->company ? $user->company->name : $user->institution,
                     isset($user->all_roles) ? implode(", ", json_decode($user->all_roles)) : '',
+                    $user->is_alumni
                 ];
 
                 // Write data to a CSV file.
