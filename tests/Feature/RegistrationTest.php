@@ -57,6 +57,27 @@ class RegistrationTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function test_registration_is_rate_limited_per_ip(): void
+    {
+        $this->withoutVite();
+
+        for ($i = 0; $i < 4; $i++) {
+            $response = $this->post('/register', [
+                'name' => 'test',
+                'email' => "bot{$i}@hz.nl",
+                'password' => 'Pa$$worDD@123!!',
+                'password_confirmation' => 'Pa$$worDD@123!!',
+                'institution' => 'HZ University of Applied Sciences',
+                'registration_type' => 'participant',
+                'terms' => 'on',
+            ]);
+            auth()->logout();
+        }
+
+        $response->assertTooManyRequests();
+        $this->assertDatabaseCount('users', 3);
+    }
+
     public function test_new_users_can_register(): void
     {
         if (! Features::enabled(Features::registration())) {
