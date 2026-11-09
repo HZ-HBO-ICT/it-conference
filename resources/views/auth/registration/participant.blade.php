@@ -31,7 +31,7 @@
                     <div class="text-center md:text-left text-gray-100 w-full pb-5">
                         <h2 class="text-2xl font-semibold">Participant Registration</h2>
                         <div class="w-full text-left">
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('register.store') }}">
                                 @csrf
                                 <x-validation-errors class="pt-4"/>
                                 <input class="hidden" name="registration_type" value="participant">

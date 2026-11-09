@@ -66,6 +66,11 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send')
                                                                ->middleware('throttle:3,1'); // 3 requests per minute
 
+// overrides Fortify's POST /register to add a throttle against bot signups
+Route::post('/register', [\Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'store'])
+    ->middleware(['guest:' . config('fortify.guard'), 'throttle:3,1']) // 3 requests per minute
+    ->name('register.store');
+
 // routes for registering from invitation
 Route::get('/register/team-invitations/{invitation}', [InvitationController::class, 'show'])
     ->middleware(['signed'])->name('registration.page.via.invitation');

@@ -9,7 +9,7 @@
      style="height: {{ $height }}rem">
     <div class="flex flex-col">
         @foreach ($presentations as $presentation)
-            <livewire:schedule.presentation wire:key="c-p-{$presentation->id}"
+            <livewire:schedule.presentation wire:key="c-p-{{ $presentation->id }}"
                                             :presentation="$presentation"/>
         @endforeach
     </div>

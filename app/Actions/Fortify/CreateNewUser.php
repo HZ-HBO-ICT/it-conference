@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\Company;
 use App\Models\InternshipAttribute;
 use App\Models\User;
+use App\Rules\DisallowTestName;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         $defaultRules = [
             'registration_type' => ['in:participant,company_representative'],
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', new DisallowTestName()],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'institution' => [$input['registration_type'] == 'participant' ? 'required' : ''],
             'password' => $this->passwordRules(),
