@@ -63,7 +63,7 @@ class RegistrationTest extends TestCase
 
         for ($i = 0; $i < 4; $i++) {
             $response = $this->post('/register', [
-                'name' => 'test',
+                'name' => 'new',
                 'email' => "bot{$i}@hz.nl",
                 'password' => 'Pa$$worDD@123!!',
                 'password_confirmation' => 'Pa$$worDD@123!!',
